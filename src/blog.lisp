@@ -2,15 +2,13 @@
 
 ;;;; TODO
 ;;;;
-;;;; - ### headings
 ;;;; - quotenil.com links
-;;;; - pages
-;;;; - feeds
-;;;; - dates
+;;;; - feeds?
+;;;; - date
 
 (in-readtable pythonic-string-syntax)
 
-(defsection @blog (:title "Blog")
+(defsection @blog0 (:title "Blog")
   (@first-post section)
   (@important-remainder section)
   (@backup section)
@@ -53,13 +51,13 @@
   (@bigger-and-badder-pax-world section)
   (@on-the-design-of-matrix-libraries section))
 
-(defsection @category-personal (:title "Category Personal")
+(defsection @category-personal0 (:title "Personal")
   (@first-post section)
   (@important-remainder section)
   (@ultimate-fallout-2-ironman-munchkin section)
   (@dirty-36cube section))
 
-(defsection @category-tech (:title "Category Tech")
+(defsection @category-tech0 (:title "Tech")
   (@first-post section)
   (@backup section)
   (@space-cadet section)
@@ -68,7 +66,7 @@
   (@offlineimap-with-encrypted-authinfo section)
   (@hung-connections section))
 
-(defsection @category-lisp (:title "Category Lisp")
+(defsection @category-lisp0 (:title "Lisp")
   (@space-cadet section)
   (@code-alignment-on-x86 section)
   (@x86oid-pseudo-atomic section)
@@ -101,7 +99,7 @@
   (@bigger-and-badder-pax-world section)
   (@on-the-design-of-matrix-libraries section))
 
-(defsection @category-ai (:title "Category AI")
+(defsection @category-ai0 (:title "AI")
   (@2008-computer-games-olympiad section)
   (@active-Learning-for-cl-libsvm section)
   (@introduction-to-mgl-part-1 section)
@@ -128,7 +126,7 @@
   "*2008-02-01* -- After a long time of waiting to write my own blog
   software like true hackers with infinite time do (and those
   irritated by Wordpress), I bit the bullet and installed
-  [blorg](http://lumiere.ens.fr/~guerry/blorg.html) - a very low
+  [blorg](https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html) - a very low
   overhead emacs blog engine - on top of
   [org-mode](http://orgmode.org/) that I happen to use as an
   organizer. Blorg basically converts an org mode buffer to html files
@@ -139,20 +137,21 @@
   Small fixes had to be made for blorg to be able to deal with
   org-mode 5.17a and I only had time to bring it to some basic level
   of functionality. That said here is the
-  [blorg-init.el](files/blorg-init.el) file I'm using right now.
+  [blorg-init.el](blog-files/blorg-init.el) file I'm using right now.
 
   **2020-05-03**: Since then, this blog has been moved to
     [MGL-PAX](http://github.com/melisgl/mgl-pax).")
 
 (defsection @important-remainder (:title "Important remainder")
-  "*2008-02-04* -- An [example](files/guns.jpg) may speak a hundred
+  "*2008-02-04* -- An [example](blog-files/guns.jpg) may speak a hundred
   words, but sometimes not even that is enough and you want to be
-  [very explicit](files/dangerous-objects.jpg) about the dangers of
+  [very explicit](blog-files/dangerous-objects.jpg) about the dangers of
   hand grenades on board.
 
   Finally, some trash talk carefully designed to intimidate: ![trash
-  talk](files/remainders.jpg) Never die without having made the
-  necessary arrangements.
+  talk](blog-files/remainders.jpg)
+
+  Never die without having made the necessary arrangements.
 
   All pictures were taken at Málaga airport.")
 
@@ -166,9 +165,9 @@
       modprobe aes
       losetup -e aes /dev/loop0 /dev/sdb
       mke2fs /dev/loop0
-      tune2fs -i 0 -c 0 -j /dev/loop0
+      tune2fs -i 0 -c 0 -j /dev/loop0"
 
-  Then taking a backup is an rsync and some setup-up/tear-down code
+  "Then taking a backup is an rsync and some setup-up/tear-down code
   away:
 
        #!/bin/sh
@@ -210,11 +209,11 @@
 (defsection @2008-computer-games-olympiad
     (:title "2008 Computer Games Olympiad")
   "*2008-12-11* -- It seems that the competition has not been standing
-  still (as opposed to [Six](http://six.retes.hu/)) and this year
+  still (as opposed to [Six](hex/six/index.html)) and this year
   marks the end of the golden era. Congratulations to both Wolve and
   MoHex who beat Six! Thanks to Ryan Hayward who, again, kindly
   registered Six for the
-  [Olympiad](http://www.grappa.univ-lille3.fr/icga/tournament.php?id=185).
+  [Olympiad](https://web.archive.org/web/20090121203454/http://www.grappa.univ-lille3.fr/icga/tournament.php?id=185).
 
   About the future, I don't really plan on resuming work on
   [Hex](http://en.wikipedia.org/wiki/Hex_(board_game)) in general (and
@@ -224,16 +223,16 @@
   "*2008-12-15* -- Emacs users often report problems caused by strain
   on the pinky finger that's used to press the _Control_ key. The
   standard answer to that is to map _Caps Lock_ to _Control_. I
-  believe that there is a
-  [better](https://web.archive.org/web/20080705120014/http://www.asl.dsl.pipex.com/symbolics/photos/IO/index.html)
-  [way](http://www.paulgraham.com/symkey.html).
+  believe that there is a better way:
+
+  ![](file:blog-files/symbolics-keyboard.jpg)
 
   Note the placement of modifiers: _Control_, _Meta_, _Super_, _Hyper_
   on both sides of Space in this order, with _Control_ being the
   closest to it. Touch typers especially find having two of each key
-  absolutely essential and the symmetric placement appeals to me.
+  absolutely essential and the symmetric placement appeals to me."
 
-  Also note the _Rubout_ key, next to _A_ where _Caps Lock_ resides on
+  "Also note the _Rubout_ key, next to _A_ where _Caps Lock_ resides on
   modern keyboards. _Rubout_ is like _Backspace_ and is better to have
   on the home row than the most useless and annoying key in history.
 
@@ -254,7 +253,7 @@
   create an xkb description but last time I tried documentation was
   extremely unhelpful so I ended up hacking together an xmodmap file.
   I'm told this file is not really portable, so it's [provided
-  here](files/lisp-machine-pc105-us.xmodmap) only for illustration and
+  here](blog-files/lisp-machine-pc105-us.xmodmap) only for illustration and
   it's easy enough to do the same yourself for your keyboard. To
   switch to the new layout do:
 
@@ -273,7 +272,7 @@
 (defsection @code-alignment-on-x86
     (:title "Code alignment on x86")
   "*2009-03-09* -- There has always been a lot of wiggling of SBCL
-  [boinkmarks](http://sbcl.boinkor.net/bench/) results. It's easy to
+  [boinkmarks](https://web.archive.org/web/20080513083106/http://sbcl.boinkor.net/bench/) results. It's easy to
   chalk this up to system load, but the same can be observed running
   the [cl-bench](http://common-lisp.net/project/cl-bench/) benchmarks
   under more ideal circumstances. Part of the reason is the
@@ -305,9 +304,9 @@
   [guess](http://groups.google.com/group/comp.lang.asm.x86/browse_thread/thread/bffd4ad26b9a9b10#).
   It certainly seems that the Core Duo (and likely the Pentium M) is
   so deeply unnerved by a jump instruction near the end of a 16 byte
-  block that it cannot execute the loop at its normal speed.
+  block that it cannot execute the loop at its normal speed."
 
-  This led to an experiment where the compiler was modified to pad
+  "This led to an experiment where the compiler was modified to pad
   innermost loops with a few preceding NOPs so that their ends either
   stay at least 3 bytes from the end of the block or spill over it by
   at least one byte. However, on a [quick and dirty
@@ -317,17 +316,17 @@
   ...
 
   For now, here are the cl-bench results from a 32 bit binary on an
-  [Opteron](files/align-code/opteron-32bit-results), a
-  [PIII](files/align-code/piii-results), a
-  [P4](files/align-code/p4-results), a [Core
-  Duo](files/align-code/core-duo-results) system.
+  [Opteron](blog-files/align-code/opteron-32bit-results), a
+  [PIII](blog-files/align-code/piii-results), a
+  [P4](blog-files/align-code/p4-results), a [Core
+  Duo](blog-files/align-code/core-duo-results) system.
 
   There may be a slight improvement but its magnitude is pretty small
   compared to the noise. I'm declaring the evidence inconclusive and let
   the commit stay out of the official SBCL tree.")
 
 (defsection @x86oid-pseudo-atomic (:title "X86oid Pseudo Atomic")
-  "*2009-03-29* -- The relatively recent
+  """*2009-03-29* -- The relatively recent
   [chit](http://www.method-combination.net/blog/archives/2008/02/01/vm-tricks.html)
   - [chat](http://www.pvk.ca/Blog/LowLevel/VM_tricks_safepoints.html)
   about allocation and interrupts have had me looking at ways to speed
@@ -347,13 +346,11 @@
          ;; time using the process signal mask.
          (inst break pending-interrupt-trap)
          (emit-label ,label))))
-  ```"
-  (@x86oid-pseudo-atomic/ebp section)
-  (@x86oid-pseudo-atomic/mprotect section)
-  (@x86oid-pseudo-atomic/direction-flag section))
+  ```"""
 
-(defsection @x86oid-pseudo-atomic/ebp (:title "EBP")
-  """My first idea was that ORing is unnecessary since with the slew of
+  """### EBP
+
+  My first idea was that ORing is unnecessary since with the slew of
   interrupt fixes going into 1.0.26 every interrupt deferred by pseudo
   atomic is handled as soon as we leave the pa section. Hence, a
   simple MOV would suffice. Or if we wanted to be fancy we could rely
@@ -379,10 +376,11 @@
 
   This shaves a few bytes off the code and is an overall 0.5% win in
   cl-bench (see "pseudo-atomic.ebp" in the
-  [results](files/pseduo-atomic/p4-results.txt)).""")
+  [results](blog-files/pseduo-atomic/p4-results.txt)).
 
-(defsection @x86oid-pseudo-atomic/mprotect (:title "mprotect")
-  """But if the page of `PSEDUO-ATOMIC-BITS` is made write protected
+  ### mprotect
+
+  But if the page of `PSEDUO-ATOMIC-BITS` is made write protected
   when an interrupt is deferred, then the pending interrupt can be run
   from the sigsegv handler where we land coming out of pseudo atomic:
 
@@ -410,10 +408,11 @@
       ,@forms
       (inst mov (make-ea :byte :disp (* 4 thread-pseudo-atomic-bits-slot))
             0 :fs)))
-  ```""")
+  ```
 
-(defsection @x86oid-pseudo-atomic/direction-flag (:title "Direction flag")
-  """Another idea is to hijack the direction
+  ### Direction flag
+
+  Another idea is to hijack the direction
   flag:
 
   ```
@@ -473,9 +472,9 @@
   EBP, RET` sequence. Well, most of the time: when more multiple
   values are returned than there are argument passing registers they
   are placed on the stack exactly where the arguments normally reside.
-  Obviously, in this case the frame cannot be dismantled.
+  Obviously, in this case the frame cannot be dismantled."
 
-  Strangely, turning these `JMP`s into `RET`s in multiple value return
+  "Strangely, turning these `JMP`s into `RET`s in multiple value return
   has no measureable effect on performance even though it results in
   more paired `CALL`s. What about the other way, addressing unpaired
   `RET`s by turning `JMP`s to local call'ed functions into `CALL`s? I
@@ -484,8 +483,8 @@
   number of benchmarks in the cl-bench suit benefit greatly: `TAK`,
   `FIB`, `FIB-RATIO`, `DERIV`, `DIV2-TEST-2`, `TRAVERSE`, `TRIANGLE`
   gain about 25-50%. See results for
-  [P4](files/x86oid-calling-convention-p4-results.txt) and [64 bit
-  Opteron](files/x86oid-calling-convention-64bit-opteron-results.txt).
+  [P4](blog-files/x86oid-calling-convention-p4-results.txt) and [64 bit
+  Opteron](blog-files/x86oid-calling-convention-64bit-opteron-results.txt).
 
   This should take off another chunk off the proposed and already
   partly done Summer of Code
@@ -502,7 +501,7 @@
   libsvm](http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html),
   I [added](http://quotenil.com/git/?p=cl-libsvm.git;a=summary)
   support for calculating distance of a point from the separating
-  hyperplane to [[http://cliki.net/cl-libsvm][cl-libsvm]]. In binary
+  hyperplane to [cl-libsvm](http://cliki.net/cl-libsvm). In binary
   classification there is only one SVM involved and one hyperplane.
   However, with N class problems there is a binary SVM for each of the
   N*(N-1)/2 pairs of classes and there are as many separating
@@ -553,7 +552,7 @@
 (defsection @object-initialization-with-slot-dependencies
     (:title "Object Initialization with Slot Dependencies")
   "*2009-07-04* -- Consider a class with a trivial initialization
-  dependency between slots `A` and `B`:
+  dependency between slots `A` and `B`:))
 
   ```
   (defclass super ()
@@ -574,9 +573,9 @@
    ((b :initform 1)))
   
   (a (make-instance 'sub)) => 2
-  ```
+  ```"
 
-  The complication begins when a subclass adds another slot, `C`, from
+  "The complication begins when a subclass adds another slot, `C`, from
   which `B` is to be computed:
 
   ```
@@ -649,7 +648,9 @@
   conservativeness only lasts about half a year so I decided to
   upgrade to Squeeze aka Debian testing. The upgrade itself went
   rather smoothly with a few notable exceptions. With KDE 4.3 I should
-  have waited more. Notes:
+  have waited more.
+
+  Notes:
 
   - Who thought it a grand idea that in the default theme (Oxygen) the
     color of the panel and window title bar cannot be customized?
@@ -669,7 +670,7 @@
     and `(setq org-use-fast-todo-selection 'prefix)` it does so again.
 
   - The X.org upgrade broke my fragile xmodmap config so I wrote an
-    [xkb based config](files/lisp-xkb.tar.gz)
+    [xkb based config](blog-files/lisp-xkb.tar.gz)
     instead. It's activated with:
 
           xkbcomp -I$HOME/.xkb ~/.xkb/keymap/us_lisp $DISPLAY
@@ -685,9 +686,9 @@
   This build is focused on survival. No save/loading, killap's final
   patch, hard combat and game difficulty. As it is not only ironman
   but a munchkin too it must be a sniper since HtH is a bit
-  underpowered.
+  underpowered."
 
-  See [this](http://faqs.ign.com/articles/777/777224p1.html) for good
+  "See [this](http://faqs.ign.com/articles/777/777224p1.html) for good
   insights into ironman survival. The two most important pieces of
   advice it has is: sneak and outdoorsman. Sneak does not work as well
   for me as advertised, that is I cannot end combat in all cases if
@@ -815,9 +816,9 @@
   offers (gradient descent, conjugate gradient, backprop) are directly
   needed to implement the learning and fine tuning methods for
   different kinds of BMs. But before venturing too far into specifics,
-  here is a quick glimpse at the bigger picture and the motivations.
+  here is a quick glimpse at the bigger picture and the motivations."""
 
-  Most of the current learning algorithms are based on shallow
+  """Most of the current learning algorithms are based on shallow
   architectures: they are fundamentally incapable of basing higher
   level concepts on other, learned concepts. The most prominent
   example of succesful shallow learners is Support Vector Machines,
@@ -865,16 +866,16 @@
   going to walk through a small example and touch on the main concepts
   related to learning within this library.
 
-  At the top of food chain is the generic function `TRAIN`:
+  At the top of the food chain is the generic function `TRAIN`:
 
   ```
   (defgeneric train (sampler trainer learner)
     (:documentation "Train LEARNER with TRAINER on the examples from
   SAMPLER. Before that TRAINER is initialized for LEARNER with
   INITIALIZE-TRAINER. Training continues until SAMPLER is finished."))
-  ```
+  ```"""
 
-  A learner is anything that can be taught, which currently means it's
+  """A learner is anything that can be taught, which currently means it's
   either a
   [backpropagation&nbsp;network](http://en.wikipedia.org/wiki/Backpropagation) (`BPN`)
   or some kind of boltzmann machine (`BM`). The method with which a
@@ -1009,7 +1010,7 @@
   (let ((dgraph (cl-dot:generate-graph-from-roots *bpn* (lumps *bpn*))))
     (cl-dot:dot-graph dgraph "linear-bpn.png" :format :png))
   ```
-  ![](file:files/linear-bpn.png)
+  ![](file:blog-files/linear-bpn.png)
 
   That's it for today, thank you for your kind attention.""")
 
@@ -1033,9 +1034,9 @@
   input as output with a small encoding layer somewhere in between. By
   forcing the information through the bottleneck of the encoding layer
   the network should pick up a low dimensional code that represents
-  the input, thus performing dimensionality reduction.
+  the input, thus performing dimensionality reduction."""
 
-  The function under consideration is `f(x) ` [x, sin(x), cos(x)]`. It
+  """The function under consideration is `f(x) ` [x, sin(x), cos(x)]`. It
   is suprisingly difficult to learn the mapping from `x` to `f(x)`. A
   network architecture that is able to represent this transformation
   has 3 inputs, 10 neurons in the next layer, 1 neuron in the encoding
@@ -1141,7 +1142,7 @@
     (cl-dot:dot-graph dgraph "spiral-dbn.png" :format :png))
   ```
 
-  ![](files/spiral-dbn.png)
+  ![](blog-files/spiral-dbn.png)
 
   In a box the first line shows the class of the chunk and the number
   of nodes in parens (omitted if 1), while the second line is the name
@@ -1202,7 +1203,7 @@
     (cl-dot:dot-graph dgraph "spiral-bpn.png" :format :png))
   ```
 
-  ![](files/spiral-bpn.png)
+  ![](blog-files/spiral-bpn.png)
 
   Training it is as easy as:
 
@@ -1252,9 +1253,9 @@
   backprop. While in a DBN the constituent RBMs are trained one by
   one, the DBM is trained as a whole which, in theory, allows it to
   reconcile bottom-up and top-down signals, i.e. what you see and what
-  you think.
+  you think."""
 
-  ![](files/mnist-2-dbm.png)
+  """![](blog-files/mnist-2-dbm.png)
 
   In the diagram above, as before, dark gray boxes are constants (to
   provide the connected chunks with biases), inputs are colored mid
@@ -1278,7 +1279,7 @@
   variants of the basic approach. All of them start with the same DBN
   whose RBMs are trained for 100 epochs each:
 
-  ![](files/mnist-2-dbn-training.png)
+  ![](blog-files/mnist-2-dbn-training.png)
 
   DBN training finishes with around 97.77%, averaging 97.9% in the
   last 10 epochs.
@@ -1301,9 +1302,9 @@
   average activation levels of units connected by them. Anyway, this
   last one reaches 99.09%.
 
-  ![](files/mnist-2-dbm-training.png)
+  ![](blog-files/mnist-2-dbm-training.png)
 
-  ![](files/mnist-2-bpn-training.png)
+  ![](blog-files/mnist-2-bpn-training.png)
 
   To reduce [publication
   bias](http://en.wikipedia.org/wiki/Publication_bias) a bit, let me
@@ -1357,17 +1358,17 @@
   "*2010-02-11* -- Tron is a fun little game of boxing out the
   opponent and avoiding crashing into a wall first. The rules are
   simple so the barrier to entry into [this
-  contest](http://csclub.uwaterloo.ca/contest/index.php) is low.
+  contest](https://web.archive.org/web/20100207135122/http://csclub.uwaterloo.ca/contest/index.php) is low.
   Thanks to [aeruiqe](http://www.aerique.net/) who made to Common Lisp
   starter pack it took as little as a few hours to get a very bare
   bones algorithm going. It's doing surprisingly well: it is number 23
   on the
-  [leaderboard](http://csclub.uwaterloo.ca/contest/rankings.php) at
+  [leaderboard](https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php) at
   the moment with 43 wins, 2 losses and 9 draws.")
 
 (defsection @google-ai-challenge-2010-results
     (:title "Google AI Challange 2010 Results")
-  "*2010-03-01* -- For what has been a fun ride, the official results are now [available](http://csclub.uwaterloo.ca/contest/rankings.php).
+  "*2010-03-01* -- For what has been a fun ride, the official results are now [available](https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php).
   In the end, 11th out of 700 is not too bad and it's the highest
   ranking non-C++ entry by some margin.
 
@@ -1375,7 +1376,7 @@
   mind: [UCT](http://senseis.xmp.net/?UCT), an algorithm from the
   Monte Carlo tree search family. It has been rather successful in
   Go (and in Hex too, taking the crown from
-  [Six](http://six.retes.hu/)). So with UCT in mind, to serve as a
+  [Six](hex/six/index.html)). So with UCT in mind, to serve as a
   baseline I implemented a quick
   [minimax](http://en.wikipedia.org/wiki/Minimax) with a simple
   territory based evaluation function ... that everyone else in the
@@ -1384,9 +1385,9 @@
   move (not even considering moves of the opponent) it played a very
   nice positional game. That was the first sign that constructing a
   good evaluation function may not be as hard for Tron as it is for
-  Go.
+  Go."
 
-  But with everyone else doing minimax, the plan was to keep silent
+  "But with everyone else doing minimax, the plan was to keep silent
   and Monte Carlo to victory. As with most plans, it didn't quite work
   out. First, to my dismay, some contestants were attempting to do the
   same and kept advertising it on `#googleai`, second it turned out
@@ -1436,7 +1437,7 @@
 
 (defsection @planet-wars-common-lisp-starter-package
     (:title "Planet Wars Common Lisp Starter Package")
-  "*2010-09-19* -- The [Google AI Challange](http://ai-contest.com) is
+  "*2010-09-19* -- The [Google AI Challange](https://web.archive.org/web/20100926070007/http://ai-contest.com/) is
   back with a new game that's supposed to be much harder than Tron was
   this spring. The branching factor of the game tree is enormous which
   only means that straight minimax is out of question this time
@@ -1448,8 +1449,9 @@
   tarball](http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz))
   to the
   [lot](http://aerique.blogspot.com/2010/09/planet-wars-common-lisp-start-package.html).
-  It is based heavily on aerique's. Highlights compared to his
-  version:
+  It is based heavily on aerique's."
+
+  "Highlights compared to his version:
 
   - no excessive use of specials (`*INPUT*`, `*FLEETS*`, etc)
   - player class to support different types of players
@@ -1466,11 +1468,11 @@
   - closes sockets properly
 
   There is still a
-  [problem](http://ai-contest.com/forum/viewtopic.php?f=18&t=421&start=40)
+  [problem](https://web.archive.org/web/20110709095120/http://ai-contest.com/forum/viewtopic.php?f=18&t=421&start=40)
   causing all lisp submissions to die on the first turn no matter
   which starter package one uses which will hopefully be resolved.
   Until then there is dhartmei's excellent [unofficial tcp
-  server](http://ai-contest.com/forum/viewtopic.php?f=18&t=424).")
+  server](https://web.archive.org/web/20100926103520/http://ai-contest.com/forum/viewtopic.php?f=18&t=424).")
 
 (defsection @planet-wars-common-lisp-starter-package-that-actually-works
     (:title "Planet Wars Common Lisp Starter Package Actually Works")
@@ -1509,7 +1511,7 @@
   The rate at which games are played on the servers is so low that it
   takes several days to ascend through the leaderboard. Nevertheless,
   an old buggy version is sitting on the
-  [top](http://ai-contest.com/rankings.php) right now. Mind you,
+  [top](https://web.archive.org/web/20101025070429/http://ai-contest.com/rankings.php) right now. Mind you,
   introducing bugs is a great way exlopore the solution space and it's
   quite worrisome just how adept I am at this poor man's evolutionary
   programming. Most of them have since been fixed while the ideas they
@@ -1518,7 +1520,7 @@
 
 (defsection @planet-wars-post-mortem
     (:title "Planet Wars Post-Mortem")
-  "*2010-12-01* -- I can't believe I [won](http://ai-contest.com/rankings.php).
+  "*2010-12-01* -- I can't believe I [won](https://web.archive.org/web/20101205003152/http://ai-contest.com/rankings.php).
 
   I can't believe I won _decisively_ at all.
 
@@ -1543,10 +1545,10 @@
   rock-paper-scissors scenarios would dominate (more on this later).
 
   That's enough of
-  [tribute](http://www.a1k0n.net/blah/archives/2010/03/index.html#e2010-03-04T14_00_21.txt),
-  let's steer off the trodden path.
+  [tribute](https://web.archive.org/web/20100307014152/http://www.a1k0n.net/blah/archives/2010/03/index.html),
+  let's steer off the trodden path."
 
-  ### Beginning
+  "### Beginning
 
   Driven by the first
   [virtue](http://en.wikipedia.org/wiki/Larry_Wall#Virtues_of_a_programmer)
@@ -1673,13 +1675,13 @@
   Sniping is when one player takes a neutral losing ships in the
   process and the opponent comes - typically on the next turn - and
   takes it away. [This
-  game](http://www.ai-contest.com/visualizer.php?game_id=9347535) is a
+  game](https://web.archive.org/web/20101213023101/http://www.ai-contest.com/visualizer.php?game_id=9347535) is a
   nice illustration of the concept.
 
   ### Redistribution
 
   As pointed out by
-  [iouri](http://iouri-khramtsov.blogspot.com/2010/11/google-ai-challenge-planet-wars-entry.html)
+  [iouri](https://web.archive.org/web/20110210212413/http://iouri-khramtsov.blogspot.com/2010/11/google-ai-challenge-planet-wars-entry.html)
   in his post-mortem, redistribution of ships is a major factor. The
   machinery described so far lends itself to easy implementation of
   redistribution.
@@ -1796,7 +1798,7 @@
   bo-chee-mats-ko), after whom the bot was named, is the handsome hero
   of a children's book, pictured on the left:
 
-  ![](files/malacka-es-bocsimacko.jpg)")
+  ![](blog-files/malacka-es-bocsimacko.jpg)")
 
 (defsection @nash-equilibrium-finder
     (:title "Nash equilibrium finder")
@@ -1848,7 +1850,7 @@
   [test/test-game-theory.lisp.](http://quotenil.com/git/?p=micmac.git;a=blob;f=test/test-game-theory.lisp;h=f6c77e7a3104993c5bc1e01b75a4c94a1d6489e9;hb=e2de0e888ce103b026d725297f52f5710273a5c3#l18)
 
   The logging code in the example produces
-  ![output](files/alpha-beta-log.png "output"), which is suitable for
+  [output](blog-files/alpha-beta-log.png "output"), which is suitable for
   cut and pasting into an org-mode buffer and exploring it by TABbing
   into subtrees to answer the perpetual 'What the hell was it
   thinking?!' question.""")
@@ -1938,9 +1940,9 @@
   [36Cube](http://en.wikipedia.org/wiki/36_cube) pulls is rather
   dirty.
 
-  **WARNING**, spoilers ahead.
+  **WARNING**, spoilers ahead."
 
-  Got this crafty beast for Christmas and since then I lost many
+  "Got this crafty beast for Christmas and since then I lost many
   evenings to juggling permutations of towers over the inverted city
   skyline. The game can be solved two ways:
 
@@ -1968,12 +1970,12 @@
   text classification problem with extremely unbalanced classes.
 
   Just as Bocsimackó did the last time around, his lazier sidekick
-  ![Malacka](files/malacka-es-bocsimacko.jpg) (on the right) brought
+  ![Malacka](blog-files/malacka-es-bocsimacko.jpg) (on the right) brought
   [success](http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow/leaderboard).
   I would have loved to be lazy and still win, but the leaderboard was
-  too close for comfort.
+  too close for comfort."
 
-  ### Overview
+  "### Overview
 
   The winning model is an average of 10 neural network ensembles of
   five constituent models, three of which are Deep Belief Networks,
@@ -2221,13 +2223,13 @@
   Programming](http://en.wikipedia.org/wiki/Genetic_programming) only
   library because it got another [Evolutionary
   Algorithm](http://en.wikipedia.org/wiki/Evolutionary_algorithm)
-  implementation:
-  [[http://en.wikipedia.org/wiki/Differential_evolution][Differential
-  Evolution]]. My original plan for this contest was to breed input
-  features that the physicists in their insistence on
-  comprehensibility overlooked, but it didn't work as well as I had
-  hoped for reasons specific to this contest and also because
-  evolutionary algorithms just do not scale to larger problem sizes.
+  implementation: [Differential
+  Evolution](http://en.wikipedia.org/wiki/Differential_evolution). My
+  original plan for this contest was to breed input features that the
+  physicists in their insistence on comprehensibility overlooked, but
+  it didn't work as well as I had hoped for reasons specific to this
+  contest and also because evolutionary algorithms just do not scale
+  to larger problem sizes.
 
   In other news, [MGL](http://quotenil.com/git/?p=mgl.git;a=summary)
   got (http://en.wikipedia.org/wiki/Cross-validation_[cross-validation](statistics)),
@@ -2281,10 +2283,12 @@
   the ability to include code examples in docstrings. Printed output
   and return values are marked up with ".." and "=>", respectively.
 
+  ```
   (values (princ :hello) (list 1 2))
   .. HELLO
   => :HELLO
   => (1 2)
+  ```
 
   The extras are:
 
@@ -2423,7 +2427,10 @@
 
 (defsection @on-the-design-of-matrix-libraries
     (:title "On the Design of Matrix Libraries")
-  "*2015-02-26* -- I believe there is one design decision in
+  "*UPDATE 2020-05-03* -- Things have been moving fast. This is a
+  non-issue in Tensorflow and possibly in other frameworks, as well.
+
+  *2015-02-26* -- I believe there is one design decision in
   [MGL-MAT](http://melisgl.github.io/mgl-pax-world/mat-manual.html)
   that has far reaching consequences: to make a single matrix object
   capable of storing multiple representations of the same data and let
@@ -2434,9 +2441,9 @@
   This allows existing code to keep functioning if support for
   diagonal matrices (represented as a 1d array) lands and one can pick
   and choose the operations performance critical enough to implement
-  with diagonals.
+  with diagonals."
 
-  Adding support for matrices that, for instance, live on a remote
+  "Adding support for matrices that, for instance, live on a remote
   machine is thus possible with a new facet type (MAT lingo for
   representation) and existing code would continue to work (albeit
   possibly slowly). Then one could optimize the bottleneck operations
@@ -2467,4 +2474,101 @@
   implementation to use would decouple facets further. Ultimately,
   this could make the entire CUDA related part of MGL-MAT an add-on.")
 
-(update-asdf-system-html-docs @blog :mgl-pax-blog)
+(defun shorten-post (section name-prefix)
+  (let* ((var (intern (format nil "~A-~A-~A" name-prefix (section-name section)
+                              :short)))
+         (footer (format nil "... read the rest of [~A][~A]."
+                         (section-name section) :section))
+         (entries (if (< 2 (length (section-entries section)))
+                      (append (subseq (section-entries section) 0 2)
+                              (list footer))
+                      (section-entries section))))
+    (set var (make-instance
+              'section
+              :name var
+              :package (section-package section)
+              :readtable (section-readtable section)
+              :title (section-title section)
+              :link-title-to (make-reference (section-name section)
+                                             'section)
+              :entries entries))))
+
+(defun make-category-overview (section)
+  (let* ((var (non-template-category-name section))
+         (name-prefix (symbol-name var)))
+    (set var (make-instance
+              'section
+              :name var
+              :package (section-package section)
+              :readtable (section-readtable section)
+              :title (section-title section)
+              :entries (reverse
+                        (mapcar (lambda (entry)
+                                  (make-reference
+                                   (section-name (shorten-post (resolve entry)
+                                                               name-prefix))
+                                   'section))
+                                (section-entries section)))))))
+
+(defun non-template-category-name (category-section)
+  (intern (subseq (symbol-name (section-name category-section))
+                  0 (1- (length
+                         (symbol-name (section-name category-section)))))))
+
+(defun generate-pages (category-sections)
+  (update-tags category-sections)
+  (let* ((*document-max-numbering-level* 0)
+         (*document-max-table-of-contents-level* 0)
+         (*document-html-max-navigation-table-of-contents-level* 3)
+         ;; No "in package" output, please.
+         (*document-normalize-packages* nil)
+         (*package* (find-package :mgl-pax-blog))
+         (*document-html-top-blocks-of-links*
+           '((:title "me"
+              :links
+              (("http://quotenil.com" "blog")
+               ("mailto:mega@retes.hu" "email")
+               ("gpg key" "mega.gpg.asc")
+               ("cv/cv-eng.pdf" "cv (english)")
+               ("cv/cv-hun.pdf" "cv (hungarian)")
+               ("http://github.com/melisgl/" "git")))))
+         (overviews (mapcar #'make-category-overview category-sections))
+         (posts (delete-duplicates
+                 (mapcan (lambda (category-section)
+                           (mapcar #'resolve
+                                   (section-entries category-section)))
+                         category-sections))))
+    (update-asdf-system-html-docs
+     (append overviews posts) :mgl-pax-blog
+     ;; Every overview and post is on its own page.
+     :pages (mapcar (lambda (section) `(:objects (,section)))
+                    (append overviews posts)))))
+
+(defun update-tags (categories)
+  (let ((post-to-catories (make-hash-table)))
+    (dolist (category categories)
+      (dolist (entry (section-entries category))
+        (when (typep entry 'reference)
+          (let ((post (resolve entry)))
+            (push category (gethash post post-to-catories))))))
+    (maphash (lambda (post categories)
+               (update-post-tags post categories))
+             post-to-catories)))
+
+(defun update-post-tags (post categories)
+  (flet ((post-has-tags-p ()
+           (let ((entries (section-entries post)))
+             (and entries (stringp (first entries))
+                  (alexandria:starts-with-subseq "_Tags_: " (first entries))))))
+    (when (post-has-tags-p)
+      (pop (slot-value post 'mgl-pax::entries)))
+    (push  (format nil "_Tags_: ~{~A~^, ~}~%"
+                   (mapcar #'non-template-category-name categories))
+           (slot-value post 'mgl-pax::entries))))
+
+#+nil
+(generate-pages (list @blog0
+                      @category-personal0
+                      @category-tech0
+                      @category-lisp0
+                      @category-ai0))
