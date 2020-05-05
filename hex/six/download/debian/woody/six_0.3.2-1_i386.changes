@@ -1,0 +1,21 @@
+Format: 1.7
+Date: Wed, 25 Sep 2002 20:01:45 +0200
+Source: six
+Binary: six
+Architecture: source i386
+Version: 0.3.2-1
+Distribution: unstable
+Urgency: low
+Maintainer: Gabor Melis <mega@hotpop.com>
+Changed-By: Gabor Melis <mega@hotpop.com>
+Description: 
+ six        - Hex playing program for KDE
+Changes: 
+ six (0.3.2-1) unstable; urgency=low
+ .
+   * New upstream release
+Files: 
+ ba49f87f14a7f5fce333d260b242d697 304 contrib/games optional six_0.3.2-1.dsc
+ 0cba7d94fc29f4f75d32eeaab5625e74 679023 contrib/games optional six_0.3.2.orig.tar.gz
+ cd960690b90cd918bd082c2b28f4376b 3918 contrib/games optional six_0.3.2-1.diff.gz
+ 517d26682c0da3213ff00ca70bd2fe23 121276 contrib/games optional six_0.3.2-1_i386.deb

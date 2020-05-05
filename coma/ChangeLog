@@ -1,0 +1,115 @@
+2004-08-30  Gabor Melis  <mega@hotpop.com>
+
+	* fixed pathname-as-directory for NIL directory components
+
+	* defconstant is not ok for strings, use defparameter instead
+
+	* MOP wrappers changed for sbcl
+
+	* use :if-exists :superseed
+
+	* sbcl: (default-directory) + setf
+
+2004-08-12  Gabor Melis  <mega@hotpop.com>
+
+	* renamed stuff.lisp to base.lisp
+
+2004-06-30  Gabor Melis  <mega@hotpop.com>
+
+	* #v3.1.0
+
+	* describe feature dependencies and defaults
+
+2004-06-29  Gabor Melis  <mega@hotpop.com>
+
+	* make-dist added
+
+	* LLGPL licence
+
+	* all-kit-features feature added
+
+	* added define-item and define-kit that take superclass params
+
+	* added minimal cvs support (basically just fetch-item)
+
+2004-04-18  Gabor Melis  <mega@hotpop.com>
+
+	* fixed behaviour under cmucl
+
+	* kit slots are made visible from item binding config
+	(i.e. kits slot can be referenced directly from the kit-items
+	file)
+
+	* cleaned up kit code
+
+2004-05-13  Gabor Melis  <mega@hotpop.com>
+
+	* #v3.0.4
+
+	* hoc-kit-item.lisp (checkout-hoc-module): fixed target dirs of
+	more than one component like: "x/y/z"
+
+2004-04-15  Gabor Melis  <mega@hotpop.com>
+
+	* #v3.0.3
+	
+	* fixed version>=, (assert (not (version>= #v0.0.0/X:1.1.2
+	#vY:1.1.2 :minor))) now works
+	
+	* fixed 'get-slot version' reporting that the version slot unbound
+
+	* fixed a few handler-bind copy-paste typos
+
+	* ensure that coma-temp is renamed even on errors
+
+	* continue on continueable errors
+
+2004-04-12  Gabor Melis  <mega@hotpop.com>
+
+	* when saving files the necessary directories are created
+
+	* hoc items do not fail when HOC/VERSION is not found
+
+	* install command takes features as arguments and installs only
+	the necessary files (MAJOR)
+
+2004-04-11  Gabor Melis  <mega@hotpop.com>
+
+	* removed configure's --update option and added a global
+	fetch-again option (MAJOR)
+
+	* defoptions implemented
+
+	* reorganized files, load/compile only what is absolutely
+	necessary
+
+	* defcommand implemented
+
+	* reworked bundling: no bundling in development environment,
+	bundle contains filenames
+
+2004-04-10  Gabor Melis  <mega@hotpop.com>
+
+	* validate command exits with 1 on failure
+
+	* suppress compilation and load output except errors
+
+	* fail-safe map save
+
+	* re-unbundle/recompile sources if coma.lisp is newer
+
+	* fixed validate returning true when only the last item is invalid
+
+	* support for cmucl (MINOR)
+
+2004-04-09  Gabor Melis  <mega@hotpop.com>
+
+	* added slots for file locations (config, kit-items,map) (MINOR)
+
+	* check that kit-item names are unique
+
+	* implemented get-slot command (MINOR)
+
+	* documentation command: list slots in the order of definition
+
+	* added debug support via COMA_DEBUG environment variable (MINOR)

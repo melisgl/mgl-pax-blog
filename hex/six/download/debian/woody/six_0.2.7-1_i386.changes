@@ -1,0 +1,33 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.7
+Date: Wed, 21 Aug 2002 13:42:23 +0200
+Source: six
+Binary: six
+Architecture: source i386
+Version: 0.2.7-1
+Distribution: unstable
+Urgency: low
+Maintainer: Gabor Melis <mega@hotpop.com>
+Changed-By: Gabor Melis <mega@hotpop.com>
+Description: 
+ six        - Hex playing program for KDE
+Changes: 
+ six (0.2.7-1) unstable; urgency=low
+ .
+   * New upstream release
+Files: 
+ 1b135851ae846a6c47e15686383dc5a0 584 contrib/games optional six_0.2.7-1.dsc
+ 3299b143ebed354cf00340c766c6799f 392669 contrib/games optional six_0.2.7.orig.tar.gz
+ ea8bab172f6d7d21bb7ea3e1eed51a43 3722 contrib/games optional six_0.2.7-1.diff.gz
+ ff7dee3f07754a3ee988568c0a884b5f 92264 contrib/games optional six_0.2.7-1_i386.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.6 (GNU/Linux)
+Comment: For info see http://www.gnupg.org
+
+iD8DBQE9Y37cWctcG2tjR0QRAnGgAKDAHE6yKpqS7sdps/3EDCeU347MYQCg2kAP
+PePtTy6scHjRrLKQ7yhFccs=
+=2sUU
+-----END PGP SIGNATURE-----

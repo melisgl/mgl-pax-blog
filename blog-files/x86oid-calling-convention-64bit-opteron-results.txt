@@ -1,0 +1,83 @@
+This is SBCL 1.0.26.21, an implementation of ANSI Common Lisp.
+More information about SBCL is available at <http://www.sbcl.org/>.
+
+SBCL is free software, provided as is, with absolutely no warranty.
+It is mostly in the public domain; some portions are provided under
+BSD-style licenses.  See the CREDITS and COPYING files in the
+distribution for more information.
+Benchmark                 Reference  SBCL   SBCL   SBCL   SBCL
+-------------------------------------------------------------------------------------
+COMPILER                 [      1.62]   1.01   1.00   0.97   0.98
+LOAD-FASL                [      0.25]   0.97   0.99   0.97   0.98
+SUM-PERMUTATIONS         [      1.45]   0.99   0.95   0.95   1.03
+WALK-LIST/SEQ            [      0.03]   1.00   1.05   1.00   1.00
+WALK-LIST/MESS           [      0.04]   0.96   0.96   0.96   0.96
+BOYER                    [      3.69]   0.96   0.96   0.98   0.93
+BROWSE                   [      0.24]   0.98   0.98   0.98   1.00
+DDERIV                   [      0.24]   1.00   1.01   1.00   1.01
+DERIV                    [      0.30]   1.00   1.00   1.01   0.89
+DESTRUCTIVE              [      0.17]   1.08   1.11   1.12   1.09
+DIV2-TEST-1              [      0.39]   1.00   1.00   1.00   1.00
+DIV2-TEST-2              [      0.60]   1.04   1.01   1.01   0.85
+FFT                      [      0.05]   1.00   1.00   1.00   1.00
+FRPOLY/FIXNUM            [      0.27]   0.98   1.04   1.12   0.96
+FRPOLY/BIGNUM            [      0.21]   0.99   1.01   1.01   0.99
+FRPOLY/FLOAT             [      0.39]   0.97   1.01   1.06   0.97
+PUZZLE                   [      0.23]   1.02   0.97   0.98   0.97
+TAK                      [      0.31]   0.99   1.01   1.02   0.52
+CTAK                     [      0.30]   1.02   1.02   1.02   1.06
+TRTAK                    [      0.31]   1.00   1.02   1.01   0.52
+TAKL                     [      0.38]   0.92   0.92   0.94   0.84
+STAK                     [      0.67]   1.00   1.00   1.00   0.88
+FPRINT/UGLY              [      1.31]   0.76   0.77   0.73   0.74
+FPRINT/PRETTY            [      2.14]   0.96   0.96   0.93   0.95
+TRAVERSE                 [      1.04]   1.01   1.03   1.02   0.74
+TRIANGLE                 [      0.72]   0.99   0.99   0.99   0.72
+RICHARDS                 [      0.57]   0.99   0.98   0.96   0.96
+FACTORIAL                [      0.13]   1.02   0.99   1.00   1.00
+FIB                      [      0.24]   0.99   1.03   0.99   0.69
+FIB-RATIO                [      0.03]   1.00   1.04   1.04   0.96
+ACKERMANN                [      2.17]   0.97   0.98   0.98   1.13
+MANDELBROT/COMPLEX       [      0.31]   1.00   0.98   1.00   0.99
+MANDELBROT/DFLOAT        [      0.01]   1.00   0.89   1.00   0.78
+MRG32K3A                 [      0.70]   1.04   1.01   1.03   1.04
+CRC40                    [      0.33]   1.05   1.05   0.99   0.99
+BIGNUM/ELEM-100-1000     [      0.09]   1.01   1.00   0.98   0.98
+BIGNUM/ELEM-1000-100     [      0.11]   1.00   0.98   1.00   0.99
+BIGNUM/ELEM-10000-1      [      0.06]   1.00   1.02   1.02   1.00
+BIGNUM/PARI-100-10       [      0.01]   1.20   0.90   0.90   0.90
+BIGNUM/PARI-200-5        [      0.04]   0.93   0.97   0.93   0.97
+PI-DECIMAL/SMALL         [      0.53]   1.01   0.98   0.99   1.00
+PI-DECIMAL/BIG           [      0.25]   1.00   0.99   0.99   0.99
+PI-ATAN                  [      0.59]   0.99   1.00   0.99   0.99
+PI-RATIOS                [      1.06]   1.01   0.97   0.97   1.00
+HASH-STRINGS             [      0.22]   0.96   0.97   0.97   0.91
+HASH-INTEGERS            [      0.43]   1.02   1.04   1.05   0.97
+SLURP-LINES              [      0.69]   0.99   0.97   0.97   0.96
+BOEHM-GC                 [      1.15]   1.00   1.01   1.01   0.96
+DEFLATE-FILE             [      0.30]   1.05   1.00   0.97   0.95
+1D-ARRAYS                [      0.04]   1.00   1.03   1.00   1.07
+2D-ARRAYS                [      0.43]   1.00   1.00   1.00   1.00
+3D-ARRAYS                [      1.57]   1.01   1.00   1.00   1.00
+BITVECTORS               [      0.38]   0.98   0.98   0.99   0.97
+BENCH-STRINGS            [      0.50]   0.95   1.05   1.01   1.00
+fill-strings/adjustable  [      7.74]   0.99   1.00   1.02   1.02
+STRING-CONCAT            [     27.46]   1.03   1.01   1.01   1.03
+SEARCH-SEQUENCE          [      0.27]   1.00   1.00   1.00   1.00
+CLOS/defclass            [      0.99]   1.00   1.01   0.99   0.98
+CLOS/defmethod           [      4.39]   0.99   1.00   1.01   1.03
+CLOS/instantiate         [      6.37]   0.97   0.97   0.95   0.96
+CLOS/simple-instantiate  [      0.22]   0.99   1.01   1.01   1.02
+CLOS/methodcalls         [      0.70]   1.05   1.01   1.04   1.04
+CLOS/method+after        [      2.73]   1.00   0.99   1.00   0.99
+CLOS/complex-methods     [      1.98]   1.01   1.00   1.00   1.02
+EQL-SPECIALIZED-FIB      [      0.19]   0.97   0.98   0.96   0.97
+Reference time in first column is in seconds; other columns are relative
+Reference implementation: SBCL 1.0.26.21
+Impl SBCL : SBCL 1.0.26.21.swap-ocfp-return-pc
+Impl SBCL : SBCL 1.0.26.21.fp-bias
+Impl SBCL : SBCL 1.0.26.21.mv-receive
+Impl SBCL : SBCL 1.0.26.21.local-call
+=== Test machine ===
+   Machine-type: X86-64
+   Machine-version: Quad-Core AMD Opteron(tm) Processor 8354

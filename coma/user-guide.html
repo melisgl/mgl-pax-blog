@@ -1,0 +1,951 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Coma User Guide</title><meta name="generator" content="DocBook XSL Stylesheets V1.64.1"><meta name="description" content="
+        This is the user guide for Coma, the configuration management
+        tool.
+      "><meta name="keywords" content="configuration, management, hoc, autoconf, lisp"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="id2428773"></a>Coma User Guide</h1></div><div><div class="authorgroup"><div class="author"><h3 class="author"><span class="firstname">Gábor</span> <span class="surname">Melis</span></h3></div></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
+        This is the user guide for Coma, the configuration management
+        tool.
+      </p></div></div></div><div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#overview">1. Overview</a></span></dt><dt><span class="chapter"><a href="#install">2. Installation</a></span></dt><dt><span class="chapter"><a href="#define">3. Defining an Item</a></span></dt><dd><dl><dt><span class="section"><a href="#id2428168">Documentation</a></span></dt><dt><span class="section"><a href="#id2428204">Default Values</a></span></dt><dt><span class="section"><a href="#id2428237">Parameterizing Behaviour</a></span></dt><dt><span class="section"><a href="#id2428301">Supporting Code</a></span></dt><dt><span class="section"><a href="#define-kit">Defining Kits</a></span></dt><dd><dl><dt><span class="section"><a href="#id2428419">Kit Items</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#save">4. Saving the Configuration</a></span></dt><dt><span class="chapter"><a href="#slots">5. Slots</a></span></dt><dd><dl><dt><span class="section"><a href="#standard-slots">Standard Slots</a></span></dt><dt><span class="section"><a href="#id2487410">Accessing Slots from Code</a></span></dt><dt><span class="section"><a href="#id2487486">Setting Slots from the Command Line</a></span></dt></dl></dd><dt><span class="chapter"><a href="#configure">6. Activating the Configuration</a></span></dt><dd><dl><dt><span class="section"><a href="#templates">Template Processing</a></span></dt><dd><dl><dt><span class="section"><a href="#id2487555">Defining Template Files</a></span></dt><dt><span class="section"><a href="#id2487595">Variant Sections</a></span></dt><dt><span class="section"><a href="#t-p-env">Environment</a></span></dt><dt><span class="section"><a href="#id2487674">Template Processing Algorithm</a></span></dt><dt><span class="section"><a href="#id2487726">Template Processing Examples</a></span></dt></dl></dd><dt><span class="section"><a href="#configure-kit">Activating a Kit Configuration</a></span></dt><dd><dl><dt><span class="section"><a href="#id2487904">HOC Modules</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#validate">7. Validating the Configuration</a></span></dt><dd><dl><dt><span class="section"><a href="#id2488026">Failure</a></span></dt><dt><span class="section"><a href="#id2488046">Rule sets</a></span></dt><dd><dl><dt><span class="section"><a href="#id2488141">Rule Set Names</a></span></dt><dt><span class="section"><a href="#id2488159">Coding Rules</a></span></dt><dt><span class="section"><a href="#id2488192">Helpers</a></span></dt></dl></dd><dt><span class="section"><a href="#id2488276">Validating Kits</a></span></dt></dl></dd><dt><span class="appendix"><a href="#howto">A. HOWTO</a></span></dt><dd><dl><dt><span class="section"><a href="#id2488301">How to Create an Item?</a></span></dt><dt><span class="section"><a href="#id2488585">How to Create a Kit?</a></span></dt><dt><span class="section"><a href="#id2488699">How to Parameterize Configuration of Kit Items?</a></span></dt><dt><span class="section"><a href="#id2488787">How to customize file locations like config-path?</a></span></dt></dl></dd><dt><span class="appendix"><a href="#command-line">B. Command Line Reference</a></span></dt><dt><span class="appendix"><a href="#files">C. Files</a></span></dt><dt><span class="appendix"><a href="#lisp">D. Common Lisp</a></span></dt><dt><span class="glossary"><a href="#id2489063">Glossary</a></span></dt></dl></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="overview"></a>Chapter 1. Overview</h2></div></div><div></div></div><p>
+      Coma provides a uniform configuration interface to <a href="#item"><i class="glossterm">items</i></a>.
+      Through Coma, parameters can be defined, queried, set and
+      validated by the item itself or even by other items thanks to
+      the simple object persistency employed.
+    </p><p>
+      An item has <a href="#slot"><i class="glossterm">slots</i></a> (i.e. attributes, parameters)
+      that can be set concrete values. The item can then use these
+      slot values to control arbitrary aspects of its behaviour such
+      as building and running.
+     </p><p>
+      One can also define <a href="#kit"><i class="glossterm">kits</i></a> that contain other items and set
+      their parameters.
+    </p><p>
+      A very simple <a href="#define" title="Chapter 3. Defining an Item">item definition</a> may
+      look like this:
+
+    </p><pre class="programlisting">(defitem simple-item
+    (log-level
+     c-compiler)
+  (:config-files "Makefile"))</pre><p>
+
+      This says that <tt class="varname">simple-item</tt> has two slots,
+      <tt class="varname">log-level</tt> and <tt class="varname">c-compiler</tt>
+      and the <tt class="filename">Makefile</tt> shall be created by
+      Coma. One way to set a slot is through the command line. Let's
+      set <tt class="varname">log-level</tt> to 3 and tell the item to
+      use gcc by issuing <span><b class="command">coma.sh set-slot log-level 3
+      c-compiler \"gcc\"</b></span>.
+    </p><p>
+      To create <tt class="filename">Makefile</tt> Coma needs the <a href="#templates" title="Template Processing">template file</a>
+      <tt class="filename">Makefile.coma</tt>:
+
+      </p><pre class="programlisting">all:
+        @c-compiler@ -DLOG_LEVEL=@log-level@ my-prog.c</pre><p>
+
+      Now, if the item is told to <a href="#configure" title="Chapter 6. Activating the Configuration">activate
+      its configuration</a> by <span><b class="command">coma.sh
+      configure</b></span> then the template file is processed the
+      values of the appropriate slots are substitited for
+      <tt class="computeroutput">@c-compiler@</tt> and
+      <tt class="computeroutput">@log-level@</tt>:
+
+      </p><pre class="programlisting">all:
+        gcc -DLOG_LEVEL=3 my-prog.c</pre><p>
+    </p><p>
+      Usually, products consist of several items that must be
+      configured properly to work together. By defining kits it is
+      possible to encapsulate complete configurations in one item.
+    </p><p>
+      Suppose our product called test consists of two items:
+      simple-item and complex-item. The following <a href="#define-kit" title="Defining Kits">defines a kit</a> named
+      <tt class="computeroutput">test-kit</tt>.
+
+      </p><pre class="programlisting">(defkit test-kit)</pre><p>
+
+      By itself this definition does not say much, the bulk of the
+      information is in the <tt class="filename">kit-items</tt> file:
+
+      </p><pre class="programlisting">(item1
+ #S(hoc-module :name "simple-item" :version-or-tag #v0.0.0)
+ ((log-level 3)
+  (c-compiler "gcc")))
+
+(another-item
+ #S(hoc-module :name "complex-item" :version-or-tag #v1.2.3)
+ ((debug t)
+  (lib item1)))</pre><p>
+
+      Here, two items are defined: <tt class="varname">item1</tt> and
+      <tt class="varname">another-item</tt>.
+    </p><p>
+      When the configuration of this kit is activated for the first
+      time the kit looks at the <tt class="filename">kit-items</tt> file
+      and fetches the items defined in it. In this example it checks
+      out version 0.0.0 of module <tt class="varname">simple-item</tt> and
+      version 1.2.3 of module <tt class="varname">complex-item</tt> from
+      <span class="acronym">HOC</span>. The checked out items contain their own instances of Coma
+      and item definitions.
+    </p><p>
+      The kit then sets slots of these items:
+      <tt class="varname">log-level</tt> to <tt class="constant">3</tt>,
+      <tt class="varname">c-compiler</tt> to the string
+      <tt class="constant">"gcc"</tt>. In the other item the
+      <tt class="varname">debug</tt> slot is set to <tt class="constant">t</tt>
+      while the <tt class="varname">lib</tt> slot is set to an object
+      representing the configuration of <tt class="varname">item1</tt>.
+    </p><p>
+      Of course, there is much more to Coma, this is no more than a
+      sketch, a quick, skeletal view of the concepts involved. The
+      later chapters shall flesh out these concepts and provide
+      detailed descriptions of kits, template processing, validation
+      and customization of behaviour.
+    </p></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="install"></a>Chapter 2. Installation</h2></div></div><div></div></div><p>
+      To make an item use Coma for managing its configuration first
+      we must include it in the item. As with autoconf, a Coma
+      instance is included in every single item that uses it.
+    </p><p>
+      The installation is simple. Suppose Coma is in <tt class="filename">/coma-dir</tt> and the item's root
+      directory is <tt class="filename">/item-dir</tt>.
+      </p><pre class="programlisting">
+<tt class="prompt">$</tt> cd /coma-dir
+<tt class="prompt">$</tt> make
+<tt class="prompt">$</tt> mkdir /item-dir/cm/
+<tt class="prompt">$</tt> ./coma.sh install /item-dir/cm/
+</pre><p>
+      This installs three files into <tt class="filename">/item-dir/cm/</tt>: <a href="#coma.sh"><tt class="filename">coma.sh</tt></a>, <a href="#coma.lisp"><tt class="filename">coma.lisp</tt></a> and
+      <a href="#coma-sources.bundle"><tt class="filename">.coma-sources.bundle</tt></a>.
+      These files should be included in the distribution, added
+      to version control, etc.
+    </p><p>
+      Now Coma is installed but there isn't much we can do with it
+      until the item definition is provided.
+    </p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+        Note that not all Comas are created equal: the exact set of
+        features (such as <span class="acronym">HOC</span> and kit support) varies and can be
+        controlled by the --with and --without install options. See
+        <span><b class="command">coma.sh help install</b></span> and <span><b class="command">coma.sh
+        version</b></span>.
+      </p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="define"></a>Chapter 3. Defining an Item</h2></div></div><div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#id2428168">Documentation</a></span></dt><dt><span class="section"><a href="#id2428204">Default Values</a></span></dt><dt><span class="section"><a href="#id2428237">Parameterizing Behaviour</a></span></dt><dt><span class="section"><a href="#id2428301">Supporting Code</a></span></dt><dt><span class="section"><a href="#define-kit">Defining Kits</a></span></dt><dd><dl><dt><span class="section"><a href="#id2428419">Kit Items</a></span></dt></dl></dd></dl></div><p><a name="defitem"></a>
+      For Coma to be able to manage an item's configuration it must
+      first know what kind of slots the item has, their names, their
+      possible values, what is to be saved and which files it shall
+      generate. Coma reads item definitions from a file named <a href="#item.lisp"><tt class="filename">item.lisp</tt></a> in the
+      same directory as itself. Let's take an example:
+
+      </p><pre class="programlisting">(defitem simple-item
+    (log-level
+     c-compiler))</pre><p>
+
+      This can be read as a class definition: the item's name is
+      simple-item and it has two slots: <tt class="varname">log-level</tt>
+      and <tt class="varname">c-compiler</tt>.
+    </p><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2428168"></a>Documentation</h2></div></div><div></div></div><p>
+        Documentation can be attached to items and slots. These are
+        presented to the user in some cases.
+
+        </p><pre class="programlisting">(defitem simple-item
+    ((log-level :documentation "Controls the verbosity of logging. Values: 0-3")
+     c-compiler)
+  (:documentation "This is a simple example item."))</pre><p>
+
+        In this example the default value of
+        <tt class="varname">log-level</tt> is <tt class="constant">3</tt> as is
+        <tt class="varname">other-log-level</tt>'s. The difference is that
+        initform can be combined with other specifiers such as
+        documentation while no specifiers are allowed with the short
+        form.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2428204"></a>Default Values</h2></div></div><div></div></div><p>
+        It is possible to give default values (lisp: initform) for
+        slots:
+
+        </p><pre class="programlisting">(defitem simple-item
+    ((log-level 3)
+     (other-log-level :default 3)
+     c-compiler))</pre><p>
+
+        In this example the default value of
+        <tt class="varname">log-level</tt> is <tt class="constant">3</tt> as is
+        <tt class="varname">other-log-level</tt>'s.
+
+        Using :initform is also supported for backward compatibilty.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2428237"></a>Parameterizing Behaviour</h2></div></div><div></div></div><p>
+        Basically, this is all there is to defining an item. However,
+        for convenience, it is possible to parameterize some aspects
+        of an item's behaviour directly form the item definition.
+
+        </p><pre class="programlisting">(defitem simple-item
+    ((log-level 3)
+     c-compiler)
+  (:config-files "Makefile" "config.cfg")
+  (:rules ()
+          (integerp log-level))
+  (:transient c-compiler))</pre><p>
+
+        See section <a href="#configure" title="Chapter 6. Activating the Configuration">activating
+        configuration</a> and <a href="#templates" title="Template Processing">processing
+        templates</a> for discussion of
+        <tt class="constant">:config-files</tt>, <a href="#validate" title="Chapter 7. Validating the Configuration">validation</a> for
+        <tt class="constant">:rules</tt>, and <a href="#save" title="Chapter 4. Saving the Configuration">saving
+        items</a> for <tt class="constant">:transient</tt>.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2428301"></a>Supporting Code</h2></div></div><div></div></div><p>
+        The <tt class="function">defitem</tt> is not the only thing that
+        can occur in the item definition file. This file is loaded as
+        Common Lisp code and consequently it can contain macros,
+        variables, function definitions, etc. See <a href="#template-example-translate-with-helper-function" title="Example: Translating Template with Helper Function">this
+        example</a>.
+      </p><p>
+        It is possible to access functions in a different item
+        definition with the <tt class="function">tell-item</tt> macro:
+
+        </p><pre class="programlisting">(tell-item my-item greet "World")</pre><p>
+
+        where my-item is defined like this:
+
+        </p><pre class="programlisting">(defun greet (target)
+  (format t "Hello, ~A" target))
+
+(defitem my-item)</pre><p>
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="define-kit"></a>Defining Kits</h2></div></div><div></div></div><p>
+        Kits are specialized items. They perform everything a normal
+        item does, but they also do more: see <a href="#save" title="Chapter 4. Saving the Configuration">saving</a>, <a href="#configure-kit" title="Activating a Kit Configuration">activating a kit configuration</a>.
+      </p><p>
+        Kits are defined by the <tt class="function">defkit</tt> macro that
+        is otherwise identical to <a href="#defitem"><tt class="function">defitem</tt></a>.
+      </p><p>
+        Often, kits have no user defined slots, configuration
+        files. Such kits are defined like this:
+
+        </p><pre class="programlisting">(defkit my-kit)</pre><p>
+
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2428419"></a>Kit Items</h3></div></div><div></div></div><p>
+          Kits have a slot named <tt class="varname">items</tt> that
+          contains the kit item definitions. This slot is almost never
+          seen in or accessed explicitly from the item definition
+          file, but it is the value of this slot that is in the file
+          <tt class="filename">kit-items.lisp</tt>. This file contains
+          multiple kit item definitions.
+        </p><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2428443"></a>Defining a Kit Item</h4></div></div><div></div></div><p>
+            A kit item definition is a list of three elements:
+            </p><div class="itemizedlist"><ul type="disc"><li><p>
+                  the <span class="emphasis"><em>item symbol</em></span> to which the object
+                  representing the item's configuration shall be bound
+                </p></li><li><p>
+                  the <span class="emphasis"><em>item specification</em></span>, an
+                  object with information on how construct/fetch the
+                  item
+                </p></li><li><p>
+                  the <span class="emphasis"><em>item configuration</em></span>, a list
+                  of (slot-name value-form) lists
+                </p></li></ul></div><p>
+          </p><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="id2428496"></a>The Item Symbol</h5></div></div><div></div></div><p>
+              The item symbol is an arbitrary symbol (lisp: symbol)
+              used to refer to a kit item by name. Typically, the
+              symbol is the same as the module name.
+            </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="id2486951"></a>The Item Specification</h5></div></div><div></div></div><p>
+              The item specification defines how an item is to be
+              constructed. The only type of item specifier supported
+              at present is <tt class="varname">hoc-module</tt>. One has to
+              supply at least the name and the version of the module:
+
+              </p><pre class="programlisting">#S(hoc-module :name "my-module" :version-or-tag #v0.0.0)</pre><p>
+
+              It is possible to specify versions with tags:
+
+              </p><pre class="programlisting">#S(hoc-module :name "my-module" :version-or-tag "MAIN")</pre><p>
+
+              </p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+                  Note that the version of the item specified by a
+                  branch tag can change in time. Reproducability of
+                  kits with items specified with branch tags is not
+                  guaranteed.
+                </p></div><p>
+
+            </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="id2486995"></a>The Item Configuration</h5></div></div><div></div></div><p>
+              An item configuration is a list of
+              <tt class="computeroutput">(slot-name value-form)</tt>
+              lists. For each element in the list Coma sets the
+              item's <tt class="varname">slot-name</tt> slot to the value
+              obtained by evaluating <tt class="varname">value-form</tt>.
+              See <a href="#configure-kit" title="Activating a Kit Configuration">Activating a Kit
+              Configuration</a>.
+            </p><p>
+              When <tt class="varname">value-form</tt> is evaluated the
+              symbol <tt class="varname">self</tt> is bound to the object
+              representing the configuration of the kit in
+              question. Item symbols are also available.
+            </p><p>
+              In practice, quite often <tt class="varname">slot-name</tt> and
+              <tt class="varname">value-form</tt> are identical:
+
+              </p><pre class="programlisting">(numeric-lib
+ #S(hoc-module :name "numeric-lib-module" :version-or-tag #v0.0.0)
+ ())
+
+(complex-item
+ #S(hoc-module :name "complex-item" :version-or-tag #v0.0.0)
+ ((numeric-lib numeric-lib)))</pre><p>
+
+              In this case, for convenience,
+              <tt class="computeroutput">(numeric-lib
+              numeric-lib)</tt> can be abbreviated to
+              <tt class="computeroutput">numeric-lib</tt>:
+
+              </p><pre class="programlisting">(numeric-lib
+ #S(hoc-module :name "numeric-lib-module" :version-or-tag #v0.0.0)
+ ())
+
+(complex-item
+ #S(hoc-module :name "complex-item" :version-or-tag #v0.0.0)
+ (numeric-lib))</pre><p>
+
+            </p></div></div></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="save"></a>Chapter 4. Saving the Configuration</h2></div></div><div></div></div><p>
+      By default configuration of an item is saved to the file
+      <tt class="filename">config.lisp</tt>. It is simply a list of
+      slot-name value pairs. Kits do the same, but save some of their
+      slots to different files: <tt class="varname">items</tt> to
+      <tt class="filename">kit-items.lisp</tt> and
+      <tt class="varname">item-instance-map</tt> to
+      <tt class="filename">map.lisp</tt>. The latter is not yet part
+      of the public interface of Coma.
+    </p><p>
+      We might find ourselves in a similar situation when some of the
+      slots are to be saved in a different manner or not saved at
+      all. In this case we should declare these slots transient in the
+      <a href="#define" title="Chapter 3. Defining an Item">item definition</a>:
+
+      </p><pre class="programlisting">(:transient "slot1" "another-slot")</pre><p>
+
+      Item <tt class="varname">3rd-party-lib</tt> has a slot with a default value
+
+      </p><pre class="programlisting">(defitem 3rd-party-lib
+    ((vendor-version #v1.0.0)))</pre><p>
+
+      that is not be set and it should not be saved either because we
+      expect to change its value by changing the default value and the
+      saved value would override it.
+
+      </p><pre class="programlisting">(defitem 3rd-party-lib
+    ((vendor-version #v1.0.0))
+  (:transient vendor-version))</pre><p>
+
+    </p><p>
+      When the modification is done from the command line by either
+      <span><b class="command">set-slot</b></span> or <span><b class="command">configure</b></span>ing a
+      kit, the effected items are saved automatically.
+    </p></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="slots"></a>Chapter 5. Slots</h2></div></div><div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#standard-slots">Standard Slots</a></span></dt><dt><span class="section"><a href="#id2487410">Accessing Slots from Code</a></span></dt><dt><span class="section"><a href="#id2487486">Setting Slots from the Command Line</a></span></dt></dl></div><p>
+      Slots of an item hold values. These values together make up
+      configuration of the item. Reading values from slots is a common
+      need that arises in <a href="#validate" title="Chapter 7. Validating the Configuration">rules</a>, <a href="#templates" title="Template Processing">templates</a> and supporting code.
+    </p><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="standard-slots"></a>Standard Slots</h2></div></div><div></div></div><p>
+        Items have predefined slots. Standard item slots are available
+        in all items. <span class="acronym">HOC</span> item slots are available in items which are
+        <span class="acronym">HOC</span> modules and kit slots are only available in kits.
+      </p><div class="itemizedlist"><p class="title"><b>Standard item slots</b></p><ul type="disc"><li><p><a name="name-slot"></a>
+            <tt class="varname">name</tt> (transient, read-only) is the name
+            of the item as a string (usually all uppercase,
+            "SIMPLE-ITEM" in the example)
+          </p></li><li><p><a name="path-slot"></a>
+            <tt class="varname">path</tt> (transient, read-only) is an
+            absolute path to the root directory of the item.
+          </p></li><li><p><a name="config-path-slot"></a>
+            <tt class="varname">config-path</tt> (transient, read-write) is
+            name of the file where the configuration is stored. If it
+            is relative it is relative to the root of the item
+            (<tt class="varname">path</tt>). The default value is
+            "cm/config.lisp".
+          </p></li></ul></div><div class="itemizedlist"><p class="title"><b><span class="acronym">HOC</span> item slots</b></p><ul type="disc"><li><p><a name="version-slot"></a>
+            <tt class="varname">version</tt> (transient, read-only) is the
+            <span class="acronym">HOC</span> module version.
+          </p></li></ul></div><div class="itemizedlist"><p class="title"><b>Kit slots</b></p><ul type="disc"><li><p>
+            <tt class="varname">items</tt> (transient, read-only) contains a
+            list of kit item definitions.
+          </p></li><li><p>
+            <tt class="varname">items-path</tt> (transient, read-only) is
+            the name of the file where the <tt class="varname">items</tt>
+            slot is stored. If it is relative it is relative to the
+            root of the item (<tt class="varname">path</tt>). The default
+            value is "cm/kit-items.lisp".
+          </p></li><li><p>
+            <tt class="varname">item-instance-map</tt> (transient,
+            read-only) is a hash table of kit item symbol item
+            instance mapping.  contains a list of kit item
+            definitions. Not intended for public consumption.
+          </p></li><li><p>
+            <tt class="varname">item-instance-map-path</tt> (transient,
+            read-only) is the name of the file where the
+            <tt class="varname">item-instance-map</tt> slot is stored. If it
+            is relative it is relative to the root of the item
+            (<tt class="varname">path</tt>). The default value is
+            "cm/map.lisp".
+          </p></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2487410"></a>Accessing Slots from Code</h2></div></div><div></div></div><p>
+        With the <tt class="function">-&gt;</tt> macro slots of an item can be
+        accessed. Suppose <tt class="varname">self</tt> is an item that has
+        a slot named <tt class="varname">log-level</tt>. To get the value of
+        this slot one writes:
+
+        </p><pre class="programlisting">(-&gt; self log-level)</pre><p>
+
+        And to set the value:
+
+        </p><pre class="programlisting">(setf (-&gt; self log-level) 3)</pre><p>
+
+        Which is the ordinary lisp idiom for setting a value.
+
+        </p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+            It is worth noting that setting a slot this way does not
+            automatically <a href="#save" title="Chapter 4. Saving the Configuration">save</a> the item.
+          </p></div><p>
+
+        Nested calls to <tt class="function">-&gt;</tt> can simply be chained:
+
+        </p><pre class="programlisting">(-&gt; (-&gt; self slot1) slot2)</pre><p>
+
+        is equivalent to:
+
+        </p><pre class="programlisting">(-&gt; self slot1 slot2)</pre><p>
+
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2487486"></a>Setting Slots from the Command Line</h2></div></div><div></div></div><p>
+        Frequently, it is the kits that set the configuration of
+        items, but sometimes one finds the need either to configure an
+        item without a kit or to set a slot of an item in a kit
+        explicitly.
+      </p><p>
+        See the <a href="#command-line" title="Appendix B. Command Line Reference">command line
+        reference</a>.
+      </p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="configure"></a>Chapter 6. Activating the Configuration</h2></div></div><div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#templates">Template Processing</a></span></dt><dd><dl><dt><span class="section"><a href="#id2487555">Defining Template Files</a></span></dt><dt><span class="section"><a href="#id2487595">Variant Sections</a></span></dt><dt><span class="section"><a href="#t-p-env">Environment</a></span></dt><dt><span class="section"><a href="#id2487674">Template Processing Algorithm</a></span></dt><dt><span class="section"><a href="#id2487726">Template Processing Examples</a></span></dt></dl></dd><dt><span class="section"><a href="#configure-kit">Activating a Kit Configuration</a></span></dt><dd><dl><dt><span class="section"><a href="#id2487904">HOC Modules</a></span></dt></dl></dd></dl></div><p>
+      The command <span><b class="command">coma.sh configure</b></span> activates
+      the configuration. The default behaviour for an item is to
+      process its template files. In addition, a kit also fetches its
+      items, configures them (by setting some of their slots) and
+      finally activates their configurations.
+    </p><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="templates"></a>Template Processing</h2></div></div><div></div></div><p>
+        With the template processing mechanism one can generate files
+        with contents that depend on the configuration. A template
+        file usually contains the skeleton of a makefile or property
+        file plus special markup for parts that vary, called variant
+        sections.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2487555"></a>Defining Template Files</h3></div></div><div></div></div><p>
+          In the <tt class="constant">:config-files</tt> section of the
+          item definition we list all files that should be produced by
+          processing their corresponding template files. The name of
+          the template file is the name of the output file with
+          <tt class="filename">".coma"</tt> appended to it.
+        </p><p>
+          An item definition can have zero or more
+          <tt class="constant">:config-files</tt> sections. Each section
+          contains zero or more filenames:
+
+          </p><pre class="programlisting">(:config-files "file1" "another.txt")</pre><p>
+        </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2487595"></a>Variant Sections</h3></div></div><div></div></div><p>
+          A variant section is a string of characters in a template
+          file between two @ chars. When it is processed the Common
+          Lisp code in the variant section is evaluated and its value
+          inserted (printed by the princ function to be precise) at
+          the point of the variant section. Also, everything printed
+          to the stream <tt class="varname">coma-stream</tt> goes to the
+          output file. When the @ character itself is to be written to
+          the output, then it needs be escaped by doubling it.
+        </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="t-p-env"></a>Environment</h3></div></div><div></div></div><p>
+          Template files are processed with the current directory set
+          to the root of the item.
+        </p><p>
+          In variant sections the following things are available:
+          </p><div class="itemizedlist"><ul type="disc"><li><p>
+                every slot of the item is directly available by its name.
+              </p></li><li><p>
+                the variable SELF is bound to the object that represents
+                the configuration of the item
+              </p></li><li><p>
+                everything defined in the item definition file including
+                functions, variables, constants
+              </p></li><li><p>
+                everything defined by ANSI specification of Common Lisp
+              </p></li></ul></div><p>
+        </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2487674"></a>Template Processing Algorithm</h3></div></div><div></div></div><p>
+          The template file is read one character at a time. If it is
+          not a @, then it is written to the output file. If it is a
+          @, then the file as read until another @. If there were no
+          characters between the @'s (double @), then a single @ is
+          written to the output stream. Otherwise the enclosed string
+          is taken as a lisp form and is evaluated in the given
+          environment. Any output to <tt class="varname">coma-stream</tt>
+          during the evaluation of the form is written at once to the
+          output file and the value of the form is finally printed (by
+          the princ function) to it.
+        </p><p>
+          This algorithm continues until the end of the template file
+          or until an error is encountered.
+        </p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+            Note that the output file is not written if an error
+            occurs or it already exists and has identical content to
+            the one just generated. When this is not desirable, the
+            output file must be removed or the template should
+            generate different output each time it is run, for example
+            by inserting the time at the time of processing into the output:
+
+            </p><pre class="programlisting"># Ensure this file gets written every time
+# the template is processed by inserting the time in
+# seconds here: @(get-universal-time)@</pre><p>
+
+          </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2487726"></a>Template Processing Examples</h3></div></div><div></div></div><p>
+          There is nothing like a few examples to clear things up.
+        </p><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2487736"></a>Example: Constant Template</h4></div></div><div></div></div><p>
+            Consider this example:
+
+            </p><pre class="programlisting">The loglevel is @(+ 1 2)@ and debug is@" not"@ enabled.
+my-email@@address.com</pre><p>
+
+            When this template file is processed the lisp expression
+            (+ 1 2) is evaluated and the result (the number 3) is
+            printed to the result file. The same happens with the
+            string " not", it is printed without the quotes. Also,
+            notice the escaped @ in the email address. The output
+            looks like this:
+
+            </p><pre class="programlisting">The loglevel is 3 and debug is not enabled.
+my-email@address.com</pre><p>
+
+          </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2487768"></a>Example: Dynamic Template</h4></div></div><div></div></div><p>
+            The template in the previous example is not overly useful,
+            since it only inserts a few constants into the file. Most
+            template files use the values in the configuration of the
+            item. Consider this item:
+
+            </p><pre class="programlisting">(defitem my-item
+    (log-level
+     debug
+     printer)
+  (:config-files "static.cfg"))</pre><p>
+
+            MY-ITEM has three slots and a config file whose template
+            looks like this:
+
+            </p><pre class="programlisting">log_level=@log-level@
+debug_enabled=@debug@
+use_printer=@printer@</pre><p>
+
+            This template file uses the values of slots in the item
+            definition to generate an output like this (depending on
+            the actual values, naturally):
+
+            </p><pre class="programlisting">log_level=3
+debug_enabled=NIL
+use_printer=T</pre><p>
+          </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2487808"></a>Example: Translating Template</h4></div></div><div></div></div><p>
+            The log_level is OK, but it is unlikely that our program
+            that reads this file will be happy with this output. It
+            may want "true" and "false" instead of T and
+            NIL. Fortunately, this is easy to do:
+
+            </p><pre class="programlisting">log_level=@log-level@
+debug_enabled=@(if debug "true" "false")@
+use_printer=@(if printer "true" "false")@</pre><p>
+          </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="template-example-translate-with-helper-function"></a>Example: Translating Template with Helper Function</h4></div></div><div></div></div><p>
+            Now, we have a simple file, but that little conversion
+            code occurs twice. This, too, can be solved easily. Let's
+            define a function next to the definition:
+
+            </p><pre class="programlisting">(defun -&gt;bool (v)
+  "Convert the boolean value V to a string."
+  (if v
+     "true"
+     "false"))</pre><p>
+
+            and modify the the template file:
+
+            </p><pre class="programlisting">log_level=@log-level@
+debug_enabled=@(-&gt;bool debug)@
+use_printer=@(-&gt;bool printer)@</pre><p>
+
+          </p></div></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="configure-kit"></a>Activating a Kit Configuration</h2></div></div><div></div></div><p>
+        Kits process the contents item definitions found in the <a href="#kit-items.lisp"><tt class="filename">kit-items.lisp</tt></a>
+        file. The abstract algorithm is the following.
+      </p><p>
+        For each item definition Coma fetches the item according to
+        the item specification. If it has already been fetched it may
+        be updated. Then objects representing the item configurations
+        are constructed and bound to the appropriate item
+        symbols. Finally, item configurations are set.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2487904"></a><span class="acronym">HOC</span> Modules</h3></div></div><div></div></div><p>
+          Let's examine the treatment of <span class="acronym">HOC</span> modules in detail.
+        </p><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2487919"></a>Syncing Kit -&gt; Items</h4></div></div><div></div></div><p>
+            If the kit item is a <span class="acronym">HOC</span> module, then the kit checks it
+            out. If it is already checked out it is updated to the
+            version in the item specification. So, activating the
+            configuration of a kit synchronizes the items with the kit
+            according to the contents of the
+            <tt class="filename">kit-items.lisp</tt> file.
+          </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2487945"></a>Syncing Items -&gt; Kit</h4></div></div><div></div></div><p>
+            Coma tries its best to keep the versions in item
+            specifications and actual module versions in sync. To this
+            end it registers a <span class="acronym">HOC</span> extension at each <span class="acronym">HOC</span> module in the
+            kit that allows it to be notified of version changes and
+            update the item specification accordingly.
+          </p><p>
+            If the item specification names a branch instead of a
+            version, then Coma only changes the it if the module
+            switches to another branch. Even then, it only uses the
+            new branch name in the specification.
+          </p></div></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="validate"></a>Chapter 7. Validating the Configuration</h2></div></div><div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#id2488026">Failure</a></span></dt><dt><span class="section"><a href="#id2488046">Rule sets</a></span></dt><dd><dl><dt><span class="section"><a href="#id2488141">Rule Set Names</a></span></dt><dt><span class="section"><a href="#id2488159">Coding Rules</a></span></dt><dt><span class="section"><a href="#id2488192">Helpers</a></span></dt></dl></dd><dt><span class="section"><a href="#id2488276">Validating Kits</a></span></dt></dl></div><p>
+      Slots can hold arbitrary values, but typically not all values
+      are valid for the item. One slot may only take a boolean value,
+      another a string. It may be that the a slot should be a string
+      or a boolean depending on the value of another slot.
+    </p><p>
+      It is useful to define these rules explicitly, so that
+      configurations can be validated automatically. To define rules
+      one has to add a :RULES section to the item definition:
+
+      </p><pre class="programlisting">(defitem simple-item
+    (log-level
+     c-compiler)
+  (:rules ()
+          (integerp log-level)
+          (stringp c-compiler))
+  (:config-files "Makefile"))</pre><p>
+
+      This defines two rules: one that says log-level should be an
+      integer, and one that says c-compiler should be a string.
+    </p><p>
+      When the command <span><b class="command">coma.sh validate</b></span> is
+      issued, these two rules evaluated. If all rules return true
+      (lisp: T), then the configuration is deemed valid.
+    </p><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2488026"></a>Failure</h2></div></div><div></div></div><p>
+        A rule is said to have failed if it returns false (lisp:
+        NIL). It is said to have failed with an error if evaluation of
+        the rule has not finished normally, possibly due to an error
+        condition.
+      </p><p>
+        Failed rules are listed by Coma and the error if any is
+        printed.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2488046"></a>Rule sets</h2></div></div><div></div></div><p>
+        Sometimes it is desirable to test whether the configuration is
+        suitable to perform a certain operation, such as compilation,
+        running or testing. To this end rules can be associated with
+        rule sets.
+
+      </p><pre class="programlisting">(defitem simple-item
+    (log-level
+     c-compiler)
+  (:rules (:run)
+          (integerp log-level))
+  (:rules (:build)
+          (stringp c-compiler))
+  (:config-files "Makefile"))</pre><p>
+
+        In this example the rule (integerp log-level) is associated
+        with the rule set <tt class="constant">:run</tt>, while
+        <tt class="computeroutput">(stringp c-compiler)</tt> is
+        associated with the rule set <tt class="constant">:build</tt>.
+      </p><p>
+        To test whether the configuration is OK for building the item,
+        we issue the <span><b class="command">coma.sh validate :build</b></span>
+        command. This runs only the rules associated with the rule set
+        <tt class="constant">:build</tt>.
+      </p><p>
+        We might have rules that should be included in many/all rule
+        sets.
+
+      </p><pre class="programlisting">(defitem simple-item
+    (debug
+     log-level
+     c-compiler)
+  (:rules (:run :build)
+          (member debug '(t nil)))
+  (:rules (:run)
+          (integerp log-level))
+  (:rules (:build)
+          (stringp c-compiler))
+  (:config-files "Makefile"))</pre><p>
+
+        The rule <tt class="computeroutput">(member debug '(t
+        nil))</tt> says that <tt class="varname">DEBUG</tt> is
+        either <tt class="constant">T</tt> or
+        <tt class="constant">NIL</tt>. Furthermore, this rule is in both
+        the <tt class="constant">:run</tt> and <tt class="constant">:build</tt>
+        rule sets and is evaluated accordingly.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2488141"></a>Rule Set Names</h3></div></div><div></div></div><p>
+          Rule set names can be arbitrary objects, the only
+          restriction is that they can be tested for equality (lisp:
+          equal).
+        </p><p>
+          As a matter of style, though, it is strongly encouraged to
+          use keyword symbols (lisp: keywords) to name rule sets.
+        </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2488159"></a>Coding Rules</h3></div></div><div></div></div><p>
+          Rules can be arbitrary lisp forms. They can use everything
+          in Common Lisp in addition to what's defined in the item
+          definition file.
+
+      </p><pre class="programlisting">(defun boolean? (v)
+  (member v '(t nil)))
+
+(defitem simple-item
+    (debug)
+  (:rules ()
+          (boolean? debug)))</pre><p>
+        </p><p>
+          That's how the <tt class="function">boolean?</tt> predicate could
+          be defined, if it wasn't defined for us already. As a matter
+          of fact it is one of the few predefined helper
+          functions/macros.
+        </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2488192"></a>Helpers</h3></div></div><div></div></div><p>
+          The function <tt class="function">boolean?</tt> tests if its one
+          argument is either T or NIL:
+          
+          </p><pre class="programlisting">(boolean? t) =&gt; t
+(boolean? nil) =&gt; t
+(boolean? 1) =&gt; nil</pre><p>
+        </p><p>
+          The function <tt class="function">compatible-item?</tt> tests if
+          an object is an item of with a given name and performs
+          version compatibility checking.
+
+          </p><pre class="programlisting">(defitem complex-item
+    (simple-item
+     other-item)
+  (:rules ()
+          ;; the value of simple-item should be a version of
+          ;; item "simple-item" compatible with #v1.2.3
+          (compatible-item? simple-item "simple-item" #v1.2.3)
+          ;; same rule in a different form
+          (compatible? simple-item #v1.2.3)
+          ;; other-item should be compatible with #v2.3.4 on the
+          ;; patch level
+          (compatible-item? other-item "item-name" #v2.3.4 :patch)))</pre><p>
+
+          The fourth, optional parameter is one of
+          <tt class="constant">:major</tt>, <tt class="constant">:minor</tt>
+          (default) and <tt class="constant">:patch</tt>, it controls the
+          compatibility checking.
+        </p><p>
+          The convenience macro <tt class="function">compatible?</tt> is
+          very similar to <tt class="function">compatible-item?</tt>. It
+          assumes that the name of the item is the same as the name of
+          the symbol given as its firts argument.
+        </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2488276"></a>Validating Kits</h2></div></div><div></div></div><p>
+        When a kit is validated it also validates all items in the kit
+        (with the given rule sets).
+      </p></div></div><div class="appendix" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="howto"></a>Appendix A. HOWTO</h2></div></div><div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#id2488301">How to Create an Item?</a></span></dt><dt><span class="section"><a href="#id2488585">How to Create a Kit?</a></span></dt><dt><span class="section"><a href="#id2488699">How to Parameterize Configuration of Kit Items?</a></span></dt><dt><span class="section"><a href="#id2488787">How to customize file locations like config-path?</a></span></dt></dl></div><p>
+    </p><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2488301"></a>How to Create an Item?</h2></div></div><div></div></div><p>
+        First, we create an item that is a <span class="acronym">HOC</span> module called
+        empty-lib. Suppose this module already exists, but does not
+        use Coma, yet. If it doesn't exists it can be created by the
+        <span><b class="command">hoc create</b></span> command.
+      </p><p>
+        So, the module is checked out in directory <tt class="filename">empty-lib</tt> and contains three
+        files: <tt class="filename">Makefile</tt>:
+
+        </p><pre class="programlisting">all:
+        @gcc -DNO_DEBUG src/empty-lib.c</pre><p>
+
+        <tt class="filename">src/config.h</tt>:
+
+        </p><pre class="programlisting">#define LOG_LEVEL 0</pre><p>
+
+        and <tt class="filename">src/empty-lib.c</tt> that includes
+        <tt class="filename">config.h</tt>.
+      </p><p>
+        Let's create a directory <tt class="filename">cm</tt> under it, and <a href="#install" title="Chapter 2. Installation">install</a> Coma into this directory:
+
+        </p><pre class="programlisting"><tt class="prompt">$</tt> mkdir cm/
+<tt class="prompt">$</tt> path-to-coma/coma.sh install empty-lib/cm/</pre><p>
+
+        If all goes well, we got a message that a number of files were
+        generated for us. Add these files to the module
+
+        </p><pre class="programlisting">hoc add cm/coma.sh cm/coma.lisp cm/.coma-sources.bundle</pre><p>
+
+        and see if it works:
+
+        </p><pre class="programlisting">cm/coma.sh help</pre><p>
+
+        It should only list a few generic commands, because we haven't
+        provided an item definition, yet. So, create a file name
+        <tt class="filename">cm/item.lisp</tt> with the following contents:
+
+        </p><pre class="programlisting">(defitem empty-lib
+    ((debug nil)
+     (log-level 0)
+     (c-compiler "cc"))
+    (:rules (:build)
+            (boolean? debug)
+            (integerp log-level)
+            (&lt;= 0 log-level 3)
+            (stringp c-compiler))
+    (:config-files "Makefile" "src/config.h"))</pre><p>
+
+        We have <a href="#define" title="Chapter 3. Defining an Item">defined</a> empty-lib to
+        have three slots: <tt class="varname">debug</tt>,
+        <tt class="varname">log-level</tt> and <tt class="varname">c-compiler</tt>
+        all with suitable default values and <a href="#validate" title="Chapter 7. Validating the Configuration">rules</a> to check for their
+        correctness. Futhermore, we have declared that
+        <tt class="filename">Makefile</tt> and
+        <tt class="filename">src/config.h</tt> should be generated by
+        Coma. We have to create template files for them. The easiest
+        way to start is renaming them:
+
+        </p><pre class="programlisting"><tt class="prompt">$</tt> hoc mv Makefile Makefile.coma
+<tt class="prompt">$</tt> hoc mv src/config.h src/config.h/coma</pre><p>
+
+        Now, edit <tt class="filename">Makefile.coma</tt> to take slot
+        values from the configuration:
+
+        </p><pre class="programlisting">all:
+        @@@c-compiler@ @(if debug "" "-DNO_DEBUG")@ src/empty-lib.c</pre><p>
+
+        Note that the starting @ was escaped by doubling it. Also edit
+        <tt class="filename">src/config.h.coma</tt>:
+
+        </p><pre class="programlisting">#define LOG_LEVEL @log-level@</pre><p>
+
+      </p><p>
+        We are ready to roll. Set slot values by issuing
+        <span><b class="command">coma.sh set-slot log-level 3 c-compiler
+        \"gcc\"</b></span> and activate the configuration with
+        <span><b class="command">coma.sh</b></span>. This processes the template
+        files and generates <tt class="filename">Makefile</tt> and
+        <tt class="filename">src/config.h</tt>.
+      </p><p>
+        To validate the configuration type <span><b class="command">coma.sh
+        validate</b></span>, then set <tt class="varname">log-level</tt> to
+        <tt class="constant">4</tt> and validate it again.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2488585"></a>How to Create a Kit?</h2></div></div><div></div></div><p>
+        Creating a kit is very similar, the only notable difference is
+        in the item definition (<tt class="filename">item.lisp</tt>): kits
+        are defined by <tt class="function">defkit</tt> instead of
+        <tt class="function">defitem</tt>.
+
+        </p><pre class="programlisting">(defkit test-kit)</pre><p>
+
+        In most cases it is enough, but kits can also have user
+        defined slots, rules, config files. In fact
+        <tt class="function">defkit</tt> has much the same parameters as
+        <tt class="function">defitem</tt>, all of which are omitted here.
+      </p><p>
+        There is one more thing. We need to create
+        <tt class="filename">kit-items.lisp</tt> that lists the items this
+        kit is made of.
+
+        </p><pre class="programlisting">(empty-lib
+ #S(hoc-module :name "empty-lib" :version-or-tag #v2.0.0)
+ ((debug t)
+  (log-level 3)
+  (c-compiler "gcc")))
+
+(other-item
+ #S(hoc-module :name "other-item" :version-or-tag #v5.0.0)
+ ((lib empty-lib)))</pre><p>
+
+          This means that version #v2.0.0 of hoc module
+          <tt class="varname">empty-lib</tt> is part of this kit and can be
+          referenced as <tt class="varname">empty-lib</tt>. We also say that
+          <tt class="varname">debug</tt> and <tt class="varname">emacs</tt> slots
+          are to be set to <tt class="constant">t</tt> and
+          <tt class="varname">c-compiler</tt> to <tt class="constant">"gcc"</tt>.
+      </p><p>
+        Another hoc module "other-item" is specified whose
+        <tt class="varname">lib</tt> slot is to be set to
+        <tt class="varname">empty-lib</tt>.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2488699"></a>How to Parameterize Configuration of Kit Items?</h2></div></div><div></div></div><p>
+        There can be kits that consist of the same items but their
+        item configurations are not identical. These kits can be
+        unified by adding new kit level parameters.
+      </p><p>
+        Take two kits that both use <tt class="varname">empty-lib</tt>. One
+        kit defines the product shipped to testers with debug enabled:
+
+        </p><pre class="programlisting">(empty-lib
+ #S(hoc-module :name "empty-lib" :version-or-tag #v2.0.0)
+ ((debug t)
+  (log-level 3)
+  (c-compiler "gcc")))</pre><p>
+
+        and the other is the final product shipped with debug turned off:
+
+        </p><pre class="programlisting">(empty-lib
+ #S(hoc-module :name "empty-lib" :version-or-tag #v2.0.0)
+ ((debug nil)
+  (log-level 0)
+  (c-compiler "gcc")))</pre><p>
+
+        These two kits always have the same items (with the same
+        versions), but configure them a bit differently.
+      </p><p>
+        Let's introduce a new slot name <tt class="varname">final?</tt> to
+        the kit:
+
+        </p><pre class="programlisting">(defkit test-kit
+    ((final? nil)))</pre><p>
+
+        and modify the kit item definitions to use its value:
+
+        </p><pre class="programlisting">(empty-lib
+ #S(hoc-module :name "empty-lib" :version-or-tag #v2.0.0)
+ ((debug (not (-&gt; self final?)))
+  (log-level (if (-&gt; self final?) 0 3))
+  (c-compiler "gcc")))</pre><p>
+
+        When building the final release the slot
+        <tt class="varname">final?</tt> is set to <tt class="constant">t</tt>
+        (<span><b class="command">coma.sh set-slot 'final?' t</b></span>) and the kit is
+        reconfigured (<span><b class="command">coma.sh</b></span>).
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2488787"></a>How to customize file locations like config-path?</h2></div></div><div></div></div><p>
+        No, set-slot doesn't work because it is transient. It
+        <span class="emphasis"><em>must</em></span> be transient since reading its value
+        from the file it denotes would be circular. So, how can it be
+        customized? By providing a default value for it in the item
+        definition.
+        </p><pre class="programlisting">(defitem item-with-customized-config-path
+    ((config-path "cm/.config.db")
+     (debug nil)
+     (log-level 0)
+     (c-compiler "cc")))</pre><p>
+      </p></div></div><div class="appendix" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="command-line"></a>Appendix B. Command Line Reference</h2></div></div><div></div></div><p>
+      See <span><b class="command">coma.sh help</b></span> and <span><b class="command">coma.sh help
+      help</b></span> for details.
+    </p></div><div class="appendix" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="files"></a>Appendix C. Files</h2></div></div><div></div></div><p>
+      In this appendix the most notable files and their purpose are
+      described.
+      </p><div class="itemizedlist"><ul type="disc"><li><p><a name="coma-sources.bundle"></a>
+            <tt class="filename">.coma-sources.bundle</tt> - the bulk of
+            the code packaged into one file
+          </p></li><li><p><a name="coma.lisp"></a>
+            <tt class="filename">coma.lisp</tt> - loader script
+          </p></li><li><p><a name="coma.sh"></a>
+            <tt class="filename">coma.sh</tt> - a shell script to start Coma
+          </p></li><li><p><a name="config.lisp"></a>
+            <tt class="filename">config.lisp</tt> - the saved
+            configuration. Default value of the <a href="#config-path-slot">config-path</a> slot.
+          </p></li><li><p><a name="item.lisp"></a>
+            <tt class="filename">item.lisp</tt> - the item definition file.
+          </p></li><li><p><a name="kit-items.lisp"></a>
+            <tt class="filename">kit-items.lisp</tt> - kit item
+            definitions. Default value of the <a href="#config-path-slot">items-path</a> slot.
+          </p></li><li><p><a name="map.lisp"></a>
+            <tt class="filename">map.lisp</tt> - kit item symbol to
+            persistent object mapping, not public yet. Default value
+            of the <a href="#config-path-slot">item-instance-map-path</a>
+            slot.
+          </p></li></ul></div><p>
+    </p></div><div class="appendix" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="lisp"></a>Appendix D. Common Lisp</h2></div></div><div></div></div><p>
+      Coma is written in Common Lisp that also serves as its
+      extension language. Some very basic Lisp knowledge is necessary
+      for doing non-trivial template processing or writing extensions.
+    </p><p>
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+            <a href="http://www.apl.jhu.edu/~hall/Lisp-Notes/Introductory-Lisp-Overview.ps" target="_top">Quick Reference Card</a>
+          </p></li><li><p>
+            <a href="http://www.psg.com/~dlamkins/sl/" target="_top">Successful Lisp</a>
+          </p></li><li><p>
+            <a href="http://www.lispworks.com/reference/HyperSpec/Front/index.htm" target="_top">Common Lisp Hyperspec</a>
+          </p></li></ul></div><p>
+    </p></div><div class="glossary"><div class="titlepage"><div><div><h2 class="title"><a name="id2489063"></a>Glossary</h2></div></div><div></div></div><dl><dt><a name="item"></a>Item</dt><a class="indexterm" name="id2489074"></a><dd><p>
+          A bundle of stuff (code, doc, ...) that is the basic unit of
+          configuration management (version handling, dependency
+          tracking, ...). It is called configuration item in CM
+          terminology.
+        </p></dd><dt><a name="kit"></a>Kit</dt><a class="indexterm" name="id2489103"></a><dd><p>
+          A kind of item that defines a set of items that make it
+          up. It is called configuration in CM terminology.
+        </p></dd><dt><a name="slot"></a>Slot</dt><a class="indexterm" name="id2489131"></a><dd><p>
+          A parameter of an item. In OO terms, it is an attribute of
+          the object that represents the configuration of an item.
+        </p></dd></dl></div></div></body></html>

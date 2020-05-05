@@ -1,0 +1,30 @@
+The xmodmap files set up a Lisp machine like keyboard layout. The
+quick summary is that it has parens and brackets swapped, backspace on
+the capslock key and logically placed modifiers. There is nothing
+mapped onto the old backspace key to ease migration :-).
+
+There are two versions: one for pc105 with two win keys (my normal
+keyboard) and one for pc105 with one win key (my laptop keyboard).
+
+On pc105 with two win keys the modifier row looks like this:
+
+  Super_L Meta_L/Alt_L Control_L Space Control_R Meta_R/Alt_R Super_R Hyper_R
+
+On pc105 with only one win key you don't get the hyper key that's
+useful provides quick access to the hungarian layout without actually
+switching to it. Otherwise it's the same.
+
+If you are touch typing press control with the thumb of your free
+hand. In general you can always use your free hand for the modifiers
+to reduce strain.
+
+The xmodmap file cannot set the necessary repeatable flags, so use a
+simple script like this:
+
+  #!/bin/sh -x
+  xmodmap ~/.lisp-machine-pc105-us.xmodmap
+  # Backspace is repeatable.
+  xset r 66
+  # Caps_Lock is not.
+  xset -r 22
+

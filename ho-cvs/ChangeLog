@@ -1,0 +1,132 @@
+2004-08-31  Gabor Melis  <mega@hotpop.com>
+
+	* released 0.1.4
+
+	* removed EssNet specific stuff from dist
+
+	* added "-Eforeign iso-8859-1"to avoid warning from some (!) clisp
+	2.33 installs
+
+2004-08-04  Gabor Melis  <mega@hotpop.com>
+
+	* released 0.1.3
+
+	* install.sh: use install instead of cp and set executable bits
+	properly
+
+	* removed (require version) from a few files since it never
+	provides and loading it several times caused warnings
+
+	* new hoc script that circumvents kernel limit for #! lines
+
+	* released 0.1.2
+
+2004-07-21  Gabor Melis  <mega@hotpop.com>
+
+	* added dist target
+
+	* wrote small description in README
+
+	* set license to GPL in spec file
+
+	* removed unused files
+
+	* updated version.lisp from coma
+
+2004-06-07  Drucker Tamas  <tamas.drucker@essnet.se>
+
+	* DESTDIR changed, hoc.spec must have been corrected
+
+2004-06-07  Gabor Melis  <mega@hotpop.com>
+
+	* DESTDIR (install.sh) support added 
+
+2004-06-07  Drucker Tamas  <tamas.drucker@essnet.se>
+
+	* hoc.spec added: the latest CVS version from EssNet CVS is
+	checked out, built, installed, and packed.
+
+2004-05-29  Gabor Melis  <mega@hotpop.com>
+
+	* merge/remerge: fixed order of -j options (do not depend on cvs
+	log listing order)
+
+2004-03-29  Gabor Melis  <mega@hotpop.com>
+
+	* hoc-fi-editor: set commit log file modification date to allow
+	cvs to detect no modification
+
+2004-03-22  Gabor Melis  <mega@hotpop.com>
+
+	* patched ffi related stuff from debian's diff (file: ffi.patch)
+
+	* merged (mcvs-1.0.8, mcvs-1.0.13]
+
+2004-03-03  Gabor Melis  <mega@hotpop.com>
+
+	* hoc --version prints MetaCVS and HO-CVS versions
+
+	* fixed hoc log: it missed versions on the trunk if the file in
+	question did not change from 0.0.0 to 0.0.1
+
+2004-02-27  Gabor Melis  <mega@hotpop.com>
+
+	* merged version.lisp fixes from coma
+
+2004-02-25  Gabor Melis  <mega@hotpop.com>
+
+	* fixed last fix
+
+2004-02-05  Gabor Melis  <mega@hotpop.com>
+
+	* update does not restore the VERSION file if 'cvs up' fails which
+	seems to happen when there is a conflict.
+
+2004-02-04  Gabor Melis  <mega@hotpop.com>
+
+	* added default-map parameter to the add command
+
+2003-08-13  Gabor Melis  <mega@hotpop.com>
+
+	* fixed log for at least 3rd level branches
+
+2003-08-12  Gabor Melis  <mega@hotpop.com>
+
+	* hopefully fixed global update thinking it was only updating some
+	of the files
+
+2003-08-11  Gabor Melis  <mega@hotpop.com>
+
+	* common commands such as commit, update, diff and status
+	consistently do not include meta files in the operation if
+	explicit file arguments are specified and operate on the whole
+	module with no file args
+
+	* fixed status handling bug in execute-program-xargs that made
+	commit not detect cvs commit failure if not the whole module but
+	only some of the files were committed and consequently screwed up
+	the VERSION file, as always.
+
+2003-08-10  Gabor Melis  <mega@hotpop.com>
+
+	* when merging invoke cvs update with -rTHISVERSION to avoid
+	version changes of files
+
+2003-08-09  Gabor Melis  <mega@hotpop.com>
+
+	* failure of version tagging after commit is logged and no
+	subsequent commits and updates are possible until a retag-version
+
+	* Makefile changes
+
+	* test scripts for merge
+
+	* resolve conflict in version file if necessary after merge
+
+2003-08-08  Gabor Melis  <mega@hotpop.com>
+
+	* rtag the newly created branch after commiting the first version,
+	so that the first version on a branch can be referenced like others
+
+	* detect locally modified VERSION file on commit/branch and exit
+

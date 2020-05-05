@@ -1,0 +1,77 @@
+Benchmark                 Reference  SBCL   SBCL   SBCL   SBCL   SBCL
+-------------------------------------------------------------------------------------
+COMPILER                 [      1.68]   0.98   1.05   1.00   1.08   1.00
+LOAD-FASL                [      0.31]   0.96   1.01   0.99   1.05   1.00
+SUM-PERMUTATIONS         [      1.25]   0.99   1.01   1.00   1.00   0.99
+WALK-LIST/SEQ            [      0.02]   1.00   1.00   1.00   1.20   1.20
+WALK-LIST/MESS           [      0.03]   1.00   0.88   1.00   0.88   1.00
+BOYER                    [      3.86]   0.98   0.98   0.98   1.01   1.00
+BROWSE                   [      0.25]   1.06   1.05   1.03   1.02   1.00
+DDERIV                   [      0.18]   1.02   1.02   1.02   1.04   1.02
+DERIV                    [      0.27]   1.04   1.04   1.03   1.01   1.01
+DESTRUCTIVE              [      0.22]   0.93   0.94   0.93   1.02   1.00
+DIV2-TEST-1              [      0.28]   0.97   0.99   0.99   0.99   0.99
+DIV2-TEST-2              [      0.52]   1.02   1.04   1.04   1.01   1.00
+FFT                      [      0.05]   1.08   1.08   1.08   1.08   1.00
+FRPOLY/FIXNUM            [      0.35]   1.01   1.02   1.03   1.00   1.00
+FRPOLY/BIGNUM            [      0.38]   0.95   0.95   0.95   1.00   1.00
+FRPOLY/FLOAT             [      0.55]   0.92   0.92   0.93   1.06   1.06
+PUZZLE                   [      0.48]   0.95   0.95   0.95   1.00   0.99
+TAK                      [      0.35]   1.02   1.02   1.02   1.00   1.00
+CTAK                     [      0.44]   1.02   1.02   1.02   1.00   1.00
+TRTAK                    [      0.35]   1.02   1.02   1.02   1.00   1.00
+TAKL                     [      0.45]   0.92   0.92   0.93   1.01   1.00
+STAK                     [      0.87]   1.00   1.00   1.00   1.00   1.00
+FPRINT/UGLY              [      1.12]   1.16   1.16   1.16   1.01   1.00
+FPRINT/PRETTY            [      2.67]   0.94   0.94   0.94   1.02   0.99
+TRAVERSE                 [      0.98]   0.98   0.99   0.98   1.00   1.00
+TRIANGLE                 [      1.01]   0.98   0.98   0.98   1.00   1.00
+RICHARDS                 [      0.88]   0.96   0.94   0.96   1.00   0.99
+FACTORIAL                [      0.18]   1.02   1.07   1.02   1.00   1.00
+FIB                      [      0.29]   1.04   1.01   1.04   1.04   1.06
+FIB-RATIO                [      0.04]   1.00   1.00   0.91   0.91   0.91
+ACKERMANN                [      2.87]   0.94   0.91   0.94   1.00   1.00
+MANDELBROT/COMPLEX       [      0.42]   1.03   1.06   1.02   1.00   0.99
+MANDELBROT/DFLOAT        [      0.02]   1.00   1.00   1.00   1.00   0.83
+MRG32K3A                 [      0.69]   0.99   1.02   0.99   0.99   0.99
+CRC40                    [     11.40]   0.99   0.98   0.98   0.96   0.96
+BIGNUM/ELEM-100-1000     [      0.16]   1.00   1.00   1.00   1.00   1.00
+BIGNUM/ELEM-1000-100     [      0.35]   0.99   1.00   1.00   1.00   0.99
+BIGNUM/ELEM-10000-1      [      0.39]   1.01   1.01   1.01   1.00   1.01
+BIGNUM/PARI-100-10       [      0.02]   1.17   1.00   1.17   1.17   1.17
+BIGNUM/PARI-200-5        [      0.08]   1.05   1.00   1.00   1.05   1.05
+PI-DECIMAL/SMALL         [      1.04]   1.00   1.00   1.02   1.00   1.00
+PI-DECIMAL/BIG           [      0.88]   1.00   1.00   1.01   1.00   1.00
+PI-ATAN                  [      0.88]   1.01   1.02   1.02   1.00   1.00
+PI-RATIOS                [      1.63]   0.98   0.99   0.99   1.00   1.00
+HASH-STRINGS             [      0.23]   1.00   1.00   1.00   0.98   0.98
+HASH-INTEGERS            [      0.51]   0.98   0.98   1.00   1.01   1.00
+SLURP-LINES              [      0.79]   1.04   1.04   1.05   1.01   1.00
+BOEHM-GC                 [      0.86]   1.03   1.05   1.03   1.01   1.00
+DEFLATE-FILE             [      0.33]   1.02   1.16   1.13   1.01   1.00
+1D-ARRAYS                [      0.05]   1.00   1.00   1.00   1.08   1.00
+2D-ARRAYS                [      0.73]   1.01   1.03   1.01   1.01   1.01
+3D-ARRAYS                [      2.14]   1.00   1.01   1.01   1.00   1.00
+BITVECTORS               [      1.19]   0.99   1.02   1.00   1.00   1.00
+BENCH-STRINGS            [      0.65]   1.02   1.06   1.03   1.00   1.00
+fill-strings/adjustable  [      8.16]   1.02   1.03   1.02   1.01   1.00
+STRING-CONCAT            [     37.46]   0.95   0.98   0.98   0.97   0.97
+SEARCH-SEQUENCE          [      0.28]   1.04   1.00   1.00   1.00   1.00
+CLOS/defclass            [      1.09]   1.00   1.00   1.01   1.03   1.00
+CLOS/defmethod           [      4.24]   1.00   1.00   1.01   1.01   1.00
+CLOS/instantiate         [      8.06]   0.94   0.93   0.94   1.01   1.00
+CLOS/simple-instantiate  [      0.18]   1.04   1.16   1.11   1.02   1.09
+CLOS/methodcalls         [      1.10]   0.99   1.04   1.01   1.11   1.16
+CLOS/method+after        [      2.86]   0.99   0.99   1.00   1.00   1.00
+CLOS/complex-methods     [      2.17]   1.05   1.03   1.03   1.02   1.04
+EQL-SPECIALIZED-FIB      [      0.32]   0.80   0.77   0.87   1.41   0.94
+Reference time in first column is in seconds; other columns are relative
+Reference implementation: SBCL 1.0.25.57
+Impl SBCL : SBCL 1.0.25.56.align-code/3
+Impl SBCL : SBCL 1.0.25.56.align-code/2
+Impl SBCL : SBCL 1.0.25.56.align-code
+Impl SBCL : SBCL 1.0.25.57/3
+Impl SBCL : SBCL 1.0.25.57/2
+=== Test machine ===
+   Machine-type: X86
+   Machine-version: Dual-Core AMD Opteron(tm) Processor 2212
