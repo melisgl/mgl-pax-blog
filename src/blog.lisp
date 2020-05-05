@@ -2479,7 +2479,9 @@
 
 (defsection @moving-the-blog-to-pax (:title "Moving the blog to PAX")
   "2020-05-05 -- After more than five years of silence, I may be
-  resurrecting this blog. I already got as far as rewriting it using
+  resurrecting [my old
+  blog](https://web.archive.org/web/20190814015233/http://quotenil.com/).
+  I already got as far as rewriting it using
   [MGL-PAX](http://github/melisgl/mgl-pax). This is quite curious
   because PAX is a documentation generator for Common Lisp. The blog
   \"engine\" is rather bare-bones, but works admirably, especially
