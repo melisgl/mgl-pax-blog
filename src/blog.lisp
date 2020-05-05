@@ -2539,7 +2539,7 @@
               :links
               (("http://quotenil.com" "blog")
                ("mailto:mega@retes.hu" "email")
-               ("gpg key" "mega.gpg.asc")
+               ("mega.gpg.asc" "gpg key")
                ("cv/cv-eng.pdf" "cv (english)")
                ("cv/cv-hun.pdf" "cv (hungarian)")
                ("http://github.com/melisgl/" "git")))))
