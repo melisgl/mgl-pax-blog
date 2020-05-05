@@ -49,7 +49,8 @@
   (@recurrent-nets section)
   (@pax-world section)
   (@bigger-and-badder-pax-world section)
-  (@on-the-design-of-matrix-libraries section))
+  (@on-the-design-of-matrix-libraries section)
+  (@moving-the-blog-to-pax section))
 
 (defsection @category-personal0 (:title "Personal")
   (@first-post section)
@@ -64,7 +65,8 @@
   (@upgrade-woes section)
   (@upgrade-woes-2 section)
   (@offlineimap-with-encrypted-authinfo section)
-  (@hung-connections section))
+  (@hung-connections section)
+  (@moving-the-blog-to-pax section))
 
 (defsection @category-lisp0 (:title "Lisp")
   (@space-cadet section)
@@ -97,7 +99,8 @@
   (@recurrent-nets section)
   (@pax-world section)
   (@bigger-and-badder-pax-world section)
-  (@on-the-design-of-matrix-libraries section))
+  (@on-the-design-of-matrix-libraries section)
+  (@moving-the-blog-to-pax section))
 
 (defsection @category-ai0 (:title "AI")
   (@2008-computer-games-olympiad section)
@@ -2474,6 +2477,14 @@
   implementation to use would decouple facets further. Ultimately,
   this could make the entire CUDA related part of MGL-MAT an add-on.")
 
+(defsection @moving-the-blog-to-pax (:title "Moving the blog to PAX")
+  "2020-05-05 -- After more than five years of silence, I may be
+  resurrecting this blog. I already got as far as rewriting it using
+  [MGL-PAX](http://github/melisgl/mgl-pax). This is quite curious
+  because PAX is a documentation generator for Common Lisp. The blog
+  \"engine\" is rather bare-bones, but works admirably, especially
+  considering that it is less than 100 lines of code.")
+
 (defun shorten-post (section name-prefix)
   (let* ((var (intern (format nil "~A-~A-~A" name-prefix (section-name section)
                               :short)))
@@ -2567,8 +2578,5 @@
            (slot-value post 'mgl-pax::entries))))
 
 #+nil
-(generate-pages (list @blog0
-                      @category-personal0
-                      @category-tech0
-                      @category-lisp0
-                      @category-ai0))
+(generate-pages (list @blog0 @category-personal0 @category-tech0
+                      @category-lisp0 @category-ai0))
