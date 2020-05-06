@@ -2556,12 +2556,12 @@
   resurrecting [my old
   blog](https://web.archive.org/web/20190814015233/http://quotenil.com/).
   I already got as far as rewriting it using
-  [MGL-PAX](http://github/melisgl/mgl-pax), which is a curious choice
-  because PAX is a documentation generator for Common Lisp. The blog
-  \"engine\" is rather bare-bones, but works admirably, especially
-  considering that the implementation is only 72 lines of code, most
-  of which deals with post categories and overview pages with
-  shortened posts, something PAX hasn't seen the need for.")
+  [MGL-PAX](http://melisgl.github.io/mgl-pax/), which is a curious
+  choice because PAX is a documentation generator for Common Lisp. The
+  blog \"engine\" is rather bare-bones, but works admirably,
+  especially considering that the implementation is only 72 lines of
+  code, most of which deals with post categories and overview pages
+  with shortened posts, something PAX hasn't seen the need for.")
 
 
 #+nil
