@@ -2574,4 +2574,11 @@
                     ("mega.gpg.asc" "gpg key")
                     ("cv/cv-eng.pdf" "cv (english)")
                     ("cv/cv-hun.pdf" "cv (hungarian)")
-                    ("http://github.com/melisgl/" "git")))))
+                    ("http://github.com/melisgl/" "git")))
+                  (:title "categories"
+                   :links
+                   (("http://quotenil.com/blog.html" "all")
+                    ("http://quotenil.com/category-personal.html" "personal")
+                    ("http://quotenil.com/category-tech.html" "tech")
+                    ("http://quotenil.com/category-lisp.html" "lisp")
+                    ("http://quotenil.com/category-ai.html" "ai")))))
