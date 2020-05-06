@@ -2552,7 +2552,7 @@
   this could make the entire CUDA related part of MGL-MAT an add-on.")
 
 (defsection @moving-the-blog-to-pax (:title "Moving the blog to PAX")
-  "2020-05-05 -- After more than five years of silence, I may be
+  "_2020-05-05_ -- After more than five years of silence, I may be
   resurrecting [my old
   blog](https://web.archive.org/web/20190814015233/http://quotenil.com/).
   I already got as far as rewriting it using
