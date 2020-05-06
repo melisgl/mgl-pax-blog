@@ -8,6 +8,80 @@
 
 (in-readtable pythonic-string-syntax)
 
+(defun shorten-post (section name-prefix)
+  (let* ((name (section-name section))
+         (var (intern (format nil "~A-~A-~A" name-prefix name :short)))
+         (footer (format nil "... read the rest of [~A][~A]." name :section))
+         (entries (if (< 2 (length (section-entries section)))
+                      (append (subseq (section-entries section) 0 2)
+                              (list footer))
+                      (section-entries section))))
+    (make-section-with-new-entries
+     section var entries :link-title-to (canonical-reference section))))
+
+(defun make-category-overview (section)
+  (let* ((var (non-template-category-name section))
+         (entries (mapcar (lambda (entry)
+                            (canonical-reference
+                             (shorten-post (resolve entry) (symbol-name var))))
+                          (section-entries section))))
+    (make-section-with-new-entries section var (reverse entries))))
+
+(defun make-section-with-new-entries (section var entries &key link-title-to)
+  (set var (make-instance
+            'section :name var :package (section-package section)
+            :readtable (section-readtable section)
+            :title (section-title section) :entries entries
+            :link-title-to link-title-to)))
+
+(defun non-template-category-name (category-section)
+  (let ((name (section-name category-section)))
+    (intern (subseq (symbol-name name) 0 (1- (length (symbol-name name)))))))
+
+(defun generate-pages (category-sections top-blocks-of-links)
+  (update-tags category-sections)
+  (let* ((*document-max-numbering-level* 0)
+         (*document-max-table-of-contents-level* 0)
+         (*document-html-max-navigation-table-of-contents-level* 0)
+         ;; No "in package" output, please.
+         (*document-normalize-packages* nil)
+         (*package* (find-package :mgl-pax-blog))
+         (*document-html-top-blocks-of-links* top-blocks-of-links)
+         (overviews (mapcar #'make-category-overview category-sections))
+         (posts (delete-duplicates
+                 (mapcan (lambda (category-section)
+                           (mapcar #'resolve
+                                   (section-entries category-section)))
+                         category-sections))))
+    (update-asdf-system-html-docs
+     (append overviews posts) :mgl-pax-blog
+     ;; Every overview and post is on its own page.
+     :pages (mapcar (lambda (section) `(:objects (,section)))
+                    (append overviews posts)))))
+
+(defun update-tags (categories)
+  (let ((post-to-catories (make-hash-table)))
+    (dolist (category categories)
+      (dolist (entry (section-entries category))
+        (when (typep entry 'reference)
+          (let ((post (resolve entry)))
+            (push category (gethash post post-to-catories))))))
+    (maphash (lambda (post categories)
+               (update-post-tags post categories))
+             post-to-catories)))
+
+(defun update-post-tags (post categories)
+  (flet ((post-has-tags-p ()
+           (let ((entries (section-entries post)))
+             (and entries (stringp (first entries))
+                  (alexandria:starts-with-subseq "_Tags_: " (first entries))))))
+    (when (post-has-tags-p)
+      (pop (slot-value post 'mgl-pax::entries)))
+    (push  (format nil "_Tags_: ~{~A~^, ~}~%"
+                   (mapcar #'non-template-category-name categories))
+           (slot-value post 'mgl-pax::entries))))
+
+
 (defsection @blog0 (:title "Blog")
   (@first-post section)
   (@important-remainder section)
@@ -2482,103 +2556,22 @@
   resurrecting [my old
   blog](https://web.archive.org/web/20190814015233/http://quotenil.com/).
   I already got as far as rewriting it using
-  [MGL-PAX](http://github/melisgl/mgl-pax). This is quite curious
+  [MGL-PAX](http://github/melisgl/mgl-pax), which is a curious choice
   because PAX is a documentation generator for Common Lisp. The blog
   \"engine\" is rather bare-bones, but works admirably, especially
-  considering that it is less than 100 lines of code.")
-
-(defun shorten-post (section name-prefix)
-  (let* ((var (intern (format nil "~A-~A-~A" name-prefix (section-name section)
-                              :short)))
-         (footer (format nil "... read the rest of [~A][~A]."
-                         (section-name section) :section))
-         (entries (if (< 2 (length (section-entries section)))
-                      (append (subseq (section-entries section) 0 2)
-                              (list footer))
-                      (section-entries section))))
-    (set var (make-instance
-              'section
-              :name var
-              :package (section-package section)
-              :readtable (section-readtable section)
-              :title (section-title section)
-              :link-title-to (make-reference (section-name section)
-                                             'section)
-              :entries entries))))
-
-(defun make-category-overview (section)
-  (let* ((var (non-template-category-name section))
-         (name-prefix (symbol-name var)))
-    (set var (make-instance
-              'section
-              :name var
-              :package (section-package section)
-              :readtable (section-readtable section)
-              :title (section-title section)
-              :entries (reverse
-                        (mapcar (lambda (entry)
-                                  (make-reference
-                                   (section-name (shorten-post (resolve entry)
-                                                               name-prefix))
-                                   'section))
-                                (section-entries section)))))))
-
-(defun non-template-category-name (category-section)
-  (intern (subseq (symbol-name (section-name category-section))
-                  0 (1- (length
-                         (symbol-name (section-name category-section)))))))
-
-(defun generate-pages (category-sections)
-  (update-tags category-sections)
-  (let* ((*document-max-numbering-level* 0)
-         (*document-max-table-of-contents-level* 0)
-         (*document-html-max-navigation-table-of-contents-level* 3)
-         ;; No "in package" output, please.
-         (*document-normalize-packages* nil)
-         (*package* (find-package :mgl-pax-blog))
-         (*document-html-top-blocks-of-links*
-           '((:title "me"
-              :links
-              (("http://quotenil.com" "blog")
-               ("mailto:mega@retes.hu" "email")
-               ("mega.gpg.asc" "gpg key")
-               ("cv/cv-eng.pdf" "cv (english)")
-               ("cv/cv-hun.pdf" "cv (hungarian)")
-               ("http://github.com/melisgl/" "git")))))
-         (overviews (mapcar #'make-category-overview category-sections))
-         (posts (delete-duplicates
-                 (mapcan (lambda (category-section)
-                           (mapcar #'resolve
-                                   (section-entries category-section)))
-                         category-sections))))
-    (update-asdf-system-html-docs
-     (append overviews posts) :mgl-pax-blog
-     ;; Every overview and post is on its own page.
-     :pages (mapcar (lambda (section) `(:objects (,section)))
-                    (append overviews posts)))))
-
-(defun update-tags (categories)
-  (let ((post-to-catories (make-hash-table)))
-    (dolist (category categories)
-      (dolist (entry (section-entries category))
-        (when (typep entry 'reference)
-          (let ((post (resolve entry)))
-            (push category (gethash post post-to-catories))))))
-    (maphash (lambda (post categories)
-               (update-post-tags post categories))
-             post-to-catories)))
-
-(defun update-post-tags (post categories)
-  (flet ((post-has-tags-p ()
-           (let ((entries (section-entries post)))
-             (and entries (stringp (first entries))
-                  (alexandria:starts-with-subseq "_Tags_: " (first entries))))))
-    (when (post-has-tags-p)
-      (pop (slot-value post 'mgl-pax::entries)))
-    (push  (format nil "_Tags_: ~{~A~^, ~}~%"
-                   (mapcar #'non-template-category-name categories))
-           (slot-value post 'mgl-pax::entries))))
+  considering that the implementation is only 72 lines of code, most
+  of which deals with post categories and overview pages with
+  shortened posts, something PAX hasn't seen the need for.")
+
 
 #+nil
 (generate-pages (list @blog0 @category-personal0 @category-tech0
-                      @category-lisp0 @category-ai0))
+                      @category-lisp0 @category-ai0)
+                '((:title "me"
+                   :links
+                   (("http://quotenil.com" "blog")
+                    ("mailto:mega@retes.hu" "email")
+                    ("mega.gpg.asc" "gpg key")
+                    ("cv/cv-eng.pdf" "cv (english)")
+                    ("cv/cv-hun.pdf" "cv (hungarian)")
+                    ("http://github.com/melisgl/" "git")))))
