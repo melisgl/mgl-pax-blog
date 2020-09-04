@@ -2567,7 +2567,7 @@
 
 (defsection @journal-the-kitchen-sink (:title "Journal, the kitchen sink")
   """_2020-09-04_ -- Ever wished for machine-readable logs and
-  [`TRACE`][cl-trace]s maybe for writing tests or something more
+  [`TRACE`][cl-trace]s, maybe for writing tests or something more
   fancy? The [Journal][journal-background] library takes a simple
   idea: user-defined execution traces, and implements
   [logging][logging-tutorial], [tracing][tracing-tutorial], a
@@ -2575,7 +2575,7 @@
   support, and an [Event Sourcing][event-sourcing] style
   [database][persistence-tutorial] on top.
 
-  Maybe the highlight from the linked tutorials is how easy
+  Perhaps the highlight from the linked tutorials is how easy
   persistence is. Let's write a simple game:
 
   ```
