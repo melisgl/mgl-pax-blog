@@ -37,19 +37,19 @@
 <a href="https://github.com/melisgl/mgl-pax" >MGL-PAX</a> has always been that
 it will be easy to generate documentation for different libraries
 without requiring extensive markup and relying on stable urls. For
-example, without PAX if a docstring in the MGL library wanted to
-reference the matrix class <code>MGL-MAT:MAT</code> from the MGL-MAT library,
+example, without <code>PAX</code> if a docstring in the <code>MGL</code> library wanted to
+reference the matrix class <code>MGL-MAT:MAT</code> from the <code>MGL-MAT</code> library,
 it would need to include ugly HTML links in the markdown:</p>
 
 <pre><code><span class="code">"Returns a [some-terrible-github-link-to-html][MAT] object."</span></code></pre>
 
-<p>With PAX however, the uppercase symbol <code>MAT</code> will be automatically
+<p>With <code>PAX</code> however, the uppercase symbol <code>MAT</code> will be automatically
 linked to the documentation of <code>MAT</code> if its whereabouts are known at
 documentation generation time, so the above becomes:</p>
 
 <pre><code><span class="code">"Returns a MAT object."</span></code></pre>
 
-<p>The easiest way to tell PAX where to link is to let it generate the
+<p>The easiest way to tell <code>PAX</code> where to link is to let it generate the
 documentation for all libraries at the same time like this:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code">document <span class="paren2">(<span class="code">list mgl-mat:@mat-manual mgl:@mgl-manual</span>)</span></span>)</span></span></code></pre>

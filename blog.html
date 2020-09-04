@@ -27,13 +27,85 @@
 <div id="content">
 <p><a id='x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29'></a></p>
 
-<p><span class="outer-navigation"><span class="navigation"> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG--40MOVING-THE-BLOG-TO-PAX-SHORT-20MGL-PAX-3ASECTION-29" title="Moving the blog to PAX">&#8594;</a> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29" title="Blog">&#8634;</a></span></span></p>
+<p><span class="outer-navigation"><span class="navigation"> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG--40JOURNAL-THE-KITCHEN-SINK-SHORT-20MGL-PAX-3ASECTION-29" title="Journal, the kitchen sink">&#8594;</a> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29" title="Blog">&#8634;</a></span></span></p>
 
 <h1><a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29">Blog</a></h1>
 
+<p><a id='x-28MGL-PAX-BLOG-3A-3A-40BLOG--40JOURNAL-THE-KITCHEN-SINK-SHORT-20MGL-PAX-3ASECTION-29'></a></p>
+
+<p><span class="outer-navigation"><span class="navigation"> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29" title="Blog">&#8592;</a> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29" title="Blog">&#8593;</a> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG--40MOVING-THE-BLOG-TO-PAX-SHORT-20MGL-PAX-3ASECTION-29" title="Moving the blog to PAX">&#8594;</a> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG--40JOURNAL-THE-KITCHEN-SINK-SHORT-20MGL-PAX-3ASECTION-29" title="Journal, the kitchen sink">&#8634;</a></span></span></p>
+
+<h2><a href="journal-the-kitchen-sink.html#x-28MGL-PAX-BLOG-3A-40JOURNAL-THE-KITCHEN-SINK-20MGL-PAX-3ASECTION-29" title="Journal, the kitchen sink">Journal, the kitchen sink</a></h2>
+
+<p><em>Tags</em>: <a href="category-lisp.html#x-28MGL-PAX-BLOG-3A-3A-40CATEGORY-LISP-20MGL-PAX-3ASECTION-29" title="Lisp">Lisp</a>, <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29" title="Blog">Blog</a></p>
+
+<p><em>2020-09-04</em> -- Ever wished for machine-readable logs and
+<a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm" ><code>TRACE</code></a>s maybe for writing tests or something more
+fancy? The <a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40JOURNAL-BACKGROUND-20MGL-PAX-3ASECTION-29" >Journal</a> library takes a simple
+idea: user-defined execution traces, and implements
+<a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40LOGGING-20MGL-PAX-3ASECTION-29" >logging</a>, <a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TRACING-20MGL-PAX-3ASECTION-29" >tracing</a>, a
+<a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TESTING-20MGL-PAX-3ASECTION-29" >testing</a> &quot;framework&quot; with <a href="https://en.wikipedia.org/wiki/Mock_object" >mock</a>
+support, and an <a href="https://martinfowler.com/eaaDev/EventSourcing.html" >Event Sourcing</a> style
+<a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40PERSISTENCE-20MGL-PAX-3ASECTION-29" >database</a> on top.</p>
+
+<p>Maybe the highlight from the linked tutorials is how easy
+persistence is. Let's write a simple game:</p>
+
+<pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defun</span></i> play-guess-my-number <span class="paren2">(<span class="code"></span>)</span>
+  <span class="paren2">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren3">(<span class="code"><span class="paren4">(<span class="code">my-number <span class="paren5">(<span class="code">random 10</span>)</span></span>)</span></span>)</span>
+    <span class="paren3">(<span class="code">format t <span class="string">"~%I thought of a number.~%"</span></span>)</span>
+    <span class="paren3">(<span class="code"><i><span class="symbol">loop</span></i> for i upfrom 0 do
+      <span class="paren4">(<span class="code">write-line <span class="string">"Guess my number:"</span></span>)</span>
+      <span class="paren4">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren5">(<span class="code"><span class="paren6">(<span class="code">guess <span class="paren1">(<span class="code">values <span class="paren2">(<span class="code">parse-integer <span class="paren3">(<span class="code">read-line</span>)</span></span>)</span></span>)</span></span>)</span></span>)</span>
+        <span class="paren5">(<span class="code">format t <span class="string">"You guessed ~D.~%"</span> guess</span>)</span>
+        <span class="paren5">(<span class="code">when <span class="paren6">(<span class="code">= guess my-number</span>)</span>
+          <span class="paren6">(<span class="code">format t <span class="string">"You guessed it in ~D tries!"</span> <span class="paren1">(<span class="code">1+ i</span>)</span></span>)</span>
+          <span class="paren6">(<span class="code">return</span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
+
+<p>That came out pretty ugly, didn't it? Now, suppose we want to turn
+this into a browser game so:</p>
+
+<ul>
+<li><p>the state of the game must be saved,</p></li>
+<li><p>and the game shall be resumed from the last saved state,</p></li>
+<li><p>even if the web server's worker thread times out, or there is a
+  power failure.</p></li>
+</ul>
+
+<p>So these are the requirements apart from adding the webby stuff,
+which I'm not going to bore you with. To implement them, we wrap
+<code>REPLAYED</code> around <em>external interactions</em>, <code>RANDOM</code> and <code>READ-LINE</code>:</p>
+
+<pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defun</span></i> play-guess-my-number <span class="paren2">(<span class="code"></span>)</span>
+  <span class="paren2">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren3">(<span class="code"><span class="paren4">(<span class="code">my-number <span class="paren5">(<span class="code">replayed <span class="paren6">(<span class="code">think-of-a-number</span>)</span> <span class="comment">; &lt;- HERE
+</span>                     <span class="paren6">(<span class="code">random 10</span>)</span></span>)</span></span>)</span></span>)</span>
+    <span class="paren3">(<span class="code">format t <span class="string">"~%I thought of a number.~%"</span></span>)</span>
+    <span class="paren3">(<span class="code"><i><span class="symbol">loop</span></i> for i upfrom 0 do
+      <span class="paren4">(<span class="code">write-line <span class="string">"Guess my number:"</span></span>)</span>
+      <span class="paren4">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren5">(<span class="code"><span class="paren6">(<span class="code">guess <span class="paren1">(<span class="code">replayed <span class="paren2">(<span class="code">read-guess</span>)</span>        <span class="comment">; &lt;- HERE
+</span>                     <span class="paren2">(<span class="code">values <span class="paren3">(<span class="code">parse-integer <span class="paren4">(<span class="code">read-line</span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span>)</span>
+        <span class="paren5">(<span class="code">format t <span class="string">"You guessed ~D.~%"</span> guess</span>)</span>
+        <span class="paren5">(<span class="code">when <span class="paren6">(<span class="code">= guess my-number</span>)</span>
+          <span class="paren6">(<span class="code">format t <span class="string">"You guessed it in ~D tries!"</span> <span class="paren1">(<span class="code">1+ i</span>)</span></span>)</span>
+          <span class="paren6">(<span class="code">return</span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
+
+<p>Now, we need to say where to store the event journal:</p>
+
+<pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">with-bundle</span></i> <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">make-file-bundle <span class="string">"/tmp/guess-my-number/"</span> <span class="keyword">:sync</span> t</span>)</span></span>)</span>
+  <span class="paren2">(<span class="code">play-guess-my-number</span>)</span></span>)</span></span></code></pre>
+
+<p>This is invoked from the web server's worker and it replays the game
+until it was interrupted last time around. Then it will block
+waiting for user input in <code>READ-LINE</code> or, if the game is finished,
+return.</p>
+
+<p>Note the <code>:SYNC T</code>, which tells Journal to take durability seriously.</p>
+
+<p>You can find the code <a href="https://github.com/melisgl/journal" >here</a>.</p>
+
 <p><a id='x-28MGL-PAX-BLOG-3A-3A-40BLOG--40MOVING-THE-BLOG-TO-PAX-SHORT-20MGL-PAX-3ASECTION-29'></a></p>
 
-<p><span class="outer-navigation"><span class="navigation"> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29" title="Blog">&#8592;</a> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29" title="Blog">&#8593;</a> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG--40ON-THE-DESIGN-OF-MATRIX-LIBRARIES-SHORT-20MGL-PAX-3ASECTION-29" title="On the Design of Matrix Libraries">&#8594;</a> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG--40MOVING-THE-BLOG-TO-PAX-SHORT-20MGL-PAX-3ASECTION-29" title="Moving the blog to PAX">&#8634;</a></span></span></p>
+<p><span class="outer-navigation"><span class="navigation"> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG--40JOURNAL-THE-KITCHEN-SINK-SHORT-20MGL-PAX-3ASECTION-29" title="Journal, the kitchen sink">&#8592;</a> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29" title="Blog">&#8593;</a> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG--40ON-THE-DESIGN-OF-MATRIX-LIBRARIES-SHORT-20MGL-PAX-3ASECTION-29" title="On the Design of Matrix Libraries">&#8594;</a> <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG--40MOVING-THE-BLOG-TO-PAX-SHORT-20MGL-PAX-3ASECTION-29" title="Moving the blog to PAX">&#8634;</a></span></span></p>
 
 <h2><a href="moving-the-blog-to-pax.html#x-28MGL-PAX-BLOG-3A-40MOVING-THE-BLOG-TO-PAX-20MGL-PAX-3ASECTION-29" title="Moving the blog to PAX">Moving the blog to PAX</a></h2>
 
@@ -44,11 +116,11 @@ resurrecting <a href="https://web.archive.org/web/20190814015233/http://quotenil
 blog</a>.
 I already got as far as rewriting it using
 <a href="http://melisgl.github.io/mgl-pax/" >MGL-PAX</a>, which is a curious
-choice because PAX is a documentation generator for Common Lisp. The
+choice because <code>PAX</code> is a documentation generator for Common Lisp. The
 blog &quot;engine&quot; is rather bare-bones, but works admirably,
 especially considering that the implementation is only 72 lines of
 code, most of which deals with post categories and overview pages
-with shortened posts, something PAX hasn't seen the need for.</p>
+with shortened posts, something <code>PAX</code> hasn't seen the need for.</p>
 
 <p><a id='x-28MGL-PAX-BLOG-3A-3A-40BLOG--40ON-THE-DESIGN-OF-MATRIX-LIBRARIES-SHORT-20MGL-PAX-3ASECTION-29'></a></p>
 
@@ -109,19 +181,19 @@ where <code>*DOCUMENT-MARK-UP-SIGNATURES*</code> is defined.</p>
 <a href="https://github.com/melisgl/mgl-pax" >MGL-PAX</a> has always been that
 it will be easy to generate documentation for different libraries
 without requiring extensive markup and relying on stable urls. For
-example, without PAX if a docstring in the MGL library wanted to
-reference the matrix class <code>MGL-MAT:MAT</code> from the MGL-MAT library,
+example, without <code>PAX</code> if a docstring in the <code>MGL</code> library wanted to
+reference the matrix class <code>MGL-MAT:MAT</code> from the <code>MGL-MAT</code> library,
 it would need to include ugly HTML links in the markdown:</p>
 
 <pre><code><span class="code">"Returns a [some-terrible-github-link-to-html][MAT] object."</span></code></pre>
 
-<p>With PAX however, the uppercase symbol <code>MAT</code> will be automatically
+<p>With <code>PAX</code> however, the uppercase symbol <code>MAT</code> will be automatically
 linked to the documentation of <code>MAT</code> if its whereabouts are known at
 documentation generation time, so the above becomes:</p>
 
 <pre><code><span class="code">"Returns a MAT object."</span></code></pre>
 
-<p>The easiest way to tell PAX where to link is to let it generate the
+<p>The easiest way to tell <code>PAX</code> where to link is to let it generate the
 documentation for all libraries at the same time like this:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code">document <span class="paren2">(<span class="code">list mgl-mat:@mat-manual mgl:@mgl-manual</span>)</span></span>)</span></span></code></pre>
@@ -199,7 +271,7 @@ source files to docstrings is insanity or an
 <a href="http://c2.com/cgi/wiki?OnceAndOnlyOnce" >OOAO</a> violation,
 respectively.</p>
 
-<p>In response to this, PAX got the <a href="https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3AINCLUDE-20MGL-PAX-3ALOCATIVE-29" >INCLUDE
+<p>In response to this, <code>PAX</code> got the <a href="https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3AINCLUDE-20MGL-PAX-3ALOCATIVE-29" >INCLUDE
 locative</a> (see
 the linked documentation) and became its own first user at the same
 time. In a nutshell, the <code>INCLUDE</code> locative can refer to non-lisp
@@ -303,15 +375,15 @@ most definitely want to use. My winning submission used bagged
 cross-validated dropout neural networks with stratified splits so
 this is where it's coming from.</p>
 
-<p>MGL itself and <a href="https://github.com/melisgl/mgl-mat" >MGL-MAT</a> were
+<p><code>MGL</code> itself and <a href="https://github.com/melisgl/mgl-mat" >MGL-MAT</a> were
 updated to work with the latest
 <a href="https://github.com/takagi/cl-cuda" >CL-CUDA</a>. The neural network
 code also saw some additions such as
 <a href="http://arxiv.org/abs/1312.1909" >-&gt;MAX-CHANNEL</a> activation (which
 originated as <a href="http://people.idsia.ch/~juergen/nips2013.pdf" >LWTA</a>)
 and also gaussian multiplicative noise. The next steps here are
-further cleanups to MGL, writing documentation and moving it to
-github. Also, there is some hope that one day CL-CUDA can be
+further cleanups to <code>MGL</code>, writing documentation and moving it to
+github. Also, there is some hope that one day <code>CL-CUDA</code> can be
 included in quicklisp allowing my stuff there to be updated to their
 latest versions.</p>
 
@@ -822,7 +894,7 @@ you think.</p>
 
 <p><em>Tags</em>: <a href="category-ai.html#x-28MGL-PAX-BLOG-3A-3A-40CATEGORY-AI-20MGL-PAX-3ASECTION-29" title="AI">AI</a>, <a href="category-lisp.html#x-28MGL-PAX-BLOG-3A-3A-40CATEGORY-LISP-20MGL-PAX-3ASECTION-29" title="Lisp">Lisp</a>, <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29" title="Blog">Blog</a></p>
 
-<p><strong>UPDATE</strong>: This post out of date with regards to current MGL.
+<p><strong>UPDATE</strong>: This post out of date with regards to current <code>MGL</code>.
 Please refer to the
 <a href="http://melisgl.github.io/mgl-pax-world/mgl-manual.html" >documentation</a>
 instead.</p>
@@ -852,7 +924,7 @@ the input, thus performing dimensionality reduction.</p>
 
 <p><em>Tags</em>: <a href="category-ai.html#x-28MGL-PAX-BLOG-3A-3A-40CATEGORY-AI-20MGL-PAX-3ASECTION-29" title="AI">AI</a>, <a href="category-lisp.html#x-28MGL-PAX-BLOG-3A-3A-40CATEGORY-LISP-20MGL-PAX-3ASECTION-29" title="Lisp">Lisp</a>, <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29" title="Blog">Blog</a></p>
 
-<p><strong>UPDATE</strong>: This post out of date with regards to current MGL.
+<p><strong>UPDATE</strong>: This post out of date with regards to current <code>MGL</code>.
 Please refer to the
 <a href="http://melisgl.github.io/mgl-pax-world/mgl-manual.html" >documentation</a>
 instead.</p>
@@ -878,14 +950,14 @@ INITIALIZE-TRAINER. Training continues until SAMPLER is finished."</span></span>
 
 <p><em>Tags</em>: <a href="category-ai.html#x-28MGL-PAX-BLOG-3A-3A-40CATEGORY-AI-20MGL-PAX-3ASECTION-29" title="AI">AI</a>, <a href="category-lisp.html#x-28MGL-PAX-BLOG-3A-3A-40CATEGORY-LISP-20MGL-PAX-3ASECTION-29" title="Lisp">Lisp</a>, <a href="#x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29" title="Blog">Blog</a></p>
 
-<p><strong>UPDATE</strong>: This post out of date with regards to current MGL.
+<p><strong>UPDATE</strong>: This post out of date with regards to current <code>MGL</code>.
 Please refer to the
 <a href="http://melisgl.github.io/mgl-pax-world/mgl-manual.html" >documentation</a>
 instead.</p>
 
 <p><em>2009-12-02</em> -- This is going to be the start of an introduction
 series on the <a href="http://cliki.net/MGL" >MGL</a> Common Lisp machine
-learning library. MGL focuses mainly on <a href="http://en.wikipedia.org/wiki/Boltzmann_machine" >Boltzmann
+learning library. <code>MGL</code> focuses mainly on <a href="http://en.wikipedia.org/wiki/Boltzmann_machine" >Boltzmann
 Machines</a> (BMs). In
 fact, the few seemingly unrelated things it currently
 offers (gradient descent, conjugate gradient, backprop) are directly
