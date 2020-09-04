@@ -124,7 +124,8 @@
   (@pax-world section)
   (@bigger-and-badder-pax-world section)
   (@on-the-design-of-matrix-libraries section)
-  (@moving-the-blog-to-pax section))
+  (@moving-the-blog-to-pax section)
+  (@journal-the-kitchen-sink section))
 
 (defsection @category-personal0 (:title "Personal")
   (@first-post section)
@@ -174,7 +175,8 @@
   (@pax-world section)
   (@bigger-and-badder-pax-world section)
   (@on-the-design-of-matrix-libraries section)
-  (@moving-the-blog-to-pax section))
+  (@moving-the-blog-to-pax section)
+  (@journal-the-kitchen-sink section))
 
 (defsection @category-ai0 (:title "AI")
   (@2008-computer-games-olympiad section)
@@ -2562,6 +2564,88 @@
   especially considering that the implementation is only 72 lines of
   code, most of which deals with post categories and overview pages
   with shortened posts, something PAX hasn't seen the need for.")
+
+(defsection @journal-the-kitchen-sink (:title "Journal, the kitchen sink")
+  """_2020-09-04_ -- Ever wished for machine-readable logs and
+  [`TRACE`][cl-trace]s maybe for writing tests or something more
+  fancy? The [Journal][journal-background] library takes a simple
+  idea: user-defined execution traces, and implements
+  [logging][logging-tutorial], [tracing][tracing-tutorial], a
+  [testing][testing-tutorial] "framework" with [mock][mock-object]
+  support, and an [Event Sourcing][event-sourcing] style
+  [database][persistence-tutorial] on top.
+
+  Maybe the highlight from the linked tutorials is how easy
+  persistence is. Let's write a simple game:
+
+  ```
+  (defun play-guess-my-number ()
+    (let ((my-number (random 10)))
+      (format t "~%I thought of a number.~%")
+      (loop for i upfrom 0 do
+        (write-line "Guess my number:")
+        (let ((guess (values (parse-integer (read-line)))))
+          (format t "You guessed ~D.~%" guess)
+          (when (= guess my-number)
+            (format t "You guessed it in ~D tries!" (1+ i))
+            (return))))))
+  ```
+
+  That came out pretty ugly, didn't it? Now, suppose we want to turn
+  this into a browser game so:
+
+  - the state of the game must be saved,
+
+  - and the game shall be resumed from the last saved state,
+
+  - even if the web server's worker thread times out, or there is a
+    power failure.
+
+  So these are the requirements apart from adding the webby stuff,
+  which I'm not going to bore you with. To implement them, we wrap
+  `REPLAYED` around _external interactions_, `RANDOM` and `READ-LINE`:
+
+  ```
+  (defun play-guess-my-number ()
+    (let ((my-number (replayed (think-of-a-number) ; <- HERE
+                       (random 10))))
+      (format t "~%I thought of a number.~%")
+      (loop for i upfrom 0 do
+        (write-line "Guess my number:")
+        (let ((guess (replayed (read-guess)        ; <- HERE
+                       (values (parse-integer (read-line))))))
+          (format t "You guessed ~D.~%" guess)
+          (when (= guess my-number)
+            (format t "You guessed it in ~D tries!" (1+ i))
+            (return))))))
+  ```
+
+  Now, we need to say where to store the event journal:
+
+  ```
+  (with-bundle ((make-file-bundle "/tmp/guess-my-number/" :sync t))
+    (play-guess-my-number))
+  ```
+
+  This is invoked from the web server's worker and it replays the game
+  until it was interrupted last time around. Then it will block
+  waiting for user input in `READ-LINE` or, if the game is finished,
+  return.
+
+  Note the `:SYNC T`, which tells Journal to take durability seriously.
+
+  You can find the code [here][journal-code].
+
+    [cl-trace]: http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm
+    [mock-object]: https://en.wikipedia.org/wiki/Mock_object
+    [event-sourcing]: https://martinfowler.com/eaaDev/EventSourcing.html
+    [journal-code]: https://github.com/melisgl/journal
+    [journal-background]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40JOURNAL-BACKGROUND-20MGL-PAX-3ASECTION-29
+    [logging-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40LOGGING-20MGL-PAX-3ASECTION-29
+    [tracing-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TRACING-20MGL-PAX-3ASECTION-29
+    [testing-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TESTING-20MGL-PAX-3ASECTION-29
+    [persistence-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40PERSISTENCE-20MGL-PAX-3ASECTION-29
+  """)
 
 
 #+nil
