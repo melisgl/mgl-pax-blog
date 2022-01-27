@@ -14,7 +14,7 @@
        }
      });
    </script>
-   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+   <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
    </script>
    </head>
 <body>
@@ -74,7 +74,7 @@ this into a browser game so:</p>
 
 <p>So these are the requirements apart from adding the webby stuff,
 which I'm not going to bore you with. To implement them, we wrap
-<code>REPLAYED</code> around <em>external interactions</em>, <code>RANDOM</code> and <code>READ-LINE</code>:</p>
+<code>REPLAYED</code> around <em>external interactions</em>, <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_random.htm" title="(RANDOM FUNCTION)"><code>RANDOM</code></a> and <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_rd_lin.htm" title="(READ-LINE FUNCTION)"><code>READ-LINE</code></a>:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defun</span></i> play-guess-my-number <span class="paren2">(<span class="code"></span>)</span>
   <span class="paren2">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren3">(<span class="code"><span class="paren4">(<span class="code">my-number <span class="paren5">(<span class="code">replayed <span class="paren6">(<span class="code">think-of-a-number</span>)</span> <span class="comment">; &lt;- HERE
@@ -628,8 +628,8 @@ v0.6 (<a href="http://quotenil.com/git/?p=planet-wars.git;a=summary" >git</a>,
 <a href="http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz" >latest
 tarball</a>).
 The way the server compiles lisp submissions was fixed and this
-revealed a problem where MyBot.lisp redirected <code>*STANDARD-OUTPUT*</code>
-to <code>*ERROR-OUTPUT*</code> causing the server to think compilation
+revealed a problem where MyBot.lisp redirected <a href="http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm" title="(*STANDARD-OUTPUT* VARIABLE)"><code>*STANDARD-OUTPUT*</code></a>
+to <a href="http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm" title="(*ERROR-OUTPUT* VARIABLE)"><code>*ERROR-OUTPUT*</code></a> causing the server to think compilation
 failed.</p>
 
 <p><a id='x-28MGL-PAX-BLOG-3A-3A-40CATEGORY-LISP--40PLANET-WARS-COMMON-LISP-STARTER-PACKAGE-SHORT-20MGL-PAX-3ASECTION-29'></a></p>
@@ -873,12 +873,12 @@ dependency between slots <code>A</code> and <code>B</code>:))</p>
 <p><em>Tags</em>: <a href="#x-28MGL-PAX-BLOG-3A-3A-40CATEGORY-LISP-20MGL-PAX-3ASECTION-29" title="Lisp">Lisp</a>, <a href="blog.html#x-28MGL-PAX-BLOG-3A-3A-40BLOG-20MGL-PAX-3ASECTION-29" title="Blog">Blog</a></p>
 
 <p><em>2009-06-30</em> -- A quick note to library implementors: The effects
-of <code>DECLAIM</code> are <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" >permitted to
+of <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" title="(DECLAIM MGL-PAX:MACRO)"><code>DECLAIM</code></a> are <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" >permitted to
 persist</a>
 after the containing file is compiled and it is unkind to mutate
 your user's settings. Personally, I find <code>DECLAIM</code> too blunt and
 prefer to add declarations within functions, even going as far as
-introducing <code>LOCALLY</code> subforms just to have a place on which to hang
+introducing <a href="http://www.lispworks.com/documentation/HyperSpec/Body/s_locall.htm" title="(LOCALLY MGL-PAX:MACRO)"><code>LOCALLY</code></a> subforms just to have a place on which to hang
 declarations. But if you are really set on using <code>DECLAIM</code>, please
 wrap it like this:</p>
 
