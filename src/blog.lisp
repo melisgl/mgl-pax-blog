@@ -2019,7 +2019,7 @@
   [36Cube](http://en.wikipedia.org/wiki/36_cube) pulls is rather
   dirty.
 
-  **WARNING**, spoilers ahead."
+  **\\WARNING**, spoilers ahead."
 
   "Got this crafty beast for Christmas and since then I lost many
   evenings to juggling permutations of towers over the inverted city
