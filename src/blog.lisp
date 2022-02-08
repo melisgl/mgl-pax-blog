@@ -125,7 +125,8 @@
   (@bigger-and-badder-pax-world section)
   (@on-the-design-of-matrix-libraries section)
   (@moving-the-blog-to-pax section)
-  (@journal-the-kitchen-sink section))
+  (@journal-the-kitchen-sink section)
+  (@pax-v0.1 section))
 
 (defsection @category-personal0 (:title "Personal")
   (@first-post section)
@@ -176,7 +177,8 @@
   (@bigger-and-badder-pax-world section)
   (@on-the-design-of-matrix-libraries section)
   (@moving-the-blog-to-pax section)
-  (@journal-the-kitchen-sink section))
+  (@journal-the-kitchen-sink section)
+  (@pax-v0.1 section))
 
 (defsection @category-ai0 (:title "AI")
   (@2008-computer-games-olympiad section)
@@ -2560,10 +2562,10 @@
   I already got as far as rewriting it using
   [MGL-PAX](http://melisgl.github.io/mgl-pax/), which is a curious
   choice because PAX is a documentation generator for Common Lisp. The
-  blog \"engine\" is rather bare-bones, but works admirably,
-  especially considering that the implementation is only 72 lines of
-  code, most of which deals with post categories and overview pages
-  with shortened posts, something PAX hasn't seen the need for.")
+  blog \"engine\" is rather bare-bones but works admirably, especially
+  considering that the implementation is only 72 lines of code, most
+  of which deals with post categories and overview pages with
+  shortened posts, something PAX hasn't seen the need for.")
 
 (defsection @journal-the-kitchen-sink (:title "Journal, the kitchen sink")
   """_2020-09-04_ -- Ever wished for machine-readable logs and
@@ -2647,6 +2649,62 @@
     [persistence-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40PERSISTENCE-20MGL-PAX-3ASECTION-29
   """)
 
+
+(defsection @pax-v0.1 (:title "PAX v0.1")
+  """_2022-02-16_ -- [PAX](http://github.com/melisgl/mgl-pax/) v0.1 is released.
+  At this point, I consider it fairly complete. Here is the changelog for the last year or so.
+
+  ##### New Features
+
+  - To reduce deployment size, made the MGL-PAX system [autoload navigation, documentation generation, and transcription code](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29).
+  - Symbols in the CL package are [linked to the hyperspec](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29) like this: `\\PRINT`, which renders as PRINT.
+  - Hyperspec sections and issues can be linked to with the [CLHS locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29) like this: `[lambda lists][CLHS]`, which renders as [lambda lists][CLHS].
+  - Added support for `[see this][foo function]` and `[see this][foo]` style of [linking](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-40MGL-PAX-LINKING-TO-CODE-20MGL-PAX-3ASECTION-29).
+  - Added [DECLARATION locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28DECLARATION-20MGL-PAX-3ALOCATIVE-29).
+  - Added [READTABLE locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28READTABLE-20MGL-PAX-3ALOCATIVE-29).
+  - Added [SYMBOL-MACRO locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ASYMBOL-MACRO-20MGL-PAX-3ALOCATIVE-29).
+  - Added [METHOD-COMBINATION locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28METHOD-COMBINATION-20MGL-PAX-3ALOCATIVE-29).
+  - Added [`EXPORTABLE-REFERENCE-P`](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:EXPORTABLE-REFERENCE-P%20GENERIC-FUNCTION) to allow specializing decisions on whether to export a symbol in DEFSECTION based on SECTION-PACKAGE. PAX no longer exports its documentation and drops the `MGL-PAX-` prefix from names like `@MGL-PAX-LINKS` to reduce clutter.
+  - [Downcasing](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-DOWNCASE-UPPERCASE-CODE*%20VARIABLE) now works well and is the default for \\PAX World.
+
+  ##### Transcribe
+
+  - Transcription consistency checking is now [customizable](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-FINER-GRAINED-CONSISTENCY-CHECKS%20MGL-PAX:SECTION).
+  - Transcription consistency checking and dynamic environment [can be controlled for code blocks](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-DYNENV%20MGL-PAX:SECTION).
+  - Errors during transcribing are [included](file:///home/melisgl/own/mgl-pax/world/pax-manual.html#MGL-PAX:@TRANSCRIPT-API%20MGL-PAX:SECTION) in the transcript.
+
+  ##### Portability
+
+  - Tested on ABCL, AllegroCL, CCL, CLISP, CMUCL, ECL, and SBCL.
+  - SLIME `M-.` is now as capable on all Lisps as the Swank implementation allows.
+
+  ##### Improvements
+
+  - Generalized, cleaned up, and documented handling [trimming of punctuation and plurals](https://melisgl.github.io/mgl-pax-world/pax-manual.html#toc-6-2-parsing).
+  - DOCUMENT [works on `STRING`s](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT-OBJECT%20%28METHOD%20NIL%20%28STRING%20T%29%29).
+  - Autolinking for the same name happens at most [once per docstring](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-CODE-2A-20VARIABLE-29).
+  - Within the same docstring explicit links (in addition to autolinks) also [prevent subsequent autolinking of the same object](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@SUPPRESSED-LINKS%20MGL-PAX:SECTION)
+  - [Unexported superclasses are not listed](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28CLASS-20MGL-PAX-3ALOCATIVE-29) in the generated documentation of classes.
+  - Improved documentation.
+  - Introduced [double backslash escapes](file:///home/melisgl/own/mgl-pax/world/pax-manual.html#MGL-PAX:@OVERVIEW-OF-ESCAPING%20MGL-PAX:SECTION) to prevent downcasing in addition to linking.
+  - Removed DESCRIBE-OBJECT method on SECTIONs. Call DOCUMENT directly.
+  - Made URLs in the generated documentation more stable across implementations and [made them more human readable](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-URL-VERSIONS*%20VARIABLE). Existing URLs still work.
+  - Exported api for [extending DOCUMENT](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-DOCUMENT%20MGL-PAX:SECTION) and [FIND-SOURCE](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-FIND-SOURCE%20MGL-PAX:SECTION)
+  - [DOCUMENT](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION) can produce reasonably readable output with :FORMAT :PLAIN (the default). It is now suitable for use in the REPL as a kind of replacement for CL:DOCUMENTATION.
+
+  ##### Bugs
+
+  - Made Emacs-side parsing for `M-.` navigation more robust.
+  - Fixed documentation generation on `TRACE`d functions.
+  - Fixed lots of minor bugs.
+
+  ##### Internals
+
+  - Tests moved to [Try](https://github.com/melisgl/try).
+  - Added lost of tests.
+  - Made documentation generation faster especially for small jobs.
+  - Improved error reporting.
+  - Autoloading no longer produces warnings on SBCL and fresh SLIME.""")
 
 #+nil
 (generate-pages (list @blog0 @category-personal0 @category-tech0
