@@ -28,14 +28,90 @@
 <p><a id="x-28MGL-PAX-BLOG-3A-40BLOG-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION"></a></p>
 
-<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG-@JOURNAL-THE-KITCHEN-SINK-SHORT%20MGL-PAX:SECTION" title="Journal, the kitchen sink">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8634;</a></span></span></p>
+<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG-@PAX-V0.1-SHORT%20MGL-PAX:SECTION" title="PAX v0.1">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8634;</a></span></span></p>
 
 <h1><a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION">Blog</a></h1>
+
+<p><a id="x-28MGL-PAX-BLOG-3A-40BLOG--40PAX-V0-2E1-SHORT-20MGL-PAX-3ASECTION-29"></a>
+<a id="MGL-PAX-BLOG:@BLOG-@PAX-V0.1-SHORT%20MGL-PAX:SECTION"></a></p>
+
+<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8592;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8593;</a> <a href="#MGL-PAX-BLOG:@BLOG-@JOURNAL-THE-KITCHEN-SINK-SHORT%20MGL-PAX:SECTION" title="Journal, the kitchen sink">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG-@PAX-V0.1-SHORT%20MGL-PAX:SECTION" title="PAX v0.1">&#8634;</a></span></span></p>
+
+<h2><a href="pax-v0.1.html#MGL-PAX-BLOG:@PAX-V0.1%20MGL-PAX:SECTION" title="PAX v0.1">PAX v0.1</a></h2>
+
+<p><em>Tags</em>: <a href="category-lisp.html#MGL-PAX-BLOG:@CATEGORY-LISP%20MGL-PAX:SECTION" title="Lisp">Lisp</a>, <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">Blog</a></p>
+
+<p><em>2022-02-16</em> -- <a href="http://github.com/melisgl/mgl-pax/" >PAX</a> v0.1 is released.
+At this point, I consider it fairly complete. Here is the changelog for the last year or so.</p>
+
+<h5>New Features</h5>
+
+<ul>
+<li><p>To reduce deployment size, made the MGL-PAX system <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29" >autoload navigation, documentation generation, and transcription code</a>.</p></li>
+<li><p>Symbols in the CL package are <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29" >linked to the hyperspec</a> like this: <code>PRINT</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_wr_pr.htm" title="PRINT FUNCTION"><code>PRINT</code></a>.</p></li>
+<li><p>Hyperspec sections and issues can be linked to with the <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29" >CLHS locative</a> like this: <code>[lambda lists][CLHS]</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/03_d.htm" title="&quot;3.4&quot; MGL-PAX:CLHS">lambda lists</a>.</p></li>
+<li><p>Added support for <code>[see this][foo function]</code> and <code>[see this][foo]</code> style of <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-40MGL-PAX-LINKING-TO-CODE-20MGL-PAX-3ASECTION-29" >linking</a>.</p></li>
+<li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28DECLARATION-20MGL-PAX-3ALOCATIVE-29" >DECLARATION locative</a>.</p></li>
+<li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28READTABLE-20MGL-PAX-3ALOCATIVE-29" >READTABLE locative</a>.</p></li>
+<li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ASYMBOL-MACRO-20MGL-PAX-3ALOCATIVE-29" >SYMBOL-MACRO locative</a>.</p></li>
+<li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28METHOD-COMBINATION-20MGL-PAX-3ALOCATIVE-29" >METHOD-COMBINATION locative</a>.</p></li>
+<li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:EXPORTABLE-REFERENCE-P%20GENERIC-FUNCTION" ><code>EXPORTABLE-REFERENCE-P</code></a> to allow specializing decisions on whether to export a symbol in <code>DEFSECTION</code> based on <code>SECTION-PACKAGE</code>. PAX no longer exports its documentation and drops the <code>MGL-PAX-</code> prefix from names like <code>@MGL-PAX-LINKS</code> to reduce clutter.</p></li>
+<li><p><a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-DOWNCASE-UPPERCASE-CODE*%20VARIABLE" >Downcasing</a> now works well and is the default for PAX World.</p></li>
+</ul>
+
+<h5>Transcribe</h5>
+
+<ul>
+<li><p>Transcription consistency checking is now <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-FINER-GRAINED-CONSISTENCY-CHECKS%20MGL-PAX:SECTION" >customizable</a>.</p></li>
+<li><p>Transcription consistency checking and dynamic environment <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-DYNENV%20MGL-PAX:SECTION" >can be controlled for code blocks</a>.</p></li>
+<li><p>Errors during transcribing are <a href="file:///home/melisgl/own/mgl-pax/world/pax-manual.html#MGL-PAX:@TRANSCRIPT-API%20MGL-PAX:SECTION" >included</a> in the transcript.</p></li>
+</ul>
+
+<h5>Portability</h5>
+
+<ul>
+<li><p>Tested on ABCL, AllegroCL, CCL, CLISP, CMUCL, ECL, and SBCL.</p></li>
+<li><p>SLIME <code>M-.</code> is now as capable on all Lisps as the Swank implementation allows.</p></li>
+</ul>
+
+<h5>Improvements</h5>
+
+<ul>
+<li><p>Generalized, cleaned up, and documented handling <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#toc-6-2-parsing" >trimming of punctuation and plurals</a>.</p></li>
+<li><p><code>DOCUMENT</code> <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT-OBJECT%20%28METHOD%20NIL%20%28STRING%20T%29%29" >works on <code>STRING</code>s</a>.</p></li>
+<li><p>Autolinking for the same name happens at most <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-CODE-2A-20VARIABLE-29" >once per docstring</a>.</p></li>
+<li><p>Within the same docstring explicit links (in addition to autolinks) also <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@SUPPRESSED-LINKS%20MGL-PAX:SECTION" >prevent subsequent autolinking of the same object</a></p></li>
+<li><p><a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28CLASS-20MGL-PAX-3ALOCATIVE-29" >Unexported superclasses are not listed</a> in the generated documentation of classes.</p></li>
+<li><p>Improved documentation.</p></li>
+<li><p>Introduced <a href="file:///home/melisgl/own/mgl-pax/world/pax-manual.html#MGL-PAX:@OVERVIEW-OF-ESCAPING%20MGL-PAX:SECTION" >double backslash escapes</a> to prevent downcasing in addition to linking.</p></li>
+<li><p>Removed <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_desc_1.htm" title="DESCRIBE-OBJECT FUNCTION"><code>DESCRIBE-OBJECT</code></a> method on <code>SECTION</code>s. Call <code>DOCUMENT</code> directly.</p></li>
+<li><p>Made URLs in the generated documentation more stable across implementations and <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-URL-VERSIONS*%20VARIABLE" >made them more human readable</a>. Existing URLs still work.</p></li>
+<li><p>Exported api for <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-DOCUMENT%20MGL-PAX:SECTION" >extending DOCUMENT</a> and <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-FIND-SOURCE%20MGL-PAX:SECTION" >FIND-SOURCE</a></p></li>
+<li><p><a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION" >DOCUMENT</a> can produce reasonably readable output with <code>:FORMAT</code> <code>:PLAIN</code> (the default). It is now suitable for use in the REPL as a kind of replacement for <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_docume.htm" title="DOCUMENTATION GENERIC-FUNCTION"><code>CL:DOCUMENTATION</code></a>.</p></li>
+</ul>
+
+<h5>Bugs</h5>
+
+<ul>
+<li><p>Made Emacs-side parsing for <code>M-.</code> navigation more robust.</p></li>
+<li><p>Fixed documentation generation on <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm" title="TRACE MGL-PAX:MACRO"><code>TRACE</code></a>d functions.</p></li>
+<li><p>Fixed lots of minor bugs.</p></li>
+</ul>
+
+<h5>Internals</h5>
+
+<ul>
+<li><p>Tests moved to <a href="https://github.com/melisgl/try" >Try</a>.</p></li>
+<li><p>Added lost of tests.</p></li>
+<li><p>Made documentation generation faster especially for small jobs.</p></li>
+<li><p>Improved error reporting.</p></li>
+<li><p>Autoloading no longer produces warnings on SBCL and fresh SLIME.</p></li>
+</ul>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40BLOG--40JOURNAL-THE-KITCHEN-SINK-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@BLOG-@JOURNAL-THE-KITCHEN-SINK-SHORT%20MGL-PAX:SECTION"></a></p>
 
-<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8592;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8593;</a> <a href="#MGL-PAX-BLOG:@BLOG-@MOVING-THE-BLOG-TO-PAX-SHORT%20MGL-PAX:SECTION" title="Moving the blog to PAX">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG-@JOURNAL-THE-KITCHEN-SINK-SHORT%20MGL-PAX:SECTION" title="Journal, the kitchen sink">&#8634;</a></span></span></p>
+<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG-@PAX-V0.1-SHORT%20MGL-PAX:SECTION" title="PAX v0.1">&#8592;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8593;</a> <a href="#MGL-PAX-BLOG:@BLOG-@MOVING-THE-BLOG-TO-PAX-SHORT%20MGL-PAX:SECTION" title="Moving the blog to PAX">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG-@JOURNAL-THE-KITCHEN-SINK-SHORT%20MGL-PAX:SECTION" title="Journal, the kitchen sink">&#8634;</a></span></span></p>
 
 <h2><a href="journal-the-kitchen-sink.html#MGL-PAX-BLOG:@JOURNAL-THE-KITCHEN-SINK%20MGL-PAX:SECTION" title="Journal, the kitchen sink">Journal, the kitchen sink</a></h2>
 
@@ -119,11 +195,11 @@ resurrecting <a href="https://web.archive.org/web/20190814015233/http://quotenil
 blog</a>.
 I already got as far as rewriting it using
 <a href="http://melisgl.github.io/mgl-pax/" >MGL-PAX</a>, which is a curious
-choice because <code>PAX</code> is a documentation generator for Common Lisp. The
-blog &quot;engine&quot; is rather bare-bones, but works admirably,
-especially considering that the implementation is only 72 lines of
-code, most of which deals with post categories and overview pages
-with shortened posts, something <code>PAX</code> hasn't seen the need for.</p>
+choice because PAX is a documentation generator for Common Lisp. The
+blog &quot;engine&quot; is rather bare-bones but works admirably, especially
+considering that the implementation is only 72 lines of code, most
+of which deals with post categories and overview pages with
+shortened posts, something PAX hasn't seen the need for.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40BLOG--40ON-THE-DESIGN-OF-MATRIX-LIBRARIES-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@BLOG-@ON-THE-DESIGN-OF-MATRIX-LIBRARIES-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -187,19 +263,19 @@ where <code>*DOCUMENT-MARK-UP-SIGNATURES*</code> is defined.</p>
 <a href="https://github.com/melisgl/mgl-pax" >MGL-PAX</a> has always been that
 it will be easy to generate documentation for different libraries
 without requiring extensive markup and relying on stable urls. For
-example, without <code>PAX</code> if a docstring in the <code>MGL</code> library wanted to
-reference the matrix class <code>MGL-MAT:MAT</code> from the <code>MGL-MAT</code> library,
+example, without PAX if a docstring in the MGL library wanted to
+reference the matrix class <code>MGL-MAT:MAT</code> from the MGL-MAT library,
 it would need to include ugly HTML links in the markdown:</p>
 
 <pre><code><span class="code">"Returns a [some-terrible-github-link-to-html][MAT] object."</span></code></pre>
 
-<p>With <code>PAX</code> however, the uppercase symbol <code>MAT</code> will be automatically
+<p>With PAX however, the uppercase symbol <code>MAT</code> will be automatically
 linked to the documentation of <code>MAT</code> if its whereabouts are known at
 documentation generation time, so the above becomes:</p>
 
 <pre><code><span class="code">"Returns a MAT object."</span></code></pre>
 
-<p>The easiest way to tell <code>PAX</code> where to link is to let it generate the
+<p>The easiest way to tell PAX where to link is to let it generate the
 documentation for all libraries at the same time like this:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code">document <span class="paren2">(<span class="code">list mgl-mat:@mat-manual mgl:@mgl-manual</span>)</span></span>)</span></span></code></pre>
@@ -218,7 +294,7 @@ call
 <p><a id="x-28MGL-PAX-BLOG-3A-40BLOG--40RECURRENT-NETS-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@BLOG-@RECURRENT-NETS-SHORT%20MGL-PAX:SECTION"></a></p>
 
-<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG-@PAX-WORLD-SHORT%20MGL-PAX:SECTION" title="PAX World">&#8592;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8593;</a> <a href="#MGL-PAX-BLOG:@BLOG-@INCLUDE-LOCATIVE-FOR-PAX-SHORT%20MGL-PAX:SECTION" title="INCLUDE locative for PAX">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG-@RECURRENT-NETS-SHORT%20MGL-PAX:SECTION" title="Recurrent Nets">&#8634;</a></span></span></p>
+<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG-@PAX-WORLD-SHORT%20MGL-PAX:SECTION" title="PAX World">&#8592;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8593;</a> <a href="#MGL-PAX-BLOG:@BLOG-@INCLUDE-LOCATIVE-FOR-PAX-SHORT%20MGL-PAX:SECTION" title="`INCLUDE` locative for PAX">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG-@RECURRENT-NETS-SHORT%20MGL-PAX:SECTION" title="Recurrent Nets">&#8634;</a></span></span></p>
 
 <h2><a href="recurrent-nets.html#MGL-PAX-BLOG:@RECURRENT-NETS%20MGL-PAX:SECTION" title="Recurrent Nets">Recurrent Nets</a></h2>
 
@@ -260,9 +336,9 @@ nets in the documentation.</p>
 <p><a id="x-28MGL-PAX-BLOG-3A-40BLOG--40INCLUDE-LOCATIVE-FOR-PAX-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@BLOG-@INCLUDE-LOCATIVE-FOR-PAX-SHORT%20MGL-PAX:SECTION"></a></p>
 
-<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG-@RECURRENT-NETS-SHORT%20MGL-PAX:SECTION" title="Recurrent Nets">&#8592;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8593;</a> <a href="#MGL-PAX-BLOG:@BLOG-@TRANSCRIPTS-SHORT%20MGL-PAX:SECTION" title="Transcripts">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG-@INCLUDE-LOCATIVE-FOR-PAX-SHORT%20MGL-PAX:SECTION" title="INCLUDE locative for PAX">&#8634;</a></span></span></p>
+<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG-@RECURRENT-NETS-SHORT%20MGL-PAX:SECTION" title="Recurrent Nets">&#8592;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8593;</a> <a href="#MGL-PAX-BLOG:@BLOG-@TRANSCRIPTS-SHORT%20MGL-PAX:SECTION" title="Transcripts">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG-@INCLUDE-LOCATIVE-FOR-PAX-SHORT%20MGL-PAX:SECTION" title="`INCLUDE` locative for PAX">&#8634;</a></span></span></p>
 
-<h2><a href="include-locative-for-pax.html#MGL-PAX-BLOG:@INCLUDE-LOCATIVE-FOR-PAX%20MGL-PAX:SECTION" title="INCLUDE locative for PAX">INCLUDE locative for PAX</a></h2>
+<h2><a href="include-locative-for-pax.html#MGL-PAX-BLOG:@INCLUDE-LOCATIVE-FOR-PAX%20MGL-PAX:SECTION" title="`INCLUDE` locative for PAX"><code>INCLUDE</code> locative for PAX</a></h2>
 
 <p><em>Tags</em>: <a href="category-lisp.html#MGL-PAX-BLOG:@CATEGORY-LISP%20MGL-PAX:SECTION" title="Lisp">Lisp</a>, <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">Blog</a></p>
 
@@ -279,7 +355,7 @@ source files to docstrings is insanity or an
 <a href="http://c2.com/cgi/wiki?OnceAndOnlyOnce" >OOAO</a> violation,
 respectively.</p>
 
-<p>In response to this, <code>PAX</code> got the <a href="https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3AINCLUDE-20MGL-PAX-3ALOCATIVE-29" >INCLUDE
+<p>In response to this, PAX got the <a href="https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3AINCLUDE-20MGL-PAX-3ALOCATIVE-29" >INCLUDE
 locative</a> (see
 the linked documentation) and became its own first user at the same
 time. In a nutshell, the <code>INCLUDE</code> locative can refer to non-lisp
@@ -290,13 +366,13 @@ duplication. As always, <code>M-.</code> works as well.</p>
 <p><a id="x-28MGL-PAX-BLOG-3A-40BLOG--40TRANSCRIPTS-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@BLOG-@TRANSCRIPTS-SHORT%20MGL-PAX:SECTION"></a></p>
 
-<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG-@INCLUDE-LOCATIVE-FOR-PAX-SHORT%20MGL-PAX:SECTION" title="INCLUDE locative for PAX">&#8592;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8593;</a> <a href="#MGL-PAX-BLOG:@BLOG-@MIGRATION-TO-GITHUB-SHORT%20MGL-PAX:SECTION" title="Migration to github">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG-@TRANSCRIPTS-SHORT%20MGL-PAX:SECTION" title="Transcripts">&#8634;</a></span></span></p>
+<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG-@INCLUDE-LOCATIVE-FOR-PAX-SHORT%20MGL-PAX:SECTION" title="`INCLUDE` locative for PAX">&#8592;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8593;</a> <a href="#MGL-PAX-BLOG:@BLOG-@MIGRATION-TO-GITHUB-SHORT%20MGL-PAX:SECTION" title="Migration to github">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG-@TRANSCRIPTS-SHORT%20MGL-PAX:SECTION" title="Transcripts">&#8634;</a></span></span></p>
 
 <h2><a href="transcripts.html#MGL-PAX-BLOG:@TRANSCRIPTS%20MGL-PAX:SECTION" title="Transcripts">Transcripts</a></h2>
 
 <p><em>Tags</em>: <a href="category-lisp.html#MGL-PAX-BLOG:@CATEGORY-LISP%20MGL-PAX:SECTION" title="Lisp">Lisp</a>, <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">Blog</a></p>
 
-<p><em>2014-10-20</em> -- I've just committed a major feature to <code>MGL-PAX</code>:
+<p><em>2014-10-20</em> -- I've just committed a major feature to MGL-PAX:
 the ability to include code examples in docstrings. Printed output
 and return values are marked up with &quot;..&quot; and &quot;=&gt;&quot;, respectively.</p>
 
@@ -316,7 +392,7 @@ and return values are marked up with &quot;..&quot; and &quot;=&gt;&quot;, respe
 <li><p>Emacs integration: transcribing the last expression and updating a
   transcript in a region.</p></li>
 <li><p><a href="https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3ATRANSCRIBE-20FUNCTION-29" >TRANSCRIBE</a>
-  works without the rest of <code>MGL-PAX</code> so it can be used to
+  works without the rest of MGL-PAX so it can be used to
   format bug reports or as a poor man's expect script.</p></li>
 </ul>
 
@@ -386,15 +462,15 @@ most definitely want to use. My winning submission used bagged
 cross-validated dropout neural networks with stratified splits so
 this is where it's coming from.</p>
 
-<p><code>MGL</code> itself and <a href="https://github.com/melisgl/mgl-mat" >MGL-MAT</a> were
+<p>MGL itself and <a href="https://github.com/melisgl/mgl-mat" >MGL-MAT</a> were
 updated to work with the latest
 <a href="https://github.com/takagi/cl-cuda" >CL-CUDA</a>. The neural network
 code also saw some additions such as
 <a href="http://arxiv.org/abs/1312.1909" >-&gt;MAX-CHANNEL</a> activation (which
 originated as <a href="http://people.idsia.ch/~juergen/nips2013.pdf" >LWTA</a>)
 and also gaussian multiplicative noise. The next steps here are
-further cleanups to <code>MGL</code>, writing documentation and moving it to
-github. Also, there is some hope that one day <code>CL-CUDA</code> can be
+further cleanups to MGL, writing documentation and moving it to
+github. Also, there is some hope that one day CL-CUDA can be
 included in quicklisp allowing my stuff there to be updated to their
 latest versions.</p>
 
@@ -923,7 +999,7 @@ you think.</p>
 
 <p><em>Tags</em>: <a href="category-ai.html#MGL-PAX-BLOG:@CATEGORY-AI%20MGL-PAX:SECTION" title="AI">AI</a>, <a href="category-lisp.html#MGL-PAX-BLOG:@CATEGORY-LISP%20MGL-PAX:SECTION" title="Lisp">Lisp</a>, <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">Blog</a></p>
 
-<p><strong>UPDATE</strong>: This post out of date with regards to current <code>MGL</code>.
+<p><strong>UPDATE</strong>: This post out of date with regards to current MGL.
 Please refer to the
 <a href="http://melisgl.github.io/mgl-pax-world/mgl-manual.html" >documentation</a>
 instead.</p>
@@ -954,7 +1030,7 @@ the input, thus performing dimensionality reduction.</p>
 
 <p><em>Tags</em>: <a href="category-ai.html#MGL-PAX-BLOG:@CATEGORY-AI%20MGL-PAX:SECTION" title="AI">AI</a>, <a href="category-lisp.html#MGL-PAX-BLOG:@CATEGORY-LISP%20MGL-PAX:SECTION" title="Lisp">Lisp</a>, <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">Blog</a></p>
 
-<p><strong>UPDATE</strong>: This post out of date with regards to current <code>MGL</code>.
+<p><strong>UPDATE</strong>: This post out of date with regards to current MGL.
 Please refer to the
 <a href="http://melisgl.github.io/mgl-pax-world/mgl-manual.html" >documentation</a>
 instead.</p>
@@ -981,14 +1057,14 @@ INITIALIZE-TRAINER. Training continues until SAMPLER is finished."</span></span>
 
 <p><em>Tags</em>: <a href="category-ai.html#MGL-PAX-BLOG:@CATEGORY-AI%20MGL-PAX:SECTION" title="AI">AI</a>, <a href="category-lisp.html#MGL-PAX-BLOG:@CATEGORY-LISP%20MGL-PAX:SECTION" title="Lisp">Lisp</a>, <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">Blog</a></p>
 
-<p><strong>UPDATE</strong>: This post out of date with regards to current <code>MGL</code>.
+<p><strong>UPDATE</strong>: This post out of date with regards to current MGL.
 Please refer to the
 <a href="http://melisgl.github.io/mgl-pax-world/mgl-manual.html" >documentation</a>
 instead.</p>
 
 <p><em>2009-12-02</em> -- This is going to be the start of an introduction
 series on the <a href="http://cliki.net/MGL" >MGL</a> Common Lisp machine
-learning library. <code>MGL</code> focuses mainly on <a href="http://en.wikipedia.org/wiki/Boltzmann_machine" >Boltzmann
+learning library. MGL focuses mainly on <a href="http://en.wikipedia.org/wiki/Boltzmann_machine" >Boltzmann
 Machines</a> (BMs). In
 fact, the few seemingly unrelated things it currently
 offers (gradient descent, conjugate gradient, backprop) are directly
