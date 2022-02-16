@@ -2666,6 +2666,7 @@
   - Added [METHOD-COMBINATION locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28METHOD-COMBINATION-20MGL-PAX-3ALOCATIVE-29).
   - Added [`EXPORTABLE-REFERENCE-P`](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:EXPORTABLE-REFERENCE-P%20GENERIC-FUNCTION) to allow specializing decisions on whether to export a symbol in DEFSECTION based on SECTION-PACKAGE. PAX no longer exports its documentation and drops the `MGL-PAX-` prefix from names like `@MGL-PAX-LINKS` to reduce clutter.
   - [Downcasing](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-DOWNCASE-UPPERCASE-CODE*%20VARIABLE) now works well and is the default for \\PAX World.
+  - [Warn on unresolvable reflinks](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@UNRESOLVABLE-REFLINKS%20MGL-PAX:SECTION).
 
   ##### Transcribe
 
