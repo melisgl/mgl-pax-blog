@@ -126,7 +126,8 @@
   (@on-the-design-of-matrix-libraries section)
   (@moving-the-blog-to-pax section)
   (@journal-the-kitchen-sink section)
-  (@pax-v0.1 section))
+  (@pax-v0.1 section)
+  (@there-is-try section))
 
 (defsection @category-personal0 (:title "Personal")
   (@first-post section)
@@ -178,7 +179,8 @@
   (@on-the-design-of-matrix-libraries section)
   (@moving-the-blog-to-pax section)
   (@journal-the-kitchen-sink section)
-  (@pax-v0.1 section))
+  (@pax-v0.1 section)
+  (@there-is-try section))
 
 (defsection @category-ai0 (:title "AI")
   (@2008-computer-games-olympiad section)
@@ -2706,6 +2708,327 @@
   - Made documentation generation faster especially for small jobs.
   - Improved error reporting.
   - Autoloading no longer produces warnings on SBCL and fresh SLIME.""")
+
+(defsection @there-is-try (:title "There is Try")
+  """_2022-10-16_ -- Do or do not. There is now Try.
+  I forgot to announce [Try](https://github.com/melisgl/try),
+  my Common Lisp test framework, on this blog.
+
+  - Try does equally well in interactive and non-interactive mode by
+    minimizing the function-test impedance mismatch.
+  - It provides an extensible and universal [check macro](https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FIS-20MGL-PAX-3ASECTION-29).
+  - It is highly customizable: what to debug interactively, what to print, what
+    to describe in detail, what to rerun, what to count can all be easily changed.
+  - Customization is based on complex types built from
+    [event types](https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FEVENTS-20MGL-PAX-3ASECTION-29),
+    which are signalled when checks or tests are run.
+
+  Try's behaviour is trivial: tests are functions, and checks behave like
+  CL:ASSERT. Test suites are test functions that call test functions. Skipping
+  tests is just a regular WHEN. Everything is as close to normal evaluation
+  rules as possible.
+
+  Behind the scenes, events are signalled for successes, failures, etc, and
+  these events provide the basis of its customization. Non-interactive
+  mode is just a particular customization.
+
+  Read the HTML [documentation](https://melisgl.github.io/mgl-pax-world/try-manual.html).
+  The following [PAX transcripts](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@TRANSCRIPTS%20MGL-PAX:SECTION)
+  show how Try differs from [5am](https://fiveam.common-lisp.dev/) and
+  [Parachute](https://github.com/Shinmera/parachute) in a couple of common
+  situations.
+
+  ```
+  ;;;; Evaluating successful checks without tests
+
+  ;;; 5am fails to perform the check. May be a bug.
+  (5am:is (equal 6 (1+ 5)))
+  .. debugger invoked on UNBOUND-VARIABLE:
+  ..   The variable IT.BESE.FIVEAM::CURRENT-TEST is unbound.
+
+  ;;; In the Parachute version, (EQUAL 6 (1+ 5) is not explicit in the
+  ;;; source; one cannot just evaluate it without the is for example
+  ;;; with slime-eval-last-expression.
+  (parachute:is equal 6 (1+ 5))
+  => 6
+
+  (try:is (equal 6 (1+ 5)))
+  => T
+  ```
+
+  ```
+  ;;;; Evaluating failing checks without tests
+
+  ;;; 5am signals a CHECK-FAILURE and prints an informative message.
+  (5am:is (equal nil (1+ 5)))
+  .. debugger invoked on IT.BESE.FIVEAM::CHECK-FAILURE:
+  ..   The following check failed: (EQUAL NIL (1+ 5))
+  ..   
+  ..   (1+ 5)
+  ..   
+  ..    evaluated to 
+  ..   
+  ..   6
+  ..   
+  ..    which is not 
+  ..   
+  ..   EQUAL
+  ..   
+  ..    to 
+  ..   
+  ..   NIL
+  ..   
+  ..   .
+
+
+  ;;; Parachute just returns 6. Are all parachute checks noops outside
+  ;;; tests?
+  (parachute:is equal nil (1+ 5))
+  => 6
+
+
+  (try:is (equal nil (1+ 5)))
+  .. debugger invoked on TRY:UNEXPECTED-RESULT-FAILURE:
+  ..   UNEXPECTED-FAILURE in check:
+  ..     (TRY:IS (EQUAL NIL #1=(1+ 5)))
+  ..   where
+  ..     #1# = 6
+  ```
+
+  ```
+  ;;;; Defining tests
+
+  (5am:def-test 5am-test ()
+    (5am:is (equal nil (1+ 5))))
+
+  (parachute:define-test parachute-test ()
+    (parachute:is equal nil (1+ 5)))
+
+  (try:deftest try-test ()
+    (try:is (equal nil (1+ 5))))
+  ```
+
+  ```
+  ;;;; Running tests interactively
+
+  (5am:debug! '5am-test)
+  ..
+  .. Running test 5AM-TEST 
+  .. debugger invoked on IT.BESE.FIVEAM::CHECK-FAILURE:
+  ..   The following check failed: (EQUAL NIL (1+ 5))
+  ..   
+  ..   (1+ 5)
+  ..   
+  ..    evaluated to 
+  ..   
+  ..   6
+  ..   
+  ..    which is not 
+  ..   
+  ..   EQUAL
+  ..   
+  ..    to 
+  ..   
+  ..   NIL
+  ..   
+  ..   .
+
+
+  (5am-test)
+  .. debugger invoked on UNDEFINED-FUNCTION:
+  ..   The function COMMON-LISP-USER::5AM-TEST is undefined.
+
+
+  (parachute:test 'parachute-test :report 'parachute:interactive)
+  .. debugger invoked on SIMPLE-ERROR:
+  ..   Test (is equal () (1+ 5)) failed:
+  ..   The test form   (1+ 5)
+  ..   evaluated to    6
+  ..   when            ()
+  ..   was expected to be equal under EQUAL.
+
+
+  (parachute-test)
+  .. debugger invoked on UNDEFINED-FUNCTION:
+  ..   The function COMMON-LISP-USER::PARACHUTE-TEST is undefined.
+
+
+  (try:try 'try-test :debug 'try:failure)
+  .. debugger invoked on TRY:UNEXPECTED-RESULT-FAILURE:
+  ..   UNEXPECTED-FAILURE in check:
+  ..     (TRY:IS (EQUAL NIL #1=(1+ 5)))
+  ..   where
+  ..     #1# = 6
+  .. TRY-TEST
+  ..   ⊟ non-local exit
+  .. ⊟ TRY-TEST ⊟1
+  ..
+
+
+  (try-test)
+  .. debugger invoked on TRY:UNEXPECTED-RESULT-FAILURE:
+  ..   UNEXPECTED-FAILURE in check:
+  ..     (TRY:IS (EQUAL NIL #1=(1+ 5)))
+  ..   where
+  ..     #1# = 6
+  .. TRY-TEST
+  ..   ⊟ non-local exit; E.g. the user selected the ABORT restart in the debugger.
+  .. ⊟ TRY-TEST ⊟1
+  ..
+  ```
+
+  ```
+  ;;;; Running tests non-interactively.
+
+  (5am:run! '5am-test)
+  ..
+  .. Running test 5AM-TEST f
+  ..  Did 1 check.
+  ..     Pass: 0 ( 0%)
+  ..     Skip: 0 ( 0%)
+  ..     Fail: 1 (100%)
+  ..
+  ..  Failure Details:
+  ..  --------------------------------
+  ..  5AM-TEST []: 
+  ..       
+  .. (1+ 5)
+  ..
+  ..  evaluated to 
+  ..
+  .. 6
+  ..
+  ..  which is not 
+  ..
+  .. EQUAL
+  ..
+  ..  to 
+  ..
+  .. NIL
+  ..
+  ..
+  ..  --------------------------------
+  ..
+  ..
+  => NIL
+  ==> (#<IT.BESE.FIVEAM::TEST-FAILURE {101AF66573}>)
+  => NIL
+
+
+  (parachute:test 'parachute-test)
+  ..         ？ COMMON-LISP-USER::PARACHUTE-TEST
+  ..   0.000 ✘   (is equal () (1+ 5))
+  ..   0.000 ✘ COMMON-LISP-USER::PARACHUTE-TEST
+  ..
+  .. ;; Summary:
+  .. Passed:     0
+  .. Failed:     1
+  .. Skipped:    0
+  ..
+  .. ;; Failures:
+  ..    1/   1 tests failed in COMMON-LISP-USER::PARACHUTE-TEST
+  .. The test form   (1+ 5)
+  .. evaluated to    6
+  .. when            ()
+  .. was expected to be equal under EQUAL.
+  ..
+  ..
+  ==> #<PARACHUTE:PLAIN 2, FAILED results>
+
+
+  ;;; This is the default report style.
+  (try:try 'try-test)
+  .. TRY-TEST
+  ..   ⊠ (TRY:IS (EQUAL NIL #1=(1+ 5)))
+  ..     where
+  ..       #1# = 6
+  .. ⊠ TRY-TEST ⊠1
+  ..
+  ==> #<TRY:TRIAL (TRY-TEST) UNEXPECTED-FAILURE 0.000s ⊠1>
+  ```
+
+  ```
+  ;;;; Suites
+
+  (5am:def-suite 5am-suite)
+
+  (5am:in-suite 5am-suite)
+
+  (5am:def-test 5am-child ()
+    (5am:is (eq t t)))
+
+  (5am:run! '5am-suite)
+  ..
+  .. Running test suite 5AM-SUITE
+  ..  Running test 5AM-CHILD .
+  ..  Did 1 check.
+  ..     Pass: 1 (100%)
+  ..     Skip: 0 ( 0%)
+  ..     Fail: 0 ( 0%)
+  ..
+  ..
+  => T
+  => NIL
+  => NIL
+
+  (parachute:define-test parachute-suite ()
+    (parachute:test 'parachute-test))
+
+  (parachute:define-test parachute-child
+    :parent parachute-suite
+    (parachute:is eq t t))
+
+  (parachute:test 'parachute-suite)
+
+  ..         ？ COMMON-LISP-USER::PARACHUTE-SUITE
+  ..         ？   COMMON-LISP-USER::PARACHUTE-TEST
+  ..   0.000 ✘     (is equal () (1+ 5))
+  ..   0.000 ✘   COMMON-LISP-USER::PARACHUTE-TEST
+  ..
+  .. ;; Summary:
+  .. Passed:     0
+  .. Failed:     1
+  .. Skipped:    0
+  ..
+  .. ;; Failures:
+  ..    1/   1 tests failed in COMMON-LISP-USER::PARACHUTE-TEST
+  .. The test form   (1+ 5)
+  .. evaluated to    6
+  .. when            ()
+  .. was expected to be equal under EQUAL.
+  ..
+  ..         ？   COMMON-LISP-USER::PARACHUTE-CHILD
+  ..   0.000 ✔     (is eq t t)
+  ..   0.004 ✔   COMMON-LISP-USER::PARACHUTE-CHILD
+  ..   0.004 ✘ COMMON-LISP-USER::PARACHUTE-SUITE
+  ..
+  .. ;; Summary:
+  .. Passed:     1
+  .. Failed:     1
+  .. Skipped:    0
+  ..
+  .. ;; Failures:
+  ..    2/   3 tests failed in COMMON-LISP-USER::PARACHUTE-SUITE
+  .. Test for PARACHUTE-TEST failed.
+  ..
+  ==> #<PARACHUTE:PLAIN 4, FAILED results>
+
+
+  (try:deftest try-suite ()
+    (try-test))
+
+  (try:try 'try-suite)
+  .. TRY-SUITE
+  ..   TRY-TEST
+  ..     ⊠ (TRY:IS (EQUAL NIL #1=(1+ 5)))
+  ..       where
+  ..         #1# = 6
+  ..   ⊠ TRY-TEST ⊠1
+  .. ⊠ TRY-SUITE ⊠1
+  ..
+  ==> #<TRY:TRIAL (TRY-SUITE) UNEXPECTED-FAILURE 0.004s ⊠1>
+  ```
+  """)
 
 #+nil
 (generate-pages (list @blog0 @category-personal0 @category-tech0
