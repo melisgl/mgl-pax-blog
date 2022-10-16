@@ -28,14 +28,332 @@
 <p><a id="x-28MGL-PAX-BLOG-3A-40BLOG-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION"></a></p>
 
-<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG-@PAX-V0.1-SHORT%20MGL-PAX:SECTION" title="PAX v0.1">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8634;</a></span></span></p>
+<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG-@THERE-IS-TRY-SHORT%20MGL-PAX:SECTION" title="There is Try">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8634;</a></span></span></p>
 
 <h1><a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION">Blog</a></h1>
+
+<p><a id="x-28MGL-PAX-BLOG-3A-40BLOG--40THERE-IS-TRY-SHORT-20MGL-PAX-3ASECTION-29"></a>
+<a id="MGL-PAX-BLOG:@BLOG-@THERE-IS-TRY-SHORT%20MGL-PAX:SECTION"></a></p>
+
+<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8592;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8593;</a> <a href="#MGL-PAX-BLOG:@BLOG-@PAX-V0.1-SHORT%20MGL-PAX:SECTION" title="PAX v0.1">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG-@THERE-IS-TRY-SHORT%20MGL-PAX:SECTION" title="There is Try">&#8634;</a></span></span></p>
+
+<h2><a href="there-is-try.html#MGL-PAX-BLOG:@THERE-IS-TRY%20MGL-PAX:SECTION" title="There is Try">There is Try</a></h2>
+
+<p><em>Tags</em>: <a href="category-lisp.html#MGL-PAX-BLOG:@CATEGORY-LISP%20MGL-PAX:SECTION" title="Lisp">Lisp</a>, <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">Blog</a></p>
+
+<p><em>2022-10-16</em> -- Do or do not. There is now Try.
+I forgot to announce <a href="https://github.com/melisgl/try" >Try</a>,
+my Common Lisp test framework, on this blog.</p>
+
+<ul>
+<li><p>Try does equally well in interactive and non-interactive mode by
+  minimizing the function-test impedance mismatch.</p></li>
+<li><p>It provides an extensible and universal <a href="https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FIS-20MGL-PAX-3ASECTION-29" >check macro</a>.</p></li>
+<li><p>It is highly customizable: what to debug interactively, what to print, what
+  to describe in detail, what to rerun, what to count can all be easily changed.</p></li>
+<li><p>Customization is based on complex types built from
+  <a href="https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FEVENTS-20MGL-PAX-3ASECTION-29" >event types</a>,
+  which are signalled when checks or tests are run.</p></li>
+</ul>
+
+<p>Try's behaviour is trivial: tests are functions, and checks behave like
+<a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_assert.htm" title="ASSERT MGL-PAX:MACRO"><code>CL:ASSERT</code></a>. Test suites are test functions that call test functions. Skipping
+tests is just a regular <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_when_.htm" title="WHEN MGL-PAX:MACRO"><code>WHEN</code></a>. Everything is as close to normal evaluation
+rules as possible.</p>
+
+<p>Behind the scenes, events are signalled for successes, failures, etc, and
+these events provide the basis of its customization. Non-interactive
+mode is just a particular customization.</p>
+
+<p>Read the HTML <a href="https://melisgl.github.io/mgl-pax-world/try-manual.html" >documentation</a>.
+The following <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@TRANSCRIPTS%20MGL-PAX:SECTION" >PAX transcripts</a>
+show how Try differs from <a href="https://fiveam.common-lisp.dev/" >5am</a> and
+<a href="https://github.com/Shinmera/parachute" >Parachute</a> in a couple of common
+situations.</p>
+
+<pre><code><span class="code"><span class="comment">;;;; Evaluating successful checks without tests
+</span>
+<span class="comment">;;; 5am fails to perform the check. May be a bug.
+</span><span class="paren1">(<span class="code">5am:is <span class="paren2">(<span class="code">equal 6 <span class="paren3">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span>
+.. debugger invoked on UNBOUND-VARIABLE:
+..   The variable IT.BESE.FIVEAM::CURRENT-TEST is unbound.
+
+<span class="comment">;;; In the Parachute version, (EQUAL 6 (1+ 5) is not explicit in the
+</span><span class="comment">;;; source; one cannot just evaluate it without the is for example
+</span><span class="comment">;;; with slime-eval-last-expression.
+</span><span class="paren1">(<span class="code">parachute:is equal 6 <span class="paren2">(<span class="code">1+ 5</span>)</span></span>)</span>
+=&gt; 6
+
+<span class="paren1">(<span class="code">try:is <span class="paren2">(<span class="code">equal 6 <span class="paren3">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span>
+=&gt; T</span></code></pre>
+
+<pre><code><span class="code"><span class="comment">;;;; Evaluating failing checks without tests
+</span>
+<span class="comment">;;; 5am signals a CHECK-FAILURE and prints an informative message.
+</span><span class="paren1">(<span class="code">5am:is <span class="paren2">(<span class="code">equal nil <span class="paren3">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span>
+.. debugger invoked on IT.BESE.FIVEAM::CHECK-FAILURE:
+..   The following check failed: <span class="paren1">(<span class="code">EQUAL NIL <span class="paren2">(<span class="code">1+ 5</span>)</span></span>)</span>
+..   
+..   <span class="paren1">(<span class="code">1+ 5</span>)</span>
+..   
+..    evaluated to 
+..   
+..   6
+..   
+..    which is not 
+..   
+..   EQUAL
+..   
+..    to 
+..   
+..   NIL
+..   
+..   .
+
+
+<span class="comment">;;; Parachute just returns 6. Are all parachute checks noops outside
+</span><span class="comment">;;; tests?
+</span><span class="paren1">(<span class="code">parachute:is equal nil <span class="paren2">(<span class="code">1+ 5</span>)</span></span>)</span>
+=&gt; 6
+
+
+<span class="paren1">(<span class="code">try:is <span class="paren2">(<span class="code">equal nil <span class="paren3">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span>
+.. debugger invoked on TRY:UNEXPECTED-RESULT-FAILURE:
+..   UNEXPECTED-FAILURE in check:
+..     <span class="paren1">(<span class="code">TRY:IS <span class="paren2">(<span class="code">EQUAL NIL #1=<span class="paren3">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span>
+..   where
+..     #1# = 6</span></code></pre>
+
+<pre><code><span class="code"><span class="comment">;;;; Defining tests
+</span>
+<span class="paren1">(<span class="code"><i><span class="symbol">5am:def-test</span></i> 5am-test <span class="paren2">(<span class="code"></span>)</span>
+  <span class="paren2">(<span class="code">5am:is <span class="paren3">(<span class="code">equal nil <span class="paren4">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span></span>)</span>
+
+<span class="paren1">(<span class="code"><i><span class="symbol">parachute:define-test</span></i> parachute-test <span class="paren2">(<span class="code"></span>)</span>
+  <span class="paren2">(<span class="code">parachute:is equal nil <span class="paren3">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span>
+
+<span class="paren1">(<span class="code"><i><span class="symbol">try:deftest</span></i> try-test <span class="paren2">(<span class="code"></span>)</span>
+  <span class="paren2">(<span class="code">try:is <span class="paren3">(<span class="code">equal nil <span class="paren4">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
+
+<pre><code><span class="code"><span class="comment">;;;; Running tests interactively
+</span>
+<span class="paren1">(<span class="code">5am:debug! '5am-test</span>)</span>
+..
+.. Running test 5AM-TEST 
+.. debugger invoked on IT.BESE.FIVEAM::CHECK-FAILURE:
+..   The following check failed: <span class="paren1">(<span class="code">EQUAL NIL <span class="paren2">(<span class="code">1+ 5</span>)</span></span>)</span>
+..   
+..   <span class="paren1">(<span class="code">1+ 5</span>)</span>
+..   
+..    evaluated to 
+..   
+..   6
+..   
+..    which is not 
+..   
+..   EQUAL
+..   
+..    to 
+..   
+..   NIL
+..   
+..   .
+
+
+<span class="paren1">(<span class="code">5am-test</span>)</span>
+.. debugger invoked on UNDEFINED-FUNCTION:
+..   The function COMMON-LISP-USER::5AM-TEST is undefined.
+
+
+<span class="paren1">(<span class="code">parachute:test 'parachute-test <span class="keyword">:report</span> 'parachute:interactive</span>)</span>
+.. debugger invoked on SIMPLE-ERROR:
+..   Test <span class="paren1">(<span class="code">is equal <span class="paren2">(<span class="code"></span>)</span> <span class="paren2">(<span class="code">1+ 5</span>)</span></span>)</span> failed:
+..   The test form   <span class="paren1">(<span class="code">1+ 5</span>)</span>
+..   evaluated to    6
+..   when            <span class="paren1">(<span class="code"></span>)</span>
+..   was expected to be equal under EQUAL.
+
+
+<span class="paren1">(<span class="code">parachute-test</span>)</span>
+.. debugger invoked on UNDEFINED-FUNCTION:
+..   The function COMMON-LISP-USER::PARACHUTE-TEST is undefined.
+
+
+<span class="paren1">(<span class="code">try:try 'try-test <span class="keyword">:debug</span> 'try:failure</span>)</span>
+.. debugger invoked on TRY:UNEXPECTED-RESULT-FAILURE:
+..   UNEXPECTED-FAILURE in check:
+..     <span class="paren1">(<span class="code">TRY:IS <span class="paren2">(<span class="code">EQUAL NIL #1=<span class="paren3">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span>
+..   where
+..     #1# = 6
+.. TRY-TEST
+..   ⊟ non-local exit
+.. ⊟ TRY-TEST ⊟1
+..
+
+
+<span class="paren1">(<span class="code">try-test</span>)</span>
+.. debugger invoked on TRY:UNEXPECTED-RESULT-FAILURE:
+..   UNEXPECTED-FAILURE in check:
+..     <span class="paren1">(<span class="code">TRY:IS <span class="paren2">(<span class="code">EQUAL NIL #1=<span class="paren3">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span>
+..   where
+..     #1# = 6
+.. TRY-TEST
+..   ⊟ non-local exit<span class="comment">; E.g. the user selected the ABORT restart in the debugger.
+</span>.. ⊟ TRY-TEST ⊟1
+..</span></code></pre>
+
+<pre><code><span class="code"><span class="comment">;;;; Running tests non-interactively.
+</span>
+<span class="paren1">(<span class="code">5am:run! '5am-test</span>)</span>
+..
+.. Running test 5AM-TEST f
+..  Did 1 check.
+..     Pass: 0 <span class="paren1">(<span class="code"> 0%</span>)</span>
+..     Skip: 0 <span class="paren1">(<span class="code"> 0%</span>)</span>
+..     Fail: 1 <span class="paren1">(<span class="code">100%</span>)</span>
+..
+..  Failure Details:
+..  --------------------------------
+..  5AM-TEST []: 
+..       
+.. <span class="paren1">(<span class="code">1+ 5</span>)</span>
+..
+..  evaluated to 
+..
+.. 6
+..
+..  which is not 
+..
+.. EQUAL
+..
+..  to 
+..
+.. NIL
+..
+..
+..  --------------------------------
+..
+..
+=&gt; NIL
+==&gt; <span class="paren1">(<span class="code">#&lt;IT.BESE.FIVEAM::TEST-FAILURE {101AF66573}&gt;</span>)</span>
+=&gt; NIL
+
+
+<span class="paren1">(<span class="code">parachute:test 'parachute-test</span>)</span>
+..         ？ COMMON-LISP-USER::PARACHUTE-TEST
+..   0.000 ✘   <span class="paren1">(<span class="code">is equal <span class="paren2">(<span class="code"></span>)</span> <span class="paren2">(<span class="code">1+ 5</span>)</span></span>)</span>
+..   0.000 ✘ COMMON-LISP-USER::PARACHUTE-TEST
+..
+.. <span class="comment">;; Summary:
+</span>.. Passed:     0
+.. Failed:     1
+.. Skipped:    0
+..
+.. <span class="comment">;; Failures:
+</span>..    1/   1 tests failed in COMMON-LISP-USER::PARACHUTE-TEST
+.. The test form   <span class="paren1">(<span class="code">1+ 5</span>)</span>
+.. evaluated to    6
+.. when            <span class="paren1">(<span class="code"></span>)</span>
+.. was expected to be equal under EQUAL.
+..
+..
+==&gt; #&lt;PARACHUTE:PLAIN 2, FAILED results&gt;
+
+
+<span class="comment">;;; This is the default report style.
+</span><span class="paren1">(<span class="code">try:try 'try-test</span>)</span>
+.. TRY-TEST
+..   ⊠ <span class="paren1">(<span class="code">TRY:IS <span class="paren2">(<span class="code">EQUAL NIL #1=<span class="paren3">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span>
+..     where
+..       #1# = 6
+.. ⊠ TRY-TEST ⊠1
+..
+==&gt; #&lt;TRY:TRIAL <span class="paren1">(<span class="code">TRY-TEST</span>)</span> UNEXPECTED-FAILURE 0.000s ⊠1&gt;</span></code></pre>
+
+<pre><code><span class="code"><span class="comment">;;;; Suites
+</span>
+<span class="paren1">(<span class="code"><i><span class="symbol">5am:def-suite</span></i> 5am-suite</span>)</span>
+
+<span class="paren1">(<span class="code">5am:in-suite 5am-suite</span>)</span>
+
+<span class="paren1">(<span class="code"><i><span class="symbol">5am:def-test</span></i> 5am-child <span class="paren2">(<span class="code"></span>)</span>
+  <span class="paren2">(<span class="code">5am:is <span class="paren3">(<span class="code">eq t t</span>)</span></span>)</span></span>)</span>
+
+<span class="paren1">(<span class="code">5am:run! '5am-suite</span>)</span>
+..
+.. Running test suite 5AM-SUITE
+..  Running test 5AM-CHILD .
+..  Did 1 check.
+..     Pass: 1 <span class="paren1">(<span class="code">100%</span>)</span>
+..     Skip: 0 <span class="paren1">(<span class="code"> 0%</span>)</span>
+..     Fail: 0 <span class="paren1">(<span class="code"> 0%</span>)</span>
+..
+..
+=&gt; T
+=&gt; NIL
+=&gt; NIL
+
+<span class="paren1">(<span class="code"><i><span class="symbol">parachute:define-test</span></i> parachute-suite <span class="paren2">(<span class="code"></span>)</span>
+  <span class="paren2">(<span class="code">parachute:test 'parachute-test</span>)</span></span>)</span>
+
+<span class="paren1">(<span class="code"><i><span class="symbol">parachute:define-test</span></i> parachute-child
+  <span class="keyword">:parent</span> parachute-suite
+  <span class="paren2">(<span class="code">parachute:is eq t t</span>)</span></span>)</span>
+
+<span class="paren1">(<span class="code">parachute:test 'parachute-suite</span>)</span>
+
+..         ？ COMMON-LISP-USER::PARACHUTE-SUITE
+..         ？   COMMON-LISP-USER::PARACHUTE-TEST
+..   0.000 ✘     <span class="paren1">(<span class="code">is equal <span class="paren2">(<span class="code"></span>)</span> <span class="paren2">(<span class="code">1+ 5</span>)</span></span>)</span>
+..   0.000 ✘   COMMON-LISP-USER::PARACHUTE-TEST
+..
+.. <span class="comment">;; Summary:
+</span>.. Passed:     0
+.. Failed:     1
+.. Skipped:    0
+..
+.. <span class="comment">;; Failures:
+</span>..    1/   1 tests failed in COMMON-LISP-USER::PARACHUTE-TEST
+.. The test form   <span class="paren1">(<span class="code">1+ 5</span>)</span>
+.. evaluated to    6
+.. when            <span class="paren1">(<span class="code"></span>)</span>
+.. was expected to be equal under EQUAL.
+..
+..         ？   COMMON-LISP-USER::PARACHUTE-CHILD
+..   0.000 ✔     <span class="paren1">(<span class="code">is eq t t</span>)</span>
+..   0.004 ✔   COMMON-LISP-USER::PARACHUTE-CHILD
+..   0.004 ✘ COMMON-LISP-USER::PARACHUTE-SUITE
+..
+.. <span class="comment">;; Summary:
+</span>.. Passed:     1
+.. Failed:     1
+.. Skipped:    0
+..
+.. <span class="comment">;; Failures:
+</span>..    2/   3 tests failed in COMMON-LISP-USER::PARACHUTE-SUITE
+.. Test for PARACHUTE-TEST failed.
+..
+==&gt; #&lt;PARACHUTE:PLAIN 4, FAILED results&gt;
+
+
+<span class="paren1">(<span class="code"><i><span class="symbol">try:deftest</span></i> try-suite <span class="paren2">(<span class="code"></span>)</span>
+  <span class="paren2">(<span class="code">try-test</span>)</span></span>)</span>
+
+<span class="paren1">(<span class="code">try:try 'try-suite</span>)</span>
+.. TRY-SUITE
+..   TRY-TEST
+..     ⊠ <span class="paren1">(<span class="code">TRY:IS <span class="paren2">(<span class="code">EQUAL NIL #1=<span class="paren3">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span>
+..       where
+..         #1# = 6
+..   ⊠ TRY-TEST ⊠1
+.. ⊠ TRY-SUITE ⊠1
+..
+==&gt; #&lt;TRY:TRIAL <span class="paren1">(<span class="code">TRY-SUITE</span>)</span> UNEXPECTED-FAILURE 0.004s ⊠1&gt;</span></code></pre>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40BLOG--40PAX-V0-2E1-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@BLOG-@PAX-V0.1-SHORT%20MGL-PAX:SECTION"></a></p>
 
-<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8592;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8593;</a> <a href="#MGL-PAX-BLOG:@BLOG-@JOURNAL-THE-KITCHEN-SINK-SHORT%20MGL-PAX:SECTION" title="Journal, the kitchen sink">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG-@PAX-V0.1-SHORT%20MGL-PAX:SECTION" title="PAX v0.1">&#8634;</a></span></span></p>
+<p><span class="outer-navigation"><span class="navigation"> <a href="#MGL-PAX-BLOG:@BLOG-@THERE-IS-TRY-SHORT%20MGL-PAX:SECTION" title="There is Try">&#8592;</a> <a href="#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">&#8593;</a> <a href="#MGL-PAX-BLOG:@BLOG-@JOURNAL-THE-KITCHEN-SINK-SHORT%20MGL-PAX:SECTION" title="Journal, the kitchen sink">&#8594;</a> <a href="#MGL-PAX-BLOG:@BLOG-@PAX-V0.1-SHORT%20MGL-PAX:SECTION" title="PAX v0.1">&#8634;</a></span></span></p>
 
 <h2><a href="pax-v0.1.html#MGL-PAX-BLOG:@PAX-V0.1%20MGL-PAX:SECTION" title="PAX v0.1">PAX v0.1</a></h2>
 
