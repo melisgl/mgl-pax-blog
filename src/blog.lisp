@@ -308,7 +308,7 @@
   standard answer to that is to map _Caps Lock_ to _Control_. I
   believe that there is a better way:
 
-  ![](file:blog-files/symbolics-keyboard.jpg)
+  ![](blog-files/symbolics-keyboard.jpg)
 
   Note the placement of modifiers: _Control_, _Meta_, _Super_, _Hyper_
   on both sides of Space in this order, with _Control_ being the
@@ -1093,7 +1093,7 @@
   (let ((dgraph (cl-dot:generate-graph-from-roots *bpn* (lumps *bpn*))))
     (cl-dot:dot-graph dgraph "linear-bpn.png" :format :png))
   ```
-  ![](file:blog-files/linear-bpn.png)
+  ![](blog-files/linear-bpn.png)
 
   That's it for today, thank you for your kind attention.""")
 
@@ -2674,7 +2674,7 @@
 
   - Transcription consistency checking is now [customizable](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-FINER-GRAINED-CONSISTENCY-CHECKS%20MGL-PAX:SECTION).
   - Transcription consistency checking and dynamic environment [can be controlled for code blocks](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-DYNENV%20MGL-PAX:SECTION).
-  - Errors during transcribing are [included](file:///home/melisgl/own/mgl-pax/world/pax-manual.html#MGL-PAX:@TRANSCRIPT-API%20MGL-PAX:SECTION) in the transcript.
+  - Errors during transcribing are [included](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@TRANSCRIPT-API%20MGL-PAX:SECTION) in the transcript.
 
   ##### Portability
 
@@ -2689,7 +2689,7 @@
   - Within the same docstring explicit links (in addition to autolinks) also [prevent subsequent autolinking of the same object](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@SUPPRESSED-LINKS%20MGL-PAX:SECTION)
   - [Unexported superclasses are not listed](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28CLASS-20MGL-PAX-3ALOCATIVE-29) in the generated documentation of classes.
   - Improved documentation.
-  - Introduced [double backslash escapes](file:///home/melisgl/own/mgl-pax/world/pax-manual.html#MGL-PAX:@OVERVIEW-OF-ESCAPING%20MGL-PAX:SECTION) to prevent downcasing in addition to linking.
+  - Introduced [double backslash escapes](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@OVERVIEW-OF-ESCAPING%20MGL-PAX:SECTION) to prevent downcasing in addition to linking.
   - Removed DESCRIBE-OBJECT method on SECTIONs. Call DOCUMENT directly.
   - Made URLs in the generated documentation more stable across implementations and [made them more human readable](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-URL-VERSIONS*%20VARIABLE). Existing URLs still work.
   - Exported api for [extending DOCUMENT](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-DOCUMENT%20MGL-PAX:SECTION) and [FIND-SOURCE](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-FIND-SOURCE%20MGL-PAX:SECTION)
