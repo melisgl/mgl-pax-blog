@@ -2579,7 +2579,18 @@
   support, and an [Event Sourcing][event-sourcing] style
   [database][persistence-tutorial] on top.
 
-  Perhaps the highlight from the linked tutorials is how easy
+    [cl-trace]: http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm
+    [mock-object]: https://en.wikipedia.org/wiki/Mock_object
+    [event-sourcing]: https://martinfowler.com/eaaDev/EventSourcing.html
+    [journal-code]: https://github.com/melisgl/journal
+    [journal-background]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40JOURNAL-BACKGROUND-20MGL-PAX-3ASECTION-29
+    [logging-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40LOGGING-20MGL-PAX-3ASECTION-29
+    [tracing-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TRACING-20MGL-PAX-3ASECTION-29
+    [testing-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TESTING-20MGL-PAX-3ASECTION-29
+    [persistence-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40PERSISTENCE-20MGL-PAX-3ASECTION-29
+  """
+
+  """Perhaps the highlight from the linked tutorials is how easy
   persistence is. Let's write a simple game:
 
   ```
@@ -2639,23 +2650,12 @@
   Note the `:SYNC T`, which tells Journal to take durability seriously.
 
   You can find the code [here][journal-code].
-
-    [cl-trace]: http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm
-    [mock-object]: https://en.wikipedia.org/wiki/Mock_object
-    [event-sourcing]: https://martinfowler.com/eaaDev/EventSourcing.html
-    [journal-code]: https://github.com/melisgl/journal
-    [journal-background]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40JOURNAL-BACKGROUND-20MGL-PAX-3ASECTION-29
-    [logging-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40LOGGING-20MGL-PAX-3ASECTION-29
-    [tracing-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TRACING-20MGL-PAX-3ASECTION-29
-    [testing-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TESTING-20MGL-PAX-3ASECTION-29
-    [persistence-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40PERSISTENCE-20MGL-PAX-3ASECTION-29
   """)
-
 
 (defsection @pax-v0.1 (:title "PAX v0.1")
   """_2022-02-16_ -- [PAX](http://github.com/melisgl/mgl-pax/) v0.1 is released.
   At this point, I consider it fairly complete. Here is the changelog for the last year or so.
-
+  """"""
   ##### New Features
 
   - To reduce deployment size, made the MGL-PAX system [autoload navigation, documentation generation, and transcription code](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29).
@@ -2722,7 +2722,7 @@
   - Customization is based on complex types built from
     [event types](https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FEVENTS-20MGL-PAX-3ASECTION-29),
     which are signalled when checks or tests are run.
-
+  """"""
   Try's behaviour is trivial: tests are functions, and checks behave like
   CL:ASSERT. Test suites are test functions that call test functions. Skipping
   tests is just a regular WHEN. Everything is as close to normal evaluation
@@ -3029,6 +3029,7 @@
   ==> #<TRY:TRIAL (TRY-SUITE) UNEXPECTED-FAILURE 0.004s ⊠1>
   ```
   """)
+
 
 #+nil
 (generate-pages (list @blog0 @category-personal0 @category-tech0
