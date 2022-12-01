@@ -230,7 +230,7 @@
   words, but sometimes not even that is enough and you want to be
   [very explicit](blog-files/dangerous-objects.jpg) about the dangers of
   hand grenades on board.
-
+  ""
   Finally, some trash talk carefully designed to intimidate: ![trash
   talk](blog-files/remainders.jpg)
 
@@ -363,7 +363,7 @@
   accuracy is really bad when the run time is below 0.2s and it is
   abysmal when there is other activity on the system which is easy to
   tell even in retrospect by comparing the real and user time columns.
-
+  ""
   But that's not the end of the story, take for instance
   `FPRINT/PRETTY`: it takes more than two seconds but often
   experiences changes up to 7% caused by seemingly unrelated changes.
@@ -387,9 +387,9 @@
   [guess](http://groups.google.com/group/comp.lang.asm.x86/browse_thread/thread/bffd4ad26b9a9b10#).
   It certainly seems that the Core Duo (and likely the Pentium M) is
   so deeply unnerved by a jump instruction near the end of a 16 byte
-  block that it cannot execute the loop at its normal speed."
+  block that it cannot execute the loop at its normal speed.
 
-  "This led to an experiment where the compiler was modified to pad
+  This led to an experiment where the compiler was modified to pad
   innermost loops with a few preceding NOPs so that their ends either
   stay at least 3 bytes from the end of the block or spill over it by
   at least one byte. However, on a [quick and dirty
@@ -429,9 +429,9 @@
          ;; time using the process signal mask.
          (inst break pending-interrupt-trap)
          (emit-label ,label))))
-  ```"""
-
-  """### EBP
+  ```
+  """"""
+  ### EBP
 
   My first idea was that ORing is unnecessary since with the slew of
   interrupt fixes going into 1.0.26 every interrupt deferred by pseudo
@@ -528,7 +528,7 @@
   caller. The new frame starts with a pointer to the old frame, then
   comes the return address, an empty slot and the stack arguments (the
   first three are passed in registers on x86).
-
+  ""
   Software archeology aside, the only reason I can see for this scheme
   is that stack arguments are easier to manipulate when they are after
   the return address, old frame pointer part, in particular tail calls
@@ -555,9 +555,9 @@
   EBP, RET` sequence. Well, most of the time: when more multiple
   values are returned than there are argument passing registers they
   are placed on the stack exactly where the arguments normally reside.
-  Obviously, in this case the frame cannot be dismantled."
+  Obviously, in this case the frame cannot be dismantled.
 
-  "Strangely, turning these `JMP`s into `RET`s in multiple value return
+  Strangely, turning these `JMP`s into `RET`s in multiple value return
   has no measureable effect on performance even though it results in
   more paired `CALL`s. What about the other way, addressing unpaired
   `RET`s by turning `JMP`s to local call'ed functions into `CALL`s? I
@@ -615,7 +615,7 @@
   (eval-when (:compile-toplevel)
    (declaim (optimize speed)))
   ```
-
+  ""
   to ensure that the body is evaluated in [the dynamic execution
   context of the
   compiler](http://www.lispworks.com/documentation/HyperSpec/Body/03_bca.htm)
@@ -648,7 +648,7 @@
   (a (make-instance 'super)) => 1
   (a (make-instance 'super :b 1)) => 2
   ```
-
+  ""
   You may even subclass it, add an initform and it still works:
 
   ```
@@ -656,9 +656,9 @@
    ((b :initform 1)))
   
   (a (make-instance 'sub)) => 2
-  ```"
+  ```
 
-  "The complication begins when a subclass adds another slot, `C`, from
+  The complication begins when a subclass adds another slot, `C`, from
   which `B` is to be computed:
 
   ```
@@ -732,7 +732,7 @@
   upgrade to Squeeze aka Debian testing. The upgrade itself went
   rather smoothly with a few notable exceptions. With KDE 4.3 I should
   have waited more.
-
+  ""
   Notes:
 
   - Who thought it a grand idea that in the default theme (Oxygen) the
@@ -769,9 +769,9 @@
   This build is focused on survival. No save/loading, killap's final
   patch, hard combat and game difficulty. As it is not only ironman
   but a munchkin too it must be a sniper since HtH is a bit
-  underpowered."
-
-  "See [this](http://faqs.ign.com/articles/777/777224p1.html) for good
+  underpowered.
+  ""
+  See [this](http://faqs.ign.com/articles/777/777224p1.html) for good
   insights into ironman survival. The two most important pieces of
   advice it has is: sneak and outdoorsman. Sneak does not work as well
   for me as advertised, that is I cannot end combat in all cases if
@@ -948,7 +948,7 @@
   *2009-12-17* -- After @INTRODUCTION-TO-MGL-PART-1, today we are
   going to walk through a small example and touch on the main concepts
   related to learning within this library.
-
+  """"""
   At the top of the food chain is the generic function `TRAIN`:
 
   ```
@@ -956,9 +956,9 @@
     (:documentation "Train LEARNER with TRAINER on the examples from
   SAMPLER. Before that TRAINER is initialized for LEARNER with
   INITIALIZE-TRAINER. Training continues until SAMPLER is finished."))
-  ```"""
+  ```
 
-  """A learner is anything that can be taught, which currently means it's
+  A learner is anything that can be taught, which currently means it's
   either a
   [backpropagation&nbsp;network](http://en.wikipedia.org/wiki/Backpropagation) (`BPN`)
   or some kind of boltzmann machine (`BM`). The method with which a
@@ -1108,7 +1108,7 @@
   trivial example of a backprop network. I said before that the main
   focus is on Boltzmann Machines so let's kill the suspense here and
   now by cutting straight to the heart of the matter.
-
+  """"""
   [Cottrell's Science
   article](http://cseweb.ucsd.edu/users/gary/pubs/cottrell-science-2006.pdf)
   provides a clear and easy to follow description of the spiral
@@ -1117,9 +1117,9 @@
   input as output with a small encoding layer somewhere in between. By
   forcing the information through the bottleneck of the encoding layer
   the network should pick up a low dimensional code that represents
-  the input, thus performing dimensionality reduction."""
+  the input, thus performing dimensionality reduction.
 
-  """The function under consideration is `f(x) ` [x, sin(x), cos(x)]`. It
+  The function under consideration is `f(x) ` [x, sin(x), cos(x)]`. It
   is suprisingly difficult to learn the mapping from `x` to `f(x)`. A
   network architecture that is able to represent this transformation
   has 3 inputs, 10 neurons in the next layer, 1 neuron in the encoding
@@ -1324,7 +1324,7 @@
   source [code](http://web.mit.edu/~rsalakhu/www/DBM.html) for the
   [MNIST](http://yann.lecun.com/exdb/mnist/) digit classification
   problem available.
-
+  """"""
   The linked [paper](http://www.cs.toronto.edu/~hinton/absps/dbm.pdf)
   claims a record of 99.05% in classification accuracy on the
   permutation invariant task (no prior knowledge of geometry). A
@@ -1336,9 +1336,9 @@
   backprop. While in a DBN the constituent RBMs are trained one by
   one, the DBM is trained as a whole which, in theory, allows it to
   reconcile bottom-up and top-down signals, i.e. what you see and what
-  you think."""
+  you think.
 
-  """![](blog-files/mnist-2-dbm.png)
+  ![](blog-files/mnist-2-dbm.png)
 
   In the diagram above, as before, dark gray boxes are constants (to
   provide the connected chunks with biases), inputs are colored mid
@@ -1454,7 +1454,7 @@
   "*2010-03-01* -- For what has been a fun ride, the official results are now [available](https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php).
   In the end, 11th out of 700 is not too bad and it's the highest
   ranking non-C++ entry by some margin.
-
+  ""
   I entered the contest a bit late with a rather specific approach in
   mind: [UCT](http://senseis.xmp.net/?UCT), an algorithm from the
   Monte Carlo tree search family. It has been rather successful in
@@ -1468,9 +1468,9 @@
   move (not even considering moves of the opponent) it played a very
   nice positional game. That was the first sign that constructing a
   good evaluation function may not be as hard for Tron as it is for
-  Go."
+  Go.
 
-  "But with everyone else doing minimax, the plan was to keep silent
+  But with everyone else doing minimax, the plan was to keep silent
   and Monte Carlo to victory. As with most plans, it didn't quite work
   out. First, to my dismay, some contestants were attempting to do the
   same and kept advertising it on `#googleai`, second it turned out
@@ -1526,15 +1526,15 @@
   only means that straight minimax is out of question this time
   around. Whether some cleverness can bring the game within reach of
   conventional algorithms remains to be seen.
-
+  ""
   Anyway, I'm adding [yet another starter
   package](http://quotenil.com/git/?p=planet-wars.git;a=summary) ([latest
   tarball](http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz))
   to the
   [lot](http://aerique.blogspot.com/2010/09/planet-wars-common-lisp-start-package.html).
-  It is based heavily on aerique's."
+  It is based heavily on aerique's.
 
-  "Highlights compared to his version:
+  Highlights compared to his version:
 
   - no excessive use of specials (`*INPUT*`, `*FLEETS*`, etc)
   - player class to support different types of players
@@ -1574,7 +1574,7 @@
   as `RESOLVE-BATTLE` wrong? Apparently, yes. That's what one gets for
   trying to port Python code that's pretty foreign in the sense of
   being far from the way I'd write it.
-
+  """"""
   More importantly, I found out the hard way that sbcl 1.0.11 that's
   [still](http://code.google.com/p/ai-contest/issues/detail?id=183) on
   the official servers has a number of bugs in its timer
@@ -1610,7 +1610,7 @@
   The lead in the last month or so was an indicator of having good
   chances, but there was a huge shuffling of ranks in the last week
   and some last minute casualties.
-
+  ""
   ### Code
 
   Note that the git repository is available at
@@ -1629,9 +1629,9 @@
 
   That's enough of
   [tribute](https://web.archive.org/web/20100307014152/http://www.a1k0n.net/blah/archives/2010/03/index.html),
-  let's steer off the trodden path."
+  let's steer off the trodden path.
 
-  "### Beginning
+  ### Beginning
 
   Driven by the first
   [virtue](http://en.wikipedia.org/wiki/Larry_Wall#Virtues_of_a_programmer)
@@ -1890,7 +1890,7 @@
   a Nash equilibrium finder to [Micmac](http://cliki.net/micmac)
   that's becoming less statistics oriented. This was one of the many
   things in Planet Wars that never really made it.
-
+  ""
   Let's consider the [Matching
   pennies](http://en.wikipedia.org/wiki/Matching_pennies) game. The
   row player wins iff the two pennies show the same side. The payoff
@@ -1953,7 +1953,7 @@
   files as well. Offlineimap, on the other hand, offers no such
   support and passwords to the local and remote imap accounts are
   normally stored in clear text in `.offlineimaprc`.
-
+  """"""
   For the local account this can be overcome by not running a dovecot
   server but making offlineimap spawn a dovecot process when needed:
 
@@ -1998,7 +1998,7 @@
   the bad news is that tcp connections started to hang. It didn't take
   long to [find out](http://hup.hu/node/98496) that this particular
   router drops "unused" tcp connections after five minutes.
-
+  """"""
   The fix recommended in the linked topic (namely sysctl'ing
   `net.ipv4.tcp_keepalive_time` & co) was mostly effective but I had
   to lower the keepalive to one minute to keep my ssh sessions alive.
@@ -2023,9 +2023,9 @@
   [36Cube](http://en.wikipedia.org/wiki/36_cube) pulls is rather
   dirty.
 
-  **\\WARNING**, spoilers ahead."
-
-  "Got this crafty beast for Christmas and since then I lost many
+  **\\WARNING**, spoilers ahead.
+  ""
+  Got this crafty beast for Christmas and since then I lost many
   evenings to juggling permutations of towers over the inverted city
   skyline. The game can be solved two ways:
 
@@ -2056,9 +2056,9 @@
   ![Malacka](blog-files/malacka-es-bocsimacko.jpg) (on the right) brought
   [success](http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow/leaderboard).
   I would have loved to be lazy and still win, but the leaderboard was
-  too close for comfort."
-
-  "### Overview
+  too close for comfort.
+  ""
+  ### Overview
 
   The winning model is an average of 10 neural network ensembles of
   five constituent models, three of which are Deep Belief Networks,
@@ -2279,7 +2279,7 @@
   did a great job explaining the physics, why there is no more data,
   motivating the choice of evaluation metric, and being prompt in
   communication in general.
-
+  ""
   I hope that the HEP guys will find this useful in their search for
   more evidence of tau tau decay of the Higgs boson. Note that I
   didn't go for the 'HEP meets ML Award' so training time is
@@ -2300,7 +2300,7 @@
   [Kaggle](http://kaggle.com) has ended. Sticking to my word at [ELS
   2014](http://medias.ircam.fr/xff38ba), I released some code that
   came about during these long four months.
-
+  ""
   [MGL-GPR](https://github.com/melisgl/mgl-gpr) is no longer a
   [Genetic
   Programming](http://en.wikipedia.org/wiki/Genetic_programming) only
@@ -2372,7 +2372,7 @@
   => :HELLO
   => (1 2)
   ```
-
+  """"""
   The extras are:
 
   - parsing back and _updating_ a transcript
@@ -2407,7 +2407,7 @@
   source files to docstrings is insanity or an
   [OOAO](http://c2.com/cgi/wiki?OnceAndOnlyOnce) violation,
   respectively.
-
+  ""
   In response to this, PAX got the [INCLUDE
   locative](https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3AINCLUDE-20MGL-PAX-3ALOCATIVE-29) (see
   the linked documentation) and became its own first user at the same
@@ -2424,7 +2424,7 @@
   optimizer](http://arxiv.org/abs/1412.6980) and Recurrent Neural
   Nets. My efforts were mainly only the backprop stuff and I think the
   definition of feed-forward:
-
+  ""
   ```
   (build-fnn (:class 'digit-fnn)
     (input (->input :size *n-inputs*))
@@ -2466,7 +2466,7 @@
   ```
   "Returns a [some-terrible-github-link-to-html][MAT] object."
   ```
-
+  """"""
   With PAX however, the uppercase symbol `MAT` will be automatically
   linked to the documentation of `MAT` if its whereabouts are known at
   documentation generation time, so the above becomes:
@@ -2520,13 +2520,13 @@
   operations decide which representation to use based on what's the
   most convenient or efficient, without having to even know about all
   the possible representations.
-
+  ""
   This allows existing code to keep functioning if support for
   diagonal matrices (represented as a 1d array) lands and one can pick
   and choose the operations performance critical enough to implement
-  with diagonals."
+  with diagonals.
 
-  "Adding support for matrices that, for instance, live on a remote
+  Adding support for matrices that, for instance, live on a remote
   machine is thus possible with a new facet type (MAT lingo for
   representation) and existing code would continue to work (albeit
   possibly slowly). Then one could optimize the bottleneck operations
@@ -2588,9 +2588,8 @@
     [tracing-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TRACING-20MGL-PAX-3ASECTION-29
     [testing-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TESTING-20MGL-PAX-3ASECTION-29
     [persistence-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40PERSISTENCE-20MGL-PAX-3ASECTION-29
-  """
-
-  """Perhaps the highlight from the linked tutorials is how easy
+  """"""
+  Perhaps the highlight from the linked tutorials is how easy
   persistence is. Let's write a simple game:
 
   ```
@@ -2655,7 +2654,6 @@
 (defsection @pax-v0.1 (:title "PAX v0.1")
   """_2022-02-16_ -- [PAX](http://github.com/melisgl/mgl-pax/) v0.1 is released.
   At this point, I consider it fairly complete. Here is the changelog for the last year or so.
-  """"""
   ##### New Features
 
   - To reduce deployment size, made the MGL-PAX system [autoload navigation, documentation generation, and transcription code](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29).
@@ -2663,6 +2661,7 @@
   - Hyperspec sections and issues can be linked to with the [CLHS locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29) like this: `[lambda lists][CLHS]`, which renders as [lambda lists][CLHS].
   - Added support for `[see this][foo function]` and `[see this][foo]` style of [linking](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-40MGL-PAX-LINKING-TO-CODE-20MGL-PAX-3ASECTION-29).
   - Added [DECLARATION locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28DECLARATION-20MGL-PAX-3ALOCATIVE-29).
+  """"""
   - Added [READTABLE locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28READTABLE-20MGL-PAX-3ALOCATIVE-29).
   - Added [SYMBOL-MACRO locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ASYMBOL-MACRO-20MGL-PAX-3ALOCATIVE-29).
   - Added [METHOD-COMBINATION locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28METHOD-COMBINATION-20MGL-PAX-3ALOCATIVE-29).
@@ -3032,20 +3031,25 @@
 
 
 #+nil
-(generate-pages (list @blog0 @category-personal0 @category-tech0
-                      @category-lisp0 @category-ai0)
-                '((:title "me"
-                   :links
-                   (("http://quotenil.com" "blog")
-                    ("mailto:mega@retes.hu" "email")
-                    ("mega.gpg.asc" "gpg key")
-                    ("cv/cv-eng.pdf" "cv (english)")
-                    ("cv/cv-hun.pdf" "cv (hungarian)")
-                    ("http://github.com/melisgl/" "git")))
-                  (:title "categories"
-                   :links
-                   (("http://quotenil.com/blog.html" "all")
-                    ("http://quotenil.com/category-personal.html" "personal")
-                    ("http://quotenil.com/category-tech.html" "tech")
-                    ("http://quotenil.com/category-lisp.html" "lisp")
-                    ("http://quotenil.com/category-ai.html" "ai")))))
+(generate-pages
+ (list @blog0 @category-personal0 @category-tech0
+       @category-lisp0 @category-ai0)
+ '((:title "me"
+    :links
+    (("http://quotenil.com" "blog")
+     ("mailto:mega@retes.hu" "mega@retes.hu")
+     ("mega.gpg.asc" "gpg key")
+     ("http://github.com/melisgl/" "github/melisgl")
+     ("https://mastodon.social/@melisgl" "mastodon.social/@melisgl")
+     ("https://twitter.com/GaborMelis" "twitter/GaborMelis")
+     ("http://discord.com/users/melisgl#0879" "discord/melisgl#0879")
+     ("https://www.linkedin.com/in/melisgabor/" "linkedin/melisgabor")
+     #+nil ("cv/cv-eng.pdf" "cv (english)")
+     #+nil ("cv/cv-hun.pdf" "cv (hungarian)")))
+   (:title "categories"
+    :links
+    (("http://quotenil.com/blog.html" "all")
+     ("http://quotenil.com/category-personal.html" "personal")
+     ("http://quotenil.com/category-tech.html" "tech")
+     ("http://quotenil.com/category-lisp.html" "lisp")
+     ("http://quotenil.com/category-ai.html" "ai")))))
