@@ -623,7 +623,7 @@
   saying that you don't want `(PROCLAIM '(OPTIMIZE ...))` in a
   library, either.
 
-  *UPDATE*: The above works, but is not mandated by the spec because the
+  **UPDATE**: The above works, but is not mandated by the spec because the
   dynamic execution context of the compiler does not include the global
   declarations. Alas, by the spec the portable solution is to wrap the
   whole file in:
@@ -718,7 +718,7 @@
   That's the best I could come up with, educate me if you have a
   better idea.
 
-  *UPDATE*: Lazy initialiation has been suggested as an alternative.
+  **UPDATE**: Lazy initialiation has been suggested as an alternative.
   However, a naive implementation based on `SLOT-BOUND-P` is bound to
   run into problems when the lazily computed slot has an initform in a
   superclass. With `SLOT-VALUE-USING-CLASS` one can probably mimick
@@ -2510,7 +2510,7 @@
 
 (defsection @on-the-design-of-matrix-libraries
     (:title "On the Design of Matrix Libraries")
-  "*UPDATE 2020-05-03* -- Things have been moving fast. This is a
+  "**UPDATE**: *2020-05-03* -- Things have been moving fast. This is a
   non-issue in Tensorflow and possibly in other frameworks, as well.
 
   *2015-02-26* -- I believe there is one design decision in
