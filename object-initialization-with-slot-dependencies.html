@@ -34,7 +34,7 @@
 
 <p><em>Tags</em>: <a href="category-lisp.html#MGL-PAX-BLOG:@CATEGORY-LISP%20MGL-PAX:SECTION" title="Lisp">Lisp</a>, <a href="blog.html#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">Blog</a></p>
 
-<p><em>2009-07-04</em> -- Consider a class with a trivial initialization
+<p><em>2009-07-04</em> – Consider a class with a trivial initialization
 dependency between slots <code>A</code> and <code>B</code>:))</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> super <span class="paren2">(<span class="code"></span>)</span>
@@ -104,7 +104,7 @@ C early which handles both initforms and initargs fine:</p>
 <p>That's the best I could come up with, educate me if you have a
 better idea.</p>
 
-<p><em>UPDATE</em>: Lazy initialiation has been suggested as an alternative.
+<p><strong>UPDATE</strong>: Lazy initialiation has been suggested as an alternative.
 However, a naive implementation based on <code>SLOT-BOUND-P</code> is bound to
 run into problems when the lazily computed slot has an initform in a
 superclass. With <code>SLOT-VALUE-USING-CLASS</code> one can probably mimick

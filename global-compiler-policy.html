@@ -34,7 +34,7 @@
 
 <p><em>Tags</em>: <a href="category-lisp.html#MGL-PAX-BLOG:@CATEGORY-LISP%20MGL-PAX:SECTION" title="Lisp">Lisp</a>, <a href="blog.html#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">Blog</a></p>
 
-<p><em>2009-06-30</em> -- A quick note to library implementors: The effects
+<p><em>2009-06-30</em> – A quick note to library implementors: The effects
 of <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" title="DECLAIM MGL-PAX:MACRO"><code>DECLAIM</code></a> are <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" >permitted to
 persist</a>
 after the containing file is compiled and it is unkind to mutate
@@ -54,7 +54,7 @@ which makes a practical difference on Allegro. It goes without
 saying that you don't want <code>(PROCLAIM '(OPTIMIZE ...))</code> in a
 library, either.</p>
 
-<p><em>UPDATE</em>: The above works, but is not mandated by the spec because the
+<p><strong>UPDATE</strong>: The above works, but is not mandated by the spec because the
 dynamic execution context of the compiler does not include the global
 declarations. Alas, by the spec the portable solution is to wrap the
 whole file in:</p>
