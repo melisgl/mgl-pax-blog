@@ -206,7 +206,7 @@
   (@on-the-design-of-matrix-libraries section))
 
 (defsection @first-post (:title "First post")
-  "*2008-02-01* -- After a long time of waiting to write my own blog
+  "*2008-02-01* – After a long time of waiting to write my own blog
   software like true hackers with infinite time do (and those
   irritated by Wordpress), I bit the bullet and installed
   [blorg](https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html) - a very low
@@ -226,7 +226,7 @@
     [MGL-PAX](http://github.com/melisgl/mgl-pax).")
 
 (defsection @important-remainder (:title "Important remainder")
-  "*2008-02-04* -- An [example](blog-files/guns.jpg) may speak a hundred
+  "*2008-02-04* – An [example](blog-files/guns.jpg) may speak a hundred
   words, but sometimes not even that is enough and you want to be
   [very explicit](blog-files/dangerous-objects.jpg) about the dangers of
   hand grenades on board.
@@ -239,7 +239,7 @@
   All pictures were taken at Málaga airport.")
 
 (defsection @backup (:title "Backup")
-  "*2008-03-28* -- My carefully updated list of files to backup had
+  "*2008-03-28* – My carefully updated list of files to backup had
   grown so long that it made me worry about losing something important
   and the backup didn't fit on a single dvd so I invested in a WD
   passport and created an encrypted file system on it:
@@ -291,7 +291,7 @@
 
 (defsection @2008-computer-games-olympiad
     (:title "2008 Computer Games Olympiad")
-  "*2008-12-11* -- It seems that the competition has not been standing
+  "*2008-12-11* – It seems that the competition has not been standing
   still (as opposed to [Six](hex/six/index.html)) and this year
   marks the end of the golden era. Congratulations to both Wolve and
   MoHex who beat Six! Thanks to Ryan Hayward who, again, kindly
@@ -303,7 +303,7 @@
   Six in particular), although losing does irk me a bit.")
 
 (defsection @space-cadet (:title "Space Cadet")
-  "*2008-12-15* -- Emacs users often report problems caused by strain
+  "*2008-12-15* – Emacs users often report problems caused by strain
   on the pinky finger that's used to press the _Control_ key. The
   standard answer to that is to map _Caps Lock_ to _Control_. I
   believe that there is a better way:
@@ -354,7 +354,7 @@
 
 (defsection @code-alignment-on-x86
     (:title "Code alignment on x86")
-  "*2009-03-09* -- There has always been a lot of wiggling of SBCL
+  "*2009-03-09* – There has always been a lot of wiggling of SBCL
   [boinkmarks](https://web.archive.org/web/20080513083106/http://sbcl.boinkor.net/bench/) results. It's easy to
   chalk this up to system load, but the same can be observed running
   the [cl-bench](http://common-lisp.net/project/cl-bench/) benchmarks
@@ -409,7 +409,7 @@
   the commit stay out of the official SBCL tree.")
 
 (defsection @x86oid-pseudo-atomic (:title "X86oid Pseudo Atomic")
-  """*2009-03-29* -- The relatively recent
+  """*2009-03-29* – The relatively recent
   [chit](http://www.method-combination.net/blog/archives/2008/02/01/vm-tricks.html)
   - [chat](http://www.pvk.ca/Blog/LowLevel/VM_tricks_safepoints.html)
   about allocation and interrupts have had me looking at ways to speed
@@ -522,7 +522,7 @@
 
 (defsection @calling-convention-hacks
     (:title "Calling Convention Hacks")
-  "*2009-04-19* -- SBCL's [calling
+  "*2009-04-19* – SBCL's [calling
   convention](http://www.sbcl.org/sbcl-internals/Calling-Convention.html)
   is rather peculiar. Frames are allocated and mostly set up by the
   caller. The new frame starts with a pointer to the old frame, then
@@ -580,7 +580,7 @@
 
 (defsection @active-Learning-for-cl-libsvm
     (:title "Active Learning for cl-libsvm")
-  "*2009-06-22* -- Along the lines of [active learning with python &
+  "*2009-06-22* – Along the lines of [active learning with python &
   libsvm](http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html),
   I [added](http://quotenil.com/git/?p=cl-libsvm.git;a=summary)
   support for calculating distance of a point from the separating
@@ -601,7 +601,7 @@
 
 (defsection @global-compiler-policy
     (:title "Global Compiler Policy")
-  "*2009-06-30* -- A quick note to library implementors: The effects
+  "*2009-06-30* – A quick note to library implementors: The effects
   of `DECLAIM` are [permitted to
   persist](http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm)
   after the containing file is compiled and it is unkind to mutate
@@ -634,7 +634,7 @@
 
 (defsection @object-initialization-with-slot-dependencies
     (:title "Object Initialization with Slot Dependencies")
-  "*2009-07-04* -- Consider a class with a trivial initialization
+  "*2009-07-04* – Consider a class with a trivial initialization
   dependency between slots `A` and `B`:))
 
   ```
@@ -727,7 +727,7 @@
   needed, again, due to initforms.")
 
 (defsection @upgrade-woes (:title "Upgrade Woes")
-  "*2009-11-06* -- Debian Lenny was released back in February. My
+  "*2009-11-06* – Debian Lenny was released back in February. My
   conservativeness only lasts about half a year so I decided to
   upgrade to Squeeze aka Debian testing. The upgrade itself went
   rather smoothly with a few notable exceptions. With KDE 4.3 I should
@@ -763,7 +763,7 @@
 
 (defsection @ultimate-fallout-2-ironman-munchkin
     (:title "Ultimate Fallout 2 Ironman Munchkin")
-  "*2009-11-21* -- I'm cleaning up the accumulated junk and found this
+  "*2009-11-21* – I'm cleaning up the accumulated junk and found this
   guide that was written eons ago.
 
   This build is focused on survival. No save/loading, killap's final
@@ -891,7 +891,7 @@
   [documentation](http://melisgl.github.io/mgl-pax-world/mgl-manual.html)
   instead.
 
-  *2009-12-02* -- This is going to be the start of an introduction
+  *2009-12-02* – This is going to be the start of an introduction
   series on the [MGL](http://cliki.net/MGL) Common Lisp machine
   learning library. MGL focuses mainly on [Boltzmann
   Machines](http://en.wikipedia.org/wiki/Boltzmann_machine) (BMs). In
@@ -945,7 +945,7 @@
   [documentation](http://melisgl.github.io/mgl-pax-world/mgl-manual.html)
   instead.
 
-  *2009-12-17* -- After @INTRODUCTION-TO-MGL-PART-1, today we are
+  *2009-12-17* – After @INTRODUCTION-TO-MGL-PART-1, today we are
   going to walk through a small example and touch on the main concepts
   related to learning within this library.
   """"""
@@ -1104,7 +1104,7 @@
   [documentation](http://melisgl.github.io/mgl-pax-world/mgl-manual.html)
   instead.
 
-  *2009-12-29* -- In @INTRODUCTION-TO-MGL-PART-2, we went through a
+  *2009-12-29* – In @INTRODUCTION-TO-MGL-PART-2, we went through a
   trivial example of a backprop network. I said before that the main
   focus is on Boltzmann Machines so let's kill the suspense here and
   now by cutting straight to the heart of the matter.
@@ -1314,7 +1314,7 @@
 
 (defsection @deep-boltzmann-machine-on-mnist
     (:title "Deep Boltzmann Machine on MNIST")
-  """*2010-01-18* -- Let me interrupt the flow of the
+  """*2010-01-18* – Let me interrupt the flow of the
   [MGL](http://cliki.net/MGL) introduction series with a short report
   on what I learnt playing with [Deep Boltzmann
   Machines](http://www.cs.toronto.edu/~hinton/absps/dbm.pdf). First,
@@ -1418,7 +1418,7 @@
 
 (defsection @micmac-initial-release
     (:title "Micmac Initial Release")
-  "*2010-02-06* -- From a failed experiment today I salvaged
+  "*2010-02-06* – From a failed experiment today I salvaged
   [Micmac](http://cliki.net/micmac), a statistical library wannabe,
   that for now only has Metropolis-Hastings MCMC and Metropolis
   Coupled MCMC implemented. The code doesn't weigh much but I think it
@@ -1426,7 +1426,7 @@
   was released.")
 
 (defsection @upgrade-woes-2 (:title "Upgrade Woes 2")
-  "*2010-02-08* -- Debian Squeeze finally got Xorg 7.5 instead of the old and dusty 7.4.
+  "*2010-02-08* – Debian Squeeze finally got Xorg 7.5 instead of the old and dusty 7.4.
   The upgrade was as smooth as ever: [DPI is
   off](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=568872),
   keyboard repeat for the Caps Lock key [does not survive
@@ -1438,7 +1438,7 @@
 
 (defsection @google-ai-challenge-2010
     (:title "Google AI Challenge 2010")
-  "*2010-02-11* -- Tron is a fun little game of boxing out the
+  "*2010-02-11* – Tron is a fun little game of boxing out the
   opponent and avoiding crashing into a wall first. The rules are
   simple so the barrier to entry into [this
   contest](https://web.archive.org/web/20100207135122/http://csclub.uwaterloo.ca/contest/index.php) is low.
@@ -1451,7 +1451,7 @@
 
 (defsection @google-ai-challenge-2010-results
     (:title "Google AI Challange 2010 Results")
-  "*2010-03-01* -- For what has been a fun ride, the official results are now [available](https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php).
+  "*2010-03-01* – For what has been a fun ride, the official results are now [available](https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php).
   In the end, 11th out of 700 is not too bad and it's the highest
   ranking non-C++ entry by some margin.
   ""
@@ -1513,14 +1513,14 @@
   coming days I'll factor the UCT and the Alpha-beta code out.")
 
 (defsection @uct (:title "UCT")
-  "*2010-03-19* -- As promised, my [UCT](http://senseis.xmp.net/?UCT)
+  "*2010-03-19* – As promised, my [UCT](http://senseis.xmp.net/?UCT)
   implementation is released, albeit somewhat belatedly. It's in
   [Micmac](http://cliki.net/Micmac) v0.0.1, see `test/test-uct.lisp`
   for an example. Now I only owe you Alpha-beta.")
 
 (defsection @planet-wars-common-lisp-starter-package
     (:title "Planet Wars Common Lisp Starter Package")
-  "*2010-09-19* -- The [Google AI Challange](https://web.archive.org/web/20100926070007/http://ai-contest.com/) is
+  "*2010-09-19* – The [Google AI Challange](https://web.archive.org/web/20100926070007/http://ai-contest.com/) is
   back with a new game that's supposed to be much harder than Tron was
   this spring. The branching factor of the game tree is enormous which
   only means that straight minimax is out of question this time
@@ -1559,7 +1559,7 @@
 
 (defsection @planet-wars-common-lisp-starter-package-that-actually-works
     (:title "Planet Wars Common Lisp Starter Package Actually Works")
-  "*2010-09-21* -- Released
+  "*2010-09-21* – Released
   v0.6 ([git](http://quotenil.com/git/?p=planet-wars.git;a=summary),
   [latest
   tarball](http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz)).
@@ -1570,7 +1570,7 @@
 
 (defsection @important-update-to-the-planet-wars-starter-package
     (:title "Important Update to the Planet Wars Starter Package")
-  """*2010-10-25* -- First, is it possible to get something as simple
+  """*2010-10-25* – First, is it possible to get something as simple
   as `RESOLVE-BATTLE` wrong? Apparently, yes. That's what one gets for
   trying to port Python code that's pretty foreign in the sense of
   being far from the way I'd write it.
@@ -1603,7 +1603,7 @@
 
 (defsection @planet-wars-post-mortem
     (:title "Planet Wars Post-Mortem")
-  "*2010-12-01* -- I can't believe I [won](https://web.archive.org/web/20101205003152/http://ai-contest.com/rankings.php).
+  "*2010-12-01* – I can't believe I [won](https://web.archive.org/web/20101205003152/http://ai-contest.com/rankings.php).
 
   I can't believe I won _decisively_ at all.
 
@@ -1885,7 +1885,7 @@
 
 (defsection @nash-equilibrium-finder
     (:title "Nash equilibrium finder")
-  "*2010-12-26* -- While I seem to be unable to make my mind up on a
+  "*2010-12-26* – While I seem to be unable to make my mind up on a
   good interface to alpha-beta with a few bells and whistles, I added
   a Nash equilibrium finder to [Micmac](http://cliki.net/micmac)
   that's becoming less statistics oriented. This was one of the many
@@ -1924,7 +1924,7 @@
   ```")
 
 (defsection @alpha-beta (:title "Alpha-beta")
-  """*2010-12-27* -- It hasn't been a year yet since I first promised
+  """*2010-12-27* – It hasn't been a year yet since I first promised
   that alpha-beta snippet and it is already added to micmac in all its
   [35 line
   glory](http://quotenil.com/git/?p=micmac.git;a=blob;f=src/game-theory.lisp;h=9e38d1f09a1f443bc14e115f9abc68dd5f64f6f3;hb=e2de0e888ce103b026d725297f52f5710273a5c3#l71).
@@ -1940,7 +1940,7 @@
 
 (defsection @offlineimap-with-encrypted-authinfo
     (:title "OfflineIMAP with Encrypted Authinfo")
-  """*2011-02-26* -- I've moved to an
+  """*2011-02-26* – I've moved to an
   [OfflineIMAP](http://offlineimap.org/) + [Gnus](http://gnus.org/)
   setup that's outlined at
   [various](http://sachachua.com/blog/2008/05/geek-how-to-use-offlineimap-and-the-dovecot-mail-server-to-read-your-gmail-in-emacs-efficiently/)
@@ -1992,7 +1992,7 @@
   That's it, no more cleartext passwords.""")
 
 (defsection @hung-connections (:title "Hung Connections")
-  """*2011-02-27* -- My ISP replaced a Thomson modem with a Cisco
+  """*2011-02-27* – My ISP replaced a Thomson modem with a Cisco
   EPC3925 modem-router to fix the speed issue I was having. The good
   news is that the connection operates near its advertised bandwidth,
   the bad news is that tcp connections started to hang. It didn't take
@@ -2018,7 +2018,7 @@
   more important than keepalive unless you never have network issues.""")
 
 (defsection @dirty-36cube (:title "Dirty 36Cube")
-  "*2012-08-19* -- This is a short rant on what I consider to be a
+  "*2012-08-19* – This is a short rant on what I consider to be a
   good puzzle and why the trick
   [36Cube](http://en.wikipedia.org/wiki/36_cube) pulls is rather
   dirty.
@@ -2046,7 +2046,7 @@
 
 (defsection @stackoverflow-post-mortem
   (:title "Stackoverflow Post-Mortem")
-  "*2013-04-09* -- After almost two years without a single
+  "*2013-04-09* – After almost two years without a single
   competition, last September I decided to enter the
   [Stackoverflow](http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow)
   contest on [Kaggle](http://kaggle.com). It was a straightforward
@@ -2254,7 +2254,7 @@
 
 (defsection @liblinear-support-added-to-cl-libsvm
     (:title "Liblinear Support Added to cl-libsvm")
-  "*2013-04-09* -- In addition to the cl-libsvm asdf system, there is
+  "*2013-04-09* – In addition to the cl-libsvm asdf system, there is
   now another asdf system in the [
   cl-libsvm](http://quotenil.com/git/?p=cl-libsvm.git;a=summary)
   library: cl-liblinear that, predictably enough, is a wrapper for
@@ -2263,7 +2263,7 @@
 
 (defsection @higgs-boson-machine-learning-challenge-post-mortem
     (:title "Higgs Boson Machine Learning Challenge Post-Mortem")
-  "*2014-09-23* -- Actually, I'll only link to the
+  "*2014-09-23* – Actually, I'll only link to the
   [post-mortem](http://www.kaggle.com/c/higgs-boson/forums/t/10344/winning-methodology-sharing/53944#post53944)
   I wrote in the forum. There is a also a [model
   description](https://github.com/melisgl/higgsml/blob/master/doc/model.md)
@@ -2295,7 +2295,7 @@
 
 (defsection @higgs-boson-machine-learning-challenge-bits-and-pieces
     (:title "Higgs Boson Machine Learning Challenge Bits and Pieces")
-  "*2014-09-23* -- The [Higgs Boson
+  "*2014-09-23* – The [Higgs Boson
   contest](http://www.kaggle.com/c/higgs-boson) on
   [Kaggle](http://kaggle.com) has ended. Sticking to my word at [ELS
   2014](http://medias.ircam.fr/xff38ba), I released some code that
@@ -2349,7 +2349,7 @@
   factor out of the code later.")
 
 (defsection @migration-to-github (:title "Migration to github")
-  "*2014-09-25* -- Due to the bash security hole that keeps
+  "*2014-09-25* – Due to the bash security hole that keeps
   [giving](http://seclists.org/oss-sec/2014/q3/685), I had to disable
   gitweb at [http://quotenil.com/git/](http://quotenil.com/git/) and
   move all non-obsolete code over to github. This affects:
@@ -2362,7 +2362,7 @@
   - [cl-libsvm](https://github.com/melisgl/cl-libsvm).")
 
 (defsection @transcripts (:title "Transcripts")
-  """*2014-10-20* -- I've just committed a major feature to MGL-PAX:
+  """*2014-10-20* – I've just committed a major feature to MGL-PAX:
   the ability to include code examples in docstrings. Printed output
   and return values are marked up with ".." and "=>", respectively.
 
@@ -2395,7 +2395,7 @@
   provides a tutorialish treatment. I hope you'll find it useful.""")
 
 (defsection @include-locative-for-pax (:title "INCLUDE locative for PAX")
-  "*2014-12-06* -- I'm getting so used to the `M-.` plus documentation
+  "*2014-12-06* – I'm getting so used to the `M-.` plus documentation
   generation hack that's
   [MGL-PAX](https://github.com/melisgl/mgl-pax), that I use it for all
   new code, which highlighted an issue of with code examples.
@@ -2417,7 +2417,7 @@
   duplication. As always, `M-.` works as well.")
 
 (defsection @recurrent-nets (:title "Recurrent Nets")
-  "*2015-01-19* -- I've been cleaning up and documenting
+  "*2015-01-19* – I've been cleaning up and documenting
   [MGL](https://github.com/melisgl/mgl) for quite some time now and
   while it's nowhere near done, a good portion of the code has been
   overhauled in the process. There are new additions such as the [Adam
@@ -2455,7 +2455,7 @@
   nets in the documentation.")
 
 (defsection @pax-world (:title "PAX World")
-  """*2015-01-26* -- The promise of
+  """*2015-01-26* – The promise of
   [MGL-PAX](https://github.com/melisgl/mgl-pax) has always been that
   it will be easy to generate documentation for different libraries
   without requiring extensive markup and relying on stable urls. For
@@ -2495,7 +2495,7 @@
 
 (defsection @bigger-and-badder-pax-world
     (:title "Bigger and Badder PAX World")
-  "*2015-02-20* -- Bigger because documentation for
+  "*2015-02-20* – Bigger because documentation for
   [named-readtables](http://melisgl.github.io/mgl-pax-world/named-readtables-manual.html)
   and
   [micmac](http://melisgl.github.io/mgl-pax-world/micmac-manual.html)
@@ -2510,10 +2510,10 @@
 
 (defsection @on-the-design-of-matrix-libraries
     (:title "On the Design of Matrix Libraries")
-  "**UPDATE**: *2020-05-03* -- Things have been moving fast. This is a
+  "**UPDATE**: *2020-05-03* – Things have been moving fast. This is a
   non-issue in Tensorflow and possibly in other frameworks, as well.
 
-  *2015-02-26* -- I believe there is one design decision in
+  *2015-02-26* – I believe there is one design decision in
   [MGL-MAT](http://melisgl.github.io/mgl-pax-world/mat-manual.html)
   that has far reaching consequences: to make a single matrix object
   capable of storing multiple representations of the same data and let
@@ -2558,7 +2558,7 @@
   this could make the entire CUDA related part of MGL-MAT an add-on.")
 
 (defsection @moving-the-blog-to-pax (:title "Moving the blog to PAX")
-  "_2020-05-05_ -- After more than five years of silence, I may be
+  "_2020-05-05_ – After more than five years of silence, I may be
   resurrecting [my old
   blog](https://web.archive.org/web/20190814015233/http://quotenil.com/).
   I already got as far as rewriting it using
@@ -2570,7 +2570,7 @@
   shortened posts, something PAX hasn't seen the need for.")
 
 (defsection @journal-the-kitchen-sink (:title "Journal, the kitchen sink")
-  """_2020-09-04_ -- Ever wished for machine-readable logs and
+  """_2020-09-04_ – Ever wished for machine-readable logs and
   [`TRACE`][cl-trace]s, maybe for writing tests or something more
   fancy? The [Journal][journal-background] library takes a simple
   idea: user-defined execution traces, and implements
@@ -2652,7 +2652,7 @@
   """)
 
 (defsection @pax-v0.1 (:title "PAX v0.1")
-  """_2022-02-16_ -- [PAX](http://github.com/melisgl/mgl-pax/) v0.1 is released.
+  """_2022-02-16_ – [PAX](http://github.com/melisgl/mgl-pax/) v0.1 is released.
   At this point, I consider it fairly complete. Here is the changelog for the last year or so.
   ##### New Features
 
@@ -2709,7 +2709,7 @@
   - Autoloading no longer produces warnings on SBCL and fresh SLIME.""")
 
 (defsection @there-is-try (:title "There is Try")
-  """_2022-10-16_ -- Do or do not. There is now Try.
+  """_2022-10-16_ – Do or do not. There is now Try.
   I forgot to announce [Try](https://github.com/melisgl/try),
   my Common Lisp test framework, on this blog.
 
