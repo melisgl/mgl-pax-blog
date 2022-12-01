@@ -68,24 +68,7 @@ the bad news is that tcp connections started to hang. It didn't take
 long to <a href="http://hup.hu/node/98496" >find out</a> that this particular
 router drops &quot;unused&quot; tcp connections after five minutes.</p>
 
-<p>The fix recommended in the linked topic (namely sysctl'ing
-<code>net.ipv4.tcp_keepalive_time</code> &amp; co) was mostly effective but I had
-to lower the keepalive to one minute to keep my ssh sessions alive.
-The trouble was that OfflineIMAP connections to the U.S. west coast
-still hanged intermittently while it could work with Gmail just
-fine.</p>
-
-<p>In the end, OfflineIMAP had to be
-<a href="http://permalink.gmane.org/gmane.mail.imap.offlineimap.general/2815" >patched</a>
-to use the keepalive and the keepalive be lowered to 15s:</p>
-
-<pre><code>sysctl -w net.ipv4.tcp_keepalive_time=15 \
-          net.ipv4.tcp_keepalive_intvl=15 \
-          net.ipv4.tcp_keepalive_probes=20
-</code></pre>
-
-<p>Oh, and always include <code>socktimeout</code> in the offlineimap config, that's
-more important than keepalive unless you never have network issues.</p>
+<p>... read the rest of <a href="hung-connections.html#MGL-PAX-BLOG:@HUNG-CONNECTIONS%20MGL-PAX:SECTION" title="Hung Connections">Hung Connections</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-TECH--40OFFLINEIMAP-WITH-ENCRYPTED-AUTHINFO-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CATEGORY-TECH-@OFFLINEIMAP-WITH-ENCRYPTED-AUTHINFO-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -110,47 +93,7 @@ files as well. Offlineimap, on the other hand, offers no such
 support and passwords to the local and remote imap accounts are
 normally stored in clear text in <code>.offlineimaprc</code>.</p>
 
-<p>For the local account this can be overcome by not running a dovecot
-server but making offlineimap spawn a dovecot process when needed:</p>
-
-<pre><code>[Repository LocalGmail]
-type = IMAP
-preauthtunnel = /usr/sbin/dovecot -c ~/.dovecot.conf --exec-mail imap
-</code></pre>
-
-<p>For the remote connection, ideally it should read the password from
-<code>.authinfo.gpg</code> that Gnus may also read if it's configured to access
-the remote server directly. This can be pulled off rather easily.
-Add an /include/ to <code>.offlineimaprc</code> like this:</p>
-
-<pre><code>[general]
-pythonfile = ~/.offlineimap.py
-</code></pre>
-
-<p>where <code>~/.offlineimap.py</code> just defines a single function called
-<code>get_authinfo_password</code>:</p>
-
-<pre><code>#!/usr/bin/python
-import re, os
-
-def get_authinfo_password(machine, login, port):
-    s = &quot;machine %s login %s password ([^ ]*) port %s&quot; % (machine, login, port)
-    p = re.compile(s)
-    authinfo = os.popen(&quot;gpg -q --no-tty -d ~/.authinfo.gpg&quot;).read()
-    return p.search(authinfo).group(1)
-</code></pre>
-
-<p>Now, all that's left is to change remotepass to something like this:</p>
-
-<pre><code>remotepasseval = get_authinfo_password(&quot;imap.gmail.com&quot;, &quot;username@gmail.com&quot;, 993)
-</code></pre>
-
-<p>Of course, <code>.authinfo.gpg</code> should also have the corresponding entry:</p>
-
-<pre><code>machine imap.gmail.com login username@gmail.com password &lt;password&gt; port 993
-</code></pre>
-
-<p>That's it, no more cleartext passwords.</p>
+<p>... read the rest of <a href="offlineimap-with-encrypted-authinfo.html#MGL-PAX-BLOG:@OFFLINEIMAP-WITH-ENCRYPTED-AUTHINFO%20MGL-PAX:SECTION" title="OfflineIMAP with Encrypted Authinfo">OfflineIMAP with Encrypted Authinfo</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-TECH--40UPGRADE-WOES-2-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CATEGORY-TECH-@UPGRADE-WOES-2-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -186,31 +129,7 @@ upgrade to Squeeze aka Debian testing. The upgrade itself went
 rather smoothly with a few notable exceptions. With KDE 4.3 I should
 have waited more.</p>
 
-<p>Notes:</p>
-
-<ul>
-<li><p>Who thought it a grand idea that in the default theme (Oxygen) the
-  color of the panel and window title bar cannot be customized?
-  Installing the desktop theme called Aya solved the panel issue
-  while going back to Keramik helped with the title bar.</p></li>
-<li><p>The kmail message list is a train wreck by default with its
-  multi-line entries. It took me ages to find how to turn it to back
-  to classic theme (hint: it's not under `Configure KMail'), at the
-  cost of no threading messages.</p></li>
-<li><p>I had customized kwin to use the Super key for all shortcuts. KDE3
-  decided to call it the Win key, but hey, I understand that's where
-  it's often mapped. After the upgrade my settings were wiped out.</p></li>
-<li><p>In org-mode <code>C-u C-c C-t</code> had asked for a new tag. After the upgrade
-  and <code>(setq org-use-fast-todo-selection 'prefix)</code> it does so again.</p></li>
-<li><p>The X.org upgrade broke my fragile xmodmap config so I wrote an
-  <a href="blog-files/lisp-xkb.tar.gz" >xkb based config</a>
-  instead. It's activated with:</p>
-
-<pre><code>xkbcomp -I$HOME/.xkb ~/.xkb/keymap/us_lisp $DISPLAY
-</code></pre></li>
-<li><p>Upgrading to emacs23 was painless, except for blorg that needed a
-  couple of hacks to get this entry out the door.</p></li>
-</ul>
+<p>... read the rest of <a href="upgrade-woes.html#MGL-PAX-BLOG:@UPGRADE-WOES%20MGL-PAX:SECTION" title="Upgrade Woes">Upgrade Woes</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-TECH--40SPACE-CADET-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CATEGORY-TECH-@SPACE-CADET-SHORT%20MGL-PAX:SECTION"></a></p>

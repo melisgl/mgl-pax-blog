@@ -70,6 +70,16 @@ my Common Lisp test framework, on this blog.</p>
 <p><em>2022-02-16</em> -- <a href="http://github.com/melisgl/mgl-pax/" >PAX</a> v0.1 is released.
 At this point, I consider it fairly complete. Here is the changelog for the last year or so.</p>
 
+<h5>New Features</h5>
+
+<ul>
+<li><p>To reduce deployment size, made the MGL-PAX system <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29" >autoload navigation, documentation generation, and transcription code</a>.</p></li>
+<li><p>Symbols in the CL package are <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29" >linked to the hyperspec</a> like this: <code>PRINT</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_wr_pr.htm" title="PRINT FUNCTION"><code>PRINT</code></a>.</p></li>
+<li><p>Hyperspec sections and issues can be linked to with the <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29" >CLHS locative</a> like this: <code>[lambda lists][CLHS]</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/03_d.htm" title="&quot;3.4&quot; MGL-PAX:CLHS">lambda lists</a>.</p></li>
+<li><p>Added support for <code>[see this][foo function]</code> and <code>[see this][foo]</code> style of <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-40MGL-PAX-LINKING-TO-CODE-20MGL-PAX-3ASECTION-29" >linking</a>.</p></li>
+<li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28DECLARATION-20MGL-PAX-3ALOCATIVE-29" >DECLARATION locative</a>.</p></li>
+</ul>
+
 <p>... read the rest of <a href="pax-v0.1.html#MGL-PAX-BLOG:@PAX-V0.1%20MGL-PAX:SECTION" title="PAX v0.1">PAX v0.1</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40JOURNAL-THE-KITCHEN-SINK-SHORT-20MGL-PAX-3ASECTION-29"></a>
@@ -132,11 +142,6 @@ operations decide which representation to use based on what's the
 most convenient or efficient, without having to even know about all
 the possible representations.</p>
 
-<p>This allows existing code to keep functioning if support for
-diagonal matrices (represented as a 1d array) lands and one can pick
-and choose the operations performance critical enough to implement
-with diagonals.</p>
-
 <p>... read the rest of <a href="on-the-design-of-matrix-libraries.html#MGL-PAX-BLOG:@ON-THE-DESIGN-OF-MATRIX-LIBRARIES%20MGL-PAX:SECTION" title="On the Design of Matrix Libraries">On the Design of Matrix Libraries</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40BIGGER-AND-BADDER-PAX-WORLD-SHORT-20MGL-PAX-3ASECTION-29"></a>
@@ -180,27 +185,7 @@ it would need to include ugly HTML links in the markdown:</p>
 
 <pre><code><span class="code">"Returns a [some-terrible-github-link-to-html][MAT] object."</span></code></pre>
 
-<p>With PAX however, the uppercase symbol <code>MAT</code> will be automatically
-linked to the documentation of <code>MAT</code> if its whereabouts are known at
-documentation generation time, so the above becomes:</p>
-
-<pre><code><span class="code">"Returns a MAT object."</span></code></pre>
-
-<p>The easiest way to tell PAX where to link is to let it generate the
-documentation for all libraries at the same time like this:</p>
-
-<pre><code><span class="code"><span class="paren1">(<span class="code">document <span class="paren2">(<span class="code">list mgl-mat:@mat-manual mgl:@mgl-manual</span>)</span></span>)</span></span></code></pre>
-
-<p>This is the gist of what
-<a href="https://github.com/melisgl/mgl-pax-world" >MGL-PAX-WORLD</a> does. It
-has a list of stuff to document, and it creates a set of HTML files.
-Check out how its output looks on <a href="http://melisgl.github.io/mgl-pax-world/" >github
-pages</a>. Here is a good
-<a href="http://melisgl.github.io/mgl-pax-world/mgl-manual.html#x-28MGL-3A-40MGL-DEPENDENCIES-20MGL-PAX-3ASECTION-29" >example of
-cross-links</a>.
-It's easy to play with locally: just get the gh-pages branch and
-call
-<a href="http://melisgl.github.io/mgl-pax-world/mgl-pax-world-manual.html#x-28MGL-PAX-WORLD-3AUPDATE-PAX-WORLD-20FUNCTION-29" >UPDATE-PAX-WORLD</a>.</p>
+<p>... read the rest of <a href="pax-world.html#MGL-PAX-BLOG:@PAX-WORLD%20MGL-PAX:SECTION" title="PAX World">PAX World</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40RECURRENT-NETS-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CATEGORY-LISP-@RECURRENT-NETS-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -219,30 +204,7 @@ optimizer</a> and Recurrent Neural
 Nets. My efforts were mainly only the backprop stuff and I think the
 definition of feed-forward:</p>
 
-<pre><code><span class="code"><span class="paren1">(<span class="code">build-fnn <span class="paren2">(<span class="code"><span class="keyword">:class</span> 'digit-fnn</span>)</span>
-  <span class="paren2">(<span class="code">input <span class="paren3">(<span class="code">-&gt;input <span class="keyword">:size</span> <span class="special">*n-inputs*</span></span>)</span></span>)</span>
-  <span class="paren2">(<span class="code">hidden-activation <span class="paren3">(<span class="code">-&gt;activation input <span class="keyword">:size</span> n-hiddens</span>)</span></span>)</span>
-  <span class="paren2">(<span class="code">hidden <span class="paren3">(<span class="code">-&gt;relu hidden-activation</span>)</span></span>)</span>
-  <span class="paren2">(<span class="code">output-activation <span class="paren3">(<span class="code">-&gt;activation hidden <span class="keyword">:size</span> <span class="special">*n-outputs*</span></span>)</span></span>)</span>
-  <span class="paren2">(<span class="code">output <span class="paren3">(<span class="code">-&gt;softmax-xe-loss <span class="keyword">:x</span> output-activation</span>)</span></span>)</span></span>)</span></span></code></pre>
-
-<p>and recurrent nets:</p>
-
-<pre><code><span class="code"><span class="paren1">(<span class="code">build-rnn <span class="paren2">(<span class="code"></span>)</span>
-  <span class="paren2">(<span class="code">build-fnn <span class="paren3">(<span class="code"><span class="keyword">:class</span> 'sum-sign-fnn</span>)</span>
-    <span class="paren3">(<span class="code">input <span class="paren4">(<span class="code">-&gt;input <span class="keyword">:size</span> 1</span>)</span></span>)</span>
-    <span class="paren3">(<span class="code">h <span class="paren4">(<span class="code">-&gt;lstm input <span class="keyword">:size</span> n-hiddens</span>)</span></span>)</span>
-    <span class="paren3">(<span class="code">prediction <span class="paren4">(<span class="code">-&gt;softmax-xe-loss
-                 <span class="paren5">(<span class="code">-&gt;activation h <span class="keyword">:name</span> 'prediction <span class="keyword">:size</span> <span class="special">*n-outputs*</span></span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
-
-<p>is fairly straight-forward already. There is still much code that
-needs to accompany such a network definition, mostly having to do
-with how to give inputs and prediction targets to the network and
-also with monitoring training. See the full examples for
-<a href="https://github.com/melisgl/mgl/blob/master/doc/md/mgl-manual.md#x-28MGL-BP-3A-40MGL-FNN-TUTORIAL-20MGL-PAX-3ASECTION-29" >feed-forward</a>
-and
-<a href="https://github.com/melisgl/mgl/blob/master/doc/md/mgl-manual.md#x-28MGL-BP-3A-40MGL-RNN-TUTORIAL-20MGL-PAX-3ASECTION-29" >recurrent</a>
-nets in the documentation.</p>
+<p>... read the rest of <a href="recurrent-nets.html#MGL-PAX-BLOG:@RECURRENT-NETS%20MGL-PAX:SECTION" title="Recurrent Nets">Recurrent Nets</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40INCLUDE-LOCATIVE-FOR-PAX-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CATEGORY-LISP-@INCLUDE-LOCATIVE-FOR-PAX-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -266,13 +228,7 @@ source files to docstrings is insanity or an
 <a href="http://c2.com/cgi/wiki?OnceAndOnlyOnce" >OOAO</a> violation,
 respectively.</p>
 
-<p>In response to this, PAX got the <a href="https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3AINCLUDE-20MGL-PAX-3ALOCATIVE-29" >INCLUDE
-locative</a> (see
-the linked documentation) and became its own first user at the same
-time. In a nutshell, the <code>INCLUDE</code> locative can refer to non-lisp
-files and sections of lisp source files which makes it easy to add
-code examples and external stuff to the documentation without
-duplication. As always, <code>M-.</code> works as well.</p>
+<p>... read the rest of <a href="include-locative-for-pax.html#MGL-PAX-BLOG:@INCLUDE-LOCATIVE-FOR-PAX%20MGL-PAX:SECTION" title="`INCLUDE` locative for PAX"><code>INCLUDE</code> locative for PAX</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40TRANSCRIPTS-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CATEGORY-LISP-@TRANSCRIPTS-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -292,24 +248,7 @@ and return values are marked up with &quot;..&quot; and &quot;=&gt;&quot;, respe
 =&gt; :HELLO
 =&gt; <span class="paren1">(<span class="code">1 2</span>)</span></span></code></pre>
 
-<p>The extras are:</p>
-
-<ul>
-<li><p>parsing back and <em>updating</em> a transcript</p></li>
-<li><p><em>auto-checking</em> of up-to-dateness at documentation generation time</p></li>
-<li><p>readable return values can be commented, hand-indented without
-  breaking consistency checks and updates will not destroy those
-  changes</p></li>
-<li><p>Emacs integration: transcribing the last expression and updating a
-  transcript in a region.</p></li>
-<li><p><a href="https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3ATRANSCRIBE-20FUNCTION-29" >TRANSCRIBE</a>
-  works without the rest of MGL-PAX so it can be used to
-  format bug reports or as a poor man's expect script.</p></li>
-</ul>
-
-<p>The
-<a href="https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3A-40MGL-PAX-TRANSCRIPT-20MGL-PAX-3ASECTION-29" >documentation</a>
-provides a tutorialish treatment. I hope you'll find it useful.</p>
+<p>... read the rest of <a href="transcripts.html#MGL-PAX-BLOG:@TRANSCRIPTS%20MGL-PAX:SECTION" title="Transcripts">Transcripts</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40MIGRATION-TO-GITHUB-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CATEGORY-LISP-@MIGRATION-TO-GITHUB-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -349,52 +288,7 @@ contest</a> on
 2014</a>, I released some code that
 came about during these long four months.</p>
 
-<p><a href="https://github.com/melisgl/mgl-gpr" >MGL-GPR</a> is no longer a
-<a href="http://en.wikipedia.org/wiki/Genetic_programming" >Genetic
-Programming</a> only
-library because it got another <a href="http://en.wikipedia.org/wiki/Evolutionary_algorithm" >Evolutionary
-Algorithm</a>
-implementation: <a href="http://en.wikipedia.org/wiki/Differential_evolution" >Differential
-Evolution</a>. My
-original plan for this contest was to breed input features that the
-physicists in their insistence on comprehensibility overlooked, but
-it didn't work as well as I had hoped for reasons specific to this
-contest and also because evolutionary algorithms just do not scale
-to larger problem sizes.</p>
-
-<p>In other news, <a href="http://quotenil.com/git/?p=mgl.git;a=summary" >MGL</a>
-got (http://en.wikipedia.org/wiki/Cross-validation_<a href="statistics" >cross-validation</a>),
-<a href="http://en.wikipedia.org/wiki/Bootstrap_aggregating" >bagging</a> and
-stratification support in the brand new
-<a href="http://quotenil.com/git/?p=mgl.git;a=blob;f=src/resample.lisp;h=cb83c5962eb29e57b3d3f8f0e407b0e30bc9732d;hb=91c5ddaae870d4a8acaa67f54d0876eead2cd6a9" >MGL-RESAMPLE</a>
-package documented with
-<a href="https://github.com/melisgl/mgl-pax" >MGL-PAX</a> which all of you will
-most definitely want to use. My winning submission used bagged
-cross-validated dropout neural networks with stratified splits so
-this is where it's coming from.</p>
-
-<p>MGL itself and <a href="https://github.com/melisgl/mgl-mat" >MGL-MAT</a> were
-updated to work with the latest
-<a href="https://github.com/takagi/cl-cuda" >CL-CUDA</a>. The neural network
-code also saw some additions such as
-<a href="http://arxiv.org/abs/1312.1909" >-&gt;MAX-CHANNEL</a> activation (which
-originated as <a href="http://people.idsia.ch/~juergen/nips2013.pdf" >LWTA</a>)
-and also gaussian multiplicative noise. The next steps here are
-further cleanups to MGL, writing documentation and moving it to
-github. Also, there is some hope that one day CL-CUDA can be
-included in quicklisp allowing my stuff there to be updated to their
-latest versions.</p>
-
-<p>The code for this contest is available at
-(https://github.com/melisgl/higgsml)which from now on doubles as my
-skeleton for lisp projects that need to be delivered as source and
-as binary. It sucks in all dependencies from quicklisp available at
-a certain date, clones the necessary repositories not available in
-quicklisp, builds an executable, and has a simple 'make dist' rule
-as well.</p>
-
-<p>There is also a fairly generic ensembling algorithm that I will
-factor out of the code later.</p>
+<p>... read the rest of <a href="higgs-boson-machine-learning-challenge-bits-and-pieces.html#MGL-PAX-BLOG:@HIGGS-BOSON-MACHINE-LEARNING-CHALLENGE-BITS-AND-PIECES%20MGL-PAX:SECTION" title="Higgs Boson Machine Learning Challenge Bits and Pieces">Higgs Boson Machine Learning Challenge Bits and Pieces</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40HIGGS-BOSON-MACHINE-LEARNING-CHALLENGE-POST-MORTEM-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CATEGORY-LISP-@HIGGS-BOSON-MACHINE-LEARNING-CHALLENGE-POST-MORTEM-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -422,18 +316,7 @@ did a great job explaining the physics, why there is no more data,
 motivating the choice of evaluation metric, and being prompt in
 communication in general.</p>
 
-<p>I hope that the HEP guys will find this useful in their search for
-more evidence of tau tau decay of the Higgs boson. Note that I
-didn't go for the 'HEP meets ML Award' so training time is
-unnecessarily high
-(one day with a GTX Titan GPU). By switching to single precision
-floating point and a single neural network, training time could be
-reduced to about 15 minutes with an expected drop in accuracy from
-3.805 to about 3.750. Even with the bagging approach the code logs
-out-of-bag estimates of the evaluation metric after training each
-constituent model and the training process can be C-c'ed early.
-Furthermore, the model can be run on a CPU with BLAS about 10 times
-slower than on a Titan.</p>
+<p>... read the rest of <a href="higgs-boson-machine-learning-challenge-post-mortem.html#MGL-PAX-BLOG:@HIGGS-BOSON-MACHINE-LEARNING-CHALLENGE-POST-MORTEM%20MGL-PAX:SECTION" title="Higgs Boson Machine Learning Challenge Post-Mortem">Higgs Boson Machine Learning Challenge Post-Mortem</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40LIBLINEAR-SUPPORT-ADDED-TO-CL-LIBSVM-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CATEGORY-LISP-@LIBLINEAR-SUPPORT-ADDED-TO-CL-LIBSVM-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -512,34 +395,7 @@ a Nash equilibrium finder to <a href="http://cliki.net/micmac" >Micmac</a>
 that's becoming less statistics oriented. This was one of the many
 things in Planet Wars that never really made it.</p>
 
-<p>Let's consider the <a href="http://en.wikipedia.org/wiki/Matching_pennies" >Matching
-pennies</a> game. The
-row player wins iff the two pennies show the same side. The payoff
-matrix is:</p>
-
-<pre><code>|       | Heads | Tails |
-+-------+-------+-------+
-| Heads |     1 |    -1 |
-| Tails |    -1 |     1 |
-</code></pre>
-
-<p>Find the mixed strategy equilibrium:</p>
-
-<pre><code><span class="code"><span class="paren1">(<span class="code">find-nash-equilibrium '<span class="paren2">(<span class="code"><span class="paren3">(<span class="code">-1 1</span>)</span> <span class="paren3">(<span class="code">1 -1</span>)</span></span>)</span></span>)</span>
-=&gt;
-#<span class="paren1">(<span class="code">49 51</span>)</span>
-#<span class="paren1">(<span class="code">50 50</span>)</span>
--0.01</span></code></pre>
-
-<p>That is both players should choose heads 50% of the time and the
-expected payoff (for the row player) is zero of which -0.01 is an
-approximation:</p>
-
-<pre><code><span class="code"><span class="paren1">(<span class="code">find-nash-equilibrium '<span class="paren2">(<span class="code"><span class="paren3">(<span class="code">-1 1</span>)</span> <span class="paren3">(<span class="code">1 -1</span>)</span></span>)</span> <span class="keyword">:n-iterations</span> 1000</span>)</span>
-=&gt;
-#<span class="paren1">(<span class="code">499 501</span>)</span>
-#<span class="paren1">(<span class="code">500 500</span>)</span>
--0.001</span></code></pre>
+<p>... read the rest of <a href="nash-equilibrium-finder.html#MGL-PAX-BLOG:@NASH-EQUILIBRIUM-FINDER%20MGL-PAX:SECTION" title="Nash equilibrium finder">Nash equilibrium finder</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40PLANET-WARS-POST-MORTEM-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CATEGORY-LISP-@PLANET-WARS-POST-MORTEM-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -558,26 +414,6 @@ approximation:</p>
 chances, but there was a huge shuffling of ranks in the last week
 and some last minute casualties.</p>
 
-<h3>Code</h3>
-
-<p>Note that the git repository is available at
-<a href="http://quotenil.com/git/planet-wars.git" >http://quotenil.com/git/planet-wars.git</a> 
-(<a href="http://quotenil.com/git/?p=planet-wars.git" >gitweb</a>).</p>
-
-<h3>Denial</h3>
-
-<p>I had promised myself not to enter this one and resisted for about
-two weeks when my defenses were worn away and I was drawn into the
-fray.</p>
-
-<p>The game didn't look very exciting at first. I thought that the bots
-would soon reach a point of near perfect tactics and the
-rock-paper-scissors scenarios would dominate (more on this later).</p>
-
-<p>That's enough of
-<a href="https://web.archive.org/web/20100307014152/http://www.a1k0n.net/blah/archives/2010/03/index.html" >tribute</a>,
-let's steer off the trodden path.</p>
-
 <p>... read the rest of <a href="planet-wars-post-mortem.html#MGL-PAX-BLOG:@PLANET-WARS-POST-MORTEM%20MGL-PAX:SECTION" title="Planet Wars Post-Mortem">Planet Wars Post-Mortem</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40IMPORTANT-UPDATE-TO-THE-PLANET-WARS-STARTER-PACKAGE-SHORT-20MGL-PAX-3ASECTION-29"></a>
@@ -594,31 +430,7 @@ as <code>RESOLVE-BATTLE</code> wrong? Apparently, yes. That's what one gets for
 trying to port Python code that's pretty foreign in the sense of
 being far from the way I'd write it.</p>
 
-<p>More importantly, I found out the hard way that sbcl 1.0.11 that's
-<a href="http://code.google.com/p/ai-contest/issues/detail?id=183" >still</a> on
-the official servers has a number of bugs in its timer
-implementation making <code>WITH-TIMEOUT</code> unreliable. Also, it can
-trigger timeouts recursively eventually exceeding the maximum
-interrupt nesting depth. Well, &quot;found out&quot; is not the right way to
-put it as we did fix most of these bugs ages ago.</p>
-
-<p>In the new starter package (v0.8 in
-<a href="http://quotenil.com/git/?p=planet-wars.git;a=summary" >git</a>, <a href="http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz" >latest
-tarball</a>),
-you'll find timer.lisp that's simply backported almost verbatim from
-sbcl 1.0.41 to sbcl 1.0.11. Seems to work for me, but I also had to
-lower the timeout to 0.8 from 0.98 because the main server is
-extremely slow.</p>
-
-<p>The rate at which games are played on the servers is so low that it
-takes several days to ascend through the leaderboard. Nevertheless,
-an old buggy version is sitting on the
-<a href="https://web.archive.org/web/20101025070429/http://ai-contest.com/rankings.php" >top</a> right now. Mind you,
-introducing bugs is a great way exlopore the solution space and it's
-quite worrisome just how adept I am at this poor man's evolutionary
-programming. Most of them have since been fixed while the ideas they
-brought to light remain, making the current version much
-stronger.</p>
+<p>... read the rest of <a href="important-update-to-the-planet-wars-starter-package.html#MGL-PAX-BLOG:@IMPORTANT-UPDATE-TO-THE-PLANET-WARS-STARTER-PACKAGE%20MGL-PAX:SECTION" title="Important Update to the Planet Wars Starter Package">Important Update to the Planet Wars Starter Package</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40PLANET-WARS-COMMON-LISP-STARTER-PACKAGE-THAT-ACTUALLY-WORKS-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CATEGORY-LISP-@PLANET-WARS-COMMON-LISP-STARTER-PACKAGE-THAT-ACTUALLY-WORKS-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -654,13 +466,6 @@ only means that straight minimax is out of question this time
 around. Whether some cleverness can bring the game within reach of
 conventional algorithms remains to be seen.</p>
 
-<p>Anyway, I'm adding <a href="http://quotenil.com/git/?p=planet-wars.git;a=summary" >yet another starter
-package</a> (<a href="http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz" >latest
-tarball</a>)
-to the
-<a href="http://aerique.blogspot.com/2010/09/planet-wars-common-lisp-start-package.html" >lot</a>.
-It is based heavily on aerique's.</p>
-
 <p>... read the rest of <a href="planet-wars-common-lisp-starter-package.html#MGL-PAX-BLOG:@PLANET-WARS-COMMON-LISP-STARTER-PACKAGE%20MGL-PAX:SECTION" title="Planet Wars Common Lisp Starter Package">Planet Wars Common Lisp Starter Package</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40GOOGLE-AI-CHALLENGE-2010-RESULTS-SHORT-20MGL-PAX-3ASECTION-29"></a>
@@ -675,21 +480,6 @@ It is based heavily on aerique's.</p>
 <p><em>2010-03-01</em> -- For what has been a fun ride, the official results are now <a href="https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php" >available</a>.
 In the end, 11th out of 700 is not too bad and it's the highest
 ranking non-C++ entry by some margin.</p>
-
-<p>I entered the contest a bit late with a rather specific approach in
-mind: <a href="http://senseis.xmp.net/?UCT" >UCT</a>, an algorithm from the
-Monte Carlo tree search family. It has been rather successful in
-Go (and in Hex too, taking the crown from
-<a href="hex/six/index.html" >Six</a>). So with UCT in mind, to serve as a
-baseline I implemented a quick
-<a href="http://en.wikipedia.org/wiki/Minimax" >minimax</a> with a simple
-territory based evaluation function ... that everyone else in the
-competition seems to have invented independently. Trouble was
-looming because it was doing too well: with looking ahead only one
-move (not even considering moves of the opponent) it played a very
-nice positional game. That was the first sign that constructing a
-good evaluation function may not be as hard for Tron as it is for
-Go.</p>
 
 <p>... read the rest of <a href="google-ai-challenge-2010-results.html#MGL-PAX-BLOG:@GOOGLE-AI-CHALLENGE-2010-RESULTS%20MGL-PAX:SECTION" title="Google AI Challange 2010 Results">Google AI Challange 2010 Results</a>.</p>
 
@@ -749,19 +539,6 @@ source <a href="http://web.mit.edu/~rsalakhu/www/DBM.html" >code</a> for the
 <a href="http://yann.lecun.com/exdb/mnist/" >MNIST</a> digit classification
 problem available.</p>
 
-<p>The linked <a href="http://www.cs.toronto.edu/~hinton/absps/dbm.pdf" >paper</a>
-claims a record of 99.05% in classification accuracy on the
-permutation invariant task (no prior knowledge of geometry). A
-previous approach trained a
-<a href="http://www.scholarpedia.org/article/Deep_belief_networks" >DBN</a> in
-an unsupervised manner and fine tuned it with backpropagation. Now
-there is one more step: turning the DBN into a DBM (Deep Boltzmann
-Machine) and tune it further before handing the baton over to
-backprop. While in a DBN the constituent RBMs are trained one by
-one, the DBM is trained as a whole which, in theory, allows it to
-reconcile bottom-up and top-down signals, i.e. what you see and what
-you think.</p>
-
 <p>... read the rest of <a href="deep-boltzmann-machine-on-mnist.html#MGL-PAX-BLOG:@DEEP-BOLTZMANN-MACHINE-ON-MNIST%20MGL-PAX:SECTION" title="Deep Boltzmann Machine on MNIST">Deep Boltzmann Machine on MNIST</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40INTRODUCTION-TO-MGL-PART-3-SHORT-20MGL-PAX-3ASECTION-29"></a>
@@ -783,16 +560,6 @@ trivial example of a backprop network. I said before that the main
 focus is on Boltzmann Machines so let's kill the suspense here and
 now by cutting straight to the heart of the matter.</p>
 
-<p><a href="http://cseweb.ucsd.edu/users/gary/pubs/cottrell-science-2006.pdf" >Cottrell's Science
-article</a>
-provides a clear and easy to follow description of the spiral
-problem that we are going to implement. The executive summary is
-that we want to train an auto-encoder: a network that reproduces its
-input as output with a small encoding layer somewhere in between. By
-forcing the information through the bottleneck of the encoding layer
-the network should pick up a low dimensional code that represents
-the input, thus performing dimensionality reduction.</p>
-
 <p>... read the rest of <a href="introduction-to-mgl-part-3.html#MGL-PAX-BLOG:@INTRODUCTION-TO-MGL-PART-3%20MGL-PAX:SECTION" title="Introduction to MGL (part 3)">Introduction to MGL (part 3)</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40INTRODUCTION-TO-MGL-PART-2-SHORT-20MGL-PAX-3ASECTION-29"></a>
@@ -812,13 +579,6 @@ instead.</p>
 <p><em>2009-12-17</em> -- After <a href="introduction-to-mgl-part-1.html#MGL-PAX-BLOG:@INTRODUCTION-TO-MGL-PART-1%20MGL-PAX:SECTION" title="Introduction to MGL (part 1)">Introduction to MGL (part 1)</a>, today we are
 going to walk through a small example and touch on the main concepts
 related to learning within this library.</p>
-
-<p>At the top of the food chain is the generic function <code>TRAIN</code>:</p>
-
-<pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defgeneric</span></i> train <span class="paren2">(<span class="code">sampler trainer learner</span>)</span>
-  <span class="paren2">(<span class="code"><span class="keyword">:documentation</span> <span class="string">"Train LEARNER with TRAINER on the examples from
-SAMPLER. Before that TRAINER is initialized for LEARNER with
-INITIALIZE-TRAINER. Training continues until SAMPLER is finished."</span></span>)</span></span>)</span></span></code></pre>
 
 <p>... read the rest of <a href="introduction-to-mgl-part-2.html#MGL-PAX-BLOG:@INTRODUCTION-TO-MGL-PART-2%20MGL-PAX:SECTION" title="Introduction to MGL (part 2)">Introduction to MGL (part 2)</a>.</p>
 
@@ -870,13 +630,6 @@ dependency between slots <code>A</code> and <code>B</code>:))</p>
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'super</span>)</span></span>)</span> =&gt; 1
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'super <span class="keyword">:b</span> 1</span>)</span></span>)</span> =&gt; 2</span></code></pre>
 
-<p>You may even subclass it, add an initform and it still works:</p>
-
-<pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> sub <span class="paren2">(<span class="code">super</span>)</span>
- <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">b <span class="keyword">:initform</span> 1</span>)</span></span>)</span></span>)</span>
-
-<span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'sub</span>)</span></span>)</span> =&gt; 2</span></code></pre>
-
 <p>... read the rest of <a href="object-initialization-with-slot-dependencies.html#MGL-PAX-BLOG:@OBJECT-INITIALIZATION-WITH-SLOT-DEPENDENCIES%20MGL-PAX:SECTION" title="Object Initialization with Slot Dependencies">Object Initialization with Slot Dependencies</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40GLOBAL-COMPILER-POLICY-SHORT-20MGL-PAX-3ASECTION-29"></a>
@@ -901,19 +654,7 @@ wrap it like this:</p>
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">eval-when</span></i> <span class="paren2">(<span class="code"><span class="keyword">:compile-toplevel</span></span>)</span>
  <span class="paren2">(<span class="code">declaim <span class="paren3">(<span class="code">optimize speed</span>)</span></span>)</span></span>)</span></span></code></pre>
 
-<p>to ensure that the body is evaluated in <a href="http://www.lispworks.com/documentation/HyperSpec/Body/03_bca.htm" >the dynamic execution
-context of the
-compiler</a>
-which makes a practical difference on Allegro. It goes without
-saying that you don't want <code>(PROCLAIM '(OPTIMIZE ...))</code> in a
-library, either.</p>
-
-<p><em>UPDATE</em>: The above works, but is not mandated by the spec because the
-dynamic execution context of the compiler does not include the global
-declarations. Alas, by the spec the portable solution is to wrap the
-whole file in:</p>
-
-<pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">locally</span></i> <span class="paren2">(<span class="code">declare <span class="paren3">(<span class="code">optimize speed</span>)</span></span>)</span> ...</span>)</span></span></code></pre>
+<p>... read the rest of <a href="global-compiler-policy.html#MGL-PAX-BLOG:@GLOBAL-COMPILER-POLICY%20MGL-PAX:SECTION" title="Global Compiler Policy">Global Compiler Policy</a>.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40CATEGORY-LISP--40ACTIVE-LEARNING-FOR-CL-LIBSVM-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CATEGORY-LISP-@ACTIVE-LEARNING-FOR-CL-LIBSVM-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -958,34 +699,6 @@ is rather peculiar. Frames are allocated and mostly set up by the
 caller. The new frame starts with a pointer to the old frame, then
 comes the return address, an empty slot and the stack arguments (the
 first three are passed in registers on x86).</p>
-
-<p>Software archeology aside, the only reason I can see for this scheme
-is that stack arguments are easier to manipulate when they are after
-the return address, old frame pointer part, in particular tail calls
-with any number of arguments can be made without re<code>[</code>al<code>]</code>locating
-the frame.</p>
-
-<p>The first step towards callee allocated frames is swapping the
-return address and old fp slots. Asking an innocent question on
-<code>#lisp</code> accomplished most of the work as <a href="http://www.lisphacker.com/" >Alastair
-Bridgewater</a> had a patch for x86 against
-a 0.9ish version that does exactly this.</p>
-
-<p>Forward porting it to current SBCL was a breeze. Relatively
-speaking, of course, because debugging cold init failures is never
-pleasant. He also had another patch that biases the frame pointer to
-point to the old fp slot instead of just before the return address.
-This has the benefit of making Lisp and foreign frame layouts the
-same which makes backtraces more reliable and allows external
-debugging tools recognize all frames.</p>
-
-<p>Callee allocated frames are still quite some way off, but while in
-the area I sought a bit of optimization fun. With the return address
-before old fp it is now possible to return with the idiomatic <code>POP
-EBP, RET</code> sequence. Well, most of the time: when more multiple
-values are returned than there are argument passing registers they
-are placed on the stack exactly where the arguments normally reside.
-Obviously, in this case the frame cannot be dismantled.</p>
 
 <p>... read the rest of <a href="calling-convention-hacks.html#MGL-PAX-BLOG:@CALLING-CONVENTION-HACKS%20MGL-PAX:SECTION" title="Calling Convention Hacks">Calling Convention Hacks</a>.</p>
 
@@ -1038,31 +751,6 @@ insufficient number of iterations of some tests: measurement
 accuracy is really bad when the run time is below 0.2s and it is
 abysmal when there is other activity on the system which is easy to
 tell even in retrospect by comparing the real and user time columns.</p>
-
-<p>But that's not the end of the story, take for instance
-<code>FPRINT/PRETTY</code>: it takes more than two seconds but often
-experiences changes up to 7% caused by seemingly unrelated changes.
-People have fingered alignment as a likely cause.</p>
-
-<p>Recently this issue has become more pressing as I've been trying to
-reduce the overhead of x86's pseudo atomic. Unfortunately, the
-effect is smallish which makes measurement difficult so I tried
-aligning loops on 16 byte boundaries. This being on x86, that meant
-aligning code similarly first (it's 8 byte aligned currently).</p>
-
-<p>The <a href="http://quotenil.com/git/?p=sbcl.git;a=commit;h=2148639257c45f43c99f8c24087f17c9d8d03abb" >change
-itself</a> (from
-the allocate-code-object branch of my git tree) is rather trivial,
-the effects are not. It turns out that depending on the
-<a href="http://www.agner.org/optimize/microarchitecture.pdf" >microarchitecture</a>
-some x86 CPUs like alignment, while the rest should really not care
-much. In practice, other factors come into play at which
-<a href="http://article.gmane.org/gmane.lisp.steel-bank.devel/12898" >we</a> can
-only
-<a href="http://groups.google.com/group/comp.lang.asm.x86/browse_thread/thread/bffd4ad26b9a9b10#" >guess</a>.
-It certainly seems that the Core Duo (and likely the Pentium M) is
-so deeply unnerved by a jump instruction near the end of a 16 byte
-block that it cannot execute the loop at its normal speed.</p>
 
 <p>... read the rest of <a href="code-alignment-on-x86.html#MGL-PAX-BLOG:@CODE-ALIGNMENT-ON-X86%20MGL-PAX:SECTION" title="Code alignment on x86">Code alignment on x86</a>.</p>
 
