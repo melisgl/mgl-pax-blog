@@ -83,22 +83,6 @@
                   (pax::transform-entries entries name))
    :tags tags
    :date date))
-
-(defmethod document-object ((post post) stream)
-  (let ((*package* (if *document-normalize-packages*
-                       (section-package post)
-                       *package*))
-        (*readtable* (if *document-normalize-packages*
-                         (section-readtable post)
-                         *readtable*))
-        (pax::*section* post))
-    (with-heading (stream post (pax::section-title-or-name post))
-      (let ((firstp t))
-        (dolist (entry (section-entries post))
-          (if firstp
-              (setq firstp nil)
-              (terpri stream))
-          (document-object entry stream))))))
 
 
 (defun generate-pages (categories top-blocks-of-links)
@@ -3127,7 +3111,7 @@
 
 #+nil
 (generate-pages
- (list @blog @personal @tech @lisp @ai)
+ (list @blog @tech @lisp @ai @personal)
  #+nil
  (list @xxx)
  '((:title "Blog Categories"
