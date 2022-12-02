@@ -65,7 +65,7 @@
   `(progn
      (defparameter ,name
        (make-post ',name ,title (list ,@tags) ,date ',entries))
-     (dolist (category (list ,@tags))
+     (dolist (category (list @blog ,@tags))
        (pushnew ',name (slot-value category 'post-names)))))
 
 (defun make-post (name title tags date entries)
@@ -124,14 +124,14 @@
                     (append categories posts)))))
 
 
-(defcategory @blog (:title "Blog"))
-(defcategory @personal (:title "Personal"))
-(defcategory @tech (:title "Tech"))
+(defcategory @blog (:title "(QUOTE NIL)"))
 (defcategory @lisp (:title "Lisp"))
 (defcategory @ai (:title "AI"))
+(defcategory @tech (:title "Tech"))
+(defcategory @personal (:title "Personal"))
 
 (defpost @first-post (:title "First post"
-                      :tags (@blog @personal @tech)
+                      :tags (@personal @tech)
                       :date "2008-02-01")
   "After a long time of waiting to write my own blog
   software like true hackers with infinite time do (and those
@@ -153,7 +153,7 @@
     [MGL-PAX](http://github.com/melisgl/mgl-pax).")
 
 (defpost @important-remainder (:title "Important remainder"
-                               :tags (@blog @personal)
+                               :tags (@personal)
                                :date "2008-02-04")
   "An [example](blog-files/guns.jpg) may speak a hundred
   words, but sometimes not even that is enough and you want to be
@@ -168,7 +168,7 @@
   All pictures were taken at Málaga airport.")
 
 (defpost @backup (:title "Backup"
-                  :tags (@blog @tech)
+                  :tags (@tech)
                   :date "2008-03-28")
   "My carefully updated list of files to backup had
   grown so long that it made me worry about losing something important
@@ -221,7 +221,7 @@
   trivial to snapshot.")
 
 (defpost @2008-computer-games-olympiad (:title "2008 Computer Games Olympiad"
-                                        :tags (@blog @ai)
+                                        :tags (@ai)
                                         :date "2008-12-11")
   "It seems that the competition has not been standing
   still (as opposed to [Six](hex/six/index.html)) and this year
@@ -235,7 +235,7 @@
   Six in particular), although losing does irk me a bit.")
 
 (defpost @space-cadet (:title "Space Cadet"
-                       :tags (@blog @tech @lisp)
+                       :tags (@tech @lisp)
                        :date "2008-12-15")
   "Emacs users often report problems caused by strain
   on the pinky finger that's used to press the _Control_ key. The
@@ -287,7 +287,7 @@
     version](https://github.com/melisgl/lisp-machine-xkb).")
 
 (defpost @code-alignment-on-x86 (:title "Code alignment on x86"
-                                 :tags (@blog @lisp)
+                                 :tags (@lisp)
                                  :date "2009-03-09")
   "There has always been a lot of wiggling of SBCL
   [boinkmarks](https://web.archive.org/web/20080513083106/http://sbcl.boinkor.net/bench/) results. It's easy to
@@ -344,7 +344,7 @@
   the commit stay out of the official SBCL tree.")
 
 (defpost @x86oid-pseudo-atomic (:title "X86oid Pseudo Atomic"
-                                :tags (@blog @lisp)
+                                :tags (@lisp)
                                 :date "2009-03-29")
   """The relatively recent
   [chit](http://www.method-combination.net/blog/archives/2008/02/01/vm-tricks.html)
@@ -458,7 +458,7 @@
   the pseudo-atomic branch of my git tree).""")
 
 (defpost @calling-convention-hacks (:title "Calling Convention Hacks"
-                                    :tags (@blog @lisp)
+                                    :tags (@lisp)
                                     :date "2009-04-19")
   "SBCL's [calling
   convention](http://www.sbcl.org/sbcl-internals/Calling-Convention.html)
@@ -517,7 +517,7 @@
   [here](http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=x86-calling-convention).")
 
 (defpost @active-Learning-for-cl-libsvm (:title "Active Learning for cl-libsvm"
-                                         :tags (@blog @lisp @ai)
+                                         :tags (@lisp @ai)
                                          :date "2009-06-22")
   "Along the lines of [active learning with python &
   libsvm](http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html),
@@ -539,7 +539,7 @@
   for your recompiling pleasure.")
 
 (defpost @global-compiler-policy (:title "Global Compiler Policy"
-                                  :tags (@blog @lisp)
+                                  :tags (@lisp)
                                   :date "2009-06-30")
   "A quick note to library implementors: The effects
   of `DECLAIM` are [permitted to
@@ -574,7 +574,7 @@
 
 (defpost @object-initialization-with-slot-dependencies
     (:title "Object Initialization with Slot Dependencies"
-     :tags (@blog @lisp)
+     :tags (@lisp)
      :date "2009-07-04")
   "Consider a class with a trivial initialization
   dependency between slots `A` and `B`:))
@@ -669,7 +669,7 @@
   needed, again, due to initforms.")
 
 (defpost @upgrade-woes (:title "Upgrade Woes"
-                        :tags (@blog @tech)
+                        :tags (@tech)
                         :date "2009-11-06")
   "Debian Lenny was released back in February. My
   conservativeness only lasts about half a year so I decided to
@@ -707,7 +707,7 @@
 
 (defpost @ultimate-fallout-2-ironman-munchkin
     (:title "Ultimate Fallout 2 Ironman Munchkin"
-     :tags (@blog @personal)
+     :tags (@personal)
      :date "2009-11-21")
   "I'm cleaning up the accumulated junk and found this
   guide that was written eons ago.
@@ -831,7 +831,7 @@
   [http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2](http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2)")
 
 (defpost @introduction-to-mgl-part-1 (:title "Introduction to MGL (part 1)"
-                                      :tags (@blog @lisp @ai)
+                                      :tags (@lisp @ai)
                                       :date "2009-12-02")
   """**UPDATE**: This post out of date with regards to current MGL.
   Please refer to the
@@ -886,7 +886,7 @@
   @INTRODUCTION-TO-MGL-PART-2, we are going to see real examples.""")
 
 (defpost @introduction-to-mgl-part-2 (:title "Introduction to MGL (part 2)"
-                                      :tags (@blog @lisp @ai)
+                                      :tags (@lisp @ai)
                                       :date "2009-12-17")
   """**UPDATE**: This post out of date with regards to current MGL.
   Please refer to the
@@ -1046,7 +1046,7 @@
   That's it for today, thank you for your kind attention.""")
 
 (defpost @introduction-to-mgl-part-3 (:title "Introduction to MGL (part 3)"
-                                      :tags (@blog @lisp @ai)
+                                      :tags (@lisp @ai)
                                       :date "2009-12-29")
   """**UPDATE**: This post out of date with regards to current MGL.
   Please refer to the
@@ -1263,7 +1263,7 @@
 
 (defpost @deep-boltzmann-machine-on-mnist
     (:title "Deep Boltzmann Machine on MNIST"
-     :tags (@blog @lisp @ai)
+     :tags (@lisp @ai)
      :date "2010-01-18")
   """Let me interrupt the flow of the
   [MGL](http://cliki.net/MGL) introduction series with a short report
@@ -1369,7 +1369,7 @@
 
 (defpost @micmac-initial-release
     (:title "Micmac Initial Release"
-     :tags (@blog @lisp @ai)
+     :tags (@lisp @ai)
      :date "2010-02-06")
   "From a failed experiment today I salvaged
   [Micmac](http://cliki.net/micmac), a statistical library wannabe,
@@ -1379,7 +1379,7 @@
   was released.")
 
 (defpost @upgrade-woes-2 (:title "Upgrade Woes 2"
-                          :tags (@blog @tech)
+                          :tags (@tech)
                           :date "2010-02-08")
   "Debian Squeeze finally got Xorg 7.5 instead of the old and dusty 7.4.
   The upgrade was as smooth as ever: [DPI is
@@ -1392,7 +1392,7 @@
   doesn't count.")
 
 (defpost @google-ai-challenge-2010 (:title "Google AI Challenge 2010"
-                                    :tags (@blog @lisp @ai)
+                                    :tags (@lisp @ai)
                                     :date "2010-02-11")
   "Tron is a fun little game of boxing out the
   opponent and avoiding crashing into a wall first. The rules are
@@ -1407,7 +1407,7 @@
 
 (defpost @google-ai-challenge-2010-results
     (:title "Google AI Challange 2010 Results"
-     :tags (@blog @lisp @ai)
+     :tags (@lisp @ai)
      :date "2010-03-01")
   "For what has been a fun ride, the official results are now [available](https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php).
   In the end, 11th out of 700 is not too bad and it's the highest
@@ -1471,7 +1471,7 @@
   coming days I'll factor the UCT and the Alpha-beta code out.")
 
 (defpost @uct (:title "UCT"
-               :tags (@blog @lisp @ai)
+               :tags (@lisp @ai)
                :date "2010-03-19")
   "As promised, my [UCT](http://senseis.xmp.net/?UCT)
   implementation is released, albeit somewhat belatedly. It's in
@@ -1480,7 +1480,7 @@
 
 (defpost @planet-wars-common-lisp-starter-package
     (:title "Planet Wars Common Lisp Starter Package"
-     :tags (@blog @lisp @ai)
+     :tags (@lisp @ai)
      :date "2010-09-19")
   "The [Google AI Challange](https://web.archive.org/web/20100926070007/http://ai-contest.com/) is
   back with a new game that's supposed to be much harder than Tron was
@@ -1521,7 +1521,7 @@
 
 (defpost @planet-wars-common-lisp-starter-package-that-actually-works
     (:title "Planet Wars Common Lisp Starter Package Actually Works"
-     :tags (@blog @lisp @ai)
+     :tags (@lisp @ai)
      :date "2010-09-21")
   "Released
   v0.6 ([git](http://quotenil.com/git/?p=planet-wars.git;a=summary),
@@ -1534,7 +1534,7 @@
 
 (defpost @important-update-to-the-planet-wars-starter-package
     (:title "Important Update to the Planet Wars Starter Package"
-     :tags (@blog @lisp @ai)
+     :tags (@lisp @ai)
      :date "2010-10-25")
   """First, is it possible to get something as simple
   as `RESOLVE-BATTLE` wrong? Apparently, yes. That's what one gets for
@@ -1568,7 +1568,7 @@
   stronger.""")
 
 (defpost @planet-wars-post-mortem (:title "Planet Wars Post-Mortem"
-                                   :tags (@blog @lisp @ai)
+                                   :tags (@lisp @ai)
                                    :date "2010-12-01")
   "I can't believe I [won](https://web.archive.org/web/20101205003152/http://ai-contest.com/rankings.php).
 
@@ -1851,7 +1851,7 @@
   ![](blog-files/malacka-es-bocsimacko.jpg)")
 
 (defpost @nash-equilibrium-finder (:title "Nash equilibrium finder"
-                                   :tags (@blog @lisp @ai)
+                                   :tags (@lisp @ai)
                                    :date "2010-12-26")
   "While I seem to be unable to make my mind up on a
   good interface to alpha-beta with a few bells and whistles, I added
@@ -1892,7 +1892,7 @@
   ```")
 
 (defpost @alpha-beta (:title "Alpha-beta"
-                      :tags (@blog @lisp @ai)
+                      :tags (@lisp @ai)
                       :date "2010-12-27")
   """It hasn't been a year yet since I first promised
   that alpha-beta snippet and it is already added to micmac in all its
@@ -1910,7 +1910,7 @@
 
 (defpost @offlineimap-with-encrypted-authinfo
     (:title "OfflineIMAP with Encrypted Authinfo"
-     :tags (@blog @tech)
+     :tags (@tech)
      :date "2011-02-26")
   """I've moved to an
   [OfflineIMAP](http://offlineimap.org/) + [Gnus](http://gnus.org/)
@@ -1991,7 +1991,7 @@
   more important than keepalive unless you never have network issues.""")
 
 (defpost @dirty-36cube (:title "Dirty 36Cube"
-                        :tags (@blog @personal)
+                        :tags (@personal)
                         :date "2012-08-19")
   "This is a short rant on what I consider to be a
   good puzzle and why the trick
@@ -2020,7 +2020,7 @@
   having no decency at all.")
 
 (defpost @stackoverflow-post-mortem (:title "Stackoverflow Post-Mortem"
-                                     :tags (@blog @lisp @ai)
+                                     :tags (@lisp @ai)
                                      :date "2013-04-09")
   "After almost two years without a single
   competition, last September I decided to enter the
@@ -2230,7 +2230,7 @@
 
 (defpost @liblinear-support-added-to-cl-libsvm
     (:title "Liblinear Support Added to cl-libsvm"
-     :tags (@blog @lisp @ai)
+     :tags (@lisp @ai)
      :date "2013-04-09")
   "In addition to the cl-libsvm asdf system, there is
   now another asdf system in the [
@@ -2241,7 +2241,7 @@
 
 (defpost @higgs-boson-machine-learning-challenge-post-mortem
     (:title "Higgs Boson Machine Learning Challenge Post-Mortem"
-     :tags (@blog @lisp @ai)
+     :tags (@lisp @ai)
      :date "2014-09-23")
   "Actually, I'll only link to the
   [post-mortem](http://www.kaggle.com/c/higgs-boson/forums/t/10344/winning-methodology-sharing/53944#post53944)
@@ -2275,7 +2275,7 @@
 
 (defpost @higgs-boson-machine-learning-challenge-bits-and-pieces
     (:title "Higgs Boson Machine Learning Challenge Bits and Pieces"
-     :tags (@blog @lisp @ai)
+     :tags (@lisp @ai)
      :date "2014-09-23")
   "The [Higgs Boson
   contest](http://www.kaggle.com/c/higgs-boson) on
@@ -2331,7 +2331,7 @@
   factor out of the code later.")
 
 (defpost @migration-to-github (:title "Migration to github"
-                               :tags (@blog @tech)
+                               :tags (@tech)
                                :date "2014-09-25")
   "Due to the bash security hole that keeps
   [giving](http://seclists.org/oss-sec/2014/q3/685), I had to disable
@@ -2346,7 +2346,7 @@
   - [cl-libsvm](https://github.com/melisgl/cl-libsvm).")
 
 (defpost @transcripts (:title "Transcripts"
-                       :tags (@blog @lisp)
+                       :tags (@lisp)
                        :date "2014-10-20")
   """I've just committed a major feature to MGL-PAX:
   the ability to include code examples in docstrings. Printed output
@@ -2381,7 +2381,7 @@
   provides a tutorialish treatment. I hope you'll find it useful.""")
 
 (defpost @include-locative-for-pax (:title "INCLUDE locative for PAX"
-                                    :tags (@blog @lisp)
+                                    :tags (@lisp)
                                     :date "2014-12-06")
   "I'm getting so used to the `M-.` plus documentation
   generation hack that's
@@ -2405,7 +2405,7 @@
   duplication. As always, `M-.` works as well.")
 
 (defpost @recurrent-nets (:title "Recurrent Nets"
-                          :tags (@blog @lisp @ai)
+                          :tags (@lisp @ai)
                           :date "2015-01-19")
   "I've been cleaning up and documenting
   [MGL](https://github.com/melisgl/mgl) for quite some time now and
@@ -2445,7 +2445,7 @@
   nets in the documentation.")
 
 (defpost @pax-world (:title "PAX World"
-                     :tags (@blog @lisp)
+                     :tags (@lisp)
                      :date "2015-01-26")
   """The promise of
   [MGL-PAX](https://github.com/melisgl/mgl-pax) has always been that
@@ -2486,7 +2486,7 @@
   [UPDATE-PAX-WORLD](http://melisgl.github.io/mgl-pax-world/mgl-pax-world-manual.html#x-28MGL-PAX-WORLD-3AUPDATE-PAX-WORLD-20FUNCTION-29).""")
 
 (defpost @bigger-and-badder-pax-world (:title "Bigger and Badder PAX World"
-                                       :tags (@blog @lisp)
+                                       :tags (@lisp)
                                        :date "2015-02-20")
   "Bigger because documentation for
   [named-readtables](http://melisgl.github.io/mgl-pax-world/named-readtables-manual.html)
@@ -2503,7 +2503,7 @@
 
 (defpost @on-the-design-of-matrix-libraries
     (:title "On the Design of Matrix Libraries"
-     :tags (@blog @lisp @ai)
+     :tags (@lisp @ai)
      :date "2015-02-26")
   "**UPDATE**: *2020-05-03* – Things have been moving fast. This is a
   non-issue in Tensorflow and possibly in other frameworks, as well.
@@ -2553,7 +2553,7 @@
   this could make the entire CUDA related part of MGL-MAT an add-on.")
 
 (defpost @moving-the-blog-to-pax (:title "Moving the blog to PAX"
-                                  :tags (@blog @lisp)
+                                  :tags (@lisp)
                                   :date "2020-05-05")
   "After more than five years of silence, I may be resurrecting [my old
   blog](https://web.archive.org/web/20190814015233/http://quotenil.com/).
@@ -2566,7 +2566,7 @@
   shortened posts, something PAX hasn't seen the need for.")
 
 (defpost @journal-the-kitchen-sink (:title "Journal, the kitchen sink"
-                                    :tags (@blog @lisp)
+                                    :tags (@lisp)
                                     :date "2020-09-04")
   """Ever wished for machine-readable logs and [`TRACE`][cl-trace]s, maybe
   for writing tests or something more fancy? The
@@ -2650,7 +2650,7 @@
   """)
 
 (defpost @pax-v0.1 (:title "PAX v0.1"
-                    :tags (@blog @lisp)
+                    :tags (@lisp)
                     :date "2022-02-16")
   """[PAX](http://github.com/melisgl/mgl-pax/) v0.1 is released.
   At this point, I consider it fairly complete. Here is the changelog for the last year or so.
@@ -2709,7 +2709,7 @@
   - Autoloading no longer produces warnings on SBCL and fresh SLIME.""")
 
 (defpost @there-is-try (:title "There is Try"
-                        :tags (@blog @lisp)
+                        :tags (@lisp)
                         :date "2022-10-16")
   """Do or do not. There is now Try.
   I forgot to announce [Try](https://github.com/melisgl/try),
@@ -3034,7 +3034,7 @@
 #+nil
 (defpost @tta-practioner
     (:title "Two-tailed Averaging: The ML Practioner's Guide"
-     :tags (@blog @ai)
+     :tags (@ai)
      :date "2022-12-02")
   """This is a complement to the Two-tailed Averaging
   [paper](https://arxiv.org/abs/2209.12581).
@@ -3130,10 +3130,16 @@
  (list @blog @personal @tech @lisp @ai)
  #+nil
  (list @xxx)
- '((:title "me"
+ '((:title "Blog Categories"
     :links
-    (("http://quotenil.com" "blog")
-     ("mailto:mega@retes.hu" "mega@retes.hu")
+    (("http://quotenil.com" "'() blog")
+     ("http://quotenil.com/category-lisp.html" "lisp")
+     ("http://quotenil.com/category-ai.html" "ai")
+     ("http://quotenil.com/category-tech.html" "tech")
+     ("http://quotenil.com/category-personal.html" "personal")))
+   (:title "Me"
+    :links
+    (("mailto:mega@retes.hu" "mega@retes.hu")
      ("mega.gpg.asc" "gpg key")
      ("http://github.com/melisgl/" "github/melisgl")
      ("https://mastodon.social/@melisgl" "mastodon.social/@melisgl")
@@ -3141,11 +3147,4 @@
      ("http://discord.com/users/melisgl#0879" "discord/melisgl#0879")
      ("https://www.linkedin.com/in/melisgabor/" "linkedin/melisgabor")
      #+nil ("cv/cv-eng.pdf" "cv (english)")
-     #+nil ("cv/cv-hun.pdf" "cv (hungarian)")))
-   (:title "categories"
-    :links
-    (("http://quotenil.com/blog.html" "all")
-     ("http://quotenil.com/category-personal.html" "personal")
-     ("http://quotenil.com/category-tech.html" "tech")
-     ("http://quotenil.com/category-lisp.html" "lisp")
-     ("http://quotenil.com/category-ai.html" "ai")))))
+     #+nil ("cv/cv-hun.pdf" "cv (hungarian)")))))
