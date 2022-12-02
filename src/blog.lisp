@@ -46,6 +46,10 @@
          ;; No "in package" output, please.
          (*document-normalize-packages* nil)
          (*package* (find-package :mgl-pax-blog))
+         (*document-html-head*
+           "<link href=\"https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400;1,7..72,700&display=swap\" rel=\"stylesheet\">
+<style> @import url('https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400;1,7..72,700&display=swap'); </style>
+")
          (*document-html-top-blocks-of-links* top-blocks-of-links)
          (overviews (mapcar #'make-category-overview category-sections))
          (posts (delete-duplicates
@@ -127,7 +131,8 @@
   (@moving-the-blog-to-pax section)
   (@journal-the-kitchen-sink section)
   (@pax-v0.1 section)
-  (@there-is-try section))
+  (@there-is-try section)
+  (@tta-practioner section))
 
 (defsection @category-personal0 (:title "Personal")
   (@first-post section)
@@ -203,7 +208,8 @@
   (@higgs-boson-machine-learning-challenge-post-mortem section)
   (@higgs-boson-machine-learning-challenge-bits-and-pieces section)
   (@recurrent-nets section)
-  (@on-the-design-of-matrix-libraries section))
+  (@on-the-design-of-matrix-libraries section)
+  (@tta-practioner section))
 
 (defsection @first-post (:title "First post")
   "*2008-02-01* – After a long time of waiting to write my own blog
@@ -3028,12 +3034,106 @@
   ==> #<TRY:TRIAL (TRY-SUITE) UNEXPECTED-FAILURE 0.004s ⊠1>
   ```
   """)
+
+(defsection @tta-practioner
+    (:title "Two-tailed Averaging: The ML Practioner's Guide")
+  """_2022-12-02_ – This is a complement to the Two-tailed Averaging
+  [paper](https://arxiv.org/abs/2209.12581).
+
+  We want to speed up training and improve generalization. One way to
+  do that is by averaging weights from optimization. For example,
+  while training a language model for the down-stream task of
+  summarization, we can save checkpoints periodically, and average the
+  weights in last 10 checkpoints to produce the final solution. This
+  is pretty much what [Stochastic Weight Averaging][swa-blog] (SWA)
+  does.
+
+    [tail-averaging]: https://jmlr.org/papers/v18/16-595.html
+    [suffix-averaging]: https://arxiv.org/abs/1109.5647
+    [swa]: https://arxiv.org/abs/1803.05407
+    [swa-blog]: https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/
+
+  #### Problems with SWA
+
+  There is a number of problems with SWA:
+
+  - 10, the "averaging length", must be chosen to maximize performance
+    on summarization.
+
+  - Naive search for the averaging length needs lots of storage and
+    computation. For example, saving a lot of checkpoints from a
+    single optimization and performing a search after training has
+    very high storage cost. Another option, doing multiple training
+    runs each told to start averaging at a predefined point pays a
+    steep price in computation for lower storage costs.
+
+  - To control the costs, we can lower checkpointing fequency, but
+    does that make results worse? We can test that with multiple
+    training runs, and pay the cost there.
+
+  - Also, how do we know when to stop training? We ideally want to
+    stop training the language model when summarization works best
+    with the optimal averaging length at that point. That means the
+    naive search has to be run periodically making it even more
+    expensive.
+
+  In summary, working with SWA is tricky because:
+
+  - The averaging length is a costly to set hyperparameter (that is
+    coupled to other hyperparameters especially to the length of
+    training and the learning rate).
+
+  - Determining the averaging length after training is both costly (in
+    storage and/or computation) and suboptimal (can miss early
+    solutions).
+
+  #### Two-Tailed Averaging
+
+  These are the issues Two-tailed Averaging tackles. The algorithm
+  needs storage for two sets of weights (constant storage cost) and
+  performance (e.g. summarization) to be evaluated periodically. In
+  return, it provides a weight average of approximately optimal length
+  at all optimization steps. Now we can start training that language
+  model, periodically evaluating how the averaged weights are doing at
+  summarization. We can stop the training run anytime if it's getting
+  worse.
+
+  This is how Two-tailed Averaged (orange) compares to SWA (green)
+  tuned to start averaging at the point that's optimal for final
+  validation loss:
+
+  ![TTA (orange) vs SWA (green)](blog-files/tta-vs-swa.png)
+
+  #### Downsampling weights
+
+  In its proposed form, Two-tailed Averaging incorporates every set of
+  weights produced by the optimizer in both averages it maintains.
+  This is good because [Tail][tail-averaging], also known as
+  [Suffix][suffix-averaging], averaging theory has nice things to say
+  about convergence to a local optimum in this setting. However, in a
+  memory constrained situation, these averages will not fit on the
+  GPU/TPU, so we must move the weights off the device to add them to
+  the average (which may be in RAM or on disk). Moving stuff off the
+  device can be slow, so we might want to do that, say, every 20
+  optimization steps. Obviously, downsampling the weights too much
+  will affect the convergence rate, so there is a tradeoff.
+
+  #### Learning rate
+
+  Note that with Two-tailed averaging, we use constant learning rate
+  motivated by the fact that the closely related method of Tail
+  averaging guarantees optimal convergence rate learning rate in such
+  a setting.""")
+
+(defsection @xxx (:title "XXX")
+  (@tta-practioner section))
 
 
 #+nil
 (generate-pages
- (list @blog0 @category-personal0 @category-tech0
-       @category-lisp0 @category-ai0)
+ #+nil (list @blog0 @category-personal0 @category-tech0
+             @category-lisp0 @category-ai0)
+ (list @xxx)
  '((:title "me"
     :links
     (("http://quotenil.com" "blog")
