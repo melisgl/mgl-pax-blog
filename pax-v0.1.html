@@ -14,9 +14,13 @@
        }
      });
    </script>
-   <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+   <script type="text/javascript" async
+     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
    </script>
-   </head>
+   <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400;1,7..72,700&display=swap" rel="stylesheet">
+<style> @import url('https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400;1,7..72,700&display=swap'); </style>
+
+</head>
 <body>
 <div id="content-container">
 <div id="toc">
@@ -32,9 +36,9 @@
 
 <h1><a href="#MGL-PAX-BLOG:@PAX-V0.1%20MGL-PAX:SECTION">PAX v0.1</a></h1>
 
-<p><em>Tags</em>: <a href="category-lisp.html#MGL-PAX-BLOG:@CATEGORY-LISP%20MGL-PAX:SECTION" title="Lisp">Lisp</a>, <a href="blog.html#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">Blog</a></p>
+<p><em>Tags</em>: <a href="blog.html#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">Blog</a>, <a href="lisp.html#MGL-PAX-BLOG:@LISP%20MGL-PAX:SECTION" title="Lisp">Lisp</a>, <em>Date</em>: 2022-02-16</p>
 
-<p><em>2022-02-16</em> – <a href="http://github.com/melisgl/mgl-pax/" >PAX</a> v0.1 is released.
+<p><a href="http://github.com/melisgl/mgl-pax/" >PAX</a> v0.1 is released.
 At this point, I consider it fairly complete. Here is the changelog for the last year or so.</p>
 
 <h5>New Features</h5>
@@ -48,7 +52,7 @@ At this point, I consider it fairly complete. Here is the changelog for the last
 <li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28READTABLE-20MGL-PAX-3ALOCATIVE-29" >READTABLE locative</a>.</p></li>
 <li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ASYMBOL-MACRO-20MGL-PAX-3ALOCATIVE-29" >SYMBOL-MACRO locative</a>.</p></li>
 <li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28METHOD-COMBINATION-20MGL-PAX-3ALOCATIVE-29" >METHOD-COMBINATION locative</a>.</p></li>
-<li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:EXPORTABLE-REFERENCE-P%20GENERIC-FUNCTION" ><code>EXPORTABLE-REFERENCE-P</code></a> to allow specializing decisions on whether to export a symbol in <code>DEFSECTION</code> based on <code>SECTION-PACKAGE</code>. PAX no longer exports its documentation and drops the <code>MGL-PAX-</code> prefix from names like <code>@MGL-PAX-LINKS</code> to reduce clutter.</p></li>
+<li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:EXPORTABLE-REFERENCE-P%20GENERIC-FUNCTION" ><code>EXPORTABLE-REFERENCE-P</code></a> to allow specializing decisions on whether to export a symbol in <code>DEFPOST</code> based on <code>SECTION-PACKAGE</code>. PAX no longer exports its documentation and drops the <code>MGL-PAX-</code> prefix from names like <code>@MGL-PAX-LINKS</code> to reduce clutter.</p></li>
 <li><p><a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-DOWNCASE-UPPERCASE-CODE*%20VARIABLE" >Downcasing</a> now works well and is the default for PAX World.</p></li>
 <li><p><a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@UNRESOLVABLE-REFLINKS%20MGL-PAX:SECTION" >Warn on unresolvable reflinks</a>.</p></li>
 </ul>

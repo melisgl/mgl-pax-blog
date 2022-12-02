@@ -14,9 +14,13 @@
        }
      });
    </script>
-   <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+   <script type="text/javascript" async
+     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
    </script>
-   </head>
+   <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400;1,7..72,700&display=swap" rel="stylesheet">
+<style> @import url('https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400;1,7..72,700&display=swap'); </style>
+
+</head>
 <body>
 <div id="content-container">
 <div id="toc">
@@ -32,12 +36,12 @@
 
 <h1><a href="#MGL-PAX-BLOG:@JOURNAL-THE-KITCHEN-SINK%20MGL-PAX:SECTION">Journal, the kitchen sink</a></h1>
 
-<p><em>Tags</em>: <a href="category-lisp.html#MGL-PAX-BLOG:@CATEGORY-LISP%20MGL-PAX:SECTION" title="Lisp">Lisp</a>, <a href="blog.html#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">Blog</a></p>
+<p><em>Tags</em>: <a href="blog.html#MGL-PAX-BLOG:@BLOG%20MGL-PAX:SECTION" title="Blog">Blog</a>, <a href="lisp.html#MGL-PAX-BLOG:@LISP%20MGL-PAX:SECTION" title="Lisp">Lisp</a>, <em>Date</em>: 2020-09-04</p>
 
-<p><em>2020-09-04</em> – Ever wished for machine-readable logs and
-<a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm" ><code>TRACE</code></a>s, maybe for writing tests or something more
-fancy? The <a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40JOURNAL-BACKGROUND-20MGL-PAX-3ASECTION-29" >Journal</a> library takes a simple
-idea: user-defined execution traces, and implements
+<p>Ever wished for machine-readable logs and <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm" ><code>TRACE</code></a>s, maybe
+for writing tests or something more fancy? The
+<a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40JOURNAL-BACKGROUND-20MGL-PAX-3ASECTION-29" >Journal</a> library takes a simple idea:
+user-defined execution traces, and implements
 <a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40LOGGING-20MGL-PAX-3ASECTION-29" >logging</a>, <a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TRACING-20MGL-PAX-3ASECTION-29" >tracing</a>, a
 <a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TESTING-20MGL-PAX-3ASECTION-29" >testing</a> &quot;framework&quot; with <a href="https://en.wikipedia.org/wiki/Mock_object" >mock</a>
 support, and an <a href="https://martinfowler.com/eaaDev/EventSourcing.html" >Event Sourcing</a> style

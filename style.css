@@ -1,12 +1,12 @@
 body {
-  font-family: sans-serif;
+  font-family: Literata, sans-serif;
   margin: auto;
   background-color: #FFFEFB;
   color: #000000;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: serif;
+  font-family: Literata, serif;
   font-weight: bold;
   text-shadow: 0.05em 0.05em 0.02em #DDDDDD;
 }
@@ -113,6 +113,10 @@ h6 a {
 
 a:hover {
   /* text-decoration: none; */
+}
+
+img {
+  max-width:100%;
 }
 
 .reference-bullet {
