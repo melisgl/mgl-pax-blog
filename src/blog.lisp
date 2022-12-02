@@ -458,7 +458,7 @@
   the pseudo-atomic branch of my git tree).""")
 
 (defpost @calling-convention-hacks (:title "Calling Convention Hacks"
-                                    :tags (@blog @lisp @ai)
+                                    :tags (@blog @lisp)
                                     :date "2009-04-19")
   "SBCL's [calling
   convention](http://www.sbcl.org/sbcl-internals/Calling-Convention.html)
@@ -517,7 +517,7 @@
   [here](http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=x86-calling-convention).")
 
 (defpost @active-Learning-for-cl-libsvm (:title "Active Learning for cl-libsvm"
-                                         :tags (@blog @ai)
+                                         :tags (@blog @lisp @ai)
                                          :date "2009-06-22")
   "Along the lines of [active learning with python &
   libsvm](http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html),
@@ -831,7 +831,7 @@
   [http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2](http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2)")
 
 (defpost @introduction-to-mgl-part-1 (:title "Introduction to MGL (part 1)"
-                                      :tags (@blog @ai @lisp)
+                                      :tags (@blog @lisp @ai)
                                       :date "2009-12-02")
   """**UPDATE**: This post out of date with regards to current MGL.
   Please refer to the
@@ -886,7 +886,7 @@
   @INTRODUCTION-TO-MGL-PART-2, we are going to see real examples.""")
 
 (defpost @introduction-to-mgl-part-2 (:title "Introduction to MGL (part 2)"
-                                      :tags (@blog @ai @lisp)
+                                      :tags (@blog @lisp @ai)
                                       :date "2009-12-17")
   """**UPDATE**: This post out of date with regards to current MGL.
   Please refer to the
@@ -1046,7 +1046,7 @@
   That's it for today, thank you for your kind attention.""")
 
 (defpost @introduction-to-mgl-part-3 (:title "Introduction to MGL (part 3)"
-                                      :tags (@blog @ai @lisp)
+                                      :tags (@blog @lisp @ai)
                                       :date "2009-12-29")
   """**UPDATE**: This post out of date with regards to current MGL.
   Please refer to the
@@ -1263,7 +1263,7 @@
 
 (defpost @deep-boltzmann-machine-on-mnist
     (:title "Deep Boltzmann Machine on MNIST"
-     :tags (@blog @ai @lisp)
+     :tags (@blog @lisp @ai)
      :date "2010-01-18")
   """Let me interrupt the flow of the
   [MGL](http://cliki.net/MGL) introduction series with a short report
@@ -1369,7 +1369,7 @@
 
 (defpost @micmac-initial-release
     (:title "Micmac Initial Release"
-     :tags (@blog @ai @lisp)
+     :tags (@blog @lisp @ai)
      :date "2010-02-06")
   "From a failed experiment today I salvaged
   [Micmac](http://cliki.net/micmac), a statistical library wannabe,
@@ -2331,7 +2331,7 @@
   factor out of the code later.")
 
 (defpost @migration-to-github (:title "Migration to github"
-                               :tags (@blog @lisp)
+                               :tags (@blog @tech)
                                :date "2014-09-25")
   "Due to the bash security hole that keeps
   [giving](http://seclists.org/oss-sec/2014/q3/685), I had to disable
