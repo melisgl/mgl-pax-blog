@@ -8,7 +8,7 @@
   :mailto "mega@retes.hu"
   :homepage "http://quotenil.com"
   :description "Static blog generator based on MGL-PAX."
-  :depends-on (#:alexandria #:mgl-pax #:pythonic-string-reader)
+  :depends-on (#:alexandria #:mgl-pax/full #:pythonic-string-reader)
   :components ((:module "src"
                 :serial t
                 :components ((:file "package")

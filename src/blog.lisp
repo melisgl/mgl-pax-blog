@@ -4,42 +4,105 @@
 ;;;;
 ;;;; - quotenil.com links
 ;;;; - feeds?
-;;;; - date
 
 (in-readtable pythonic-string-syntax)
 
-(defun shorten-post (section name-prefix)
-  (let* ((name (section-name section))
-         (var (intern (format nil "~A-~A-~A" name-prefix name :short)))
-         (footer (format nil "... read the rest of [~A][~A]." name :section))
-         (entries (if (< 2 (length (section-entries section)))
-                      (append (subseq (section-entries section) 0 2)
-                              (list footer))
-                      (section-entries section))))
-    (make-section-with-new-entries
-     section var entries :link-title-to (canonical-reference section))))
+(defclass category (section)
+  ((post-names :initform ())))
 
-(defun make-category-overview (section)
-  (let* ((var (non-template-category-name section))
-         (entries (mapcar (lambda (entry)
-                            (canonical-reference
-                             (shorten-post (resolve entry) (symbol-name var))))
-                          (section-entries section))))
-    (make-section-with-new-entries section var (reverse entries))))
+(defmacro defcategory (name (&key title))
+  `(defparameter ,name
+     (make-instance 'category
+                    :name ',name
+                    :package *package*
+                    :readtable *readtable*
+                    :title ,title
+                    ;; This will be mutated before generating.
+                    :entries ())))
 
-(defun make-section-with-new-entries (section var entries &key link-title-to)
-  (set var (make-instance
-            'section :name var :package (section-package section)
-            :readtable (section-readtable section)
-            :title (section-title section) :entries entries
-            :link-title-to link-title-to)))
+(defun category-posts (category)
+  (loop for post-name in (slot-value category 'post-names)
+        collect (locate post-name 'section)))
 
-(defun non-template-category-name (category-section)
-  (let ((name (section-name category-section)))
-    (intern (subseq (symbol-name name) 0 (1- (length (symbol-name name)))))))
+(defun prepare-category (category)
+  (let ((category-name (symbol-name (section-name category))))
+    (setf (slot-value category 'pax::entries)
+          (loop for post in (category-posts category)
+                collect (canonical-reference
+                         (define-shortened-post category-name post))))))
 
-(defun generate-pages (category-sections top-blocks-of-links)
-  (update-tags category-sections)
+(defun define-shortened-post (name-prefix post)
+  (with-slots (tags date) post
+    (let* ((name (section-name post))
+           (var (intern (format nil "~A-~A-~A" name-prefix name :short))))
+      (set var (make-instance 'post
+                              :name var
+                              :package (section-package post)
+                              :readtable (section-readtable post)
+                              :title (section-title post)
+                              :entries (shorten-entries name
+                                                        (section-entries post))
+                              :tags tags :date date
+                              :link-title-to (canonical-reference post))))))
+
+(defun shorten-entries (name entries)
+  ;; The first entry is the Tags and Date line.
+  (let ((max-n-entries 2))
+    (if (< max-n-entries (length entries))
+        (append (subseq entries 0 max-n-entries)
+                (list (format nil "... read the rest of [~A][~A]."
+                              name :section)))
+        entries)))
+
+
+(defclass post (section)
+  ((tags :initform () :initarg :tags)
+   (date :initform nil :initarg :date)))
+
+(defmacro defpost (name (&key title tags date) &body entries)
+  ;; Let's check the syntax as early as possible.
+  (pax::transform-entries entries name)
+  `(progn
+     (defparameter ,name
+       (make-post ',name ,title (list ,@tags) ,date ',entries))
+     (dolist (category (list ,@tags))
+       (pushnew ',name (slot-value category 'post-names)))))
+
+(defun make-post (name title tags date entries)
+  (make-instance
+   'post
+   :name name
+   :package *package*
+   :readtable *readtable*
+   :title title
+   :entries (cons (format nil "_Tags_: ~{`~A`~^, ~}, _Date_: ~A~%~%"
+                          (mapcar (lambda (category)
+                                    (symbol-name (section-name category)))
+                                  tags)
+                          date)
+                  (pax::transform-entries entries name))
+   :tags tags
+   :date date))
+
+(defmethod document-object ((post post) stream)
+  (let ((*package* (if *document-normalize-packages*
+                       (section-package post)
+                       *package*))
+        (*readtable* (if *document-normalize-packages*
+                         (section-readtable post)
+                         *readtable*))
+        (pax::*section* post))
+    (with-heading (stream post (pax::section-title-or-name post))
+      (let ((firstp t))
+        (dolist (entry (section-entries post))
+          (if firstp
+              (setq firstp nil)
+              (terpri stream))
+          (document-object entry stream))))))
+
+
+(defun generate-pages (categories top-blocks-of-links)
+  (mapc #'prepare-category categories)
   (let* ((*document-max-numbering-level* 0)
          (*document-max-table-of-contents-level* 0)
          (*document-html-max-navigation-table-of-contents-level* 0)
@@ -51,168 +114,26 @@
 <style> @import url('https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400;1,7..72,700&display=swap'); </style>
 ")
          (*document-html-top-blocks-of-links* top-blocks-of-links)
-         (overviews (mapcar #'make-category-overview category-sections))
-         (posts (delete-duplicates
-                 (mapcan (lambda (category-section)
-                           (mapcar #'resolve
-                                   (section-entries category-section)))
-                         category-sections))))
+         ;; The shortened posts are reachable normally from CATEGORY's
+         ;; SECTION-ENTRIES.
+         (posts (delete-duplicates (mapcan #'category-posts categories))))
     (update-asdf-system-html-docs
-     (append overviews posts) :mgl-pax-blog
+     (append categories posts) :mgl-pax-blog
      ;; Every overview and post is on its own page.
      :pages (mapcar (lambda (section) `(:objects (,section)))
-                    (append overviews posts)))))
-
-(defun update-tags (categories)
-  (let ((post-to-catories (make-hash-table)))
-    (dolist (category categories)
-      (dolist (entry (section-entries category))
-        (when (typep entry 'reference)
-          (let ((post (resolve entry)))
-            (push category (gethash post post-to-catories))))))
-    (maphash (lambda (post categories)
-               (update-post-tags post categories))
-             post-to-catories)))
-
-(defun update-post-tags (post categories)
-  (flet ((post-has-tags-p ()
-           (let ((entries (section-entries post)))
-             (and entries (stringp (first entries))
-                  (alexandria:starts-with-subseq "_Tags_: " (first entries))))))
-    (when (post-has-tags-p)
-      (pop (slot-value post 'mgl-pax::entries)))
-    (push  (format nil "_Tags_: ~{~A~^, ~}~%"
-                   (mapcar #'non-template-category-name categories))
-           (slot-value post 'mgl-pax::entries))))
+                    (append categories posts)))))
 
 
-(defsection @blog0 (:title "Blog")
-  (@first-post section)
-  (@important-remainder section)
-  (@backup section)
-  (@2008-computer-games-olympiad section)
-  (@space-cadet section)
-  (@code-alignment-on-x86 section)
-  (@x86oid-pseudo-atomic section)
-  (@calling-convention-hacks section)
-  (@active-Learning-for-cl-libsvm section)
-  (@global-compiler-policy section)
-  (@object-initialization-with-slot-dependencies section)
-  (@upgrade-woes section)
-  (@ultimate-fallout-2-ironman-munchkin section)
-  (@introduction-to-mgl-part-1 section)
-  (@introduction-to-mgl-part-2 section)
-  (@introduction-to-mgl-part-3 section)
-  (@deep-boltzmann-machine-on-mnist section)
-  (@micmac-initial-release section)
-  (@upgrade-woes-2 section)
-  (@google-ai-challenge-2010 section)
-  (@google-ai-challenge-2010-results section)
-  (@planet-wars-common-lisp-starter-package section)
-  (@planet-wars-common-lisp-starter-package-that-actually-works section)
-  (@important-update-to-the-planet-wars-starter-package section)
-  (@planet-wars-post-mortem section)
-  (@nash-equilibrium-finder section)
-  (@alpha-beta section)
-  (@offlineimap-with-encrypted-authinfo section)
-  (@hung-connections section)
-  (@dirty-36cube section)
-  (@stackoverflow-post-mortem section)
-  (@liblinear-support-added-to-cl-libsvm section)
-  (@higgs-boson-machine-learning-challenge-post-mortem section)
-  (@higgs-boson-machine-learning-challenge-bits-and-pieces section)
-  (@migration-to-github section)
-  (@transcripts section)
-  (@include-locative-for-pax section)
-  (@recurrent-nets section)
-  (@pax-world section)
-  (@bigger-and-badder-pax-world section)
-  (@on-the-design-of-matrix-libraries section)
-  (@moving-the-blog-to-pax section)
-  (@journal-the-kitchen-sink section)
-  (@pax-v0.1 section)
-  (@there-is-try section)
-  (@tta-practioner section))
+(defcategory @blog (:title "Blog"))
+(defcategory @personal (:title "Personal"))
+(defcategory @tech (:title "Tech"))
+(defcategory @lisp (:title "Lisp"))
+(defcategory @ai (:title "AI"))
 
-(defsection @category-personal0 (:title "Personal")
-  (@first-post section)
-  (@important-remainder section)
-  (@ultimate-fallout-2-ironman-munchkin section)
-  (@dirty-36cube section))
-
-(defsection @category-tech0 (:title "Tech")
-  (@first-post section)
-  (@backup section)
-  (@space-cadet section)
-  (@upgrade-woes section)
-  (@upgrade-woes-2 section)
-  (@offlineimap-with-encrypted-authinfo section)
-  (@hung-connections section)
-  (@moving-the-blog-to-pax section))
-
-(defsection @category-lisp0 (:title "Lisp")
-  (@space-cadet section)
-  (@code-alignment-on-x86 section)
-  (@x86oid-pseudo-atomic section)
-  (@calling-convention-hacks section)
-  (@active-Learning-for-cl-libsvm section)
-  (@global-compiler-policy section)
-  (@object-initialization-with-slot-dependencies section)
-  (@introduction-to-mgl-part-1 section)
-  (@introduction-to-mgl-part-2 section)
-  (@introduction-to-mgl-part-3 section)
-  (@deep-boltzmann-machine-on-mnist section)
-  (@micmac-initial-release section)
-  (@google-ai-challenge-2010 section)
-  (@google-ai-challenge-2010-results section)
-  (@planet-wars-common-lisp-starter-package section)
-  (@planet-wars-common-lisp-starter-package-that-actually-works section)
-  (@important-update-to-the-planet-wars-starter-package section)
-  (@planet-wars-post-mortem section)
-  (@nash-equilibrium-finder section)
-  (@alpha-beta section)
-  (@stackoverflow-post-mortem section)
-  (@liblinear-support-added-to-cl-libsvm section)
-  (@higgs-boson-machine-learning-challenge-post-mortem section)
-  (@higgs-boson-machine-learning-challenge-bits-and-pieces section)
-  (@migration-to-github section)
-  (@transcripts section)
-  (@include-locative-for-pax section)
-  (@recurrent-nets section)
-  (@pax-world section)
-  (@bigger-and-badder-pax-world section)
-  (@on-the-design-of-matrix-libraries section)
-  (@moving-the-blog-to-pax section)
-  (@journal-the-kitchen-sink section)
-  (@pax-v0.1 section)
-  (@there-is-try section))
-
-(defsection @category-ai0 (:title "AI")
-  (@2008-computer-games-olympiad section)
-  (@active-Learning-for-cl-libsvm section)
-  (@introduction-to-mgl-part-1 section)
-  (@introduction-to-mgl-part-2 section)
-  (@introduction-to-mgl-part-3 section)
-  (@deep-boltzmann-machine-on-mnist section)
-  (@micmac-initial-release section)
-  (@google-ai-challenge-2010 section)
-  (@google-ai-challenge-2010-results section)
-  (@planet-wars-common-lisp-starter-package section)
-  (@planet-wars-common-lisp-starter-package-that-actually-works section)
-  (@important-update-to-the-planet-wars-starter-package section)
-  (@planet-wars-post-mortem section)
-  (@nash-equilibrium-finder section)
-  (@alpha-beta section)
-  (@stackoverflow-post-mortem section)
-  (@liblinear-support-added-to-cl-libsvm section)
-  (@higgs-boson-machine-learning-challenge-post-mortem section)
-  (@higgs-boson-machine-learning-challenge-bits-and-pieces section)
-  (@recurrent-nets section)
-  (@on-the-design-of-matrix-libraries section)
-  (@tta-practioner section))
-
-(defsection @first-post (:title "First post")
-  "*2008-02-01* – After a long time of waiting to write my own blog
+(defpost @first-post (:title "First post"
+                      :tags (@blog @personal @tech)
+                      :date "2008-02-01")
+  "After a long time of waiting to write my own blog
   software like true hackers with infinite time do (and those
   irritated by Wordpress), I bit the bullet and installed
   [blorg](https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html) - a very low
@@ -231,8 +152,10 @@
   **2020-05-03**: Since then, this blog has been moved to
     [MGL-PAX](http://github.com/melisgl/mgl-pax).")
 
-(defsection @important-remainder (:title "Important remainder")
-  "*2008-02-04* – An [example](blog-files/guns.jpg) may speak a hundred
+(defpost @important-remainder (:title "Important remainder"
+                               :tags (@blog @personal)
+                               :date "2008-02-04")
+  "An [example](blog-files/guns.jpg) may speak a hundred
   words, but sometimes not even that is enough and you want to be
   [very explicit](blog-files/dangerous-objects.jpg) about the dangers of
   hand grenades on board.
@@ -244,8 +167,10 @@
 
   All pictures were taken at Málaga airport.")
 
-(defsection @backup (:title "Backup")
-  "*2008-03-28* – My carefully updated list of files to backup had
+(defpost @backup (:title "Backup"
+                  :tags (@blog @tech)
+                  :date "2008-03-28")
+  "My carefully updated list of files to backup had
   grown so long that it made me worry about losing something important
   and the backup didn't fit on a single dvd so I invested in a WD
   passport and created an encrypted file system on it:
@@ -295,9 +220,10 @@
   system (only /boot is separate) and that resides on LVM which makes it
   trivial to snapshot.")
 
-(defsection @2008-computer-games-olympiad
-    (:title "2008 Computer Games Olympiad")
-  "*2008-12-11* – It seems that the competition has not been standing
+(defpost @2008-computer-games-olympiad (:title "2008 Computer Games Olympiad"
+                                        :tags (@blog @ai)
+                                        :date "2008-12-11")
+  "It seems that the competition has not been standing
   still (as opposed to [Six](hex/six/index.html)) and this year
   marks the end of the golden era. Congratulations to both Wolve and
   MoHex who beat Six! Thanks to Ryan Hayward who, again, kindly
@@ -308,8 +234,10 @@
   [Hex](http://en.wikipedia.org/wiki/Hex_(board_game)) in general (and
   Six in particular), although losing does irk me a bit.")
 
-(defsection @space-cadet (:title "Space Cadet")
-  "*2008-12-15* – Emacs users often report problems caused by strain
+(defpost @space-cadet (:title "Space Cadet"
+                       :tags (@blog @tech @lisp)
+                       :date "2008-12-15")
+  "Emacs users often report problems caused by strain
   on the pinky finger that's used to press the _Control_ key. The
   standard answer to that is to map _Caps Lock_ to _Control_. I
   believe that there is a better way:
@@ -358,9 +286,10 @@
   **2020-05-03** Later on, I broke down and wrote an [xkb
     version](https://github.com/melisgl/lisp-machine-xkb).")
 
-(defsection @code-alignment-on-x86
-    (:title "Code alignment on x86")
-  "*2009-03-09* – There has always been a lot of wiggling of SBCL
+(defpost @code-alignment-on-x86 (:title "Code alignment on x86"
+                                 :tags (@blog @lisp)
+                                 :date "2009-03-09")
+  "There has always been a lot of wiggling of SBCL
   [boinkmarks](https://web.archive.org/web/20080513083106/http://sbcl.boinkor.net/bench/) results. It's easy to
   chalk this up to system load, but the same can be observed running
   the [cl-bench](http://common-lisp.net/project/cl-bench/) benchmarks
@@ -414,8 +343,10 @@
   compared to the noise. I'm declaring the evidence inconclusive and let
   the commit stay out of the official SBCL tree.")
 
-(defsection @x86oid-pseudo-atomic (:title "X86oid Pseudo Atomic")
-  """*2009-03-29* – The relatively recent
+(defpost @x86oid-pseudo-atomic (:title "X86oid Pseudo Atomic"
+                                :tags (@blog @lisp)
+                                :date "2009-03-29")
+  """The relatively recent
   [chit](http://www.method-combination.net/blog/archives/2008/02/01/vm-tricks.html)
   - [chat](http://www.pvk.ca/Blog/LowLevel/VM_tricks_safepoints.html)
   about allocation and interrupts have had me looking at ways to speed
@@ -526,9 +457,10 @@
   [here](http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=pseudo-atomic) (from
   the pseudo-atomic branch of my git tree).""")
 
-(defsection @calling-convention-hacks
-    (:title "Calling Convention Hacks")
-  "*2009-04-19* – SBCL's [calling
+(defpost @calling-convention-hacks (:title "Calling Convention Hacks"
+                                    :tags (@blog @lisp @ai)
+                                    :date "2009-04-19")
+  "SBCL's [calling
   convention](http://www.sbcl.org/sbcl-internals/Calling-Convention.html)
   is rather peculiar. Frames are allocated and mostly set up by the
   caller. The new frame starts with a pointer to the old frame, then
@@ -584,9 +516,10 @@
   changes is
   [here](http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=x86-calling-convention).")
 
-(defsection @active-Learning-for-cl-libsvm
-    (:title "Active Learning for cl-libsvm")
-  "*2009-06-22* – Along the lines of [active learning with python &
+(defpost @active-Learning-for-cl-libsvm (:title "Active Learning for cl-libsvm"
+                                         :tags (@blog @ai)
+                                         :date "2009-06-22")
+  "Along the lines of [active learning with python &
   libsvm](http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html),
   I [added](http://quotenil.com/git/?p=cl-libsvm.git;a=summary)
   support for calculating distance of a point from the separating
@@ -605,9 +538,10 @@
   with the necessary changes, but patched sources are also included
   for your recompiling pleasure.")
 
-(defsection @global-compiler-policy
-    (:title "Global Compiler Policy")
-  "*2009-06-30* – A quick note to library implementors: The effects
+(defpost @global-compiler-policy (:title "Global Compiler Policy"
+                                  :tags (@blog @lisp)
+                                  :date "2009-06-30")
+  "A quick note to library implementors: The effects
   of `DECLAIM` are [permitted to
   persist](http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm)
   after the containing file is compiled and it is unkind to mutate
@@ -638,9 +572,11 @@
   (locally (declare (optimize speed)) ...)
   ```")
 
-(defsection @object-initialization-with-slot-dependencies
-    (:title "Object Initialization with Slot Dependencies")
-  "*2009-07-04* – Consider a class with a trivial initialization
+(defpost @object-initialization-with-slot-dependencies
+    (:title "Object Initialization with Slot Dependencies"
+     :tags (@blog @lisp)
+     :date "2009-07-04")
+  "Consider a class with a trivial initialization
   dependency between slots `A` and `B`:))
 
   ```
@@ -732,8 +668,10 @@
   recomputing the value on every access additional bookkeeping is
   needed, again, due to initforms.")
 
-(defsection @upgrade-woes (:title "Upgrade Woes")
-  "*2009-11-06* – Debian Lenny was released back in February. My
+(defpost @upgrade-woes (:title "Upgrade Woes"
+                        :tags (@blog @tech)
+                        :date "2009-11-06")
+  "Debian Lenny was released back in February. My
   conservativeness only lasts about half a year so I decided to
   upgrade to Squeeze aka Debian testing. The upgrade itself went
   rather smoothly with a few notable exceptions. With KDE 4.3 I should
@@ -767,9 +705,11 @@
   - Upgrading to emacs23 was painless, except for blorg that needed a
     couple of hacks to get this entry out the door.")
 
-(defsection @ultimate-fallout-2-ironman-munchkin
-    (:title "Ultimate Fallout 2 Ironman Munchkin")
-  "*2009-11-21* – I'm cleaning up the accumulated junk and found this
+(defpost @ultimate-fallout-2-ironman-munchkin
+    (:title "Ultimate Fallout 2 Ironman Munchkin"
+     :tags (@blog @personal)
+     :date "2009-11-21")
+  "I'm cleaning up the accumulated junk and found this
   guide that was written eons ago.
 
   This build is focused on survival. No save/loading, killap's final
@@ -890,16 +830,17 @@
 
   [http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2](http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2)")
 
-(defsection @introduction-to-mgl-part-1
-    (:title "Introduction to MGL (part 1)")
+(defpost @introduction-to-mgl-part-1 (:title "Introduction to MGL (part 1)"
+                                      :tags (@blog @ai @lisp)
+                                      :date "2009-12-02")
   """**UPDATE**: This post out of date with regards to current MGL.
   Please refer to the
   [documentation](http://melisgl.github.io/mgl-pax-world/mgl-manual.html)
   instead.
 
-  *2009-12-02* – This is going to be the start of an introduction
-  series on the [MGL](http://cliki.net/MGL) Common Lisp machine
-  learning library. MGL focuses mainly on [Boltzmann
+  This is going to be the start of an introduction series on the
+  [MGL](http://cliki.net/MGL) Common Lisp machine learning library.
+  MGL focuses mainly on [Boltzmann
   Machines](http://en.wikipedia.org/wiki/Boltzmann_machine) (BMs). In
   fact, the few seemingly unrelated things it currently
   offers (gradient descent, conjugate gradient, backprop) are directly
@@ -944,16 +885,17 @@
   Now that you are sufficiently motivated, stick around and in
   @INTRODUCTION-TO-MGL-PART-2, we are going to see real examples.""")
 
-(defsection @introduction-to-mgl-part-2
-    (:title "Introduction to MGL (part 2)")
+(defpost @introduction-to-mgl-part-2 (:title "Introduction to MGL (part 2)"
+                                      :tags (@blog @ai @lisp)
+                                      :date "2009-12-17")
   """**UPDATE**: This post out of date with regards to current MGL.
   Please refer to the
   [documentation](http://melisgl.github.io/mgl-pax-world/mgl-manual.html)
   instead.
 
-  *2009-12-17* – After @INTRODUCTION-TO-MGL-PART-1, today we are
-  going to walk through a small example and touch on the main concepts
-  related to learning within this library.
+  After @INTRODUCTION-TO-MGL-PART-1, today we are going to walk
+  through a small example and touch on the main concepts related to
+  learning within this library.
   """"""
   At the top of the food chain is the generic function `TRAIN`:
 
@@ -1103,17 +1045,18 @@
 
   That's it for today, thank you for your kind attention.""")
 
-(defsection @introduction-to-mgl-part-3
-    (:title "Introduction to MGL (part 3)")
+(defpost @introduction-to-mgl-part-3 (:title "Introduction to MGL (part 3)"
+                                      :tags (@blog @ai @lisp)
+                                      :date "2009-12-29")
   """**UPDATE**: This post out of date with regards to current MGL.
   Please refer to the
   [documentation](http://melisgl.github.io/mgl-pax-world/mgl-manual.html)
   instead.
 
-  *2009-12-29* – In @INTRODUCTION-TO-MGL-PART-2, we went through a
-  trivial example of a backprop network. I said before that the main
-  focus is on Boltzmann Machines so let's kill the suspense here and
-  now by cutting straight to the heart of the matter.
+  In @INTRODUCTION-TO-MGL-PART-2, we went through a trivial example of
+  a backprop network. I said before that the main focus is on
+  Boltzmann Machines so let's kill the suspense here and now by
+  cutting straight to the heart of the matter.
   """"""
   [Cottrell's Science
   article](http://cseweb.ucsd.edu/users/gary/pubs/cottrell-science-2006.pdf)
@@ -1318,9 +1261,11 @@
   described. Evaluate the block commented forms at the end of the file
   to see how training goes.""")
 
-(defsection @deep-boltzmann-machine-on-mnist
-    (:title "Deep Boltzmann Machine on MNIST")
-  """*2010-01-18* – Let me interrupt the flow of the
+(defpost @deep-boltzmann-machine-on-mnist
+    (:title "Deep Boltzmann Machine on MNIST"
+     :tags (@blog @ai @lisp)
+     :date "2010-01-18")
+  """Let me interrupt the flow of the
   [MGL](http://cliki.net/MGL) introduction series with a short report
   on what I learnt playing with [Deep Boltzmann
   Machines](http://www.cs.toronto.edu/~hinton/absps/dbm.pdf). First,
@@ -1422,17 +1367,21 @@
   remains by the end of BPN training and that the additional sparsity
   constraint accounts for very little in this setup.""")
 
-(defsection @micmac-initial-release
-    (:title "Micmac Initial Release")
-  "*2010-02-06* – From a failed experiment today I salvaged
+(defpost @micmac-initial-release
+    (:title "Micmac Initial Release"
+     :tags (@blog @ai @lisp)
+     :date "2010-02-06")
+  "From a failed experiment today I salvaged
   [Micmac](http://cliki.net/micmac), a statistical library wannabe,
   that for now only has Metropolis-Hastings MCMC and Metropolis
   Coupled MCMC implemented. The code doesn't weigh much but I think it
   gets the API right. In other news [MGL](http://cliki.net/MGL) v0.0.6
   was released.")
 
-(defsection @upgrade-woes-2 (:title "Upgrade Woes 2")
-  "*2010-02-08* – Debian Squeeze finally got Xorg 7.5 instead of the old and dusty 7.4.
+(defpost @upgrade-woes-2 (:title "Upgrade Woes 2"
+                          :tags (@blog @tech)
+                          :date "2010-02-08")
+  "Debian Squeeze finally got Xorg 7.5 instead of the old and dusty 7.4.
   The upgrade was as smooth as ever: [DPI is
   off](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=568872),
   keyboard repeat for the Caps Lock key [does not survive
@@ -1442,9 +1391,10 @@
   Synaptics click by tapping went away before the upgrade so that
   doesn't count.")
 
-(defsection @google-ai-challenge-2010
-    (:title "Google AI Challenge 2010")
-  "*2010-02-11* – Tron is a fun little game of boxing out the
+(defpost @google-ai-challenge-2010 (:title "Google AI Challenge 2010"
+                                    :tags (@blog @lisp @ai)
+                                    :date "2010-02-11")
+  "Tron is a fun little game of boxing out the
   opponent and avoiding crashing into a wall first. The rules are
   simple so the barrier to entry into [this
   contest](https://web.archive.org/web/20100207135122/http://csclub.uwaterloo.ca/contest/index.php) is low.
@@ -1455,9 +1405,11 @@
   [leaderboard](https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php) at
   the moment with 43 wins, 2 losses and 9 draws.")
 
-(defsection @google-ai-challenge-2010-results
-    (:title "Google AI Challange 2010 Results")
-  "*2010-03-01* – For what has been a fun ride, the official results are now [available](https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php).
+(defpost @google-ai-challenge-2010-results
+    (:title "Google AI Challange 2010 Results"
+     :tags (@blog @lisp @ai)
+     :date "2010-03-01")
+  "For what has been a fun ride, the official results are now [available](https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php).
   In the end, 11th out of 700 is not too bad and it's the highest
   ranking non-C++ entry by some margin.
   ""
@@ -1518,15 +1470,19 @@
   The code itself is as ugly as exploratory code can be, but in the
   coming days I'll factor the UCT and the Alpha-beta code out.")
 
-(defsection @uct (:title "UCT")
-  "*2010-03-19* – As promised, my [UCT](http://senseis.xmp.net/?UCT)
+(defpost @uct (:title "UCT"
+               :tags (@blog @lisp @ai)
+               :date "2010-03-19")
+  "As promised, my [UCT](http://senseis.xmp.net/?UCT)
   implementation is released, albeit somewhat belatedly. It's in
   [Micmac](http://cliki.net/Micmac) v0.0.1, see `test/test-uct.lisp`
   for an example. Now I only owe you Alpha-beta.")
 
-(defsection @planet-wars-common-lisp-starter-package
-    (:title "Planet Wars Common Lisp Starter Package")
-  "*2010-09-19* – The [Google AI Challange](https://web.archive.org/web/20100926070007/http://ai-contest.com/) is
+(defpost @planet-wars-common-lisp-starter-package
+    (:title "Planet Wars Common Lisp Starter Package"
+     :tags (@blog @lisp @ai)
+     :date "2010-09-19")
+  "The [Google AI Challange](https://web.archive.org/web/20100926070007/http://ai-contest.com/) is
   back with a new game that's supposed to be much harder than Tron was
   this spring. The branching factor of the game tree is enormous which
   only means that straight minimax is out of question this time
@@ -1563,9 +1519,11 @@
   Until then there is dhartmei's excellent [unofficial tcp
   server](https://web.archive.org/web/20100926103520/http://ai-contest.com/forum/viewtopic.php?f=18&t=424).")
 
-(defsection @planet-wars-common-lisp-starter-package-that-actually-works
-    (:title "Planet Wars Common Lisp Starter Package Actually Works")
-  "*2010-09-21* – Released
+(defpost @planet-wars-common-lisp-starter-package-that-actually-works
+    (:title "Planet Wars Common Lisp Starter Package Actually Works"
+     :tags (@blog @lisp @ai)
+     :date "2010-09-21")
+  "Released
   v0.6 ([git](http://quotenil.com/git/?p=planet-wars.git;a=summary),
   [latest
   tarball](http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz)).
@@ -1574,9 +1532,11 @@
   to `*ERROR-OUTPUT*` causing the server to think compilation
   failed.")
 
-(defsection @important-update-to-the-planet-wars-starter-package
-    (:title "Important Update to the Planet Wars Starter Package")
-  """*2010-10-25* – First, is it possible to get something as simple
+(defpost @important-update-to-the-planet-wars-starter-package
+    (:title "Important Update to the Planet Wars Starter Package"
+     :tags (@blog @lisp @ai)
+     :date "2010-10-25")
+  """First, is it possible to get something as simple
   as `RESOLVE-BATTLE` wrong? Apparently, yes. That's what one gets for
   trying to port Python code that's pretty foreign in the sense of
   being far from the way I'd write it.
@@ -1607,9 +1567,10 @@
   brought to light remain, making the current version much
   stronger.""")
 
-(defsection @planet-wars-post-mortem
-    (:title "Planet Wars Post-Mortem")
-  "*2010-12-01* – I can't believe I [won](https://web.archive.org/web/20101205003152/http://ai-contest.com/rankings.php).
+(defpost @planet-wars-post-mortem (:title "Planet Wars Post-Mortem"
+                                   :tags (@blog @lisp @ai)
+                                   :date "2010-12-01")
+  "I can't believe I [won](https://web.archive.org/web/20101205003152/http://ai-contest.com/rankings.php).
 
   I can't believe I won _decisively_ at all.
 
@@ -1889,9 +1850,10 @@
 
   ![](blog-files/malacka-es-bocsimacko.jpg)")
 
-(defsection @nash-equilibrium-finder
-    (:title "Nash equilibrium finder")
-  "*2010-12-26* – While I seem to be unable to make my mind up on a
+(defpost @nash-equilibrium-finder (:title "Nash equilibrium finder"
+                                   :tags (@blog @lisp @ai)
+                                   :date "2010-12-26")
+  "While I seem to be unable to make my mind up on a
   good interface to alpha-beta with a few bells and whistles, I added
   a Nash equilibrium finder to [Micmac](http://cliki.net/micmac)
   that's becoming less statistics oriented. This was one of the many
@@ -1929,8 +1891,10 @@
   -0.001
   ```")
 
-(defsection @alpha-beta (:title "Alpha-beta")
-  """*2010-12-27* – It hasn't been a year yet since I first promised
+(defpost @alpha-beta (:title "Alpha-beta"
+                      :tags (@blog @lisp @ai)
+                      :date "2010-12-27")
+  """It hasn't been a year yet since I first promised
   that alpha-beta snippet and it is already added to micmac in all its
   [35 line
   glory](http://quotenil.com/git/?p=micmac.git;a=blob;f=src/game-theory.lisp;h=9e38d1f09a1f443bc14e115f9abc68dd5f64f6f3;hb=e2de0e888ce103b026d725297f52f5710273a5c3#l71).
@@ -1944,9 +1908,11 @@
   into subtrees to answer the perpetual 'What the hell was it
   thinking?!' question.""")
 
-(defsection @offlineimap-with-encrypted-authinfo
-    (:title "OfflineIMAP with Encrypted Authinfo")
-  """*2011-02-26* – I've moved to an
+(defpost @offlineimap-with-encrypted-authinfo
+    (:title "OfflineIMAP with Encrypted Authinfo"
+     :tags (@blog @tech)
+     :date "2011-02-26")
+  """I've moved to an
   [OfflineIMAP](http://offlineimap.org/) + [Gnus](http://gnus.org/)
   setup that's outlined at
   [various](http://sachachua.com/blog/2008/05/geek-how-to-use-offlineimap-and-the-dovecot-mail-server-to-read-your-gmail-in-emacs-efficiently/)
@@ -1997,8 +1963,9 @@
 
   That's it, no more cleartext passwords.""")
 
-(defsection @hung-connections (:title "Hung Connections")
-  """*2011-02-27* – My ISP replaced a Thomson modem with a Cisco
+(defpost @hung-connections (:title "Hung Connections")
+  "2011-02-27"
+  """My ISP replaced a Thomson modem with a Cisco
   EPC3925 modem-router to fix the speed issue I was having. The good
   news is that the connection operates near its advertised bandwidth,
   the bad news is that tcp connections started to hang. It didn't take
@@ -2023,8 +1990,10 @@
   Oh, and always include `socktimeout` in the offlineimap config, that's
   more important than keepalive unless you never have network issues.""")
 
-(defsection @dirty-36cube (:title "Dirty 36Cube")
-  "*2012-08-19* – This is a short rant on what I consider to be a
+(defpost @dirty-36cube (:title "Dirty 36Cube"
+                        :tags (@blog @personal)
+                        :date "2012-08-19")
+  "This is a short rant on what I consider to be a
   good puzzle and why the trick
   [36Cube](http://en.wikipedia.org/wiki/36_cube) pulls is rather
   dirty.
@@ -2050,9 +2019,10 @@
   artifacts. Damn you, thnkbx, you have just crossed the line of
   having no decency at all.")
 
-(defsection @stackoverflow-post-mortem
-  (:title "Stackoverflow Post-Mortem")
-  "*2013-04-09* – After almost two years without a single
+(defpost @stackoverflow-post-mortem (:title "Stackoverflow Post-Mortem"
+                                     :tags (@blog @lisp @ai)
+                                     :date "2013-04-09")
+  "After almost two years without a single
   competition, last September I decided to enter the
   [Stackoverflow](http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow)
   contest on [Kaggle](http://kaggle.com). It was a straightforward
@@ -2258,18 +2228,22 @@
   public leaderboard score got a lot worse and I ran out of time to
   experiment.")
 
-(defsection @liblinear-support-added-to-cl-libsvm
-    (:title "Liblinear Support Added to cl-libsvm")
-  "*2013-04-09* – In addition to the cl-libsvm asdf system, there is
+(defpost @liblinear-support-added-to-cl-libsvm
+    (:title "Liblinear Support Added to cl-libsvm"
+     :tags (@blog @lisp @ai)
+     :date "2013-04-09")
+  "In addition to the cl-libsvm asdf system, there is
   now another asdf system in the [
   cl-libsvm](http://quotenil.com/git/?p=cl-libsvm.git;a=summary)
   library: cl-liblinear that, predictably enough, is a wrapper for
   [liblinear](http://www.csie.ntu.edu.tw/~cjlin/liblinear/). The API
   is similar to that of cl-libsvm.")
 
-(defsection @higgs-boson-machine-learning-challenge-post-mortem
-    (:title "Higgs Boson Machine Learning Challenge Post-Mortem")
-  "*2014-09-23* – Actually, I'll only link to the
+(defpost @higgs-boson-machine-learning-challenge-post-mortem
+    (:title "Higgs Boson Machine Learning Challenge Post-Mortem"
+     :tags (@blog @lisp @ai)
+     :date "2014-09-23")
+  "Actually, I'll only link to the
   [post-mortem](http://www.kaggle.com/c/higgs-boson/forums/t/10344/winning-methodology-sharing/53944#post53944)
   I wrote in the forum. There is a also a [model
   description](https://github.com/melisgl/higgsml/blob/master/doc/model.md)
@@ -2299,9 +2273,11 @@
   Furthermore, the model can be run on a CPU with BLAS about 10 times
   slower than on a Titan.")
 
-(defsection @higgs-boson-machine-learning-challenge-bits-and-pieces
-    (:title "Higgs Boson Machine Learning Challenge Bits and Pieces")
-  "*2014-09-23* – The [Higgs Boson
+(defpost @higgs-boson-machine-learning-challenge-bits-and-pieces
+    (:title "Higgs Boson Machine Learning Challenge Bits and Pieces"
+     :tags (@blog @lisp @ai)
+     :date "2014-09-23")
+  "The [Higgs Boson
   contest](http://www.kaggle.com/c/higgs-boson) on
   [Kaggle](http://kaggle.com) has ended. Sticking to my word at [ELS
   2014](http://medias.ircam.fr/xff38ba), I released some code that
@@ -2354,8 +2330,10 @@
   There is also a fairly generic ensembling algorithm that I will
   factor out of the code later.")
 
-(defsection @migration-to-github (:title "Migration to github")
-  "*2014-09-25* – Due to the bash security hole that keeps
+(defpost @migration-to-github (:title "Migration to github"
+                               :tags (@blog @lisp)
+                               :date "2014-09-25")
+  "Due to the bash security hole that keeps
   [giving](http://seclists.org/oss-sec/2014/q3/685), I had to disable
   gitweb at [http://quotenil.com/git/](http://quotenil.com/git/) and
   move all non-obsolete code over to github. This affects:
@@ -2367,8 +2345,10 @@
   - [Lassie](https://github.com/melisgl/lassie), and
   - [cl-libsvm](https://github.com/melisgl/cl-libsvm).")
 
-(defsection @transcripts (:title "Transcripts")
-  """*2014-10-20* – I've just committed a major feature to MGL-PAX:
+(defpost @transcripts (:title "Transcripts"
+                       :tags (@blog @lisp)
+                       :date "2014-10-20")
+  """I've just committed a major feature to MGL-PAX:
   the ability to include code examples in docstrings. Printed output
   and return values are marked up with ".." and "=>", respectively.
 
@@ -2400,8 +2380,10 @@
   [documentation](https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3A-40MGL-PAX-TRANSCRIPT-20MGL-PAX-3ASECTION-29)
   provides a tutorialish treatment. I hope you'll find it useful.""")
 
-(defsection @include-locative-for-pax (:title "INCLUDE locative for PAX")
-  "*2014-12-06* – I'm getting so used to the `M-.` plus documentation
+(defpost @include-locative-for-pax (:title "INCLUDE locative for PAX"
+                                    :tags (@blog @lisp)
+                                    :date "2014-12-06")
+  "I'm getting so used to the `M-.` plus documentation
   generation hack that's
   [MGL-PAX](https://github.com/melisgl/mgl-pax), that I use it for all
   new code, which highlighted an issue of with code examples.
@@ -2422,8 +2404,10 @@
   code examples and external stuff to the documentation without
   duplication. As always, `M-.` works as well.")
 
-(defsection @recurrent-nets (:title "Recurrent Nets")
-  "*2015-01-19* – I've been cleaning up and documenting
+(defpost @recurrent-nets (:title "Recurrent Nets"
+                          :tags (@blog @lisp @ai)
+                          :date "2015-01-19")
+  "I've been cleaning up and documenting
   [MGL](https://github.com/melisgl/mgl) for quite some time now and
   while it's nowhere near done, a good portion of the code has been
   overhauled in the process. There are new additions such as the [Adam
@@ -2460,8 +2444,10 @@
   [recurrent](https://github.com/melisgl/mgl/blob/master/doc/md/mgl-manual.md#x-28MGL-BP-3A-40MGL-RNN-TUTORIAL-20MGL-PAX-3ASECTION-29)
   nets in the documentation.")
 
-(defsection @pax-world (:title "PAX World")
-  """*2015-01-26* – The promise of
+(defpost @pax-world (:title "PAX World"
+                     :tags (@blog @lisp)
+                     :date "2015-01-26")
+  """The promise of
   [MGL-PAX](https://github.com/melisgl/mgl-pax) has always been that
   it will be easy to generate documentation for different libraries
   without requiring extensive markup and relying on stable urls. For
@@ -2499,9 +2485,10 @@
   call
   [UPDATE-PAX-WORLD](http://melisgl.github.io/mgl-pax-world/mgl-pax-world-manual.html#x-28MGL-PAX-WORLD-3AUPDATE-PAX-WORLD-20FUNCTION-29).""")
 
-(defsection @bigger-and-badder-pax-world
-    (:title "Bigger and Badder PAX World")
-  "*2015-02-20* – Bigger because documentation for
+(defpost @bigger-and-badder-pax-world (:title "Bigger and Badder PAX World"
+                                       :tags (@blog @lisp)
+                                       :date "2015-02-20")
+  "Bigger because documentation for
   [named-readtables](http://melisgl.github.io/mgl-pax-world/named-readtables-manual.html)
   and
   [micmac](http://melisgl.github.io/mgl-pax-world/micmac-manual.html)
@@ -2514,12 +2501,14 @@
   just been linked to will take you to the file and line on github
   where `*DOCUMENT-MARK-UP-SIGNATURES*` is defined.")
 
-(defsection @on-the-design-of-matrix-libraries
-    (:title "On the Design of Matrix Libraries")
+(defpost @on-the-design-of-matrix-libraries
+    (:title "On the Design of Matrix Libraries"
+     :tags (@blog @lisp @ai)
+     :date "2015-02-26")
   "**UPDATE**: *2020-05-03* – Things have been moving fast. This is a
   non-issue in Tensorflow and possibly in other frameworks, as well.
 
-  *2015-02-26* – I believe there is one design decision in
+  I believe there is one design decision in
   [MGL-MAT](http://melisgl.github.io/mgl-pax-world/mat-manual.html)
   that has far reaching consequences: to make a single matrix object
   capable of storing multiple representations of the same data and let
@@ -2563,9 +2552,10 @@
   implementation to use would decouple facets further. Ultimately,
   this could make the entire CUDA related part of MGL-MAT an add-on.")
 
-(defsection @moving-the-blog-to-pax (:title "Moving the blog to PAX")
-  "_2020-05-05_ – After more than five years of silence, I may be
-  resurrecting [my old
+(defpost @moving-the-blog-to-pax (:title "Moving the blog to PAX"
+                                  :tags (@blog @lisp)
+                                  :date "2020-05-05")
+  "After more than five years of silence, I may be resurrecting [my old
   blog](https://web.archive.org/web/20190814015233/http://quotenil.com/).
   I already got as far as rewriting it using
   [MGL-PAX](http://melisgl.github.io/mgl-pax/), which is a curious
@@ -2575,11 +2565,13 @@
   of which deals with post categories and overview pages with
   shortened posts, something PAX hasn't seen the need for.")
 
-(defsection @journal-the-kitchen-sink (:title "Journal, the kitchen sink")
-  """_2020-09-04_ – Ever wished for machine-readable logs and
-  [`TRACE`][cl-trace]s, maybe for writing tests or something more
-  fancy? The [Journal][journal-background] library takes a simple
-  idea: user-defined execution traces, and implements
+(defpost @journal-the-kitchen-sink (:title "Journal, the kitchen sink"
+                                    :tags (@blog @lisp)
+                                    :date "2020-09-04")
+  """Ever wished for machine-readable logs and [`TRACE`][cl-trace]s, maybe
+  for writing tests or something more fancy? The
+  [Journal][journal-background] library takes a simple idea:
+  user-defined execution traces, and implements
   [logging][logging-tutorial], [tracing][tracing-tutorial], a
   [testing][testing-tutorial] "framework" with [mock][mock-object]
   support, and an [Event Sourcing][event-sourcing] style
@@ -2657,8 +2649,10 @@
   You can find the code [here][journal-code].
   """)
 
-(defsection @pax-v0.1 (:title "PAX v0.1")
-  """_2022-02-16_ – [PAX](http://github.com/melisgl/mgl-pax/) v0.1 is released.
+(defpost @pax-v0.1 (:title "PAX v0.1"
+                    :tags (@blog @lisp)
+                    :date "2022-02-16")
+  """[PAX](http://github.com/melisgl/mgl-pax/) v0.1 is released.
   At this point, I consider it fairly complete. Here is the changelog for the last year or so.
   ##### New Features
 
@@ -2671,7 +2665,7 @@
   - Added [READTABLE locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28READTABLE-20MGL-PAX-3ALOCATIVE-29).
   - Added [SYMBOL-MACRO locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ASYMBOL-MACRO-20MGL-PAX-3ALOCATIVE-29).
   - Added [METHOD-COMBINATION locative](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28METHOD-COMBINATION-20MGL-PAX-3ALOCATIVE-29).
-  - Added [`EXPORTABLE-REFERENCE-P`](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:EXPORTABLE-REFERENCE-P%20GENERIC-FUNCTION) to allow specializing decisions on whether to export a symbol in DEFSECTION based on SECTION-PACKAGE. PAX no longer exports its documentation and drops the `MGL-PAX-` prefix from names like `@MGL-PAX-LINKS` to reduce clutter.
+  - Added [`EXPORTABLE-REFERENCE-P`](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:EXPORTABLE-REFERENCE-P%20GENERIC-FUNCTION) to allow specializing decisions on whether to export a symbol in DEFPOST based on SECTION-PACKAGE. PAX no longer exports its documentation and drops the `MGL-PAX-` prefix from names like `@MGL-PAX-LINKS` to reduce clutter.
   - [Downcasing](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-DOWNCASE-UPPERCASE-CODE*%20VARIABLE) now works well and is the default for \\PAX World.
   - [Warn on unresolvable reflinks](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@UNRESOLVABLE-REFLINKS%20MGL-PAX:SECTION).
 
@@ -2714,8 +2708,10 @@
   - Improved error reporting.
   - Autoloading no longer produces warnings on SBCL and fresh SLIME.""")
 
-(defsection @there-is-try (:title "There is Try")
-  """_2022-10-16_ – Do or do not. There is now Try.
+(defpost @there-is-try (:title "There is Try"
+                        :tags (@blog @lisp)
+                        :date "2022-10-16")
+  """Do or do not. There is now Try.
   I forgot to announce [Try](https://github.com/melisgl/try),
   my Common Lisp test framework, on this blog.
 
@@ -3035,9 +3031,12 @@
   ```
   """)
 
-(defsection @tta-practioner
-    (:title "Two-tailed Averaging: The ML Practioner's Guide")
-  """_2022-12-02_ – This is a complement to the Two-tailed Averaging
+#+nil
+(defpost @tta-practioner
+    (:title "Two-tailed Averaging: The ML Practioner's Guide"
+     :tags (@blog @ai)
+     :date "2022-12-02")
+  """This is a complement to the Two-tailed Averaging
   [paper](https://arxiv.org/abs/2209.12581).
 
   We want to speed up training and improve generalization. One way to
@@ -3052,7 +3051,7 @@
     [suffix-averaging]: https://arxiv.org/abs/1109.5647
     [swa]: https://arxiv.org/abs/1803.05407
     [swa-blog]: https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/
-
+  """"""
   #### Problems with SWA
 
   There is a number of problems with SWA:
@@ -3124,15 +3123,12 @@
   motivated by the fact that the closely related method of Tail
   averaging guarantees optimal convergence rate learning rate in such
   a setting.""")
-
-(defsection @xxx (:title "XXX")
-  (@tta-practioner section))
 
 
 #+nil
 (generate-pages
- #+nil (list @blog0 @category-personal0 @category-tech0
-             @category-lisp0 @category-ai0)
+ (list @blog @personal @tech @lisp @ai)
+ #+nil
  (list @xxx)
  '((:title "me"
     :links
