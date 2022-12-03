@@ -75,7 +75,7 @@
    :package *package*
    :readtable *readtable*
    :title title
-   :entries (cons (format nil "_Tags_: ~{`~A`~^, ~}, _Date_: ~A~%~%"
+   :entries (cons (format nil "_Tags_: ~{`~A`~^, ~}, _Date_: `~A`~%~%"
                           (mapcar (lambda (category)
                                     (symbol-name (section-name category)))
                                   tags)
@@ -89,7 +89,7 @@
   (mapc #'prepare-category categories)
   (let* ((*document-max-numbering-level* 0)
          (*document-max-table-of-contents-level* 0)
-         (*document-html-max-navigation-table-of-contents-level* 0)
+         (*document-html-max-navigation-table-of-contents-level* -1)
          ;; No "in package" output, please.
          (*document-normalize-packages* nil)
          (*package* (find-package :mgl-pax-blog))
@@ -105,14 +105,15 @@
      (append categories posts) :mgl-pax-blog
      ;; Every overview and post is on its own page.
      :pages (mapcar (lambda (section) `(:objects (,section)))
-                    (append categories posts)))))
+                    (append categories posts))
+     :update-css-p nil)))
 
 
-(defcategory @blog (:title "(QUOTE NIL)"))
-(defcategory @lisp (:title "Lisp"))
-(defcategory @ai (:title "AI"))
-(defcategory @tech (:title "Tech"))
-(defcategory @personal (:title "Personal"))
+(defcategory @blog (:title "`(quote nil)`"))
+(defcategory @lisp (:title "`lisp`"))
+(defcategory @ai (:title "`ai`"))
+(defcategory @tech (:title "`tech`"))
+(defcategory @personal (:title "`personal`"))
 
 (defpost @first-post (:title "First post"
                       :tags (@personal @tech)
@@ -510,7 +511,7 @@
   hyperplane to [cl-libsvm](http://cliki.net/cl-libsvm). In binary
   classification there is only one SVM involved and one hyperplane.
   However, with N class problems there is a binary SVM for each of the
-  N*(N-1)/2 pairs of classes and there are as many separating
+  $N(N-1)/2$ pairs of classes and there are as many separating
   hyperplanes, something the linked python code fails to take into
   account. As per the libsvm
   [FAQ](http://www.csie.ntu.edu.tw/~cjlin/libsvm/faq.html#f4151), the
@@ -1052,7 +1053,7 @@
   the network should pick up a low dimensional code that represents
   the input, thus performing dimensionality reduction.
 
-  The function under consideration is `f(x) ` [x, sin(x), cos(x)]`. It
+  The function under consideration is `f(x) `\[x, sin(x), cos(x)]`. It
   is suprisingly difficult to learn the mapping from `x` to `f(x)`. A
   network architecture that is able to represent this transformation
   has 3 inputs, 10 neurons in the next layer, 1 neuron in the encoding
@@ -2480,7 +2481,7 @@
 
   Badder because clicking on a name will produce a permalink such as
   this:
-  [*DOCUMENT-MARK-UP-SIGNATURES*](http://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-MARK-UP-SIGNATURES-2A-20-28VARIABLE-29-29).
+  [\\*DOCUMENT-MARK-UP-SIGNATURES*](http://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-MARK-UP-SIGNATURES-2A-20-28VARIABLE-29-29).
   Clicking on locative types such as `[variable]` on the page that has
   just been linked to will take you to the file and line on github
   where `*DOCUMENT-MARK-UP-SIGNATURES*` is defined.")
@@ -3112,23 +3113,21 @@
 #+nil
 (generate-pages
  (list @blog @tech @lisp @ai @personal)
- #+nil
- (list @xxx)
- '((:title "Blog Categories"
-    :links
-    (("http://quotenil.com" "'() blog")
-     ("http://quotenil.com/category-lisp.html" "lisp")
-     ("http://quotenil.com/category-ai.html" "ai")
-     ("http://quotenil.com/category-tech.html" "tech")
-     ("http://quotenil.com/category-personal.html" "personal")))
-   (:title "Me"
-    :links
-    (("mailto:mega@retes.hu" "mega@retes.hu")
-     ("mega.gpg.asc" "gpg key")
-     ("http://github.com/melisgl/" "github/melisgl")
-     ("https://mastodon.social/@melisgl" "mastodon.social/@melisgl")
-     ("https://twitter.com/GaborMelis" "twitter/GaborMelis")
-     ("http://discord.com/users/melisgl#0879" "discord/melisgl#0879")
-     ("https://www.linkedin.com/in/melisgabor/" "linkedin/melisgabor")
-     #+nil ("cv/cv-eng.pdf" "cv (english)")
-     #+nil ("cv/cv-hun.pdf" "cv (hungarian)")))))
+ `((:title "(quote nil)"
+    :uri , @blog
+    :id "home")
+   (:title "tags"
+    :links ((, @lisp "lisp")
+            (, @ai "ai")
+            (, @tech "tech")
+            (, @personal "personal")))
+   (:title "me"
+    :links (("mailto:mega@retes.hu" "mega@retes.hu")
+            ("mega.gpg.asc" "gpg key")
+            ("http://github.com/melisgl/" "github/melisgl")
+            ("https://mastodon.social/@melisgl" "mastodon.social/@melisgl")
+            ("https://twitter.com/GaborMelis" "twitter/GaborMelis")
+            ("http://discord.com/users/melisgl#0879" "discord/melisgl#0879")
+            ("https://www.linkedin.com/in/melisgabor/" "linkedin/melisgabor")
+            #+nil ("cv/cv-eng.pdf" "cv (english)")
+            #+nil ("cv/cv-hun.pdf" "cv (hungarian)")))))
