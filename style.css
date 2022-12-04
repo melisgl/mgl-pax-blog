@@ -263,16 +263,13 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   overflow-y:auto;
   overflow-x:hidden;
   background: #333;
-  background-image: url('dice.png');
-  background-position: right 10% top 1em;
-  background-size: 40%;
-  background-repeat: no-repeat;
   box-shadow: inset -5px 0 5px 0px #000;
   color: #aaa;
+  font-family: monospace;
 }
 
 #toc ul {
-  font-size: 80%;
+  /* font-size: 80%; */
 }
 
 #toc li {
@@ -326,7 +323,7 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 }
 
 .menu-block-title {
-  font-size: 90%;
+  /* font-size: 90%; */
 }
 
 .menu-block a {
@@ -341,4 +338,17 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 #toc-footer a {
   font-size: 80%;
   color: #777777;
+}
+
+#home {
+  background-color: #444;
+  text-align: center;
+  /* border: 2px solid #555; */
+  /* margin: 0; */
+  padding: 0.4em 0 0.4em 0;
+}
+
+#home * {
+  color: #eee;
+  font-size: 130%;
 }
