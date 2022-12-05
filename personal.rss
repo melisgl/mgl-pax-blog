@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Category `personal` in G&#xE1;bor Melis&apos; Blog</title>
+        <link>http://quotenil.com/personal.html</link>
+        <description>Category `personal` in G&#xE1;bor Melis&apos; Blog</description>
+        <generator>xml-emitter</generator>
+        <language>en-uk</language>
+        <item>
+            <title>Dirty 36Cube</title>
+            <link>http://quotenil.com/dirty-36cube.html</link>
+            <description>&lt;p&gt;This is a short rant on what I consider to be a
+good puzzle and why the trick
+&lt;a href=&quot;http://en.wikipedia.org/wiki/36_cube&quot; &gt;36Cube&lt;/a&gt; pulls is rather
+dirty.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;WARNING&lt;/strong&gt;, spoilers ahead.
+Got this crafty beast for Christmas and since then I lost many
+evenings to juggling permutations of towers over the inverted city
+skyline. The game can be solved two ways:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;by being cleverer than Euler&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;by being streetwise&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We are going to concentrate on option 2 for the obvious reason. It
+can be argued that to solve this puzzle one must be an
+outside-the-box thinker, examine every opportunity, leave no stone
+unturned. No tower, rather.&lt;/p&gt;
+
+&lt;p&gt;The fact that I wouldn&apos;t even have solved it without the help of my
+wife (who has a few more feet on the ground than I do) must make me
+an in-the-box thinker. A naive one, too, who believes that the
+differences on the insides of towers must be manufacturing
+artifacts. Damn you, thnkbx, you have just crossed the line of
+having no decency at all.&lt;/p&gt;
+</description>
+            <author>G&#xE1;bor Melis</author>
+            <pubDate>Sun, 19 Aug 2012 01:00:00 +0100</pubDate>
+        </item>
+        <item>
+            <title>Ultimate Fallout 2 Ironman Munchkin</title>
+            <link>http://quotenil.com/ultimate-fallout-2-ironman-munchkin.html</link>
+            <description>&lt;p&gt;I&apos;m cleaning up the accumulated junk and found this
+guide that was written eons ago.&lt;/p&gt;
+
+&lt;p&gt;This build is focused on survival. No save/loading, killap&apos;s final
+patch, hard combat and game difficulty. As it is not only ironman
+but a munchkin too it must be a sniper since HtH is a bit
+underpowered.
+See &lt;a href=&quot;http://faqs.ign.com/articles/777/777224p1.html&quot; &gt;this&lt;/a&gt; for good
+insights into ironman survival. The two most important pieces of
+advice it has is: sneak and outdoorsman. Sneak does not work as well
+for me as advertised, that is I cannot end combat in all cases if
+the critter I shot did not die. Still, Sneak is still incredibly
+useful so it&apos;s tagged and raised to 150% in a hurry. Small Guns and
+Speech get tagged as well.&lt;/p&gt;
+
+&lt;p&gt;A true munchkin takes Gifted and Small frame. We rely on Sneak to
+keep us from being shot at so Fast Shot would not help too much. The
+main emphasis is on survival so endurance and agility must be 10.
+NPCs cannot be kept alive and are not needed for most of the game,
+plus conversation is ruled by Speech thus charisma is 2. Good
+minmaxing so far. Luck is 8 and will be 10 after the Zeta scan. This
+is important for Sniper.&lt;/p&gt;
+
+&lt;p&gt;This leaves us with 18 points for Strength, Perception and
+Intelligence. Each point in Perception adds 8% to shooting accuracy.
+However putting the same point into Intelligence gives 66 skill
+points to spend by level 34. Small Guns shall go beyond 200% where
+the cost of 1% is 3 skill points (it&apos;s tagged). 66 points is worth
+22% to shooting accuracy. Clearly Intelligence seems the better
+place.&lt;/p&gt;
+
+&lt;p&gt;However, Perception also determines sequence. Contrary to what &lt;a href=&quot;http://faqs.ign.com/articles/777/777224p1.html&quot; &gt;the
+link above&lt;/a&gt; says I
+find it important that enemies don&apos;t get a double turn. If combat
+could be ended dependably it would be less of an issue, alas, it
+cannot. This makes Perception pretty important. With the +1
+obtainable by surgery 9 is a good number.&lt;/p&gt;
+
+&lt;p&gt;Strength allows you to carry more which is a small convenience at
+the beginning. Even with Small Frame one can get away with a
+strength as low as 2 especially with Sulik in the beginning and
+later the car. The other, main use of strength is to avoid the 20%
+shooting accuracy penalty per point under the weapon&apos;s minimum
+strength. At high levels you&apos;ll have 6-7 in strength with armor and
+surgery. At lower levels the penalty can be (over)compensated for by
+pouring skill points into Small Guns (after reading the books of
+course).&lt;/p&gt;
+
+&lt;p&gt;What about strength vs perception? Strength is useful in the early
+game before Small Guns is high enough. Perception remains useful at
+the end due to its accuracy bonus. Intelligence below 6 is out of
+question unless you aim for maximum efficiency at level 50.&lt;/p&gt;
+
+&lt;p&gt;So what is it that we optimize for? Munchkin combat power, of
+course. When? Mostly at the end, say at level 34. That&apos;s 33 levels
+gained and 11 perks. So without further ado, pure munchkin starting
+stats:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;S: 2, P: 9, E: 10, C: 2, I: 7, A: 10, L: 8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Developed stats with armor, surgeries, shades, zeta scan, combat
+implants:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;S: 7, P: 10, E: 10, C: 2, I: 8, A: 10, L: 10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Skill point needs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;93=28+26+39 Sneak (tagged): 45% -&amp;gt; 151%
+
+265=23+26+39+52+65+60 Small Guns (tagged): 55% -&amp;gt; 221%
+
+21 Speech (tagged): 19% -&amp;gt; 76% (+5% expert excrement expeditor, +10% enhancer)
+
+32 Doctor: ~1% -&amp;gt; 55% (+5% VC training, +20% doctor&apos;s bag, +10% enhancer)
+
+0 Outdoorsman: ~23% -&amp;gt; 110% (books, +20% motion sensor)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That&apos;s 411 skill points. Required points in intelligence:
+499/33levels/2 = 6.22. A few more points can be saved by reading
+Guns and Bullets magazines (max 18). Still, there is a point in
+improving Small Guns over 220%, take the gauss rifle or pistol for
+example which has a 20% bonus on accuracy and try to shoot someone
+in the eye in Advanced Power Armor II from 30 hexes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(SmallGuns = 220) + (8 * (Perception = 10)) + (Weapon bonus = 20)
++ (Ammo AC modifier = 30)
+- 30 - (AC = 45) - (4 * (N-Hex = 30)) - (Eyes = 60) = 95%
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Perks:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Toughness(3)
+Lifegiver(2)
+Bonus rate of fire
+Better Criticals
+Sniper
+Bonus Move(2)
+Action Boy(2)
+Living Anatomy
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This character is hard to play in the early game. Small Guns takes
+some time to develop and the -40% penalty for most guns due to the
+low strength is a killer until power armor and/or the Red Ryder.&lt;/p&gt;
+
+&lt;p&gt;To make the early game less of a struggle Small Guns shall be raised
+pretty early, after Sneak reaches 100% and you have read a few Guns
+and Bullets from Klamath, the Den, Redding and Modoc. Grab as many
+Scout handbooks as you can.&lt;/p&gt;
+
+&lt;p&gt;Useful links:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://faqs.ign.com/articles/777/777224p1.html&quot; &gt;http://faqs.ign.com/articles/777/777224p1.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://user.tninet.se/~jyg699a/fallout2.html#combat&quot; &gt;http://user.tninet.se/~jyg699a/fallout2.html#combat&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.fanmadefallout.com/fo2-items/&quot; &gt;http://www.fanmadefallout.com/fo2-items/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.fanmadefallout.com/procrit/&quot; &gt;http://www.fanmadefallout.com/procrit/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2&quot; &gt;http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2&lt;/a&gt;&lt;/p&gt;
+</description>
+            <author>G&#xE1;bor Melis</author>
+            <pubDate>Sat, 21 Nov 2009 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>Important remainder</title>
+            <link>http://quotenil.com/important-remainder.html</link>
+            <description>&lt;p&gt;An &lt;a href=&quot;blog-files/guns.jpg&quot; &gt;example&lt;/a&gt; may speak a hundred
+words, but sometimes not even that is enough and you want to be
+&lt;a href=&quot;blog-files/dangerous-objects.jpg&quot; &gt;very explicit&lt;/a&gt; about the dangers of
+hand grenades on board.
+Finally, some trash talk carefully designed to intimidate: &lt;img src=&quot;blog-files/remainders.jpg&quot; alt=&quot;trash
+talk&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Never die without having made the necessary arrangements.&lt;/p&gt;
+
+&lt;p&gt;All pictures were taken at M&#xE1;laga airport.&lt;/p&gt;
+</description>
+            <author>G&#xE1;bor Melis</author>
+            <pubDate>Mon, 04 Feb 2008 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>First post</title>
+            <link>http://quotenil.com/first-post.html</link>
+            <description>&lt;p&gt;After a long time of waiting to write my own blog
+software like true hackers with infinite time do (and those
+irritated by Wordpress), I bit the bullet and installed
+&lt;a href=&quot;https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html&quot; &gt;blorg&lt;/a&gt; - a very low
+overhead emacs blog engine - on top of
+&lt;a href=&quot;http://orgmode.org/&quot; &gt;org-mode&lt;/a&gt; that I happen to use as an
+organizer. Blorg basically converts an org mode buffer to html files
+so it is completely static: send me &lt;a href=&quot;mailto:mega@retes.hu&quot; &gt;email&lt;/a&gt; if
+you have comments, I have no desire to maintain a more complex
+solution with comment filtering.&lt;/p&gt;
+
+&lt;p&gt;Small fixes had to be made for blorg to be able to deal with
+org-mode 5.17a and I only had time to bring it to some basic level
+of functionality. That said here is the
+&lt;a href=&quot;blog-files/blorg-init.el&quot; &gt;blorg-init.el&lt;/a&gt; file I&apos;m using right now.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2020-05-03&lt;/strong&gt;: Since then, this blog has been moved to
+  &lt;a href=&quot;http://github.com/melisgl/mgl-pax&quot; &gt;MGL-PAX&lt;/a&gt;.&lt;/p&gt;
+</description>
+            <author>G&#xE1;bor Melis</author>
+            <pubDate>Fri, 01 Feb 2008 00:00:00 +0000</pubDate>
+        </item>
+    </channel>
+</rss>
