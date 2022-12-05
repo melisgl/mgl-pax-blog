@@ -7,6 +7,26 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
+            <title>Migration to github</title>
+            <link>http://quotenil.com/migration-to-github.html</link>
+            <description>&lt;p&gt;Due to the bash security hole that keeps
+&lt;a href=&quot;http://seclists.org/oss-sec/2014/q3/685&quot; &gt;giving&lt;/a&gt;, I had to disable
+gitweb at &lt;a href=&quot;http://quotenil.com/git/&quot; &gt;http://quotenil.com/git/&lt;/a&gt; and
+move all non-obsolete code over to github. This affects:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/six&quot; &gt;Six the Hex AI&lt;/a&gt;,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/planet-wars&quot; &gt;the Planet Wars bot&lt;/a&gt;,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/micmac&quot; &gt;MiCMaC&lt;/a&gt;,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/fsvd&quot; &gt;FSVD&lt;/a&gt;,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/lassie&quot; &gt;Lassie&lt;/a&gt;, and&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/cl-libsvm&quot; &gt;cl-libsvm&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+            <author>G&#xE1;bor Melis</author>
+            <pubDate>Thu, 25 Sep 2014 01:00:00 +0100</pubDate>
+        </item>
+        <item>
             <title>Hung Connections</title>
             <link>http://quotenil.com/hung-connections.html</link>
             <description>&lt;p&gt;My ISP replaced a Thomson modem with a Cisco
@@ -36,26 +56,6 @@ more important than keepalive unless you never have network issues.&lt;/p&gt;
 </description>
             <author>G&#xE1;bor Melis</author>
             <pubDate>Sun, 27 Feb 2011 00:00:00 +0000</pubDate>
-        </item>
-        <item>
-            <title>Migration to github</title>
-            <link>http://quotenil.com/migration-to-github.html</link>
-            <description>&lt;p&gt;Due to the bash security hole that keeps
-&lt;a href=&quot;http://seclists.org/oss-sec/2014/q3/685&quot; &gt;giving&lt;/a&gt;, I had to disable
-gitweb at &lt;a href=&quot;http://quotenil.com/git/&quot; &gt;http://quotenil.com/git/&lt;/a&gt; and
-move all non-obsolete code over to github. This affects:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/six&quot; &gt;Six the Hex AI&lt;/a&gt;,&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/planet-wars&quot; &gt;the Planet Wars bot&lt;/a&gt;,&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/micmac&quot; &gt;MiCMaC&lt;/a&gt;,&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/fsvd&quot; &gt;FSVD&lt;/a&gt;,&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/lassie&quot; &gt;Lassie&lt;/a&gt;, and&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/cl-libsvm&quot; &gt;cl-libsvm&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-            <author>G&#xE1;bor Melis</author>
-            <pubDate>Thu, 25 Sep 2014 01:00:00 +0100</pubDate>
         </item>
         <item>
             <title>OfflineIMAP with Encrypted Authinfo</title>

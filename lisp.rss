@@ -327,7 +327,7 @@ situations.&lt;/p&gt;
             <description>&lt;p&gt;&lt;a href=&quot;http://github.com/melisgl/mgl-pax/&quot; &gt;PAX&lt;/a&gt; v0.1 is released.
 At this point, I consider it fairly complete. Here is the changelog for the last year or so.&lt;/p&gt;
 
-&lt;h5&gt;New Features&lt;/h5&gt;
+&lt;h4&gt;New Features&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;To reduce deployment size, made the MGL-PAX system &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29&quot; &gt;autoload navigation, documentation generation, and transcription code&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
@@ -343,7 +343,7 @@ At this point, I consider it fairly complete. Here is the changelog for the last
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@UNRESOLVABLE-REFLINKS%20MGL-PAX:SECTION&quot; &gt;Warn on unresolvable reflinks&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h5&gt;Transcribe&lt;/h5&gt;
+&lt;h4&gt;Transcribe&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Transcription consistency checking is now &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-FINER-GRAINED-CONSISTENCY-CHECKS%20MGL-PAX:SECTION&quot; &gt;customizable&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
@@ -351,14 +351,14 @@ At this point, I consider it fairly complete. Here is the changelog for the last
 &lt;li&gt;&lt;p&gt;Errors during transcribing are &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@TRANSCRIPT-API%20MGL-PAX:SECTION&quot; &gt;included&lt;/a&gt; in the transcript.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h5&gt;Portability&lt;/h5&gt;
+&lt;h4&gt;Portability&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Tested on ABCL, AllegroCL, CCL, CLISP, CMUCL, ECL, and SBCL.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;SLIME &lt;code&gt;M-.&lt;/code&gt; is now as capable on all Lisps as the Swank implementation allows.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h5&gt;Improvements&lt;/h5&gt;
+&lt;h4&gt;Improvements&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Generalized, cleaned up, and documented handling &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#toc-6-2-parsing&quot; &gt;trimming of punctuation and plurals&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
@@ -374,7 +374,7 @@ At this point, I consider it fairly complete. Here is the changelog for the last
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION&quot; &gt;DOCUMENT&lt;/a&gt; can produce reasonably readable output with &lt;code&gt;:FORMAT&lt;/code&gt; &lt;code&gt;:PLAIN&lt;/code&gt; (the default). It is now suitable for use in the REPL as a kind of replacement for &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_docume.htm&quot; title=&quot;DOCUMENTATION GENERIC-FUNCTION&quot;&gt;&lt;code&gt;CL:DOCUMENTATION&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h5&gt;Bugs&lt;/h5&gt;
+&lt;h4&gt;Bugs&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Made Emacs-side parsing for &lt;code&gt;M-.&lt;/code&gt; navigation more robust.&lt;/p&gt;&lt;/li&gt;
@@ -382,7 +382,7 @@ At this point, I consider it fairly complete. Here is the changelog for the last
 &lt;li&gt;&lt;p&gt;Fixed lots of minor bugs.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h5&gt;Internals&lt;/h5&gt;
+&lt;h4&gt;Internals&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Tests moved to &lt;a href=&quot;https://github.com/melisgl/try&quot; &gt;Try&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
