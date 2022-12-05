@@ -1,10 +1,5 @@
 (in-package :mgl-pax-blog)
 
-;;;; TODO
-;;;;
-;;;; - quotenil.com links
-;;;; - feeds?
-
 (in-readtable pythonic-string-syntax)
 
 (defclass category (section)
@@ -131,7 +126,47 @@
      ;; Every overview and post is on its own page.
      :pages (mapcar (lambda (section) `(:objects (,section)))
                     (append categories posts))
-     :update-css-p nil)))
+     :update-css-p nil)
+    (mapc #'emit-rss-for-category categories)))
+
+(defun emit-rss-for-category (category)
+  (with-open-file (*standard-output*
+                   (local-page (rss-page (object-page category)))
+                   :direction :output
+                   :if-does-not-exist :create
+                   :if-exists :supersede)
+    (xml-emitter:with-rss2 (*standard-output* :encoding "utf-8")
+      (let ((title (if (eq category @blog)
+                       "Gábor Melis' Blog"
+                       (format nil "Category ~A in Gábor Melis' Blog"
+                               (section-title category)))))
+        (xml-emitter:rss-channel-header title
+                                        (quotenil-page (object-page category))
+                                        :description title :language "en-uk"))
+      (dolist (post-name (slot-value category 'post-names))
+        (let ((post (symbol-value post-name)))
+          (xml-emitter:rss-item
+           (section-title post)
+           :link (quotenil-page (object-page post))
+           :description (document (subseq (section-entries post) 1)
+                                  :stream nil
+                                  :format :html)
+           :author "Gábor Melis"
+           :pubDate (local-time:format-rfc1123-timestring
+                     nil (local-time:parse-timestring
+                          (slot-value post 'date)))))))))
+
+(defun rss-page (page)
+  (make-pathname :type "rss" :defaults page))
+
+(defun local-page (page)
+  (asdf:system-relative-pathname "mgl-pax-blog" (merge-pathnames page "doc/")))
+
+(defun quotenil-page (page)
+  (format nil "http://quotenil.com/~A" page))
+
+(defun object-page (object)
+  (pax::sections-to-filename (list object) ""))
 
 
 (defcategory @blog (:title "`(quote nil)`"))
@@ -1973,8 +2008,9 @@
 
   That's it, no more cleartext passwords.""")
 
-(defpost @hung-connections (:title "Hung Connections")
-  "2011-02-27"
+(defpost @hung-connections (:title "Hung Connections"
+                            :tags (@tech)
+                            :date "2011-02-27")
   """My ISP replaced a Thomson modem with a Cisco
   EPC3925 modem-router to fix the speed issue I was having. The good
   news is that the connection operates near its advertised bandwidth,
@@ -3142,8 +3178,6 @@
         (when link
           (eq (pax::link-page link) pax::*page*))))))
 
-
-
 #+nil
 (generate-pages
  (list @blog @tech @lisp @ai @personal)
@@ -3159,6 +3193,11 @@
                (, @personal ,(if (on-current-page-p @personal)
                                  "» personal «"
                                  "personal"))))
+      (:title "rss"
+       :links ((,(namestring (rss-page (object-page @lisp))) "lisp")
+               (,(namestring (rss-page (object-page @ai))) "ai")
+               (,(namestring (rss-page (object-page @tech))) "tech")
+               (,(namestring (rss-page (object-page @personal))) "personal")))
       (:title "me"
        :links (("mailto:mega@retes.hu" "mega@retes.hu")
                ("mega.gpg.asc" "gpg key")
