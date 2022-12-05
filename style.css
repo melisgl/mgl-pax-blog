@@ -80,7 +80,7 @@ p, blockquote, table, pre {
 ul, ol, dl {
   padding-left: 1.1em;
   list-style-position: outside;
-  /* margin: 0; */
+  margin: 0;
 }
 
 li {
@@ -253,8 +253,8 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 
 #content
 {
-  margin-left: 40ex;
-  padding-left: 2.5em;
+  margin-left: min(16.5rem,33%);
+  padding-left: 1em;
   max-width: 85ex;
 }
 
@@ -262,7 +262,7 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   top: 0px;
   left: 0px;
   height: 100%;
-  width: 40ex;
+  width: 14rem;
   max-width: 33%;
   position: fixed;
   overflow-y:auto;
