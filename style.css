@@ -255,7 +255,6 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   /* border: 2px solid #555; */
   /* margin: 0; */
   padding: 0.4em 0 0.4em 0;
-  margin-bottom: 1em;
 }
 
 #home * {
@@ -265,4 +264,6 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 
 #links {
   text-align: center;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
