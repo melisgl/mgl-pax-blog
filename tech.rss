@@ -23,7 +23,7 @@ move all non-obsolete code over to github. This affects:&lt;/p&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/cl-libsvm&quot; &gt;cl-libsvm&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <author>G&#xE1;bor Melis</author>
+            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Thu, 25 Sep 2014 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -54,7 +54,7 @@ to use the keepalive and the keepalive be lowered to 15s:&lt;/p&gt;
 &lt;p&gt;Oh, and always include &lt;code&gt;socktimeout&lt;/code&gt; in the offlineimap config, that&apos;s
 more important than keepalive unless you never have network issues.&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis</author>
+            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Sun, 27 Feb 2011 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -115,7 +115,7 @@ def get_authinfo_password(machine, login, port):
 
 &lt;p&gt;That&apos;s it, no more cleartext passwords.&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis</author>
+            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Sat, 26 Feb 2011 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -131,7 +131,7 @@ working&lt;/a&gt;.
 Synaptics click by tapping went away before the upgrade so that
 doesn&apos;t count.&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis</author>
+            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 08 Feb 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -168,7 +168,7 @@ Notes:&lt;/p&gt;
   couple of hacks to get this entry out the door.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <author>G&#xE1;bor Melis</author>
+            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Fri, 06 Nov 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -223,7 +223,7 @@ keyboard.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;2020-05-03&lt;/strong&gt; Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
   version&lt;/a&gt;.&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis</author>
+            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 15 Dec 2008 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -281,7 +281,7 @@ away:&lt;/p&gt;
 system (only /boot is separate) and that resides on LVM which makes it
 trivial to snapshot.&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis</author>
+            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Fri, 28 Mar 2008 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -306,7 +306,7 @@ of functionality. That said here is the
 &lt;p&gt;&lt;strong&gt;2020-05-03&lt;/strong&gt;: Since then, this blog has been moved to
   &lt;a href=&quot;http://github.com/melisgl/mgl-pax&quot; &gt;MGL-PAX&lt;/a&gt;.&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis</author>
+            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Fri, 01 Feb 2008 00:00:00 +0000</pubDate>
         </item>
     </channel>
