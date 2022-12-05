@@ -3,6 +3,7 @@ body {
   margin: auto;
   background-color: #FFFEFB;
   color: #000000;
+  padding-bottom: 1em;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -33,13 +34,14 @@ h5 a {
 }
 
 h1 {
-  margin-top: 1em;
+  margin-top: 1.5em;
   border-bottom: 0.05em solid #CCCCCC;
   font-size: 170%;
+  text-align: center;
 }
 
 h1:first-of-type {
-  margin-top: 0em;
+  margin-top: 0.5em;
 }
 
 h2 {
@@ -163,9 +165,9 @@ img {
   border-bottom: none;
 }
 
-/* Option 1 for navigation links: just hide the links in the previous
-   line. Good because there is no jumping around of content as with
-   the other otptions. */
+/* Navigation links: just hide the links in the previous line. Good
+   because there is no jumping around of content as with the other
+   otptions. */
 
 .navigation {
   display: block;
@@ -176,38 +178,6 @@ img {
 .outer-navigation:hover .navigation {
   visibility: visible;
 }
-
-/* Option 2 for navigation links: heading moves right to make room for
-   the links. */
-
-/* .navigation { */
-/*   display: none; */
-/* } */
-/*  */
-/* h1:hover .navigation, */
-/* h2:hover .navigation, */
-/* h3:hover .navigation, */
-/* h4:hover .navigation, */
-/* h5:hover .navigation, */
-/* h6:hover .navigation { */
-/*   display: inline; */
-/* } */
-
-/* Option 3 for navigation links: heading moves down to make room for
-   the links. */
-
-/* .navigation { */
-/*   display: none; */
-/* } */
-/*  */
-/* h1:hover .navigation, */
-/* h2:hover .navigation, */
-/* h3:hover .navigation, */
-/* h4:hover .navigation, */
-/* h5:hover .navigation, */
-/* h6:hover .navigation { */
-/*   display: block; */
-/* } */
 
 /* Syntax highlighting with Colorize */
 
@@ -230,119 +200,53 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 .diff-deleted { color : #5F2121; background-color : inherit; }
 .diff-added { color : #215F21; background-color : inherit; }
 
-/* Disable rainbow nesting on hover */
-
-/* span.paren1 { background-color : inherit; -webkit-transition: background-color 0.2s linear; } */
-/* span.paren1:hover { color : inherit; background-color : #BAFFFF; } */
-/* span.paren2 { background-color : inherit; -webkit-transition: background-color 0.2s linear; } */
-/* span.paren2:hover { color : inherit; background-color : #FFCACA; } */
-/* span.paren3 { background-color : inherit; -webkit-transition: background-color 0.2s linear; } */
-/* span.paren3:hover { color : inherit; background-color : #FFFFBA; } */
-/* span.paren4 { background-color : inherit; -webkit-transition: background-color 0.2s linear; } */
-/* span.paren4:hover { color : inherit; background-color : #CACAFF; } */
-/* span.paren5 { background-color : inherit; -webkit-transition: background-color 0.2s linear; } */
-/* span.paren5:hover { color : inherit; background-color : #CAFFCA; } */
-/* span.paren6 { background-color : inherit; -webkit-transition: background-color 0.2s linear; } */
-/* span.paren6:hover { color : inherit; background-color : #FFBAFF; } */
-
 #content-container
 {
   margin: 0;
   padding: 0;
 }
 
+/* toc on the top */
 #content
 {
-  margin-left: min(16.5rem,33%);
-  padding-left: 1em;
-  max-width: 85ex;
+  max-width: 40em;
+  margin: 0 auto;
+  padding-left: 2em;
+  padding-right: 1em;
 }
 
 #toc {
-  top: 0px;
-  left: 0px;
-  height: 100%;
-  width: 14rem;
-  max-width: 33%;
-  position: fixed;
-  overflow-y:auto;
-  overflow-x:hidden;
   background: #333;
-  box-shadow: inset -5px 0 5px 0px #000;
   color: #aaa;
   font-family: monospace;
 }
 
-#toc ul {
-  /* font-size: 80%; */
-}
-
-#toc li {
-  line-height: 1.0;
-}
+/* toc on the left*/
+/* #content */
+/* { */
+/*   margin-left: min(16.5rem,33%); */
+/*   padding-left: 1em; */
+/*   max-width: 85ex; */
+/* } */
+/*  */
+/* #toc { */
+/*   top: 0px; */
+/*   left: 0px; */
+/*   height: 100%; */
+/*   width: 14rem; */
+/*   max-width: 33%; */
+/*   position: fixed; */
+/*   overflow-y:auto; */
+/*   overflow-x:hidden; */
+/*   background: #333; */
+/*   box-shadow: inset -5px 0 5px 0px #000; */
+/*   color: #aaa; */
+/*   font-family: monospace; */
+/* } */
 
 #toc a {
-  border-bottom: none;
-}
-
-#toc hr {
-  height: 0.05em;
-  border: 0;
-  background: #777;
-}
-
-#toc ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-#toc li {
-  padding: 5px 10px;
-}
-
-#toc .toc-h2 {
-  padding-left: 10px;
-}
-
-#toc .toc-h3 {
-  padding-left: 20px;
-}
-
-#toc .toc-h4 {
-  padding-left: 30px;
-}
-
-#toc .toc-active {
-  background: #336699;
-  box-shadow: inset -5px 0px 10px -5px #000;
-}
-
-#page-toc a {
-  color: #fff;
-}
-
-.menu-block {
-  padding-left: 10px;
-  margin-bottom: 1em;
-}
-
-.menu-block-title {
-  /* font-size: 90%; */
-}
-
-.menu-block a {
   color: #fff;
   border-bottom: none;
-}
-
-#toc-header a {
-  color: #777777;
-}
-
-#toc-footer a {
-  font-size: 80%;
-  color: #777777;
 }
 
 #home {
@@ -351,9 +255,14 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   /* border: 2px solid #555; */
   /* margin: 0; */
   padding: 0.4em 0 0.4em 0;
+  margin-bottom: 1em;
 }
 
 #home * {
   color: #eee;
   font-size: 130%;
+}
+
+#links {
+  text-align: center;
 }
