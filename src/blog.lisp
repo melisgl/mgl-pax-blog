@@ -114,9 +114,12 @@
          (*document-normalize-packages* nil)
          (*package* (find-package :mgl-pax-blog))
          (*document-html-head*
-           "<link href=\"https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400;1,7..72,700&display=swap\" rel=\"stylesheet\">
+           (lambda ()
+             (format nil "~A~A"
+                     "<link href=\"https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400;1,7..72,700&display=swap\" rel=\"stylesheet\">
 <style> @import url('https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400;1,7..72,700&display=swap'); </style>
-")
+"
+                     (quotenil-rss-feed-for-current-page))))
          (*document-html-top-blocks-of-links* top-blocks-of-links)
          ;; The shortened posts are reachable normally from CATEGORY's
          ;; SECTION-ENTRIES.
@@ -128,6 +131,16 @@
                     (append categories posts))
      :update-css-p nil)
     (mapc #'emit-rss-for-category categories)))
+
+(defun quotenil-rss-feed-for-current-page ()
+  (let ((category (category-for-current-page)))
+    (if category
+        (format nil "<link rel='alternate' href='~A' type='application/rss+xml'/>"
+                (quotenil-page (rss-page (object-page category))))
+        "")))
+
+(defun category-for-current-page ()
+  (find-if #'on-current-page-p (list @blog @ai @lisp @tech @personal)))
 
 (defun emit-rss-for-category (category)
   (with-open-file (*standard-output*
@@ -148,10 +161,11 @@
           (xml-emitter:rss-item
            (section-title post)
            :link (quotenil-page (object-page post))
+           ;; FIXME: relative URLs (e.g. ![](blog-files/...))
            :description (document (subseq (section-entries post) 1)
                                   :stream nil
                                   :format :html)
-           :author "Gábor Melis"
+           :author "Gábor Melis <mega@retes.hu>"
            :pubDate (local-time:format-rfc1123-timestring
                      nil (local-time:parse-timestring
                           (slot-value post 'date)))))))))
@@ -280,7 +294,7 @@
   Six in particular), although losing does irk me a bit.")
 
 (defpost @space-cadet (:title "Space Cadet"
-                       :tags (@tech @lisp)
+                       :tags (@lisp @tech)
                        :date "2008-12-15")
   "Emacs users often report problems caused by strain
   on the pinky finger that's used to press the _Control_ key. The
@@ -562,7 +576,7 @@
   [here](http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=x86-calling-convention).")
 
 (defpost @active-Learning-for-cl-libsvm (:title "Active Learning for cl-libsvm"
-                                         :tags (@lisp @ai)
+                                         :tags (@ai @lisp)
                                          :date "2009-06-22")
   "Along the lines of [active learning with python &
   libsvm](http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html),
@@ -876,7 +890,7 @@
   [http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2](http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2)")
 
 (defpost @introduction-to-mgl-part-1 (:title "Introduction to MGL (part 1)"
-                                      :tags (@lisp @ai)
+                                      :tags (@ai @lisp)
                                       :date "2009-12-02")
   """**UPDATE**: This post out of date with regards to current MGL.
   Please refer to the
@@ -931,7 +945,7 @@
   @INTRODUCTION-TO-MGL-PART-2, we are going to see real examples.""")
 
 (defpost @introduction-to-mgl-part-2 (:title "Introduction to MGL (part 2)"
-                                      :tags (@lisp @ai)
+                                      :tags (@ai @lisp)
                                       :date "2009-12-17")
   """**UPDATE**: This post out of date with regards to current MGL.
   Please refer to the
@@ -1091,7 +1105,7 @@
   That's it for today, thank you for your kind attention.""")
 
 (defpost @introduction-to-mgl-part-3 (:title "Introduction to MGL (part 3)"
-                                      :tags (@lisp @ai)
+                                      :tags (@ai @lisp)
                                       :date "2009-12-29")
   """**UPDATE**: This post out of date with regards to current MGL.
   Please refer to the
@@ -1308,7 +1322,7 @@
 
 (defpost @deep-boltzmann-machine-on-mnist
     (:title "Deep Boltzmann Machine on MNIST"
-     :tags (@lisp @ai)
+     :tags (@ai @lisp)
      :date "2010-01-18")
   """Let me interrupt the flow of the
   [MGL](http://cliki.net/MGL) introduction series with a short report
@@ -1414,7 +1428,7 @@
 
 (defpost @micmac-initial-release
     (:title "Micmac Initial Release"
-     :tags (@lisp @ai)
+     :tags (@ai @lisp)
      :date "2010-02-06")
   "From a failed experiment today I salvaged
   [Micmac](http://cliki.net/micmac), a statistical library wannabe,
@@ -1437,7 +1451,7 @@
   doesn't count.")
 
 (defpost @google-ai-challenge-2010 (:title "Google AI Challenge 2010"
-                                    :tags (@lisp @ai)
+                                    :tags (@ai @lisp)
                                     :date "2010-02-11")
   "Tron is a fun little game of boxing out the
   opponent and avoiding crashing into a wall first. The rules are
@@ -1452,7 +1466,7 @@
 
 (defpost @google-ai-challenge-2010-results
     (:title "Google AI Challange 2010 Results"
-     :tags (@lisp @ai)
+     :tags (@ai @lisp)
      :date "2010-03-01")
   "For what has been a fun ride, the official results are now [available](https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php).
   In the end, 11th out of 700 is not too bad and it's the highest
@@ -1516,7 +1530,7 @@
   coming days I'll factor the UCT and the Alpha-beta code out.")
 
 (defpost @uct (:title "UCT"
-               :tags (@lisp @ai)
+               :tags (@ai @lisp)
                :date "2010-03-19")
   "As promised, my [UCT](http://senseis.xmp.net/?UCT)
   implementation is released, albeit somewhat belatedly. It's in
@@ -1525,7 +1539,7 @@
 
 (defpost @planet-wars-common-lisp-starter-package
     (:title "Planet Wars Common Lisp Starter Package"
-     :tags (@lisp @ai)
+     :tags (@ai @lisp)
      :date "2010-09-19")
   "The [Google AI Challange](https://web.archive.org/web/20100926070007/http://ai-contest.com/) is
   back with a new game that's supposed to be much harder than Tron was
@@ -1566,7 +1580,7 @@
 
 (defpost @planet-wars-common-lisp-starter-package-that-actually-works
     (:title "Planet Wars Common Lisp Starter Package Actually Works"
-     :tags (@lisp @ai)
+     :tags (@ai @lisp)
      :date "2010-09-21")
   "Released
   v0.6 ([git](http://quotenil.com/git/?p=planet-wars.git;a=summary),
@@ -1579,7 +1593,7 @@
 
 (defpost @important-update-to-the-planet-wars-starter-package
     (:title "Important Update to the Planet Wars Starter Package"
-     :tags (@lisp @ai)
+     :tags (@ai @lisp)
      :date "2010-10-25")
   """First, is it possible to get something as simple
   as `RESOLVE-BATTLE` wrong? Apparently, yes. That's what one gets for
@@ -1613,7 +1627,7 @@
   stronger.""")
 
 (defpost @planet-wars-post-mortem (:title "Planet Wars Post-Mortem"
-                                   :tags (@lisp @ai)
+                                   :tags (@ai @lisp)
                                    :date "2010-12-01")
   "I can't believe I [won](https://web.archive.org/web/20101205003152/http://ai-contest.com/rankings.php).
 
@@ -1896,7 +1910,7 @@
   ![](blog-files/malacka-es-bocsimacko.jpg)")
 
 (defpost @nash-equilibrium-finder (:title "Nash equilibrium finder"
-                                   :tags (@lisp @ai)
+                                   :tags (@ai @lisp)
                                    :date "2010-12-26")
   "While I seem to be unable to make my mind up on a
   good interface to alpha-beta with a few bells and whistles, I added
@@ -1937,7 +1951,7 @@
   ```")
 
 (defpost @alpha-beta (:title "Alpha-beta"
-                      :tags (@lisp @ai)
+                      :tags (@ai @lisp)
                       :date "2010-12-27")
   """It hasn't been a year yet since I first promised
   that alpha-beta snippet and it is already added to micmac in all its
@@ -2066,7 +2080,7 @@
   having no decency at all.")
 
 (defpost @stackoverflow-post-mortem (:title "Stackoverflow Post-Mortem"
-                                     :tags (@lisp @ai)
+                                     :tags (@ai @lisp)
                                      :date "2013-04-09")
   "After almost two years without a single
   competition, last September I decided to enter the
@@ -2276,7 +2290,7 @@
 
 (defpost @liblinear-support-added-to-cl-libsvm
     (:title "Liblinear Support Added to cl-libsvm"
-     :tags (@lisp @ai)
+     :tags (@ai @lisp)
      :date "2013-04-09")
   "In addition to the cl-libsvm asdf system, there is
   now another asdf system in the [
@@ -2287,7 +2301,7 @@
 
 (defpost @higgs-boson-machine-learning-challenge-post-mortem
     (:title "Higgs Boson Machine Learning Challenge Post-Mortem"
-     :tags (@lisp @ai)
+     :tags (@ai @lisp)
      :date "2014-09-23")
   "Actually, I'll only link to the
   [post-mortem](http://www.kaggle.com/c/higgs-boson/forums/t/10344/winning-methodology-sharing/53944#post53944)
@@ -2321,7 +2335,7 @@
 
 (defpost @higgs-boson-machine-learning-challenge-bits-and-pieces
     (:title "Higgs Boson Machine Learning Challenge Bits and Pieces"
-     :tags (@lisp @ai)
+     :tags (@ai @lisp)
      :date "2014-09-23")
   "The [Higgs Boson
   contest](http://www.kaggle.com/c/higgs-boson) on
@@ -2451,7 +2465,7 @@
   duplication. As always, `M-.` works as well.")
 
 (defpost @recurrent-nets (:title "Recurrent Nets"
-                          :tags (@lisp @ai)
+                          :tags (@ai @lisp)
                           :date "2015-01-19")
   "I've been cleaning up and documenting
   [MGL](https://github.com/melisgl/mgl) for quite some time now and
@@ -2549,7 +2563,7 @@
 
 (defpost @on-the-design-of-matrix-libraries
     (:title "On the Design of Matrix Libraries"
-     :tags (@lisp @ai)
+     :tags (@ai @lisp)
      :date "2015-02-26")
   "**UPDATE**: *2020-05-03* – Things have been moving fast. This is a
   non-issue in Tensorflow and possibly in other frameworks, as well.
@@ -2700,7 +2714,7 @@
                     :date "2022-02-16")
   """[PAX](http://github.com/melisgl/mgl-pax/) v0.1 is released.
   At this point, I consider it fairly complete. Here is the changelog for the last year or so.
-  ##### New Features
+  #### New Features
 
   - To reduce deployment size, made the MGL-PAX system [autoload navigation, documentation generation, and transcription code](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29).
   - Symbols in the CL package are [linked to the hyperspec](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29) like this: `\\PRINT`, which renders as PRINT.
@@ -2715,18 +2729,18 @@
   - [Downcasing](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-DOWNCASE-UPPERCASE-CODE*%20VARIABLE) now works well and is the default for \\PAX World.
   - [Warn on unresolvable reflinks](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@UNRESOLVABLE-REFLINKS%20MGL-PAX:SECTION).
 
-  ##### Transcribe
+  #### Transcribe
 
   - Transcription consistency checking is now [customizable](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-FINER-GRAINED-CONSISTENCY-CHECKS%20MGL-PAX:SECTION).
   - Transcription consistency checking and dynamic environment [can be controlled for code blocks](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-DYNENV%20MGL-PAX:SECTION).
   - Errors during transcribing are [included](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@TRANSCRIPT-API%20MGL-PAX:SECTION) in the transcript.
 
-  ##### Portability
+  #### Portability
 
   - Tested on ABCL, AllegroCL, CCL, CLISP, CMUCL, ECL, and SBCL.
   - SLIME `M-.` is now as capable on all Lisps as the Swank implementation allows.
 
-  ##### Improvements
+  #### Improvements
 
   - Generalized, cleaned up, and documented handling [trimming of punctuation and plurals](https://melisgl.github.io/mgl-pax-world/pax-manual.html#toc-6-2-parsing).
   - DOCUMENT [works on `STRING`s](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT-OBJECT%20%28METHOD%20NIL%20%28STRING%20T%29%29).
@@ -2740,13 +2754,13 @@
   - Exported api for [extending DOCUMENT](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-DOCUMENT%20MGL-PAX:SECTION) and [FIND-SOURCE](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-FIND-SOURCE%20MGL-PAX:SECTION)
   - [DOCUMENT](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION) can produce reasonably readable output with :FORMAT :PLAIN (the default). It is now suitable for use in the REPL as a kind of replacement for CL:DOCUMENTATION.
 
-  ##### Bugs
+  #### Bugs
 
   - Made Emacs-side parsing for `M-.` navigation more robust.
   - Fixed documentation generation on `TRACE`d functions.
   - Fixed lots of minor bugs.
 
-  ##### Internals
+  #### Internals
 
   - Tests moved to [Try](https://github.com/melisgl/try).
   - Added lost of tests.
@@ -3180,24 +3194,19 @@
 
 #+nil
 (generate-pages
- (list @blog @tech @lisp @ai @personal)
+ (list @blog @tech @ai @lisp @personal)
  (lambda ()
    (pax::blocks-of-links-to-html-string
     `((:title ,(if (on-current-page-p @blog) "» (QUOTE NIL) «" "(QUOTE NIL)")
        :uri , @blog
        :id "home")
       (:title "tags"
-       :links ((, @lisp ,(if (on-current-page-p @lisp) "» lisp «" "lisp"))
-               (, @ai ,(if (on-current-page-p @ai) "» ai «" "ai"))
+       :links ((, @ai ,(if (on-current-page-p @ai) "» ai «" "ai"))
+               (, @lisp ,(if (on-current-page-p @lisp) "» lisp «" "lisp"))
                (, @tech ,(if (on-current-page-p @tech) "» tech «" "tech"))
                (, @personal ,(if (on-current-page-p @personal)
                                  "» personal «"
                                  "personal"))))
-      (:title "rss"
-       :links ((,(namestring (rss-page (object-page @lisp))) "lisp")
-               (,(namestring (rss-page (object-page @ai))) "ai")
-               (,(namestring (rss-page (object-page @tech))) "tech")
-               (,(namestring (rss-page (object-page @personal))) "personal")))
       (:title "me"
        :links (("mailto:mega@retes.hu" "mega@retes.hu")
                ("mega.gpg.asc" "gpg key")
@@ -3205,6 +3214,4 @@
                ("https://mastodon.social/@melisgl" "mastodon.social/@melisgl")
                ("https://twitter.com/GaborMelis" "twitter/GaborMelis")
                ("http://discord.com/users/melisgl#0879" "discord/melisgl#0879")
-               ("https://www.linkedin.com/in/melisgabor/" "linkedin/melisgabor")
-               #+nil ("cv/cv-eng.pdf" "cv (english)")
-               #+nil ("cv/cv-hun.pdf" "cv (hungarian)")))))))
+               ("https://www.linkedin.com/in/melisgabor/" "linkedin/melisgabor")))))))
