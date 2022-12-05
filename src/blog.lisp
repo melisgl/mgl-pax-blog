@@ -53,6 +53,30 @@
                 (list (format nil "... read the rest of [~A][~A]."
                               name :section)))
         entries)))
+
+;;; Same as the method on SECTION, but doesn't print the heading.
+(defmethod document-object ((section category) stream)
+  (let ((same-package (and (boundp '*section*)
+                           (eq *package* (section-package section))))
+        (*package* (if *document-normalize-packages*
+                       (section-package section)
+                       *package*))
+        (*readtable* (if *document-normalize-packages*
+                         (section-readtable section)
+                         *readtable*))
+        (pax::*section* section))
+    (when (and *document-normalize-packages* (not same-package))
+      (format stream "###### \\[in package ~A~A\\]~%" (package-name *package*)
+              (if (package-nicknames *package*)
+                  (format nil " with nicknames ~{~A~^, ~}"
+                          (package-nicknames *package*))
+                  "")))
+    (let ((firstp t))
+      (dolist (entry (section-entries section))
+        (if firstp
+            (setq firstp nil)
+            (terpri stream))
+        (document-object entry stream)))))
 
 
 (defclass post (section)
@@ -90,6 +114,7 @@
   (let* ((*document-max-numbering-level* 0)
          (*document-max-table-of-contents-level* 0)
          (*document-html-max-navigation-table-of-contents-level* -1)
+         (*document-fancy-html-navigation* nil)
          ;; No "in package" output, please.
          (*document-normalize-packages* nil)
          (*package* (find-package :mgl-pax-blog))
@@ -3110,24 +3135,37 @@
   a setting.""")
 
 
+(defun on-current-page-p (object)
+  (let ((reference (canonical-reference object)))
+    (when reference
+      (let ((link (pax::find-link reference)))
+        (when link
+          (eq (pax::link-page link) pax::*page*))))))
+
+
+
 #+nil
 (generate-pages
  (list @blog @tech @lisp @ai @personal)
- `((:title "(quote nil)"
-    :uri , @blog
-    :id "home")
-   (:title "tags"
-    :links ((, @lisp "lisp")
-            (, @ai "ai")
-            (, @tech "tech")
-            (, @personal "personal")))
-   (:title "me"
-    :links (("mailto:mega@retes.hu" "mega@retes.hu")
-            ("mega.gpg.asc" "gpg key")
-            ("http://github.com/melisgl/" "github/melisgl")
-            ("https://mastodon.social/@melisgl" "mastodon.social/@melisgl")
-            ("https://twitter.com/GaborMelis" "twitter/GaborMelis")
-            ("http://discord.com/users/melisgl#0879" "discord/melisgl#0879")
-            ("https://www.linkedin.com/in/melisgabor/" "linkedin/melisgabor")
-            #+nil ("cv/cv-eng.pdf" "cv (english)")
-            #+nil ("cv/cv-hun.pdf" "cv (hungarian)")))))
+ (lambda ()
+   (pax::blocks-of-links-to-html-string
+    `((:title ,(if (on-current-page-p @blog) "» (QUOTE NIL) «" "(QUOTE NIL)")
+       :uri , @blog
+       :id "home")
+      (:title "tags"
+       :links ((, @lisp ,(if (on-current-page-p @lisp) "» lisp «" "lisp"))
+               (, @ai ,(if (on-current-page-p @ai) "» ai «" "ai"))
+               (, @tech ,(if (on-current-page-p @tech) "» tech «" "tech"))
+               (, @personal ,(if (on-current-page-p @personal)
+                                 "» personal «"
+                                 "personal"))))
+      (:title "me"
+       :links (("mailto:mega@retes.hu" "mega@retes.hu")
+               ("mega.gpg.asc" "gpg key")
+               ("http://github.com/melisgl/" "github/melisgl")
+               ("https://mastodon.social/@melisgl" "mastodon.social/@melisgl")
+               ("https://twitter.com/GaborMelis" "twitter/GaborMelis")
+               ("http://discord.com/users/melisgl#0879" "discord/melisgl#0879")
+               ("https://www.linkedin.com/in/melisgabor/" "linkedin/melisgabor")
+               #+nil ("cv/cv-eng.pdf" "cv (english)")
+               #+nil ("cv/cv-hun.pdf" "cv (hungarian)")))))))
