@@ -104,7 +104,26 @@
    :date date))
 
 
-(defun generate-pages (categories top-blocks-of-links)
+(defsection @about-me (:title "About me")
+  "- <a href='mailto:mega@retes.hu'>mega@retes.hu</a>
+
+  - <a href='mega.gpg.asc'>gpg key</a>
+
+  - <a href='http://github.com/melisgl/'>github/melisgl</a>
+
+  - <a href='https://mastodon.social/@melisgl'>mastodon.social/@melisgl</a>
+
+  - <a href='https://twitter.com/GaborMelis'>twitter/GaborMelis</a>
+
+  - <a href='http://discord.com/users/melisgl#0879'>discord/melisgl#0879</a>
+
+  - <a href='https://www.linkedin.com/in/melisgabor/'>linkedin/melisgabor</a>
+
+  - <a href='https://www.kaggle.com/melisgl'>kaggle/melisgl</a>
+
+  ![](blog-files/dice.png)")
+
+(defun generate-pages (categories html-sidebar)
   (mapc #'prepare-category categories)
   (let* ((*document-max-numbering-level* 0)
          (*document-max-table-of-contents-level* 0)
@@ -120,15 +139,16 @@
 <style> @import url('https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400;1,7..72,700&display=swap'); </style>
 "
                      (quotenil-rss-feed-for-current-page))))
-         (*document-html-top-blocks-of-links* top-blocks-of-links)
+         (*document-html-sidebar* html-sidebar)
          ;; The shortened posts are reachable normally from CATEGORY's
          ;; SECTION-ENTRIES.
-         (posts (delete-duplicates (mapcan #'category-posts categories))))
+         (posts (delete-duplicates (mapcan #'category-posts categories)))
+         (objects (append categories posts (list @about-me))))
     (update-asdf-system-html-docs
-     (append categories posts) :mgl-pax-blog
+     objects :mgl-pax-blog
      ;; Every overview and post is on its own page.
      :pages (mapcar (lambda (section) `(:objects (,section)))
-                    (append categories posts))
+                    objects)
      :update-css-p nil)
     (mapc #'emit-rss-for-category categories)))
 
@@ -3195,23 +3215,34 @@
 #+nil
 (generate-pages
  (list @blog @tech @ai @lisp @personal)
- (lambda ()
-   (pax::blocks-of-links-to-html-string
-    `((:title ,(if (on-current-page-p @blog) "» (QUOTE NIL) «" "(QUOTE NIL)")
-       :uri , @blog
-       :id "home")
-      (:title "tags"
-       :links ((, @ai ,(if (on-current-page-p @ai) "» ai «" "ai"))
-               (, @lisp ,(if (on-current-page-p @lisp) "» lisp «" "lisp"))
-               (, @tech ,(if (on-current-page-p @tech) "» tech «" "tech"))
-               (, @personal ,(if (on-current-page-p @personal)
-                                 "» personal «"
-                                 "personal"))))
-      (:title "me"
-       :links (("mailto:mega@retes.hu" "mega@retes.hu")
-               ("mega.gpg.asc" "gpg key")
-               ("http://github.com/melisgl/" "github/melisgl")
-               ("https://mastodon.social/@melisgl" "mastodon.social/@melisgl")
-               ("https://twitter.com/GaborMelis" "twitter/GaborMelis")
-               ("http://discord.com/users/melisgl#0879" "discord/melisgl#0879")
-               ("https://www.linkedin.com/in/melisgabor/" "linkedin/melisgabor")))))))
+ (lambda (stream)
+   (let ((spinneret:*html* stream)
+         (spinneret:*suppress-inserted-spaces* t))
+     (spinneret:with-html
+       (:div :id "toc"
+             (:div :id "home"
+                   (:a :href (pax::object-to-uri @blog)
+                       (if (on-current-page-p @blog)
+                           "» (QUOTE NIL) «"
+                           "(QUOTE NIL)")))
+             (:div :id "links"
+                   "Ramblings on "
+                   (:a :href (pax::object-to-uri @ai)
+                       (if (on-current-page-p @ai) "» ai «" "ai"))
+                   ", "
+                   (:a :href (pax::object-to-uri @lisp)
+                       (if (on-current-page-p @lisp) "» lisp «" "lisp"))
+                   ", "
+                   (:a :href (pax::object-to-uri @tech)
+                       (if (on-current-page-p @tech) "» tech «" "tech"))
+                   ", "
+                   (:a :href (pax::object-to-uri @personal)
+                       (if (on-current-page-p @personal)
+                           "» personal «"
+                           "personal"))
+                   " topics by "
+                   (:a :href (pax::object-to-uri @about-me)
+                       (if (on-current-page-p @about-me)
+                           "» me «"
+                           "me"))
+                   "."))))))
