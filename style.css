@@ -284,3 +284,7 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
+
+img[alt$="TTA (orange) vs SWA (green)"] {
+  width: 70%;
+}
