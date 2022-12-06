@@ -20,20 +20,19 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'EB Garamond', serif;
   font-weight: bold;
-  font-style: italic;
-  text-shadow: 0.05em 0.05em 0.02em #DDDDDD;
+  text-shadow: 0.06em 0.06em 0.02em #DDD;
   margin-bottom: 0.4em;
 }
 
 h1 {
   margin-top: 1.5em;
-  border-bottom: 0.05em solid #CCCCCC;
+  border-bottom: 0.05em solid #CCC;
   font-size: 170%;
   text-align: center;
 }
 
 h1:first-of-type {
-  margin-top: 0.5em;
+  margin-top: 1em;
 }
 
 h2 {
@@ -220,9 +219,9 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 /* toc on the top */
 #content
 {
-  max-width: 40em;
+  max-width: 80ch;
   margin: 0 auto;
-  padding-left: 2em;
+  padding-left: 1em;
   padding-right: 1em;
 }
 
