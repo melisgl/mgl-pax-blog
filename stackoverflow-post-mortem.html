@@ -48,13 +48,16 @@ competition, last September I decided to enter the
 contest on <a href="http://kaggle.com" >Kaggle</a>. It was a straightforward
 text classification problem with extremely unbalanced classes.</p>
 
-<p>Just as Bocsimackó did the last time around, his lazier sidekick
-<img src="blog-files/malacka-es-bocsimacko.jpg" alt="Malacka" /> (on the right) brought
+<p>Just as Bocsimackó did the last time around, his lazier sidekick</p>
+
+<p><img src="blog-files/malacka-es-bocsimacko.jpg" alt="Malacka" /></p>
+
+<p>(on the right) brought
 <a href="http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow/leaderboard" >success</a>.
 I would have loved to be lazy and still win, but the leaderboard was
 too close for comfort.</p>
 
-<h3>Overview</h3>
+<h2>Overview</h2>
 
 <p>The winning model is an average of 10 neural network ensembles of
 five constituent models, three of which are Deep Belief Networks,
@@ -78,7 +81,7 @@ of things:</p>
   the most recent months of the full training set.</p></li>
 </ul>
 
-<h3>Features Selection / Extraction</h3>
+<h2>Features Selection / Extraction</h2>
 
 <p>Didn't spend too much time on handcrafting the features, just played
 around with adding features one-by-one, keeping an eye on how the loss
@@ -89,11 +92,11 @@ changes. These are all binary features. For example (:post-hour 8) is
 are sorted by log likelihood ratio. There were a number of other
 feature selection methods tried, see below.</p>
 
-<h3>Modeling Techniques and Training</h3>
+<h2>Modeling Techniques and Training</h2>
 
 <p>First let's look one by one at the models that went into the ensemble.</p>
 
-<h4>Deep Belief Networks</h4>
+<h3>Deep Belief Networks</h3>
 
 <p>A DBN is made of boltzmann machines stacked on top of each other,
 trained in a layerwise manner. After training (called 'pretraining')
@@ -138,7 +141,7 @@ conjugate gradient).</p>
 
 <p>These guys take several hours to days to train.</p>
 
-<h4>Logistic Regression</h4>
+<h3>Logistic Regression</h3>
 
 <p>Not much to say here. I used liblinear with the top 250000 features,
 with these parameters:</p>
@@ -154,13 +157,13 @@ development vs ~0.79 for the second DBN. Still, even though they
 used the same kind of features, they were different enough to
 slightly improve in the ensemble.</p>
 
-<h4>Vowpal Wabbit</h4>
+<h3>Vowpal Wabbit</h3>
 
 <p>I'm not sure adding this helped at all in the end, the results
 weren't entirely convincing. I just took Foxtrot's code. VW is run
 with <code>--loss_function logistic --oaa 5</code>.</p>
 
-<h4>The ensemble</h4>
+<h3>The ensemble</h3>
 
 <p>The ensemble is a backpropagation neural network with one hidden
 layer of 800 stochastic sigmoid neurons (at least that was the
@@ -190,15 +193,15 @@ Unfortunately, I managed to make the final submission with a broken
 version where the weights of stochastic binary neurons were not
 trained at all, effectively resulting in 800 random features (!).</p>
 
-<h4>Bagging</h4>
+<h3>Bagging</h3>
 
 <p>As good as stochastic binary neurons were before I broke the code,
 it still helped a tiny bit (as in a couple of 0.0001s) to average 10
 ensembles.</p>
 
-<h3>Additional Comments and Observations</h3>
+<h2>Additional Comments and Observations</h2>
 
-<h4>Time</h4>
+<h3>Time</h3>
 
 <p>It was clear from the beginning that time plays an important role,
 and if scores are close then predicting the class distribution of
@@ -214,7 +217,7 @@ the scale of months. I checked whether stackoverflow were changing
 the mechanics, but didn't find anything. I certainly didn't foresee
 the drastic class distribution change that was to come.</p>
 
-<h4>Features</h4>
+<h3>Features</h3>
 
 <p>I tried a couple of feature extraction methods. The
 Key-Substring-Group extractor looked very promising, but it simply
@@ -225,24 +228,24 @@ playing with liblinear that could handle all features at the same
 time. Take it with a grain of salt, of course, because there is
 noise/signal issue lurking.</p>
 
-<h4>Naive Bayes, random forests, gradient boosting</h4>
+<h3>Naive Bayes, random forests, gradient boosting</h3>
 
 <p>I experimented with the above in scikit-learn. The results were
 terrible, but worse, they didn't contribute to the ensemble either.
 Maybe it was only me.</p>
 
-<h4>Libsvm</h4>
+<h3>Libsvm</h3>
 
 <p>I couldn't get it to scale to several tens of thousands posts so I
 had to go with liblinear.</p>
 
-<h4>Dropout</h4>
+<h3>Dropout</h3>
 
 <p>Fine tuning DBNs with dropout or stochastic binary neurons (without
 the bugs) didn't work. The best I could achive was slightly worse
 than the conjugate gradient based score.</p>
 
-<h4>Retraining consituent models</h4>
+<h3>Retraining consituent models</h3>
 
 <p>Recall that the consituent models were trained only on 4/5 of the
 available data. After the ensemble was trainined, I intended to

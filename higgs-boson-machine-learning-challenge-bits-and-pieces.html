@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
 <head>
-<title>Higgs Boson Machine Learning Challenge Bits and Pieces</title>
+<title>Higgs Boson Challenge Bits and Pieces</title>
 <link type='text/css' href='style.css' rel='stylesheet'>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width">
@@ -38,7 +38,7 @@
 <p><a id="x-28MGL-PAX-BLOG-3A-40HIGGS-BOSON-MACHINE-LEARNING-CHALLENGE-BITS-AND-PIECES-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@HIGGS-BOSON-MACHINE-LEARNING-CHALLENGE-BITS-AND-PIECES%20MGL-PAX:SECTION"></a></p>
 
-<h1><a href="higgs-boson-machine-learning-challenge-bits-and-pieces.html">Higgs Boson Machine Learning Challenge Bits and Pieces</a></h1>
+<h1><a href="higgs-boson-machine-learning-challenge-bits-and-pieces.html">Higgs Boson Challenge Bits and Pieces</a></h1>
 
 <p><em>Tags</em>: <a href="ai.html" title="`ai`"><code>ai</code></a>, <a href="lisp.html" title="`lisp`"><code>lisp</code></a>, <em>Date</em>: <code>2014-09-23</code></p>
 
@@ -61,11 +61,11 @@ it didn't work as well as I had hoped for reasons specific to this
 contest and also because evolutionary algorithms just do not scale
 to larger problem sizes.</p>
 
-<p>In other news, <a href="http://quotenil.com/git/?p=mgl.git;a=summary" >MGL</a>
-got (http://en.wikipedia.org/wiki/Cross-validation_<a href="statistics" >cross-validation</a>),
+<p>In other news, <a href="http://github.com/melisgl/mgl" >MGL</a> got
+<a href="http://en.wikipedia.org/wiki/Cross-validation_(statistics)" >cross-validation</a>,
 <a href="http://en.wikipedia.org/wiki/Bootstrap_aggregating" >bagging</a> and
 stratification support in the brand new
-<a href="http://quotenil.com/git/?p=mgl.git;a=blob;f=src/resample.lisp;h=cb83c5962eb29e57b3d3f8f0e407b0e30bc9732d;hb=91c5ddaae870d4a8acaa67f54d0876eead2cd6a9" >MGL-RESAMPLE</a>
+<a href="https://github.com/melisgl/mgl/blob/4b1800a6dcbdf290a66b5f952fe3bd81641b0b5c/src/resample.lisp" >MGL-RESAMPLE</a>
 package documented with
 <a href="https://github.com/melisgl/mgl-pax" >MGL-PAX</a> which all of you will
 most definitely want to use. My winning submission used bagged
@@ -85,12 +85,12 @@ included in quicklisp allowing my stuff there to be updated to their
 latest versions.</p>
 
 <p>The code for this contest is available at
-(https://github.com/melisgl/higgsml)which from now on doubles as my
-skeleton for lisp projects that need to be delivered as source and
-as binary. It sucks in all dependencies from quicklisp available at
-a certain date, clones the necessary repositories not available in
-quicklisp, builds an executable, and has a simple 'make dist' rule
-as well.</p>
+<a href="https://github.com/melisgl/higgsml" >https://github.com/melisgl/higgsml</a>,
+which from now on doubles as my skeleton for lisp projects that need
+to be delivered as source and as binary. It sucks in all
+dependencies from quicklisp available at a certain date, clones the
+necessary repositories not available in quicklisp, builds an
+executable, and has a simple 'make dist' rule as well.</p>
 
 <p>There is also a fairly generic ensembling algorithm that I will
 factor out of the code later.</p>

@@ -99,7 +99,7 @@ nets in the documentation.&lt;/p&gt;
             <pubDate>Mon, 19 Jan 2015 00:00:00 +0000</pubDate>
         </item>
         <item>
-            <title>Higgs Boson Machine Learning Challenge Bits and Pieces</title>
+            <title>Higgs Boson Challenge Bits and Pieces</title>
             <link>http://quotenil.com/higgs-boson-machine-learning-challenge-bits-and-pieces.html</link>
             <description>&lt;p&gt;The &lt;a href=&quot;http://www.kaggle.com/c/higgs-boson&quot; &gt;Higgs Boson
 contest&lt;/a&gt; on
@@ -119,11 +119,11 @@ it didn&apos;t work as well as I had hoped for reasons specific to this
 contest and also because evolutionary algorithms just do not scale
 to larger problem sizes.&lt;/p&gt;
 
-&lt;p&gt;In other news, &lt;a href=&quot;http://quotenil.com/git/?p=mgl.git;a=summary&quot; &gt;MGL&lt;/a&gt;
-got (http://en.wikipedia.org/wiki/Cross-validation_&lt;a href=&quot;statistics&quot; &gt;cross-validation&lt;/a&gt;),
+&lt;p&gt;In other news, &lt;a href=&quot;http://github.com/melisgl/mgl&quot; &gt;MGL&lt;/a&gt; got
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Cross-validation_(statistics)&quot; &gt;cross-validation&lt;/a&gt;,
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Bootstrap_aggregating&quot; &gt;bagging&lt;/a&gt; and
 stratification support in the brand new
-&lt;a href=&quot;http://quotenil.com/git/?p=mgl.git;a=blob;f=src/resample.lisp;h=cb83c5962eb29e57b3d3f8f0e407b0e30bc9732d;hb=91c5ddaae870d4a8acaa67f54d0876eead2cd6a9&quot; &gt;MGL-RESAMPLE&lt;/a&gt;
+&lt;a href=&quot;https://github.com/melisgl/mgl/blob/4b1800a6dcbdf290a66b5f952fe3bd81641b0b5c/src/resample.lisp&quot; &gt;MGL-RESAMPLE&lt;/a&gt;
 package documented with
 &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; &gt;MGL-PAX&lt;/a&gt; which all of you will
 most definitely want to use. My winning submission used bagged
@@ -143,12 +143,12 @@ included in quicklisp allowing my stuff there to be updated to their
 latest versions.&lt;/p&gt;
 
 &lt;p&gt;The code for this contest is available at
-(https://github.com/melisgl/higgsml)which from now on doubles as my
-skeleton for lisp projects that need to be delivered as source and
-as binary. It sucks in all dependencies from quicklisp available at
-a certain date, clones the necessary repositories not available in
-quicklisp, builds an executable, and has a simple &apos;make dist&apos; rule
-as well.&lt;/p&gt;
+&lt;a href=&quot;https://github.com/melisgl/higgsml&quot; &gt;https://github.com/melisgl/higgsml&lt;/a&gt;,
+which from now on doubles as my skeleton for lisp projects that need
+to be delivered as source and as binary. It sucks in all
+dependencies from quicklisp available at a certain date, clones the
+necessary repositories not available in quicklisp, builds an
+executable, and has a simple &apos;make dist&apos; rule as well.&lt;/p&gt;
 
 &lt;p&gt;There is also a fairly generic ensembling algorithm that I will
 factor out of the code later.&lt;/p&gt;
@@ -157,7 +157,7 @@ factor out of the code later.&lt;/p&gt;
             <pubDate>Tue, 23 Sep 2014 01:00:00 +0100</pubDate>
         </item>
         <item>
-            <title>Higgs Boson Machine Learning Challenge Post-Mortem</title>
+            <title>Higgs Boson Challenge Post-Mortem</title>
             <link>http://quotenil.com/higgs-boson-machine-learning-challenge-post-mortem.html</link>
             <description>&lt;p&gt;Actually, I&apos;ll only link to the
 &lt;a href=&quot;http://www.kaggle.com/c/higgs-boson/forums/t/10344/winning-methodology-sharing/53944#post53944&quot; &gt;post-mortem&lt;/a&gt;
@@ -194,9 +194,8 @@ slower than on a Titan.&lt;/p&gt;
         <item>
             <title>Liblinear Support Added to cl-libsvm</title>
             <link>http://quotenil.com/liblinear-support-added-to-cl-libsvm.html</link>
-            <description>&lt;p&gt;In addition to the cl-libsvm asdf system, there is
-now another asdf system in the &lt;a href=&quot;http://quotenil.com/git/?p=cl-libsvm.git;a=summary&quot; &gt;
-cl-libsvm&lt;/a&gt;
+            <description>&lt;p&gt;In addition to the cl-libsvm asdf system, there is now another asdf
+system in the &lt;a href=&quot;http://github.com/melisgl/cl-libsvm&quot; &gt; cl-libsvm&lt;/a&gt;
 library: cl-liblinear that, predictably enough, is a wrapper for
 &lt;a href=&quot;http://www.csie.ntu.edu.tw/~cjlin/liblinear/&quot; &gt;liblinear&lt;/a&gt;. The API
 is similar to that of cl-libsvm.&lt;/p&gt;
@@ -213,13 +212,16 @@ competition, last September I decided to enter the
 contest on &lt;a href=&quot;http://kaggle.com&quot; &gt;Kaggle&lt;/a&gt;. It was a straightforward
 text classification problem with extremely unbalanced classes.&lt;/p&gt;
 
-&lt;p&gt;Just as Bocsimack&#xF3; did the last time around, his lazier sidekick
-&lt;img src=&quot;blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;Malacka&quot; /&gt; (on the right) brought
+&lt;p&gt;Just as Bocsimack&#xF3; did the last time around, his lazier sidekick&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;Malacka&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;(on the right) brought
 &lt;a href=&quot;http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow/leaderboard&quot; &gt;success&lt;/a&gt;.
 I would have loved to be lazy and still win, but the leaderboard was
 too close for comfort.&lt;/p&gt;
 
-&lt;h3&gt;Overview&lt;/h3&gt;
+&lt;h2&gt;Overview&lt;/h2&gt;
 
 &lt;p&gt;The winning model is an average of 10 neural network ensembles of
 five constituent models, three of which are Deep Belief Networks,
@@ -243,7 +245,7 @@ of things:&lt;/p&gt;
   the most recent months of the full training set.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;Features Selection / Extraction&lt;/h3&gt;
+&lt;h2&gt;Features Selection / Extraction&lt;/h2&gt;
 
 &lt;p&gt;Didn&apos;t spend too much time on handcrafting the features, just played
 around with adding features one-by-one, keeping an eye on how the loss
@@ -254,11 +256,11 @@ changes. These are all binary features. For example (:post-hour 8) is
 are sorted by log likelihood ratio. There were a number of other
 feature selection methods tried, see below.&lt;/p&gt;
 
-&lt;h3&gt;Modeling Techniques and Training&lt;/h3&gt;
+&lt;h2&gt;Modeling Techniques and Training&lt;/h2&gt;
 
 &lt;p&gt;First let&apos;s look one by one at the models that went into the ensemble.&lt;/p&gt;
 
-&lt;h4&gt;Deep Belief Networks&lt;/h4&gt;
+&lt;h3&gt;Deep Belief Networks&lt;/h3&gt;
 
 &lt;p&gt;A DBN is made of boltzmann machines stacked on top of each other,
 trained in a layerwise manner. After training (called &apos;pretraining&apos;)
@@ -303,7 +305,7 @@ conjugate gradient).&lt;/p&gt;
 
 &lt;p&gt;These guys take several hours to days to train.&lt;/p&gt;
 
-&lt;h4&gt;Logistic Regression&lt;/h4&gt;
+&lt;h3&gt;Logistic Regression&lt;/h3&gt;
 
 &lt;p&gt;Not much to say here. I used liblinear with the top 250000 features,
 with these parameters:&lt;/p&gt;
@@ -319,13 +321,13 @@ development vs ~0.79 for the second DBN. Still, even though they
 used the same kind of features, they were different enough to
 slightly improve in the ensemble.&lt;/p&gt;
 
-&lt;h4&gt;Vowpal Wabbit&lt;/h4&gt;
+&lt;h3&gt;Vowpal Wabbit&lt;/h3&gt;
 
 &lt;p&gt;I&apos;m not sure adding this helped at all in the end, the results
 weren&apos;t entirely convincing. I just took Foxtrot&apos;s code. VW is run
 with &lt;code&gt;--loss_function logistic --oaa 5&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h4&gt;The ensemble&lt;/h4&gt;
+&lt;h3&gt;The ensemble&lt;/h3&gt;
 
 &lt;p&gt;The ensemble is a backpropagation neural network with one hidden
 layer of 800 stochastic sigmoid neurons (at least that was the
@@ -355,15 +357,15 @@ Unfortunately, I managed to make the final submission with a broken
 version where the weights of stochastic binary neurons were not
 trained at all, effectively resulting in 800 random features (!).&lt;/p&gt;
 
-&lt;h4&gt;Bagging&lt;/h4&gt;
+&lt;h3&gt;Bagging&lt;/h3&gt;
 
 &lt;p&gt;As good as stochastic binary neurons were before I broke the code,
 it still helped a tiny bit (as in a couple of 0.0001s) to average 10
 ensembles.&lt;/p&gt;
 
-&lt;h3&gt;Additional Comments and Observations&lt;/h3&gt;
+&lt;h2&gt;Additional Comments and Observations&lt;/h2&gt;
 
-&lt;h4&gt;Time&lt;/h4&gt;
+&lt;h3&gt;Time&lt;/h3&gt;
 
 &lt;p&gt;It was clear from the beginning that time plays an important role,
 and if scores are close then predicting the class distribution of
@@ -379,7 +381,7 @@ the scale of months. I checked whether stackoverflow were changing
 the mechanics, but didn&apos;t find anything. I certainly didn&apos;t foresee
 the drastic class distribution change that was to come.&lt;/p&gt;
 
-&lt;h4&gt;Features&lt;/h4&gt;
+&lt;h3&gt;Features&lt;/h3&gt;
 
 &lt;p&gt;I tried a couple of feature extraction methods. The
 Key-Substring-Group extractor looked very promising, but it simply
@@ -390,24 +392,24 @@ playing with liblinear that could handle all features at the same
 time. Take it with a grain of salt, of course, because there is
 noise/signal issue lurking.&lt;/p&gt;
 
-&lt;h4&gt;Naive Bayes, random forests, gradient boosting&lt;/h4&gt;
+&lt;h3&gt;Naive Bayes, random forests, gradient boosting&lt;/h3&gt;
 
 &lt;p&gt;I experimented with the above in scikit-learn. The results were
 terrible, but worse, they didn&apos;t contribute to the ensemble either.
 Maybe it was only me.&lt;/p&gt;
 
-&lt;h4&gt;Libsvm&lt;/h4&gt;
+&lt;h3&gt;Libsvm&lt;/h3&gt;
 
 &lt;p&gt;I couldn&apos;t get it to scale to several tens of thousands posts so I
 had to go with liblinear.&lt;/p&gt;
 
-&lt;h4&gt;Dropout&lt;/h4&gt;
+&lt;h3&gt;Dropout&lt;/h3&gt;
 
 &lt;p&gt;Fine tuning DBNs with dropout or stochastic binary neurons (without
 the bugs) didn&apos;t work. The best I could achive was slightly worse
 than the conjugate gradient based score.&lt;/p&gt;
 
-&lt;h4&gt;Retraining consituent models&lt;/h4&gt;
+&lt;h3&gt;Retraining consituent models&lt;/h3&gt;
 
 &lt;p&gt;Recall that the consituent models were trained only on 4/5 of the
 available data. After the ensemble was trainined, I intended to
@@ -424,11 +426,11 @@ experiment.&lt;/p&gt;
             <link>http://quotenil.com/alpha-beta.html</link>
             <description>&lt;p&gt;It hasn&apos;t been a year yet since I first promised
 that alpha-beta snippet and it is already added to micmac in all its
-&lt;a href=&quot;http://quotenil.com/git/?p=micmac.git;a=blob;f=src/game-theory.lisp;h=9e38d1f09a1f443bc14e115f9abc68dd5f64f6f3;hb=e2de0e888ce103b026d725297f52f5710273a5c3#l71&quot; &gt;35 line
+&lt;a href=&quot;https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/src/graph-search.lisp#L9&quot; &gt;35 line
 glory&lt;/a&gt;.
 The good thing about not rushing it out the door is that it saw more
 a bit more use. For a tutorialish tic-tac-toe example see
-&lt;a href=&quot;http://quotenil.com/git/?p=micmac.git;a=blob;f=test/test-game-theory.lisp;h=f6c77e7a3104993c5bc1e01b75a4c94a1d6489e9;hb=e2de0e888ce103b026d725297f52f5710273a5c3#l18&quot; &gt;test/test-game-theory.lisp.&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp&quot; &gt;test/test-game-theory.lisp.&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The logging code in the example produces
 &lt;a href=&quot;blog-files/alpha-beta-log.png&quot; title=&quot;output&quot;&gt;output&lt;/a&gt;, which is suitable for
@@ -493,8 +495,7 @@ and some last minute casualties.&lt;/p&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 
 &lt;p&gt;Note that the git repository is available at
-&lt;a href=&quot;http://quotenil.com/git/planet-wars.git&quot; &gt;http://quotenil.com/git/planet-wars.git&lt;/a&gt; 
-(&lt;a href=&quot;http://quotenil.com/git/?p=planet-wars.git&quot; &gt;gitweb&lt;/a&gt;).&lt;/p&gt;
+[https://github.com/melisgl/planet-wars(https://github.com/melisgl/planet-wars).&lt;/p&gt;
 
 &lt;h3&gt;Denial&lt;/h3&gt;
 
@@ -819,7 +820,7 @@ failed.&lt;/p&gt;
         <item>
             <title>Planet Wars Common Lisp Starter Package</title>
             <link>http://quotenil.com/planet-wars-common-lisp-starter-package.html</link>
-            <description>&lt;p&gt;The &lt;a href=&quot;https://web.archive.org/web/20100926070007/http://ai-contest.com/&quot; &gt;Google AI Challange&lt;/a&gt; is
+            <description>&lt;p&gt;The &lt;a href=&quot;https://web.archive.org/web/20100926070007/http://ai-contest.com/&quot; &gt;Google AI Challenge&lt;/a&gt; is
 back with a new game that&apos;s supposed to be much harder than Tron was
 this spring. The branching factor of the game tree is enormous which
 only means that straight minimax is out of question this time
@@ -874,7 +875,7 @@ for an example. Now I only owe you Alpha-beta.&lt;/p&gt;
             <pubDate>Fri, 19 Mar 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
-            <title>Google AI Challange 2010 Results</title>
+            <title>Google AI Challenge 2010 Results</title>
             <link>http://quotenil.com/google-ai-challenge-2010-results.html</link>
             <description>&lt;p&gt;For what has been a fun ride, the official results are now &lt;a href=&quot;https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php&quot; &gt;available&lt;/a&gt;.
 In the end, 11th out of 700 is not too bad and it&apos;s the highest
@@ -1492,7 +1493,7 @@ rule.&lt;/p&gt;
             <link>http://quotenil.com/active-learning-for-cl-libsvm.html</link>
             <description>&lt;p&gt;Along the lines of &lt;a href=&quot;http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html&quot; &gt;active learning with python &amp;amp;
 libsvm&lt;/a&gt;,
-I &lt;a href=&quot;http://quotenil.com/git/?p=cl-libsvm.git;a=summary&quot; &gt;added&lt;/a&gt;
+I &lt;a href=&quot;http://github.com/melisgl/cl-libsvm&quot; &gt;added&lt;/a&gt;
 support for calculating distance of a point from the separating
 hyperplane to &lt;a href=&quot;http://cliki.net/cl-libsvm&quot; &gt;cl-libsvm&lt;/a&gt;. In binary
 classification there is only one SVM involved and one hyperplane.
