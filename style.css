@@ -263,7 +263,7 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 
 #toc a {
   color: #fff;
-  border-bottom: none;
+  text-decoration: none;
 }
 
 #home {
@@ -285,6 +285,9 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   padding-bottom: 0.5em;
 }
 
+img[alt$="about-me-dice"] {
+  width: 30%;
+}
 img[alt$="TTA (orange) vs SWA (green)"] {
   width: 70%;
 }

@@ -42,30 +42,33 @@
 
 <p><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <em>Date</em>: <code>2022-12-06</code></p>
 
-<p>This is a complement to the Two-Tailed Averaging
-<a href="https://arxiv.org/abs/2209.12581" >paper</a>.</p>
+<p>This is a complement to the <a href="https://arxiv.org/abs/2209.12581" >Two-Tailed Averaging
+paper</a>, approached from the
+direction of what I think is a fairly common technique: averaging
+checkpoints.</p>
 
 <p>We want to speed up training and improve generalization. One way to
 do that is by averaging weights from optimization, and that's big
 win (e.g. <a href="https://arxiv.org/abs/1708.02182" >1</a>, <a href="https://arxiv.org/abs/1803.05407" >2</a>, <a href="https://arxiv.org/abs/2209.14981" >3</a>). For example, while
 training a language model for the down-stream task of summarization,
-we can save checkpoints periodically, and average the model weights
-from the last 10 checkpoints to produce the final solution. This is
-pretty much what <a href="https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/" >Stochastic Weight Averaging</a> (SWA).</p>
+we can save checkpoints periodically and average the model weights
+from the last 10 or so checkpoints to produce the final solution.
+This is pretty much what <a href="https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/" >Stochastic Weight
+Averaging</a> (SWA).</p>
 
 <h3>Problems with SWA</h3>
 
 <p>There is a number of problems with SWA:</p>
 
 <ul>
-<li><p>10, the &quot;averaging length&quot;, must be chosen to maximize performance
+<li><p>10, the averaging length, must be chosen to maximize performance
   on summarization.</p></li>
 <li><p>A naive way to find the averaging length is to do a single
-  training run and then search backwards over all checkpoints, which
-  needs lots of storage and computation. Another option, doing
-  multiple training runs each told to start averaging at a
-  predefined point pays a steep price in computation for lower
-  storage costs.</p></li>
+  training run and then search backwards extending the average one
+  checkpoint at a time, which needs lots of storage and computation.
+  Another option, doing multiple training runs each told to start
+  averaging at a predefined point pays a steep price in computation
+  for lower storage costs.</p></li>
 <li><p>To control the costs, we can lower checkpointing fequency, but
   does that make results worse? We can test that with multiple
   training runs, and pay the cost there.</p></li>

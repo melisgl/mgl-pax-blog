@@ -9,30 +9,33 @@
         <item>
             <title>Practioner&apos;s Guide to Two-Tailed Averaging</title>
             <link>http://quotenil.com/tta-practioner.html</link>
-            <description>&lt;p&gt;This is a complement to the Two-Tailed Averaging
-&lt;a href=&quot;https://arxiv.org/abs/2209.12581&quot; &gt;paper&lt;/a&gt;.&lt;/p&gt;
+            <description>&lt;p&gt;This is a complement to the &lt;a href=&quot;https://arxiv.org/abs/2209.12581&quot; &gt;Two-Tailed Averaging
+paper&lt;/a&gt;, approached from the
+direction of what I think is a fairly common technique: averaging
+checkpoints.&lt;/p&gt;
 
 &lt;p&gt;We want to speed up training and improve generalization. One way to
 do that is by averaging weights from optimization, and that&apos;s big
 win (e.g. &lt;a href=&quot;https://arxiv.org/abs/1708.02182&quot; &gt;1&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/abs/1803.05407&quot; &gt;2&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/abs/2209.14981&quot; &gt;3&lt;/a&gt;). For example, while
 training a language model for the down-stream task of summarization,
-we can save checkpoints periodically, and average the model weights
-from the last 10 checkpoints to produce the final solution. This is
-pretty much what &lt;a href=&quot;https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/&quot; &gt;Stochastic Weight Averaging&lt;/a&gt; (SWA).&lt;/p&gt;
+we can save checkpoints periodically and average the model weights
+from the last 10 or so checkpoints to produce the final solution.
+This is pretty much what &lt;a href=&quot;https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/&quot; &gt;Stochastic Weight
+Averaging&lt;/a&gt; (SWA).&lt;/p&gt;
 
 &lt;h3&gt;Problems with SWA&lt;/h3&gt;
 
 &lt;p&gt;There is a number of problems with SWA:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;10, the &amp;quot;averaging length&amp;quot;, must be chosen to maximize performance
+&lt;li&gt;&lt;p&gt;10, the averaging length, must be chosen to maximize performance
   on summarization.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;A naive way to find the averaging length is to do a single
-  training run and then search backwards over all checkpoints, which
-  needs lots of storage and computation. Another option, doing
-  multiple training runs each told to start averaging at a
-  predefined point pays a steep price in computation for lower
-  storage costs.&lt;/p&gt;&lt;/li&gt;
+  training run and then search backwards extending the average one
+  checkpoint at a time, which needs lots of storage and computation.
+  Another option, doing multiple training runs each told to start
+  averaging at a predefined point pays a steep price in computation
+  for lower storage costs.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;To control the costs, we can lower checkpointing fequency, but
   does that make results worse? We can test that with multiple
   training runs, and pay the cost there.&lt;/p&gt;&lt;/li&gt;
