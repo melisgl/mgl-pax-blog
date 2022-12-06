@@ -135,8 +135,10 @@
          (*document-html-head*
            (lambda ()
              (format nil "~A~A"
-                     "<link href=\"https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400;1,7..72,700&display=swap\" rel=\"stylesheet\">
-<style> @import url('https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400;1,7..72,700&display=swap'); </style>
+                     "<link href='https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,700;1,500;1,700&display=swap' rel='stylesheet'>
+<style> @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,700;1,500;1,700&display=swap'); </style>
+<link href='https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet'>
+<style> @import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap'); </style>
 "
                      (quotenil-rss-feed-for-current-page))))
          (*document-html-sidebar* html-sidebar)
@@ -239,8 +241,9 @@
   [very explicit](blog-files/dangerous-objects.jpg) about the dangers of
   hand grenades on board.
   ""
-  Finally, some trash talk carefully designed to intimidate: ![trash
-  talk](blog-files/remainders.jpg)
+  Finally, some trash talk carefully designed to intimidate:
+
+  ![trash talk](blog-files/remainders.jpg)
 
   Never die without having made the necessary arrangements.
 
@@ -600,7 +603,7 @@
                                          :date "2009-06-22")
   "Along the lines of [active learning with python &
   libsvm](http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html),
-  I [added](http://quotenil.com/git/?p=cl-libsvm.git;a=summary)
+  I [added](http://github.com/melisgl/cl-libsvm)
   support for calculating distance of a point from the separating
   hyperplane to [cl-libsvm](http://cliki.net/cl-libsvm). In binary
   classification there is only one SVM involved and one hyperplane.
@@ -655,8 +658,8 @@
     (:title "Object Initialization with Slot Dependencies"
      :tags (@lisp)
      :date "2009-07-04")
-  "Consider a class with a trivial initialization
-  dependency between slots `A` and `B`:))
+  "Consider a class with a trivial initialization dependency between
+  slots `A` and `B`:
 
   ```
   (defclass super ()
@@ -1485,7 +1488,7 @@
   the moment with 43 wins, 2 losses and 9 draws.")
 
 (defpost @google-ai-challenge-2010-results
-    (:title "Google AI Challange 2010 Results"
+    (:title "Google AI Challenge 2010 Results"
      :tags (@ai @lisp)
      :date "2010-03-01")
   "For what has been a fun ride, the official results are now [available](https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php).
@@ -1561,7 +1564,7 @@
     (:title "Planet Wars Common Lisp Starter Package"
      :tags (@ai @lisp)
      :date "2010-09-19")
-  "The [Google AI Challange](https://web.archive.org/web/20100926070007/http://ai-contest.com/) is
+  "The [Google AI Challenge](https://web.archive.org/web/20100926070007/http://ai-contest.com/) is
   back with a new game that's supposed to be much harder than Tron was
   this spring. The branching factor of the game tree is enormous which
   only means that straight minimax is out of question this time
@@ -1660,8 +1663,7 @@
   ### Code
 
   Note that the git repository is available at
-  [http://quotenil.com/git/planet-wars.git](http://quotenil.com/git/planet-wars.git) 
-  ([gitweb](http://quotenil.com/git/?p=planet-wars.git)).
+  [https://github.com/melisgl/planet-wars(https://github.com/melisgl/planet-wars).
 
   ### Denial
 
@@ -1976,10 +1978,10 @@
   """It hasn't been a year yet since I first promised
   that alpha-beta snippet and it is already added to micmac in all its
   [35 line
-  glory](http://quotenil.com/git/?p=micmac.git;a=blob;f=src/game-theory.lisp;h=9e38d1f09a1f443bc14e115f9abc68dd5f64f6f3;hb=e2de0e888ce103b026d725297f52f5710273a5c3#l71).
+  glory](https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/src/graph-search.lisp#L9).
   The good thing about not rushing it out the door is that it saw more
   a bit more use. For a tutorialish tic-tac-toe example see
-  [test/test-game-theory.lisp.](http://quotenil.com/git/?p=micmac.git;a=blob;f=test/test-game-theory.lisp;h=f6c77e7a3104993c5bc1e01b75a4c94a1d6489e9;hb=e2de0e888ce103b026d725297f52f5710273a5c3#l18)
+  [test/test-game-theory.lisp.](https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp).
 
   The logging code in the example produces
   [output](blog-files/alpha-beta-log.png "output"), which is suitable for
@@ -2109,12 +2111,15 @@
   text classification problem with extremely unbalanced classes.
 
   Just as Bocsimackó did the last time around, his lazier sidekick
-  ![Malacka](blog-files/malacka-es-bocsimacko.jpg) (on the right) brought
+
+  ![Malacka](blog-files/malacka-es-bocsimacko.jpg)
+
+  (on the right) brought
   [success](http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow/leaderboard).
   I would have loved to be lazy and still win, but the leaderboard was
   too close for comfort.
   ""
-  ### Overview
+  ## Overview
 
   The winning model is an average of 10 neural network ensembles of
   five constituent models, three of which are Deep Belief Networks,
@@ -2137,7 +2142,7 @@
   - Compensate for the differences between the stratified sample and
     the most recent months of the full training set.
 
-  ### Features Selection / Extraction
+  ## Features Selection / Extraction
 
   Didn't spend too much time on handcrafting the features, just played
   around with adding features one-by-one, keeping an eye on how the loss
@@ -2148,11 +2153,11 @@
   are sorted by log likelihood ratio. There were a number of other
   feature selection methods tried, see below.
 
-  ### Modeling Techniques and Training
+  ## Modeling Techniques and Training
      
   First let's look one by one at the models that went into the ensemble.
 
-  #### Deep Belief Networks
+  ### Deep Belief Networks
 
   A DBN is made of boltzmann machines stacked on top of each other,
   trained in a layerwise manner. After training (called 'pretraining')
@@ -2196,7 +2201,7 @@
 
   These guys take several hours to days to train.
 
-  #### Logistic Regression
+  ### Logistic Regression
 
   Not much to say here. I used liblinear with the top 250000 features,
   with these parameters:
@@ -2211,13 +2216,13 @@
   used the same kind of features, they were different enough to
   slightly improve in the ensemble.
 
-  #### Vowpal Wabbit
+  ### Vowpal Wabbit
 
   I'm not sure adding this helped at all in the end, the results
   weren't entirely convincing. I just took Foxtrot's code. VW is run
   with `--loss_function logistic --oaa 5`.
 
-  #### The ensemble
+  ### The ensemble
 
   The ensemble is a backpropagation neural network with one hidden
   layer of 800 stochastic sigmoid neurons (at least that was the
@@ -2247,15 +2252,15 @@
   version where the weights of stochastic binary neurons were not
   trained at all, effectively resulting in 800 random features (!).
 
-  #### Bagging
+  ### Bagging
 
   As good as stochastic binary neurons were before I broke the code,
   it still helped a tiny bit (as in a couple of 0.0001s) to average 10
   ensembles.
 
-  ### Additional Comments and Observations
+  ## Additional Comments and Observations
 
-  #### Time
+  ### Time
 
   It was clear from the beginning that time plays an important role,
   and if scores are close then predicting the class distribution of
@@ -2271,7 +2276,7 @@
   the mechanics, but didn't find anything. I certainly didn't foresee
   the drastic class distribution change that was to come.
 
-  #### Features
+  ### Features
 
   I tried a couple of feature extraction methods. The
   Key-Substring-Group extractor looked very promising, but it simply
@@ -2282,24 +2287,24 @@
   time. Take it with a grain of salt, of course, because there is
   noise/signal issue lurking.
 
-  #### Naive Bayes, random forests, gradient boosting
+  ### Naive Bayes, random forests, gradient boosting
 
   I experimented with the above in scikit-learn. The results were
   terrible, but worse, they didn't contribute to the ensemble either.
   Maybe it was only me.
 
-  #### Libsvm
+  ### Libsvm
 
   I couldn't get it to scale to several tens of thousands posts so I
   had to go with liblinear.
 
-  #### Dropout
+  ### Dropout
 
   Fine tuning DBNs with dropout or stochastic binary neurons (without
   the bugs) didn't work. The best I could achive was slightly worse
   than the conjugate gradient based score.
 
-  #### Retraining consituent models
+  ### Retraining consituent models
 
   Recall that the consituent models were trained only on 4/5 of the
   available data. After the ensemble was trainined, I intended to
@@ -2312,15 +2317,14 @@
     (:title "Liblinear Support Added to cl-libsvm"
      :tags (@ai @lisp)
      :date "2013-04-09")
-  "In addition to the cl-libsvm asdf system, there is
-  now another asdf system in the [
-  cl-libsvm](http://quotenil.com/git/?p=cl-libsvm.git;a=summary)
+  "In addition to the cl-libsvm asdf system, there is now another asdf
+  system in the [ cl-libsvm](http://github.com/melisgl/cl-libsvm)
   library: cl-liblinear that, predictably enough, is a wrapper for
   [liblinear](http://www.csie.ntu.edu.tw/~cjlin/liblinear/). The API
   is similar to that of cl-libsvm.")
 
 (defpost @higgs-boson-machine-learning-challenge-post-mortem
-    (:title "Higgs Boson Machine Learning Challenge Post-Mortem"
+    (:title "Higgs Boson Challenge Post-Mortem"
      :tags (@ai @lisp)
      :date "2014-09-23")
   "Actually, I'll only link to the
@@ -2354,7 +2358,7 @@
   slower than on a Titan.")
 
 (defpost @higgs-boson-machine-learning-challenge-bits-and-pieces
-    (:title "Higgs Boson Machine Learning Challenge Bits and Pieces"
+    (:title "Higgs Boson Challenge Bits and Pieces"
      :tags (@ai @lisp)
      :date "2014-09-23")
   "The [Higgs Boson
@@ -2376,11 +2380,11 @@
   contest and also because evolutionary algorithms just do not scale
   to larger problem sizes.
 
-  In other news, [MGL](http://quotenil.com/git/?p=mgl.git;a=summary)
-  got (http://en.wikipedia.org/wiki/Cross-validation_[cross-validation](statistics)),
+  In other news, [MGL](http://github.com/melisgl/mgl) got
+  [cross-validation](http://en.wikipedia.org/wiki/Cross-validation_(statistics)),
   [bagging](http://en.wikipedia.org/wiki/Bootstrap_aggregating) and
   stratification support in the brand new
-  [MGL-RESAMPLE](http://quotenil.com/git/?p=mgl.git;a=blob;f=src/resample.lisp;h=cb83c5962eb29e57b3d3f8f0e407b0e30bc9732d;hb=91c5ddaae870d4a8acaa67f54d0876eead2cd6a9)
+  [MGL-RESAMPLE](https://github.com/melisgl/mgl/blob/4b1800a6dcbdf290a66b5f952fe3bd81641b0b5c/src/resample.lisp)
   package documented with
   [MGL-PAX](https://github.com/melisgl/mgl-pax) which all of you will
   most definitely want to use. My winning submission used bagged
@@ -2400,12 +2404,12 @@
   latest versions.
 
   The code for this contest is available at
-  (https://github.com/melisgl/higgsml)which from now on doubles as my
-  skeleton for lisp projects that need to be delivered as source and
-  as binary. It sucks in all dependencies from quicklisp available at
-  a certain date, clones the necessary repositories not available in
-  quicklisp, builds an executable, and has a simple 'make dist' rule
-  as well.
+  [https://github.com/melisgl/higgsml](https://github.com/melisgl/higgsml),
+  which from now on doubles as my skeleton for lisp projects that need
+  to be delivered as source and as binary. It sucks in all
+  dependencies from quicklisp available at a certain date, clones the
+  necessary repositories not available in quicklisp, builds an
+  executable, and has a simple 'make dist' rule as well.
 
   There is also a fairly generic ensembling algorithm that I will
   factor out of the code later.")
@@ -3235,7 +3239,7 @@
                    ", "
                    (:a :href (pax::object-to-uri @tech)
                        (if (on-current-page-p @tech) "» tech «" "tech"))
-                   ", "
+                   " and "
                    (:a :href (pax::object-to-uri @personal)
                        (if (on-current-page-p @personal)
                            "» personal «"
