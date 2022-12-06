@@ -396,7 +396,7 @@ At this point, I consider it fairly complete. Here is the changelog for the last
             <pubDate>Wed, 16 Feb 2022 00:00:00 +0000</pubDate>
         </item>
         <item>
-            <title>Journal, the kitchen sink</title>
+            <title>Journal, the Kitchen Sink</title>
             <link>http://quotenil.com/journal-the-kitchen-sink.html</link>
             <description>&lt;p&gt;Ever wished for machine-readable logs and &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm&quot; &gt;&lt;code&gt;TRACE&lt;/code&gt;&lt;/a&gt;s, maybe
 for writing tests or something more fancy? The
@@ -466,7 +466,7 @@ return.&lt;/p&gt;
             <pubDate>Fri, 04 Sep 2020 01:00:00 +0100</pubDate>
         </item>
         <item>
-            <title>Moving the blog to PAX</title>
+            <title>Moving the Blog to PAX</title>
             <link>http://quotenil.com/moving-the-blog-to-pax.html</link>
             <description>&lt;p&gt;After more than five years of silence, I may be resurrecting &lt;a href=&quot;https://web.archive.org/web/20190814015233/http://quotenil.com/&quot; &gt;my old
 blog&lt;/a&gt;.
@@ -631,7 +631,7 @@ nets in the documentation.&lt;/p&gt;
             <pubDate>Mon, 19 Jan 2015 00:00:00 +0000</pubDate>
         </item>
         <item>
-            <title>INCLUDE locative for PAX</title>
+            <title>INCLUDE Locative for PAX</title>
             <link>http://quotenil.com/include-locative-for-pax.html</link>
             <description>&lt;p&gt;I&apos;m getting so used to the &lt;code&gt;M-.&lt;/code&gt; plus documentation
 generation hack that&apos;s
@@ -1014,7 +1014,7 @@ experiment.&lt;/p&gt;
             <pubDate>Tue, 09 Apr 2013 01:00:00 +0100</pubDate>
         </item>
         <item>
-            <title>Alpha-beta</title>
+            <title>Alpha-Beta</title>
             <link>http://quotenil.com/alpha-beta.html</link>
             <description>&lt;p&gt;It hasn&apos;t been a year yet since I first promised
 that alpha-beta snippet and it is already added to micmac in all its
@@ -1034,7 +1034,7 @@ thinking?!&apos; question.&lt;/p&gt;
             <pubDate>Mon, 27 Dec 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
-            <title>Nash equilibrium finder</title>
+            <title>Nash Equilibrium Finder</title>
             <link>http://quotenil.com/nash-equilibrium-finder.html</link>
             <description>&lt;p&gt;While I seem to be unable to make my mind up on a
 good interface to alpha-beta with a few bells and whistles, I added
@@ -2391,7 +2391,7 @@ the pseudo-atomic branch of my git tree).&lt;/p&gt;
             <pubDate>Sun, 29 Mar 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
-            <title>Code alignment on x86</title>
+            <title>Code Alignment on x86</title>
             <link>http://quotenil.com/code-alignment-on-x86.html</link>
             <description>&lt;p&gt;There has always been a lot of wiggling of SBCL
 &lt;a href=&quot;https://web.archive.org/web/20080513083106/http://sbcl.boinkor.net/bench/&quot; &gt;boinkmarks&lt;/a&gt; results. It&apos;s easy to

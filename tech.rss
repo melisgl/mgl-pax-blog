@@ -7,7 +7,7 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
-            <title>Migration to github</title>
+            <title>Migration to Github</title>
             <link>http://quotenil.com/migration-to-github.html</link>
             <description>&lt;p&gt;Due to the bash security hole that keeps
 &lt;a href=&quot;http://seclists.org/oss-sec/2014/q3/685&quot; &gt;giving&lt;/a&gt;, I had to disable
@@ -285,7 +285,7 @@ trivial to snapshot.&lt;/p&gt;
             <pubDate>Fri, 28 Mar 2008 00:00:00 +0000</pubDate>
         </item>
         <item>
-            <title>First post</title>
+            <title>First Post</title>
             <link>http://quotenil.com/first-post.html</link>
             <description>&lt;p&gt;After a long time of waiting to write my own blog
 software like true hackers with infinite time do (and those
