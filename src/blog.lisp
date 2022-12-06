@@ -111,11 +111,18 @@
 
 
 (defsection @about-me (:title "About me")
-  "- <a href='mailto:mega@retes.hu'>mega@retes.hu</a>
+  "I'm a Lisp hacker impersonating a research scientist.
+
+  ![about-me-dice](blog-files/dice.png)
+
+  - <a href='mailto:mega@retes.hu'>Gábor Melis &lt;mega@retes.hu&gt;</a>
 
   - <a href='mega.gpg.asc'>gpg key</a>
 
   - <a href='http://github.com/melisgl/'>github/melisgl</a>
+    (<a href='https://melisgl.github.io/mgl-pax-world/'>documentation</a>)
+
+  - <a href='https://scholar.google.com/citations?user=TbLw2lcAAAAJ'>Google Scholar</a>
 
   - <a href='https://mastodon.social/@melisgl'>mastodon.social/@melisgl</a>
 
@@ -127,7 +134,18 @@
 
   - <a href='https://www.kaggle.com/melisgl'>kaggle/melisgl</a>
 
-  ![](blog-files/dice.png)")
+  ### About this Blog
+
+  There is an <a href='http://quotenil.com/blog.rss'>RSS feed for the
+  entire blog</a>, and one for each tag: <a
+  href='http://quotenil.com/ai.rss'>ai</a>, <a
+  href='http://quotenil.com/lisp.rss'>lisp</a>, <a
+  href='http://quotenil.com/tech.rss'>tech</a>, <a
+  href='http://quotenil.com/personal.rss'>personal</a>. The blog is
+  generated with a <a
+  href='https://github.com/melisgl/mgl-pax-blog'>homegrown blog
+  engine</a> built on <a
+  href='https://github.com/melisgl/mgl-pax'>PAX</a>.")
 
 (defun generate-pages (categories html-sidebar)
   (mapc #'prepare-category categories)
@@ -141,7 +159,8 @@
          (*document-html-head*
            (lambda ()
              (format nil "~A~A"
-                     "<link rel='preconnect' href='https://fonts.googleapis.com'>
+                     "<link rel='shortcut icon' type='image/png' href='favicon.png'>
+<link rel='preconnect' href='https://fonts.googleapis.com'>
 <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
 <link href='https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet'>
 <style> @import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap'); </style>
@@ -3121,20 +3140,24 @@
   ```
   """)
 
+#+nil
 (defpost @tta-practioner
     (:title "Practioner's Guide to Two-Tailed Averaging"
      :tags (@ai)
      :date "2022-12-06")
-  """This is a complement to the Two-Tailed Averaging
-  [paper](https://arxiv.org/abs/2209.12581).
+  """This is a complement to the [Two-Tailed Averaging
+  paper](https://arxiv.org/abs/2209.12581), approached from the
+  direction of what I think is a fairly common technique: averaging
+  checkpoints.
 
   We want to speed up training and improve generalization. One way to
   do that is by averaging weights from optimization, and that's big
   win (e.g. [1][nt-asgd], [2][swa], [3][lawa]). For example, while
   training a language model for the down-stream task of summarization,
-  we can save checkpoints periodically, and average the model weights
-  from the last 10 checkpoints to produce the final solution. This is
-  pretty much what [Stochastic Weight Averaging][swa-blog] (SWA).
+  we can save checkpoints periodically and average the model weights
+  from the last 10 or so checkpoints to produce the final solution.
+  This is pretty much what [Stochastic Weight
+  Averaging][swa-blog] (SWA).
 
     [tail-averaging]: https://jmlr.org/papers/v18/16-595.html
     [suffix-averaging]: https://arxiv.org/abs/1109.5647
@@ -3147,15 +3170,15 @@
 
   There is a number of problems with SWA:
 
-  - 10, the "averaging length", must be chosen to maximize performance
+  - 10, the averaging length, must be chosen to maximize performance
     on summarization.
 
   - A naive way to find the averaging length is to do a single
-    training run and then search backwards over all checkpoints, which
-    needs lots of storage and computation. Another option, doing
-    multiple training runs each told to start averaging at a
-    predefined point pays a steep price in computation for lower
-    storage costs.
+    training run and then search backwards extending the average one
+    checkpoint at a time, which needs lots of storage and computation.
+    Another option, doing multiple training runs each told to start
+    averaging at a predefined point pays a steep price in computation
+    for lower storage costs.
 
   - To control the costs, we can lower checkpointing fequency, but
     does that make results worse? We can test that with multiple
@@ -3245,6 +3268,9 @@
   (or even an a priori unknown amount of) time, and when we could do
   without optimizing yet another hyperparameter.
   """)
+
+;;; Comment on [Twitter]() or [Mastodon]().
+
 
 
 (defun on-current-page-p (object)
