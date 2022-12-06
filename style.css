@@ -1,8 +1,8 @@
 body {
   font-family: sans;
   margin: auto;
-  background-color: #FFFEFB;
-  color: #000000;
+  background-color: #f8f7f4;
+  color: #353535;
   padding-bottom: 1em;
   text-align: justify;
   hyphens: auto;
@@ -124,7 +124,7 @@ code {
 }
 
 a {
-  color: #222222;
+  color: #353535;
   text-decoration-thickness: 0.04em;
   text-underline-offset: 0.1em;
 }
