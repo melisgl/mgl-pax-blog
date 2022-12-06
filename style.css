@@ -2,7 +2,7 @@ body {
   font-family: sans;
   margin: auto;
   background-color: #f8f7f4;
-  color: #353535;
+  color: #2a2a2a;
   padding-bottom: 1em;
   text-align: justify;
   hyphens: auto;
@@ -124,7 +124,7 @@ code {
 }
 
 a {
-  color: #353535;
+  color: #2a2a2a;
   text-decoration-thickness: 0.04em;
   text-underline-offset: 0.1em;
 }
