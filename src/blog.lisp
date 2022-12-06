@@ -94,14 +94,20 @@
    :package *package*
    :readtable *readtable*
    :title title
-   :entries (cons (format nil "_Tags_: ~{`~A`~^, ~}, _Date_: `~A`~%~%"
-                          (mapcar (lambda (category)
-                                    (symbol-name (section-name category)))
+   :entries (cons (format nil "_Tags_: ~{[`~A`][~A]~^, ~}, _Date_: `~A`~%~%"
+                          (mapcan (lambda (category)
+                                    (let ((name (category-display-name
+                                                 category)))
+                                      (list name (symbol-name (section-name
+                                                               category)))))
                                   tags)
                           date)
                   (pax::transform-entries entries name))
    :tags tags
    :date date))
+
+(defun category-display-name (category)
+  (string-downcase (subseq (symbol-name (section-name category)) 1)))
 
 
 (defsection @about-me (:title "About me")
@@ -205,13 +211,13 @@
   (pax::sections-to-filename (list object) ""))
 
 
-(defcategory @blog (:title "`(quote nil)`"))
-(defcategory @lisp (:title "`lisp`"))
-(defcategory @ai (:title "`ai`"))
-(defcategory @tech (:title "`tech`"))
-(defcategory @personal (:title "`personal`"))
+(defcategory @blog (:title "(QUOTE NIL)"))
+(defcategory @lisp (:title "lisp"))
+(defcategory @ai (:title "ai"))
+(defcategory @tech (:title "tech"))
+(defcategory @personal (:title "personal"))
 
-(defpost @first-post (:title "First post"
+(defpost @first-post (:title "First Post"
                       :tags (@personal @tech)
                       :date "2008-02-01")
   "After a long time of waiting to write my own blog
@@ -233,7 +239,7 @@
   **2020-05-03**: Since then, this blog has been moved to
     [MGL-PAX](http://github.com/melisgl/mgl-pax).")
 
-(defpost @important-remainder (:title "Important remainder"
+(defpost @important-remainder (:title "Important Remainder"
                                :tags (@personal)
                                :date "2008-02-04")
   "An [example](blog-files/guns.jpg) may speak a hundred
@@ -368,7 +374,7 @@
   **2020-05-03** Later on, I broke down and wrote an [xkb
     version](https://github.com/melisgl/lisp-machine-xkb).")
 
-(defpost @code-alignment-on-x86 (:title "Code alignment on x86"
+(defpost @code-alignment-on-x86 (:title "Code Alignment on x86"
                                  :tags (@lisp)
                                  :date "2009-03-09")
   "There has always been a lot of wiggling of SBCL
@@ -1931,7 +1937,7 @@
 
   ![](blog-files/malacka-es-bocsimacko.jpg)")
 
-(defpost @nash-equilibrium-finder (:title "Nash equilibrium finder"
+(defpost @nash-equilibrium-finder (:title "Nash Equilibrium Finder"
                                    :tags (@ai @lisp)
                                    :date "2010-12-26")
   "While I seem to be unable to make my mind up on a
@@ -1972,7 +1978,7 @@
   -0.001
   ```")
 
-(defpost @alpha-beta (:title "Alpha-beta"
+(defpost @alpha-beta (:title "Alpha-Beta"
                       :tags (@ai @lisp)
                       :date "2010-12-27")
   """It hasn't been a year yet since I first promised
@@ -2414,7 +2420,7 @@
   There is also a fairly generic ensembling algorithm that I will
   factor out of the code later.")
 
-(defpost @migration-to-github (:title "Migration to github"
+(defpost @migration-to-github (:title "Migration to Github"
                                :tags (@tech)
                                :date "2014-09-25")
   "Due to the bash security hole that keeps
@@ -2464,7 +2470,7 @@
   [documentation](https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3A-40MGL-PAX-TRANSCRIPT-20MGL-PAX-3ASECTION-29)
   provides a tutorialish treatment. I hope you'll find it useful.""")
 
-(defpost @include-locative-for-pax (:title "INCLUDE locative for PAX"
+(defpost @include-locative-for-pax (:title "INCLUDE Locative for PAX"
                                     :tags (@lisp)
                                     :date "2014-12-06")
   "I'm getting so used to the `M-.` plus documentation
@@ -2636,7 +2642,7 @@
   implementation to use would decouple facets further. Ultimately,
   this could make the entire CUDA related part of MGL-MAT an add-on.")
 
-(defpost @moving-the-blog-to-pax (:title "Moving the blog to PAX"
+(defpost @moving-the-blog-to-pax (:title "Moving the Blog to PAX"
                                   :tags (@lisp)
                                   :date "2020-05-05")
   "After more than five years of silence, I may be resurrecting [my old
@@ -2649,7 +2655,7 @@
   of which deals with post categories and overview pages with
   shortened posts, something PAX hasn't seen the need for.")
 
-(defpost @journal-the-kitchen-sink (:title "Journal, the kitchen sink"
+(defpost @journal-the-kitchen-sink (:title "Journal, the Kitchen Sink"
                                     :tags (@lisp)
                                     :date "2020-09-04")
   """Ever wished for machine-readable logs and [`TRACE`][cl-trace]s, maybe
@@ -3115,43 +3121,41 @@
   ```
   """)
 
-(defpost @zooming-into-fonts (:title "Zooming into Fonts")
-  "")
-
-#+nil
 (defpost @tta-practioner
-    (:title "Two-tailed Averaging: The ML Practioner's Guide"
+    (:title "Practioner's Guide to Two-Tailed Averaging"
      :tags (@ai)
-     :date "2022-12-02")
-  """This is a complement to the Two-tailed Averaging
+     :date "2022-12-06")
+  """This is a complement to the Two-Tailed Averaging
   [paper](https://arxiv.org/abs/2209.12581).
 
   We want to speed up training and improve generalization. One way to
-  do that is by averaging weights from optimization. For example,
-  while training a language model for the down-stream task of
-  summarization, we can save checkpoints periodically, and average the
-  weights in last 10 checkpoints to produce the final solution. This
-  is pretty much what [Stochastic Weight Averaging][swa-blog] (SWA)
-  does.
+  do that is by averaging weights from optimization, and that's big
+  win (e.g. [1][nt-asgd], [2][swa], [3][lawa]). For example, while
+  training a language model for the down-stream task of summarization,
+  we can save checkpoints periodically, and average the model weights
+  from the last 10 checkpoints to produce the final solution. This is
+  pretty much what [Stochastic Weight Averaging][swa-blog] (SWA).
 
     [tail-averaging]: https://jmlr.org/papers/v18/16-595.html
     [suffix-averaging]: https://arxiv.org/abs/1109.5647
     [swa]: https://arxiv.org/abs/1803.05407
     [swa-blog]: https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/
+    [lawa]: https://arxiv.org/abs/2209.14981
+    [nt-asgd]: https://arxiv.org/abs/1708.02182
   """"""
-  #### Problems with SWA
+  ### Problems with SWA
 
   There is a number of problems with SWA:
 
   - 10, the "averaging length", must be chosen to maximize performance
     on summarization.
 
-  - Naive search for the averaging length needs lots of storage and
-    computation. For example, saving a lot of checkpoints from a
-    single optimization and performing a search after training has
-    very high storage cost. Another option, doing multiple training
-    runs each told to start averaging at a predefined point pays a
-    steep price in computation for lower storage costs.
+  - A naive way to find the averaging length is to do a single
+    training run and then search backwards over all checkpoints, which
+    needs lots of storage and computation. Another option, doing
+    multiple training runs each told to start averaging at a
+    predefined point pays a steep price in computation for lower
+    storage costs.
 
   - To control the costs, we can lower checkpointing fequency, but
     does that make results worse? We can test that with multiple
@@ -3165,51 +3169,82 @@
 
   In summary, working with SWA is tricky because:
 
-  - The averaging length is a costly to set hyperparameter (that is
-    coupled to other hyperparameters especially to the length of
+  - The averaging length is a hyperparameter that's costly to set (it
+    is coupled to other hyperparameters especially to the length of
     training and the learning rate).
 
   - Determining the averaging length after training is both costly (in
     storage and/or computation) and suboptimal (can miss early
     solutions).
 
-  #### Two-Tailed Averaging
+  ### Two-Tailed Averaging
 
-  These are the issues Two-tailed Averaging tackles. The algorithm
-  needs storage for two sets of weights (constant storage cost) and
-  performance (e.g. summarization) to be evaluated periodically. In
-  return, it provides a weight average of approximately optimal length
-  at all optimization steps. Now we can start training that language
-  model, periodically evaluating how the averaged weights are doing at
-  summarization. We can stop the training run anytime if it's getting
-  worse.
+  These are the issues Two-Tailed Averaging tackles. The algorithm
+  needs storage for only two sets of weights (constant storage cost)
+  and performance (e.g. summarization) to be evaluated periodically.
+  In return, it provides a weight average of approximately optimal
+  length at all optimization steps. Now we can start training that
+  language model, periodically evaluating how the averaged weights are
+  doing at summarization. We can stop the training run anytime if it's
+  getting worse.
 
-  This is how Two-tailed Averaged (orange) compares to SWA (green)
+  This is how Two-Tailed Averaged (orange) compares to SWA (green)
   tuned to start averaging at the point that's optimal for final
   validation loss:
 
   ![TTA (orange) vs SWA (green)](blog-files/tta-vs-swa.png)
 
-  #### Downsampling weights
+  ### Downsampling weights
 
-  In its proposed form, Two-tailed Averaging incorporates every set of
+  In its proposed form, Two-Tailed Averaging incorporates every set of
   weights produced by the optimizer in both averages it maintains.
   This is good because [Tail][tail-averaging], also known as
   [Suffix][suffix-averaging], averaging theory has nice things to say
   about convergence to a local optimum in this setting. However, in a
   memory constrained situation, these averages will not fit on the
   GPU/TPU, so we must move the weights off the device to add them to
-  the average (which may be in RAM or on disk). Moving stuff off the
+  the averages (which may be in RAM or on disk). Moving stuff off the
   device can be slow, so we might want to do that, say, every 20
   optimization steps. Obviously, downsampling the weights too much
   will affect the convergence rate, so there is a tradeoff.
 
-  #### Learning rate
+  ### Learning rate
 
-  Note that with Two-tailed averaging, we use constant learning rate
-  motivated by the fact that the closely related method of Tail
-  averaging guarantees optimal convergence rate learning rate in such
-  a setting.""")
+  Note that in our experiments with Two-Tailed Averaging, we used a
+  constant learning rate motivated by the fact that the closely
+  related method of Tail Averaging guarantees optimal convergence rate
+  learning rate in such a setting. The algorithm should work with
+  decreasing learning rates, but would require modification for
+  cyclical schedules.
+
+  ### Related works
+
+  - [SWA][swa] averages the last $K$ checkpoints.
+
+  - [LAWA][lawa] averages the $K$ most recent checkpoints, so it
+    produces reasonable averages from early on (unlike SWA), but $K$
+    still needs to be set manually.
+
+  - [NT-ASGD][nt-asgd] starts averaging when the validation loss does
+    not improve for a fixed number of optimization steps, which trades
+    one hyperparameter for another, and it is sensitive to noise in
+    the raw validation loss. online.
+
+  **Adaptivity**: SWA and LAWA have hyperparameters that directly
+  control the averaging length; NT-ASGD still has one, but its effect
+  is more indirect. **Anytime**: LAWA provides an average at all
+  times, SWA and NT-ASGD don't. **Optimality**: The final averages of
+  SWA and LAWA are optimal if their hyperparameters are well-tuned;
+  intermediate results of LAWA are unlikely to be optimal; NT-ASGD can
+  miss the right time to start averaging.
+
+  ### Summary
+
+  Two-Tailed Averaging can be thought of as online SWA with no
+  hyperparameters. It is a great option when training runs take a long
+  (or even an a priori unknown amount of) time, and when we could do
+  without optimizing yet another hyperparameter.
+  """)
 
 
 (defun on-current-page-p (object)
