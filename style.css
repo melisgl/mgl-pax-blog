@@ -20,14 +20,14 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'EB Garamond', serif;
   font-weight: bold;
-  text-shadow: 0.06em 0.06em 0.02em #DDD;
+  text-shadow: 0.05em 0.05em 0.02em #DDD;
   margin-bottom: 0.4em;
 }
 
 h1 {
   margin-top: 1.5em;
-  border-bottom: 0.05em solid #CCC;
-  font-size: 170%;
+  border-bottom: 0.04em solid #CCC;
+  font-size: 180%;
   text-align: center;
 }
 
@@ -36,7 +36,7 @@ h1:first-of-type {
 }
 
 h2 {
-  font-size: 150%;
+  font-size: 160%;
 }
 
 h3 {
