@@ -17,7 +17,8 @@
    </script>
    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
    </script>
-   <link rel='preconnect' href='https://fonts.googleapis.com'>
+   <link rel='shortcut icon' type='image/png' href='favicon.png'>
+<link rel='preconnect' href='https://fonts.googleapis.com'>
 <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
 <link href='https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet'>
 <style> @import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap'); </style>
@@ -107,12 +108,208 @@ validation loss:</p>
 
 <p><img src="blog-files/tta-vs-swa.png" alt="TTA (orange) vs SWA (green)" /></p>
 
+<h3>The Algorithm</h3>
+
+<p>The core algorithm is quite simple: as the optimizer produces new
+weights, we add those to two moving averages. When the short moving
+average (to which we added fewer or equal number of weights) does at
+least as well as the long average according to some arbitrary
+evaluation function, then we empty the long average, which will now
+be the short one.</p>
+
+<pre><code><span class="code"><span class="comment"># Initialize the short (s, sw) and long averages (l, lw). s and l are
+</span><span class="comment"># the number of weights averaged (the "averaging lengths"). sw and lw
+</span><span class="comment"># are the averaged weights.
+</span>s, sw, l, lw = 0, 0, 0, 0
+
+<span class="comment"># Update the moving averages with the latest weights from the optimizer.
+</span><span class="special">def</span><span
+class="keyword"> update_tta</span><span class="paren1">(<span class="code">w</span>)</span>:
+  <span class="symbol">global</span> s, sw, l, lw
+  <span class="symbol">assert</span> s &lt;= l
+  s, sw = s+1, <span class="paren1">(<span class="code">s*sw + w</span>)</span>/<span class="paren1">(<span class="code">s+1</span>)</span>
+  l, lw = l+1, <span class="paren1">(<span class="code">l*lw + w</span>)</span>/<span class="paren1">(<span class="code">l+1</span>)</span>
+
+<span class="comment"># Like update_tta but also evaluate the model and use that to adapt
+</span><span class="comment"># the length of the averages. Return three values: the best evaluation
+</span><span class="comment"># results, the corresponding weights and averaging length.
+</span><span class="special">def</span><span
+class="keyword"> update_and_evaluate_tta</span><span class="paren1">(<span class="code">w, evaluate</span>)</span>:
+  <span class="symbol">global</span> s, sw, l, lw
+  update_tta<span class="paren1">(<span class="code">w</span>)</span>
+  <span class="comment"># Evaluate the non-averaged weights w, the short and the long average.
+</span>  f1, fs, fl = evaluate<span class="paren1">(<span class="code">w</span>)</span>, evaluate<span class="paren1">(<span class="code">sw</span>)</span>, evaluate<span class="paren1">(<span class="code">lw</span>)</span>
+  <span class="comment"># If the short average is better, then *switch*: empty the long
+</span>  <span class="comment"># average, which is now the shorter one.
+</span>  <span class="symbol">if</span> fs &lt;= fl:
+    s, l, lw, fl = 0, s, sw, fs
+  <span class="symbol">if</span> f1 &lt; fl:
+    <span class="comment"># The non-averaged weights performed better. This may happen in
+</span>    <span class="comment"># the very early stages of training.
+</span>    <span class="symbol">if</span> s == l:
+      <span class="comment"># If there has never been a switch (s == l), then f1 is probably
+</span>      <span class="comment"># still improving fast so reset both averages.
+</span>      s, l = 0, 0
+    <span class="symbol">return</span> f1, w, 1
+  else:
+    <span class="comment"># Return the long average.
+</span>    <span class="symbol">return</span> fl, lw, l</span></code></pre>
+
+<p>In addition to the core algorithm, the code above has some extra
+logic to deal with the non-averaged weights being better than the
+averaged ones.</p>
+
+<p>Let's write a fake a training loop that optimizes $f(x)=x^2$.</p>
+
+<pre><code><span class="code"><span class="symbol">import</span> random
+
+<span class="special">def</span><span
+class="keyword"> test_tta_simple</span><span class="paren1">(<span class="code"></span>)</span>:
+  <span class="special">def</span><span
+class="keyword"> f</span><span class="paren1">(<span class="code">w</span>)</span>:
+    <span class="symbol">return</span> w**2
+  <span class="special">def</span><span
+class="keyword"> df_dw</span><span class="paren1">(<span class="code">w</span>)</span>:
+    <span class="comment"># Simulate stochasticity due to e.g. minibatching.
+</span>    <span class="symbol">return</span> 2*w + random.uniform<span class="paren1">(<span class="code">-1.0, 1.0</span>)</span>
+  lr = 0.5
+  w = 3.14
+  <span class="symbol">for</span> i <span class="symbol">in</span> range<span class="paren1">(<span class="code">1, 2001</span>)</span>:
+    w = w - lr*df_dw<span class="paren1">(<span class="code">w</span>)</span>
+    <span class="symbol">if</span> i % 100 == 0:
+      tta_f, tta_w, tta_l = update_and_evaluate_tta<span class="paren1">(<span class="code">w, f</span>)</span>
+      <span class="symbol">print</span><span class="paren1">(<span class="code">f<span class="string">'i={i:4d}: f(w_i)={f(w):7.3f},'</span>
+            f<span class="string">' f(w_tta)={tta_f:7.3f}, l={tta_l:4d}'</span></span>)</span>
+    else:
+      update_tta<span class="paren1">(<span class="code">w</span>)</span></span></code></pre>
+
+<p>We added some noise to the gradients in <code>df_dw</code> to make it more like
+training with a neural net with SGD. Anyway, we take 2000
+optimization steps, calling <code>update_tta</code> on most but calling
+<code>update_and_evaluate_tta</code> on every 100 steps. Running
+<code>test_tta_simple</code>, we get something like this:</p>
+
+<pre><code><span class="code">i= 100: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.003, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+i= 200: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.045, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200
+i= 300: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.007, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 300
+i= 400: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.023, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 400
+i= 500: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.007, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 500
+i= 600: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.001, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 600
+i= 700: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.026, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 600
+i= 800: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.041, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 700
+i= 900: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.005, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 800
+i=1000: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.050, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 900
+i=1100: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.024, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l=1000
+i=1200: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.057, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l=1100
+i=1300: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.036, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l=1200
+i=1400: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.189, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l=1300
+i=1500: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.136, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l=1400
+i=1600: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.186, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l=1500
+i=1700: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.223, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l=1600
+i=1800: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.003, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l=1100
+i=1900: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.065, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l=1200
+i=2000: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.003, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l=1300</span></code></pre>
+
+<p>In the above, <code>f(w_i)</code> is the loss with the non-averaged weights,
+<code>f(w_tta)</code> is the loss with the weights provided by TTA, and <code>l</code> is
+the number of weights averaged. We see that with the high constant
+learning rate, SGD keeps jumping around the optimum, and while TTA
+does the same, its jitter is way smaller (it's beyond the three
+significant digits printed here). Also, the length of the average
+increases almost monotonically but not quite due to the switching
+logic.</p>
+
+<p>OK, that was easy. Let's now do something a bit more involved, where
+the function being optimized changes. We will change the loss
+function to $f(x) = (x-m)^2$ where $m$ is set randomly every 400
+steps. We will deal with this non-stationarity by resetting the long
+average if it has not improved for a while.</p>
+
+<pre><code><span class="code"><span class="special">def</span><span
+class="keyword"> reset_tta_long_average</span><span class="paren1">(<span class="code"></span>)</span>:
+  <span class="symbol">global</span> s, sw, l, lw
+  s, sw, l, lw = 0, 0, s, sw
+
+<span class="special">def</span><span
+class="keyword"> test_tta_non_stationary</span><span class="paren1">(<span class="code"></span>)</span>:
+  optimum = 0
+  <span class="special">def</span><span
+class="keyword"> f</span><span class="paren1">(<span class="code">w</span>)</span>:
+    <span class="symbol">return</span> <span class="paren1">(<span class="code">w-optimum</span>)</span>**2
+  <span class="special">def</span><span
+class="keyword"> df_dw</span><span class="paren1">(<span class="code">w</span>)</span>:
+    <span class="comment"># Simulate stochasticity due to e.g. minibatching.
+</span>    <span class="symbol">return</span> 2*w - 2*optimum + random.uniform<span class="paren1">(<span class="code">-1.0, 1.0</span>)</span>
+  lr = 0.5
+  w = 3.14
+  best_f = float<span class="paren1">(<span class="code"><span class="string">"inf"</span></span>)</span>
+  best_iteration = 0
+  <span class="symbol">for</span> i <span class="symbol">in</span> range<span class="paren1">(<span class="code">1, 2001</span>)</span>:
+    w = w - lr*df_dw<span class="paren1">(<span class="code">w</span>)</span>
+    <span class="symbol">if</span> i % 400 == 0:
+      optimum = random.uniform<span class="paren1">(<span class="code">-10.0, 10.0</span>)</span>
+      <span class="symbol">print</span><span class="paren1">(<span class="code">f<span class="string">'setting optimum={optimum:.3f}'</span></span>)</span>
+    <span class="symbol">if</span> i % 100 == 0:
+      tta_f, tta_w, tta_l = update_and_evaluate_tta<span class="paren1">(<span class="code">w, f</span>)</span>
+      <span class="symbol">print</span><span class="paren1">(<span class="code">f<span class="string">'i={i:4d}: f(w_i)={f(w):7.3f},'</span>
+            f<span class="string">' f(w_tta)={tta_f:7.3f}, l={tta_l:4d}'</span>,
+            end=<span class="string">''</span></span>)</span>
+      <span class="symbol">if</span> tta_l &gt; 1 <span class="symbol">and</span> tta_f &lt; best_f:
+        best_f = tta_f
+        best_iteration = i
+        <span class="symbol">print</span><span class="paren1">(<span class="code"></span>)</span>
+      <span class="symbol">elif</span> best_iteration + 1 &lt;= i:
+        <span class="comment"># Reset heuristic: the results of the long average have not
+</span>        <span class="comment"># improved for a while, let's reset it so that it may adapt
+</span>        <span class="comment"># quicker.
+</span>        <span class="symbol">print</span><span class="paren1">(<span class="code"><span class="string">' Reset!'</span></span>)</span>
+        reset_tta_long_average<span class="paren1">(<span class="code"></span>)</span>
+        best_f = float<span class="paren1">(<span class="code"><span class="string">"inf"</span></span>)</span>
+        best_iteration = 0
+    else:
+      update_tta<span class="paren1">(<span class="code">w</span>)</span></span></code></pre>
+
+<p>We can see that TTA adapts to the non-stationarity in a reasonable
+way although the reset heuristic gets triggered spuriously a couple
+of times:</p>
+
+<pre><code><span class="code">i= 100: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.008, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.005, l= 100
+i= 200: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.060, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+i= 300: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.004, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+setting optimum=9.691
+i= 400: f<span class="paren1">(<span class="code">w_i</span>)</span>= 87.194, f<span class="paren1">(<span class="code">w_tta</span>)</span>= 87.194, l=   1 Reset!
+i= 500: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.002, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+i= 600: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.033, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200 Reset!
+i= 700: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.126, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200
+setting optimum=9.899
+i= 800: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.022, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.022, l=   1 Reset!
+i= 900: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.004, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.003, l= 100
+i=1000: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.094, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+i=1100: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.146, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+setting optimum=3.601
+i=1200: f<span class="paren1">(<span class="code">w_i</span>)</span>= 35.623, f<span class="paren1">(<span class="code">w_tta</span>)</span>= 35.623, l=   1 Reset!
+i=1300: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.113, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.001, l= 100
+i=1400: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.166, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200
+i=1500: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.112, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200
+setting optimum=6.662
+i=1600: f<span class="paren1">(<span class="code">w_i</span>)</span>= 11.692, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  9.409, l= 300 Reset!
+i=1700: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.075, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+i=1800: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.229, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200 Reset!
+i=1900: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.217, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+setting optimum=-8.930
+i=2000: f<span class="paren1">(<span class="code">w_i</span>)</span>=242.481, f<span class="paren1">(<span class="code">w_tta</span>)</span>=242.481, l=   1 Reset!</span></code></pre>
+
+<p>Note that that in these examples the evaluation function in TTA was
+the training loss, but TTA is mainly intended for when the
+evaluation function measures performance on the validation set or on
+a down-stream task (e.g. summarization).</p>
+
 <h3>Downsampling weights</h3>
 
 <p>In its proposed form, Two-Tailed Averaging incorporates every set of
 weights produced by the optimizer in both averages it maintains.
-This is good because <a href="https://jmlr.org/papers/v18/16-595.html" >Tail</a>, also known as
-<a href="https://arxiv.org/abs/1109.5647" >Suffix</a>, averaging theory has nice things to say
+This is good because <a href="https://jmlr.org/papers/v18/16-595.html" >Tail Averaging</a>, also known as
+<a href="https://arxiv.org/abs/1109.5647" >Suffix Averaging</a>, theory has nice things to say
 about convergence to a local optimum in this setting. However, in a
 memory constrained situation, these averages will not fit on the
 GPU/TPU, so we must move the weights off the device to add them to
@@ -127,7 +324,7 @@ will affect the convergence rate, so there is a tradeoff.</p>
 constant learning rate motivated by the fact that the closely
 related method of Tail Averaging guarantees optimal convergence rate
 learning rate in such a setting. The algorithm should work with
-decreasing learning rates, but would require modification for
+decreasing learning rates but would require modification for
 cyclical schedules.</p>
 
 <h3>Related works</h3>
@@ -145,7 +342,7 @@ cyclical schedules.</p>
 
 <p><strong>Adaptivity</strong>: SWA and LAWA have hyperparameters that directly
 control the averaging length; NT-ASGD still has one, but its effect
-is more indirect. <strong>Anytime</strong>: LAWA provides an average at all
+is more indirect. <strong>Anytimeness</strong>: LAWA provides an average at all
 times, SWA and NT-ASGD don't. <strong>Optimality</strong>: The final averages of
 SWA and LAWA are optimal if their hyperparameters are well-tuned;
 intermediate results of LAWA are unlikely to be optimal; NT-ASGD can
