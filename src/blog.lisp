@@ -2000,19 +2000,17 @@
 (defpost @alpha-beta (:title "Alpha-Beta"
                       :tags (@ai @lisp)
                       :date "2010-12-27")
-  """It hasn't been a year yet since I first promised
-  that alpha-beta snippet and it is already added to micmac in all its
-  [35 line
+  """It hasn't been a year yet since I first promised that alpha-beta
+  snippet, and it is already added to micmac in all its [35 line
   glory](https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/src/graph-search.lisp#L9).
-  The good thing about not rushing it out the door is that it saw more
-  a bit more use. For a tutorialish tic-tac-toe example see
+  The good thing about not rushing it out the door is that it saw a
+  bit more use. For a tutorialish tic-tac-toe example see
   [test/test-game-theory.lisp.](https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp).
 
   The logging code in the example produces
-  [output](blog-files/alpha-beta-log.png "output"), which is suitable for
-  cut and pasting into an org-mode buffer and exploring it by TABbing
-  into subtrees to answer the perpetual 'What the hell was it
-  thinking?!' question.""")
+  [output](blog-files/alpha-beta-log.png "output"), which is suitable for cut and pasting into an org-mode buffer and
+  exploring it by `TAB`bing into subtrees to answer the perpetual
+  'What the hell was it thinking?!' question.""")
 
 (defpost @offlineimap-with-encrypted-authinfo
     (:title "OfflineIMAP with Encrypted Authinfo"
@@ -3150,13 +3148,13 @@
   checkpoints.
 
   We want to speed up training and improve generalization. One way to
-  do that is by averaging weights from optimization, and that's big
+  do that is by averaging weights from optimization, and that's a big
   win (e.g. [1][nt-asgd], [2][swa], [3][lawa]). For example, while
   training a language model for the down-stream task of summarization,
   we can save checkpoints periodically and average the model weights
   from the last 10 or so checkpoints to produce the final solution.
   This is pretty much what [Stochastic Weight
-  Averaging][swa-blog] (SWA).
+  Averaging][swa-blog] (SWA) does.
 
     [tail-averaging]: https://jmlr.org/papers/v18/16-595.html
     [suffix-averaging]: https://arxiv.org/abs/1109.5647
@@ -3241,19 +3239,19 @@
   # Like update_tta but also evaluate the model and use that to adapt
   # the length of the averages. Return three values: the best evaluation
   # results, the corresponding weights and averaging length.
-  def update_and_evaluate_tta(w, evaluate):
+  def evaluate_tta(w, evaluate):
     global s, sw, l, lw
-    update_tta(w)
     # Evaluate the non-averaged weights w, the short and the long average.
     f1, fs, fl = evaluate(w), evaluate(sw), evaluate(lw)
+    is_first_eval = (s == l)
     # If the short average is better, then *switch*: empty the long
     # average, which is now the shorter one.
     if fs <= fl:
       s, l, lw, fl = 0, s, sw, fs
-    if f1 < fl:
+    if f1 <= fl:
       # The non-averaged weights performed better. This may happen in
       # the very early stages of training.
-      if s == l:
+      if is_first_eval:
         # If there has never been a switch (s == l), then f1 is probably
         # still improving fast so reset both averages.
         s, l = 0, 0
@@ -3282,12 +3280,11 @@
     w = 3.14
     for i in range(1, 2001):
       w = w - lr*df_dw(w)
+      update_tta(w)
       if i % 100 == 0:
-        tta_f, tta_w, tta_l = update_and_evaluate_tta(w, f)
+        tta_f, tta_w, tta_l = evaluate_tta(w, f)
         print(f'i={i:4d}: f(w_i)={f(w):7.3f},'
               f' f(w_tta)={tta_f:7.3f}, l={tta_l:4d}')
-      else:
-        update_tta(w)
   ```
 
   We added some noise to the gradients in `df_dw` to make it more like
@@ -3297,26 +3294,26 @@
   `test_tta_simple`, we get something like this:
 
   ```
-  i= 100: f(w_i)=  0.003, f(w_tta)=  0.000, l= 100
-  i= 200: f(w_i)=  0.045, f(w_tta)=  0.000, l= 200
-  i= 300: f(w_i)=  0.007, f(w_tta)=  0.000, l= 300
-  i= 400: f(w_i)=  0.023, f(w_tta)=  0.000, l= 400
-  i= 500: f(w_i)=  0.007, f(w_tta)=  0.000, l= 500
-  i= 600: f(w_i)=  0.001, f(w_tta)=  0.000, l= 600
-  i= 700: f(w_i)=  0.026, f(w_tta)=  0.000, l= 600
-  i= 800: f(w_i)=  0.041, f(w_tta)=  0.000, l= 700
-  i= 900: f(w_i)=  0.005, f(w_tta)=  0.000, l= 800
-  i=1000: f(w_i)=  0.050, f(w_tta)=  0.000, l= 900
-  i=1100: f(w_i)=  0.024, f(w_tta)=  0.000, l=1000
-  i=1200: f(w_i)=  0.057, f(w_tta)=  0.000, l=1100
-  i=1300: f(w_i)=  0.036, f(w_tta)=  0.000, l=1200
-  i=1400: f(w_i)=  0.189, f(w_tta)=  0.000, l=1300
-  i=1500: f(w_i)=  0.136, f(w_tta)=  0.000, l=1400
-  i=1600: f(w_i)=  0.186, f(w_tta)=  0.000, l=1500
-  i=1700: f(w_i)=  0.223, f(w_tta)=  0.000, l=1600
-  i=1800: f(w_i)=  0.003, f(w_tta)=  0.000, l=1100
-  i=1900: f(w_i)=  0.065, f(w_tta)=  0.000, l=1200
-  i=2000: f(w_i)=  0.003, f(w_tta)=  0.000, l=1300
+  i= 100: f(w_i)=  0.108, f(w_tta)=  0.000, l= 100
+  i= 200: f(w_i)=  0.011, f(w_tta)=  0.000, l= 200
+  i= 300: f(w_i)=  0.098, f(w_tta)=  0.000, l= 200
+  i= 400: f(w_i)=  0.085, f(w_tta)=  0.000, l= 300
+  i= 500: f(w_i)=  0.221, f(w_tta)=  0.000, l= 200
+  i= 600: f(w_i)=  0.185, f(w_tta)=  0.000, l= 300
+  i= 700: f(w_i)=  0.019, f(w_tta)=  0.000, l= 400
+  i= 800: f(w_i)=  0.180, f(w_tta)=  0.000, l= 500
+  i= 900: f(w_i)=  0.161, f(w_tta)=  0.000, l= 600
+  i=1000: f(w_i)=  0.183, f(w_tta)=  0.000, l= 700
+  i=1100: f(w_i)=  0.057, f(w_tta)=  0.000, l= 800
+  i=1200: f(w_i)=  0.045, f(w_tta)=  0.000, l= 900
+  i=1300: f(w_i)=  0.051, f(w_tta)=  0.000, l=1000
+  i=1400: f(w_i)=  0.010, f(w_tta)=  0.000, l= 900
+  i=1500: f(w_i)=  0.012, f(w_tta)=  0.000, l=1000
+  i=1600: f(w_i)=  0.168, f(w_tta)=  0.000, l=1100
+  i=1700: f(w_i)=  0.001, f(w_tta)=  0.000, l=1200
+  i=1800: f(w_i)=  0.020, f(w_tta)=  0.000, l=1300
+  i=1900: f(w_i)=  0.090, f(w_tta)=  0.000, l=1400
+  i=2000: f(w_i)=  0.115, f(w_tta)=  0.000, l=1500
   ```
 
   In the above, `f(w_i)` is the loss with the non-averaged weights,
@@ -3352,11 +3349,12 @@
     best_iteration = 0
     for i in range(1, 2001):
       w = w - lr*df_dw(w)
+      update_tta(w)
       if i % 400 == 0:
         optimum = random.uniform(-10.0, 10.0)
         print(f'setting optimum={optimum:.3f}')
       if i % 100 == 0:
-        tta_f, tta_w, tta_l = update_and_evaluate_tta(w, f)
+        tta_f, tta_w, tta_l = evaluate_tta(w, f)
         print(f'i={i:4d}: f(w_i)={f(w):7.3f},'
               f' f(w_tta)={tta_f:7.3f}, l={tta_l:4d}',
               end='')
@@ -3372,9 +3370,7 @@
           reset_tta_long_average()
           best_f = float("inf")
           best_iteration = 0
-      else:
-        update_tta(w)
-  ```
+    ```
 
   We can see that TTA adapts to the non-stationarity in a reasonable
   way although the reset heuristic gets triggered spuriously a couple
