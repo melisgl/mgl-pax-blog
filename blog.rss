@@ -21,7 +21,7 @@ training a language model for the down-stream task of summarization,
 we can save checkpoints periodically and average the model weights
 from the last 10 or so checkpoints to produce the final solution.
 This is pretty much what &lt;a href=&quot;https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/&quot; &gt;Stochastic Weight
-Averaging&lt;/a&gt; (SWA).&lt;/p&gt;
+Averaging&lt;/a&gt; (SWA) does.&lt;/p&gt;
 
 &lt;h3&gt;Problems with SWA&lt;/h3&gt;
 
