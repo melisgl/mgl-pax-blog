@@ -15,7 +15,7 @@ direction of what I think is a fairly common technique: averaging
 checkpoints.&lt;/p&gt;
 
 &lt;p&gt;We want to speed up training and improve generalization. One way to
-do that is by averaging weights from optimization, and that&apos;s big
+do that is by averaging weights from optimization, and that&apos;s a big
 win (e.g. &lt;a href=&quot;https://arxiv.org/abs/1708.02182&quot; &gt;1&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/abs/1803.05407&quot; &gt;2&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/abs/2209.14981&quot; &gt;3&lt;/a&gt;). For example, while
 training a language model for the down-stream task of summarization,
 we can save checkpoints periodically and average the model weights
