@@ -3140,8 +3140,8 @@
   ```
   """)
 
-(defpost @tta-practioner
-    (:title "Practioner's Guide to Two-Tailed Averaging"
+(defpost @tta-practitioner
+    (:title "Practitioner's Guide to Two-Tailed Averaging"
      :tags (@ai)
      :date "2022-12-06")
   """This is a complement to the [Two-Tailed Averaging
@@ -3463,10 +3463,11 @@
   hyperparameters. It is a great option when training runs take a long
   (or even an a priori unknown amount of) time, and when we could do
   without optimizing yet another hyperparameter.
+
+  Comment on
+  [Twitter](https://twitter.com/GaborMelis/status/1600479387937144833)
+  or [Mastodon](https://mastodon.social/@melisgl/109472579530491223).
   """)
-
-;;; Comment on [Twitter]() or [Mastodon]().
-
 
 
 (defun on-current-page-p (object)
