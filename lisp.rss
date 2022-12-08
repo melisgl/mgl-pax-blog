@@ -1016,19 +1016,17 @@ experiment.&lt;/p&gt;
         <item>
             <title>Alpha-Beta</title>
             <link>http://quotenil.com/alpha-beta.html</link>
-            <description>&lt;p&gt;It hasn&apos;t been a year yet since I first promised
-that alpha-beta snippet and it is already added to micmac in all its
-&lt;a href=&quot;https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/src/graph-search.lisp#L9&quot; &gt;35 line
+            <description>&lt;p&gt;It hasn&apos;t been a year yet since I first promised that alpha-beta
+snippet, and it is already added to micmac in all its &lt;a href=&quot;https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/src/graph-search.lisp#L9&quot; &gt;35 line
 glory&lt;/a&gt;.
-The good thing about not rushing it out the door is that it saw more
-a bit more use. For a tutorialish tic-tac-toe example see
+The good thing about not rushing it out the door is that it saw a
+bit more use. For a tutorialish tic-tac-toe example see
 &lt;a href=&quot;https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp&quot; &gt;test/test-game-theory.lisp.&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The logging code in the example produces
-&lt;a href=&quot;blog-files/alpha-beta-log.png&quot; title=&quot;output&quot;&gt;output&lt;/a&gt;, which is suitable for
-cut and pasting into an org-mode buffer and exploring it by TABbing
-into subtrees to answer the perpetual &apos;What the hell was it
-thinking?!&apos; question.&lt;/p&gt;
+&lt;a href=&quot;blog-files/alpha-beta-log.png&quot; title=&quot;output&quot;&gt;output&lt;/a&gt;, which is suitable for cut and pasting into an org-mode buffer and
+exploring it by &lt;code&gt;TAB&lt;/code&gt;bing into subtrees to answer the perpetual
+&apos;What the hell was it thinking?!&apos; question.&lt;/p&gt;
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 27 Dec 2010 00:00:00 +0000</pubDate>
