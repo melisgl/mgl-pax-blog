@@ -107,7 +107,7 @@ ul, ol, dl {
 }
 
 li {
-  list-style-type: circle;
+  list-style-type: "⟐ ";
   margin: 0;
 }
 
