@@ -9,7 +9,7 @@
   :homepage "http://quotenil.com"
   :description "Static blog generator based on MGL-PAX."
   :depends-on (#:alexandria #:local-time #:mgl-pax/full
-                            #:pythonic-string-reader #:spinneret)
+                            #:pythonic-string-reader #:spinneret #:xml-emitter)
   :components ((:module "src"
                 :serial t
                 :components ((:file "package")

@@ -159,7 +159,16 @@
          (*document-html-head*
            (lambda ()
              (format nil "~A~A"
-                     "<link rel='shortcut icon' type='image/png' href='favicon.png'>
+                     "<!-- Google tag (gtag.js) -->
+<script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7X64Q1D73F');
+</script>
+<link rel='shortcut icon' type='image/png' href='favicon.png'>
 <link rel='preconnect' href='https://fonts.googleapis.com'>
 <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
 <link href='https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet'>
