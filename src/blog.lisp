@@ -2653,7 +2653,7 @@
 
   [Torch](http://torch.ch/) (Lua) also has CUDA and non-CUDA tensors
   are separate types, and copying between main and GPU memory is
-  explicit which leads to pretty much the same problems.
+  explicit, which leads to pretty much the same problems.
 
   All of this is kind of understandable. When one thinks in terms of
   single-dispatch (i.e. `object.method()`), this kind of design will
