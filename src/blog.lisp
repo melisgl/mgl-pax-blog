@@ -171,8 +171,12 @@
 <link rel='shortcut icon' type='image/png' href='favicon.png'>
 <link rel='preconnect' href='https://fonts.googleapis.com'>
 <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+<link href='https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet'>
+<style> @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap'); </style>
 <link href='https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap' rel='stylesheet'>
-<style> @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap'); </style>"
+<style> @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap'); </style>
+<link rel='alternate' href='http://quotenil.com/blog.rss' type='application/rss+xml'/>
+"
                      (quotenil-rss-feed-for-current-page))))
          (*document-html-sidebar* html-sidebar)
          ;; The shortened posts are reachable normally from CATEGORY's
@@ -2611,7 +2615,7 @@
 
   Badder because clicking on a name will produce a permalink such as
   this:
-  [\\*DOCUMENT-MARK-UP-SIGNATURES*](http://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-MARK-UP-SIGNATURES-2A-20-28VARIABLE-29-29).
+  [`*DOCUMENT-MARK-UP-SIGNATURES*`](http://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-MARK-UP-SIGNATURES-2A-20-28VARIABLE-29-29).
   Clicking on locative types such as `[variable]` on the page that has
   just been linked to will take you to the file and line on github
   where `*DOCUMENT-MARK-UP-SIGNATURES*` is defined.")
