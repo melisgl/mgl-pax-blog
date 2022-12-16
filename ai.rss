@@ -363,7 +363,7 @@ exponentionally worse.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://torch.ch/&quot; &gt;Torch&lt;/a&gt; (Lua) also has CUDA and non-CUDA tensors
 are separate types, and copying between main and GPU memory is
-explicit which leads to pretty much the same problems.&lt;/p&gt;
+explicit, which leads to pretty much the same problems.&lt;/p&gt;
 
 &lt;p&gt;All of this is kind of understandable. When one thinks in terms of
 single-dispatch (i.e. &lt;code&gt;object.method()&lt;/code&gt;), this kind of design will

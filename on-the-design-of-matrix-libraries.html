@@ -29,9 +29,8 @@
 <link rel='shortcut icon' type='image/png' href='favicon.png'>
 <link rel='preconnect' href='https://fonts.googleapis.com'>
 <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
-<link href='https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet'>
-<style> @import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap'); </style>
-
+<link href='https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap' rel='stylesheet'>
+<style> @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap'); </style>
 </head>
 <body>
 <div id="content-container">
@@ -84,7 +83,7 @@ exponentionally worse.</p>
 
 <p><a href="http://torch.ch/" >Torch</a> (Lua) also has CUDA and non-CUDA tensors
 are separate types, and copying between main and GPU memory is
-explicit which leads to pretty much the same problems.</p>
+explicit, which leads to pretty much the same problems.</p>
 
 <p>All of this is kind of understandable. When one thinks in terms of
 single-dispatch (i.e. <code>object.method()</code>), this kind of design will
