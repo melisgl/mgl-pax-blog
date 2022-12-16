@@ -22,6 +22,21 @@ p {
   }
 }
 
+pre {
+  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
+  font-size: 77%;
+}
+
+code {
+  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
+  font-size: 80%;
+}
+
+pre code {
+  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
+  font-size: 100%;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Libre Baskerville', serif;
   font-weight: bold;
@@ -119,14 +134,6 @@ pre {
   overflow: auto;
   margin: 0.5em 0 0 0;
   padding: 0.2em;
-}
-
-pre > code {
-  color: #222222;
-}
-
-code {
-  color: #222222;
 }
 
 a {
@@ -242,7 +249,7 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 #toc {
   background: #333;
   color: #aaa;
-  font-family: monospace;
+  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
 }
 
 /* toc on the left*/
@@ -275,15 +282,10 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 
 #home {
   background-color: #444;
-  text-align: center;
-  /* border: 2px solid #555; */
-  /* margin: 0; */
-  padding: 0.4em 0 0.4em 0;
-}
-
-#home * {
   color: #eee;
+  text-align: center;
   font-size: 1.05rem;
+  padding: 0.2em 0 0.2em 0;
 }
 
 #links {

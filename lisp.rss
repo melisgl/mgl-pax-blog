@@ -544,7 +544,7 @@ has been added.&lt;/p&gt;
 
 &lt;p&gt;Badder because clicking on a name will produce a permalink such as
 this:
-&lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-MARK-UP-SIGNATURES-2A-20-28VARIABLE-29-29&quot; &gt;*DOCUMENT-MARK-UP-SIGNATURES*&lt;/a&gt;.
+&lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-MARK-UP-SIGNATURES-2A-20-28VARIABLE-29-29&quot; &gt;&lt;code&gt;*DOCUMENT-MARK-UP-SIGNATURES*&lt;/code&gt;&lt;/a&gt;.
 Clicking on locative types such as &lt;code&gt;[variable]&lt;/code&gt; on the page that has
 just been linked to will take you to the file and line on github
 where &lt;code&gt;*DOCUMENT-MARK-UP-SIGNATURES*&lt;/code&gt; is defined.&lt;/p&gt;
