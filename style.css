@@ -18,9 +18,20 @@ p {
     font-family: 'Crimson Text', serif;
   }
   p {
+    line-height: 1.30;
+  }
+}
+@media (min-width:60ch) and (max-width:80ch) {
+  p {
     line-height: 1.25;
   }
 }
+@media (max-width:60ch) {
+  p {
+    line-height: 1.2;
+  }
+}
+
 
 pre {
   font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
