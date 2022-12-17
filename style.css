@@ -15,7 +15,8 @@ p {
 
 @media (min-resolution: 0.9x) {
   body {
-    font-family: 'Crimson Text', serif;
+    font-family: 'Crimson Pro', sans;
+    font-size: 120%;
   }
   p {
     line-height: 1.30;
@@ -251,7 +252,7 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 /* toc on the top */
 #content
 {
-  max-width: 71.4ch;
+  max-width: 65ch;
   margin: 0 auto;
   padding-left: 1em;
   padding-right: 1em;
