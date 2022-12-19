@@ -2,7 +2,7 @@ body {
   font-family: sans;
   margin: auto;
   background-color: #f8f7f4;
-  color: #2a2a2a;
+  color: #333;
   padding-bottom: 1em;
   text-align: justify;
   hyphens: auto;
@@ -58,6 +58,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   margin-top: 1.5em;
+  padding-bottom: 0.1em;
   border-bottom: 0.04em solid #CCC;
   font-size: 1.7rem;
   text-align: center;
