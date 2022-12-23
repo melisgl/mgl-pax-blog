@@ -15,7 +15,7 @@ p {
 
 @media (min-resolution: 0.9x) {
   body {
-    font-family: 'Crimson Pro', sans;
+    font-family: 'Crimson Pro', serif;
     font-size: 120%;
   }
   p {
