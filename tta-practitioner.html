@@ -277,40 +277,37 @@ class="keyword"> df_dw</span><span class="paren1">(<span class="code">w</span>)<
 </span>        <span class="symbol">print</span><span class="paren1">(<span class="code"><span class="string">' Reset!'</span></span>)</span>
         reset_tta_long_average<span class="paren1">(<span class="code"></span>)</span>
         best_f = float<span class="paren1">(<span class="code"><span class="string">"inf"</span></span>)</span>
-        best_iteration = 0
-  ```
+        best_iteration = 0</span></code></pre>
 
-We can see that TTA adapts to the non-stationarity <span class="symbol">in</span> a reasonable
+<p>We can see that TTA adapts to the non-stationarity in a reasonable
 way although the reset heuristic gets triggered spuriously a couple
-of times:
-</span></code></pre>
+of times:</p>
 
-<p>i= 100: f(w_i)=  0.008, f(w_tta)=  0.005, l= 100
-i= 200: f(w_i)=  0.060, f(w_tta)=  0.000, l= 100
-i= 300: f(w_i)=  0.004, f(w_tta)=  0.000, l= 100
+<pre><code><span class="code">i= 100: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.008, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.005, l= 100
+i= 200: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.060, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+i= 300: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.004, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
 setting optimum=9.691
-i= 400: f(w_i)= 87.194, f(w_tta)= 87.194, l=   1 Reset!
-i= 500: f(w_i)=  0.002, f(w_tta)=  0.000, l= 100
-i= 600: f(w_i)=  0.033, f(w_tta)=  0.000, l= 200 Reset!
-i= 700: f(w_i)=  0.126, f(w_tta)=  0.000, l= 200
+i= 400: f<span class="paren1">(<span class="code">w_i</span>)</span>= 87.194, f<span class="paren1">(<span class="code">w_tta</span>)</span>= 87.194, l=   1 Reset!
+i= 500: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.002, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+i= 600: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.033, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200 Reset!
+i= 700: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.126, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200
 setting optimum=9.899
-i= 800: f(w_i)=  0.022, f(w_tta)=  0.022, l=   1 Reset!
-i= 900: f(w_i)=  0.004, f(w_tta)=  0.003, l= 100
-i=1000: f(w_i)=  0.094, f(w_tta)=  0.000, l= 100
-i=1100: f(w_i)=  0.146, f(w_tta)=  0.000, l= 100
+i= 800: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.022, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.022, l=   1 Reset!
+i= 900: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.004, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.003, l= 100
+i=1000: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.094, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+i=1100: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.146, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
 setting optimum=3.601
-i=1200: f(w_i)= 35.623, f(w_tta)= 35.623, l=   1 Reset!
-i=1300: f(w_i)=  0.113, f(w_tta)=  0.001, l= 100
-i=1400: f(w_i)=  0.166, f(w_tta)=  0.000, l= 200
-i=1500: f(w_i)=  0.112, f(w_tta)=  0.000, l= 200
+i=1200: f<span class="paren1">(<span class="code">w_i</span>)</span>= 35.623, f<span class="paren1">(<span class="code">w_tta</span>)</span>= 35.623, l=   1 Reset!
+i=1300: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.113, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.001, l= 100
+i=1400: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.166, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200
+i=1500: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.112, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200
 setting optimum=6.662
-i=1600: f(w_i)= 11.692, f(w_tta)=  9.409, l= 300 Reset!
-i=1700: f(w_i)=  0.075, f(w_tta)=  0.000, l= 100
-i=1800: f(w_i)=  0.229, f(w_tta)=  0.000, l= 200 Reset!
-i=1900: f(w_i)=  0.217, f(w_tta)=  0.000, l= 100
+i=1600: f<span class="paren1">(<span class="code">w_i</span>)</span>= 11.692, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  9.409, l= 300 Reset!
+i=1700: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.075, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+i=1800: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.229, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200 Reset!
+i=1900: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.217, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
 setting optimum=-8.930
-i=2000: f(w_i)=242.481, f(w_tta)=242.481, l=   1 Reset!
-```</p>
+i=2000: f<span class="paren1">(<span class="code">w_i</span>)</span>=242.481, f<span class="paren1">(<span class="code">w_tta</span>)</span>=242.481, l=   1 Reset!</span></code></pre>
 
 <p>Note that that in these examples the evaluation function in TTA was
 the training loss, but TTA is mainly intended for when the
