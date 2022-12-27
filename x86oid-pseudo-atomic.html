@@ -53,7 +53,7 @@
 
 <h1><a href="x86oid-pseudo-atomic.html">X86oid Pseudo Atomic</a></h1>
 
-<p><em>Tags</em>: <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: <code>2009-03-29</code></p>
+<p><span class='post-data'></span><em>Tags</em>: <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: <code>2009-03-29</code></p>
 
 <p>The relatively recent
 <a href="http://www.method-combination.net/blog/archives/2008/02/01/vm-tricks.html" >chit</a>
@@ -75,7 +75,7 @@ up pseudo atomic in SBCL.</p>
 </span>       <span class="paren4">(<span class="code">inst break pending-interrupt-trap</span>)</span>
        <span class="paren4">(<span class="code">emit-label ,label</span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
 
-<h3>EBP</h3>
+<h2>EBP</h2>
 
 <p>My first idea was that ORing is unnecessary since with the slew of
 interrupt fixes going into 1.0.26 every interrupt deferred by pseudo
@@ -103,7 +103,7 @@ non-zero:</p>
 cl-bench (see &quot;pseudo-atomic.ebp&quot; in the
 <a href="blog-files/pseduo-atomic/p4-results.txt" >results</a>).</p>
 
-<h3>mprotect</h3>
+<h2>mprotect</h2>
 
 <p>But if the page of <code>PSEDUO-ATOMIC-BITS</code> is made write protected
 when an interrupt is deferred, then the pending interrupt can be run
@@ -131,7 +131,7 @@ just as fast:</p>
     <span class="paren3">(<span class="code">inst mov <span class="paren4">(<span class="code">make-ea <span class="keyword">:byte</span> <span class="keyword">:disp</span> <span class="paren5">(<span class="code">* 4 thread-pseudo-atomic-bits-slot</span>)</span></span>)</span>
           0 <span class="keyword">:fs</span></span>)</span></span>)</span></span>)</span></span></code></pre>
 
-<h3>Direction flag</h3>
+<h2>Direction flag</h2>
 
 <p>Another idea is to hijack the direction
 flag:</p>

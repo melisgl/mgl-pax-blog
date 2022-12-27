@@ -6,33 +6,46 @@ body {
   padding-bottom: 1em;
   text-align: justify;
   hyphens: auto;
+  hyphenate-limit-chars: 4 2 2;
 }
 
-p {
-  margin: 0.5em 0 0 0;
-  line-height: 1.5;
-}
-
-@media (min-resolution: 0.9x) {
+/* @media (min-resolution: 0.9x) { */
   body {
     font-family: 'Crimson Pro', serif;
     font-size: 120%;
   }
   p {
-    line-height: 1.30;
+    margin: 0;
+    line-height: 1.58rem;
   }
-}
-@media (min-width:60ch) and (max-width:80ch) {
-  p {
-    line-height: 1.25;
-  }
-}
-@media (max-width:60ch) {
-  p {
-    line-height: 1.2;
-  }
-}
+/* } */
+/* @media (min-width:60ch) and (max-width:80ch) { */
+/*   p { */
+/*     line-height: 1.25; */
+/*   } */
+/* } */
+/* @media (max-width:60ch) { */
+/*   p { */
+/*     line-height: 1.2; */
+/*   } */
+/* } */
 
+/* This is .post-data. */
+h1 + p {
+  font-size: 85%;
+  margin-top: -3.16rem;
+  margin-bottom: 1.58rem;
+  text-align: center;
+}
+p:not(:has(.post-data)) + p {
+  text-indent: 1.58rem;
+}
+h2 + p {
+  text-indent: 0em;
+}
+h3 + p {
+  text-indent: 0em;
+}
 
 pre {
   font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
@@ -51,41 +64,48 @@ pre code {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Libre Baskerville', serif;
+  /* Balance the x-height of Libre Baskerville with Crimson Pro. */
+  font-size: 78.3%;
   font-weight: bold;
   text-shadow: 0.05em 0.05em 0.02em #DDD;
   margin-bottom: 0.4em;
 }
 
 h1 {
-  margin-top: 1.5em;
-  padding-bottom: 0.1em;
-  border-bottom: 0.04em solid #CCC;
-  font-size: 1.7rem;
+  line-height: 3.16rem;
+  font-size: 1.8em;
+  margin-top: 3.16rem;
+  margin-bottom: 3.16rem;
   text-align: center;
 }
-
-h1:first-of-type {
-  margin-top: 1em;
-}
-
 h2 {
-  font-size: 1.4rem;
+  font-size: 1.4em;
+  line-height: 3.16rem;
+  margin-top: 0.88rem;
+  margin-bottom: 0.70rem;
 }
-
 h3 {
-  font-size: 1.1rem;
+  font-size: 1.2em;
+  line-height: 3.16rem;
+  margin-top: 0.88rem;
+  margin-bottom: 0.70rem;
 }
-
+h2 + h3 {
+  margin-top: -0.70rem;
+}
 h4 {
-  font-size: 1.0rem;
-  margin-top: 0.75em;
-  margin-bottom: 0.5em;
+  font-size: 1.0em;
+  line-height: 1.58rem;
+  margin-top: 0.88em;
+  margin-bottom: 0.70em;
 }
-
+h3 + h4 {
+  margin-top: -0.70rem;
+}
 h5 {
   color: #777777;
   background-color: inherit;
-  font-size: 1rem;
+  font-size: 1em;
 }
 
 h6 {
@@ -129,13 +149,11 @@ blockquote, table, pre {
 }
 
 ul, ol, dl {
-  padding-left: 1.1em;
-  list-style-position: outside;
+  padding-left: 1.58rem;
   margin: 0;
 }
 
 li {
-  list-style-type: "⟐ ";
   margin: 0;
 }
 

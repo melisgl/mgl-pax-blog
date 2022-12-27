@@ -53,7 +53,7 @@
 
 <h1><a href="planet-wars-post-mortem.html">Planet Wars Post-Mortem</a></h1>
 
-<p><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: <code>2010-12-01</code></p>
+<p><span class='post-data'></span><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: <code>2010-12-01</code></p>
 
 <p>I can't believe I <a href="https://web.archive.org/web/20101205003152/http://ai-contest.com/rankings.php" >won</a>.</p>
 
@@ -63,12 +63,12 @@
 chances, but there was a huge shuffling of ranks in the last week
 and some last minute casualties.</p>
 
-<h3>Code</h3>
+<h2>Code</h2>
 
 <p>Note that the git repository is available at
 [https://github.com/melisgl/planet-wars(https://github.com/melisgl/planet-wars).</p>
 
-<h3>Denial</h3>
+<h2>Denial</h2>
 
 <p>I had promised myself not to enter this one and resisted for about
 two weeks when my defenses were worn away and I was drawn into the
@@ -82,7 +82,7 @@ rock-paper-scissors scenarios would dominate (more on this later).</p>
 <a href="https://web.archive.org/web/20100307014152/http://www.a1k0n.net/blah/archives/2010/03/index.html" >tribute</a>,
 let's steer off the trodden path.</p>
 
-<h3>Beginning</h3>
+<h2>Beginning</h2>
 
 <p>Driven by the first
 <a href="http://en.wikipedia.org/wiki/Larry_Wall#Virtues_of_a_programmer" >virtue</a>
@@ -104,7 +104,7 @@ it.</p>
 Without a similarity function over moves it was hopeless to explore
 a meaningful portion of the game tree.</p>
 
-<h3>Move generation</h3>
+<h2>Move generation</h2>
 
 <p>At this point I had to start getting my hands dirty. The first thing
 was to implement simulating the future (see <code>FUTURE</code> class) that was
@@ -142,7 +142,7 @@ To limit the number of moves generated we first evaluate steps one
 by one, sort them in descending order of evaluation score and try to
 combine them starting from the first.</p>
 
-<h3>Full attack</h3>
+<h2>Full attack</h2>
 
 <p>Normally futures are calculated taking into account fleets already
 in flight in the observable game state that the engine sends. Back
@@ -175,7 +175,7 @@ that can be sent away on that turn from the defending army without:</p>
 operational results started to come. But there was a crucial
 off-by-one bug.</p>
 
-<h3>Constraining futures</h3>
+<h2>Constraining futures</h2>
 
 <p>That bug was in the scoring of futures. For player 1 it used the
 possible arrivals (number of ships) one turn before those of player
@@ -212,7 +212,7 @@ takes it away. <a href="https://web.archive.org/web/20101213023101/http://www.ai
 game</a> is a
 nice illustration of the concept.</p>
 
-<h3>Redistribution</h3>
+<h2>Redistribution</h2>
 
 <p>As pointed out by
 <a href="https://web.archive.org/web/20110210212413/http://iouri-khramtsov.blogspot.com/2010/11/google-ai-challenge-planet-wars-entry.html" >iouri</a>
@@ -236,7 +236,7 @@ redistributed. It's called <code>POSITIONAL-MIN-TURN-TO-DEPART-1</code>. As its
 name implies it's like <code>MIN-TURN-TO-DEPART-1</code> but used only when
 computing the positional penalty.</p>
 
-<h3>Dynamic horizon</h3>
+<h2>Dynamic horizon</h2>
 
 <p>How far ahead the bot looks has a very strong effect on its play:
 too far and it will be blind to tactics, too close and it will miss
@@ -250,7 +250,7 @@ to take neutrals are included. A neutral is deemed safe to take if
 from the initial investment until the breakeven point no friendly
 planet can be possibly lost in a full attack future.</p>
 
-<h3>Nash equilibrium</h3>
+<h2>Nash equilibrium</h2>
 
 <p>There are - especially at the very beginning of games - situations
 were there is no best move, it all depends on what the opponent
@@ -264,7 +264,7 @@ that's just a probability assigned to each move.</p>
 looked easy to exploit and although it did beat 1 ply minimax about
 2 to 1 it was too slow to experiment with.</p>
 
-<h3>Alpha-beta</h3>
+<h2>Alpha-beta</h2>
 
 <p>Yes, for the longest time it was a 1 ply search. Opponent moves were
 never considered and position evaluation was good enough to pick up
@@ -316,7 +316,7 @@ until the deadline in a test against binaries of a few fellow
 competitors the two planet limit seemed to perform markedly better,
 but it was too late to properly test it against a bigger population.</p>
 
-<h3>The End</h3>
+<h2>The End</h2>
 
 <p>Like many fellow contestants I am very happy that the contest is
 over and I got my life back. I'm sure that many families breathed a

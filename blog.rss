@@ -23,7 +23,7 @@ from the last 10 or so checkpoints to produce the final solution.
 This is pretty much what &lt;a href=&quot;https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/&quot; &gt;Stochastic Weight
 Averaging&lt;/a&gt; (SWA) does.&lt;/p&gt;
 
-&lt;h3&gt;Problems with SWA&lt;/h3&gt;
+&lt;h2&gt;Problems with SWA&lt;/h2&gt;
 
 &lt;p&gt;There is a number of problems with SWA:&lt;/p&gt;
 
@@ -57,7 +57,7 @@ Averaging&lt;/a&gt; (SWA) does.&lt;/p&gt;
   solutions).&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;Two-Tailed Averaging&lt;/h3&gt;
+&lt;h2&gt;Two-Tailed Averaging&lt;/h2&gt;
 
 &lt;p&gt;These are the issues Two-Tailed Averaging tackles. The algorithm
 needs storage for only two sets of weights (constant storage cost)
@@ -74,7 +74,7 @@ validation loss:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;blog-files/tta-vs-swa.png&quot; alt=&quot;TTA (orange) vs SWA (green)&quot; /&gt;&lt;/p&gt;
 
-&lt;h3&gt;The Algorithm&lt;/h3&gt;
+&lt;h2&gt;The Algorithm&lt;/h2&gt;
 
 &lt;p&gt;The core algorithm is quite simple: as the optimizer produces new
 weights, we add those to two moving averages. When the short moving
@@ -268,7 +268,7 @@ the training loss, but TTA is mainly intended for when the
 evaluation function measures performance on the validation set or on
 a down-stream task (e.g. summarization).&lt;/p&gt;
 
-&lt;h3&gt;Downsampling weights&lt;/h3&gt;
+&lt;h2&gt;Downsampling weights&lt;/h2&gt;
 
 &lt;p&gt;In its proposed form, Two-Tailed Averaging incorporates every set of
 weights produced by the optimizer in both averages it maintains.
@@ -282,7 +282,7 @@ device can be slow, so we might want to do that, say, every 20
 optimization steps. Obviously, downsampling the weights too much
 will affect the convergence rate, so there is a tradeoff.&lt;/p&gt;
 
-&lt;h3&gt;Learning rate&lt;/h3&gt;
+&lt;h2&gt;Learning rate&lt;/h2&gt;
 
 &lt;p&gt;Note that in our experiments with Two-Tailed Averaging, we used a
 constant learning rate motivated by the fact that the closely
@@ -291,7 +291,7 @@ learning rate in such a setting. The algorithm should work with
 decreasing learning rates but would require modification for
 cyclical schedules.&lt;/p&gt;
 
-&lt;h3&gt;Related works&lt;/h3&gt;
+&lt;h2&gt;Related works&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1803.05407&quot; &gt;SWA&lt;/a&gt; averages the last $K$ checkpoints.&lt;/p&gt;&lt;/li&gt;
@@ -312,7 +312,7 @@ SWA and LAWA are optimal if their hyperparameters are well-tuned;
 intermediate results of LAWA are unlikely to be optimal; NT-ASGD can
 miss the right time to start averaging.&lt;/p&gt;
 
-&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
 
 &lt;p&gt;Two-Tailed Averaging can be thought of as online SWA with no
 hyperparameters. It is a great option when training runs take a long
@@ -647,7 +647,7 @@ situations.&lt;/p&gt;
             <description>&lt;p&gt;&lt;a href=&quot;http://github.com/melisgl/mgl-pax/&quot; &gt;PAX&lt;/a&gt; v0.1 is released.
 At this point, I consider it fairly complete. Here is the changelog for the last year or so.&lt;/p&gt;
 
-&lt;h4&gt;New Features&lt;/h4&gt;
+&lt;h2&gt;New Features&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;To reduce deployment size, made the MGL-PAX system &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29&quot; &gt;autoload navigation, documentation generation, and transcription code&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
@@ -663,7 +663,7 @@ At this point, I consider it fairly complete. Here is the changelog for the last
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@UNRESOLVABLE-REFLINKS%20MGL-PAX:SECTION&quot; &gt;Warn on unresolvable reflinks&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4&gt;Transcribe&lt;/h4&gt;
+&lt;h2&gt;Transcribe&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Transcription consistency checking is now &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-FINER-GRAINED-CONSISTENCY-CHECKS%20MGL-PAX:SECTION&quot; &gt;customizable&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
@@ -671,14 +671,14 @@ At this point, I consider it fairly complete. Here is the changelog for the last
 &lt;li&gt;&lt;p&gt;Errors during transcribing are &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@TRANSCRIPT-API%20MGL-PAX:SECTION&quot; &gt;included&lt;/a&gt; in the transcript.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4&gt;Portability&lt;/h4&gt;
+&lt;h2&gt;Portability&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Tested on ABCL, AllegroCL, CCL, CLISP, CMUCL, ECL, and SBCL.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;SLIME &lt;code&gt;M-.&lt;/code&gt; is now as capable on all Lisps as the Swank implementation allows.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4&gt;Improvements&lt;/h4&gt;
+&lt;h2&gt;Improvements&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Generalized, cleaned up, and documented handling &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#toc-6-2-parsing&quot; &gt;trimming of punctuation and plurals&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
@@ -694,7 +694,7 @@ At this point, I consider it fairly complete. Here is the changelog for the last
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION&quot; &gt;DOCUMENT&lt;/a&gt; can produce reasonably readable output with &lt;code&gt;:FORMAT&lt;/code&gt; &lt;code&gt;:PLAIN&lt;/code&gt; (the default). It is now suitable for use in the REPL as a kind of replacement for &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_docume.htm&quot; title=&quot;DOCUMENTATION GENERIC-FUNCTION&quot;&gt;&lt;code&gt;CL:DOCUMENTATION&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4&gt;Bugs&lt;/h4&gt;
+&lt;h2&gt;Bugs&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Made Emacs-side parsing for &lt;code&gt;M-.&lt;/code&gt; navigation more robust.&lt;/p&gt;&lt;/li&gt;
@@ -702,7 +702,7 @@ At this point, I consider it fairly complete. Here is the changelog for the last
 &lt;li&gt;&lt;p&gt;Fixed lots of minor bugs.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4&gt;Internals&lt;/h4&gt;
+&lt;h2&gt;Internals&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Tests moved to &lt;a href=&quot;https://github.com/melisgl/try&quot; &gt;Try&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
@@ -860,9 +860,8 @@ this could make the entire CUDA related part of MGL-MAT an add-on.&lt;/p&gt;
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/named-readtables-manual.html&quot; &gt;named-readtables&lt;/a&gt;
 and
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/micmac-manual.html&quot; &gt;micmac&lt;/a&gt;
-has been added.&lt;/p&gt;
-
-&lt;p&gt;Badder because clicking on a name will produce a permalink such as
+has been added.
+Badder because clicking on a name will produce a permalink such as
 this:
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-MARK-UP-SIGNATURES-2A-20-28VARIABLE-29-29&quot; &gt;&lt;code&gt;*DOCUMENT-MARK-UP-SIGNATURES*&lt;/code&gt;&lt;/a&gt;.
 Clicking on locative types such as &lt;code&gt;[variable]&lt;/code&gt; on the page that has
@@ -1144,11 +1143,10 @@ competition, last September I decided to enter the
 contest on &lt;a href=&quot;http://kaggle.com&quot; &gt;Kaggle&lt;/a&gt;. It was a straightforward
 text classification problem with extremely unbalanced classes.&lt;/p&gt;
 
-&lt;p&gt;Just as Bocsimack&#xF3; did the last time around, his lazier sidekick&lt;/p&gt;
-
 &lt;p&gt;&lt;img src=&quot;blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;Malacka&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;(on the right) brought
+&lt;p&gt;Just as Bocsimack&#xF3; did the last time around, his lazier sidekick (on
+the right) brought
 &lt;a href=&quot;http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow/leaderboard&quot; &gt;success&lt;/a&gt;.
 I would have loved to be lazy and still win, but the leaderboard was
 too close for comfort.&lt;/p&gt;
@@ -1341,9 +1339,9 @@ had to go with liblinear.&lt;/p&gt;
 the bugs) didn&apos;t work. The best I could achive was slightly worse
 than the conjugate gradient based score.&lt;/p&gt;
 
-&lt;h3&gt;Retraining consituent models&lt;/h3&gt;
+&lt;h3&gt;Retraining constituent models&lt;/h3&gt;
 
-&lt;p&gt;Recall that the consituent models were trained only on 4/5 of the
+&lt;p&gt;Recall that the constituent models were trained only on 4/5 of the
 available data. After the ensemble was trainined, I intended to
 replace retrain them on the whole stratified training set. Initial
 experiments with liblinear were promising, but with the DBN the
@@ -1547,12 +1545,12 @@ approximation:&lt;/p&gt;
 chances, but there was a huge shuffling of ranks in the last week
 and some last minute casualties.&lt;/p&gt;
 
-&lt;h3&gt;Code&lt;/h3&gt;
+&lt;h2&gt;Code&lt;/h2&gt;
 
 &lt;p&gt;Note that the git repository is available at
 [https://github.com/melisgl/planet-wars(https://github.com/melisgl/planet-wars).&lt;/p&gt;
 
-&lt;h3&gt;Denial&lt;/h3&gt;
+&lt;h2&gt;Denial&lt;/h2&gt;
 
 &lt;p&gt;I had promised myself not to enter this one and resisted for about
 two weeks when my defenses were worn away and I was drawn into the
@@ -1566,7 +1564,7 @@ rock-paper-scissors scenarios would dominate (more on this later).&lt;/p&gt;
 &lt;a href=&quot;https://web.archive.org/web/20100307014152/http://www.a1k0n.net/blah/archives/2010/03/index.html&quot; &gt;tribute&lt;/a&gt;,
 let&apos;s steer off the trodden path.&lt;/p&gt;
 
-&lt;h3&gt;Beginning&lt;/h3&gt;
+&lt;h2&gt;Beginning&lt;/h2&gt;
 
 &lt;p&gt;Driven by the first
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Larry_Wall#Virtues_of_a_programmer&quot; &gt;virtue&lt;/a&gt;
@@ -1588,7 +1586,7 @@ it.&lt;/p&gt;
 Without a similarity function over moves it was hopeless to explore
 a meaningful portion of the game tree.&lt;/p&gt;
 
-&lt;h3&gt;Move generation&lt;/h3&gt;
+&lt;h2&gt;Move generation&lt;/h2&gt;
 
 &lt;p&gt;At this point I had to start getting my hands dirty. The first thing
 was to implement simulating the future (see &lt;code&gt;FUTURE&lt;/code&gt; class) that was
@@ -1626,7 +1624,7 @@ To limit the number of moves generated we first evaluate steps one
 by one, sort them in descending order of evaluation score and try to
 combine them starting from the first.&lt;/p&gt;
 
-&lt;h3&gt;Full attack&lt;/h3&gt;
+&lt;h2&gt;Full attack&lt;/h2&gt;
 
 &lt;p&gt;Normally futures are calculated taking into account fleets already
 in flight in the observable game state that the engine sends. Back
@@ -1659,7 +1657,7 @@ that can be sent away on that turn from the defending army without:&lt;/p&gt;
 operational results started to come. But there was a crucial
 off-by-one bug.&lt;/p&gt;
 
-&lt;h3&gt;Constraining futures&lt;/h3&gt;
+&lt;h2&gt;Constraining futures&lt;/h2&gt;
 
 &lt;p&gt;That bug was in the scoring of futures. For player 1 it used the
 possible arrivals (number of ships) one turn before those of player
@@ -1696,7 +1694,7 @@ takes it away. &lt;a href=&quot;https://web.archive.org/web/20101213023101/http:
 game&lt;/a&gt; is a
 nice illustration of the concept.&lt;/p&gt;
 
-&lt;h3&gt;Redistribution&lt;/h3&gt;
+&lt;h2&gt;Redistribution&lt;/h2&gt;
 
 &lt;p&gt;As pointed out by
 &lt;a href=&quot;https://web.archive.org/web/20110210212413/http://iouri-khramtsov.blogspot.com/2010/11/google-ai-challenge-planet-wars-entry.html&quot; &gt;iouri&lt;/a&gt;
@@ -1720,7 +1718,7 @@ redistributed. It&apos;s called &lt;code&gt;POSITIONAL-MIN-TURN-TO-DEPART-1&lt;/
 name implies it&apos;s like &lt;code&gt;MIN-TURN-TO-DEPART-1&lt;/code&gt; but used only when
 computing the positional penalty.&lt;/p&gt;
 
-&lt;h3&gt;Dynamic horizon&lt;/h3&gt;
+&lt;h2&gt;Dynamic horizon&lt;/h2&gt;
 
 &lt;p&gt;How far ahead the bot looks has a very strong effect on its play:
 too far and it will be blind to tactics, too close and it will miss
@@ -1734,7 +1732,7 @@ to take neutrals are included. A neutral is deemed safe to take if
 from the initial investment until the breakeven point no friendly
 planet can be possibly lost in a full attack future.&lt;/p&gt;
 
-&lt;h3&gt;Nash equilibrium&lt;/h3&gt;
+&lt;h2&gt;Nash equilibrium&lt;/h2&gt;
 
 &lt;p&gt;There are - especially at the very beginning of games - situations
 were there is no best move, it all depends on what the opponent
@@ -1748,7 +1746,7 @@ that&apos;s just a probability assigned to each move.&lt;/p&gt;
 looked easy to exploit and although it did beat 1 ply minimax about
 2 to 1 it was too slow to experiment with.&lt;/p&gt;
 
-&lt;h3&gt;Alpha-beta&lt;/h3&gt;
+&lt;h2&gt;Alpha-beta&lt;/h2&gt;
 
 &lt;p&gt;Yes, for the longest time it was a 1 ply search. Opponent moves were
 never considered and position evaluation was good enough to pick up
@@ -1800,7 +1798,7 @@ until the deadline in a test against binaries of a few fellow
 competitors the two planet limit seemed to perform markedly better,
 but it was too late to properly test it against a bigger population.&lt;/p&gt;
 
-&lt;h3&gt;The End&lt;/h3&gt;
+&lt;h2&gt;The End&lt;/h2&gt;
 
 &lt;p&gt;Like many fellow contestants I am very happy that the contest is
 over and I got my life back. I&apos;m sure that many families breathed a
@@ -2953,7 +2951,7 @@ up pseudo atomic in SBCL.&lt;/p&gt;
 &lt;/span&gt;       &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;inst break pending-interrupt-trap&lt;/span&gt;)&lt;/span&gt;
        &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;emit-label ,label&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3&gt;EBP&lt;/h3&gt;
+&lt;h2&gt;EBP&lt;/h2&gt;
 
 &lt;p&gt;My first idea was that ORing is unnecessary since with the slew of
 interrupt fixes going into 1.0.26 every interrupt deferred by pseudo
@@ -2981,7 +2979,7 @@ non-zero:&lt;/p&gt;
 cl-bench (see &amp;quot;pseudo-atomic.ebp&amp;quot; in the
 &lt;a href=&quot;blog-files/pseduo-atomic/p4-results.txt&quot; &gt;results&lt;/a&gt;).&lt;/p&gt;
 
-&lt;h3&gt;mprotect&lt;/h3&gt;
+&lt;h2&gt;mprotect&lt;/h2&gt;
 
 &lt;p&gt;But if the page of &lt;code&gt;PSEDUO-ATOMIC-BITS&lt;/code&gt; is made write protected
 when an interrupt is deferred, then the pending interrupt can be run
@@ -3009,7 +3007,7 @@ just as fast:&lt;/p&gt;
     &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;inst mov &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;make-ea &lt;span class=&quot;keyword&quot;&gt;:byte&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:disp&lt;/span&gt; &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;* 4 thread-pseudo-atomic-bits-slot&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
           0 &lt;span class=&quot;keyword&quot;&gt;:fs&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3&gt;Direction flag&lt;/h3&gt;
+&lt;h2&gt;Direction flag&lt;/h2&gt;
 
 &lt;p&gt;Another idea is to hijack the direction
 flag:&lt;/p&gt;

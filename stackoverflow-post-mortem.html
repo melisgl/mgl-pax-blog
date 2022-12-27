@@ -53,7 +53,7 @@
 
 <h1><a href="stackoverflow-post-mortem.html">Stackoverflow Post-Mortem</a></h1>
 
-<p><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: <code>2013-04-09</code></p>
+<p><span class='post-data'></span><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: <code>2013-04-09</code></p>
 
 <p>After almost two years without a single
 competition, last September I decided to enter the
@@ -61,11 +61,10 @@ competition, last September I decided to enter the
 contest on <a href="http://kaggle.com" >Kaggle</a>. It was a straightforward
 text classification problem with extremely unbalanced classes.</p>
 
-<p>Just as Bocsimackó did the last time around, his lazier sidekick</p>
-
 <p><img src="blog-files/malacka-es-bocsimacko.jpg" alt="Malacka" /></p>
 
-<p>(on the right) brought
+<p>Just as Bocsimackó did the last time around, his lazier sidekick (on
+the right) brought
 <a href="http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow/leaderboard" >success</a>.
 I would have loved to be lazy and still win, but the leaderboard was
 too close for comfort.</p>
@@ -258,9 +257,9 @@ had to go with liblinear.</p>
 the bugs) didn't work. The best I could achive was slightly worse
 than the conjugate gradient based score.</p>
 
-<h3>Retraining consituent models</h3>
+<h3>Retraining constituent models</h3>
 
-<p>Recall that the consituent models were trained only on 4/5 of the
+<p>Recall that the constituent models were trained only on 4/5 of the
 available data. After the ensemble was trainined, I intended to
 replace retrain them on the whole stratified training set. Initial
 experiments with liblinear were promising, but with the DBN the

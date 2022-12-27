@@ -53,7 +53,7 @@
 
 <h1><a href="tta-practitioner.html">Practitioner's Guide to Two-Tailed Averaging</a></h1>
 
-<p><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <em>Date</em>: <code>2022-12-06</code></p>
+<p><span class='post-data'></span><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <em>Date</em>: <code>2022-12-06</code></p>
 
 <p>This is a complement to the <a href="https://arxiv.org/abs/2209.12581" >Two-Tailed Averaging
 paper</a>, approached from the
@@ -69,7 +69,7 @@ from the last 10 or so checkpoints to produce the final solution.
 This is pretty much what <a href="https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/" >Stochastic Weight
 Averaging</a> (SWA) does.</p>
 
-<h3>Problems with SWA</h3>
+<h2>Problems with SWA</h2>
 
 <p>There is a number of problems with SWA:</p>
 
@@ -103,7 +103,7 @@ Averaging</a> (SWA) does.</p>
   solutions).</p></li>
 </ul>
 
-<h3>Two-Tailed Averaging</h3>
+<h2>Two-Tailed Averaging</h2>
 
 <p>These are the issues Two-Tailed Averaging tackles. The algorithm
 needs storage for only two sets of weights (constant storage cost)
@@ -120,7 +120,7 @@ validation loss:</p>
 
 <p><img src="blog-files/tta-vs-swa.png" alt="TTA (orange) vs SWA (green)" /></p>
 
-<h3>The Algorithm</h3>
+<h2>The Algorithm</h2>
 
 <p>The core algorithm is quite simple: as the optimizer produces new
 weights, we add those to two moving averages. When the short moving
@@ -314,7 +314,7 @@ the training loss, but TTA is mainly intended for when the
 evaluation function measures performance on the validation set or on
 a down-stream task (e.g. summarization).</p>
 
-<h3>Downsampling weights</h3>
+<h2>Downsampling weights</h2>
 
 <p>In its proposed form, Two-Tailed Averaging incorporates every set of
 weights produced by the optimizer in both averages it maintains.
@@ -328,7 +328,7 @@ device can be slow, so we might want to do that, say, every 20
 optimization steps. Obviously, downsampling the weights too much
 will affect the convergence rate, so there is a tradeoff.</p>
 
-<h3>Learning rate</h3>
+<h2>Learning rate</h2>
 
 <p>Note that in our experiments with Two-Tailed Averaging, we used a
 constant learning rate motivated by the fact that the closely
@@ -337,7 +337,7 @@ learning rate in such a setting. The algorithm should work with
 decreasing learning rates but would require modification for
 cyclical schedules.</p>
 
-<h3>Related works</h3>
+<h2>Related works</h2>
 
 <ul>
 <li><p><a href="https://arxiv.org/abs/1803.05407" >SWA</a> averages the last $K$ checkpoints.</p></li>
@@ -358,7 +358,7 @@ SWA and LAWA are optimal if their hyperparameters are well-tuned;
 intermediate results of LAWA are unlikely to be optimal; NT-ASGD can
 miss the right time to start averaging.</p>
 
-<h3>Summary</h3>
+<h2>Summary</h2>
 
 <p>Two-Tailed Averaging can be thought of as online SWA with no
 hyperparameters. It is a great option when training runs take a long
