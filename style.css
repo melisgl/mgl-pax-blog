@@ -15,37 +15,9 @@ p {
   line-height: 1.58rem;
 }
 
-/* This is .post-data. */
-h1 + p {
-  font-size: 85%;
-  margin-top: -3.16rem;
-  margin-bottom: 1.58rem;
-  text-align: center;
-}
 p:not(:has(.post-data)) + p {
   margin-top: 1.58rem;
   /* text-indent: 1.58rem; */
-}
-h2 + p {
-  text-indent: 0em;
-}
-h3 + p {
-  text-indent: 0em;
-}
-
-pre {
-  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
-  font-size: 77%;
-}
-
-code {
-  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
-  font-size: 80%;
-}
-
-pre code {
-  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
-  font-size: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -64,30 +36,55 @@ h1 {
   margin-bottom: 3.16rem;
   text-align: center;
 }
+/* This is .post-data. */
+h1 + p {
+  font-size: 85%;
+  margin-top: -3.16rem;
+  margin-bottom: 1.58rem;
+  text-align: center;
+}
+
 h2 {
   font-size: 1.4em;
   line-height: 3.16rem;
   margin-top: 0.88rem;
   margin-bottom: 0.70rem;
 }
+
+h2 + p {
+  text-indent: 0em;
+}
+
 h3 {
   font-size: 1.2em;
   line-height: 3.16rem;
   margin-top: 0.88rem;
   margin-bottom: 0.70rem;
 }
+
 h2 + h3 {
   margin-top: -0.70rem;
 }
+
+h3 + p {
+  text-indent: 0em;
+}
+
+h3 + p {
+  text-indent: 0em;
+}
+
 h4 {
   font-size: 1.0em;
   line-height: 1.58rem;
   margin-top: 0.88em;
   margin-bottom: 0.70em;
 }
+
 h3 + h4 {
   margin-top: -0.70rem;
 }
+
 h5 {
   color: #777777;
   background-color: inherit;
@@ -122,6 +119,21 @@ h6 a {
   color: #333;
 }
 
+pre {
+  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
+  font-size: 77%;
+}
+
+code {
+  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
+  font-size: 80%;
+}
+
+pre code {
+  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
+  font-size: 100%;
+}
+
 hr {
   height: 0.2em;
   border: 0;
@@ -134,15 +146,6 @@ blockquote, table, pre {
   margin: 0.5em 0 0 0;
 }
 
-ul, ol, dl {
-  padding-left: 1.58rem;
-  margin: 0;
-}
-
-li {
-  margin: 0;
-}
-
 pre {
   background-color: #F5F3ED;
   color: #000000;
@@ -153,15 +156,20 @@ pre {
   padding: 0.2em;
 }
 
+ul, ol, dl {
+  padding-left: 1.58rem;
+  margin: 0;
+}
+
+li {
+  margin: 0;
+}
+
 a {
   text-decoration: none;
   color: #0233c8;
   /* text-decoration-thickness: 0.04em; */
   /* text-underline-offset: 0.1em; */
-}
-
-h6 a {
-  color: #777777;
 }
 
 a:hover {
@@ -316,6 +324,7 @@ img[alt$="about-me-dice"] {
   width: 30%;
   float: right;
 }
+
 img[alt$="TTA (orange) vs SWA (green)"] {
   width: 70%;
 }
