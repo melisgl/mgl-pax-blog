@@ -15,10 +15,26 @@ p {
   line-height: 1.58rem;
 }
 
-p:not(:has(.post-data)) + p {
+p + p {
   margin-top: 1.58rem;
   /* text-indent: 1.58rem; */
 }
+
+/* This moves the Tags/Date line right below the H1 heading.*/
+.post-data {
+  display: block;
+  margin-top: -3.16rem;
+  margin-bottom: 1.58rem;
+}
+
+/* Firefox does not support :has(). */
+p:has(.post-data) {
+  margin-top: 0;
+  /* text-indent: 0; */
+  font-size: 85%;
+  text-align: center;
+}
+
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Libre Baskerville', serif;
@@ -34,13 +50,6 @@ h1 {
   font-size: 1.8em;
   margin-top: 3.16rem;
   margin-bottom: 3.16rem;
-  text-align: center;
-}
-/* This is .post-data. */
-h1 + p {
-  font-size: 85%;
-  margin-top: -3.16rem;
-  margin-bottom: 1.58rem;
   text-align: center;
 }
 
