@@ -38,7 +38,8 @@ h1 + p {
   text-align: center;
 }
 p:not(:has(.post-data)) + p {
-  text-indent: 1.58rem;
+  margin-top: 1.58rem;
+  /* text-indent: 1.58rem; */
 }
 h2 + p {
   text-indent: 0em;
