@@ -11,20 +11,19 @@ body {
 }
 
 p {
-  margin: 0;
+  margin: 1.58rem 0 0 0;
   line-height: 1.58rem;
+  /* text-indent: 1.58rem; */
 }
 
-p + p {
-  margin-top: 1.58rem;
-  /* text-indent: 1.58rem; */
+li > p {
+  margin: 0;
 }
 
 /* This moves the Tags/Date line right below the H1 heading.*/
 .post-data {
   display: block;
   margin-top: -3.16rem;
-  margin-bottom: 1.58rem;
 }
 
 /* Firefox does not support :has(). */
@@ -152,7 +151,7 @@ hr {
 
 blockquote, table, pre {
   line-height: 1.5;
-  margin: 0.5em 0 0 0;
+  margin: 1.58rem 0 0 0;
 }
 
 pre {
@@ -161,8 +160,7 @@ pre {
   border: 0.1em solid #CCCCCC;
   line-height: 1.25em;
   overflow: auto;
-  margin: 0.5em 0 0 0;
-  padding: 0.2em;
+  padding: 0;
 }
 
 ul, ol, dl {
