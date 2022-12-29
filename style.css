@@ -11,9 +11,9 @@ body {
 }
 
 p {
-  margin: 1.58rem 0 0 0;
-  line-height: 1.58rem;
-  /* text-indent: 1.58rem; */
+  margin: 1.56rem 0;
+  line-height: 1.56rem;
+  /* text-indent: 1.56rem; */
 }
 
 li > p {
@@ -23,7 +23,7 @@ li > p {
 /* This moves the Tags/Date line right below the H1 heading.*/
 .post-data {
   display: block;
-  margin-top: -3.16rem;
+  margin-top: -3.12rem;
 }
 
 /* Firefox does not support :has(). */
@@ -45,18 +45,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  line-height: 3.16rem;
+  line-height: 3.12rem;
   font-size: 1.8em;
-  margin-top: 3.16rem;
-  margin-bottom: 3.16rem;
+  margin-top: 3.12rem;
+  margin-bottom: 3.12rem;
   text-align: center;
 }
 
 h2 {
   font-size: 1.4em;
-  line-height: 3.16rem;
-  margin-top: 0.88rem;
-  margin-bottom: 0.70rem;
+  line-height: 3.12rem;
+  margin-top: 0.87rem;
+  margin-bottom: 0.69rem;
 }
 
 h2 + p {
@@ -65,13 +65,13 @@ h2 + p {
 
 h3 {
   font-size: 1.2em;
-  line-height: 3.16rem;
-  margin-top: 0.88rem;
-  margin-bottom: 0.70rem;
+  line-height: 3.12rem;
+  margin-top: 0.87rem;
+  margin-bottom: 0.69rem;
 }
 
 h2 + h3 {
-  margin-top: -0.70rem;
+  margin-top: -0.68rem;
 }
 
 h3 + p {
@@ -84,9 +84,9 @@ h3 + p {
 
 h4 {
   font-size: 1.0em;
-  line-height: 1.58rem;
-  margin-top: 0.88em;
-  margin-bottom: 0.70em;
+  line-height: 1.56rem;
+  margin-top: 0.87em;
+  margin-bottom: 0.69em;
 }
 
 h3 + h4 {
@@ -150,8 +150,8 @@ hr {
 }
 
 blockquote, table, pre {
-  line-height: 1.5;
-  margin: 1.58rem 0 0 0;
+  line-height: 1.56rem;
+  margin: 1.56rem 0 0 0;
 }
 
 pre {
@@ -164,7 +164,7 @@ pre {
 }
 
 ul, ol, dl {
-  padding-left: 1.58rem;
+  padding-left: 1.56rem;
   margin: 0;
 }
 
