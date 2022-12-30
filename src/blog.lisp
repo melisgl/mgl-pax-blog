@@ -94,7 +94,8 @@
    :package *package*
    :readtable *readtable*
    :title title
-   :entries (cons (format nil "_Tags_: ~{[`~A`][~A]~^, ~}, _Date_: `~A`~%~%<div class='post-start'></div>"
+   :entries (cons (format nil "<span class='post-data'>~
+                              _Tags_: ~{[`~A`][~A]~^, ~}, _Date_: `~A`</span>"
                           (mapcan (lambda (category)
                                     (let ((name (category-display-name
                                                  category)))
@@ -134,7 +135,7 @@
 
   - <a href='https://www.kaggle.com/melisgl'>kaggle/melisgl</a>
 
-  ### About this Blog
+  ## About this Blog
 
   There is an <a href='http://quotenil.com/blog.rss'>RSS feed for the
   entire blog</a>, and one for each tag: <a
@@ -487,7 +488,7 @@
          (emit-label ,label))))
   ```
   """"""
-  ### EBP
+  ## EBP
 
   My first idea was that ORing is unnecessary since with the slew of
   interrupt fixes going into 1.0.26 every interrupt deferred by pseudo
@@ -517,7 +518,7 @@
   cl-bench (see "pseudo-atomic.ebp" in the
   [results](blog-files/pseduo-atomic/p4-results.txt)).
 
-  ### mprotect
+  ## mprotect
 
   But if the page of `PSEDUO-ATOMIC-BITS` is made write protected
   when an interrupt is deferred, then the pending interrupt can be run
@@ -549,7 +550,7 @@
             0 :fs)))
   ```
 
-  ### Direction flag
+  ## Direction flag
 
   Another idea is to hijack the direction
   flag:
@@ -1689,20 +1690,19 @@
 (defpost @planet-wars-post-mortem (:title "Planet Wars Post-Mortem"
                                    :tags (@ai @lisp)
                                    :date "2010-12-01")
-  "I can't believe I [won](https://web.archive.org/web/20101205003152/http://ai-contest.com/rankings.php).
-
+  "I can't believe I [won](https://web.archive.org/web/20101205003152/http://ai-contest.com/rankings.php).<br>
   I can't believe I won _decisively_ at all.
 
   The lead in the last month or so was an indicator of having good
   chances, but there was a huge shuffling of ranks in the last week
   and some last minute casualties.
   ""
-  ### Code
+  ## Code
 
   Note that the git repository is available at
   [https://github.com/melisgl/planet-wars(https://github.com/melisgl/planet-wars).
 
-  ### Denial
+  ## Denial
 
   I had promised myself not to enter this one and resisted for about
   two weeks when my defenses were worn away and I was drawn into the
@@ -1716,7 +1716,7 @@
   [tribute](https://web.archive.org/web/20100307014152/http://www.a1k0n.net/blah/archives/2010/03/index.html),
   let's steer off the trodden path.
 
-  ### Beginning
+  ## Beginning
 
   Driven by the first
   [virtue](http://en.wikipedia.org/wiki/Larry_Wall#Virtues_of_a_programmer)
@@ -1738,7 +1738,7 @@
   Without a similarity function over moves it was hopeless to explore
   a meaningful portion of the game tree.
 
-  ### Move generation
+  ## Move generation
 
   At this point I had to start getting my hands dirty. The first thing
   was to implement simulating the future (see `FUTURE` class) that was
@@ -1776,7 +1776,7 @@
   by one, sort them in descending order of evaluation score and try to
   combine them starting from the first.
 
-  ### Full attack
+  ## Full attack
 
   Normally futures are calculated taking into account fleets already
   in flight in the observable game state that the engine sends. Back
@@ -1809,7 +1809,7 @@
   operational results started to come. But there was a crucial
   off-by-one bug.
 
-  ### Constraining futures
+  ## Constraining futures
 
   That bug was in the scoring of futures. For player 1 it used the
   possible arrivals (number of ships) one turn before those of player
@@ -1846,7 +1846,7 @@
   game](https://web.archive.org/web/20101213023101/http://www.ai-contest.com/visualizer.php?game_id=9347535) is a
   nice illustration of the concept.
 
-  ### Redistribution
+  ## Redistribution
 
   As pointed out by
   [iouri](https://web.archive.org/web/20110210212413/http://iouri-khramtsov.blogspot.com/2010/11/google-ai-challenge-planet-wars-entry.html)
@@ -1870,7 +1870,7 @@
   name implies it's like `MIN-TURN-TO-DEPART-1` but used only when
   computing the positional penalty.
 
-  ### Dynamic horizon
+  ## Dynamic horizon
 
   How far ahead the bot looks has a very strong effect on its play:
   too far and it will be blind to tactics, too close and it will miss
@@ -1884,7 +1884,7 @@
   from the initial investment until the breakeven point no friendly
   planet can be possibly lost in a full attack future.
 
-  ### Nash equilibrium
+  ## Nash equilibrium
 
   There are - especially at the very beginning of games - situations
   were there is no best move, it all depends on what the opponent
@@ -1898,7 +1898,7 @@
   looked easy to exploit and although it did beat 1 ply minimax about
   2 to 1 it was too slow to experiment with.
 
-  ### Alpha-beta
+  ## Alpha-beta
 
   Yes, for the longest time it was a 1 ply search. Opponent moves were
   never considered and position evaluation was good enough to pick up
@@ -1950,7 +1950,7 @@
   competitors the two planet limit seemed to perform markedly better,
   but it was too late to properly test it against a bigger population.
 
-  ### The End
+  ## The End
 
   Like many fellow contestants I am very happy that the contest is
   over and I got my life back. I'm sure that many families breathed a
@@ -2145,11 +2145,10 @@
   contest on [Kaggle](http://kaggle.com). It was a straightforward
   text classification problem with extremely unbalanced classes.
 
-  Just as Bocsimackó did the last time around, his lazier sidekick
-
   ![Malacka](blog-files/malacka-es-bocsimacko.jpg)
 
-  (on the right) brought
+  Just as Bocsimackó did the last time around, his lazier sidekick (on
+  the right) brought
   [success](http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow/leaderboard).
   I would have loved to be lazy and still win, but the leaderboard was
   too close for comfort.
@@ -2339,9 +2338,9 @@
   the bugs) didn't work. The best I could achive was slightly worse
   than the conjugate gradient based score.
 
-  ### Retraining consituent models
+  ### Retraining constituent models
 
-  Recall that the consituent models were trained only on 4/5 of the
+  Recall that the constituent models were trained only on 4/5 of the
   available data. After the ensemble was trainined, I intended to
   replace retrain them on the whole stratified training set. Initial
   experiments with liblinear were promising, but with the DBN the
@@ -2612,7 +2611,6 @@
   and
   [micmac](http://melisgl.github.io/mgl-pax-world/micmac-manual.html)
   has been added.
-
   Badder because clicking on a name will produce a permalink such as
   this:
   [`*DOCUMENT-MARK-UP-SIGNATURES*`](http://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-MARK-UP-SIGNATURES-2A-20-28VARIABLE-29-29).
@@ -2773,7 +2771,7 @@
                     :date "2022-02-16")
   """[PAX](http://github.com/melisgl/mgl-pax/) v0.1 is released.
   At this point, I consider it fairly complete. Here is the changelog for the last year or so.
-  #### New Features
+  ## New Features
 
   - To reduce deployment size, made the MGL-PAX system [autoload navigation, documentation generation, and transcription code](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29).
   - Symbols in the CL package are [linked to the hyperspec](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29) like this: `\\PRINT`, which renders as PRINT.
@@ -2788,18 +2786,18 @@
   - [Downcasing](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-DOWNCASE-UPPERCASE-CODE*%20VARIABLE) now works well and is the default for \\PAX World.
   - [Warn on unresolvable reflinks](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@UNRESOLVABLE-REFLINKS%20MGL-PAX:SECTION).
 
-  #### Transcribe
+  ## Transcribe
 
   - Transcription consistency checking is now [customizable](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-FINER-GRAINED-CONSISTENCY-CHECKS%20MGL-PAX:SECTION).
   - Transcription consistency checking and dynamic environment [can be controlled for code blocks](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-DYNENV%20MGL-PAX:SECTION).
   - Errors during transcribing are [included](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@TRANSCRIPT-API%20MGL-PAX:SECTION) in the transcript.
 
-  #### Portability
+  ## Portability
 
   - Tested on ABCL, AllegroCL, CCL, CLISP, CMUCL, ECL, and SBCL.
   - SLIME `M-.` is now as capable on all Lisps as the Swank implementation allows.
 
-  #### Improvements
+  ## Improvements
 
   - Generalized, cleaned up, and documented handling [trimming of punctuation and plurals](https://melisgl.github.io/mgl-pax-world/pax-manual.html#toc-6-2-parsing).
   - DOCUMENT [works on `STRING`s](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT-OBJECT%20%28METHOD%20NIL%20%28STRING%20T%29%29).
@@ -2813,13 +2811,13 @@
   - Exported api for [extending DOCUMENT](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-DOCUMENT%20MGL-PAX:SECTION) and [FIND-SOURCE](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-FIND-SOURCE%20MGL-PAX:SECTION)
   - [DOCUMENT](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION) can produce reasonably readable output with :FORMAT :PLAIN (the default). It is now suitable for use in the REPL as a kind of replacement for CL:DOCUMENTATION.
 
-  #### Bugs
+  ## Bugs
 
   - Made Emacs-side parsing for `M-.` navigation more robust.
   - Fixed documentation generation on `TRACE`d functions.
   - Fixed lots of minor bugs.
 
-  #### Internals
+  ## Internals
 
   - Tests moved to [Try](https://github.com/melisgl/try).
   - Added lost of tests.
@@ -3175,7 +3173,7 @@
     [lawa]: https://arxiv.org/abs/2209.14981
     [nt-asgd]: https://arxiv.org/abs/1708.02182
   """"""
-  ### Problems with SWA
+  ## Problems with SWA
 
   There is a number of problems with SWA:
 
@@ -3209,7 +3207,7 @@
     storage and/or computation) and suboptimal (can miss early
     solutions).
 
-  ### Two-Tailed Averaging
+  ## Two-Tailed Averaging
 
   These are the issues Two-Tailed Averaging tackles. The algorithm
   needs storage for only two sets of weights (constant storage cost)
@@ -3226,7 +3224,7 @@
 
   ![TTA (orange) vs SWA (green)](blog-files/tta-vs-swa.png)
 
-  ### The Algorithm
+  ## The Algorithm
 
   The core algorithm is quite simple: as the optimizer produces new
   weights, we add those to two moving averages. When the short moving
@@ -3421,7 +3419,7 @@
   evaluation function measures performance on the validation set or on
   a down-stream task (e.g. summarization).
 
-  ### Downsampling weights
+  ## Downsampling weights
 
   In its proposed form, Two-Tailed Averaging incorporates every set of
   weights produced by the optimizer in both averages it maintains.
@@ -3435,7 +3433,7 @@
   optimization steps. Obviously, downsampling the weights too much
   will affect the convergence rate, so there is a tradeoff.
 
-  ### Learning rate
+  ## Learning rate
 
   Note that in our experiments with Two-Tailed Averaging, we used a
   constant learning rate motivated by the fact that the closely
@@ -3444,7 +3442,7 @@
   decreasing learning rates but would require modification for
   cyclical schedules.
 
-  ### Related works
+  ## Related works
 
   - [SWA][swa] averages the last $K$ checkpoints.
 
@@ -3465,7 +3463,7 @@
   intermediate results of LAWA are unlikely to be optimal; NT-ASGD can
   miss the right time to start averaging.
 
-  ### Summary
+  ## Summary
 
   Two-Tailed Averaging can be thought of as online SWA with no
   hyperparameters. It is a great option when training runs take a long
