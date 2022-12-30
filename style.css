@@ -311,14 +311,13 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   color: #eee;
   text-align: center;
   font-size: 1.05rem;
-  padding: 0.2em 0 0.2em 0;
+  line-height: 1.8rem;
 }
 
 #links {
   text-align: center;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
   font-size: 0.8rem;
+  line-height: 1.32rem;
 }
 
 img[alt$="about-me-dice"] {
