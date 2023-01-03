@@ -158,11 +158,14 @@ pre {
 }
 
 ul, ol, dl {
-  padding-left: 2em;
+  /* This is also the distance from the baseline of the previous
+     paragraph to the top of the capital on <li> line. */
+  padding-left: 2.4rem;
   margin: 0;
 }
 
 li {
+  list-style-type: "∘  ";
   margin: 0;
 }
 
