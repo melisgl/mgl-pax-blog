@@ -34,6 +34,7 @@ h1, h2, h3, h4, h5, h6 {
   /* Balance the x-height of Libre Baskerville with Crimson Pro. */
   font-size: 78.3%;
   font-weight: bold;
+  letter-spacing: 0.02em;
   text-shadow: 0.05em 0.05em 0.02em #DDD;
   margin-bottom: 0.4em;
 }
