@@ -36,7 +36,7 @@ h1 {
   font-family: 'XEB Garamond', serif;
   font-weight: normal;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
   /* text-shadow: 0.05em 0.05em 0.02em #DDD; */
   margin-bottom: 0.4em;
   line-height: 3.12rem;
@@ -51,6 +51,7 @@ h2 {
   font-weight: normal;
   font-variant: small-caps;
   font-size: 1.4em;
+  letter-spacing: 0.02em;
   line-height: 3.12rem;
   margin-top: 0.87rem;
   margin-bottom: 0.69rem;
