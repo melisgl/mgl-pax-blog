@@ -1,8 +1,9 @@
 @import url("xcharter/xcharter.css");
+@import url("xeb-garamond/xeb-garamond.css");
 
 body {
   font-family: 'XCharter', serif;
-  font-size: 106%;
+  font-size: 100%;
   margin: auto;
   background-color: #f8f7f4;
   color: #111;
@@ -31,25 +32,24 @@ li > p {
   text-align: center;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Libre Baskerville', serif;
-  /* Balance the x-height of Libre Baskerville with Crimson Pro. */
-  font-size: 78.3%;
-  font-weight: bold;
-  letter-spacing: 0.02em;
-  text-shadow: 0.05em 0.05em 0.02em #DDD;
-  margin-bottom: 0.4em;
-}
-
 h1 {
+  font-family: 'XEB Garamond', serif;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  /* text-shadow: 0.05em 0.05em 0.02em #DDD; */
+  margin-bottom: 0.4em;
   line-height: 3.12rem;
-  font-size: 2.16rem;
+  font-size: 1.9rem;
   margin-top: 3.12rem;
   margin-bottom: 3.12rem;
   text-align: center;
 }
 
 h2 {
+  font-family: 'XEB Garamond', serif;
+  font-weight: normal;
+  font-variant: small-caps;
   font-size: 1.4em;
   line-height: 3.12rem;
   margin-top: 0.87rem;
@@ -61,7 +61,10 @@ h2 + p {
 }
 
 h3 {
+  font-family: 'XEB Garamond', serif;
   font-size: 1.2em;
+  font-weight: normal;
+  font-style: italic;
   line-height: 3.12rem;
   margin-top: 0.87rem;
   margin-bottom: 0.69rem;
@@ -168,7 +171,6 @@ ul, ol, dl {
 }
 
 li {
-  list-style-type: "∘  ";
   margin: 0;
 }
 
