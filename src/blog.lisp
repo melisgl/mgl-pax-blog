@@ -41,8 +41,10 @@
                               :link-title-to (canonical-reference post))))))
 
 (defun shorten-entries (name entries)
-  ;; The first entry is the Tags and Date line.
-  (let ((max-n-entries 2))
+  (let ((max-n-entries 2)
+        ;; Cut the end-of-post image.
+        (entries (subseq entries 0 (1- (length entries)))))
+    ;; The first entry is the Tags and Date line.
     (if (< max-n-entries (length entries))
         (append (subseq entries 0 max-n-entries)
                 (list (format nil "... read the rest of [~A][~A]."
@@ -103,7 +105,10 @@
                                                                category)))))
                                   tags)
                           date)
-                  (pax::transform-entries entries name))
+                  (append
+                   (pax::transform-entries entries name)
+                   (list
+                    (format nil "~%~%  ![end-of-post](blog-files/die.png)"))))
    :tags tags
    :date date))
 
@@ -215,14 +220,18 @@
                                         (quotenil-page (object-page category))
                                         :description title :language "en-uk"))
       (dolist (post-name (slot-value category 'post-names))
-        (let ((post (symbol-value post-name)))
+        (let* ((post (symbol-value post-name))
+               (entries (section-entries post)))
           (xml-emitter:rss-item
            (section-title post)
            :link (quotenil-page (object-page post))
            ;; FIXME: relative URLs (e.g. ![](blog-files/...))
-           :description (document (subseq (section-entries post) 1)
-                                  :stream nil
-                                  :format :html)
+           :description (document
+                         ;; Cut the Date and Tag line and the
+                         ;; end-of-post image.
+                         (subseq entries 1 (1- (length entries)))
+                         :stream nil
+                         :format :html)
            :author "Gábor Melis <mega@retes.hu>"
            :pubDate (local-time:format-rfc1123-timestring
                      nil (local-time:parse-timestring
@@ -329,7 +338,7 @@
        
        mkdir -p /mnt/backup/${name}
        # note the lack of trailing slash after /boot
-       rsync -v -a --delete --one-file-system --sparse /mnt/root-snapshot/ \
+       rsync -v -a --delete --one-file-system --sparse /mnt/root-snapshot/ \\
          /boot /mnt/backup/${NAME}/
        
        cleanup
