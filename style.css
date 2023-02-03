@@ -329,8 +329,8 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   line-height: 1.32rem;
 }
 
-img[alt$="about-me-dice"] {
-  width: 30%;
+img[alt$="about-me-die"] {
+  width: 20%;
   float: right;
 }
 
