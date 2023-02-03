@@ -3210,7 +3210,7 @@ away:&lt;/p&gt;
 
  mkdir -p /mnt/backup/${name}
  # note the lack of trailing slash after /boot
- rsync -v -a --delete --one-file-system --sparse /mnt/root-snapshot/ 
+ rsync -v -a --delete --one-file-system --sparse /mnt/root-snapshot/ \
    /boot /mnt/backup/${NAME}/
 
  cleanup

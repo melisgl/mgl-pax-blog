@@ -95,7 +95,7 @@ away:</p>
 
  mkdir -p /mnt/backup/${name}
  # note the lack of trailing slash after /boot
- rsync -v -a --delete --one-file-system --sparse /mnt/root-snapshot/ 
+ rsync -v -a --delete --one-file-system --sparse /mnt/root-snapshot/ \
    /boot /mnt/backup/${NAME}/
 
  cleanup
@@ -104,6 +104,8 @@ away:</p>
 <p>Note, that it's this easy since I basically have only one file
 system (only /boot is separate) and that resides on LVM which makes it
 trivial to snapshot.</p>
+
+<p><img src="blog-files/die.png" alt="end-of-post" /></p>
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>
