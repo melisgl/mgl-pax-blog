@@ -114,7 +114,7 @@
 (defsection @about-me (:title "About me")
   "I'm a Lisp hacker impersonating a research scientist.
 
-  ![about-me-dice](blog-files/dice.png)
+  ![about-me-die](blog-files/die.png)
 
   - <a href='mailto:mega@retes.hu'>Gábor Melis &lt;mega@retes.hu&gt;</a>
 
@@ -174,8 +174,6 @@
 <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
 <link href='https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet'>
 <style> @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap'); </style>
-<link href='https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap' rel='stylesheet'>
-<style> @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap'); </style>
 <link rel='alternate' href='http://quotenil.com/blog.rss' type='application/rss+xml'/>
 "
                      (quotenil-rss-feed-for-current-page))))
