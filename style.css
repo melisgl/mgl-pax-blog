@@ -51,11 +51,12 @@ h2 {
   font-family: 'XEB Garamond', serif;
   font-weight: normal;
   font-variant: small-caps;
+  /* text-transform: lowercase; */
   font-size: 1.4em;
   letter-spacing: 0.02em;
-  line-height: 3.12rem;
-  margin-top: 0.87rem;
-  margin-bottom: 0.69rem;
+  line-height: 1.56rem;
+  margin-top: 1.56rem;
+  margin-bottom: 1.56rem;
 }
 
 h2 + p {
