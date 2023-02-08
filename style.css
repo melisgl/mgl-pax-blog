@@ -3,6 +3,7 @@
 
 body {
   font-family: 'XCharter', serif;
+  font-feature-settings: "onum" 1;
   font-size: 100%;
   margin: auto;
   background-color: #faf9f6;
