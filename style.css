@@ -37,6 +37,7 @@ h1 {
   font-family: 'XEB Garamond', serif;
   font-weight: normal;
   text-transform: uppercase;
+  font-feature-settings: "onum" 0;
   letter-spacing: 0.12em;
   /* text-shadow: 0.05em 0.05em 0.02em #DDD; */
   margin-bottom: 0.4em;
