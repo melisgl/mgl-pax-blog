@@ -15,9 +15,18 @@ body {
 }
 
 p {
-  margin: 1.56rem 0;
+  margin: 1.56rem 0 0 0;
   line-height: 1.56rem;
-  /* text-indent: 1.56rem; */
+}
+
+p + p {
+  margin: 0;
+  text-indent: 1.56rem;
+}
+
+ul + p, ol + p, dl + p {
+  margin: 0;
+  text-indent: 0;
 }
 
 li > p {
@@ -28,9 +37,14 @@ li > p {
 .post-data {
   display: block;
   margin-top: -3.12rem;
+  margin-bottom: 1.56rem;
   /* text-indent: 0; */
   font-size: 85%;
   text-align: center;
+}
+
+div.br {
+  margin-top: 1.56rem;
 }
 
 h1 {
@@ -168,9 +182,7 @@ pre {
 }
 
 ul, ol, dl {
-  /* This is also the distance from the baseline of the previous
-     paragraph to the top of the capital on <li> line. */
-  padding-left: 2.4rem;
+  padding-left: 1.56rem;
   margin: 0;
 }
 

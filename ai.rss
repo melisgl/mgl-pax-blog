@@ -317,9 +317,9 @@ miss the right time to start averaging.&lt;/p&gt;
 &lt;p&gt;Two-Tailed Averaging can be thought of as online SWA with no
 hyperparameters. It is a great option when training runs take a long
 (or even an a priori unknown amount of) time, and when we could do
-without optimizing yet another hyperparameter.&lt;/p&gt;
-
-&lt;p&gt;Comment on
+without optimizing yet another hyperparameter.
+&lt;div class=&apos;br&apos;&gt;&lt;/div&gt;
+Comment on
 &lt;a href=&quot;https://twitter.com/GaborMelis/status/1600479387937144833&quot; &gt;Twitter&lt;/a&gt;
 or &lt;a href=&quot;https://mastodon.social/@melisgl/109472579530491223&quot; &gt;Mastodon&lt;/a&gt;.&lt;/p&gt;
 </description>
@@ -1809,17 +1809,17 @@ rule.&lt;/p&gt;
             <link>http://quotenil.com/active-learning-for-cl-libsvm.html</link>
             <description>&lt;p&gt;Along the lines of &lt;a href=&quot;http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html&quot; &gt;active learning with python &amp;amp;
 libsvm&lt;/a&gt;,
-I &lt;a href=&quot;http://github.com/melisgl/cl-libsvm&quot; &gt;added&lt;/a&gt;
-support for calculating distance of a point from the separating
-hyperplane to &lt;a href=&quot;http://cliki.net/cl-libsvm&quot; &gt;cl-libsvm&lt;/a&gt;. In binary
-classification there is only one SVM involved and one hyperplane.
-However, with N class problems there is a binary SVM for each of the
-$N(N-1)/2$ pairs of classes and there are as many separating
-hyperplanes, something the linked python code fails to take into
-account. As per the libsvm
+I &lt;a href=&quot;http://github.com/melisgl/cl-libsvm&quot; &gt;added&lt;/a&gt; support for
+calculating distance of a point from the separating hyperplane to
+&lt;a href=&quot;http://cliki.net/cl-libsvm&quot; &gt;cl-libsvm&lt;/a&gt;. In binary classification
+there is only one SVM involved and one hyperplane. However, with N
+class problems there is a binary SVM for each of the $N(N-1)/2$
+pairs of classes and there are as many separating hyperplanes,
+something the linked python code fails to take into account. As per
+the libsvm
 &lt;a href=&quot;http://www.csie.ntu.edu.tw/~cjlin/libsvm/faq.html#f4151&quot; &gt;FAQ&lt;/a&gt;, the
 absolute value of the decision value (see &lt;code&gt;PREDICT-VALUES&lt;/code&gt;, wrapper
-of svm_predict_values) divided by the norm of the normal vector of
+of &lt;code&gt;svm_predict_values&lt;/code&gt;) divided by the norm of the normal vector of
 the separating hyperplane is the distance. &lt;code&gt;PREDICT-VALUES&lt;/code&gt; and
 &lt;code&gt;MODEL-W2S&lt;/code&gt; are sufficient to calculate it. Note that among the
 distributed binaries only the linux-x86 version has been recompiled

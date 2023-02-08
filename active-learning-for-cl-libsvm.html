@@ -53,19 +53,21 @@
 
 <p><span class='post-data'><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2009-06-22</span></p>
 
+<div class='br'></div>
+
 <p>Along the lines of <a href="http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html" >active learning with python &amp;
 libsvm</a>,
-I <a href="http://github.com/melisgl/cl-libsvm" >added</a>
-support for calculating distance of a point from the separating
-hyperplane to <a href="http://cliki.net/cl-libsvm" >cl-libsvm</a>. In binary
-classification there is only one SVM involved and one hyperplane.
-However, with N class problems there is a binary SVM for each of the
-$N(N-1)/2$ pairs of classes and there are as many separating
-hyperplanes, something the linked python code fails to take into
-account. As per the libsvm
+I <a href="http://github.com/melisgl/cl-libsvm" >added</a> support for
+calculating distance of a point from the separating hyperplane to
+<a href="http://cliki.net/cl-libsvm" >cl-libsvm</a>. In binary classification
+there is only one SVM involved and one hyperplane. However, with N
+class problems there is a binary SVM for each of the $N(N-1)/2$
+pairs of classes and there are as many separating hyperplanes,
+something the linked python code fails to take into account. As per
+the libsvm
 <a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/faq.html#f4151" >FAQ</a>, the
 absolute value of the decision value (see <code>PREDICT-VALUES</code>, wrapper
-of svm_predict_values) divided by the norm of the normal vector of
+of <code>svm_predict_values</code>) divided by the norm of the normal vector of
 the separating hyperplane is the distance. <code>PREDICT-VALUES</code> and
 <code>MODEL-W2S</code> are sufficient to calculate it. Note that among the
 distributed binaries only the linux-x86 version has been recompiled
