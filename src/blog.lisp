@@ -47,7 +47,8 @@
     ;; The first entry is the Tags and Date line.
     (if (< max-n-entries (length entries))
         (append (subseq entries 0 max-n-entries)
-                (list (format nil "... read the rest of [~A][~A]."
+                (list (format nil "<div class='br'></div>~
+                                   ... read the rest of [~A][~A]."
                               name :section)))
         entries)))
 
@@ -97,7 +98,8 @@
    :readtable *readtable*
    :title title
    :entries (cons (format nil "<span class='post-data'>~
-                              _Tags_: ~{[`~A`][~A]~^, ~}, _Date_: ~A</span>"
+                              _Tags_: ~{[`~A`][~A]~^, ~}, _Date_: ~A</span>~%~%~
+                              <div class='br'></div>"
                           (mapcan (lambda (category)
                                     (let ((name (category-display-name
                                                  category)))
@@ -648,17 +650,17 @@
                                          :date "2009-06-22")
   "Along the lines of [active learning with python &
   libsvm](http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html),
-  I [added](http://github.com/melisgl/cl-libsvm)
-  support for calculating distance of a point from the separating
-  hyperplane to [cl-libsvm](http://cliki.net/cl-libsvm). In binary
-  classification there is only one SVM involved and one hyperplane.
-  However, with N class problems there is a binary SVM for each of the
-  $N(N-1)/2$ pairs of classes and there are as many separating
-  hyperplanes, something the linked python code fails to take into
-  account. As per the libsvm
+  I [added](http://github.com/melisgl/cl-libsvm) support for
+  calculating distance of a point from the separating hyperplane to
+  [cl-libsvm](http://cliki.net/cl-libsvm). In binary classification
+  there is only one SVM involved and one hyperplane. However, with N
+  class problems there is a binary SVM for each of the $N(N-1)/2$
+  pairs of classes and there are as many separating hyperplanes,
+  something the linked python code fails to take into account. As per
+  the libsvm
   [FAQ](http://www.csie.ntu.edu.tw/~cjlin/libsvm/faq.html#f4151), the
   absolute value of the decision value (see `PREDICT-VALUES`, wrapper
-  of svm_predict_values) divided by the norm of the normal vector of
+  of `svm_predict_values`) divided by the norm of the normal vector of
   the separating hyperplane is the distance. `PREDICT-VALUES` and
   `MODEL-W2S` are sufficient to calculate it. Note that among the
   distributed binaries only the linux-x86 version has been recompiled
@@ -3477,6 +3479,7 @@
   (or even an a priori unknown amount of) time, and when we could do
   without optimizing yet another hyperparameter.
 
+  <div class='br'></div>
   Comment on
   [Twitter](https://twitter.com/GaborMelis/status/1600479387937144833)
   or [Mastodon](https://mastodon.social/@melisgl/109472579530491223).
