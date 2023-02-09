@@ -49,66 +49,44 @@ div.br {
 
 h1 {
   font-family: 'XEB Garamond', serif;
+  font-feature-settings: "onum" 0;
   font-weight: normal;
   text-transform: uppercase;
-  font-feature-settings: "onum" 0;
   letter-spacing: 0.12em;
   /* text-shadow: 0.05em 0.05em 0.02em #DDD; */
   margin-bottom: 0.4em;
   line-height: 3.12rem;
   font-size: 1.7rem;
-  margin-top: 3.12rem;
-  margin-bottom: 3.12rem;
+  margin: 3.12rem 0;
   text-align: center;
 }
 
 h2 {
   font-family: 'XEB Garamond', serif;
+  font-feature-settings: "onum" 0;
   font-weight: normal;
   font-variant: small-caps;
   /* text-transform: lowercase; */
   font-size: 1.4em;
   letter-spacing: 0.02em;
   line-height: 1.56rem;
-  margin-top: 1.56rem;
-  margin-bottom: 1.56rem;
-}
-
-h2 + p {
-  text-indent: 0em;
+  margin: 1.56rem 0;
 }
 
 h3 {
   font-family: 'XEB Garamond', serif;
-  font-size: 1.3em;
+  font-feature-settings: "onum" 0;
+  font-size: 1.1em;
   font-weight: normal;
   font-style: italic;
   line-height: 1.56rem;
-  margin-top: 0.87rem;
-  margin-bottom: 0.69rem;
-}
-
-h2 + h3 {
-  margin-top: -0.68rem;
-}
-
-h3 + p {
-  text-indent: 0em;
-}
-
-h3 + p {
-  text-indent: 0em;
+  margin: 1.56em 0;
 }
 
 h4 {
   font-size: 1.0em;
   line-height: 1.56rem;
-  margin-top: 0.87em;
-  margin-bottom: 0.69em;
-}
-
-h3 + h4 {
-  margin-top: -0.70rem;
+  margin: 1.56em 0;
 }
 
 h5 {
