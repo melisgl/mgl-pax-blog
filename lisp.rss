@@ -456,11 +456,10 @@ which I&apos;m not going to bore you with. To implement them, we wrap
 &lt;p&gt;This is invoked from the web server&apos;s worker and it replays the game
 until it was interrupted last time around. Then it will block
 waiting for user input in &lt;code&gt;READ-LINE&lt;/code&gt; or, if the game is finished,
-return.&lt;/p&gt;
-
-&lt;p&gt;Note the &lt;code&gt;:SYNC T&lt;/code&gt;, which tells Journal to take durability seriously.&lt;/p&gt;
-
-&lt;p&gt;You can find the code &lt;a href=&quot;https://github.com/melisgl/journal&quot; &gt;here&lt;/a&gt;.&lt;/p&gt;
+return. Note the &lt;code&gt;:SYNC T&lt;/code&gt;, which tells Journal to take durability
+seriously.
+&lt;div class=&apos;br&apos;&gt;&lt;/div&gt;
+You can find the code &lt;a href=&quot;https://github.com/melisgl/journal&quot; &gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Fri, 04 Sep 2020 01:00:00 +0100</pubDate>
