@@ -2768,10 +2768,10 @@
   This is invoked from the web server's worker and it replays the game
   until it was interrupted last time around. Then it will block
   waiting for user input in `READ-LINE` or, if the game is finished,
-  return.
+  return. Note the `:SYNC T`, which tells Journal to take durability
+  seriously.
 
-  Note the `:SYNC T`, which tells Journal to take durability seriously.
-
+  <div class='br'></div>
   You can find the code [here][journal-code].
   """)
 
