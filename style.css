@@ -3,6 +3,8 @@
 
 html {
   font-size: calc(1em + 0.3vw);
+  /* max-width: 73em; */
+  /* margin: auto; */
 }
 
 @media (min-width: 50rem) {
@@ -17,6 +19,7 @@ body {
   margin: auto;
   background-color: #faf9f6;
   color: #111;
+  /* max-width: 85ch; */
   padding-bottom: 1em;
   hyphens: auto;
   hyphenate-limit-chars: 4 2 2;
