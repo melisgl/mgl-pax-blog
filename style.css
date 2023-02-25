@@ -3,8 +3,7 @@
 
 html {
   font-size: calc(1em + 0.3vw);
-  /* max-width: 73em; */
-  /* margin: auto; */
+  background-color: #888;
 }
 
 @media (min-width: 50rem) {
@@ -19,7 +18,7 @@ body {
   margin: auto;
   background-color: #faf9f6;
   color: #111;
-  /* max-width: 85ch; */
+  max-width: calc(73ch + 8*1.56rem);
   padding-bottom: 1em;
   hyphens: auto;
   hyphenate-limit-chars: 4 2 2;
@@ -69,6 +68,7 @@ h1 {
   line-height: 3.12rem;
   font-size: 1.7rem;
   margin: 3.12rem 0;
+  /* margin: 4.58rem 0 3.12rem 0; */
   text-align: center;
 }
 
@@ -281,12 +281,12 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 {
   max-width: 73ch;
   margin: 0 auto;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: 2ch;
+  padding-right: 2ch;
 }
 
 #toc {
-  background: #333;
+  background-color: #444;
   color: #aaa;
   font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
 }
