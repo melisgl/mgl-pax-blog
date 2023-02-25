@@ -1,15 +1,23 @@
 @import url("xcharter/xcharter.css");
 @import url("xeb-garamond/xeb-garamond.css");
 
+html {
+  font-size: calc(1em + 0.3vw);
+}
+
+@media (min-width: 50rem) {
+  html {
+    text-align: justify;
+  }
+}
+
 body {
   font-family: 'XCharter', serif;
   font-feature-settings: "onum" 1, "cv01" 1;
-  font-size: 100%;
   margin: auto;
   background-color: #faf9f6;
   color: #111;
   padding-bottom: 1em;
-  text-align: justify;
   hyphens: auto;
   hyphenate-limit-chars: 4 2 2;
 }
