@@ -1,8 +1,19 @@
+/* https://enzedonline.com/en/tech-blog/create-responsive-font-sizes-based-on-the-viewport/ */
+
 @import url("xcharter/xcharter.css");
 @import url("xeb-garamond/xeb-garamond.css");
 
+:root {
+  --font-family: 'XCharter', serif;
+  --font-feature-settings: "onum" 1, "cv01" 1;
+  --font-family-heading: 'XEB Garamond', serif;
+  --font-feature-settings-heading: "onum" 0;
+  --font-family-monospace: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
+  --line-height: 1.56rem;
+}
+
 html {
-  font-size: calc(1em + 0.3vw);
+  font-size: calc(0.9em + 0.25vw);
   background-color: #888;
 }
 
@@ -13,25 +24,25 @@ html {
 }
 
 body {
-  font-family: 'XCharter', serif;
-  font-feature-settings: "onum" 1, "cv01" 1;
+  font-family: var(--font-family);
+  font-feature-settings: var(--font-feature-settings);
   margin: auto;
   background-color: #faf9f6;
   color: #111;
-  max-width: calc(73ch + 8*1.56rem);
+  max-width: calc(73ch + 8*var(--line-height));
   padding-bottom: 1em;
   hyphens: auto;
   hyphenate-limit-chars: 4 2 2;
 }
 
 p {
-  margin: 1.56rem 0 0 0;
-  line-height: 1.56rem;
+  margin: var(--line-height) 0 0 0;
+  line-height: var(--line-height);
 }
 
 p + p {
   margin: 0;
-  text-indent: 1.56rem;
+  text-indent: var(--line-height);
 }
 
 ul + p, ol + p, dl + p {
@@ -46,58 +57,58 @@ li > p {
 /* This moves the Tags/Date line right below the H1 heading.*/
 .post-data {
   display: block;
-  margin-top: -3.12rem;
-  margin-bottom: 1.56rem;
+  margin-top: calc(-2*var(--line-height));
+  margin-bottom: var(--line-height);
   /* text-indent: 0; */
   font-size: 85%;
   text-align: center;
 }
 
 div.br {
-  margin-top: 1.56rem;
+  margin-top: var(--line-height);
 }
 
 h1 {
-  font-family: 'XEB Garamond', serif;
-  font-feature-settings: "onum" 0;
+  font-family: var(--font-family-heading);
+  font-feature-settings: var(--font-feature-settings-heading);
   font-weight: normal;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   /* text-shadow: 0.05em 0.05em 0.02em #DDD; */
   margin-bottom: 0.4em;
-  line-height: 3.12rem;
+  line-height: calc(2*var(--line-height));
   font-size: 1.7rem;
-  margin: 3.12rem 0;
-  /* margin: 4.58rem 0 3.12rem 0; */
+  margin: calc(2*var(--line-height)) 0;
+  /* margin: calc(3*var(--line-height)) 0 calc(2*var(--line-height)) 0; */
   text-align: center;
 }
 
 h2 {
-  font-family: 'XEB Garamond', serif;
-  font-feature-settings: "onum" 0;
+  font-family: var(--font-family-heading);
+  font-feature-settings: var(--font-feature-settings-heading);
   font-weight: normal;
   font-variant: small-caps;
   /* text-transform: lowercase; */
   font-size: 1.4em;
   letter-spacing: 0.02em;
-  line-height: 1.56rem;
-  margin: 1.56rem 0;
+  line-height: var(--line-height);
+  margin: var(--line-height) 0;
 }
 
 h3 {
-  font-family: 'XEB Garamond', serif;
-  font-feature-settings: "onum" 0;
+  font-family: var(--font-family-heading);
+  font-feature-settings: var(--font-feature-settings-heading);
   font-size: 1.1em;
   font-weight: normal;
   font-style: italic;
-  line-height: 1.56rem;
-  margin: 1.56em 0;
+  line-height: var(--line-height);
+  margin: var(--line-height) 0;
 }
 
 h4 {
   font-size: 1.0em;
-  line-height: 1.56rem;
-  margin: 1.56em 0;
+  line-height: var(--line-height);
+  margin: var(--line-height) 0;
 }
 
 h5 {
@@ -135,17 +146,17 @@ h6 a {
 }
 
 pre {
-  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
+  font-family: var(--font-family-monospace);
   font-size: 77%;
 }
 
 code {
-  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
+  font-family: var(--font-family-monospace);
   font-size: 80%;
 }
 
 pre code {
-  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
+  font-family: var(--font-family-monospace);
   font-size: 100%;
 }
 
@@ -157,8 +168,8 @@ hr {
 }
 
 blockquote, table, pre {
-  line-height: 1.56rem;
-  margin: 1.56rem 0 0 0;
+  line-height: var(--line-height);
+  margin: var(--line-height) 0 0 0;
 }
 
 pre {
@@ -171,7 +182,7 @@ pre {
 }
 
 ul, ol, dl {
-  padding-left: 1.56rem;
+  padding-left: var(--line-height);
   margin: 0;
 }
 
@@ -288,7 +299,7 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 #toc {
   background-color: #444;
   color: #aaa;
-  font-family: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
+  font-family: var(--font-family-monospace);
 }
 
 /* toc on the left*/
@@ -334,8 +345,8 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 }
 
 img[alt$="end-of-post"] {
-  width: 3.12rem;
-  margin-top: 3.12rem;
+  width: calc(2*var(--line-height));
+  margin-top: calc(2*var(--line-height));
 }
 
 img[alt$="about-me-die"] {
