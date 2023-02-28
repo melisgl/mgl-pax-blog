@@ -8,7 +8,7 @@
   --font-feature-settings: "onum" 1, "cv01" 1;
   --font-family-heading: 'XEB Garamond', serif;
   --font-feature-settings-heading: "onum" 0;
-  --font-family-monospace: 'Roboto Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', monospace;
+  --font-family-monospace: 'DejaVu Sans Mono', 'Liberation Mono', 'Hack', 'Roboto Mono', monospace;
   --line-height: 1.56rem;
 }
 
