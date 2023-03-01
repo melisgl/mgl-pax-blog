@@ -150,7 +150,7 @@ pre {
 
 code {
   font-family: var(--font-family-monospace);
-  font-size: 80%;
+  font-size: 86%;
 }
 
 pre code {
@@ -298,8 +298,8 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   background-color: #444;
   color: #aaa;
   font-family: var(--font-family-monospace);
-  font-size: 80%;
-  line-height: 1.3em;
+  font-size: 86%;
+  line-height: calc(0.8*var(--line-height));
   padding: calc(0.20*var(--line-height)) 0;
 }
 
