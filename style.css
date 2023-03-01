@@ -7,6 +7,7 @@
   --font-family-heading: 'XEB Garamond', serif;
   --font-feature-settings-heading: "onum" 0;
   --font-family-monospace: 'DejaVu Sans Mono', 'Liberation Mono', 'Hack', 'Roboto Mono', monospace;
+  /* To make DejaVu Sans Mono's x-height match XCharter's. */
   --font-size-monospace: 86%;
   --line-height: 1.56rem;
 }
@@ -297,6 +298,7 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   color: #aaa;
   font-family: var(--font-family-monospace);
   font-size: var(--font-size-monospace);
+  /* With two lines, 2*0.8+2*0.2=2. */
   line-height: calc(0.8*var(--line-height));
   padding: calc(0.20*var(--line-height)) 0;
 }
