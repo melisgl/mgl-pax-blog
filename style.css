@@ -298,6 +298,9 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   background-color: #444;
   color: #aaa;
   font-family: var(--font-family-monospace);
+  font-size: 80%;
+  line-height: 1.3em;
+  padding: calc(0.20*var(--line-height)) 0;
 }
 
 /* toc on the left*/
@@ -332,14 +335,11 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   background-color: #444;
   color: #eee;
   text-align: center;
-  font-size: 1.05rem;
-  line-height: 1.8rem;
+  letter-spacing: 0.02em;
 }
 
 #links {
   text-align: center;
-  font-size: 0.8rem;
-  line-height: 1.32rem;
 }
 
 img[alt$="end-of-post"] {
