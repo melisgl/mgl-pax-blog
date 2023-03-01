@@ -7,6 +7,7 @@
   --font-family-heading: 'XEB Garamond', serif;
   --font-feature-settings-heading: "onum" 0;
   --font-family-monospace: 'DejaVu Sans Mono', 'Liberation Mono', 'Hack', 'Roboto Mono', monospace;
+  --font-size-monospace: 86%;
   --line-height: 1.56rem;
 }
 
@@ -28,9 +29,9 @@ body {
   background-color: #faf9f6;
   color: #111;
   max-width: calc(73ch + 8*var(--line-height));
-  padding-bottom: 1em;
   hyphens: auto;
   hyphenate-limit-chars: 4 2 2;
+  min-height: 100vh;
 }
 
 p {
@@ -145,17 +146,14 @@ h6 a {
 
 pre {
   font-family: var(--font-family-monospace);
-  font-size: 77%;
+  /* With DejaVu Sans Mono 97% gets about 80 characters per line at full
+   * width (73ch). */
+  font-size: 97%;
 }
 
 code {
   font-family: var(--font-family-monospace);
-  font-size: 86%;
-}
-
-pre code {
-  font-family: var(--font-family-monospace);
-  font-size: 100%;
+  font-size: var(--font-size-monospace);
 }
 
 hr {
@@ -282,7 +280,7 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 #content-container
 {
   margin: 0;
-  padding: 0;
+  padding: 0 0 var(--line-height) 0;
 }
 
 /* toc on the top */
@@ -298,7 +296,7 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   background-color: #444;
   color: #aaa;
   font-family: var(--font-family-monospace);
-  font-size: 86%;
+  font-size: var(--font-size-monospace);
   line-height: calc(0.8*var(--line-height));
   padding: calc(0.20*var(--line-height)) 0;
 }
