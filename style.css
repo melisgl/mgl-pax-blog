@@ -9,11 +9,11 @@
   --font-family-monospace: 'DejaVu Sans Mono', 'Liberation Mono', 'Hack', 'Roboto Mono', monospace;
   /* To make DejaVu Sans Mono's x-height match XCharter's. */
   --font-size-monospace: 86%;
-  --line-height: 1.56rem;
+  --line-height: 1.6rem;
 }
 
 html {
-  font-size: calc(0.9em + 0.25vw);
+  font-size: calc(0.9em + 0.3vw);
   background-color: #888;
 }
 
@@ -29,7 +29,7 @@ body {
   margin: auto;
   background-color: #faf9f6;
   color: #333;
-  max-width: calc(73ch + 8*var(--line-height));
+  /* max-width: calc(73ch + 8*var(--line-height)); */
   hyphens: auto;
   hyphenate-limit-chars: 4 2 2;
   min-height: 100vh;
