@@ -13,11 +13,11 @@
 }
 
 html {
-  font-size: calc(0.9em + 0.3vw);
+  font-size: calc(0.9em + 0.25vw);
   background-color: #888;
 }
 
-@media (min-width: 50rem) {
+@media (min-width: 40rem) {
   html {
     text-align: justify;
   }
