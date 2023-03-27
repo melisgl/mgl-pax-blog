@@ -3220,12 +3220,12 @@
 
   These are the issues Two-Tailed Averaging tackles. The algorithm
   needs storage for only two sets of weights (constant storage cost)
-  and performance (e.g. summarization) to be evaluated periodically.
-  In return, it provides a weight average of approximately optimal
-  length at all optimization steps. Now we can start training that
-  language model, periodically evaluating how the averaged weights are
-  doing at summarization. We can stop the training run anytime if it's
-  getting worse.
+  and performance (e.g. of summarization) to be evaluated
+  periodically. In return, it provides a weight average of
+  approximately optimal length at all optimization steps. Now, we can
+  start training that language model, periodically evaluating how the
+  averaged weights are doing at summarization. We can stop the
+  training run any time if it's getting worse.
 
   This is how Two-Tailed Averaged (orange) compares to SWA (green)
   tuned to start averaging at the point that's optimal for final
@@ -3235,12 +3235,15 @@
 
   ## The Algorithm
 
-  The core algorithm is quite simple: as the optimizer produces new
-  weights, we add those to two moving averages. When the short moving
-  average (to which we added fewer or equal number of weights) does at
-  least as well as the long average according to some arbitrary
-  evaluation function, then we empty the long average, which will now
-  be the short one.
+  The core algorithm maintains two weight averages. Both averages are
+  over the most recent weights weight produced by the optimizer, but
+  they differ in length (i.e. how many weights they average). As the
+  optimizer produces new sets of weights, they are added to both
+  averages. We periodically evaluate the performance of our model with
+  each average. If the short average (the one that currently has fewer
+  weights averaged) does at least as well as the long average
+  according to some arbitrary evaluation function, then we empty the
+  long average, which will now be the short one.
 
   ```python
   # Initialize the short (s, sw) and long averages (l, lw). s and l are
@@ -3248,7 +3251,7 @@
   # are the averaged weights.
   s, sw, l, lw = 0, 0, 0, 0
 
-  # Update the moving averages with the latest weights from the optimizer.
+  # Update the averages with the latest weights from the optimizer.
   def update_tta(w):
     global s, sw, l, lw
     assert s <= l
@@ -3313,26 +3316,26 @@
   `test_tta_simple`, we get something like this:
 
   ```
-  i= 100: f(w_i)=  0.108, f(w_tta)=  0.000, l= 100
-  i= 200: f(w_i)=  0.011, f(w_tta)=  0.000, l= 200
-  i= 300: f(w_i)=  0.098, f(w_tta)=  0.000, l= 200
-  i= 400: f(w_i)=  0.085, f(w_tta)=  0.000, l= 300
-  i= 500: f(w_i)=  0.221, f(w_tta)=  0.000, l= 200
-  i= 600: f(w_i)=  0.185, f(w_tta)=  0.000, l= 300
-  i= 700: f(w_i)=  0.019, f(w_tta)=  0.000, l= 400
-  i= 800: f(w_i)=  0.180, f(w_tta)=  0.000, l= 500
-  i= 900: f(w_i)=  0.161, f(w_tta)=  0.000, l= 600
-  i=1000: f(w_i)=  0.183, f(w_tta)=  0.000, l= 700
-  i=1100: f(w_i)=  0.057, f(w_tta)=  0.000, l= 800
-  i=1200: f(w_i)=  0.045, f(w_tta)=  0.000, l= 900
-  i=1300: f(w_i)=  0.051, f(w_tta)=  0.000, l=1000
-  i=1400: f(w_i)=  0.010, f(w_tta)=  0.000, l= 900
-  i=1500: f(w_i)=  0.012, f(w_tta)=  0.000, l=1000
-  i=1600: f(w_i)=  0.168, f(w_tta)=  0.000, l=1100
-  i=1700: f(w_i)=  0.001, f(w_tta)=  0.000, l=1200
-  i=1800: f(w_i)=  0.020, f(w_tta)=  0.000, l=1300
-  i=1900: f(w_i)=  0.090, f(w_tta)=  0.000, l=1400
-  i=2000: f(w_i)=  0.115, f(w_tta)=  0.000, l=1500
+  i= 100: f(w_i)=0.108, f(w_tta)=0.000, l= 100
+  i= 200: f(w_i)=0.011, f(w_tta)=0.000, l= 200
+  i= 300: f(w_i)=0.098, f(w_tta)=0.000, l= 200
+  i= 400: f(w_i)=0.085, f(w_tta)=0.000, l= 300
+  i= 500: f(w_i)=0.221, f(w_tta)=0.000, l= 200
+  i= 600: f(w_i)=0.185, f(w_tta)=0.000, l= 300
+  i= 700: f(w_i)=0.019, f(w_tta)=0.000, l= 400
+  i= 800: f(w_i)=0.180, f(w_tta)=0.000, l= 500
+  i= 900: f(w_i)=0.161, f(w_tta)=0.000, l= 600
+  i=1000: f(w_i)=0.183, f(w_tta)=0.000, l= 700
+  i=1100: f(w_i)=0.057, f(w_tta)=0.000, l= 800
+  i=1200: f(w_i)=0.045, f(w_tta)=0.000, l= 900
+  i=1300: f(w_i)=0.051, f(w_tta)=0.000, l=1000
+  i=1400: f(w_i)=0.010, f(w_tta)=0.000, l= 900
+  i=1500: f(w_i)=0.012, f(w_tta)=0.000, l=1000
+  i=1600: f(w_i)=0.168, f(w_tta)=0.000, l=1100
+  i=1700: f(w_i)=0.001, f(w_tta)=0.000, l=1200
+  i=1800: f(w_i)=0.020, f(w_tta)=0.000, l=1300
+  i=1900: f(w_i)=0.090, f(w_tta)=0.000, l=1400
+  i=2000: f(w_i)=0.115, f(w_tta)=0.000, l=1500
   ```
 
   In the above, `f(w_i)` is the loss with the non-averaged weights,
@@ -3423,10 +3426,10 @@
   i=2000: f(w_i)=242.481, f(w_tta)=242.481, l=   1 Reset!
   ```
 
-  Note that that in these examples the evaluation function in TTA was
-  the training loss, but TTA is mainly intended for when the
-  evaluation function measures performance on the validation set or on
-  a down-stream task (e.g. summarization).
+  Note that in these examples the evaluation function in TTA was the
+  training loss, but TTA is intended for when the evaluation function
+  measures performance on the validation set or on a down-stream
+  task (e.g. summarization).
 
   ## Downsampling weights
 
