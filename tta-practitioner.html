@@ -118,7 +118,7 @@ training run any time if it's getting worse.</p>
 tuned to start averaging at the point that's optimal for final
 validation loss:</p>
 
-<p><img src="blog-files/tta-vs-swa.png" alt="TTA (orange) vs SWA (green)" /></p>
+<p><img src="blog-files/tta-vs-swa.png" alt="2TA (orange) vs SWA (green)" /></p>
 
 <h2>The Algorithm</h2>
 
@@ -139,17 +139,17 @@ long average, which will now be the short one.</p>
 
 <span class="comment"># Update the averages with the latest weights from the optimizer.
 </span><span class="special">def</span><span
-class="keyword"> update_tta</span><span class="paren1">(<span class="code">w</span>)</span>:
+class="keyword"> update_2ta</span><span class="paren1">(<span class="code">w</span>)</span>:
   <span class="symbol">global</span> s, sw, l, lw
   <span class="symbol">assert</span> s &lt;= l
   s, sw = s+1, <span class="paren1">(<span class="code">s*sw + w</span>)</span>/<span class="paren1">(<span class="code">s+1</span>)</span>
   l, lw = l+1, <span class="paren1">(<span class="code">l*lw + w</span>)</span>/<span class="paren1">(<span class="code">l+1</span>)</span>
 
-<span class="comment"># Like update_tta but also evaluate the model and use that to adapt
+<span class="comment"># Like update_2ta but also evaluate the model and use that to adapt
 </span><span class="comment"># the length of the averages. Return three values: the best evaluation
 </span><span class="comment"># results, the corresponding weights and averaging length.
 </span><span class="special">def</span><span
-class="keyword"> evaluate_tta</span><span class="paren1">(<span class="code">w, evaluate</span>)</span>:
+class="keyword"> evaluate_2ta</span><span class="paren1">(<span class="code">w, evaluate</span>)</span>:
   <span class="symbol">global</span> s, sw, l, lw
   <span class="comment"># Evaluate the non-averaged weights w, the short and the long average.
 </span>  f1, fs, fl = evaluate<span class="paren1">(<span class="code">w</span>)</span>, evaluate<span class="paren1">(<span class="code">sw</span>)</span>, evaluate<span class="paren1">(<span class="code">lw</span>)</span>
@@ -179,7 +179,7 @@ averaged ones.</p>
 <pre><code><span class="code"><span class="symbol">import</span> random
 
 <span class="special">def</span><span
-class="keyword"> test_tta_simple</span><span class="paren1">(<span class="code"></span>)</span>:
+class="keyword"> test_2ta_simple</span><span class="paren1">(<span class="code"></span>)</span>:
   <span class="special">def</span><span
 class="keyword"> f</span><span class="paren1">(<span class="code">w</span>)</span>:
     <span class="symbol">return</span> w**2
@@ -191,43 +191,43 @@ class="keyword"> df_dw</span><span class="paren1">(<span class="code">w</span>)<
   w = 3.14
   <span class="symbol">for</span> i <span class="symbol">in</span> range<span class="paren1">(<span class="code">1, 2001</span>)</span>:
     w = w - lr*df_dw<span class="paren1">(<span class="code">w</span>)</span>
-    update_tta<span class="paren1">(<span class="code">w</span>)</span>
+    update_2ta<span class="paren1">(<span class="code">w</span>)</span>
     <span class="symbol">if</span> i % 100 == 0:
-      tta_f, tta_w, tta_l = evaluate_tta<span class="paren1">(<span class="code">w, f</span>)</span>
+      f_2ta, w_2ta, l_2ta = evaluate_2ta<span class="paren1">(<span class="code">w, f</span>)</span>
       <span class="symbol">print</span><span class="paren1">(<span class="code">f<span class="string">'i={i:4d}: f(w_i)={f(w):7.3f},'</span>
-            f<span class="string">' f(w_tta)={tta_f:7.3f}, l={tta_l:4d}'</span></span>)</span></span></code></pre>
+            f<span class="string">' f(w_2ta)={f_2ta:7.3f}, l={l_2ta:4d}'</span></span>)</span></span></code></pre>
 
 <p>We added some noise to the gradients in <code>df_dw</code> to make it more like
 training with a neural net with SGD. Anyway, we take 2000
-optimization steps, calling <code>update_tta</code> on most but calling
-<code>update_and_evaluate_tta</code> on every 100 steps. Running
-<code>test_tta_simple</code>, we get something like this:</p>
+optimization steps, calling <code>update_2ta</code> on most but calling
+<code>update_and_evaluate_2ta</code> on every 100 steps. Running
+<code>test_2ta_simple</code>, we get something like this:</p>
 
-<pre><code><span class="code">i= 100: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.108, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l= 100
-i= 200: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.011, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l= 200
-i= 300: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.098, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l= 200
-i= 400: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.085, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l= 300
-i= 500: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.221, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l= 200
-i= 600: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.185, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l= 300
-i= 700: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.019, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l= 400
-i= 800: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.180, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l= 500
-i= 900: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.161, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l= 600
-i=1000: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.183, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l= 700
-i=1100: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.057, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l= 800
-i=1200: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.045, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l= 900
-i=1300: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.051, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l=1000
-i=1400: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.010, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l= 900
-i=1500: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.012, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l=1000
-i=1600: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.168, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l=1100
-i=1700: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.001, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l=1200
-i=1800: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.020, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l=1300
-i=1900: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.090, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l=1400
-i=2000: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.115, f<span class="paren1">(<span class="code">w_tta</span>)</span>=0.000, l=1500</span></code></pre>
+<pre><code><span class="code">i= 100: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.108, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 100
+i= 200: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.011, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 200
+i= 300: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.098, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 200
+i= 400: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.085, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 300
+i= 500: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.221, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 200
+i= 600: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.185, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 300
+i= 700: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.019, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 400
+i= 800: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.180, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 500
+i= 900: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.161, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 600
+i=1000: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.183, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 700
+i=1100: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.057, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 800
+i=1200: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.045, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 900
+i=1300: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.051, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l=1000
+i=1400: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.010, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 900
+i=1500: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.012, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l=1000
+i=1600: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.168, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l=1100
+i=1700: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.001, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l=1200
+i=1800: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.020, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l=1300
+i=1900: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.090, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l=1400
+i=2000: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.115, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l=1500</span></code></pre>
 
 <p>In the above, <code>f(w_i)</code> is the loss with the non-averaged weights,
-<code>f(w_tta)</code> is the loss with the weights provided by TTA, and <code>l</code> is
+<code>f(w_2ta)</code> is the loss with the weights provided by 2TA, and <code>l</code> is
 the number of weights averaged. We see that with the high constant
-learning rate, SGD keeps jumping around the optimum, and while TTA
+learning rate, SGD keeps jumping around the optimum, and while 2TA
 does the same, its jitter is way smaller (it's beyond the three
 significant digits printed here). Also, the length of the average
 increases almost monotonically but not quite due to the switching
@@ -240,12 +240,12 @@ steps. We will deal with this non-stationarity by resetting the long
 average if it has not improved for a while.</p>
 
 <pre><code><span class="code"><span class="special">def</span><span
-class="keyword"> reset_tta_long_average</span><span class="paren1">(<span class="code"></span>)</span>:
+class="keyword"> reset_2ta_long_average</span><span class="paren1">(<span class="code"></span>)</span>:
   <span class="symbol">global</span> s, sw, l, lw
   s, sw, l, lw = 0, 0, s, sw
 
 <span class="special">def</span><span
-class="keyword"> test_tta_non_stationary</span><span class="paren1">(<span class="code"></span>)</span>:
+class="keyword"> test_2ta_non_stationary</span><span class="paren1">(<span class="code"></span>)</span>:
   optimum = 0
   <span class="special">def</span><span
 class="keyword"> f</span><span class="paren1">(<span class="code">w</span>)</span>:
@@ -260,17 +260,17 @@ class="keyword"> df_dw</span><span class="paren1">(<span class="code">w</span>)<
   best_iteration = 0
   <span class="symbol">for</span> i <span class="symbol">in</span> range<span class="paren1">(<span class="code">1, 2001</span>)</span>:
     w = w - lr*df_dw<span class="paren1">(<span class="code">w</span>)</span>
-    update_tta<span class="paren1">(<span class="code">w</span>)</span>
+    update_2ta<span class="paren1">(<span class="code">w</span>)</span>
     <span class="symbol">if</span> i % 400 == 0:
       optimum = random.uniform<span class="paren1">(<span class="code">-10.0, 10.0</span>)</span>
       <span class="symbol">print</span><span class="paren1">(<span class="code">f<span class="string">'setting optimum={optimum:.3f}'</span></span>)</span>
     <span class="symbol">if</span> i % 100 == 0:
-      tta_f, tta_w, tta_l = evaluate_tta<span class="paren1">(<span class="code">w, f</span>)</span>
+      f_2ta, w_2ta, l_2ta = evaluate_2ta<span class="paren1">(<span class="code">w, f</span>)</span>
       <span class="symbol">print</span><span class="paren1">(<span class="code">f<span class="string">'i={i:4d}: f(w_i)={f(w):7.3f},'</span>
-            f<span class="string">' f(w_tta)={tta_f:7.3f}, l={tta_l:4d}'</span>,
+            f<span class="string">' f(w_2ta)={f_2ta:7.3f}, l={l_2ta:4d}'</span>,
             end=<span class="string">''</span></span>)</span>
-      <span class="symbol">if</span> tta_l &gt; 1 <span class="symbol">and</span> tta_f &lt; best_f:
-        best_f = tta_f
+      <span class="symbol">if</span> l_2ta &gt; 1 <span class="symbol">and</span> f_2ta &lt; best_f:
+        best_f = f_2ta
         best_iteration = i
         <span class="symbol">print</span><span class="paren1">(<span class="code"></span>)</span>
       <span class="symbol">elif</span> best_iteration + 1 &lt;= i:
@@ -278,42 +278,42 @@ class="keyword"> df_dw</span><span class="paren1">(<span class="code">w</span>)<
 </span>        <span class="comment"># improved for a while, let's reset it so that it may adapt
 </span>        <span class="comment"># quicker.
 </span>        <span class="symbol">print</span><span class="paren1">(<span class="code"><span class="string">' Reset!'</span></span>)</span>
-        reset_tta_long_average<span class="paren1">(<span class="code"></span>)</span>
+        reset_2ta_long_average<span class="paren1">(<span class="code"></span>)</span>
         best_f = float<span class="paren1">(<span class="code"><span class="string">"inf"</span></span>)</span>
         best_iteration = 0</span></code></pre>
 
-<p>We can see that TTA adapts to the non-stationarity in a reasonable
+<p>We can see that 2TA adapts to the non-stationarity in a reasonable
 way although the reset heuristic gets triggered spuriously a couple
 of times:</p>
 
-<pre><code><span class="code">i= 100: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.008, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.005, l= 100
-i= 200: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.060, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
-i= 300: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.004, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+<pre><code><span class="code">i= 100: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.008, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.005, l= 100
+i= 200: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.060, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 100
+i= 300: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.004, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 100
 setting optimum=9.691
-i= 400: f<span class="paren1">(<span class="code">w_i</span>)</span>= 87.194, f<span class="paren1">(<span class="code">w_tta</span>)</span>= 87.194, l=   1 Reset!
-i= 500: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.002, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
-i= 600: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.033, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200 Reset!
-i= 700: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.126, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200
+i= 400: f<span class="paren1">(<span class="code">w_i</span>)</span>= 87.194, f<span class="paren1">(<span class="code">w_2ta</span>)</span>= 87.194, l=   1 Reset!
+i= 500: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.002, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 100
+i= 600: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.033, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 200 Reset!
+i= 700: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.126, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 200
 setting optimum=9.899
-i= 800: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.022, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.022, l=   1 Reset!
-i= 900: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.004, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.003, l= 100
-i=1000: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.094, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
-i=1100: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.146, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+i= 800: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.022, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.022, l=   1 Reset!
+i= 900: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.004, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.003, l= 100
+i=1000: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.094, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 100
+i=1100: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.146, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 100
 setting optimum=3.601
-i=1200: f<span class="paren1">(<span class="code">w_i</span>)</span>= 35.623, f<span class="paren1">(<span class="code">w_tta</span>)</span>= 35.623, l=   1 Reset!
-i=1300: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.113, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.001, l= 100
-i=1400: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.166, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200
-i=1500: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.112, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200
+i=1200: f<span class="paren1">(<span class="code">w_i</span>)</span>= 35.623, f<span class="paren1">(<span class="code">w_2ta</span>)</span>= 35.623, l=   1 Reset!
+i=1300: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.113, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.001, l= 100
+i=1400: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.166, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 200
+i=1500: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.112, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 200
 setting optimum=6.662
-i=1600: f<span class="paren1">(<span class="code">w_i</span>)</span>= 11.692, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  9.409, l= 300 Reset!
-i=1700: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.075, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
-i=1800: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.229, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 200 Reset!
-i=1900: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.217, f<span class="paren1">(<span class="code">w_tta</span>)</span>=  0.000, l= 100
+i=1600: f<span class="paren1">(<span class="code">w_i</span>)</span>= 11.692, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  9.409, l= 300 Reset!
+i=1700: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.075, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 100
+i=1800: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.229, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 200 Reset!
+i=1900: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.217, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 100
 setting optimum=-8.930
-i=2000: f<span class="paren1">(<span class="code">w_i</span>)</span>=242.481, f<span class="paren1">(<span class="code">w_tta</span>)</span>=242.481, l=   1 Reset!</span></code></pre>
+i=2000: f<span class="paren1">(<span class="code">w_i</span>)</span>=242.481, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=242.481, l=   1 Reset!</span></code></pre>
 
-<p>Note that in these examples the evaluation function in TTA was the
-training loss, but TTA is intended for when the evaluation function
+<p>Note that in these examples the evaluation function in 2TA was the
+training loss, but 2TA is intended for when the evaluation function
 measures performance on the validation set or on a down-stream
 task (e.g. summarization).</p>
 
