@@ -3,9 +3,10 @@
 (in-readtable pythonic-string-syntax)
 
 (defclass category (section)
-  ((post-names :initform ())))
+  ((post-names :initform ())
+   (long-title :initarg :long-title :reader category-long-title)))
 
-(defmacro defcategory (name (&key title))
+(defmacro defcategory (name (&key title long-title))
   `(defparameter ,name
      (make-instance 'category
                     :name ',name
@@ -13,7 +14,8 @@
                     :readtable *readtable*
                     :title ,title
                     ;; This will be mutated before generating.
-                    :entries ())))
+                    :entries ()
+                    :long-title ,long-title)))
 
 (defun category-posts (category)
   (loop for post-name in (slot-value category 'post-names)
@@ -183,7 +185,7 @@
 <style> @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap'); </style>
 <link rel='alternate' href='http://quotenil.com/blog.rss' type='application/rss+xml'/>
 "
-                     (quotenil-rss-feed-for-current-page))))
+                     (quotenil-rss-feed-for-current-page categories))))
          (*document-html-sidebar* html-sidebar)
          ;; The shortened posts are reachable normally from CATEGORY's
          ;; SECTION-ENTRIES.
@@ -197,15 +199,15 @@
      :update-css-p nil)
     (mapc #'emit-rss-for-category categories)))
 
-(defun quotenil-rss-feed-for-current-page ()
-  (let ((category (category-for-current-page)))
+(defun quotenil-rss-feed-for-current-page (categories)
+  (let ((category (category-for-current-page categories)))
     (if category
         (format nil "<link rel='alternate' href='~A' type='application/rss+xml'/>"
                 (quotenil-page (rss-page (object-page category))))
         "")))
 
-(defun category-for-current-page ()
-  (find-if #'on-current-page-p (list @blog @ai @lisp @tech @personal)))
+(defun category-for-current-page (categories)
+  (find-if #'on-current-page-p categories))
 
 (defun emit-rss-for-category (category)
   (with-open-file (*standard-output*
@@ -214,10 +216,8 @@
                    :if-does-not-exist :create
                    :if-exists :supersede)
     (xml-emitter:with-rss2 (*standard-output* :encoding "utf-8")
-      (let ((title (if (eq category @blog)
-                       "Gábor Melis' Blog"
-                       (format nil "Category ~A in Gábor Melis' Blog"
-                               (section-title category)))))
+      (let ((title (or (category-long-title category)
+                       (section-title category))))
         (xml-emitter:rss-channel-header title
                                         (quotenil-page (object-page category))
                                         :description title :language "en-uk"))
@@ -252,11 +252,16 @@
   (pax::sections-to-filename (list object) ""))
 
 
-(defcategory @blog (:title "(QUOTE NIL)"))
-(defcategory @lisp (:title "lisp"))
-(defcategory @ai (:title "ai"))
-(defcategory @tech (:title "tech"))
-(defcategory @personal (:title "personal"))
+(defcategory @blog (:title "(QUOTE NIL)"
+                    :long-title "Gábor Melis' Blog"))
+(defcategory @lisp (:title "lisp"
+                    :long-title "Category Lisp in Gábor Melis' Blog"))
+(defcategory @ai (:title "ai"
+                  :long-title "Category AI in Gábor Melis' Blog"))
+(defcategory @tech (:title "tech"
+                    :long-title "Category Tech in Gábor Melis' Blog"))
+(defcategory @personal (:title "personal"
+                        :long-title "Category Personal in Gábor Melis' Blog"))
 
 (defpost @first-post (:title "First Post"
                       :tags (@personal @tech)
