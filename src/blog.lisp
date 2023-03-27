@@ -3236,7 +3236,7 @@
   tuned to start averaging at the point that's optimal for final
   validation loss:
 
-  ![TTA (orange) vs SWA (green)](blog-files/tta-vs-swa.png)
+  ![2TA (orange) vs SWA (green)](blog-files/tta-vs-swa.png)
 
   ## The Algorithm
 
@@ -3257,16 +3257,16 @@
   s, sw, l, lw = 0, 0, 0, 0
 
   # Update the averages with the latest weights from the optimizer.
-  def update_tta(w):
+  def update_2ta(w):
     global s, sw, l, lw
     assert s <= l
     s, sw = s+1, (s*sw + w)/(s+1)
     l, lw = l+1, (l*lw + w)/(l+1)
 
-  # Like update_tta but also evaluate the model and use that to adapt
+  # Like update_2ta but also evaluate the model and use that to adapt
   # the length of the averages. Return three values: the best evaluation
   # results, the corresponding weights and averaging length.
-  def evaluate_tta(w, evaluate):
+  def evaluate_2ta(w, evaluate):
     global s, sw, l, lw
     # Evaluate the non-averaged weights w, the short and the long average.
     f1, fs, fl = evaluate(w), evaluate(sw), evaluate(lw)
@@ -3297,7 +3297,7 @@
   ```python
   import random
 
-  def test_tta_simple():
+  def test_2ta_simple():
     def f(w):
       return w**2
     def df_dw(w):
@@ -3307,46 +3307,46 @@
     w = 3.14
     for i in range(1, 2001):
       w = w - lr*df_dw(w)
-      update_tta(w)
+      update_2ta(w)
       if i % 100 == 0:
-        tta_f, tta_w, tta_l = evaluate_tta(w, f)
+        f_2ta, w_2ta, l_2ta = evaluate_2ta(w, f)
         print(f'i={i:4d}: f(w_i)={f(w):7.3f},'
-              f' f(w_tta)={tta_f:7.3f}, l={tta_l:4d}')
+              f' f(w_2ta)={f_2ta:7.3f}, l={l_2ta:4d}')
   ```
 
   We added some noise to the gradients in `df_dw` to make it more like
   training with a neural net with SGD. Anyway, we take 2000
-  optimization steps, calling `update_tta` on most but calling
-  `update_and_evaluate_tta` on every 100 steps. Running
-  `test_tta_simple`, we get something like this:
+  optimization steps, calling `update_2ta` on most but calling
+  `update_and_evaluate_2ta` on every 100 steps. Running
+  `test_2ta_simple`, we get something like this:
 
   ```
-  i= 100: f(w_i)=0.108, f(w_tta)=0.000, l= 100
-  i= 200: f(w_i)=0.011, f(w_tta)=0.000, l= 200
-  i= 300: f(w_i)=0.098, f(w_tta)=0.000, l= 200
-  i= 400: f(w_i)=0.085, f(w_tta)=0.000, l= 300
-  i= 500: f(w_i)=0.221, f(w_tta)=0.000, l= 200
-  i= 600: f(w_i)=0.185, f(w_tta)=0.000, l= 300
-  i= 700: f(w_i)=0.019, f(w_tta)=0.000, l= 400
-  i= 800: f(w_i)=0.180, f(w_tta)=0.000, l= 500
-  i= 900: f(w_i)=0.161, f(w_tta)=0.000, l= 600
-  i=1000: f(w_i)=0.183, f(w_tta)=0.000, l= 700
-  i=1100: f(w_i)=0.057, f(w_tta)=0.000, l= 800
-  i=1200: f(w_i)=0.045, f(w_tta)=0.000, l= 900
-  i=1300: f(w_i)=0.051, f(w_tta)=0.000, l=1000
-  i=1400: f(w_i)=0.010, f(w_tta)=0.000, l= 900
-  i=1500: f(w_i)=0.012, f(w_tta)=0.000, l=1000
-  i=1600: f(w_i)=0.168, f(w_tta)=0.000, l=1100
-  i=1700: f(w_i)=0.001, f(w_tta)=0.000, l=1200
-  i=1800: f(w_i)=0.020, f(w_tta)=0.000, l=1300
-  i=1900: f(w_i)=0.090, f(w_tta)=0.000, l=1400
-  i=2000: f(w_i)=0.115, f(w_tta)=0.000, l=1500
+  i= 100: f(w_i)=0.108, f(w_2ta)=0.000, l= 100
+  i= 200: f(w_i)=0.011, f(w_2ta)=0.000, l= 200
+  i= 300: f(w_i)=0.098, f(w_2ta)=0.000, l= 200
+  i= 400: f(w_i)=0.085, f(w_2ta)=0.000, l= 300
+  i= 500: f(w_i)=0.221, f(w_2ta)=0.000, l= 200
+  i= 600: f(w_i)=0.185, f(w_2ta)=0.000, l= 300
+  i= 700: f(w_i)=0.019, f(w_2ta)=0.000, l= 400
+  i= 800: f(w_i)=0.180, f(w_2ta)=0.000, l= 500
+  i= 900: f(w_i)=0.161, f(w_2ta)=0.000, l= 600
+  i=1000: f(w_i)=0.183, f(w_2ta)=0.000, l= 700
+  i=1100: f(w_i)=0.057, f(w_2ta)=0.000, l= 800
+  i=1200: f(w_i)=0.045, f(w_2ta)=0.000, l= 900
+  i=1300: f(w_i)=0.051, f(w_2ta)=0.000, l=1000
+  i=1400: f(w_i)=0.010, f(w_2ta)=0.000, l= 900
+  i=1500: f(w_i)=0.012, f(w_2ta)=0.000, l=1000
+  i=1600: f(w_i)=0.168, f(w_2ta)=0.000, l=1100
+  i=1700: f(w_i)=0.001, f(w_2ta)=0.000, l=1200
+  i=1800: f(w_i)=0.020, f(w_2ta)=0.000, l=1300
+  i=1900: f(w_i)=0.090, f(w_2ta)=0.000, l=1400
+  i=2000: f(w_i)=0.115, f(w_2ta)=0.000, l=1500
   ```
 
   In the above, `f(w_i)` is the loss with the non-averaged weights,
-  `f(w_tta)` is the loss with the weights provided by TTA, and `l` is
+  `f(w_2ta)` is the loss with the weights provided by 2TA, and `l` is
   the number of weights averaged. We see that with the high constant
-  learning rate, SGD keeps jumping around the optimum, and while TTA
+  learning rate, SGD keeps jumping around the optimum, and while 2TA
   does the same, its jitter is way smaller (it's beyond the three
   significant digits printed here). Also, the length of the average
   increases almost monotonically but not quite due to the switching
@@ -3359,11 +3359,11 @@
   average if it has not improved for a while.
 
   ```python
-  def reset_tta_long_average():
+  def reset_2ta_long_average():
     global s, sw, l, lw
     s, sw, l, lw = 0, 0, s, sw
 
-  def test_tta_non_stationary():
+  def test_2ta_non_stationary():
     optimum = 0
     def f(w):
       return (w-optimum)**2
@@ -3376,17 +3376,17 @@
     best_iteration = 0
     for i in range(1, 2001):
       w = w - lr*df_dw(w)
-      update_tta(w)
+      update_2ta(w)
       if i % 400 == 0:
         optimum = random.uniform(-10.0, 10.0)
         print(f'setting optimum={optimum:.3f}')
       if i % 100 == 0:
-        tta_f, tta_w, tta_l = evaluate_tta(w, f)
+        f_2ta, w_2ta, l_2ta = evaluate_2ta(w, f)
         print(f'i={i:4d}: f(w_i)={f(w):7.3f},'
-              f' f(w_tta)={tta_f:7.3f}, l={tta_l:4d}',
+              f' f(w_2ta)={f_2ta:7.3f}, l={l_2ta:4d}',
               end='')
-        if tta_l > 1 and tta_f < best_f:
-          best_f = tta_f
+        if l_2ta > 1 and f_2ta < best_f:
+          best_f = f_2ta
           best_iteration = i
           print()
         elif best_iteration + 1 <= i:
@@ -3394,45 +3394,45 @@
           # improved for a while, let's reset it so that it may adapt
           # quicker.
           print(' Reset!')
-          reset_tta_long_average()
+          reset_2ta_long_average()
           best_f = float("inf")
           best_iteration = 0
   ```
 
-  We can see that TTA adapts to the non-stationarity in a reasonable
+  We can see that 2TA adapts to the non-stationarity in a reasonable
   way although the reset heuristic gets triggered spuriously a couple
   of times:
 
   ```
-  i= 100: f(w_i)=  0.008, f(w_tta)=  0.005, l= 100
-  i= 200: f(w_i)=  0.060, f(w_tta)=  0.000, l= 100
-  i= 300: f(w_i)=  0.004, f(w_tta)=  0.000, l= 100
+  i= 100: f(w_i)=  0.008, f(w_2ta)=  0.005, l= 100
+  i= 200: f(w_i)=  0.060, f(w_2ta)=  0.000, l= 100
+  i= 300: f(w_i)=  0.004, f(w_2ta)=  0.000, l= 100
   setting optimum=9.691
-  i= 400: f(w_i)= 87.194, f(w_tta)= 87.194, l=   1 Reset!
-  i= 500: f(w_i)=  0.002, f(w_tta)=  0.000, l= 100
-  i= 600: f(w_i)=  0.033, f(w_tta)=  0.000, l= 200 Reset!
-  i= 700: f(w_i)=  0.126, f(w_tta)=  0.000, l= 200
+  i= 400: f(w_i)= 87.194, f(w_2ta)= 87.194, l=   1 Reset!
+  i= 500: f(w_i)=  0.002, f(w_2ta)=  0.000, l= 100
+  i= 600: f(w_i)=  0.033, f(w_2ta)=  0.000, l= 200 Reset!
+  i= 700: f(w_i)=  0.126, f(w_2ta)=  0.000, l= 200
   setting optimum=9.899
-  i= 800: f(w_i)=  0.022, f(w_tta)=  0.022, l=   1 Reset!
-  i= 900: f(w_i)=  0.004, f(w_tta)=  0.003, l= 100
-  i=1000: f(w_i)=  0.094, f(w_tta)=  0.000, l= 100
-  i=1100: f(w_i)=  0.146, f(w_tta)=  0.000, l= 100
+  i= 800: f(w_i)=  0.022, f(w_2ta)=  0.022, l=   1 Reset!
+  i= 900: f(w_i)=  0.004, f(w_2ta)=  0.003, l= 100
+  i=1000: f(w_i)=  0.094, f(w_2ta)=  0.000, l= 100
+  i=1100: f(w_i)=  0.146, f(w_2ta)=  0.000, l= 100
   setting optimum=3.601
-  i=1200: f(w_i)= 35.623, f(w_tta)= 35.623, l=   1 Reset!
-  i=1300: f(w_i)=  0.113, f(w_tta)=  0.001, l= 100
-  i=1400: f(w_i)=  0.166, f(w_tta)=  0.000, l= 200
-  i=1500: f(w_i)=  0.112, f(w_tta)=  0.000, l= 200
+  i=1200: f(w_i)= 35.623, f(w_2ta)= 35.623, l=   1 Reset!
+  i=1300: f(w_i)=  0.113, f(w_2ta)=  0.001, l= 100
+  i=1400: f(w_i)=  0.166, f(w_2ta)=  0.000, l= 200
+  i=1500: f(w_i)=  0.112, f(w_2ta)=  0.000, l= 200
   setting optimum=6.662
-  i=1600: f(w_i)= 11.692, f(w_tta)=  9.409, l= 300 Reset!
-  i=1700: f(w_i)=  0.075, f(w_tta)=  0.000, l= 100
-  i=1800: f(w_i)=  0.229, f(w_tta)=  0.000, l= 200 Reset!
-  i=1900: f(w_i)=  0.217, f(w_tta)=  0.000, l= 100
+  i=1600: f(w_i)= 11.692, f(w_2ta)=  9.409, l= 300 Reset!
+  i=1700: f(w_i)=  0.075, f(w_2ta)=  0.000, l= 100
+  i=1800: f(w_i)=  0.229, f(w_2ta)=  0.000, l= 200 Reset!
+  i=1900: f(w_i)=  0.217, f(w_2ta)=  0.000, l= 100
   setting optimum=-8.930
-  i=2000: f(w_i)=242.481, f(w_tta)=242.481, l=   1 Reset!
+  i=2000: f(w_i)=242.481, f(w_2ta)=242.481, l=   1 Reset!
   ```
 
-  Note that in these examples the evaluation function in TTA was the
-  training loss, but TTA is intended for when the evaluation function
+  Note that in these examples the evaluation function in 2TA was the
+  training loss, but 2TA is intended for when the evaluation function
   measures performance on the validation set or on a down-stream
   task (e.g. summarization).
 
