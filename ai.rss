@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0">
     <channel>
-        <title>Category ai in G&#xE1;bor Melis&apos; Blog</title>
+        <title>Category AI in G&#xE1;bor Melis&apos; Blog</title>
         <link>http://quotenil.com/ai.html</link>
-        <description>Category ai in G&#xE1;bor Melis&apos; Blog</description>
+        <description>Category AI in G&#xE1;bor Melis&apos; Blog</description>
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
@@ -61,12 +61,12 @@ Averaging&lt;/a&gt; (SWA) does.&lt;/p&gt;
 
 &lt;p&gt;These are the issues Two-Tailed Averaging tackles. The algorithm
 needs storage for only two sets of weights (constant storage cost)
-and performance (e.g. summarization) to be evaluated periodically.
-In return, it provides a weight average of approximately optimal
-length at all optimization steps. Now we can start training that
-language model, periodically evaluating how the averaged weights are
-doing at summarization. We can stop the training run anytime if it&apos;s
-getting worse.&lt;/p&gt;
+and performance (e.g. of summarization) to be evaluated
+periodically. In return, it provides a weight average of
+approximately optimal length at all optimization steps. Now, we can
+start training that language model, periodically evaluating how the
+averaged weights are doing at summarization. We can stop the
+training run any time if it&apos;s getting worse.&lt;/p&gt;
 
 &lt;p&gt;This is how Two-Tailed Averaged (orange) compares to SWA (green)
 tuned to start averaging at the point that&apos;s optimal for final
@@ -76,19 +76,22 @@ validation loss:&lt;/p&gt;
 
 &lt;h2&gt;The Algorithm&lt;/h2&gt;
 
-&lt;p&gt;The core algorithm is quite simple: as the optimizer produces new
-weights, we add those to two moving averages. When the short moving
-average (to which we added fewer or equal number of weights) does at
-least as well as the long average according to some arbitrary
-evaluation function, then we empty the long average, which will now
-be the short one.&lt;/p&gt;
+&lt;p&gt;The core algorithm maintains two weight averages. Both averages are
+over the most recent weights weight produced by the optimizer, but
+they differ in length (i.e. how many weights they average). As the
+optimizer produces new sets of weights, they are added to both
+averages. We periodically evaluate the performance of our model with
+each average. If the short average (the one that currently has fewer
+weights averaged) does at least as well as the long average
+according to some arbitrary evaluation function, then we empty the
+long average, which will now be the short one.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# Initialize the short (s, sw) and long averages (l, lw). s and l are
 &lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;# the number of weights averaged (the &quot;averaging lengths&quot;). sw and lw
 &lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;# are the averaged weights.
 &lt;/span&gt;s, sw, l, lw = 0, 0, 0, 0
 
-&lt;span class=&quot;comment&quot;&gt;# Update the moving averages with the latest weights from the optimizer.
+&lt;span class=&quot;comment&quot;&gt;# Update the averages with the latest weights from the optimizer.
 &lt;/span&gt;&lt;span class=&quot;special&quot;&gt;def&lt;/span&gt;&lt;span
 class=&quot;keyword&quot;&gt; update_tta&lt;/span&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w&lt;/span&gt;)&lt;/span&gt;:
   &lt;span class=&quot;symbol&quot;&gt;global&lt;/span&gt; s, sw, l, lw
@@ -154,26 +157,26 @@ optimization steps, calling &lt;code&gt;update_tta&lt;/code&gt; on most but call
 &lt;code&gt;update_and_evaluate_tta&lt;/code&gt; on every 100 steps. Running
 &lt;code&gt;test_tta_simple&lt;/code&gt;, we get something like this:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;i= 100: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.108, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 100
-i= 200: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.011, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 200
-i= 300: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.098, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 200
-i= 400: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.085, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 300
-i= 500: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.221, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 200
-i= 600: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.185, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 300
-i= 700: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.019, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 400
-i= 800: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.180, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 500
-i= 900: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.161, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 600
-i=1000: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.183, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 700
-i=1100: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.057, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 800
-i=1200: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.045, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 900
-i=1300: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.051, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l=1000
-i=1400: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.010, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 900
-i=1500: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.012, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l=1000
-i=1600: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.168, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l=1100
-i=1700: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.001, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l=1200
-i=1800: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.020, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l=1300
-i=1900: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.090, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l=1400
-i=2000: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.115, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=  0.000, l=1500&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;i= 100: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.108, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 100
+i= 200: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.011, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 200
+i= 300: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.098, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 200
+i= 400: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.085, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 300
+i= 500: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.221, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 200
+i= 600: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.185, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 300
+i= 700: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.019, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 400
+i= 800: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.180, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 500
+i= 900: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.161, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 600
+i=1000: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.183, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 700
+i=1100: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.057, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 800
+i=1200: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.045, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 900
+i=1300: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.051, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l=1000
+i=1400: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.010, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 900
+i=1500: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.012, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l=1000
+i=1600: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.168, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l=1100
+i=1700: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.001, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l=1200
+i=1800: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.020, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l=1300
+i=1900: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.090, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l=1400
+i=2000: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.115, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=0.000, l=1500&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;In the above, &lt;code&gt;f(w_i)&lt;/code&gt; is the loss with the non-averaged weights,
 &lt;code&gt;f(w_tta)&lt;/code&gt; is the loss with the weights provided by TTA, and &lt;code&gt;l&lt;/code&gt; is
@@ -263,10 +266,10 @@ i=1900: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&g
 setting optimum=-8.930
 i=2000: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=242.481, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_tta&lt;/span&gt;)&lt;/span&gt;=242.481, l=   1 Reset!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Note that that in these examples the evaluation function in TTA was
-the training loss, but TTA is mainly intended for when the
-evaluation function measures performance on the validation set or on
-a down-stream task (e.g. summarization).&lt;/p&gt;
+&lt;p&gt;Note that in these examples the evaluation function in TTA was the
+training loss, but TTA is intended for when the evaluation function
+measures performance on the validation set or on a down-stream
+task (e.g. summarization).&lt;/p&gt;
 
 &lt;h2&gt;Downsampling weights&lt;/h2&gt;
 
