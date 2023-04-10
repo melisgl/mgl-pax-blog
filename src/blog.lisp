@@ -3492,6 +3492,82 @@
   [Twitter](https://twitter.com/GaborMelis/status/1600479387937144833)
   or [Mastodon](https://mastodon.social/@melisgl/109472579530491223).
   """)
+
+(defpost @how-to-compare-fonts
+    (:title "Normalize Fonts for Comparison"
+     :tags (@tech)
+     :date "2023-04-10")
+  """In short, comparing fonts at the same font size is almost never the
+  right thing to do. Compare them at the same x-height or, better yet,
+  at the same space usage.
+
+  In full, recently, I wanted to choose a font that looks good on
+  screen at various resolutions and also in print. This is fairly
+  subjective, of course, so there is a lot of noise out there. Going
+  by the [LaTeX Font Catalogue](https://tug.org/FontCatalogue/),
+  [Google Fonts](https://fonts.google.com/), and similar font
+  comparison sites turned out to be fairly misleading because they
+  present fonts at the same font
+  size ([`em`](https://en.wikipedia.org/wiki/Em_(typography)) in LaTeX
+  and CSS). The problem is that `1em` is the size of a bounding box
+  for the largest character, which can be arbitrarily loose. The
+  perceived size of typical English text is much more closely
+  determined by the
+  [x-height](https://en.wikipedia.org/wiki/X-height) (`ex` in LaTeX
+  and CSS). `1ex` is the height of the character `x`, which is pretty
+  close to the height of other lowercase characters for most fonts.
+
+  ![typography-line-terms](blog-files/Typography_Line_Terms.svg)
+
+  """"So it makes a lot of sense to compare fonts at the same x-height,
+  and this is what I first did for a number of LaTeX fonts:
+  [fonts-by-x-height.pdf](blog-files/fonts-by-x-height.pdf). On the
+  other hand, normalizing for x-height can make fonts with wider
+  glyphs look much bigger in the [eye of the
+  beholder](http://www.hardcoregaming101.net/eye-of-the-beholder/).
+  Thus, the obvious alternative is to normalize the space usage.
+  Unfortunately, there is no convenient statistic available for this
+  so we have to resort to estimating the area required to set a given
+  piece of reference text with a given font. The advantage of this
+  method is that it takes
+  [kerning](https://en.wikipedia.org/wiki/Kerning) into account, the
+  disadvantage is that we must now choose the line height, which is
+  quite an [art in
+  itself](https://medium.com/towards-more-beautiful-web-typography/optimal-line-height-reconsidered-part-1-web-dev-survey-from-kyoto-a0357d8f6282).
+  Based on the assumption that the amount visual separation between
+  lines is the main factor that determines the difficulty of scanning
+  lines, here I decided to keep the ratio of line height and x-height
+  constant. Of course, other factors such as [cap
+  height](https://en.wikipedia.org/wiki/Cap_height),
+  [ascenders](https://en.wikipedia.org/wiki/Ascender_(typography)),
+  and [descenders](https://en.wikipedia.org/wiki/Descender) also
+  matter in general, but for the fonts considered, they didn't vary
+  strongly enough in addition to x-height to make them change the
+  results: [fonts-by-space.pdf](blog-files/fonts-by-space.pdf). Have a
+  look and decide for yourself which fonts look best. To me, the most
+  legible fonts are:
+
+  - Libertinus and Stix2 in the Timeslike category.
+  - Cochineal (Amiri, Crimson Text) among the Garamondlike.
+  - XCharter among the (almost) Slab Serifs.
+  - Utopia is a very nice, neutral font.
+
+  My taste is apparently quite similar to [Lino
+  Ferreira's](https://github.com/linoferreira/latex-font-survey). EB
+  Garamond is a personal favourite, but it is just a bit too quirky
+  for body text. Those same quirks make it great at larger sizes
+  though, and this blog uses it for headings in addition to XCharter
+  for the body text.
+
+  <div class='br'></div>
+  The messy LaTeX sources of the above documents are available on
+  [github](https://github.com/melisgl/latex-font-comparison).
+
+  <div class='br'></div>
+  Comment on
+  [Twitter](https://twitter.com/GaborMelis/status/1645484950957830144)
+  or [Mastodon](https://mastodon.social/@melisgl/110175790416538571).
+  """)
 
 
 (defun on-current-page-p (object)
