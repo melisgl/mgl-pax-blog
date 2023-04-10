@@ -7,6 +7,79 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
+            <title>Normalize Fonts for Comparison</title>
+            <link>http://quotenil.com/how-to-compare-fonts.html</link>
+            <description>&lt;p&gt;In short, comparing fonts at the same font size is almost never the
+right thing to do. Compare them at the same x-height or, better yet,
+at the same space usage.&lt;/p&gt;
+
+&lt;p&gt;In full, recently, I wanted to choose a font that looks good on
+screen at various resolutions and also in print. This is fairly
+subjective, of course, so there is a lot of noise out there. Going
+by the &lt;a href=&quot;https://tug.org/FontCatalogue/&quot; &gt;LaTeX Font Catalogue&lt;/a&gt;,
+&lt;a href=&quot;https://fonts.google.com/&quot; &gt;Google Fonts&lt;/a&gt;, and similar font
+comparison sites turned out to be fairly misleading because they
+present fonts at the same font
+size (&lt;a href=&quot;https://en.wikipedia.org/wiki/Em_(typography)&quot; &gt;&lt;code&gt;em&lt;/code&gt;&lt;/a&gt; in LaTeX
+and CSS). The problem is that &lt;code&gt;1em&lt;/code&gt; is the size of a bounding box
+for the largest character, which can be arbitrarily loose. The
+perceived size of typical English text is much more closely
+determined by the
+&lt;a href=&quot;https://en.wikipedia.org/wiki/X-height&quot; &gt;x-height&lt;/a&gt; (&lt;code&gt;ex&lt;/code&gt; in LaTeX
+and CSS). &lt;code&gt;1ex&lt;/code&gt; is the height of the character &lt;code&gt;x&lt;/code&gt;, which is pretty
+close to the height of other lowercase characters for most fonts.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;blog-files/Typography_Line_Terms.svg&quot; alt=&quot;typography-line-terms&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So it makes a lot of sense to compare fonts at the same x-height,
+and this is what I first did for a number of LaTeX fonts:
+&lt;a href=&quot;blog-files/fonts-by-x-height.pdf&quot; &gt;fonts-by-x-height.pdf&lt;/a&gt;. On the
+other hand, normalizing for x-height can make fonts with wider
+glyphs look much bigger in the &lt;a href=&quot;http://www.hardcoregaming101.net/eye-of-the-beholder/&quot; &gt;eye of the
+beholder&lt;/a&gt;.
+Thus, the obvious alternative is to normalize the space usage.
+Unfortunately, there is no convenient statistic available for this
+so we have to resort to estimating the area required to set a given
+piece of reference text with a given font. The advantage of this
+method is that it takes
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Kerning&quot; &gt;kerning&lt;/a&gt; into account, the
+disadvantage is that we must now choose the line height, which is
+quite an &lt;a href=&quot;https://medium.com/towards-more-beautiful-web-typography/optimal-line-height-reconsidered-part-1-web-dev-survey-from-kyoto-a0357d8f6282&quot; &gt;art in
+itself&lt;/a&gt;.
+Based on the assumption that the amount visual separation between
+lines is the main factor that determines the difficulty of scanning
+lines, here I decided to keep the ratio of line height and x-height
+constant. Of course, other factors such as &lt;a href=&quot;https://en.wikipedia.org/wiki/Cap_height&quot; &gt;cap
+height&lt;/a&gt;,
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Ascender_(typography)&quot; &gt;ascenders&lt;/a&gt;,
+and &lt;a href=&quot;https://en.wikipedia.org/wiki/Descender&quot; &gt;descenders&lt;/a&gt; also
+matter in general, but for the fonts considered, they didn&apos;t vary
+strongly enough in addition to x-height to make them change the
+results: &lt;a href=&quot;blog-files/fonts-by-space.pdf&quot; &gt;fonts-by-space.pdf&lt;/a&gt;. Have a
+look and decide for yourself which fonts look best. To me, the most
+legible fonts are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Libertinus and Stix2 in the Timeslike category.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Cochineal (Amiri, Crimson Text) among the Garamondlike.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;XCharter among the (almost) Slab Serifs.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Utopia is a very nice, neutral font.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;My taste is apparently quite similar to &lt;a href=&quot;https://github.com/linoferreira/latex-font-survey&quot; &gt;Lino
+Ferreira&apos;s&lt;/a&gt;. EB
+Garamond is a personal favourite, but it is just a bit too quirky
+for body text. Those same quirks make it great at larger sizes
+though, and this blog uses it for headings in addition to XCharter
+for the body text.
+&lt;div class=&apos;br&apos;&gt;&lt;/div&gt;
+The messy LaTeX sources of the above documents are available on
+&lt;a href=&quot;https://github.com/melisgl/latex-font-comparison&quot; &gt;github&lt;/a&gt;.&lt;/p&gt;
+</description>
+            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <pubDate>Mon, 10 Apr 2023 01:00:00 +0100</pubDate>
+        </item>
+        <item>
             <title>Practitioner&apos;s Guide to Two-Tailed Averaging</title>
             <link>http://quotenil.com/tta-practitioner.html</link>
             <description>&lt;p&gt;This is a complement to the &lt;a href=&quot;https://arxiv.org/abs/2209.12581&quot; &gt;Two-Tailed Averaging

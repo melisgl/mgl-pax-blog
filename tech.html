@@ -46,6 +46,39 @@
   href=about-me.html>me</a>.
  </div>
 </div><div id="content">
+<p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40HOW-TO-COMPARE-FONTS-SHORT-20MGL-PAX-3ASECTION-29"></a>
+<a id="MGL-PAX-BLOG:@TECH-@HOW-TO-COMPARE-FONTS-SHORT%20MGL-PAX:SECTION"></a></p>
+
+<h1><a href="how-to-compare-fonts.html" title="Normalize Fonts for Comparison">Normalize Fonts for Comparison</a></h1>
+
+<p><span class='post-data'><em>Tags</em>: <a href="tech.html" title="tech"><code>tech</code></a>, <em>Date</em>: 2023-04-10</span></p>
+
+<div class='br'></div>
+
+<p>In short, comparing fonts at the same font size is almost never the
+right thing to do. Compare them at the same x-height or, better yet,
+at the same space usage.</p>
+
+<p>In full, recently, I wanted to choose a font that looks good on
+screen at various resolutions and also in print. This is fairly
+subjective, of course, so there is a lot of noise out there. Going
+by the <a href="https://tug.org/FontCatalogue/" >LaTeX Font Catalogue</a>,
+<a href="https://fonts.google.com/" >Google Fonts</a>, and similar font
+comparison sites turned out to be fairly misleading because they
+present fonts at the same font
+size (<a href="https://en.wikipedia.org/wiki/Em_(typography)" ><code>em</code></a> in LaTeX
+and CSS). The problem is that <code>1em</code> is the size of a bounding box
+for the largest character, which can be arbitrarily loose. The
+perceived size of typical English text is much more closely
+determined by the
+<a href="https://en.wikipedia.org/wiki/X-height" >x-height</a> (<code>ex</code> in LaTeX
+and CSS). <code>1ex</code> is the height of the character <code>x</code>, which is pretty
+close to the height of other lowercase characters for most fonts.</p>
+
+<p><img src="blog-files/Typography_Line_Terms.svg" alt="typography-line-terms" /></p>
+
+<p><div class='br'></div>... read the rest of <a href="how-to-compare-fonts.html" title="Normalize Fonts for Comparison">Normalize Fonts for Comparison</a>.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40MIGRATION-TO-GITHUB-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@TECH-@MIGRATION-TO-GITHUB-SHORT%20MGL-PAX:SECTION"></a></p>
 

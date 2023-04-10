@@ -355,3 +355,7 @@ img[alt$="about-me-die"] {
 img[alt$="TTA (orange) vs SWA (green)"] {
   width: 70%;
 }
+
+img[alt$="typography-line-terms"] {
+  height: calc(8*var(--line-height));
+}

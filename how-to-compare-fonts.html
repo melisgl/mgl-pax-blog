@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>Normalize Fonts for Comparison</title>
+<link type='text/css' href='style.css' rel='stylesheet'>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width">
+   <script src="jquery.min.js"></script>
+<script src="toc.min.js"></script>
+<script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       tex2jax: {
+         inlineMath: [['$','$']],
+         processEscapes: true
+       }
+     });
+   </script>
+   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+   </script>
+   <!-- Google tag (gtag.js) -->
+<script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7X64Q1D73F');
+</script>
+<link rel='shortcut icon' type='image/png' href='favicon.png'>
+<link rel='preconnect' href='https://fonts.googleapis.com'>
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+<link href='https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet'>
+<style> @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap'); </style>
+<link rel='alternate' href='http://quotenil.com/blog.rss' type='application/rss+xml'/>
+
+</head>
+<body>
+<div id="content-container">
+<div id=toc>
+ <div id=home>
+  <a href=blog.html>(QUOTE NIL)</a>
+ </div>
+ <div id=links>
+  Ramblings on <a href=ai.html>ai</a>, <a href=lisp.html>lisp</a>, <a
+  href=tech.html>tech</a> and <a href=personal.html>personal</a> topics by <a
+  href=about-me.html>me</a>.
+ </div>
+</div><div id="content">
+<p><a id="x-28MGL-PAX-BLOG-3A-40HOW-TO-COMPARE-FONTS-20MGL-PAX-3ASECTION-29"></a>
+<a id="MGL-PAX-BLOG:@HOW-TO-COMPARE-FONTS%20MGL-PAX:SECTION"></a></p>
+
+<h1><a href="how-to-compare-fonts.html">Normalize Fonts for Comparison</a></h1>
+
+<p><span class='post-data'><em>Tags</em>: <a href="tech.html" title="tech"><code>tech</code></a>, <em>Date</em>: 2023-04-10</span></p>
+
+<div class='br'></div>
+
+<p>In short, comparing fonts at the same font size is almost never the
+right thing to do. Compare them at the same x-height or, better yet,
+at the same space usage.</p>
+
+<p>In full, recently, I wanted to choose a font that looks good on
+screen at various resolutions and also in print. This is fairly
+subjective, of course, so there is a lot of noise out there. Going
+by the <a href="https://tug.org/FontCatalogue/" >LaTeX Font Catalogue</a>,
+<a href="https://fonts.google.com/" >Google Fonts</a>, and similar font
+comparison sites turned out to be fairly misleading because they
+present fonts at the same font
+size (<a href="https://en.wikipedia.org/wiki/Em_(typography)" ><code>em</code></a> in LaTeX
+and CSS). The problem is that <code>1em</code> is the size of a bounding box
+for the largest character, which can be arbitrarily loose. The
+perceived size of typical English text is much more closely
+determined by the
+<a href="https://en.wikipedia.org/wiki/X-height" >x-height</a> (<code>ex</code> in LaTeX
+and CSS). <code>1ex</code> is the height of the character <code>x</code>, which is pretty
+close to the height of other lowercase characters for most fonts.</p>
+
+<p><img src="blog-files/Typography_Line_Terms.svg" alt="typography-line-terms" /></p>
+
+<p>So it makes a lot of sense to compare fonts at the same x-height,
+and this is what I first did for a number of LaTeX fonts:
+<a href="blog-files/fonts-by-x-height.pdf" >fonts-by-x-height.pdf</a>. On the
+other hand, normalizing for x-height can make fonts with wider
+glyphs look much bigger in the <a href="http://www.hardcoregaming101.net/eye-of-the-beholder/" >eye of the
+beholder</a>.
+Thus, the obvious alternative is to normalize the space usage.
+Unfortunately, there is no convenient statistic available for this
+so we have to resort to estimating the area required to set a given
+piece of reference text with a given font. The advantage of this
+method is that it takes
+<a href="https://en.wikipedia.org/wiki/Kerning" >kerning</a> into account, the
+disadvantage is that we must now choose the line height, which is
+quite an <a href="https://medium.com/towards-more-beautiful-web-typography/optimal-line-height-reconsidered-part-1-web-dev-survey-from-kyoto-a0357d8f6282" >art in
+itself</a>.
+Based on the assumption that the amount visual separation between
+lines is the main factor that determines the difficulty of scanning
+lines, here I decided to keep the ratio of line height and x-height
+constant. Of course, other factors such as <a href="https://en.wikipedia.org/wiki/Cap_height" >cap
+height</a>,
+<a href="https://en.wikipedia.org/wiki/Ascender_(typography)" >ascenders</a>,
+and <a href="https://en.wikipedia.org/wiki/Descender" >descenders</a> also
+matter in general, but for the fonts considered, they didn't vary
+strongly enough in addition to x-height to make them change the
+results: <a href="blog-files/fonts-by-space.pdf" >fonts-by-space.pdf</a>. Have a
+look and decide for yourself which fonts look best. To me, the most
+legible fonts are:</p>
+
+<ul>
+<li><p>Libertinus and Stix2 in the Timeslike category.</p></li>
+<li><p>Cochineal (Amiri, Crimson Text) among the Garamondlike.</p></li>
+<li><p>XCharter among the (almost) Slab Serifs.</p></li>
+<li><p>Utopia is a very nice, neutral font.</p></li>
+</ul>
+
+<p>My taste is apparently quite similar to <a href="https://github.com/linoferreira/latex-font-survey" >Lino
+Ferreira's</a>. EB
+Garamond is a personal favourite, but it is just a bit too quirky
+for body text. Those same quirks make it great at larger sizes
+though, and this blog uses it for headings in addition to XCharter
+for the body text.
+<div class='br'></div>
+The messy LaTeX sources of the above documents are available on
+<a href="https://github.com/melisgl/latex-font-comparison" >github</a>.</p>
+
+<p><img src="blog-files/die.png" alt="end-of-post" /></p>
+  </div>
+</div>
+<script>$('#page-toc').toc({'selectors': ''});</script>
+</body>
+</html>
