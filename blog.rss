@@ -176,9 +176,10 @@ class=&quot;keyword&quot;&gt; update_2ta&lt;/span&gt;&lt;span class=&quot;paren1
   s, sw = s+1, &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;s*sw + w&lt;/span&gt;)&lt;/span&gt;/&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;s+1&lt;/span&gt;)&lt;/span&gt;
   l, lw = l+1, &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;l*lw + w&lt;/span&gt;)&lt;/span&gt;/&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;l+1&lt;/span&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;comment&quot;&gt;# Like update_2ta but also evaluate the model and use that to adapt
-&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;# the length of the averages. Return three values: the best evaluation
-&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;# results, the corresponding weights and averaging length.
+&lt;span class=&quot;comment&quot;&gt;# Evaluate the model with the short-, the long-, and the
+&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;# non-averaged weights. Based on the results, adapt the length of
+&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;# the averages. Return three values: the best evaluation results,
+&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;# the corresponding weights and averaging length.
 &lt;/span&gt;&lt;span class=&quot;special&quot;&gt;def&lt;/span&gt;&lt;span
 class=&quot;keyword&quot;&gt; evaluate_2ta&lt;/span&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w, evaluate&lt;/span&gt;)&lt;/span&gt;:
   &lt;span class=&quot;symbol&quot;&gt;global&lt;/span&gt; s, sw, l, lw

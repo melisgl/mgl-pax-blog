@@ -145,9 +145,10 @@ class="keyword"> update_2ta</span><span class="paren1">(<span class="code">w</sp
   s, sw = s+1, <span class="paren1">(<span class="code">s*sw + w</span>)</span>/<span class="paren1">(<span class="code">s+1</span>)</span>
   l, lw = l+1, <span class="paren1">(<span class="code">l*lw + w</span>)</span>/<span class="paren1">(<span class="code">l+1</span>)</span>
 
-<span class="comment"># Like update_2ta but also evaluate the model and use that to adapt
-</span><span class="comment"># the length of the averages. Return three values: the best evaluation
-</span><span class="comment"># results, the corresponding weights and averaging length.
+<span class="comment"># Evaluate the model with the short-, the long-, and the
+</span><span class="comment"># non-averaged weights. Based on the results, adapt the length of
+</span><span class="comment"># the averages. Return three values: the best evaluation results,
+</span><span class="comment"># the corresponding weights and averaging length.
 </span><span class="special">def</span><span
 class="keyword"> evaluate_2ta</span><span class="paren1">(<span class="code">w, evaluate</span>)</span>:
   <span class="symbol">global</span> s, sw, l, lw
