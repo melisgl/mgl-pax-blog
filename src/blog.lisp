@@ -3263,9 +3263,10 @@
     s, sw = s+1, (s*sw + w)/(s+1)
     l, lw = l+1, (l*lw + w)/(l+1)
 
-  # Like update_2ta but also evaluate the model and use that to adapt
-  # the length of the averages. Return three values: the best evaluation
-  # results, the corresponding weights and averaging length.
+  # Evaluate the model with the short-, the long-, and the
+  # non-averaged weights. Based on the results, adapt the length of
+  # the averages. Return three values: the best evaluation results,
+  # the corresponding weights and averaging length.
   def evaluate_2ta(w, evaluate):
     global s, sw, l, lw
     # Evaluate the non-averaged weights w, the short and the long average.
