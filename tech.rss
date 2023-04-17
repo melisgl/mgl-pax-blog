@@ -13,13 +13,13 @@
 &lt;a href=&quot;https://github.com/melisgl/two-tailed-averaging&quot; &gt;github&lt;/a&gt;. Of
 course, the sources are also available on
 &lt;a href=&quot;https://arxiv.org/abs/2209.12581&quot; &gt;arxiv&lt;/a&gt;, but this may give better
-visibility to the grid typesetting code in there. Also, note how
-much cleaner the paper looks with the
+visibility to the LaTeX grid typesetting code in there. Also, note
+how much cleaner the paper looks with the
 &lt;a href=&quot;https://github.com/melisgl/two-tailed-averaging/blob/main/samples/xcharter.pdf&quot; &gt;XCharter&lt;/a&gt;
 font compared to &lt;a href=&quot;https://github.com/melisgl/two-tailed-averaging/blob/main/samples/times-new-roman.pdf&quot; &gt;Times New
 Roman&lt;/a&gt;.
-No wonder Matthew Butterick pushes
-&lt;a href=&quot;https://practicaltypography.com/charter.html&quot; &gt;Charter&lt;/a&gt;.&lt;/p&gt;
+No wonder Matthew Butterick &lt;a href=&quot;https://practicaltypography.com/charter.html&quot; &gt;pushes
+Charter&lt;/a&gt;.&lt;/p&gt;
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 17 Apr 2023 01:00:00 +0100</pubDate>
