@@ -3569,6 +3569,23 @@
   [Twitter](https://twitter.com/GaborMelis/status/1645484950957830144)
   or [Mastodon](https://mastodon.social/@melisgl/110175790416538571).
   """)
+
+(defpost @grid-typesetting
+    (:title "Grid Typesetting"
+     :tags (@tech)
+     :date "2023-04-17")
+  """I put the sources of the Two-Tailed Averaging paper on
+  [github](https://github.com/melisgl/two-tailed-averaging). Of
+  course, the sources are also available on
+  [arxiv](https://arxiv.org/abs/2209.12581), but this may give better
+  visibility to the grid typesetting code in there. Also, note how
+  much cleaner the paper looks with the
+  [XCharter](https://github.com/melisgl/two-tailed-averaging/blob/main/samples/xcharter.pdf)
+  font compared to [Times New
+  Roman](https://github.com/melisgl/two-tailed-averaging/blob/main/samples/times-new-roman.pdf).
+  No wonder Matthew Butterick pushes
+  [Charter](https://practicaltypography.com/charter.html).
+  """)
 
 
 (defun on-current-page-p (object)
