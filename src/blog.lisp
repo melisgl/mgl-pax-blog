@@ -50,7 +50,7 @@
     (if (< max-n-entries (length entries))
         (append (subseq entries 0 max-n-entries)
                 (list (format nil "<div class='br'></div>~
-                                   ... read the rest of [~A][~A]."
+                                   <p>... read the rest of [~A][~A].</p>"
                               name :section)))
         entries)))
 
@@ -269,8 +269,8 @@
   "After a long time of waiting to write my own blog
   software like true hackers with infinite time do (and those
   irritated by Wordpress), I bit the bullet and installed
-  [blorg](https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html) - a very low
-  overhead emacs blog engine - on top of
+  [blorg](https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html) – a very low
+  overhead emacs blog engine – on top of
   [org-mode](http://orgmode.org/) that I happen to use as an
   organizer. Blorg basically converts an org mode buffer to html files
   so it is completely static: send me [email](mailto:mega@retes.hu) if
@@ -992,8 +992,8 @@
 
   On the other hand, deep learners are theorethically capable of
   building abstraction on top of abstraction, the main hurdle in front
-  of their acceptance being that they don't exist or - more precisely
-  - we don't know how to train them.
+  of their acceptance being that they don't exist or – more precisely
+  – we don't know how to train them.
 
   A good example of a deep learner is the multi-layer perceptron: with
   only three layers it is a [universal
@@ -1220,8 +1220,8 @@
   An RBM is a BM restricted to be a two layer network with no
   intralayer connections. The "lower" layer is called visible and
   the "higher" layer is called hidden layer, because from the point of
-  view of a single RBM it is the visible layer that's connected to -
-  maybe indirectly - to external stimuli. In the upward pass of a DBN,
+  view of a single RBM it is the visible layer that's connected to –
+  maybe indirectly – to external stimuli. In the upward pass of a DBN,
   where the low level representations are subsequently transformed
   into higher level ones by the constituent RBMs, the values of the
   hidden units are clamped onto the visible units of the next RBM. In
@@ -1312,7 +1312,7 @@
 
   In a box the first line shows the class of the chunk and the number
   of nodes in parens (omitted if 1), while the second line is the name
-  of the chunk itself. The constant chunks - in case you wonder -
+  of the chunk itself. The constant chunks – in case you wonder –
   provide the connected chunks with a bias. So far so good. Let's
   train it RBM by RBM:
 
@@ -1436,7 +1436,7 @@
 
   - The second RBM gets the the correct label as input which
     conveniently allows tracking classification accuracy during its
-    training, but also - more importantly - forces the top-level
+    training, but also – more importantly – forces the top-level
     features to be somewhat geared towards reconstruction of labels
     and thus classification.
 
@@ -1465,8 +1465,8 @@
   sparsity" in the diagram) for units in opposing opposing layers on
   at the same time and nets 99.08%. The fourth is just a translation
   of the sparsity penalty from the Matlab code. This one is
-  named "cheating sparsity" because it - perhaps in an effort to
-  reduce variance of the gradient - changes weights according to the
+  named "cheating sparsity" because it – perhaps in an effort to
+  reduce variance of the gradient – changes weights according to the
   average activation levels of units connected by them. Anyway, this
   last one reaches 99.09%.
 
@@ -1570,8 +1570,8 @@
   policy kept cornering itself in a big area faster than another
   player could hit the wall at the end of a long dead end. That was
   worrisome, but fixable. After days of experimentation I finally gave
-  up on it deciding that Tron is simply too tactical - or not fuzzy
-  enough, if you prefer - for MC to work really well.
+  up on it deciding that Tron is simply too tactical – or not fuzzy
+  enough, if you prefer – for MC to work really well.
 
   Of course, it can be that the kind of default policies I tried were
   biased (a sure thing), misguided and suboptimal. But then again, I
@@ -1855,7 +1855,7 @@
   aware.
 
   Sniping is when one player takes a neutral losing ships in the
-  process and the opponent comes - typically on the next turn - and
+  process and the opponent comes – typically on the next turn – and
   takes it away. [This
   game](https://web.archive.org/web/20101213023101/http://www.ai-contest.com/visualizer.php?game_id=9347535) is a
   nice illustration of the concept.
@@ -1900,7 +1900,7 @@
 
   ## Nash equilibrium
 
-  There are - especially at the very beginning of games - situations
+  There are – especially at the very beginning of games – situations
   were there is no best move, it all depends on what the opponent
   plays on the same turn.
 
@@ -2175,7 +2175,7 @@
   all binary and include handcrafted, binned indicators (time of post,
   length of title, etc) and unigrams from the title and body.
 
-  Since the data set - especially the class distribution - evolves
+  Since the data set – especially the class distribution – evolves
   with time, one crucial step is to compensate for the effect of time.
   This is partly accomplished by adding date and time information as
   features, and also by training the ensemble on the most recent
@@ -2660,8 +2660,8 @@
 
   Contrast this with what I understand to be the status quo over on
   the Python side. The specialized Python array libs (cudamat,
-  gpuarray, cudandarray) try to be drop-in replacements for - or at
-  least similar to - numpy.ndarray with various degrees of success.
+  gpuarray, cudandarray) try to be drop-in replacements for – or at
+  least similar to – numpy.ndarray with various degrees of success.
   There is lots of explicit conversion going on between ndarray and
   these CUDA blobs and adding new representations would make this
   exponentionally worse.
@@ -2777,7 +2777,7 @@
   seriously.
 
   <div class='br'></div>
-  You can find the code [here][journal-code].
+  <p>You can find the code [here][journal-code].</p>
   """)
 
 (defpost @pax-v0.1 (:title "PAX v0.1"
@@ -3489,9 +3489,9 @@
   without optimizing yet another hyperparameter.
 
   <div class='br'></div>
-  Comment on
+  <p>Comment on
   [Twitter](https://twitter.com/GaborMelis/status/1600479387937144833)
-  or [Mastodon](https://mastodon.social/@melisgl/109472579530491223).
+  or [Mastodon](https://mastodon.social/@melisgl/109472579530491223).</p>
   """)
 
 (defpost @how-to-compare-fonts
@@ -3561,30 +3561,29 @@
   for the body text.
 
   <div class='br'></div>
-  The messy LaTeX sources of the above documents are available on
-  [github](https://github.com/melisgl/latex-font-comparison).
+  <p>The messy LaTeX sources of the above documents are available on
+  [github](https://github.com/melisgl/latex-font-comparison).</p>
 
   <div class='br'></div>
-  Comment on
+  <p>Comment on
   [Twitter](https://twitter.com/GaborMelis/status/1645484950957830144)
-  or [Mastodon](https://mastodon.social/@melisgl/110175790416538571).
+  or [Mastodon](https://mastodon.social/@melisgl/110175790416538571).</p>
   """)
 
-(defpost @grid-typesetting
-    (:title "Grid Typesetting"
-     :tags (@tech)
-     :date "2023-04-17")
+(defpost @grid-typesetting (:title "Grid Typesetting"
+                            :tags (@tech)
+                            :date "2023-04-17")
   """I put the sources of the Two-Tailed Averaging paper on
   [github](https://github.com/melisgl/two-tailed-averaging). Of
   course, the sources are also available on
   [arxiv](https://arxiv.org/abs/2209.12581), but this may give better
-  visibility to the grid typesetting code in there. Also, note how
-  much cleaner the paper looks with the
+  visibility to the LaTeX grid typesetting code in there. Also, note
+  how much cleaner the paper looks with the
   [XCharter](https://github.com/melisgl/two-tailed-averaging/blob/main/samples/xcharter.pdf)
   font compared to [Times New
   Roman](https://github.com/melisgl/two-tailed-averaging/blob/main/samples/times-new-roman.pdf).
-  No wonder Matthew Butterick pushes
-  [Charter](https://practicaltypography.com/charter.html).
+  No wonder Matthew Butterick [pushes
+  Charter](https://practicaltypography.com/charter.html).
   """)
 
 
