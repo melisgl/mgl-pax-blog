@@ -385,8 +385,8 @@ trivial to snapshot.&lt;/p&gt;
             <description>&lt;p&gt;After a long time of waiting to write my own blog
 software like true hackers with infinite time do (and those
 irritated by Wordpress), I bit the bullet and installed
-&lt;a href=&quot;https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html&quot; &gt;blorg&lt;/a&gt; - a very low
-overhead emacs blog engine - on top of
+&lt;a href=&quot;https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html&quot; &gt;blorg&lt;/a&gt; – a very low
+overhead emacs blog engine – on top of
 &lt;a href=&quot;http://orgmode.org/&quot; &gt;org-mode&lt;/a&gt; that I happen to use as an
 organizer. Blorg basically converts an org mode buffer to html files
 so it is completely static: send me &lt;a href=&quot;mailto:mega@retes.hu&quot; &gt;email&lt;/a&gt; if

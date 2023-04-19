@@ -356,8 +356,8 @@ by sending commands over the network instead of copying data.&lt;/p&gt;
 
 &lt;p&gt;Contrast this with what I understand to be the status quo over on
 the Python side. The specialized Python array libs (cudamat,
-gpuarray, cudandarray) try to be drop-in replacements for - or at
-least similar to - numpy.ndarray with various degrees of success.
+gpuarray, cudandarray) try to be drop-in replacements for – or at
+least similar to – numpy.ndarray with various degrees of success.
 There is lots of explicit conversion going on between ndarray and
 these CUDA blobs and adding new representations would make this
 exponentionally worse.&lt;/p&gt;
@@ -552,7 +552,7 @@ one is logistic regression, and one is Vowpal Wabbit. Features are
 all binary and include handcrafted, binned indicators (time of post,
 length of title, etc) and unigrams from the title and body.&lt;/p&gt;
 
-&lt;p&gt;Since the data set - especially the class distribution - evolves
+&lt;p&gt;Since the data set – especially the class distribution – evolves
 with time, one crucial step is to compensate for the effect of time.
 This is partly accomplished by adding date and time information as
 features, and also by training the ensemble on the most recent
@@ -956,7 +956,7 @@ non-neutral at the horizon by making the evaluation function sniping
 aware.&lt;/p&gt;
 
 &lt;p&gt;Sniping is when one player takes a neutral losing ships in the
-process and the opponent comes - typically on the next turn - and
+process and the opponent comes – typically on the next turn – and
 takes it away. &lt;a href=&quot;https://web.archive.org/web/20101213023101/http://www.ai-contest.com/visualizer.php?game_id=9347535&quot; &gt;This
 game&lt;/a&gt; is a
 nice illustration of the concept.&lt;/p&gt;
@@ -1001,7 +1001,7 @@ planet can be possibly lost in a full attack future.&lt;/p&gt;
 
 &lt;h2&gt;Nash equilibrium&lt;/h2&gt;
 
-&lt;p&gt;There are - especially at the very beginning of games - situations
+&lt;p&gt;There are – especially at the very beginning of games – situations
 were there is no best move, it all depends on what the opponent
 plays on the same turn.&lt;/p&gt;
 
@@ -1223,8 +1223,8 @@ that UCT is not suited to the game of Tron. A totally random default
 policy kept cornering itself in a big area faster than another
 player could hit the wall at the end of a long dead end. That was
 worrisome, but fixable. After days of experimentation I finally gave
-up on it deciding that Tron is simply too tactical - or not fuzzy
-enough, if you prefer - for MC to work really well.&lt;/p&gt;
+up on it deciding that Tron is simply too tactical – or not fuzzy
+enough, if you prefer – for MC to work really well.&lt;/p&gt;
 
 &lt;p&gt;Of course, it can be that the kind of default policies I tried were
 biased (a sure thing), misguided and suboptimal. But then again, I
@@ -1330,7 +1330,7 @@ may or may not be important to this result:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;The second RBM gets the the correct label as input which
   conveniently allows tracking classification accuracy during its
-  training, but also - more importantly - forces the top-level
+  training, but also – more importantly – forces the top-level
   features to be somewhat geared towards reconstruction of labels
   and thus classification.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;A sparsity term is added to the gradient. Sparse representations
@@ -1359,8 +1359,8 @@ term and gets 99.07%. The third is using a sparsity penalty (&amp;quot;normal
 sparsity&amp;quot; in the diagram) for units in opposing opposing layers on
 at the same time and nets 99.08%. The fourth is just a translation
 of the sparsity penalty from the Matlab code. This one is
-named &amp;quot;cheating sparsity&amp;quot; because it - perhaps in an effort to
-reduce variance of the gradient - changes weights according to the
+named &amp;quot;cheating sparsity&amp;quot; because it – perhaps in an effort to
+reduce variance of the gradient – changes weights according to the
 average activation levels of units connected by them. Anyway, this
 last one reaches 99.09%.&lt;/p&gt;
 
@@ -1438,8 +1438,8 @@ Machines&lt;/a&gt;.
 An RBM is a BM restricted to be a two layer network with no
 intralayer connections. The &amp;quot;lower&amp;quot; layer is called visible and
 the &amp;quot;higher&amp;quot; layer is called hidden layer, because from the point of
-view of a single RBM it is the visible layer that&apos;s connected to -
-maybe indirectly - to external stimuli. In the upward pass of a DBN,
+view of a single RBM it is the visible layer that&apos;s connected to –
+maybe indirectly – to external stimuli. In the upward pass of a DBN,
 where the low level representations are subsequently transformed
 into higher level ones by the constituent RBMs, the values of the
 hidden units are clamped onto the visible units of the next RBM. In
@@ -1522,7 +1522,7 @@ to their activations and unit variance. In &lt;code&gt;SPIRAL-DBN&lt;/code&gt; a
 
 &lt;p&gt;In a box the first line shows the class of the chunk and the number
 of nodes in parens (omitted if 1), while the second line is the name
-of the chunk itself. The constant chunks - in case you wonder -
+of the chunk itself. The constant chunks – in case you wonder –
 provide the connected chunks with a bias. So far so good. Let&apos;s
 train it RBM by RBM:&lt;/p&gt;
 
@@ -1778,8 +1778,8 @@ that&apos;s a story for another day.&lt;/p&gt;
 
 &lt;p&gt;On the other hand, deep learners are theorethically capable of
 building abstraction on top of abstraction, the main hurdle in front
-of their acceptance being that they don&apos;t exist or - more precisely
-- we don&apos;t know how to train them.&lt;/p&gt;
+of their acceptance being that they don&apos;t exist or – more precisely
+– we don&apos;t know how to train them.&lt;/p&gt;
 
 &lt;p&gt;A good example of a deep learner is the multi-layer perceptron: with
 only three layers it is a &lt;a href=&quot;http://en.wikipedia.org/wiki/Universal_approximation_theorem&quot; &gt;universal
