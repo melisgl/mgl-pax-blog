@@ -90,13 +90,10 @@ Garamond is a personal favourite, but it is just a bit too quirky
 for body text. Those same quirks make it great at larger sizes
 though, and this blog uses it for headings in addition to XCharter
 for the body text.
-&lt;div class=&apos;br&apos;&gt;&lt;/div&gt;
-The messy LaTeX sources of the above documents are available on
-&lt;a href=&quot;https://github.com/melisgl/latex-font-comparison&quot; &gt;github&lt;/a&gt;.
-&lt;div class=&apos;br&apos;&gt;&lt;/div&gt;
-Comment on
+&lt;div class=&apos;br&apos;&gt;&lt;/div&gt;&lt;p&gt;The messy LaTeX sources of the above documents are available on
+&lt;a href=&quot;https://github.com/melisgl/latex-font-comparison&quot; &gt;github&lt;/a&gt;.&lt;/p&gt;&lt;div class=&apos;br&apos;&gt;&lt;/div&gt;&lt;p&gt;Comment on
 &lt;a href=&quot;https://twitter.com/GaborMelis/status/1645484950957830144&quot; &gt;Twitter&lt;/a&gt;
-or &lt;a href=&quot;https://mastodon.social/@melisgl/110175790416538571&quot; &gt;Mastodon&lt;/a&gt;.&lt;/p&gt;
+or &lt;a href=&quot;https://mastodon.social/@melisgl/110175790416538571&quot; &gt;Mastodon&lt;/a&gt;.&lt;/p&gt;&lt;/p&gt;
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 10 Apr 2023 01:00:00 +0100</pubDate>
