@@ -1583,7 +1583,7 @@
   selection move at some points in the UCT search tree should be
   interesting, but I digress.
 
-  So I went back to minimax, implemented [Alpha-beta
+  So I went back to minimax, implemented [alpha–beta
   pruning](http://en.wikipedia.org/wiki/Alpha-beta_pruning) with
   principal variation, and [iterative
   deepening](http://en.wikipedia.org/wiki/Iterative_deepening). It
@@ -1602,7 +1602,7 @@
   using it only in the end game where the players are separated.
 
   The code itself is as ugly as exploratory code can be, but in the
-  coming days I'll factor the UCT and the Alpha-beta code out.")
+  coming days I'll factor the UCT and the alpha–beta code out.")
 
 (defpost @uct (:title "UCT"
                :tags (@ai @lisp)
@@ -1610,7 +1610,7 @@
   "As promised, my [UCT](http://senseis.xmp.net/?UCT)
   implementation is released, albeit somewhat belatedly. It's in
   [Micmac](http://cliki.net/Micmac) v0.0.1, see `test/test-uct.lisp`
-  for an example. Now I only owe you Alpha-beta.")
+  for an example. Now I only owe you alpha–beta.")
 
 (defpost @planet-wars-common-lisp-starter-package
     (:title "Planet Wars Common Lisp Starter Package"
@@ -1790,7 +1790,7 @@
   by one, sort them in descending order of evaluation score and try to
   combine them starting from the first.
 
-  ## Full attack
+  ## Full Attack
 
   Normally futures are calculated taking into account fleets already
   in flight in the observable game state that the engine sends. Back
@@ -1823,7 +1823,7 @@
   operational results started to come. But there was a crucial
   off-by-one bug.
 
-  ## Constraining futures
+  ## Constraining Futures
 
   That bug was in the scoring of futures. For player 1 it used the
   possible arrivals (number of ships) one turn before those of player
@@ -1884,7 +1884,7 @@
   name implies it's like `MIN-TURN-TO-DEPART-1` but used only when
   computing the positional penalty.
 
-  ## Dynamic horizon
+  ## Dynamic Horizon
 
   How far ahead the bot looks has a very strong effect on its play:
   too far and it will be blind to tactics, too close and it will miss
@@ -1898,7 +1898,7 @@
   from the initial investment until the breakeven point no friendly
   planet can be possibly lost in a full attack future.
 
-  ## Nash equilibrium
+  ## Nash Equilibrium
 
   There are – especially at the very beginning of games – situations
   were there is no best move, it all depends on what the opponent
@@ -1912,7 +1912,7 @@
   looked easy to exploit and although it did beat 1 ply minimax about
   2 to 1 it was too slow to experiment with.
 
-  ## Alpha-beta
+  ## Alpha–Beta
 
   Yes, for the longest time it was a 1 ply search. Opponent moves were
   never considered and position evaluation was good enough to pick up
@@ -1934,11 +1934,11 @@
   reduced.
 
   With the failure of the nash experiment I resurrected previously
-  unsuccessful alpha-beta code in hopes of that considering opponent
+  unsuccessful alpha–beta code in hopes of that considering opponent
   moves will show the bot the error of it ways and force it to not
   leave valuable central planets uncovered.
 
-  It's tricky to make alpha-beta work with moves that consist of
+  It's tricky to make alpha–beta work with moves that consist of
   orders at arbitrary times in the future. I had all kinds of funky,
   correct and less correct ways to execute orders at different depths
   of the search. In the end what prevailed was the most simple-minded,
@@ -1947,7 +1947,7 @@
   the future so that ship counts stayed non-negative and sending enemy
   ships did not occur.
 
-  In local tests against older versions of my bot a two ply alpha-beta
+  In local tests against older versions of my bot a two ply alpha–beta
   bot showed very promising results but when it was tested on tcp it
   fell way short of the expectations and performed worse than the one
   ply bot. It seemed particularly vulnerable to a number of bots. In
@@ -1955,7 +1955,7 @@
   sufficiently different that my bot was just blind to a good range of
   real possibilities.
 
-  In the end, I settled for using four ply alpha-beta for the opening
+  In the end, I settled for using four ply alpha–beta for the opening
   phase (until the third planet was captured). This allowed the bot to
   outwait opponents when needed and win most openings. After the final
   submission I realized that maybe I was trying to push things the
@@ -1970,7 +1970,7 @@
   over and I got my life back. I'm sure that many families breathed a
   collective sigh of relief. But if I were to continue I'd try
   rethinking the move generator, because that may just be the thing
-  that holds alpha-beta back and maybe nash too.
+  that holds alpha–beta back and maybe nash too.
 
   Dissapointingly, there was no learning, adapting to opponent
   behaviour, etc. All that made it to the todo list, but had to take
@@ -1986,7 +1986,7 @@
                                    :tags (@ai @lisp)
                                    :date "2010-12-26")
   "While I seem to be unable to make my mind up on a
-  good interface to alpha-beta with a few bells and whistles, I added
+  good interface to alpha–beta with a few bells and whistles, I added
   a Nash equilibrium finder to [Micmac](http://cliki.net/micmac)
   that's becoming less statistics oriented. This was one of the many
   things in Planet Wars that never really made it.
@@ -2023,10 +2023,10 @@
   -0.001
   ```")
 
-(defpost @alpha-beta (:title "Alpha-Beta"
+(defpost @alpha-beta (:title "Alpha–Beta"
                       :tags (@ai @lisp)
                       :date "2010-12-27")
-  """It hasn't been a year yet since I first promised that alpha-beta
+  """It hasn't been a year yet since I first promised that alpha–beta
   snippet, and it is already added to micmac in all its [35 line
   glory](https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/src/graph-search.lisp#L9).
   The good thing about not rushing it out the door is that it saw a
