@@ -175,7 +175,7 @@ slightly improve in the ensemble.</p>
 weren't entirely convincing. I just took Foxtrot's code. VW is run
 with <code>--loss_function logistic --oaa 5</code>.</p>
 
-<h3>The ensemble</h3>
+<h3>The Ensemble</h3>
 
 <p>The ensemble is a backpropagation neural network with one hidden
 layer of 800 stochastic sigmoid neurons (at least that was the
@@ -240,7 +240,7 @@ playing with liblinear that could handle all features at the same
 time. Take it with a grain of salt, of course, because there is
 noise/signal issue lurking.</p>
 
-<h3>Naive Bayes, random forests, gradient boosting</h3>
+<h3>Naive Bayes, Random Forests, Gradient Boosting</h3>
 
 <p>I experimented with the above in scikit-learn. The results were
 terrible, but worse, they didn't contribute to the ensemble either.
@@ -257,7 +257,7 @@ had to go with liblinear.</p>
 the bugs) didn't work. The best I could achive was slightly worse
 than the conjugate gradient based score.</p>
 
-<h3>Retraining constituent models</h3>
+<h3>Retraining Constituent Models</h3>
 
 <p>Recall that the constituent models were trained only on 4/5 of the
 available data. After the ensemble was trainined, I intended to

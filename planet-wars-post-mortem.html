@@ -103,7 +103,7 @@ it.</p>
 Without a similarity function over moves it was hopeless to explore
 a meaningful portion of the game tree.</p>
 
-<h2>Move generation</h2>
+<h2>Move Generation</h2>
 
 <p>At this point I had to start getting my hands dirty. The first thing
 was to implement simulating the future (see <code>FUTURE</code> class) that was
@@ -141,7 +141,7 @@ To limit the number of moves generated we first evaluate steps one
 by one, sort them in descending order of evaluation score and try to
 combine them starting from the first.</p>
 
-<h2>Full attack</h2>
+<h2>Full Attack</h2>
 
 <p>Normally futures are calculated taking into account fleets already
 in flight in the observable game state that the engine sends. Back
@@ -174,7 +174,7 @@ that can be sent away on that turn from the defending army without:</p>
 operational results started to come. But there was a crucial
 off-by-one bug.</p>
 
-<h2>Constraining futures</h2>
+<h2>Constraining Futures</h2>
 
 <p>That bug was in the scoring of futures. For player 1 it used the
 possible arrivals (number of ships) one turn before those of player
@@ -235,7 +235,7 @@ redistributed. It's called <code>POSITIONAL-MIN-TURN-TO-DEPART-1</code>. As its
 name implies it's like <code>MIN-TURN-TO-DEPART-1</code> but used only when
 computing the positional penalty.</p>
 
-<h2>Dynamic horizon</h2>
+<h2>Dynamic Horizon</h2>
 
 <p>How far ahead the bot looks has a very strong effect on its play:
 too far and it will be blind to tactics, too close and it will miss
@@ -249,7 +249,7 @@ to take neutrals are included. A neutral is deemed safe to take if
 from the initial investment until the breakeven point no friendly
 planet can be possibly lost in a full attack future.</p>
 
-<h2>Nash equilibrium</h2>
+<h2>Nash Equilibrium</h2>
 
 <p>There are – especially at the very beginning of games – situations
 were there is no best move, it all depends on what the opponent
@@ -263,7 +263,7 @@ that's just a probability assigned to each move.</p>
 looked easy to exploit and although it did beat 1 ply minimax about
 2 to 1 it was too slow to experiment with.</p>
 
-<h2>Alpha-beta</h2>
+<h2>Alpha–Beta</h2>
 
 <p>Yes, for the longest time it was a 1 ply search. Opponent moves were
 never considered and position evaluation was good enough to pick up
@@ -285,11 +285,11 @@ comfortable lead on the official leaderboard which was greatly
 reduced.</p>
 
 <p>With the failure of the nash experiment I resurrected previously
-unsuccessful alpha-beta code in hopes of that considering opponent
+unsuccessful alpha–beta code in hopes of that considering opponent
 moves will show the bot the error of it ways and force it to not
 leave valuable central planets uncovered.</p>
 
-<p>It's tricky to make alpha-beta work with moves that consist of
+<p>It's tricky to make alpha–beta work with moves that consist of
 orders at arbitrary times in the future. I had all kinds of funky,
 correct and less correct ways to execute orders at different depths
 of the search. In the end what prevailed was the most simple-minded,
@@ -298,7 +298,7 @@ move (yes, even the future ones) and fixed things up when computing
 the future so that ship counts stayed non-negative and sending enemy
 ships did not occur.</p>
 
-<p>In local tests against older versions of my bot a two ply alpha-beta
+<p>In local tests against older versions of my bot a two ply alpha–beta
 bot showed very promising results but when it was tested on tcp it
 fell way short of the expectations and performed worse than the one
 ply bot. It seemed particularly vulnerable to a number of bots. In
@@ -306,7 +306,7 @@ retrospect, I think this was because their move generator was
 sufficiently different that my bot was just blind to a good range of
 real possibilities.</p>
 
-<p>In the end, I settled for using four ply alpha-beta for the opening
+<p>In the end, I settled for using four ply alpha–beta for the opening
 phase (until the third planet was captured). This allowed the bot to
 outwait opponents when needed and win most openings. After the final
 submission I realized that maybe I was trying to push things the
@@ -321,7 +321,7 @@ but it was too late to properly test it against a bigger population.</p>
 over and I got my life back. I'm sure that many families breathed a
 collective sigh of relief. But if I were to continue I'd try
 rethinking the move generator, because that may just be the thing
-that holds alpha-beta back and maybe nash too.</p>
+that holds alpha–beta back and maybe nash too.</p>
 
 <p>Dissapointingly, there was no learning, adapting to opponent
 behaviour, etc. All that made it to the todo list, but had to take

@@ -62,7 +62,9 @@ my Common Lisp test framework, on this blog.</p>
 <ul>
 <li><p>Try does equally well in interactive and non-interactive mode by
   minimizing the function-test impedance mismatch.</p></li>
-<li><p>It provides an extensible and universal <a href="https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FIS-20MGL-PAX-3ASECTION-29" >check macro</a>.</p></li>
+<li><p>It provides a single, extensible <a href="https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FIS-20MGL-PAX-3ASECTION-29" >check
+  macro</a>.
+  All other checks are built on top of it.</p></li>
 <li><p>It is highly customizable: what to debug interactively, what to print, what
   to describe in detail, what to rerun, what to count can all be easily changed.</p></li>
 <li><p>Customization is based on complex types built from
@@ -79,11 +81,15 @@ rules as possible.</p>
 these events provide the basis of its customization. Non-interactive
 mode is just a particular customization.</p>
 
-<p>Read the HTML <a href="https://melisgl.github.io/mgl-pax-world/try-manual.html" >documentation</a>.
-The following <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@TRANSCRIPTS%20MGL-PAX:SECTION" >PAX transcripts</a>
+<p>Read the HTML
+<a href="https://melisgl.github.io/mgl-pax-world/try-manual.html" >documentation</a>
+or <a href="https://sabracrolleton.github.io/testing-framework#orgf2e5476" >Sabra Crolleton's
+review</a>.
+The following <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@TRANSCRIPTS%20MGL-PAX:SECTION" >PAX
+transcripts</a>
 show how Try differs from <a href="https://fiveam.common-lisp.dev/" >5am</a> and
-<a href="https://github.com/Shinmera/parachute" >Parachute</a> in a couple of common
-situations.</p>
+<a href="https://github.com/Shinmera/parachute" >Parachute</a> in a couple of
+common situations.</p>
 
 <pre><code><span class="code"><span class="comment">;;;; Evaluating successful checks without tests
 </span>

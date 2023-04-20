@@ -272,7 +272,7 @@ training loss, but 2TA is intended for when the evaluation function
 measures performance on the validation set or on a down-stream
 task (e.g. summarization).&lt;/p&gt;
 
-&lt;h2&gt;Downsampling weights&lt;/h2&gt;
+&lt;h2&gt;Downsampling Weights&lt;/h2&gt;
 
 &lt;p&gt;In its proposed form, Two-Tailed Averaging incorporates every set of
 weights produced by the optimizer in both averages it maintains.
@@ -286,7 +286,7 @@ device can be slow, so we might want to do that, say, every 20
 optimization steps. Obviously, downsampling the weights too much
 will affect the convergence rate, so there is a tradeoff.&lt;/p&gt;
 
-&lt;h2&gt;Learning rate&lt;/h2&gt;
+&lt;h2&gt;Learning Rate&lt;/h2&gt;
 
 &lt;p&gt;Note that in our experiments with Two-Tailed Averaging, we used a
 constant learning rate motivated by the fact that the closely
@@ -295,7 +295,7 @@ learning rate in such a setting. The algorithm should work with
 decreasing learning rates but would require modification for
 cyclical schedules.&lt;/p&gt;
 
-&lt;h2&gt;Related works&lt;/h2&gt;
+&lt;h2&gt;Related Works&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1803.05407&quot; &gt;SWA&lt;/a&gt; averages the last $K$ checkpoints.&lt;/p&gt;&lt;/li&gt;
@@ -649,7 +649,7 @@ slightly improve in the ensemble.&lt;/p&gt;
 weren&apos;t entirely convincing. I just took Foxtrot&apos;s code. VW is run
 with &lt;code&gt;--loss_function logistic --oaa 5&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h3&gt;The ensemble&lt;/h3&gt;
+&lt;h3&gt;The Ensemble&lt;/h3&gt;
 
 &lt;p&gt;The ensemble is a backpropagation neural network with one hidden
 layer of 800 stochastic sigmoid neurons (at least that was the
@@ -714,7 +714,7 @@ playing with liblinear that could handle all features at the same
 time. Take it with a grain of salt, of course, because there is
 noise/signal issue lurking.&lt;/p&gt;
 
-&lt;h3&gt;Naive Bayes, random forests, gradient boosting&lt;/h3&gt;
+&lt;h3&gt;Naive Bayes, Random Forests, Gradient Boosting&lt;/h3&gt;
 
 &lt;p&gt;I experimented with the above in scikit-learn. The results were
 terrible, but worse, they didn&apos;t contribute to the ensemble either.
@@ -731,7 +731,7 @@ had to go with liblinear.&lt;/p&gt;
 the bugs) didn&apos;t work. The best I could achive was slightly worse
 than the conjugate gradient based score.&lt;/p&gt;
 
-&lt;h3&gt;Retraining constituent models&lt;/h3&gt;
+&lt;h3&gt;Retraining Constituent Models&lt;/h3&gt;
 
 &lt;p&gt;Recall that the constituent models were trained only on 4/5 of the
 available data. After the ensemble was trainined, I intended to
@@ -744,9 +744,9 @@ experiment.&lt;/p&gt;
             <pubDate>Tue, 09 Apr 2013 01:00:00 +0100</pubDate>
         </item>
         <item>
-            <title>Alpha-Beta</title>
+            <title>Alpha–Beta</title>
             <link>http://quotenil.com/alpha-beta.html</link>
-            <description>&lt;p&gt;It hasn&apos;t been a year yet since I first promised that alpha-beta
+            <description>&lt;p&gt;It hasn&apos;t been a year yet since I first promised that alpha–beta
 snippet, and it is already added to micmac in all its &lt;a href=&quot;https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/src/graph-search.lisp#L9&quot; &gt;35 line
 glory&lt;/a&gt;.
 The good thing about not rushing it out the door is that it saw a
@@ -765,7 +765,7 @@ exploring it by &lt;code&gt;TAB&lt;/code&gt;bing into subtrees to answer the per
             <title>Nash Equilibrium Finder</title>
             <link>http://quotenil.com/nash-equilibrium-finder.html</link>
             <description>&lt;p&gt;While I seem to be unable to make my mind up on a
-good interface to alpha-beta with a few bells and whistles, I added
+good interface to alpha–beta with a few bells and whistles, I added
 a Nash equilibrium finder to &lt;a href=&quot;http://cliki.net/micmac&quot; &gt;Micmac&lt;/a&gt;
 that&apos;s becoming less statistics oriented. This was one of the many
 things in Planet Wars that never really made it.
@@ -852,7 +852,7 @@ it.&lt;/p&gt;
 Without a similarity function over moves it was hopeless to explore
 a meaningful portion of the game tree.&lt;/p&gt;
 
-&lt;h2&gt;Move generation&lt;/h2&gt;
+&lt;h2&gt;Move Generation&lt;/h2&gt;
 
 &lt;p&gt;At this point I had to start getting my hands dirty. The first thing
 was to implement simulating the future (see &lt;code&gt;FUTURE&lt;/code&gt; class) that was
@@ -890,7 +890,7 @@ To limit the number of moves generated we first evaluate steps one
 by one, sort them in descending order of evaluation score and try to
 combine them starting from the first.&lt;/p&gt;
 
-&lt;h2&gt;Full attack&lt;/h2&gt;
+&lt;h2&gt;Full Attack&lt;/h2&gt;
 
 &lt;p&gt;Normally futures are calculated taking into account fleets already
 in flight in the observable game state that the engine sends. Back
@@ -923,7 +923,7 @@ that can be sent away on that turn from the defending army without:&lt;/p&gt;
 operational results started to come. But there was a crucial
 off-by-one bug.&lt;/p&gt;
 
-&lt;h2&gt;Constraining futures&lt;/h2&gt;
+&lt;h2&gt;Constraining Futures&lt;/h2&gt;
 
 &lt;p&gt;That bug was in the scoring of futures. For player 1 it used the
 possible arrivals (number of ships) one turn before those of player
@@ -984,7 +984,7 @@ redistributed. It&apos;s called &lt;code&gt;POSITIONAL-MIN-TURN-TO-DEPART-1&lt;/
 name implies it&apos;s like &lt;code&gt;MIN-TURN-TO-DEPART-1&lt;/code&gt; but used only when
 computing the positional penalty.&lt;/p&gt;
 
-&lt;h2&gt;Dynamic horizon&lt;/h2&gt;
+&lt;h2&gt;Dynamic Horizon&lt;/h2&gt;
 
 &lt;p&gt;How far ahead the bot looks has a very strong effect on its play:
 too far and it will be blind to tactics, too close and it will miss
@@ -998,7 +998,7 @@ to take neutrals are included. A neutral is deemed safe to take if
 from the initial investment until the breakeven point no friendly
 planet can be possibly lost in a full attack future.&lt;/p&gt;
 
-&lt;h2&gt;Nash equilibrium&lt;/h2&gt;
+&lt;h2&gt;Nash Equilibrium&lt;/h2&gt;
 
 &lt;p&gt;There are – especially at the very beginning of games – situations
 were there is no best move, it all depends on what the opponent
@@ -1012,7 +1012,7 @@ that&apos;s just a probability assigned to each move.&lt;/p&gt;
 looked easy to exploit and although it did beat 1 ply minimax about
 2 to 1 it was too slow to experiment with.&lt;/p&gt;
 
-&lt;h2&gt;Alpha-beta&lt;/h2&gt;
+&lt;h2&gt;Alpha–Beta&lt;/h2&gt;
 
 &lt;p&gt;Yes, for the longest time it was a 1 ply search. Opponent moves were
 never considered and position evaluation was good enough to pick up
@@ -1034,11 +1034,11 @@ comfortable lead on the official leaderboard which was greatly
 reduced.&lt;/p&gt;
 
 &lt;p&gt;With the failure of the nash experiment I resurrected previously
-unsuccessful alpha-beta code in hopes of that considering opponent
+unsuccessful alpha–beta code in hopes of that considering opponent
 moves will show the bot the error of it ways and force it to not
 leave valuable central planets uncovered.&lt;/p&gt;
 
-&lt;p&gt;It&apos;s tricky to make alpha-beta work with moves that consist of
+&lt;p&gt;It&apos;s tricky to make alpha–beta work with moves that consist of
 orders at arbitrary times in the future. I had all kinds of funky,
 correct and less correct ways to execute orders at different depths
 of the search. In the end what prevailed was the most simple-minded,
@@ -1047,7 +1047,7 @@ move (yes, even the future ones) and fixed things up when computing
 the future so that ship counts stayed non-negative and sending enemy
 ships did not occur.&lt;/p&gt;
 
-&lt;p&gt;In local tests against older versions of my bot a two ply alpha-beta
+&lt;p&gt;In local tests against older versions of my bot a two ply alpha–beta
 bot showed very promising results but when it was tested on tcp it
 fell way short of the expectations and performed worse than the one
 ply bot. It seemed particularly vulnerable to a number of bots. In
@@ -1055,7 +1055,7 @@ retrospect, I think this was because their move generator was
 sufficiently different that my bot was just blind to a good range of
 real possibilities.&lt;/p&gt;
 
-&lt;p&gt;In the end, I settled for using four ply alpha-beta for the opening
+&lt;p&gt;In the end, I settled for using four ply alpha–beta for the opening
 phase (until the third planet was captured). This allowed the bot to
 outwait opponents when needed and win most openings. After the final
 submission I realized that maybe I was trying to push things the
@@ -1070,7 +1070,7 @@ but it was too late to properly test it against a bigger population.&lt;/p&gt;
 over and I got my life back. I&apos;m sure that many families breathed a
 collective sigh of relief. But if I were to continue I&apos;d try
 rethinking the move generator, because that may just be the thing
-that holds alpha-beta back and maybe nash too.&lt;/p&gt;
+that holds alpha–beta back and maybe nash too.&lt;/p&gt;
 
 &lt;p&gt;Dissapointingly, there was no learning, adapting to opponent
 behaviour, etc. All that made it to the todo list, but had to take
@@ -1188,7 +1188,7 @@ server&lt;/a&gt;.&lt;/p&gt;
             <description>&lt;p&gt;As promised, my &lt;a href=&quot;http://senseis.xmp.net/?UCT&quot; &gt;UCT&lt;/a&gt;
 implementation is released, albeit somewhat belatedly. It&apos;s in
 &lt;a href=&quot;http://cliki.net/Micmac&quot; &gt;Micmac&lt;/a&gt; v0.0.1, see &lt;code&gt;test/test-uct.lisp&lt;/code&gt;
-for an example. Now I only owe you Alpha-beta.&lt;/p&gt;
+for an example. Now I only owe you alpha–beta.&lt;/p&gt;
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Fri, 19 Mar 2010 00:00:00 +0000</pubDate>
@@ -1235,7 +1235,7 @@ success. Which makes me think that including a virtual strategy
 selection move at some points in the UCT search tree should be
 interesting, but I digress.&lt;/p&gt;
 
-&lt;p&gt;So I went back to minimax, implemented &lt;a href=&quot;http://en.wikipedia.org/wiki/Alpha-beta_pruning&quot; &gt;Alpha-beta
+&lt;p&gt;So I went back to minimax, implemented &lt;a href=&quot;http://en.wikipedia.org/wiki/Alpha-beta_pruning&quot; &gt;alpha–beta
 pruning&lt;/a&gt; with
 principal variation, and &lt;a href=&quot;http://en.wikipedia.org/wiki/Iterative_deepening&quot; &gt;iterative
 deepening&lt;/a&gt;. It
@@ -1254,7 +1254,7 @@ function but neither much time or energy remained and I settled for
 using it only in the end game where the players are separated.&lt;/p&gt;
 
 &lt;p&gt;The code itself is as ugly as exploratory code can be, but in the
-coming days I&apos;ll factor the UCT and the Alpha-beta code out.&lt;/p&gt;
+coming days I&apos;ll factor the UCT and the alpha–beta code out.&lt;/p&gt;
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 01 Mar 2010 00:00:00 +0000</pubDate>

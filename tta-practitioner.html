@@ -318,7 +318,7 @@ training loss, but 2TA is intended for when the evaluation function
 measures performance on the validation set or on a down-stream
 task (e.g. summarization).</p>
 
-<h2>Downsampling weights</h2>
+<h2>Downsampling Weights</h2>
 
 <p>In its proposed form, Two-Tailed Averaging incorporates every set of
 weights produced by the optimizer in both averages it maintains.
@@ -332,7 +332,7 @@ device can be slow, so we might want to do that, say, every 20
 optimization steps. Obviously, downsampling the weights too much
 will affect the convergence rate, so there is a tradeoff.</p>
 
-<h2>Learning rate</h2>
+<h2>Learning Rate</h2>
 
 <p>Note that in our experiments with Two-Tailed Averaging, we used a
 constant learning rate motivated by the fact that the closely
@@ -341,7 +341,7 @@ learning rate in such a setting. The algorithm should work with
 decreasing learning rates but would require modification for
 cyclical schedules.</p>
 
-<h2>Related works</h2>
+<h2>Related Works</h2>
 
 <ul>
 <li><p><a href="https://arxiv.org/abs/1803.05407" >SWA</a> averages the last $K$ checkpoints.</p></li>
