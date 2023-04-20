@@ -742,9 +742,9 @@
    ((c :initarg :c)))
   ```
 
-  Say, `B` is to be initialized to `C + 1`. That's easy, let's just add
-  a after method, but the after method of the subclass runs after the
-  after method of the superclass, hence the value of `A` is wrong:
+  Say, `B` is to be initialized to `C + 1`. That's easy, let's just
+  add an after method, but the after method of the subclass runs after
+  the after method of the superclass, hence the value of `A` is wrong:
 
   ```
   (defmethod initialize-instance :after ((sub2 sub2) &key c &allow-other-keys)
@@ -772,11 +772,11 @@
   (a (make-instance 'sub3)) => error
   ```
 
-  because `C` is not passed as an initarg for which the before method is
-  unprepared. At this point one can say screw initforms and use
-  `DEFAULT-INITARGS` but that's fragile in face of unsuspecting
-  subclasses breaking this convention. Alternatively, one can initialize
-  C early which handles both initforms and initargs fine:
+  because `C` is not passed as an initarg for which the before method
+  is unprepared. At this point one can say screw initforms and use
+  `DEFAULT-INITARGS`, but that's fragile in face of unsuspecting
+  subclasses breaking this convention. Alternatively, one can
+  initialize `C` early which handles both initforms and initargs fine:
 
   ```
   (defclass sub4 (super)
