@@ -564,7 +564,7 @@
             0 :fs)))
   ```
 
-  ## Direction flag
+  ## Direction Flag
 
   Another idea is to hijack the direction
   flag:
@@ -1752,7 +1752,7 @@
   Without a similarity function over moves it was hopeless to explore
   a meaningful portion of the game tree.
 
-  ## Move generation
+  ## Move Generation
 
   At this point I had to start getting my hands dirty. The first thing
   was to implement simulating the future (see `FUTURE` class) that was
@@ -2270,7 +2270,7 @@
   weren't entirely convincing. I just took Foxtrot's code. VW is run
   with `--loss_function logistic --oaa 5`.
 
-  ### The ensemble
+  ### The Ensemble
 
   The ensemble is a backpropagation neural network with one hidden
   layer of 800 stochastic sigmoid neurons (at least that was the
@@ -2335,7 +2335,7 @@
   time. Take it with a grain of salt, of course, because there is
   noise/signal issue lurking.
 
-  ### Naive Bayes, random forests, gradient boosting
+  ### Naive Bayes, Random Forests, Gradient Boosting
 
   I experimented with the above in scikit-learn. The results were
   terrible, but worse, they didn't contribute to the ensemble either.
@@ -2352,7 +2352,7 @@
   the bugs) didn't work. The best I could achive was slightly worse
   than the conjugate gradient based score.
 
-  ### Retraining constituent models
+  ### Retraining Constituent Models
 
   Recall that the constituent models were trained only on 4/5 of the
   available data. After the ensemble was trainined, I intended to
@@ -2848,7 +2848,9 @@
 
   - Try does equally well in interactive and non-interactive mode by
     minimizing the function-test impedance mismatch.
-  - It provides an extensible and universal [check macro](https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FIS-20MGL-PAX-3ASECTION-29).
+  - It provides a single, extensible [check
+    macro](https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FIS-20MGL-PAX-3ASECTION-29).
+    All other checks are built on top of it.
   - It is highly customizable: what to debug interactively, what to print, what
     to describe in detail, what to rerun, what to count can all be easily changed.
   - Customization is based on complex types built from
@@ -2864,11 +2866,15 @@
   these events provide the basis of its customization. Non-interactive
   mode is just a particular customization.
 
-  Read the HTML [documentation](https://melisgl.github.io/mgl-pax-world/try-manual.html).
-  The following [PAX transcripts](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@TRANSCRIPTS%20MGL-PAX:SECTION)
+  Read the HTML
+  [documentation](https://melisgl.github.io/mgl-pax-world/try-manual.html)
+  or [Sabra Crolleton's
+  review](https://sabracrolleton.github.io/testing-framework#orgf2e5476).
+  The following [PAX
+  transcripts](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@TRANSCRIPTS%20MGL-PAX:SECTION)
   show how Try differs from [5am](https://fiveam.common-lisp.dev/) and
-  [Parachute](https://github.com/Shinmera/parachute) in a couple of common
-  situations.
+  [Parachute](https://github.com/Shinmera/parachute) in a couple of
+  common situations.
 
   ```
   ;;;; Evaluating successful checks without tests
@@ -3437,7 +3443,7 @@
   measures performance on the validation set or on a down-stream
   task (e.g. summarization).
 
-  ## Downsampling weights
+  ## Downsampling Weights
 
   In its proposed form, Two-Tailed Averaging incorporates every set of
   weights produced by the optimizer in both averages it maintains.
@@ -3451,7 +3457,7 @@
   optimization steps. Obviously, downsampling the weights too much
   will affect the convergence rate, so there is a tradeoff.
 
-  ## Learning rate
+  ## Learning Rate
 
   Note that in our experiments with Two-Tailed Averaging, we used a
   constant learning rate motivated by the fact that the closely
@@ -3460,7 +3466,7 @@
   decreasing learning rates but would require modification for
   cyclical schedules.
 
-  ## Related works
+  ## Related Works
 
   - [SWA][swa] averages the last $K$ checkpoints.
 
