@@ -2852,9 +2852,9 @@ which &lt;code&gt;B&lt;/code&gt; is to be computed:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defclass&lt;/span&gt;&lt;/i&gt; sub2 &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;super&lt;/span&gt;)&lt;/span&gt;
  &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;c &lt;span class=&quot;keyword&quot;&gt;:initarg&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:c&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Say, &lt;code&gt;B&lt;/code&gt; is to be initialized to &lt;code&gt;C + 1&lt;/code&gt;. That&apos;s easy, let&apos;s just add
-a after method, but the after method of the subclass runs after the
-after method of the superclass, hence the value of &lt;code&gt;A&lt;/code&gt; is wrong:&lt;/p&gt;
+&lt;p&gt;Say, &lt;code&gt;B&lt;/code&gt; is to be initialized to &lt;code&gt;C + 1&lt;/code&gt;. That&apos;s easy, let&apos;s just
+add an after method, but the after method of the subclass runs after
+the after method of the superclass, hence the value of &lt;code&gt;A&lt;/code&gt; is wrong:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defmethod&lt;/span&gt;&lt;/i&gt; initialize-instance &lt;span class=&quot;keyword&quot;&gt;:after&lt;/span&gt; &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;sub2 sub2&lt;/span&gt;)&lt;/span&gt; &amp;amp;key c &amp;amp;allow-other-keys&lt;/span&gt;)&lt;/span&gt;
  &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;setf &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;slot-value sub2 &apos;b&lt;/span&gt;)&lt;/span&gt; &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;1+ c&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
@@ -2876,11 +2876,11 @@ on &lt;code&gt;C&lt;/code&gt;:&lt;/p&gt;
 
 &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;a &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;make-instance &apos;sub3&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; =&amp;gt; error&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;because &lt;code&gt;C&lt;/code&gt; is not passed as an initarg for which the before method is
-unprepared. At this point one can say screw initforms and use
-&lt;code&gt;DEFAULT-INITARGS&lt;/code&gt; but that&apos;s fragile in face of unsuspecting
-subclasses breaking this convention. Alternatively, one can initialize
-C early which handles both initforms and initargs fine:&lt;/p&gt;
+&lt;p&gt;because &lt;code&gt;C&lt;/code&gt; is not passed as an initarg for which the before method
+is unprepared. At this point one can say screw initforms and use
+&lt;code&gt;DEFAULT-INITARGS&lt;/code&gt;, but that&apos;s fragile in face of unsuspecting
+subclasses breaking this convention. Alternatively, one can
+initialize &lt;code&gt;C&lt;/code&gt; early which handles both initforms and initargs fine:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defclass&lt;/span&gt;&lt;/i&gt; sub4 &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;super&lt;/span&gt;)&lt;/span&gt;
  &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;c &lt;span class=&quot;keyword&quot;&gt;:initform&lt;/span&gt; 2 &lt;span class=&quot;keyword&quot;&gt;:initarg&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:c&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;

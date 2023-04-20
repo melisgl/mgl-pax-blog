@@ -81,9 +81,9 @@ which <code>B</code> is to be computed:</p>
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> sub2 <span class="paren2">(<span class="code">super</span>)</span>
  <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">c <span class="keyword">:initarg</span> <span class="keyword">:c</span></span>)</span></span>)</span></span>)</span></span></code></pre>
 
-<p>Say, <code>B</code> is to be initialized to <code>C + 1</code>. That's easy, let's just add
-a after method, but the after method of the subclass runs after the
-after method of the superclass, hence the value of <code>A</code> is wrong:</p>
+<p>Say, <code>B</code> is to be initialized to <code>C + 1</code>. That's easy, let's just
+add an after method, but the after method of the subclass runs after
+the after method of the superclass, hence the value of <code>A</code> is wrong:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defmethod</span></i> initialize-instance <span class="keyword">:after</span> <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">sub2 sub2</span>)</span> &amp;key c &amp;allow-other-keys</span>)</span>
  <span class="paren2">(<span class="code">setf <span class="paren3">(<span class="code">slot-value sub2 'b</span>)</span> <span class="paren3">(<span class="code">1+ c</span>)</span></span>)</span></span>)</span>
@@ -105,11 +105,11 @@ on <code>C</code>:</p>
 
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'sub3</span>)</span></span>)</span> =&gt; error</span></code></pre>
 
-<p>because <code>C</code> is not passed as an initarg for which the before method is
-unprepared. At this point one can say screw initforms and use
-<code>DEFAULT-INITARGS</code> but that's fragile in face of unsuspecting
-subclasses breaking this convention. Alternatively, one can initialize
-C early which handles both initforms and initargs fine:</p>
+<p>because <code>C</code> is not passed as an initarg for which the before method
+is unprepared. At this point one can say screw initforms and use
+<code>DEFAULT-INITARGS</code>, but that's fragile in face of unsuspecting
+subclasses breaking this convention. Alternatively, one can
+initialize <code>C</code> early which handles both initforms and initargs fine:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> sub4 <span class="paren2">(<span class="code">super</span>)</span>
  <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">c <span class="keyword">:initform</span> 2 <span class="keyword">:initarg</span> <span class="keyword">:c</span></span>)</span></span>)</span></span>)</span>
