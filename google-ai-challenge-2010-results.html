@@ -64,12 +64,12 @@ mind: <a href="http://senseis.xmp.net/?UCT" >UCT</a>, an algorithm from the
 Monte Carlo tree search family. It has been rather successful in
 Go (and in Hex too, taking the crown from
 <a href="hex/six/index.html" >Six</a>). So with UCT in mind, to serve as a
-baseline I implemented a quick
+baseline, I implemented a quick
 <a href="http://en.wikipedia.org/wiki/Minimax" >minimax</a> with a simple
 territory based evaluation function ... that everyone else in the
 competition seems to have invented independently. Trouble was
 looming because it was doing too well: with looking ahead only one
-move (not even considering moves of the opponent) it played a very
+move (not even considering moves of the opponent), it played a very
 nice positional game. That was the first sign that constructing a
 good evaluation function may not be as hard for Tron as it is for
 Go.</p>
@@ -81,7 +81,7 @@ same and kept advertising it on <code>#googleai</code>, second it turned out
 that UCT is not suited to the game of Tron. A totally random default
 policy kept cornering itself in a big area faster than another
 player could hit the wall at the end of a long dead end. That was
-worrisome, but fixable. After days of experimentation I finally gave
+worrisome but fixable. After days of experimentation I finally gave
 up on it deciding that Tron is simply too tactical – or not fuzzy
 enough, if you prefer – for MC to work really well.</p>
 
@@ -100,21 +100,22 @@ pruning</a> with
 principal variation, and <a href="http://en.wikipedia.org/wiki/Iterative_deepening" >iterative
 deepening</a>. It
 seemed to do really well on the then current maps whose size was
-severely reduced to 15x15 to control the load on the servers. Then I
-had an idea to explore how the parities of squares in an area affect
-the longest path possible which was quickly pointed out to me over
-lunch by a friend. And those pesky competitors have also found and
-advertised it in the contest forum. Bah.</p>
+severely reduced to 15x15 to control the load on the servers. Then,
+I had an idea to explore how the parities of squares in an area
+affect the longest path possible, which was quickly pointed out to
+me over lunch by a friend. And those pesky competitors have also
+found and advertised it in the contest forum. Bah.</p>
 
-<p>There were only two days left at this point and I had to pull an all
-nighter to finally implement a graph partitioning idea of mine that
-unsurprisingly someone has described pretty closely in the forum. At
-that point, I finally had the tool to improve the evaluation
-function but neither much time or energy remained and I settled for
-using it only in the end game where the players are separated.</p>
+<p>There were only two days left at this point, and I had to pull an
+all nighter to finally implement a graph partitioning idea of mine
+that unsurprisingly someone has described pretty closely in the
+forum. At that point, I finally had the tool to improve the
+evaluation function but neither much time or energy remained and I
+settled for using it only in the end game when the players are
+separated.</p>
 
 <p>The code itself is as ugly as exploratory code can be, but in the
-coming days I'll factor the UCT and the alpha–beta code out.</p>
+coming days, I'll factor the UCT and the alpha–beta code out.</p>
 
 <p><img src="blog-files/die.png" alt="end-of-post" /></p>
   </div>

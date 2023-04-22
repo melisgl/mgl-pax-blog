@@ -80,8 +80,9 @@ Averaging</a> (SWA) does.</p>
 
 <div class='br'></div>
 
-<p><strong>UPDATE</strong>: <em>2020-05-03</em> – Things have been moving fast. This is a
-non-issue in Tensorflow and possibly in other frameworks, as well.</p>
+<p><strong>UPDATE</strong>: <em>2020-05-03</em> – Things have changed the during last 5
+years. This is a non-issue in Tensorflow and possibly in other
+frameworks, as well.</p>
 
 <p>I believe there is one design decision in
 <a href="http://melisgl.github.io/mgl-pax-world/mat-manual.html" >MGL-MAT</a>
@@ -103,7 +104,7 @@ the possible representations.</p>
 <div class='br'></div>
 
 <p>I've been cleaning up and documenting
-<a href="https://github.com/melisgl/mgl" >MGL</a> for quite some time now and
+<a href="https://github.com/melisgl/mgl" >MGL</a> for quite some time now, and
 while it's nowhere near done, a good portion of the code has been
 overhauled in the process. There are new additions such as the <a href="http://arxiv.org/abs/1412.6980" >Adam
 optimizer</a> and Recurrent Neural
@@ -148,7 +149,7 @@ linux precompiled binary is also
 <a href="http://quotenil.com/higgsml/gabor-melis.zip" >available</a>.</p>
 
 <p>This has been the Kaggle competition that attracted the most
-contestants so it feels really good to come out on top even though
+contestants so it feels really good to come out on top although
 there was an element of luck involved due to the choice of
 evaluation metric and the amount of data available. The organizers
 did a great job explaining the physics, why there is no more data,
@@ -167,7 +168,7 @@ communication in general.</p>
 <div class='br'></div>
 
 <p>In addition to the cl-libsvm asdf system, there is now another asdf
-system in the <a href="http://github.com/melisgl/cl-libsvm" > cl-libsvm</a>
+system in the <a href="http://github.com/melisgl/cl-libsvm" >cl-libsvm</a>
 library: cl-liblinear that, predictably enough, is a wrapper for
 <a href="http://www.csie.ntu.edu.tw/~cjlin/liblinear/" >liblinear</a>. The API
 is similar to that of cl-libsvm.</p>
@@ -206,17 +207,18 @@ too close for comfort.</p>
 
 <div class='br'></div>
 
-<p>It hasn't been a year yet since I first promised that alpha–beta
-snippet, and it is already added to micmac in all its <a href="https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/src/graph-search.lisp#L9" >35 line
+<p>It hasn't even been a year yet since I first promised that alpha–beta
+snippet, and it is already added to Micmac in all its <a href="https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/src/graph-search.lisp#L9" >35 line
 glory</a>.
 The good thing about not rushing it out the door is that it saw a
 bit more use. For a tutorialish tic-tac-toe example see
 <a href="https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp" >test/test-game-theory.lisp.</a>.</p>
 
 <p>The logging code in the example produces
-<a href="blog-files/alpha-beta-log.png" title="output">output</a>, which is suitable for cut and pasting into an org-mode buffer and
-exploring it by <code>TAB</code>bing into subtrees to answer the perpetual
-'What the hell was it thinking?!' question.</p>
+<a href="blog-files/alpha-beta-log.png" >output</a>, which is suitable for cut
+and pasting into an org-mode buffer and exploring it by <code>TAB</code>bing
+into subtrees to answer the perpetual 'What the hell was it
+thinking?!' question.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40NASH-EQUILIBRIUM-FINDER-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@NASH-EQUILIBRIUM-FINDER-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -227,11 +229,11 @@ exploring it by <code>TAB</code>bing into subtrees to answer the perpetual
 
 <div class='br'></div>
 
-<p>While I seem to be unable to make my mind up on a
-good interface to alpha–beta with a few bells and whistles, I added
-a Nash equilibrium finder to <a href="http://cliki.net/micmac" >Micmac</a>
-that's becoming less statistics oriented. This was one of the many
-things in Planet Wars that never really made it.</p>
+<p>While I seem to be unable to make my mind up on a good interface to
+alpha–beta with a few bells and whistles, I added a Nash equilibrium
+finder to <a href="http://cliki.net/micmac" >Micmac</a>, which is becoming less
+statistics oriented. This was one of the many things in Planet Wars
+that never really made it.</p>
 
 <p><div class='br'></div><p>... read the rest of <a href="nash-equilibrium-finder.html" title="Nash Equilibrium Finder">Nash Equilibrium Finder</a>.</p></p>
 
@@ -282,10 +284,9 @@ being far from the way I'd write it.</p>
 v0.6 (<a href="http://quotenil.com/git/?p=planet-wars.git;a=summary" >git</a>,
 <a href="http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz" >latest
 tarball</a>).
-The way the server compiles lisp submissions was fixed and this
+The way the server compiles lisp submissions was fixed, and this
 revealed a problem where MyBot.lisp redirected <a href="http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm" title="*STANDARD-OUTPUT* VARIABLE"><code>*STANDARD-OUTPUT*</code></a>
-to <a href="http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm" title="*ERROR-OUTPUT* VARIABLE"><code>*ERROR-OUTPUT*</code></a> causing the server to think compilation
-failed.</p>
+to <a href="http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm" title="*ERROR-OUTPUT* VARIABLE"><code>*ERROR-OUTPUT*</code></a> causing the server to think compilation failed.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40PLANET-WARS-COMMON-LISP-STARTER-PACKAGE-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@PLANET-WARS-COMMON-LISP-STARTER-PACKAGE-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -296,10 +297,11 @@ failed.</p>
 
 <div class='br'></div>
 
-<p>The <a href="https://web.archive.org/web/20100926070007/http://ai-contest.com/" >Google AI Challenge</a> is
-back with a new game that's supposed to be much harder than Tron was
-this spring. The branching factor of the game tree is enormous which
-only means that straight minimax is out of question this time
+<p>The <a href="https://web.archive.org/web/20100926070007/http://ai-contest.com/" >Google AI
+Challenge</a>
+is back with a new game that's supposed to be much harder than Tron
+was this spring. The branching factor of the game tree is enormous,
+which only means that straight minimax is out of question this time
 around. Whether some cleverness can bring the game within reach of
 conventional algorithms remains to be seen.</p>
 
@@ -343,16 +345,16 @@ ranking non-C++ entry by some margin.</p>
 
 <div class='br'></div>
 
-<p>Tron is a fun little game of boxing out the
-opponent and avoiding crashing into a wall first. The rules are
-simple so the barrier to entry into <a href="https://web.archive.org/web/20100207135122/http://csclub.uwaterloo.ca/contest/index.php" >this
-contest</a> is low.
-Thanks to <a href="http://www.aerique.net/" >aeruiqe</a> who made to Common Lisp
-starter pack it took as little as a few hours to get a very bare
-bones algorithm going. It's doing surprisingly well: it is number 23
-on the
-<a href="https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php" >leaderboard</a> at
-the moment with 43 wins, 2 losses and 9 draws.</p>
+<p>Tron is a fun little game of boxing out the opponent and avoiding
+crashing into a wall first. The rules are simple, so the barrier to
+entry into <a href="https://web.archive.org/web/20100207135122/http://csclub.uwaterloo.ca/contest/index.php" >this
+contest</a>
+is low. Thanks to <a href="http://www.aerique.net/" >aeruiqe</a>, who made the
+Common Lisp starter pack, it took as little as a few hours to get a
+very bare-bones algorithm going. It's doing surprisingly well: it is
+number 23 on the
+<a href="https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php" >leaderboard</a>
+at the moment with 43 wins, 2 losses and 9 draws.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40MICMAC-INITIAL-RELEASE-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@MICMAC-INITIAL-RELEASE-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -363,12 +365,12 @@ the moment with 43 wins, 2 losses and 9 draws.</p>
 
 <div class='br'></div>
 
-<p>From a failed experiment today I salvaged
+<p>From a failed experiment today, I salvaged
 <a href="http://cliki.net/micmac" >Micmac</a>, a statistical library wannabe,
-that for now only has Metropolis-Hastings MCMC and Metropolis
-Coupled MCMC implemented. The code doesn't weigh much but I think it
-gets the API right. In other news <a href="http://cliki.net/MGL" >MGL</a> v0.0.6
-was released.</p>
+which for now only has Metropolis-Hastings MCMC and Metropolis
+Coupled MCMC implemented. The code doesn't weigh much, but I think
+it gets the API right. In other news <a href="http://cliki.net/MGL" >MGL</a>
+v0.0.6 was released.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40DEEP-BOLTZMANN-MACHINE-ON-MNIST-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@DEEP-BOLTZMANN-MACHINE-ON-MNIST-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -379,9 +381,9 @@ was released.</p>
 
 <div class='br'></div>
 
-<p>Let me interrupt the flow of the
-<a href="http://cliki.net/MGL" >MGL</a> introduction series with a short report
-on what I learnt playing with <a href="http://www.cs.toronto.edu/~hinton/absps/dbm.pdf" >Deep Boltzmann
+<p>Let me interrupt the flow of the <a href="http://cliki.net/MGL" >MGL</a>
+introduction series with a short report on what I learnt playing
+with <a href="http://www.cs.toronto.edu/~hinton/absps/dbm.pdf" >Deep Boltzmann
 Machines</a>. First,
 lots of thanks to Ruslan Salakhutdinov, then at <a href="http://www.cs.toronto.edu/~rsalakhu/" >University of
 Toronto</a> now at
@@ -442,11 +444,6 @@ learning within this library.</p>
 
 <div class='br'></div>
 
-<p><strong>UPDATE</strong>: This post out of date with regards to current MGL.
-Please refer to the
-<a href="http://melisgl.github.io/mgl-pax-world/mgl-manual.html" >documentation</a>
-instead.</p>
-
 <p>This is going to be the start of an introduction series on the
 <a href="http://cliki.net/MGL" >MGL</a> Common Lisp machine learning library.
 MGL focuses mainly on <a href="http://en.wikipedia.org/wiki/Boltzmann_machine" >Boltzmann
@@ -472,13 +469,13 @@ here is a quick glimpse at the bigger picture and the motivations.</p>
 libsvm</a>,
 I <a href="http://github.com/melisgl/cl-libsvm" >added</a> support for
 calculating distance of a point from the separating hyperplane to
-<a href="http://cliki.net/cl-libsvm" >cl-libsvm</a>. In binary classification
-there is only one SVM involved and one hyperplane. However, with N
-class problems there is a binary SVM for each of the $N(N-1)/2$
-pairs of classes and there are as many separating hyperplanes,
+<a href="http://cliki.net/cl-libsvm" >cl-libsvm</a>. In binary classification,
+there is only one SVM involved and one hyperplane. However, with
+N-class problems, there is a binary SVM for each of the $N(N-1)/2$
+pairs of classes, and there are as many separating hyperplanes,
 something the linked python code fails to take into account. As per
-the libsvm
-<a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/faq.html#f4151" >FAQ</a>, the
+the <a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/faq.html#f4151" >libsvm
+FAQ</a>, the
 absolute value of the decision value (see <code>PREDICT-VALUES</code>, wrapper
 of <code>svm_predict_values</code>) divided by the norm of the normal vector of
 the separating hyperplane is the distance. <code>PREDICT-VALUES</code> and
@@ -496,16 +493,15 @@ for your recompiling pleasure.</p>
 
 <div class='br'></div>
 
-<p>It seems that the competition has not been standing
-still (as opposed to <a href="hex/six/index.html" >Six</a>) and this year
-marks the end of the golden era. Congratulations to both Wolve and
-MoHex who beat Six! Thanks to Ryan Hayward who, again, kindly
-registered Six for the
+<p>It seems that the competition has not been standing still (as opposed
+to <a href="hex/six/index.html" >Six</a>), and this year marks the end of the
+golden era. Congratulations to both Wolve and MoHex, who beat Six!
+Thanks to Ryan Hayward, who again, kindly registered Six for the
 <a href="https://web.archive.org/web/20090121203454/http://www.grappa.univ-lille3.fr/icga/tournament.php?id=185" >Olympiad</a>.</p>
 
 <p>About the future, I don't really plan on resuming work on
 <a href="http://en.wikipedia.org/wiki/Hex_(board_game)" >Hex</a> in general (and
-Six in particular), although losing does irk me a bit.</p>
+Six in particular) although losing does irk me a bit.</p>
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>

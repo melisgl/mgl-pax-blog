@@ -80,8 +80,7 @@ length of title, etc) and unigrams from the title and body.</p>
 <p>Since the data set – especially the class distribution – evolves
 with time, one crucial step is to compensate for the effect of time.
 This is partly accomplished by adding date and time information as
-features, and also by training the ensemble on the most recent
-posts.</p>
+features and also by training the ensemble on the most recent posts.</p>
 
 <p>Since the constituent models are trained on a subset of the
 stratified sample provided by the organizer, the ensemble does two
@@ -96,9 +95,10 @@ of things:</p>
 <h2>Features Selection / Extraction</h2>
 
 <p>Didn't spend too much time on handcrafting the features, just played
-around with adding features one-by-one, keeping an eye on how the loss
-changes. These are all binary features. For example (:post-hour 8) is
-8 o'clock UTC, (:post-hour 11) is 11 o'clock UTC.</p>
+around with adding features one-by-one, keeping an eye on how the
+loss changes. These are all binary features. For
+example, <code>(:post-hour 8)</code> is 8 o'clock UTC, <code>(:post-hour 11)</code> is 11
+o'clock UTC.</p>
 
 <p>Depending on the model the top-N features are used, where the features
 are sorted by log likelihood ratio. There were a number of other
@@ -110,11 +110,12 @@ feature selection methods tried, see below.</p>
 
 <h3>Deep Belief Networks</h3>
 
-<p>A DBN is made of boltzmann machines stacked on top of each other,
+<p>A DBN is made of Boltzmann machines stacked on top of each other,
 trained in a layerwise manner. After training (called 'pretraining')
-the DBN is 'unrolled' into a backpropagation network that's trained
-(called 'fine-tuning') to minimize the cross entropy between the
-predicted and actual class probabilities.</p>
+the DBN is 'unrolled' into a backpropagation network. The BPN is
+initialized with the weights of th DBN and is fine-tuned to minimize
+the cross entropy between the predicted and actual class
+probabilities.</p>
 
 <p>There are three DBNs in the ensemble. The first one looks like this
 (omitted the biases for clarity):</p>
@@ -126,23 +127,23 @@ predicted and actual class probabilities.</p>
     F2(800)
 </code></pre>
 
-<p>So we have 5 softmax neurons in the LABEL chunk, representing the
-class probabilities. There are 2000 sigmoid neuron in the INPUTS
+<p>So, we have 5 softmax neurons in the LABEL chunk, representing the
+class probabilities. There are 2000 sigmoid neurons in the INPUTS
 chunk standing for the top 2000 binary features extracted from the
-post. Then we have two hidden layers of sigmoid neurons: F1 and F2.
+post. Then, we have two hidden layers of sigmoid neurons: F1 and F2.
 This is created in the code by <code>MAKE-MALACKA-DBN-SMALL</code>.</p>
 
 <p>The second DBN is the same expect INPUTS, F1 and F2 have 10000, 800,
-800 neurons respectively. See <code>MAKE-MALACKA-DBN-BIG</code>.</p>
+800 neurons, respectively. See <code>MAKE-MALACKA-DBN-BIG</code>.</p>
 
 <p>The third DBN is the same expect INPUTS, F1 and F2 have 10000, 2000,
 2000 neurons respectively. See <code>MAKE-MALACKA-DBN-BIGGER</code>. Note that
 this last DBN wasn't fine tuned due to time constraints; predictions
-are extracted directly from the DBN that doesn't try to minimize
+are extracted directly from the DBN, which doesn't try to minimize
 cross entropy.</p>
 
 <p>The RBMs in the DBN were trained with contrastive divergence with
-mini batches of 100 posts. Learning rate was 0.001, momentum 0.9,
+minibatches of 100 posts. Learning rate was 0.001, momentum 0.9,
 weight decay 0.0002.</p>
 
 <p>The backprop networks were trained for 38 epochs with the conjugate
@@ -163,11 +164,11 @@ with these parameters:</p>
 :eps 0.001
 </code></pre>
 
-<p>Even though it had access to a much larger set of features,
-liblinear could only achieve ~0.83 on the stratified sample used for
-development vs ~0.79 for the second DBN. Still, even though they
-used the same kind of features, they were different enough to
-slightly improve in the ensemble.</p>
+<p>Although it had access to a much larger set of features, liblinear
+could only achieve ~0.83 on the stratified sample used for
+development vs ~0.79 for the second DBN. Even though they used the
+same kind of features, their predictions were different enough to
+produce a slightly better ensemble.</p>
 
 <h3>Vowpal Wabbit</h3>
 
@@ -192,17 +193,18 @@ intention, see below). The network looked like this:</p>
 in the prediction of the first DBN. The rest of PRED* are for the
 other two DBNs, the liblinear model, and VW.</p>
 
-<p>The network was trained with gradient descent with mini batches of
-100 posts. Learning rate started out as 0.01 and multiplies by 0.98
-each epoch. Momentum started out as 0.5 and was increased to 0.99 in
-50 epochs. Learning rate was also multiplied by (1 - momentum) to
-disentangle it from the momentum. No weight decay was used.</p>
+<p>The network was trained with gradient descent with minibatches of
+100 posts. The learning rate started out as 0.01 and multiplies by
+0.98 each epoch. Momentum started out as 0.5 and was increased to
+0.99 in 50 epochs. Learning rate was also multiplied by (1 -
+momentum) to disentangle it from the momentum. No weight decay was
+used.</p>
 
 <p>I tried to get Hinton's dropout technique working, but it didn't
-live up to my expectations. On the other hand, stochastic binary
-neurons mentioned in the dropout presentation, did help a tiny bit.
+live up to my expectations. On the other hand, the stochastic binary
+neurons mentioned in the dropout presentation did help a tiny bit.
 Unfortunately, I managed to make the final submission with a broken
-version where the weights of stochastic binary neurons were not
+version, where the weights of stochastic binary neurons were not
 trained at all, effectively resulting in 800 random features (!).</p>
 
 <h3>Bagging</h3>
@@ -216,17 +218,17 @@ ensembles.</p>
 <h3>Time</h3>
 
 <p>It was clear from the beginning that time plays an important role,
-and if scores are close then predicting the class distribution of
+and if scores are close, then predicting the class distribution of
 the test set could be the deciding factor. I saw the pace of
-change (with regards to distribution of classes) picking up near the
-end of the development training set and probed into the public
+change (with regards to the distribution of classes) picking up near
+the end of the development training set and probed into the public
 leaderboard by submitting a number different constant
 predictions (the same prior for every post). It seemed that the last
 two weeks or one month is best.</p>
 
 <p>There was no obvious seasonality or trend that could be exploited on
-the scale of months. I checked whether stackoverflow were changing
-the mechanics, but didn't find anything. I certainly didn't foresee
+the scale of months. I checked whether Stackoverflow were changing
+the mechanics but didn't find anything. I certainly didn't foresee
 the drastic class distribution change that was to come.</p>
 
 <h3>Features</h3>
@@ -237,8 +239,8 @@ didn't scale to more than a thousand features.</p>
 
 <p>In the end, I found that no important features were left out by
 playing with liblinear that could handle all features at the same
-time. Take it with a grain of salt, of course, because there is
-noise/signal issue lurking.</p>
+time. Take it with a grain of salt, of course, because there is a
+signal/noise issue lurking.</p>
 
 <h3>Naive Bayes, Random Forests, Gradient Boosting</h3>
 
@@ -248,7 +250,7 @@ Maybe it was only me.</p>
 
 <h3>Libsvm</h3>
 
-<p>I couldn't get it to scale to several tens of thousands posts so I
+<p>I couldn't get it to scale to several tens of thousands posts, so I
 had to go with liblinear.</p>
 
 <h3>Dropout</h3>
@@ -261,7 +263,7 @@ than the conjugate gradient based score.</p>
 
 <p>Recall that the constituent models were trained only on 4/5 of the
 available data. After the ensemble was trainined, I intended to
-replace retrain them on the whole stratified training set. Initial
+retrain them on the whole stratified training set. Initial
 experiments with liblinear were promising, but with the DBN the
 public leaderboard score got a lot worse and I ran out of time to
 experiment.</p>

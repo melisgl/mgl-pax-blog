@@ -19,7 +19,10 @@ how much cleaner the paper looks with the
 font compared to &lt;a href=&quot;https://github.com/melisgl/two-tailed-averaging/blob/main/samples/times-new-roman.pdf&quot; &gt;Times New
 Roman&lt;/a&gt;.
 No wonder Matthew Butterick &lt;a href=&quot;https://practicaltypography.com/charter.html&quot; &gt;pushes
-Charter&lt;/a&gt;.&lt;/p&gt;
+Charter&lt;/a&gt;. By the way,
+see what he has to say about
+&lt;a href=&quot;https://practicaltypography.com/grids.html&quot; &gt;grids&lt;/a&gt; and baseline
+grids, in particular.&lt;/p&gt;
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 17 Apr 2023 01:00:00 +0100</pubDate>
@@ -56,7 +59,7 @@ other hand, normalizing for x-height can make fonts with wider
 glyphs look much bigger in the &lt;a href=&quot;http://www.hardcoregaming101.net/eye-of-the-beholder/&quot; &gt;eye of the
 beholder&lt;/a&gt;.
 Thus, the obvious alternative is to normalize the space usage.
-Unfortunately, there is no convenient statistic available for this
+Unfortunately, there is no convenient statistic available for this,
 so we have to resort to estimating the area required to set a given
 piece of reference text with a given font. The advantage of this
 method is that it takes
@@ -127,11 +130,11 @@ news is that the connection operates near its advertised bandwidth,
 the bad news is that tcp connections started to hang. It didn&apos;t take
 long to &lt;a href=&quot;http://hup.hu/node/98496&quot; &gt;find out&lt;/a&gt; that this particular
 router drops &amp;quot;unused&amp;quot; tcp connections after five minutes.
-The fix recommended in the linked topic (namely sysctl&apos;ing
-&lt;code&gt;net.ipv4.tcp_keepalive_time&lt;/code&gt; &amp;amp; co) was mostly effective but I had
+The fix recommended in the linked topic (namely &lt;code&gt;sysctl&lt;/code&gt;ing
+&lt;code&gt;net.ipv4.tcp_keepalive_time&lt;/code&gt; &amp;amp; co) was mostly effective, but I had
 to lower the keepalive to one minute to keep my ssh sessions alive.
 The trouble was that OfflineIMAP connections to the U.S. west coast
-still hanged intermittently while it could work with Gmail just
+still hanged intermittently, while it could work with Gmail just
 fine.&lt;/p&gt;
 
 &lt;p&gt;In the end, OfflineIMAP had to be
@@ -143,8 +146,9 @@ to use the keepalive and the keepalive be lowered to 15s:&lt;/p&gt;
           net.ipv4.tcp_keepalive_probes=20
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Oh, and always include &lt;code&gt;socktimeout&lt;/code&gt; in the offlineimap config, that&apos;s
-more important than keepalive unless you never have network issues.&lt;/p&gt;
+&lt;p&gt;Oh, and always include &lt;code&gt;socktimeout&lt;/code&gt; in the OfflineIMAP config.
+That&apos;s more important than keepalive unless you never have network
+issues.&lt;/p&gt;
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Sun, 27 Feb 2011 00:00:00 +0000</pubDate>
@@ -152,9 +156,8 @@ more important than keepalive unless you never have network issues.&lt;/p&gt;
         <item>
             <title>OfflineIMAP with Encrypted Authinfo</title>
             <link>http://quotenil.com/offlineimap-with-encrypted-authinfo.html</link>
-            <description>&lt;p&gt;I&apos;ve moved to an
-&lt;a href=&quot;http://offlineimap.org/&quot; &gt;OfflineIMAP&lt;/a&gt; + &lt;a href=&quot;http://gnus.org/&quot; &gt;Gnus&lt;/a&gt;
-setup that&apos;s outlined at
+            <description>&lt;p&gt;I&apos;ve moved to an &lt;a href=&quot;http://offlineimap.org/&quot; &gt;OfflineIMAP&lt;/a&gt; +
+&lt;a href=&quot;http://gnus.org/&quot; &gt;Gnus&lt;/a&gt; setup that&apos;s outlined at
 &lt;a href=&quot;http://sachachua.com/blog/2008/05/geek-how-to-use-offlineimap-and-the-dovecot-mail-server-to-read-your-gmail-in-emacs-efficiently/&quot; &gt;various&lt;/a&gt;
 &lt;a href=&quot;http://nakkaya.com/2010/04/10/using-offlineimap-with-gnus/&quot; &gt;places&lt;/a&gt;.
 Gnus can be configured to use
@@ -163,9 +166,9 @@ netrc style of file to read passwords from and can easily use
 &lt;a href=&quot;http://www.emacswiki.org/emacs-en/GnusEncryptedAuthInfo&quot; &gt;encrypted
 authinfo&lt;/a&gt;
 files as well. Offlineimap, on the other hand, offers no such
-support and passwords to the local and remote imap accounts are
+support, and passwords to the local and remote imap accounts are
 normally stored in clear text in &lt;code&gt;.offlineimaprc&lt;/code&gt;.
-For the local account this can be overcome by not running a dovecot
+For the local account, this can be overcome by not running a Dovecot
 server but making offlineimap spawn a dovecot process when needed:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;[Repository LocalGmail]
@@ -174,9 +177,9 @@ preauthtunnel = /usr/sbin/dovecot -c ~/.dovecot.conf --exec-mail imap
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;For the remote connection, ideally it should read the password from
-&lt;code&gt;.authinfo.gpg&lt;/code&gt; that Gnus may also read if it&apos;s configured to access
-the remote server directly. This can be pulled off rather easily.
-Add an /include/ to &lt;code&gt;.offlineimaprc&lt;/code&gt; like this:&lt;/p&gt;
+&lt;code&gt;.authinfo.gpg&lt;/code&gt;, that Gnus may also read if it&apos;s configured to
+access the remote server directly. This can be pulled off rather
+easily. Add an /include/ to &lt;code&gt;.offlineimaprc&lt;/code&gt; like this:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;[general]
 pythonfile = ~/.offlineimap.py
@@ -229,11 +232,10 @@ doesn&apos;t count.&lt;/p&gt;
         <item>
             <title>Upgrade Woes</title>
             <link>http://quotenil.com/upgrade-woes.html</link>
-            <description>&lt;p&gt;Debian Lenny was released back in February. My
-conservativeness only lasts about half a year so I decided to
-upgrade to Squeeze aka Debian testing. The upgrade itself went
-rather smoothly with a few notable exceptions. With KDE 4.3 I should
-have waited more.
+            <description>&lt;p&gt;Debian Lenny was released back in February. My conservativeness only
+lasts about half a year, so I decided to upgrade to Squeeze aka
+Debian testing. The upgrade itself went rather smoothly with a few
+notable exceptions. With KDE 4.3, I should have waited more.
 Notes:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -244,20 +246,20 @@ Notes:&lt;/p&gt;
 &lt;li&gt;&lt;p&gt;The kmail message list is a train wreck by default with its
   multi-line entries. It took me ages to find how to turn it to back
   to classic theme (hint: it&apos;s not under `Configure KMail&apos;), at the
-  cost of no threading messages.&lt;/p&gt;&lt;/li&gt;
+  cost of not threading messages.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;I had customized kwin to use the Super key for all shortcuts. KDE3
   decided to call it the Win key, but hey, I understand that&apos;s where
   it&apos;s often mapped. After the upgrade my settings were wiped out.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;In org-mode &lt;code&gt;C-u C-c C-t&lt;/code&gt; had asked for a new tag. After the upgrade
   and &lt;code&gt;(setq org-use-fast-todo-selection &apos;prefix)&lt;/code&gt; it does so again.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;The X.org upgrade broke my fragile xmodmap config so I wrote an
-  &lt;a href=&quot;blog-files/lisp-xkb.tar.gz&quot; &gt;xkb based config&lt;/a&gt;
-  instead. It&apos;s activated with:&lt;/p&gt;
+  &lt;a href=&quot;blog-files/lisp-xkb.tar.gz&quot; &gt;xkb based config&lt;/a&gt; instead. It&apos;s
+  activated with:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;xkbcomp -I$HOME/.xkb ~/.xkb/keymap/us_lisp $DISPLAY
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Upgrading to emacs23 was painless, except for blorg that needed a
-  couple of hacks to get this entry out the door.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Upgrading to Emacs23 was painless, except for blorg, which needed
+  a couple of hacks to get this entry out the door.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
@@ -266,18 +268,18 @@ Notes:&lt;/p&gt;
         <item>
             <title>Space Cadet</title>
             <link>http://quotenil.com/space-cadet.html</link>
-            <description>&lt;p&gt;Emacs users often report problems caused by strain
-on the pinky finger that&apos;s used to press the &lt;em&gt;Control&lt;/em&gt; key. The
-standard answer to that is to map &lt;em&gt;Caps Lock&lt;/em&gt; to &lt;em&gt;Control&lt;/em&gt;. I
-believe that there is a better way:&lt;/p&gt;
+            <description>&lt;p&gt;Emacs users often report problems caused by strain on the pinky
+finger, which is used to press the &lt;em&gt;Control&lt;/em&gt; key. The standard
+answer to that is to map &lt;em&gt;Caps Lock&lt;/em&gt; to &lt;em&gt;Control&lt;/em&gt;. I believe that
+there is a better way:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;blog-files/symbolics-keyboard.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Note the placement of modifiers: &lt;em&gt;Control&lt;/em&gt;, &lt;em&gt;Meta&lt;/em&gt;, &lt;em&gt;Super&lt;/em&gt;, &lt;em&gt;Hyper&lt;/em&gt;
 on both sides of Space in this order, with &lt;em&gt;Control&lt;/em&gt; being the
 closest to it. Touch typers especially find having two of each key
-absolutely essential and the symmetric placement appeals to me.
-Also note the &lt;em&gt;Rubout&lt;/em&gt; key, next to &lt;em&gt;A&lt;/em&gt; where &lt;em&gt;Caps Lock&lt;/em&gt; resides on
+absolutely essential, and the symmetric placement appeals to me.
+Also note the &lt;em&gt;Rubout&lt;/em&gt; key next to &lt;em&gt;A&lt;/em&gt; where &lt;em&gt;Caps Lock&lt;/em&gt; resides on
 modern keyboards. &lt;em&gt;Rubout&lt;/em&gt; is like &lt;em&gt;Backspace&lt;/em&gt; and is better to have
 on the home row than the most useless and annoying key in history.&lt;/p&gt;
 
@@ -286,21 +288,21 @@ layout. I keep the original Backspace key too as Backspace, but it
 could be &lt;em&gt;Caps Lock&lt;/em&gt; as well: I don&apos;t use it either way. If you have
 a narrow &lt;em&gt;Space&lt;/em&gt; key, you can place your thumbs on the two &lt;em&gt;Control&lt;/em&gt;
 keys while the fingers rest on &apos;asdf&apos; and &apos;jkl;&apos;. Always press
-modifiers with the alternate hand. C-a is right thumb + left pinky,
-C-M-p is left-thumb + left-ring + right pinky. For C-M-P, add left
-pinky for &lt;em&gt;Shift&lt;/em&gt;.&lt;/p&gt;
+modifiers with the alternate hand. &lt;code&gt;C-a&lt;/code&gt; is right thumb + left
+pinky, &lt;code&gt;C-M-p&lt;/code&gt; is left-thumb + left-ring + right pinky. For &lt;code&gt;C-M-P&lt;/code&gt;,
+add left pinky for &lt;em&gt;Shift&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;Another thing I find tremendously useful is getting used to C-n,
-C-p, C-b, C-f instead of reaching for the arrow keys as often as a
-VI user for &lt;em&gt;Escape&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Another thing I find tremendously useful is getting used to &lt;code&gt;C-n&lt;/code&gt;,
+&lt;code&gt;C-p&lt;/code&gt;, &lt;code&gt;C-b&lt;/code&gt;, &lt;code&gt;C-f&lt;/code&gt; instead of reaching for the arrow keys as often
+as a vi user for &lt;em&gt;Escape&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;Well, that&apos;s the narration. To implement the above, I guess one can
-create an xkb description but last time I tried documentation was
-extremely unhelpful so I ended up hacking together an xmodmap file.
+&lt;p&gt;Well, that&apos;s the narration. To implement the above, I guess, one can
+create an xkb description, but last time I tried, documentation was
+extremely unhelpful, so I ended up hacking together an xmodmap file.
 I&apos;m told this file is not really portable, so it&apos;s &lt;a href=&quot;blog-files/lisp-machine-pc105-us.xmodmap&quot; &gt;provided
-here&lt;/a&gt; only for illustration and
-it&apos;s easy enough to do the same yourself for your keyboard. To
-switch to the new layout do:&lt;/p&gt;
+here&lt;/a&gt; only for
+illustration, and it&apos;s easy enough to do the same yourself for your
+keyboard. To switch to the new layout do:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;xmodmap lisp-machine-pc105-us.xmodmap
 xset r 66
@@ -321,10 +323,10 @@ keyboard.&lt;/p&gt;
         <item>
             <title>Backup</title>
             <link>http://quotenil.com/backup.html</link>
-            <description>&lt;p&gt;My carefully updated list of files to backup had
-grown so long that it made me worry about losing something important
-and the backup didn&apos;t fit on a single dvd so I invested in a WD
-passport and created an encrypted file system on it:&lt;/p&gt;
+            <description>&lt;p&gt;My carefully updated list of files to back up had grown so long that
+it made me worry about losing something important, and the backup
+didn&apos;t fit on a single DVD, so I invested in a WD Passport and
+created an encrypted file system on it:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;modprobe cryptoloop
 modprobe aes
@@ -333,7 +335,7 @@ mke2fs /dev/loop0
 tune2fs -i 0 -c 0 -j /dev/loop0
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Then taking a backup is an rsync and some setup-up/tear-down code
+&lt;p&gt;Then, taking a backup is an &lt;code&gt;rsync&lt;/code&gt; and some setup-up/tear-down code
 away:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt; #!/bin/sh
@@ -370,8 +372,8 @@ away:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Note, that it&apos;s this easy since I basically have only one file
-system (only /boot is separate) and that resides on LVM which makes it
-trivial to snapshot.&lt;/p&gt;
+system (only &lt;code&gt;/boot&lt;/code&gt; is separate), and that resides on LVM, which
+makes it trivial to snapshot.&lt;/p&gt;
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Fri, 28 Mar 2008 00:00:00 +0000</pubDate>
@@ -384,15 +386,15 @@ software like true hackers with infinite time do (and those
 irritated by Wordpress), I bit the bullet and installed
 &lt;a href=&quot;https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html&quot; &gt;blorg&lt;/a&gt; – a very low
 overhead emacs blog engine – on top of
-&lt;a href=&quot;http://orgmode.org/&quot; &gt;org-mode&lt;/a&gt; that I happen to use as an
-organizer. Blorg basically converts an org mode buffer to html files
+&lt;a href=&quot;http://orgmode.org/&quot; &gt;org-mode&lt;/a&gt;, that I happen to use as an
+organizer. Blorg basically converts an org mode buffer to html files,
 so it is completely static: send me &lt;a href=&quot;mailto:mega@retes.hu&quot; &gt;email&lt;/a&gt; if
 you have comments, I have no desire to maintain a more complex
 solution with comment filtering.&lt;/p&gt;
 
 &lt;p&gt;Small fixes had to be made for blorg to be able to deal with
-org-mode 5.17a and I only had time to bring it to some basic level
-of functionality. That said here is the
+org-mode 5.17a, and I only had time to bring it to some basic level
+of functionality. That said, here is the
 &lt;a href=&quot;blog-files/blorg-init.el&quot; &gt;blorg-init.el&lt;/a&gt; file I&apos;m using right now.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;2020-05-03&lt;/strong&gt;: Since then, this blog has been moved to

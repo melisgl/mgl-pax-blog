@@ -157,25 +157,25 @@ by the sampler passed to <code>TRAIN</code>, that is, what <code>SAMPLE-INPUT</c
 returns.</p>
 
 <p>The network multiplies <code>INPUT</code> taken as a 1x3 matrix by <code>WEIGHTS</code>
-(initialized randomly) and the training aims to minimize the squared
-error as calculated by the lump named <code>SSE</code>. Note that <code>SET-INPUT</code>
-clamps both the real input and the target.</p>
+(initialized randomly), and the training aims to minimize the
+squared error as calculated by the lump named <code>SSE</code>. Note that
+<code>SET-INPUT</code> clamps both the real input and the target.</p>
 
 <p>We instantiate <code>BP-TRAINER</code> that inherits from
 <code>SEGMENTED-GD-TRAINER</code>. Now, <code>SEGMENTED-GD-TRAINER</code> itself does
 precious little: it only delegates training to child trainers where
 each child is supposed to be a <code>GD-TRAINER</code> (with all the usual
 knobs such as learning rate, momentum, weight decay, batch size,
-etc). The mapping from segments
-(bpn lumps here) of the learner to gd trainers is provided by the
-function in the <code>:SEGMENTER</code> argument. By using <code>REPEATEDLY</code>, for now,
-we simply create a distinct child trainer for each weight lump as it
-makes a function that on each call evaluates the form in its body (as
-opposed to <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_cons_1.htm" title="CONSTANTLY FUNCTION"><code>CONSTANTLY</code></a>).</p>
+etc). The mapping from segments (bpn lumps here) of the learner to
+gd trainers is provided by the function in the <code>:SEGMENTER</code>
+argument. By using <code>REPEATEDLY</code>, for now, we simply create a
+distinct child trainer for each weight lump as it makes a function
+that on each call evaluates the form in its body (as opposed to
+<a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_cons_1.htm" title="CONSTANTLY FUNCTION"><code>CONSTANTLY</code></a>).</p>
 
-<p>That's it without any bells and whistles. If all goes well <code>WEIGHTS</code>
-should be trained to be equal to <code>*MATRIX*</code>.
-Inspect <code>(nodes (find-lump 'weights *bpn*))</code> to verify.</p>
+<p>That's it without any bells and whistles. If all goes well,
+<code>WEIGHTS</code> should be trained to be equal to <code>*MATRIX*</code>.
+Inspect <code>(NODES (FIND-LUMP 'WEIGHTS *BPN*))</code> to verify.</p>
 
 <p>Impatience satisfied, examine the <code>BUILD-BPN</code> form in detail. The
 <code>:CLASS</code> argument is obvious, and the rest of the forms are a
@@ -191,8 +191,8 @@ added so</p>
 <pre><code><span class="code"><span class="paren1">(<span class="code">make-instance 'input-lump <span class="keyword">:name</span> 'input <span class="keyword">:size</span> n-inputs</span>)</span></span></code></pre>
 
 <p>One can replicate this with <code>MAKE-INSTANCE</code> and <code>ADD-LUMP</code>, but it's
-more work. For ease of comprehension the network can be visualized
-by loading the <code>mgl-visuals</code> system and:</p>
+more work. For ease of comprehension, the network can be visualized
+by loading the <code>MGL-VISUALS</code> system and:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">dgraph <span class="paren4">(<span class="code">cl-dot:generate-graph-from-roots <span class="special">*bpn*</span> <span class="paren5">(<span class="code">lumps <span class="special">*bpn*</span></span>)</span></span>)</span></span>)</span></span>)</span>
   <span class="paren2">(<span class="code">cl-dot:dot-graph dgraph <span class="string">"linear-bpn.png"</span> <span class="keyword">:format</span> <span class="keyword">:png</span></span>)</span></span>)</span></span></code></pre>

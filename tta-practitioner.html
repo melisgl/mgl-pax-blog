@@ -74,8 +74,8 @@ Averaging</a> (SWA) does.</p>
 <p>There is a number of problems with SWA:</p>
 
 <ul>
-<li><p>10, the averaging length, must be chosen to maximize performance
-  on summarization.</p></li>
+<li><p>The averaging length (e.g. 10) must be chosen to maximize
+  performance on summarization.</p></li>
 <li><p>A naive way to find the averaging length is to do a single
   training run and then search backwards extending the average one
   checkpoint at a time, which needs lots of storage and computation.
@@ -84,7 +84,7 @@ Averaging</a> (SWA) does.</p>
   for lower storage costs.</p></li>
 <li><p>To control the costs, we can lower checkpointing fequency, but
   does that make results worse? We can test that with multiple
-  training runs, and pay the cost there.</p></li>
+  training runs and pay the cost there.</p></li>
 <li><p>Also, how do we know when to stop training? We ideally want to
   stop training the language model when summarization works best
   with the optimal averaging length at that point. That means the
@@ -103,12 +103,13 @@ Averaging</a> (SWA) does.</p>
   solutions).</p></li>
 </ul>
 
+<p>These are the issues Two-Tailed Averaging tackles. </p>
+
 <h2>Two-Tailed Averaging</h2>
 
-<p>These are the issues Two-Tailed Averaging tackles. The algorithm
-needs storage for only two sets of weights (constant storage cost)
-and performance (e.g. of summarization) to be evaluated
-periodically. In return, it provides a weight average of
+<p>The algorithm needs storage for only two sets of weights (constant
+storage cost) and performance (e.g. of summarization) to be
+evaluated periodically. In return, it provides a weight average of
 approximately optimal length at all optimization steps. Now, we can
 start training that language model, periodically evaluating how the
 averaged weights are doing at summarization. We can stop the
@@ -199,9 +200,9 @@ class="keyword"> df_dw</span><span class="paren1">(<span class="code">w</span>)<
             f<span class="string">' f(w_2ta)={f_2ta:7.3f}, l={l_2ta:4d}'</span></span>)</span></span></code></pre>
 
 <p>We added some noise to the gradients in <code>df_dw</code> to make it more like
-training with a neural net with SGD. Anyway, we take 2000
-optimization steps, calling <code>update_2ta</code> on most but calling
-<code>update_and_evaluate_2ta</code> on every 100 steps. Running
+training a neural net with SGD. Anyway, we take 2000 optimization
+steps, calling <code>update_2ta</code> on most but calling
+<code>update_and_evaluate_2ta</code> every 100 steps. Running
 <code>test_2ta_simple</code>, we get something like this:</p>
 
 <pre><code><span class="code">i= 100: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.108, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 100
@@ -227,7 +228,7 @@ i=2000: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.115, f<sp
 
 <p>In the above, <code>f(w_i)</code> is the loss with the non-averaged weights,
 <code>f(w_2ta)</code> is the loss with the weights provided by 2TA, and <code>l</code> is
-the number of weights averaged. We see that with the high constant
+the number of weights averaged. We see that with the high, constant
 learning rate, SGD keeps jumping around the optimum, and while 2TA
 does the same, its jitter is way smaller (it's beyond the three
 significant digits printed here). Also, the length of the average
@@ -318,19 +319,20 @@ training loss, but 2TA is intended for when the evaluation function
 measures performance on the validation set or on a down-stream
 task (e.g. summarization).</p>
 
-<h2>Downsampling Weights</h2>
+<h2>Scaling to Large Models</h2>
 
 <p>In its proposed form, Two-Tailed Averaging incorporates every set of
 weights produced by the optimizer in both averages it maintains.
 This is good because <a href="https://jmlr.org/papers/v18/16-595.html" >Tail Averaging</a>, also known as
 <a href="https://arxiv.org/abs/1109.5647" >Suffix Averaging</a>, theory has nice things to say
-about convergence to a local optimum in this setting. However, in a
-memory constrained situation, these averages will not fit on the
-GPU/TPU, so we must move the weights off the device to add them to
-the averages (which may be in RAM or on disk). Moving stuff off the
-device can be slow, so we might want to do that, say, every 20
-optimization steps. Obviously, downsampling the weights too much
-will affect the convergence rate, so there is a tradeoff.</p>
+about convergence to a local optimum of the training losss in this
+setting. However, in a memory constrained situation, these averages
+will not fit on the GPU/TPU, so we must move the weights off the
+device to add them to the averages (which may be in RAM or on disk).
+Moving stuff off the device can be slow, so we might want to do
+that, say, every 20 optimization steps. Obviously, downsampling the
+weights too much will affect the convergence rate, so there is a
+tradeoff.</p>
 
 <h2>Learning Rate</h2>
 
@@ -348,10 +350,10 @@ cyclical schedules.</p>
 <li><p><a href="https://arxiv.org/abs/2209.14981" >LAWA</a> averages the $K$ most recent checkpoints, so it
   produces reasonable averages from early on (unlike SWA), but $K$
   still needs to be set manually.</p></li>
-<li><p><a href="https://arxiv.org/abs/1708.02182" >NT-ASGD</a> starts averaging when the validation loss does
-  not improve for a fixed number of optimization steps, which trades
-  one hyperparameter for another, and it is sensitive to noise in
-  the raw validation loss. online.</p></li>
+<li><p><a href="https://arxiv.org/abs/1708.02182" >NT-ASGD</a> starts averaging when the validation loss has
+  not improved for a fixed number of optimization steps, which
+  trades one hyperparameter for another, and it is sensitive to
+  noise in the raw validation loss.</p></li>
 </ul>
 
 <p><strong>Adaptivity</strong>: SWA and LAWA have hyperparameters that directly

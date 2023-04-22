@@ -65,7 +65,7 @@ linux precompiled binary is also
 <a href="http://quotenil.com/higgsml/gabor-melis.zip" >available</a>.</p>
 
 <p>This has been the Kaggle competition that attracted the most
-contestants so it feels really good to come out on top even though
+contestants so it feels really good to come out on top although
 there was an element of luck involved due to the choice of
 evaluation metric and the amount of data available. The organizers
 did a great job explaining the physics, why there is no more data,
@@ -73,17 +73,16 @@ motivating the choice of evaluation metric, and being prompt in
 communication in general.</p>
 
 <p>I hope that the HEP guys will find this useful in their search for
-more evidence of tau tau decay of the Higgs boson. Note that I
-didn't go for the 'HEP meets ML Award' so training time is
-unnecessarily high
-(one day with a GTX Titan GPU). By switching to single precision
-floating point and a single neural network, training time could be
-reduced to about 15 minutes with an expected drop in accuracy from
-3.805 to about 3.750. Even with the bagging approach the code logs
-out-of-bag estimates of the evaluation metric after training each
-constituent model and the training process can be C-c'ed early.
-Furthermore, the model can be run on a CPU with BLAS about 10 times
-slower than on a Titan.</p>
+more evidence of tau-tau decay of the Higgs boson. Note that I
+didn't go for the 'HEP meets ML Award', so training time is
+unnecessarily high (one day with a GTX Titan GPU). By switching to
+single precision floating point and a single neural network,
+training time could be reduced to about 15 minutes with an expected
+drop in accuracy from 3.805 to about 3.750. Even with the bagging
+approach, the code logs out-of-bag estimates of the evaluation
+metric after training each constituent model and the training
+process can be <code>C-c</code>ed early. Furthermore, the model can be run on a
+CPU with BLAS about 10 times slower than on a Titan.</p>
 
 <p><img src="blog-files/die.png" alt="end-of-post" /></p>
   </div>

@@ -55,10 +55,10 @@
 
 <div class='br'></div>
 
-<p>A quick note to library implementors: The effects
-of <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" title="DECLAIM MGL-PAX:MACRO"><code>DECLAIM</code></a> are <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" >permitted to
+<p>A quick note to library implementors: the effects of <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" title="DECLAIM MGL-PAX:MACRO"><code>DECLAIM</code></a> are
+<a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" >permitted to
 persist</a>
-after the containing file is compiled and it is unkind to mutate
+after the containing file is compiled, and it is unkind to mutate
 your user's settings. Personally, I find <code>DECLAIM</code> too blunt and
 prefer to add declarations within functions, even going as far as
 introducing <a href="http://www.lispworks.com/documentation/HyperSpec/Body/s_locall.htm" title="LOCALLY MGL-PAX:MACRO"><code>LOCALLY</code></a> subforms just to have a place on which to hang
@@ -66,19 +66,19 @@ declarations. But if you are really set on using <code>DECLAIM</code>, please
 wrap it like this:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">eval-when</span></i> <span class="paren2">(<span class="code"><span class="keyword">:compile-toplevel</span></span>)</span>
- <span class="paren2">(<span class="code">declaim <span class="paren3">(<span class="code">optimize speed</span>)</span></span>)</span></span>)</span></span></code></pre>
+  <span class="paren2">(<span class="code">declaim <span class="paren3">(<span class="code">optimize speed</span>)</span></span>)</span></span>)</span></span></code></pre>
 
 <p>to ensure that the body is evaluated in <a href="http://www.lispworks.com/documentation/HyperSpec/Body/03_bca.htm" >the dynamic execution
 context of the
-compiler</a>
+compiler</a>,
 which makes a practical difference on Allegro. It goes without
 saying that you don't want <code>(PROCLAIM '(OPTIMIZE ...))</code> in a
 library, either.</p>
 
-<p><strong>UPDATE</strong>: The above works, but is not mandated by the spec because the
-dynamic execution context of the compiler does not include the global
-declarations. Alas, by the spec the portable solution is to wrap the
-whole file in:</p>
+<p><strong>UPDATE</strong>: The above works but is not mandated by the spec because
+the dynamic execution context of the compiler does not include the
+global declarations. Alas, by the spec the portable solution is to
+wrap the whole file in:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">locally</span></i> <span class="paren2">(<span class="code">declare <span class="paren3">(<span class="code">optimize speed</span>)</span></span>)</span> ...</span>)</span></span></code></pre>
 

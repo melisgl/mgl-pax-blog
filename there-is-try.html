@@ -55,9 +55,9 @@
 
 <div class='br'></div>
 
-<p>Do or do not. There is now Try.
-I forgot to announce <a href="https://github.com/melisgl/try" >Try</a>,
-my Common Lisp test framework, on this blog.</p>
+<p>Do or do not. There is now Try. I forgot to announce
+<a href="https://github.com/melisgl/try" >Try</a>, my Common Lisp test
+framework, on this blog.</p>
 
 <ul>
 <li><p>Try does equally well in interactive and non-interactive mode by
@@ -65,17 +65,18 @@ my Common Lisp test framework, on this blog.</p>
 <li><p>It provides a single, extensible <a href="https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FIS-20MGL-PAX-3ASECTION-29" >check
   macro</a>.
   All other checks are built on top of it.</p></li>
-<li><p>It is highly customizable: what to debug interactively, what to print, what
-  to describe in detail, what to rerun, what to count can all be easily changed.</p></li>
-<li><p>Customization is based on complex types built from
-  <a href="https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FEVENTS-20MGL-PAX-3ASECTION-29" >event types</a>,
+<li><p>It is highly customizable: what to debug interactively, what to
+  print, what to describe in detail, what to rerun, what to count
+  can all be easily changed.</p></li>
+<li><p>Customization is based on complex types built from <a href="https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FEVENTS-20MGL-PAX-3ASECTION-29" >event
+  types</a>,
   which are signalled when checks or tests are run.</p></li>
 </ul>
 
-<p>Try's behaviour is trivial: tests are functions, and checks behave like
-<a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_assert.htm" title="ASSERT MGL-PAX:MACRO"><code>CL:ASSERT</code></a>. Test suites are test functions that call test functions. Skipping
-tests is just a regular <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_when_.htm" title="WHEN MGL-PAX:MACRO"><code>WHEN</code></a>. Everything is as close to normal evaluation
-rules as possible.</p>
+<p>Try's behaviour is trivial: tests are functions, and checks behave
+like <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_assert.htm" title="ASSERT MGL-PAX:MACRO"><code>CL:ASSERT</code></a>. Test suites are test functions that call other test
+functions. Skipping tests is just a regular <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_when_.htm" title="WHEN MGL-PAX:MACRO"><code>WHEN</code></a>. Everything is as
+close to normal evaluation rules as possible.</p>
 
 <p>Behind the scenes, events are signalled for successes, failures, etc, and
 these events provide the basis of its customization. Non-interactive

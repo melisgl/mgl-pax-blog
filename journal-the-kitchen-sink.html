@@ -58,7 +58,7 @@
 <p>Ever wished for machine-readable logs and <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm" ><code>TRACE</code></a>s, maybe
 for writing tests or something more fancy? The
 <a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40JOURNAL-BACKGROUND-20MGL-PAX-3ASECTION-29" >Journal</a> library takes a simple idea:
-user-defined execution traces, and implements
+user-defined execution traces and implements
 <a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40LOGGING-20MGL-PAX-3ASECTION-29" >logging</a>, <a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TRACING-20MGL-PAX-3ASECTION-29" >tracing</a>, a
 <a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TESTING-20MGL-PAX-3ASECTION-29" >testing</a> &quot;framework&quot; with <a href="https://en.wikipedia.org/wiki/Mock_object" >mock</a>
 support, and an <a href="https://martinfowler.com/eaaDev/EventSourcing.html" >Event Sourcing</a> style
@@ -88,7 +88,7 @@ this into a browser game so:</p>
   power failure.</p></li>
 </ul>
 
-<p>So these are the requirements apart from adding the webby stuff,
+<p>So, these are the requirements apart from adding the webby stuff,
 which I'm not going to bore you with. To implement them, we wrap
 <code>REPLAYED</code> around <em>external interactions</em>, <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_random.htm" title="RANDOM FUNCTION"><code>RANDOM</code></a> and <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_rd_lin.htm" title="READ-LINE FUNCTION"><code>READ-LINE</code></a>:</p>
 
@@ -110,11 +110,11 @@ which I'm not going to bore you with. To implement them, we wrap
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">with-bundle</span></i> <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">make-file-bundle <span class="string">"/tmp/guess-my-number/"</span> <span class="keyword">:sync</span> t</span>)</span></span>)</span>
   <span class="paren2">(<span class="code">play-guess-my-number</span>)</span></span>)</span></span></code></pre>
 
-<p>This is invoked from the web server's worker and it replays the game
-until it was interrupted last time around. Then it will block
-waiting for user input in <code>READ-LINE</code> or, if the game is finished,
-return. Note the <code>:SYNC T</code>, which tells Journal to take durability
-seriously.
+<p>This is invoked from a web server worker thread, and it replays the
+game until the point where it was interrupted last time around.
+Then, it will block waiting for user input in <code>READ-LINE</code> or, if the
+game is finished, return. Note the <code>:SYNC T</code>, which tells Journal to
+take durability seriously.
 <div class='br'></div><p>You can find the code <a href="https://github.com/melisgl/journal" >here</a>.</p></p>
 
 <p><img src="blog-files/die.png" alt="end-of-post" /></p>

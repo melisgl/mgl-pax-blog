@@ -56,13 +56,14 @@
 <div class='br'></div>
 
 <p>There has always been a lot of wiggling of SBCL
-<a href="https://web.archive.org/web/20080513083106/http://sbcl.boinkor.net/bench/" >boinkmarks</a> results. It's easy to
-chalk this up to system load, but the same can be observed running
-the <a href="http://common-lisp.net/project/cl-bench/" >cl-bench</a> benchmarks
+<a href="https://web.archive.org/web/20080513083106/http://sbcl.boinkor.net/bench/" >boinkmarks</a>
+results. It's easy to chalk this up to system load, but the same can
+be observed running the
+<a href="http://common-lisp.net/project/cl-bench/" >cl-bench</a> benchmarks
 under more ideal circumstances. Part of the reason is the
 insufficient number of iterations of some tests: measurement
-accuracy is really bad when the run time is below 0.2s and it is
-abysmal when there is other activity on the system which is easy to
+accuracy is really bad when the run time is below 0.2s, and it is
+abysmal when there is other activity on the system, which is easy to
 tell even in retrospect by comparing the real and user time columns.</p>
 
 <p>But that's not the end of the story, take for instance
@@ -70,9 +71,9 @@ tell even in retrospect by comparing the real and user time columns.</p>
 experiences changes up to 7% caused by seemingly unrelated changes.
 People have fingered alignment as a likely cause.</p>
 
-<p>Recently this issue has become more pressing as I've been trying to
+<p>Recently, this issue has become more pressing as I've been trying to
 reduce the overhead of x86's pseudo atomic. Unfortunately, the
-effect is smallish which makes measurement difficult so I tried
+effect is smallish, which makes measurement difficult, so I tried
 aligning loops on 16 byte boundaries. This being on x86, that meant
 aligning code similarly first (it's 8 byte aligned currently).</p>
 
@@ -105,9 +106,9 @@ practice even the tightest loops are already longer than 16 bytes
 <a href="blog-files/align-code/p4-results" >P4</a>, a <a href="blog-files/align-code/core-duo-results" >Core
 Duo</a> system.</p>
 
-<p>There may be a slight improvement but its magnitude is pretty small
-compared to the noise. I'm declaring the evidence inconclusive and let
-the commit stay out of the official SBCL tree.</p>
+<p>There may be a slight improvement, but its magnitude is pretty small
+compared to the noise. I'm declaring the evidence inconclusive and
+let the commit stay out of the official SBCL tree.</p>
 
 <p><img src="blog-files/die.png" alt="end-of-post" /></p>
   </div>

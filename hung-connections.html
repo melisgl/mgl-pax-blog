@@ -62,11 +62,11 @@ the bad news is that tcp connections started to hang. It didn't take
 long to <a href="http://hup.hu/node/98496" >find out</a> that this particular
 router drops &quot;unused&quot; tcp connections after five minutes.</p>
 
-<p>The fix recommended in the linked topic (namely sysctl'ing
-<code>net.ipv4.tcp_keepalive_time</code> &amp; co) was mostly effective but I had
+<p>The fix recommended in the linked topic (namely <code>sysctl</code>ing
+<code>net.ipv4.tcp_keepalive_time</code> &amp; co) was mostly effective, but I had
 to lower the keepalive to one minute to keep my ssh sessions alive.
 The trouble was that OfflineIMAP connections to the U.S. west coast
-still hanged intermittently while it could work with Gmail just
+still hanged intermittently, while it could work with Gmail just
 fine.</p>
 
 <p>In the end, OfflineIMAP had to be
@@ -78,8 +78,9 @@ to use the keepalive and the keepalive be lowered to 15s:</p>
           net.ipv4.tcp_keepalive_probes=20
 </code></pre>
 
-<p>Oh, and always include <code>socktimeout</code> in the offlineimap config, that's
-more important than keepalive unless you never have network issues.</p>
+<p>Oh, and always include <code>socktimeout</code> in the OfflineIMAP config.
+That's more important than keepalive unless you never have network
+issues.</p>
 
 <p><img src="blog-files/die.png" alt="end-of-post" /></p>
   </div>

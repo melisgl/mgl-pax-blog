@@ -65,7 +65,10 @@ how much cleaner the paper looks with the
 font compared to <a href="https://github.com/melisgl/two-tailed-averaging/blob/main/samples/times-new-roman.pdf" >Times New
 Roman</a>.
 No wonder Matthew Butterick <a href="https://practicaltypography.com/charter.html" >pushes
-Charter</a>.</p>
+Charter</a>. By the way,
+see what he has to say about
+<a href="https://practicaltypography.com/grids.html" >grids</a> and baseline
+grids, in particular.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40HOW-TO-COMPARE-FONTS-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@TECH-@HOW-TO-COMPARE-FONTS-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -150,9 +153,8 @@ router drops &quot;unused&quot; tcp connections after five minutes.</p>
 
 <div class='br'></div>
 
-<p>I've moved to an
-<a href="http://offlineimap.org/" >OfflineIMAP</a> + <a href="http://gnus.org/" >Gnus</a>
-setup that's outlined at
+<p>I've moved to an <a href="http://offlineimap.org/" >OfflineIMAP</a> +
+<a href="http://gnus.org/" >Gnus</a> setup that's outlined at
 <a href="http://sachachua.com/blog/2008/05/geek-how-to-use-offlineimap-and-the-dovecot-mail-server-to-read-your-gmail-in-emacs-efficiently/" >various</a>
 <a href="http://nakkaya.com/2010/04/10/using-offlineimap-with-gnus/" >places</a>.
 Gnus can be configured to use
@@ -161,7 +163,7 @@ netrc style of file to read passwords from and can easily use
 <a href="http://www.emacswiki.org/emacs-en/GnusEncryptedAuthInfo" >encrypted
 authinfo</a>
 files as well. Offlineimap, on the other hand, offers no such
-support and passwords to the local and remote imap accounts are
+support, and passwords to the local and remote imap accounts are
 normally stored in clear text in <code>.offlineimaprc</code>.</p>
 
 <p><div class='br'></div><p>... read the rest of <a href="offlineimap-with-encrypted-authinfo.html" title="OfflineIMAP with Encrypted Authinfo">OfflineIMAP with Encrypted Authinfo</a>.</p></p>
@@ -194,11 +196,10 @@ doesn't count.</p>
 
 <div class='br'></div>
 
-<p>Debian Lenny was released back in February. My
-conservativeness only lasts about half a year so I decided to
-upgrade to Squeeze aka Debian testing. The upgrade itself went
-rather smoothly with a few notable exceptions. With KDE 4.3 I should
-have waited more.</p>
+<p>Debian Lenny was released back in February. My conservativeness only
+lasts about half a year, so I decided to upgrade to Squeeze aka
+Debian testing. The upgrade itself went rather smoothly with a few
+notable exceptions. With KDE 4.3, I should have waited more.</p>
 
 <p><div class='br'></div><p>... read the rest of <a href="upgrade-woes.html" title="Upgrade Woes">Upgrade Woes</a>.</p></p>
 
@@ -211,17 +212,17 @@ have waited more.</p>
 
 <div class='br'></div>
 
-<p>Emacs users often report problems caused by strain
-on the pinky finger that's used to press the <em>Control</em> key. The
-standard answer to that is to map <em>Caps Lock</em> to <em>Control</em>. I
-believe that there is a better way:</p>
+<p>Emacs users often report problems caused by strain on the pinky
+finger, which is used to press the <em>Control</em> key. The standard
+answer to that is to map <em>Caps Lock</em> to <em>Control</em>. I believe that
+there is a better way:</p>
 
 <p><img src="blog-files/symbolics-keyboard.jpg" alt="" /></p>
 
 <p>Note the placement of modifiers: <em>Control</em>, <em>Meta</em>, <em>Super</em>, <em>Hyper</em>
 on both sides of Space in this order, with <em>Control</em> being the
 closest to it. Touch typers especially find having two of each key
-absolutely essential and the symmetric placement appeals to me.</p>
+absolutely essential, and the symmetric placement appeals to me.</p>
 
 <p><div class='br'></div><p>... read the rest of <a href="space-cadet.html" title="Space Cadet">Space Cadet</a>.</p></p>
 
@@ -234,10 +235,10 @@ absolutely essential and the symmetric placement appeals to me.</p>
 
 <div class='br'></div>
 
-<p>My carefully updated list of files to backup had
-grown so long that it made me worry about losing something important
-and the backup didn't fit on a single dvd so I invested in a WD
-passport and created an encrypted file system on it:</p>
+<p>My carefully updated list of files to back up had grown so long that
+it made me worry about losing something important, and the backup
+didn't fit on a single DVD, so I invested in a WD Passport and
+created an encrypted file system on it:</p>
 
 <pre><code>modprobe cryptoloop
 modprobe aes
@@ -262,15 +263,15 @@ software like true hackers with infinite time do (and those
 irritated by Wordpress), I bit the bullet and installed
 <a href="https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html" >blorg</a> – a very low
 overhead emacs blog engine – on top of
-<a href="http://orgmode.org/" >org-mode</a> that I happen to use as an
-organizer. Blorg basically converts an org mode buffer to html files
+<a href="http://orgmode.org/" >org-mode</a>, that I happen to use as an
+organizer. Blorg basically converts an org mode buffer to html files,
 so it is completely static: send me <a href="mailto:mega@retes.hu" >email</a> if
 you have comments, I have no desire to maintain a more complex
 solution with comment filtering.</p>
 
 <p>Small fixes had to be made for blorg to be able to deal with
-org-mode 5.17a and I only had time to bring it to some basic level
-of functionality. That said here is the
+org-mode 5.17a, and I only had time to bring it to some basic level
+of functionality. That said, here is the
 <a href="blog-files/blorg-init.el" >blorg-init.el</a> file I'm using right now.</p>
 
 <p><strong>2020-05-03</strong>: Since then, this blog has been moved to

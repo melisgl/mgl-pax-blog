@@ -59,13 +59,13 @@
 libsvm</a>,
 I <a href="http://github.com/melisgl/cl-libsvm" >added</a> support for
 calculating distance of a point from the separating hyperplane to
-<a href="http://cliki.net/cl-libsvm" >cl-libsvm</a>. In binary classification
-there is only one SVM involved and one hyperplane. However, with N
-class problems there is a binary SVM for each of the $N(N-1)/2$
-pairs of classes and there are as many separating hyperplanes,
+<a href="http://cliki.net/cl-libsvm" >cl-libsvm</a>. In binary classification,
+there is only one SVM involved and one hyperplane. However, with
+N-class problems, there is a binary SVM for each of the $N(N-1)/2$
+pairs of classes, and there are as many separating hyperplanes,
 something the linked python code fails to take into account. As per
-the libsvm
-<a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/faq.html#f4151" >FAQ</a>, the
+the <a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/faq.html#f4151" >libsvm
+FAQ</a>, the
 absolute value of the decision value (see <code>PREDICT-VALUES</code>, wrapper
 of <code>svm_predict_values</code>) divided by the norm of the normal vector of
 the separating hyperplane is the distance. <code>PREDICT-VALUES</code> and

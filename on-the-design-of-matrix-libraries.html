@@ -55,8 +55,9 @@
 
 <div class='br'></div>
 
-<p><strong>UPDATE</strong>: <em>2020-05-03</em> – Things have been moving fast. This is a
-non-issue in Tensorflow and possibly in other frameworks, as well.</p>
+<p><strong>UPDATE</strong>: <em>2020-05-03</em> – Things have changed the during last 5
+years. This is a non-issue in Tensorflow and possibly in other
+frameworks, as well.</p>
 
 <p>I believe there is one design decision in
 <a href="http://melisgl.github.io/mgl-pax-world/mat-manual.html" >MGL-MAT</a>
@@ -67,21 +68,21 @@ most convenient or efficient, without having to even know about all
 the possible representations.</p>
 
 <p>This allows existing code to keep functioning if support for
-diagonal matrices (represented as a 1d array) lands and one can pick
+diagonal matrices (represented as a 1d array) lands, and one can pick
 and choose the operations performance critical enough to implement
 with diagonals.</p>
 
 <p>Adding support for matrices that, for instance, live on a remote
 machine is thus possible with a new facet type (MAT lingo for
 representation) and existing code would continue to work (albeit
-possibly slowly). Then one could optimize the bottleneck operations
+possibly slowly). Then, one could optimize the bottleneck operations
 by sending commands over the network instead of copying data.</p>
 
 <p>Contrast this with what I understand to be the status quo over on
 the Python side. The specialized Python array libs (cudamat,
 gpuarray, cudandarray) try to be drop-in replacements for – or at
 least similar to – numpy.ndarray with various degrees of success.
-There is lots of explicit conversion going on between ndarray and
+There are lots of explicit conversion going on between ndarray and
 these CUDA blobs and adding new representations would make this
 exponentionally worse.</p>
 
@@ -90,14 +91,16 @@ are separate types, and copying between main and GPU memory is
 explicit, which leads to pretty much the same problems.</p>
 
 <p>All of this is kind of understandable. When one thinks in terms of
-single-dispatch (i.e. <code>object.method()</code>), this kind of design will
-often emerge. With muliple-dispatch, data representation and
-operations are more loosely coupled. The facet/operation duality of
-MGL-MAT is reminiscent of how CLOS classes and generic functions
-relate to each other. The anology is best if objects are allowed to
-shapeshift to fit the method signatures.</p>
+single dispatch (i.e. <code>object.method()</code>), this kind of design will
+often emerge. With <a href="https://en.wikipedia.org/wiki/Multiple_dispatch" >muliple
+dispatch</a>, data
+representation and operations are more loosely coupled. The
+facet/operation duality of MGL-MAT is reminiscent of how CLOS
+classes and generic functions relate to each other. The anology is
+best if objects are allowed to shapeshift to fit the method
+signatures.</p>
 
-<p>Speaking of multiple-dispatch, by making the operations generic
+<p>Speaking of multiple dispatch, by making the operations generic
 functions following some kind of protocol to decide which facets and
 implementation to use would decouple facets further. Ultimately,
 this could make the entire CUDA related part of MGL-MAT an add-on.</p>

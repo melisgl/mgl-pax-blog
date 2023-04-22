@@ -64,9 +64,9 @@ first three are passed in registers on x86).</p>
 
 <p>Software archeology aside, the only reason I can see for this scheme
 is that stack arguments are easier to manipulate when they are after
-the return address, old frame pointer part, in particular tail calls
-with any number of arguments can be made without re<code>[</code>al<code>]</code>locating
-the frame.</p>
+the return address, old frame pointer part. In particular, tail
+calls with any number of arguments can be made without
+re[al]locating the frame.</p>
 
 <p>The first step towards callee allocated frames is swapping the
 return address and old fp slots. Asking an innocent question on
@@ -83,23 +83,25 @@ same which makes backtraces more reliable and allows external
 debugging tools recognize all frames.</p>
 
 <p>Callee allocated frames are still quite some way off, but while in
-the area I sought a bit of optimization fun. With the return address
-before old fp it is now possible to return with the idiomatic <code>POP
-EBP, RET</code> sequence. Well, most of the time: when more multiple
-values are returned than there are argument passing registers they
-are placed on the stack exactly where the arguments normally reside.
-Obviously, in this case the frame cannot be dismantled.</p>
+the area, I sought a bit of optimization fun. With the return
+address before old fp, it is now possible to return with the
+idiomatic <code>POP EBP, RET</code> sequence. Well, most of the time: when more
+multiple values are returned than there are argument passing
+registers, they are placed on the stack exactly where the arguments
+normally reside. Obviously, in this case the frame cannot be
+dismantled.</p>
 
 <p>Strangely, turning these <code>JMP</code>s into <code>RET</code>s in multiple value return
 has no measureable effect on performance even though it results in
-more paired <code>CALL</code>s. What about the other way, addressing unpaired
+more paired <code>CALL</code>s. What about the other way: addressing unpaired
 <code>RET</code>s by turning <code>JMP</code>s to local call'ed functions into <code>CALL</code>s? I
 tried a quick hack that <code>CALL</code>s a small trampoline that sets up the
 return pc slot and <code>JMP</code>s to the target. With this small change a
 number of benchmarks in the cl-bench suit benefit greatly: <code>TAK</code>,
 <code>FIB</code>, <code>FIB-RATIO</code>, <code>DERIV</code>, <code>DIV2-TEST-2</code>, <code>TRAVERSE</code>, <code>TRIANGLE</code>
 gain about 25-50%. See results for
-<a href="blog-files/x86oid-calling-convention-p4-results.txt" >P4</a> and <a href="blog-files/x86oid-calling-convention-64bit-opteron-results.txt" >64 bit
+<a href="blog-files/x86oid-calling-convention-p4-results.txt" >P4</a> and <a href="blog-files/x86oid-calling-convention-64bit-opteron-results.txt" >64
+bit
 Opteron</a>.</p>
 
 <p>This should take off another chunk off the proposed and already

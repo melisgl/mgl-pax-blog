@@ -59,7 +59,7 @@
 <a href="http://www.method-combination.net/blog/archives/2008/02/01/vm-tricks.html" >chit</a>
 - <a href="http://www.pvk.ca/Blog/LowLevel/VM_tricks_safepoints.html" >chat</a>
 about allocation and interrupts have had me looking at ways to speed
-up pseudo atomic in SBCL.</p>
+up pseudo-atomic in SBCL.</p>
 
 <pre><code><span class="code"> <span class="paren1">(<span class="code"><i><span class="symbol">defmacro</span></i> pseudo-atomic <span class="paren2">(<span class="code">&amp;rest forms</span>)</span>
   <span class="paren2">(<span class="code"><i><span class="symbol">with-unique-names</span></i> <span class="paren3">(<span class="code">label</span>)</span>
@@ -75,14 +75,14 @@ up pseudo atomic in SBCL.</p>
 </span>       <span class="paren4">(<span class="code">inst break pending-interrupt-trap</span>)</span>
        <span class="paren4">(<span class="code">emit-label ,label</span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
 
-<h2>EBP</h2>
+<h2><code>EBP</code></h2>
 
-<p>My first idea was that ORing is unnecessary since with the slew of
-interrupt fixes going into 1.0.26 every interrupt deferred by pseudo
-atomic is handled as soon as we leave the pa section. Hence, a
-simple MOV would suffice. Or if we wanted to be fancy we could rely
-on the fact that within SBCL <code>EBP</code> is always even (that leaves the
-first bit of <code>PSEUDO-ATOMIC-BITS</code> for the interrupted flag) and
+<p>My first idea was that ORing is unnecessary since, with the slew of
+interrupt fixes going into 1.0.26, every interrupt deferred by
+pseudo-atomic is handled as soon as we leave the pa section. Hence,
+a simple <code>MOV</code> would suffice. Or, if we wanted to be fancy, we could
+rely on the fact that within SBCL <code>EBP</code> is always even (that leaves
+the first bit of <code>PSEUDO-ATOMIC-BITS</code> for the interrupted flag) and
 non-zero:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defmacro</span></i> pseudo-atomic <span class="paren2">(<span class="code">&amp;rest forms</span>)</span>
@@ -100,14 +100,13 @@ non-zero:</p>
       <span class="paren4">(<span class="code">emit-label ,label</span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
 
 <p>This shaves a few bytes off the code and is an overall 0.5% win in
-cl-bench (see &quot;pseudo-atomic.ebp&quot; in the
-<a href="blog-files/pseduo-atomic/p4-results.txt" >results</a>).</p>
+cl-bench (see &quot;pseudo-atomic.ebp&quot; in the <a href="blog-files/pseduo-atomic/p4-results.txt" >results</a>).</p>
 
-<h2>mprotect</h2>
+<h2><code>mprotect</code></h2>
 
-<p>But if the page of <code>PSEDUO-ATOMIC-BITS</code> is made write protected
-when an interrupt is deferred, then the pending interrupt can be run
-from the sigsegv handler where we land coming out of pseudo atomic:</p>
+<p>But if the page of <code>PSEDUO-ATOMIC-BITS</code> is made write protected when
+an interrupt is deferred, then the pending interrupt can be run from
+the SIGSEGV handler, where we land coming out of pseudo-atomic:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defmacro</span></i> pseudo-atomic <span class="paren2">(<span class="code">&amp;rest forms</span>)</span>
  `<span class="paren2">(<span class="code"><i><span class="symbol">progn</span></i>
@@ -117,8 +116,9 @@ from the sigsegv handler where we land coming out of pseudo atomic:</p>
     <span class="paren3">(<span class="code">inst xor <span class="paren4">(<span class="code">make-ea <span class="keyword">:dword</span> <span class="keyword">:disp</span> <span class="paren5">(<span class="code">* 4 thread-pseudo-atomic-bits-slot</span>)</span></span>)</span>
           ebp-tn <span class="keyword">:fs</span></span>)</span></span>)</span></span>)</span></span></code></pre>
 
-<p>And four more bytes are saved, making the total overhead of pseudo
-atomic 12 bytes (+2 bytes with threads). This version is labelled
+<p>And four more bytes are saved, making the total overhead of
+pseudo-atomic 12 bytes (+2 bytes with threads). This version is
+labelled
 &quot;pseudo-atomic.mprotect.ebp&quot; and is not faster than the previous one.
 Somewhat suprisingly, this variant (&quot;pseudo-atomic.mprotect.mov&quot;) is
 just as fast:</p>
@@ -133,8 +133,7 @@ just as fast:</p>
 
 <h2>Direction Flag</h2>
 
-<p>Another idea is to hijack the direction
-flag:</p>
+<p>Another idea is to hijack the direction flag:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defmacro</span></i> pseudo-atomic <span class="paren2">(<span class="code">&amp;rest forms</span>)</span>
  `<span class="paren2">(<span class="code"><i><span class="symbol">progn</span></i>
@@ -144,15 +143,15 @@ flag:</p>
     <span class="paren3">(<span class="code">inst mov <span class="paren4">(<span class="code">make-ea <span class="keyword">:byte</span> <span class="keyword">:disp</span> <span class="paren5">(<span class="code">* 4 thread-pseudo-atomic-bits-slot</span>)</span></span>)</span>
           0 <span class="keyword">:fs</span></span>)</span></span>)</span></span>)</span></span></code></pre>
 
-<p>where the mov instruction sigsegvs if pseudo atomic was interrupted.
-This is little more than a quick hack to gauge expected performance,
-because SBCL itself uses the direction flag in a number of places,
-to say nothing about alien land. However, there seems to be no
-reason to pursue this further as its performance disappoints.</p>
+<p>where the <code>MOV</code> instruction sigsegvs if pseudo-atomic was
+interrupted. This is little more than a quick hack to gauge expected
+performance because SBCL itself uses the direction flag in a number
+of places, to say nothing about alien land. However, there seems to
+be no reason to pursue this further as its performance disappoints.</p>
 
-<p>All in all, I have expected more gains, in particular I'm
-disappointed by the performance of the mprotect trick. Still 0.5% is
-okay for such a small change. Code is available
+<p>All in all, I have expected more gains. In particular, I'm
+disappointed by the performance of the <code>mprotect</code> trick. Still 0.5%
+is okay for such a small change. Code is available
 <a href="http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=pseudo-atomic" >here</a> (from
 the pseudo-atomic branch of my git tree).</p>
 

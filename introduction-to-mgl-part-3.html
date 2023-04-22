@@ -82,18 +82,17 @@ has 3 inputs, 10 neurons in the next layer, 1 neuron in the encoding
 layer, 10 neurons again in the reconstruction part and 3 in the
 output layer. However, randomly initialized backpropagation fails at
 learning this; a better solution is to first learn a Deep Belief
-Network,
-&quot;unroll&quot; it to a backprop network and use backprop to fine tune the
-weights.</p>
+Network, \&quot;unroll\&quot; it to a backprop network and use backprop to
+fine tune the weights.</p>
 
 <p>A <a href="http://www.scholarpedia.org/article/Boltzmann_machine#Learning_deep_networks_by_composing_restricted_Boltzmann_machines" >Deep Belief
 Network</a>
 is just a stack of <a href="http://www.scholarpedia.org/article/Boltzmann_machine#Restricted_Boltzmann_machines" >Restricted Boltzmann
 Machines</a>.
 An RBM is a BM restricted to be a two layer network with no
-intralayer connections. The &quot;lower&quot; layer is called visible and
-the &quot;higher&quot; layer is called hidden layer, because from the point of
-view of a single RBM it is the visible layer that's connected to –
+intralayer connections. The lower layer is called the visible, and
+the higher layer is called hidden layer because from the point of
+view of a single RBM, it is the visible layer that's connected to –
 maybe indirectly – to external stimuli. In the upward pass of a DBN,
 where the low level representations are subsequently transformed
 into higher level ones by the constituent RBMs, the values of the
@@ -149,7 +148,7 @@ encoding layer that's unsurprisingly has a single neuron:</p>
     <span class="keyword">:rbm-class</span> 'spiral-rbm</span>)</span></span>)</span></span></code></pre>
 
 <p>Note that by default, each pair of visible and hidden chunks is
-connected by a <code>FULL-CLOUD</code> that's the simplest kind of connection.
+connected by a <code>FULL-CLOUD</code>, the simplest kind of connection.
 <code>INPUTS</code> via the cloud between <code>INPUTS</code> and <code>F1</code> contributes to the
 activation of <code>F1</code>: in the upward pass the values found in <code>INPUTS</code>
 are simply multiplied by a matrix of weights and the result is added
@@ -160,8 +159,7 @@ prescribe, chunks take over control. Each chunk consists of a number
 of nodes and defines a probability distribution over them based on
 the activations. For instance, <code>SIGMOID-CHUNK</code> is a binary chunk:
 each node can take the value of 0 or 1 and the probability of 1 is
-<code>1 /
-(1 + e^(-x))</code> where <code>X</code> is the activation of the node.</p>
+<code>1 / (1 + e^(-x))</code> where <code>X</code> is the activation of the node.</p>
 
 <p>Nodes in a <code>GAUSSIAN-CHUNK</code> are normally distributed with means equal
 to their activations and unit variance. In <code>SPIRAL-DBN</code> above the

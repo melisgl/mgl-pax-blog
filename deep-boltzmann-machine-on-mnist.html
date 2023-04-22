@@ -55,9 +55,9 @@
 
 <div class='br'></div>
 
-<p>Let me interrupt the flow of the
-<a href="http://cliki.net/MGL" >MGL</a> introduction series with a short report
-on what I learnt playing with <a href="http://www.cs.toronto.edu/~hinton/absps/dbm.pdf" >Deep Boltzmann
+<p>Let me interrupt the flow of the <a href="http://cliki.net/MGL" >MGL</a>
+introduction series with a short report on what I learnt playing
+with <a href="http://www.cs.toronto.edu/~hinton/absps/dbm.pdf" >Deep Boltzmann
 Machines</a>. First,
 lots of thanks to Ruslan Salakhutdinov, then at <a href="http://www.cs.toronto.edu/~rsalakhu/" >University of
 Toronto</a> now at
@@ -71,13 +71,13 @@ claims a record of 99.05% in classification accuracy on the
 permutation invariant task (no prior knowledge of geometry). A
 previous approach trained a
 <a href="http://www.scholarpedia.org/article/Deep_belief_networks" >DBN</a> in
-an unsupervised manner and fine tuned it with backpropagation. Now
+an unsupervised manner and fine tuned it with backpropagation. Now,
 there is one more step: turning the DBN into a DBM (Deep Boltzmann
 Machine) and tune it further before handing the baton over to
 backprop. While in a DBN the constituent RBMs are trained one by
 one, the DBM is trained as a whole which, in theory, allows it to
-reconcile bottom-up and top-down signals, i.e. what you see and what
-you think.</p>
+reconcile bottom-up and top-down signals, i.e. what it sees and what
+it thinks.</p>
 
 <p><img src="blog-files/mnist-2-dbm.png" alt="" /></p>
 
@@ -93,7 +93,7 @@ may or may not be important to this result:</p>
 <ul>
 <li><p>The second RBM gets the the correct label as input which
   conveniently allows tracking classification accuracy during its
-  training, but also – more importantly – forces the top-level
+  training but also – more importantly – forces the top-level
   features to be somewhat geared towards reconstruction of labels
   and thus classification.</p></li>
 <li><p>A sparsity term is added to the gradient. Sparse representations
@@ -118,11 +118,11 @@ reported accuracies are averages from the last 10 epochs of
 training).</p>
 
 <p>The second variant performs DBM training but without any sparsity
-term and gets 99.07%. The third is using a sparsity penalty (&quot;normal
-sparsity&quot; in the diagram) for units in opposing opposing layers on
-at the same time and nets 99.08%. The fourth is just a translation
-of the sparsity penalty from the Matlab code. This one is
-named &quot;cheating sparsity&quot; because it – perhaps in an effort to
+term and gets 99.07%. The third is using a sparsity
+penalty (\&quot;normal sparsity\&quot; in the diagram) for units in opposing
+layers on at the same time and nets 99.08%. The fourth is just a
+translation of the sparsity penalty from the Matlab code. This one
+is named &quot;cheating sparsity&quot; because it – perhaps in an effort to
 reduce variance of the gradient – changes weights according to the
 average activation levels of units connected by them. Anyway, this
 last one reaches 99.09%.</p>
@@ -140,8 +140,8 @@ mention some experiments that were found to have no effect:</p>
   variance of the gradient estimates a batch size of 1000 (instead
   of 100) was tested for a hundred epochs after the usual 500. There
   was no improvement.</p></li>
-<li><p>In the BPN label weights and biases were initialized from the DBM.
-  This initial advantage diminishes gradually and by the end of
+<li><p>In the BPN, label weights and biases were initialized from the
+  DBM. This initial advantage diminishes gradually and by the end of
   training there is nothing (+0.01%) between the initialized and
   uninitialized variants. Nevertheless, all results and diagrams are
   from runs with label weights initialized.</p></li>

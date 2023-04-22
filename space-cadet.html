@@ -55,19 +55,19 @@
 
 <div class='br'></div>
 
-<p>Emacs users often report problems caused by strain
-on the pinky finger that's used to press the <em>Control</em> key. The
-standard answer to that is to map <em>Caps Lock</em> to <em>Control</em>. I
-believe that there is a better way:</p>
+<p>Emacs users often report problems caused by strain on the pinky
+finger, which is used to press the <em>Control</em> key. The standard
+answer to that is to map <em>Caps Lock</em> to <em>Control</em>. I believe that
+there is a better way:</p>
 
 <p><img src="blog-files/symbolics-keyboard.jpg" alt="" /></p>
 
 <p>Note the placement of modifiers: <em>Control</em>, <em>Meta</em>, <em>Super</em>, <em>Hyper</em>
 on both sides of Space in this order, with <em>Control</em> being the
 closest to it. Touch typers especially find having two of each key
-absolutely essential and the symmetric placement appeals to me.</p>
+absolutely essential, and the symmetric placement appeals to me.</p>
 
-<p>Also note the <em>Rubout</em> key, next to <em>A</em> where <em>Caps Lock</em> resides on
+<p>Also note the <em>Rubout</em> key next to <em>A</em> where <em>Caps Lock</em> resides on
 modern keyboards. <em>Rubout</em> is like <em>Backspace</em> and is better to have
 on the home row than the most useless and annoying key in history.</p>
 
@@ -76,21 +76,21 @@ layout. I keep the original Backspace key too as Backspace, but it
 could be <em>Caps Lock</em> as well: I don't use it either way. If you have
 a narrow <em>Space</em> key, you can place your thumbs on the two <em>Control</em>
 keys while the fingers rest on 'asdf' and 'jkl;'. Always press
-modifiers with the alternate hand. C-a is right thumb + left pinky,
-C-M-p is left-thumb + left-ring + right pinky. For C-M-P, add left
-pinky for <em>Shift</em>.</p>
+modifiers with the alternate hand. <code>C-a</code> is right thumb + left
+pinky, <code>C-M-p</code> is left-thumb + left-ring + right pinky. For <code>C-M-P</code>,
+add left pinky for <em>Shift</em>.</p>
 
-<p>Another thing I find tremendously useful is getting used to C-n,
-C-p, C-b, C-f instead of reaching for the arrow keys as often as a
-VI user for <em>Escape</em>.</p>
+<p>Another thing I find tremendously useful is getting used to <code>C-n</code>,
+<code>C-p</code>, <code>C-b</code>, <code>C-f</code> instead of reaching for the arrow keys as often
+as a vi user for <em>Escape</em>.</p>
 
-<p>Well, that's the narration. To implement the above, I guess one can
-create an xkb description but last time I tried documentation was
-extremely unhelpful so I ended up hacking together an xmodmap file.
+<p>Well, that's the narration. To implement the above, I guess, one can
+create an xkb description, but last time I tried, documentation was
+extremely unhelpful, so I ended up hacking together an xmodmap file.
 I'm told this file is not really portable, so it's <a href="blog-files/lisp-machine-pc105-us.xmodmap" >provided
-here</a> only for illustration and
-it's easy enough to do the same yourself for your keyboard. To
-switch to the new layout do:</p>
+here</a> only for
+illustration, and it's easy enough to do the same yourself for your
+keyboard. To switch to the new layout do:</p>
 
 <pre><code>xmodmap lisp-machine-pc105-us.xmodmap
 xset r 66

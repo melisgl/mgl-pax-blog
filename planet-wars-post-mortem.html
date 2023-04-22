@@ -100,18 +100,18 @@ the difference. Clearly, a naive random policy was not going to cut
 it.</p>
 
 <p>Another problem was the practically unlimited branching factor.
-Without a similarity function over moves it was hopeless to explore
+Without a similarity function over moves, it was hopeless to explore
 a meaningful portion of the game tree.</p>
 
 <h2>Move Generation</h2>
 
 <p>At this point I had to start getting my hands dirty. The first thing
-was to implement simulating the future (see <code>FUTURE</code> class) that was
-trivial except I screwed battle resolution up and for the longest
-time it was holding results back. Think of a future as a vector of
-owner and ship count over turns.</p>
+was to implement simulating the future (see <code>FUTURE</code> class), which
+was trivial except I screwed battle resolution up and for the
+longest time it was holding results back. Think of a future as a
+vector of owner and ship count over turns.</p>
 
-<p>By watching some games it became apparent that multi-planet,
+<p>By watching some games, it became apparent that multi-planet,
 synchronized attacks are the way to go. The implementation operates
 on step targets, steps and moves.</p>
 
@@ -128,27 +128,27 @@ The desired arrivals are simply minimal reinforcements for defense and
 invasion forces for attack.</p>
 
 <p>For each step target a number of steps can be found that produce the
-desired arrivals. In the current implementation there is a single
+desired arrivals. In the current implementation, there is a single
 step generated for a step target.</p>
 
 <p>For a while my bot could only make moves that consisted of a single
-step, but it quickly became the limiting factor and strength testing
-of modifications was impossible.</p>
+step, but it quickly became the limiting factor, and strength
+testing of modifications was impossible.</p>
 
 <p>Combining steps into moves turned out to be easy. Not all
 combinations are valid, but the number of combinations can be huge.
-To limit the number of moves generated we first evaluate steps one
+To limit the number of moves generated, we first evaluate steps one
 by one, sort them in descending order of evaluation score and try to
 combine them starting from the first.</p>
 
 <h2>Full Attack</h2>
 
-<p>Normally futures are calculated taking into account fleets already
+<p>Normally, futures are calculated taking into account fleets already
 in flight in the observable game state that the engine sends. Back
 when I was still walking up and down instead of typing away
-furiously it occurred to me that if for all planets of player 1
+furiously, it occurred to me that if for all planets of player 1,
 player 2 cannot take that planet if both players sent all ships to
-it then player 2 cannot take any planet of player 1 even if he's
+it, then player 2 cannot take any planet of player 1 even if he's
 allowed to attack multiple planets in any pattern. Clearly, this
 breaks down at the edges (simultaneous moves), but it was a useful
 idea that gave birth to the <code>FULL-ATTACK-FUTURE</code> class. The
@@ -171,45 +171,44 @@ that can be sent away on that turn from the defending army without:</p>
 </ul>
 
 <p>As soon as the full attack based position evaluation function was
-operational results started to come. But there was a crucial
+operational, results started to come. But there was a crucial
 off-by-one bug.</p>
 
 <h2>Constraining Futures</h2>
 
-<p>That bug was in the scoring of futures. For player 1 it used the
+<p>That bug was in the scoring of futures. For player 1, it used the
 possible arrivals (number of ships) one turn before those of player
-2. I made several attempts at fixing it but each time playing
+2. I made several attempts at fixing it, but each time playing
 strength dropped like a stone.</p>
 
 <p>Finally, a principled solution emerged: when computing the full
-attack future from the surpluses constrain the turn of departures.
+attack future from the surpluses, constrain the turn of departures.
 That is, to roughly duplicate the effect of the off-by-one bug, one
 could say that surpluses of player 1 may not leave the planet before
-turn 1
-(turn 0 is current game state) (see <code>MIN-TURN-TO-DEPART-1</code> in the
-code). This provided a knob to play with. Using 1 for
+turn 1 (turn 0 is current game state) (see <code>MIN-TURN-TO-DEPART-1</code> in
+the code). This provided a knob to play with. Using 1 for
 <code>MIN-TURN-TO-DEPART-1</code> made the bot actually prefer moves to just
 sitting idly, using 2 made it prefer moves that needed no
 reinforcement on the next turn.</p>
 
-<p>I believe this is the most important one character change I made so
-this gets its own paragraph. Using 2 as <code>MIN-TURN-TO-DEPART-1</code> makes
-the bot tend towards situations in which the rock-paper-scissors
-nature of the game is suppressed. The same bot with 1 beats the one
-with 2, but as was often the case, on tcp the results were just the
-opposite. By a big margin. TCP is dhartmei's unofficial server is
-where most useful testing took place.</p>
+<p>I believe the following is the most important one character change I
+made, so this gets its own paragraph. Using 2 as
+<code>MIN-TURN-TO-DEPART-1</code> makes the bot tend towards situations in
+which the rock-paper-scissors nature of the game is suppressed. The
+same bot with 1 beats the one with 2, but as was often the case, on
+TCP the results were just the opposite. By a big margin. TCP is
+dhartmei's unofficial server, where most useful testing took place.</p>
 
-<p>Constraints were added for arrivals too (see <code>MIN-TURN-TO-ARRIVE</code>)
-that eased scoring planets that started out neutral but were
+<p>Constraints were added for arrivals too (see <code>MIN-TURN-TO-ARRIVE</code>),
+which eased scoring planets that started out neutral but were
 non-neutral at the horizon by making the evaluation function sniping
 aware.</p>
 
-<p>Sniping is when one player takes a neutral losing ships in the
-process and the opponent comes – typically on the next turn – and
+<p>Sniping is when one player takes a neutral, losing ships in the
+process, and the opponent comes – typically on the next turn – and
 takes it away. <a href="https://web.archive.org/web/20101213023101/http://www.ai-contest.com/visualizer.php?game_id=9347535" >This
-game</a> is a
-nice illustration of the concept.</p>
+game</a>
+is a nice illustration of the concept.</p>
 
 <h2>Redistribution</h2>
 
@@ -219,7 +218,7 @@ in his post-mortem, redistribution of ships is a major factor. The
 machinery described so far lends itself to easy implementation of
 redistribution.</p>
 
-<p>When scoring a full attack future the scoring function gives a very
+<p>When scoring a full attack future, the scoring function gives a very
 slight positional penalty every simulated turn for every enemy ship.
 This has the effect of preferring positions where the friendly ships
 are near the enemy, and positions of influence with multiple enemy
@@ -252,79 +251,79 @@ planet can be possibly lost in a full attack future.</p>
 <h2>Nash Equilibrium</h2>
 
 <p>There are – especially at the very beginning of games – situations
-were there is no best move, it all depends on what the opponent
+where there is no best move, it all depends on what the opponent
 plays on the same turn.</p>
 
 <p>If one has a number of candidate moves for each player and the score
-for any pair of them the optimal mixed strategy can be computed
-that's just a probability assigned to each move.</p>
+for any pair of them, the optimal mixed strategy can be computed,
+which is just a probability assigned to each move.</p>
 
-<p>I tried and tried to make it work but it kept making mistakes that
-looked easy to exploit and although it did beat 1 ply minimax about
+<p>I tried and tried to make it work, but it kept making mistakes that
+looked easy to exploit, and although it did beat 1 ply minimax about
 2 to 1 it was too slow to experiment with.</p>
 
 <h2>Alpha–Beta</h2>
 
-<p>Yes, for the longest time it was a 1 ply search. Opponent moves were
-never considered and position evaluation was good enough to pick up
-the slack.</p>
+<p>Yes, for the longest time, it was a 1-ply search. Opponent moves
+were never considered, and position evaluation was good enough to
+pick up the slack.</p>
 
 <p>However, there was a problem. The evaluation function did not score
 planets that were neutral at the end of the normal future, because
 doing so made the bot just sit there doing nothing, getting high
-scores for all planets that could be conquered but when it tried to
+scores for all planets that could be conquered, but when it tried to
 make a move it realized that it can conquer only one. Such is the
 nature of full attack based evaluation function, it was designed
 with complete disregard for neutrals.</p>
 
-<p>The late change to the map generator increased the number of planets
+<p>A late change to the map generator increased the number of planets
 at an equal distance from the players and emphasized the
 rock-paper-scissors nature further. Some bots didn't like it, some
-took this turn of events better. Before this point my bot had a very
-comfortable lead on the official leaderboard which was greatly
+took this turn of events better. Before this point, my bot had a
+very comfortable lead on the official leaderboard, which was greatly
 reduced.</p>
 
-<p>With the failure of the nash experiment I resurrected previously
+<p>With the failure of the Nash experiment, I resurrected previously
 unsuccessful alpha–beta code in hopes of that considering opponent
-moves will show the bot the error of it ways and force it to not
+moves will show the bot the error of it ways, and force it to not
 leave valuable central planets uncovered.</p>
 
 <p>It's tricky to make alpha–beta work with moves that consist of
 orders at arbitrary times in the future. I had all kinds of funky,
 correct and less correct ways to execute orders at different depths
-of the search. In the end what prevailed was the most simple-minded,
-incorrect variant that simply scheduled all orders that made up the
-move (yes, even the future ones) and fixed things up when computing
-the future so that ship counts stayed non-negative and sending enemy
-ships did not occur.</p>
+of the search. In the end, what prevailed was the most
+simple-minded, incorrect variant that simply scheduled all orders
+that made up the move (yes, even the future ones) and fixed things
+up when computing the future so that ship counts stayed non-negative
+and sending enemy ships did not occur.</p>
 
-<p>In local tests against older versions of my bot a two ply alpha–beta
-bot showed very promising results but when it was tested on tcp it
-fell way short of the expectations and performed worse than the one
-ply bot. It seemed particularly vulnerable to a number of bots. In
-retrospect, I think this was because their move generator was
-sufficiently different that my bot was just blind to a good range of
-real possibilities.</p>
+<p>In local tests against older versions of my bot, a two ply
+alpha–beta bot showed very promising results, but when it was tested
+on tcp it fell way short of the expectations and performed worse
+than the one ply bot. It seemed particularly vulnerable to a number
+of bots. In retrospect, I think this was because their move
+generator was sufficiently different that my bot was just blind to a
+good range of real possibilities.</p>
 
 <p>In the end, I settled for using four ply alpha–beta for the opening
 phase (until the third planet was captured). This allowed the bot to
 outwait opponents when needed and win most openings. After the final
-submission I realized that maybe I was trying to push things the
+submission, I realized that maybe I was trying to push things the
 wrong way and even three planets is too many. With six hours left
-until the deadline in a test against binaries of a few fellow
+until the deadline, in a test against binaries of a few fellow
 competitors the two planet limit seemed to perform markedly better,
 but it was too late to properly test it against a bigger population.</p>
 
 <h2>The End</h2>
 
-<p>Like many fellow contestants I am very happy that the contest is
+<p>Like many fellow contestants, I am very happy that the contest is
 over and I got my life back. I'm sure that many families breathed a
-collective sigh of relief. But if I were to continue I'd try
-rethinking the move generator, because that may just be the thing
-that holds alpha–beta back and maybe nash too.</p>
+collective sigh of relief. But if I were to continue, I'd try
+rethinking the move generator because that may just be the thing
+that holds alpha–beta back and maybe Nash too.</p>
 
 <p>Dissapointingly, there was no learning, adapting to opponent
-behaviour, etc. All that made it to the todo list, but had to take
+behaviour, etc. All that made it to the todo list but had to take
 second seat to more pressing concerns.</p>
 
 <p>Ah, yes. One more thing. Bocsimackó (pronounced roughly as

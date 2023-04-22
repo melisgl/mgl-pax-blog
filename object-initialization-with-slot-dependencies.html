@@ -68,7 +68,7 @@ slots <code>A</code> and <code>B</code>:</p>
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'super</span>)</span></span>)</span> =&gt; 1
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'super <span class="keyword">:b</span> 1</span>)</span></span>)</span> =&gt; 2</span></code></pre>
 
-<p>You may even subclass it, add an initform and it still works:</p>
+<p>You may even subclass it, add an initform, and it still works:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> sub <span class="paren2">(<span class="code">super</span>)</span>
  <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">b <span class="keyword">:initform</span> 1</span>)</span></span>)</span></span>)</span>
@@ -97,8 +97,8 @@ the after method of the superclass, hence the value of <code>A</code> is wrong:<
 
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'sub2 <span class="keyword">:c</span> 1</span>)</span></span>)</span> =&gt; 3</span></code></pre>
 
-<p>However, it doesn't work if <code>SUB2</code> or a subclass of it has an initform
-on <code>C</code>:</p>
+<p>However, it doesn't work if <code>SUB2</code> or a subclass of it has an
+initform on <code>C</code>:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> sub3 <span class="paren2">(<span class="code">sub2</span>)</span>
  <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">c <span class="keyword">:initform</span> 2 <span class="keyword">:initarg</span> <span class="keyword">:c</span></span>)</span></span>)</span></span>)</span>
@@ -106,10 +106,11 @@ on <code>C</code>:</p>
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'sub3</span>)</span></span>)</span> =&gt; error</span></code></pre>
 
 <p>because <code>C</code> is not passed as an initarg for which the before method
-is unprepared. At this point one can say screw initforms and use
-<code>DEFAULT-INITARGS</code>, but that's fragile in face of unsuspecting
+is unprepared. At this point, one can say screw initforms and use
+<code>DEFAULT-INITARGS</code>, but that's fragile in the face of unsuspecting
 subclasses breaking this convention. Alternatively, one can
-initialize <code>C</code> early which handles both initforms and initargs fine:</p>
+initialize <code>C</code> early, which handles both initforms and initargs
+fine:</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> sub4 <span class="paren2">(<span class="code">super</span>)</span>
  <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">c <span class="keyword">:initform</span> 2 <span class="keyword">:initarg</span> <span class="keyword">:c</span></span>)</span></span>)</span></span>)</span>
@@ -122,15 +123,15 @@ initialize <code>C</code> early which handles both initforms and initargs fine:<
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'sub4</span>)</span></span>)</span> =&gt; 4
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'sub4 <span class="keyword">:c</span> 10</span>)</span></span>)</span> =&gt; 12</span></code></pre>
 
-<p>That's the best I could come up with, educate me if you have a
+<p>That's the best I could come up with; educate me if you have a
 better idea.</p>
 
 <p><strong>UPDATE</strong>: Lazy initialiation has been suggested as an alternative.
 However, a naive implementation based on <code>SLOT-BOUND-P</code> is bound to
 run into problems when the lazily computed slot has an initform in a
-superclass. With <code>SLOT-VALUE-USING-CLASS</code> one can probably mimick
-most of the semantics here in a very clean manner but to avoid
-recomputing the value on every access additional bookkeeping is
+superclass. With <code>SLOT-VALUE-USING-CLASS</code>, one can probably mimick
+most of the semantics here in a very clean manner, but to avoid
+recomputing the value on every access, additional bookkeeping is
 needed, again, due to initforms.</p>
 
 <p><img src="blog-files/die.png" alt="end-of-post" /></p>

@@ -55,10 +55,10 @@
 
 <div class='br'></div>
 
-<p>My carefully updated list of files to backup had
-grown so long that it made me worry about losing something important
-and the backup didn't fit on a single dvd so I invested in a WD
-passport and created an encrypted file system on it:</p>
+<p>My carefully updated list of files to back up had grown so long that
+it made me worry about losing something important, and the backup
+didn't fit on a single DVD, so I invested in a WD Passport and
+created an encrypted file system on it:</p>
 
 <pre><code>modprobe cryptoloop
 modprobe aes
@@ -67,7 +67,7 @@ mke2fs /dev/loop0
 tune2fs -i 0 -c 0 -j /dev/loop0
 </code></pre>
 
-<p>Then taking a backup is an rsync and some setup-up/tear-down code
+<p>Then, taking a backup is an <code>rsync</code> and some setup-up/tear-down code
 away:</p>
 
 <pre><code> #!/bin/sh
@@ -104,8 +104,8 @@ away:</p>
 </code></pre>
 
 <p>Note, that it's this easy since I basically have only one file
-system (only /boot is separate) and that resides on LVM which makes it
-trivial to snapshot.</p>
+system (only <code>/boot</code> is separate), and that resides on LVM, which
+makes it trivial to snapshot.</p>
 
 <p><img src="blog-files/die.png" alt="end-of-post" /></p>
   </div>
