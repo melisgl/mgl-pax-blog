@@ -271,15 +271,15 @@
   irritated by Wordpress), I bit the bullet and installed
   [blorg](https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html) – a very low
   overhead emacs blog engine – on top of
-  [org-mode](http://orgmode.org/) that I happen to use as an
-  organizer. Blorg basically converts an org mode buffer to html files
+  [org-mode](http://orgmode.org/), that I happen to use as an
+  organizer. Blorg basically converts an org mode buffer to html files,
   so it is completely static: send me [email](mailto:mega@retes.hu) if
   you have comments, I have no desire to maintain a more complex
   solution with comment filtering.
 
   Small fixes had to be made for blorg to be able to deal with
-  org-mode 5.17a and I only had time to bring it to some basic level
-  of functionality. That said here is the
+  org-mode 5.17a, and I only had time to bring it to some basic level
+  of functionality. That said, here is the
   [blorg-init.el](blog-files/blorg-init.el) file I'm using right now.
 
   **2020-05-03**: Since then, this blog has been moved to
@@ -304,10 +304,10 @@
 (defpost @backup (:title "Backup"
                   :tags (@tech)
                   :date "2008-03-28")
-  "My carefully updated list of files to backup had
-  grown so long that it made me worry about losing something important
-  and the backup didn't fit on a single dvd so I invested in a WD
-  passport and created an encrypted file system on it:
+  "My carefully updated list of files to back up had grown so long that
+  it made me worry about losing something important, and the backup
+  didn't fit on a single DVD, so I invested in a WD Passport and
+  created an encrypted file system on it:
 
       modprobe cryptoloop
       modprobe aes
@@ -315,7 +315,7 @@
       mke2fs /dev/loop0
       tune2fs -i 0 -c 0 -j /dev/loop0"
 
-  "Then taking a backup is an rsync and some setup-up/tear-down code
+  "Then, taking a backup is an `rsync` and some setup-up/tear-down code
   away:
 
        #!/bin/sh
@@ -351,39 +351,38 @@
        cleanup
 
   Note, that it's this easy since I basically have only one file
-  system (only /boot is separate) and that resides on LVM which makes it
-  trivial to snapshot.")
+  system (only `/boot` is separate), and that resides on LVM, which
+  makes it trivial to snapshot.")
 
 (defpost @2008-computer-games-olympiad (:title "2008 Computer Games Olympiad"
                                         :tags (@ai)
                                         :date "2008-12-11")
-  "It seems that the competition has not been standing
-  still (as opposed to [Six](hex/six/index.html)) and this year
-  marks the end of the golden era. Congratulations to both Wolve and
-  MoHex who beat Six! Thanks to Ryan Hayward who, again, kindly
-  registered Six for the
+  "It seems that the competition has not been standing still (as opposed
+  to [Six](hex/six/index.html)), and this year marks the end of the
+  golden era. Congratulations to both Wolve and MoHex, who beat Six!
+  Thanks to Ryan Hayward, who again, kindly registered Six for the
   [Olympiad](https://web.archive.org/web/20090121203454/http://www.grappa.univ-lille3.fr/icga/tournament.php?id=185).
 
   About the future, I don't really plan on resuming work on
   [Hex](http://en.wikipedia.org/wiki/Hex_(board_game)) in general (and
-  Six in particular), although losing does irk me a bit.")
+  Six in particular) although losing does irk me a bit.")
 
 (defpost @space-cadet (:title "Space Cadet"
                        :tags (@lisp @tech)
                        :date "2008-12-15")
-  "Emacs users often report problems caused by strain
-  on the pinky finger that's used to press the _Control_ key. The
-  standard answer to that is to map _Caps Lock_ to _Control_. I
-  believe that there is a better way:
+  "Emacs users often report problems caused by strain on the pinky
+  finger, which is used to press the _Control_ key. The standard
+  answer to that is to map _Caps Lock_ to _Control_. I believe that
+  there is a better way:
 
   ![](blog-files/symbolics-keyboard.jpg)
 
   Note the placement of modifiers: _Control_, _Meta_, _Super_, _Hyper_
   on both sides of Space in this order, with _Control_ being the
   closest to it. Touch typers especially find having two of each key
-  absolutely essential and the symmetric placement appeals to me."
+  absolutely essential, and the symmetric placement appeals to me."
 
-  "Also note the _Rubout_ key, next to _A_ where _Caps Lock_ resides on
+  "Also note the _Rubout_ key next to _A_ where _Caps Lock_ resides on
   modern keyboards. _Rubout_ is like _Backspace_ and is better to have
   on the home row than the most useless and annoying key in history.
 
@@ -392,21 +391,21 @@
   could be _Caps Lock_ as well: I don't use it either way. If you have
   a narrow _Space_ key, you can place your thumbs on the two _Control_
   keys while the fingers rest on 'asdf' and 'jkl;'. Always press
-  modifiers with the alternate hand. C-a is right thumb + left pinky,
-  C-M-p is left-thumb + left-ring + right pinky. For C-M-P, add left
-  pinky for _Shift_.
+  modifiers with the alternate hand. `C-a` is right thumb + left
+  pinky, `C-M-p` is left-thumb + left-ring + right pinky. For `C-M-P`,
+  add left pinky for _Shift_.
 
-  Another thing I find tremendously useful is getting used to C-n,
-  C-p, C-b, C-f instead of reaching for the arrow keys as often as a
-  VI user for _Escape_.
+  Another thing I find tremendously useful is getting used to `C-n`,
+  `C-p`, `C-b`, `C-f` instead of reaching for the arrow keys as often
+  as a vi user for _Escape_.
 
-  Well, that's the narration. To implement the above, I guess one can
-  create an xkb description but last time I tried documentation was
-  extremely unhelpful so I ended up hacking together an xmodmap file.
+  Well, that's the narration. To implement the above, I guess, one can
+  create an xkb description, but last time I tried, documentation was
+  extremely unhelpful, so I ended up hacking together an xmodmap file.
   I'm told this file is not really portable, so it's [provided
-  here](blog-files/lisp-machine-pc105-us.xmodmap) only for illustration and
-  it's easy enough to do the same yourself for your keyboard. To
-  switch to the new layout do:
+  here](blog-files/lisp-machine-pc105-us.xmodmap) only for
+  illustration, and it's easy enough to do the same yourself for your
+  keyboard. To switch to the new layout do:
 
       xmodmap lisp-machine-pc105-us.xmodmap
       xset r 66
@@ -424,13 +423,14 @@
                                  :tags (@lisp)
                                  :date "2009-03-09")
   "There has always been a lot of wiggling of SBCL
-  [boinkmarks](https://web.archive.org/web/20080513083106/http://sbcl.boinkor.net/bench/) results. It's easy to
-  chalk this up to system load, but the same can be observed running
-  the [cl-bench](http://common-lisp.net/project/cl-bench/) benchmarks
+  [boinkmarks](https://web.archive.org/web/20080513083106/http://sbcl.boinkor.net/bench/)
+  results. It's easy to chalk this up to system load, but the same can
+  be observed running the
+  [cl-bench](http://common-lisp.net/project/cl-bench/) benchmarks
   under more ideal circumstances. Part of the reason is the
   insufficient number of iterations of some tests: measurement
-  accuracy is really bad when the run time is below 0.2s and it is
-  abysmal when there is other activity on the system which is easy to
+  accuracy is really bad when the run time is below 0.2s, and it is
+  abysmal when there is other activity on the system, which is easy to
   tell even in retrospect by comparing the real and user time columns.
   ""
   But that's not the end of the story, take for instance
@@ -438,9 +438,9 @@
   experiences changes up to 7% caused by seemingly unrelated changes.
   People have fingered alignment as a likely cause.
 
-  Recently this issue has become more pressing as I've been trying to
+  Recently, this issue has become more pressing as I've been trying to
   reduce the overhead of x86's pseudo atomic. Unfortunately, the
-  effect is smallish which makes measurement difficult so I tried
+  effect is smallish, which makes measurement difficult, so I tried
   aligning loops on 16 byte boundaries. This being on x86, that meant
   aligning code similarly first (it's 8 byte aligned currently).
 
@@ -473,9 +473,9 @@
   [P4](blog-files/align-code/p4-results), a [Core
   Duo](blog-files/align-code/core-duo-results) system.
 
-  There may be a slight improvement but its magnitude is pretty small
-  compared to the noise. I'm declaring the evidence inconclusive and let
-  the commit stay out of the official SBCL tree.")
+  There may be a slight improvement, but its magnitude is pretty small
+  compared to the noise. I'm declaring the evidence inconclusive and
+  let the commit stay out of the official SBCL tree.")
 
 (defpost @x86oid-pseudo-atomic (:title "X86oid Pseudo Atomic"
                                 :tags (@lisp)
@@ -484,7 +484,7 @@
   [chit](http://www.method-combination.net/blog/archives/2008/02/01/vm-tricks.html)
   - [chat](http://www.pvk.ca/Blog/LowLevel/VM_tricks_safepoints.html)
   about allocation and interrupts have had me looking at ways to speed
-  up pseudo atomic in SBCL.
+  up pseudo-atomic in SBCL.
 
   ```
    (defmacro pseudo-atomic (&rest forms)
@@ -502,14 +502,14 @@
          (emit-label ,label))))
   ```
   """"""
-  ## EBP
+  ## `EBP`
 
-  My first idea was that ORing is unnecessary since with the slew of
-  interrupt fixes going into 1.0.26 every interrupt deferred by pseudo
-  atomic is handled as soon as we leave the pa section. Hence, a
-  simple MOV would suffice. Or if we wanted to be fancy we could rely
-  on the fact that within SBCL `EBP` is always even (that leaves the
-  first bit of `PSEUDO-ATOMIC-BITS` for the interrupted flag) and
+  My first idea was that ORing is unnecessary since, with the slew of
+  interrupt fixes going into 1.0.26, every interrupt deferred by
+  pseudo-atomic is handled as soon as we leave the pa section. Hence,
+  a simple `MOV` would suffice. Or, if we wanted to be fancy, we could
+  rely on the fact that within SBCL `EBP` is always even (that leaves
+  the first bit of `PSEUDO-ATOMIC-BITS` for the interrupted flag) and
   non-zero:
 
   ```
@@ -529,14 +529,13 @@
   ```
 
   This shaves a few bytes off the code and is an overall 0.5% win in
-  cl-bench (see "pseudo-atomic.ebp" in the
-  [results](blog-files/pseduo-atomic/p4-results.txt)).
+  cl-bench (see "pseudo-atomic.ebp" in the [results](blog-files/pseduo-atomic/p4-results.txt)).
 
-  ## mprotect
+  ## `mprotect`
 
-  But if the page of `PSEDUO-ATOMIC-BITS` is made write protected
-  when an interrupt is deferred, then the pending interrupt can be run
-  from the sigsegv handler where we land coming out of pseudo atomic:
+  But if the page of `PSEDUO-ATOMIC-BITS` is made write protected when
+  an interrupt is deferred, then the pending interrupt can be run from
+  the SIGSEGV handler, where we land coming out of pseudo-atomic:
 
   ```
   (defmacro pseudo-atomic (&rest forms)
@@ -548,8 +547,9 @@
             ebp-tn :fs)))
   ```
 
-  And four more bytes are saved, making the total overhead of pseudo
-  atomic 12 bytes (+2 bytes with threads). This version is labelled
+  And four more bytes are saved, making the total overhead of
+  pseudo-atomic 12 bytes (+2 bytes with threads). This version is
+  labelled
   "pseudo-atomic.mprotect.ebp" and is not faster than the previous one.
   Somewhat suprisingly, this variant ("pseudo-atomic.mprotect.mov") is
   just as fast:
@@ -566,8 +566,7 @@
 
   ## Direction Flag
 
-  Another idea is to hijack the direction
-  flag:
+  Another idea is to hijack the direction flag:
 
   ```
   (defmacro pseudo-atomic (&rest forms)
@@ -579,15 +578,15 @@
             0 :fs)))
   ```
 
-  where the mov instruction sigsegvs if pseudo atomic was interrupted.
-  This is little more than a quick hack to gauge expected performance,
-  because SBCL itself uses the direction flag in a number of places,
-  to say nothing about alien land. However, there seems to be no
-  reason to pursue this further as its performance disappoints.
+  where the `MOV` instruction sigsegvs if pseudo-atomic was
+  interrupted. This is little more than a quick hack to gauge expected
+  performance because SBCL itself uses the direction flag in a number
+  of places, to say nothing about alien land. However, there seems to
+  be no reason to pursue this further as its performance disappoints.
 
-  All in all, I have expected more gains, in particular I'm
-  disappointed by the performance of the mprotect trick. Still 0.5% is
-  okay for such a small change. Code is available
+  All in all, I have expected more gains. In particular, I'm
+  disappointed by the performance of the `mprotect` trick. Still 0.5%
+  is okay for such a small change. Code is available
   [here](http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=pseudo-atomic) (from
   the pseudo-atomic branch of my git tree).""")
 
@@ -600,12 +599,11 @@
   caller. The new frame starts with a pointer to the old frame, then
   comes the return address, an empty slot and the stack arguments (the
   first three are passed in registers on x86).
-  ""
-  Software archeology aside, the only reason I can see for this scheme
+  "" Software archeology aside, the only reason I can see for this scheme
   is that stack arguments are easier to manipulate when they are after
-  the return address, old frame pointer part, in particular tail calls
-  with any number of arguments can be made without re`[`al`]`locating
-  the frame.
+  the return address, old frame pointer part. In particular, tail
+  calls with any number of arguments can be made without
+  re\\[al\\]locating the frame.
 
   The first step towards callee allocated frames is swapping the
   return address and old fp slots. Asking an innocent question on
@@ -622,23 +620,25 @@
   debugging tools recognize all frames.
 
   Callee allocated frames are still quite some way off, but while in
-  the area I sought a bit of optimization fun. With the return address
-  before old fp it is now possible to return with the idiomatic `POP
-  EBP, RET` sequence. Well, most of the time: when more multiple
-  values are returned than there are argument passing registers they
-  are placed on the stack exactly where the arguments normally reside.
-  Obviously, in this case the frame cannot be dismantled.
+  the area, I sought a bit of optimization fun. With the return
+  address before old fp, it is now possible to return with the
+  idiomatic `POP EBP, RET` sequence. Well, most of the time: when more
+  multiple values are returned than there are argument passing
+  registers, they are placed on the stack exactly where the arguments
+  normally reside. Obviously, in this case the frame cannot be
+  dismantled.
 
   Strangely, turning these `JMP`s into `RET`s in multiple value return
   has no measureable effect on performance even though it results in
-  more paired `CALL`s. What about the other way, addressing unpaired
+  more paired `CALL`s. What about the other way: addressing unpaired
   `RET`s by turning `JMP`s to local call'ed functions into `CALL`s? I
   tried a quick hack that `CALL`s a small trampoline that sets up the
   return pc slot and `JMP`s to the target. With this small change a
   number of benchmarks in the cl-bench suit benefit greatly: `TAK`,
   `FIB`, `FIB-RATIO`, `DERIV`, `DIV2-TEST-2`, `TRAVERSE`, `TRIANGLE`
   gain about 25-50%. See results for
-  [P4](blog-files/x86oid-calling-convention-p4-results.txt) and [64 bit
+  [P4](blog-files/x86oid-calling-convention-p4-results.txt) and [64
+  bit
   Opteron](blog-files/x86oid-calling-convention-64bit-opteron-results.txt).
 
   This should take off another chunk off the proposed and already
@@ -657,13 +657,13 @@
   libsvm](http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html),
   I [added](http://github.com/melisgl/cl-libsvm) support for
   calculating distance of a point from the separating hyperplane to
-  [cl-libsvm](http://cliki.net/cl-libsvm). In binary classification
-  there is only one SVM involved and one hyperplane. However, with N
-  class problems there is a binary SVM for each of the $N(N-1)/2$
-  pairs of classes and there are as many separating hyperplanes,
+  [cl-libsvm](http://cliki.net/cl-libsvm). In binary classification,
+  there is only one SVM involved and one hyperplane. However, with
+  N-class problems, there is a binary SVM for each of the $N(N-1)/2$
+  pairs of classes, and there are as many separating hyperplanes,
   something the linked python code fails to take into account. As per
-  the libsvm
-  [FAQ](http://www.csie.ntu.edu.tw/~cjlin/libsvm/faq.html#f4151), the
+  the [libsvm
+  FAQ](http://www.csie.ntu.edu.tw/~cjlin/libsvm/faq.html#f4151), the
   absolute value of the decision value (see `PREDICT-VALUES`, wrapper
   of `svm_predict_values`) divided by the norm of the normal vector of
   the separating hyperplane is the distance. `PREDICT-VALUES` and
@@ -675,10 +675,10 @@
 (defpost @global-compiler-policy (:title "Global Compiler Policy"
                                   :tags (@lisp)
                                   :date "2009-06-30")
-  "A quick note to library implementors: The effects
-  of `DECLAIM` are [permitted to
+  "A quick note to library implementors: the effects of `DECLAIM` are
+  [permitted to
   persist](http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm)
-  after the containing file is compiled and it is unkind to mutate
+  after the containing file is compiled, and it is unkind to mutate
   your user's settings. Personally, I find `DECLAIM` too blunt and
   prefer to add declarations within functions, even going as far as
   introducing `LOCALLY` subforms just to have a place on which to hang
@@ -687,20 +687,20 @@
 
   ```
   (eval-when (:compile-toplevel)
-   (declaim (optimize speed)))
+    (declaim (optimize speed)))
   ```
   ""
   to ensure that the body is evaluated in [the dynamic execution
   context of the
-  compiler](http://www.lispworks.com/documentation/HyperSpec/Body/03_bca.htm)
+  compiler](http://www.lispworks.com/documentation/HyperSpec/Body/03_bca.htm),
   which makes a practical difference on Allegro. It goes without
   saying that you don't want `(PROCLAIM '(OPTIMIZE ...))` in a
   library, either.
 
-  **UPDATE**: The above works, but is not mandated by the spec because the
-  dynamic execution context of the compiler does not include the global
-  declarations. Alas, by the spec the portable solution is to wrap the
-  whole file in:
+  **UPDATE**: The above works but is not mandated by the spec because
+  the dynamic execution context of the compiler does not include the
+  global declarations. Alas, by the spec the portable solution is to
+  wrap the whole file in:
 
   ```
   (locally (declare (optimize speed)) ...)
@@ -725,7 +725,7 @@
   (a (make-instance 'super :b 1)) => 2
   ```
   ""
-  You may even subclass it, add an initform and it still works:
+  You may even subclass it, add an initform, and it still works:
 
   ```
   (defclass sub (super)
@@ -762,8 +762,8 @@
   (a (make-instance 'sub2 :c 1)) => 3
   ```
 
-  However, it doesn't work if `SUB2` or a subclass of it has an initform
-  on `C`:
+  However, it doesn't work if `SUB2` or a subclass of it has an
+  initform on `C`:
 
   ```
   (defclass sub3 (sub2)
@@ -773,10 +773,11 @@
   ```
 
   because `C` is not passed as an initarg for which the before method
-  is unprepared. At this point one can say screw initforms and use
-  `DEFAULT-INITARGS`, but that's fragile in face of unsuspecting
+  is unprepared. At this point, one can say screw initforms and use
+  `DEFAULT-INITARGS`, but that's fragile in the face of unsuspecting
   subclasses breaking this convention. Alternatively, one can
-  initialize `C` early which handles both initforms and initargs fine:
+  initialize `C` early, which handles both initforms and initargs
+  fine:
 
   ```
   (defclass sub4 (super)
@@ -791,25 +792,24 @@
   (a (make-instance 'sub4 :c 10)) => 12
   ```
 
-  That's the best I could come up with, educate me if you have a
+  That's the best I could come up with; educate me if you have a
   better idea.
 
   **UPDATE**: Lazy initialiation has been suggested as an alternative.
   However, a naive implementation based on `SLOT-BOUND-P` is bound to
   run into problems when the lazily computed slot has an initform in a
-  superclass. With `SLOT-VALUE-USING-CLASS` one can probably mimick
-  most of the semantics here in a very clean manner but to avoid
-  recomputing the value on every access additional bookkeeping is
+  superclass. With `SLOT-VALUE-USING-CLASS`, one can probably mimick
+  most of the semantics here in a very clean manner, but to avoid
+  recomputing the value on every access, additional bookkeeping is
   needed, again, due to initforms.")
 
 (defpost @upgrade-woes (:title "Upgrade Woes"
                         :tags (@tech)
                         :date "2009-11-06")
-  "Debian Lenny was released back in February. My
-  conservativeness only lasts about half a year so I decided to
-  upgrade to Squeeze aka Debian testing. The upgrade itself went
-  rather smoothly with a few notable exceptions. With KDE 4.3 I should
-  have waited more.
+  "Debian Lenny was released back in February. My conservativeness only
+  lasts about half a year, so I decided to upgrade to Squeeze aka
+  Debian testing. The upgrade itself went rather smoothly with a few
+  notable exceptions. With KDE 4.3, I should have waited more.
   ""
   Notes:
 
@@ -821,7 +821,7 @@
   - The kmail message list is a train wreck by default with its
     multi-line entries. It took me ages to find how to turn it to back
     to classic theme (hint: it's not under `Configure KMail'), at the
-    cost of no threading messages.
+    cost of not threading messages.
 
   - I had customized kwin to use the Super key for all shortcuts. KDE3
     decided to call it the Win key, but hey, I understand that's where
@@ -831,39 +831,39 @@
     and `(setq org-use-fast-todo-selection 'prefix)` it does so again.
 
   - The X.org upgrade broke my fragile xmodmap config so I wrote an
-    [xkb based config](blog-files/lisp-xkb.tar.gz)
-    instead. It's activated with:
+    [xkb based config](blog-files/lisp-xkb.tar.gz) instead. It's
+    activated with:
 
           xkbcomp -I$HOME/.xkb ~/.xkb/keymap/us_lisp $DISPLAY
 
-  - Upgrading to emacs23 was painless, except for blorg that needed a
-    couple of hacks to get this entry out the door.")
+  - Upgrading to Emacs23 was painless, except for blorg, which needed
+    a couple of hacks to get this entry out the door.")
 
 (defpost @ultimate-fallout-2-ironman-munchkin
     (:title "Ultimate Fallout 2 Ironman Munchkin"
      :tags (@personal)
      :date "2009-11-21")
-  "I'm cleaning up the accumulated junk and found this
-  guide that was written eons ago.
+  "I'm cleaning up the accumulated junk and found this guide that was
+  written eons ago.
 
-  This build is focused on survival. No save/loading, killap's final
-  patch, hard combat and game difficulty. As it is not only ironman
-  but a munchkin too it must be a sniper since HtH is a bit
-  underpowered.
+  This build is focused on survival. No save/loading, [killap's final
+  patch](http://www.killap.net/), hard combat and game difficulty. As
+  it is not only ironman but a munchkin too, it must be a Sniper since
+  HtH is a bit underpowered.
   ""
   See [this](http://faqs.ign.com/articles/777/777224p1.html) for good
   insights into ironman survival. The two most important pieces of
-  advice it has is: sneak and outdoorsman. Sneak does not work as well
-  for me as advertised, that is I cannot end combat in all cases if
+  advice it has is: Sneak and Outdoorsman. Sneak does not work as well
+  for me as advertised, that is, I cannot end combat in all cases if
   the critter I shot did not die. Still, Sneak is still incredibly
   useful so it's tagged and raised to 150% in a hurry. Small Guns and
   Speech get tagged as well.
 
   A true munchkin takes Gifted and Small frame. We rely on Sneak to
-  keep us from being shot at so Fast Shot would not help too much. The
-  main emphasis is on survival so endurance and agility must be 10.
-  NPCs cannot be kept alive and are not needed for most of the game,
-  plus conversation is ruled by Speech thus charisma is 2. Good
+  keep us from being shot at, so Fast Shot would not help too much.
+  The main emphasis is on survival so Endurance and Agility must be
+  10. NPCs cannot be kept alive and are not needed for most of the
+  game, plus conversation is ruled by Speech thus Charisma is 2. Good
   minmaxing so far. Luck is 8 and will be 10 after the Zeta scan. This
   is important for Sniper.
 
@@ -872,27 +872,27 @@
   However putting the same point into Intelligence gives 66 skill
   points to spend by level 34. Small Guns shall go beyond 200% where
   the cost of 1% is 3 skill points (it's tagged). 66 points is worth
-  22% to shooting accuracy. Clearly Intelligence seems the better
+  22% to shooting accuracy. Clearly, Intelligence seems the better
   place.
 
   However, Perception also determines sequence. Contrary to what [the
-  link above](http://faqs.ign.com/articles/777/777224p1.html) says I
+  link above](http://faqs.ign.com/articles/777/777224p1.html) says, I
   find it important that enemies don't get a double turn. If combat
-  could be ended dependably it would be less of an issue, alas, it
+  could be ended dependably, it would be less of an issue, alas, it
   cannot. This makes Perception pretty important. With the +1
-  obtainable by surgery 9 is a good number.
+  obtainable by surgery, 9 is a good number.
 
-  Strength allows you to carry more which is a small convenience at
-  the beginning. Even with Small Frame one can get away with a
-  strength as low as 2 especially with Sulik in the beginning and
-  later the car. The other, main use of strength is to avoid the 20%
+  Strength allows you to carry more, which is a small convenience at
+  the beginning. Even with Small Frame, one can get away with a
+  strength as low as 2, especially with Sulik in the beginning and
+  later the car. The other, main use of Strength is to avoid the 20%
   shooting accuracy penalty per point under the weapon's minimum
-  strength. At high levels you'll have 6-7 in strength with armor and
-  surgery. At lower levels the penalty can be (over)compensated for by
-  pouring skill points into Small Guns (after reading the books of
+  strength. At high levels, you'll have 6-7 in Strength with armor and
+  surgery. At lower levels, the penalty can be (over)compensated for
+  by pouring skill points into Small Guns (after reading the books of
   course).
 
-  What about strength vs perception? Strength is useful in the early
+  What about Strength vs Perception? Strength is useful in the early
   game before Small Guns is high enough. Perception remains useful at
   the end due to its accuracy bonus. Intelligence below 6 is out of
   question unless you aim for maximum efficiency at level 50.
@@ -921,11 +921,11 @@
       
       0 Outdoorsman: ~23% -> 110% (books, +20% motion sensor)
 
-  That's 411 skill points. Required points in intelligence:
+  That's 411 skill points. Required points in Intelligence:
   499/33levels/2 = 6.22. A few more points can be saved by reading
   Guns and Bullets magazines (max 18). Still, there is a point in
-  improving Small Guns over 220%, take the gauss rifle or pistol for
-  example which has a 20% bonus on accuracy and try to shoot someone
+  improving Small Guns over 220%, take the Gauss Rifle or Pistol for
+  example, which has a 20% bonus on accuracy and try to shoot someone
   in the eye in Advanced Power Armor II from 30 hexes:
 
       (SmallGuns = 220) + (8 * (Perception = 10)) + (Weapon bonus = 20)
@@ -944,13 +944,13 @@
       Living Anatomy
 
   This character is hard to play in the early game. Small Guns takes
-  some time to develop and the -40% penalty for most guns due to the
-  low strength is a killer until power armor and/or the Red Ryder.
+  some time to develop, and the -40% penalty for most guns due to the
+  low strength is a killer until Power Armor and/or the Red Ryder.
 
-  To make the early game less of a struggle Small Guns shall be raised
-  pretty early, after Sneak reaches 100% and you have read a few Guns
-  and Bullets from Klamath, the Den, Redding and Modoc. Grab as many
-  Scout handbooks as you can.
+  To make the early game less of a struggle, Small Guns shall be
+  raised pretty early, after Sneak reaches 100% and you have read a
+  few Guns and Bullets from Klamath, the Den, Redding and Modoc. Grab
+  as many Scout Handbooks as you can.
 
   Useful links:
 
@@ -967,12 +967,7 @@
 (defpost @introduction-to-mgl-part-1 (:title "Introduction to MGL (part 1)"
                                       :tags (@ai @lisp)
                                       :date "2009-12-02")
-  """**UPDATE**: This post out of date with regards to current MGL.
-  Please refer to the
-  [documentation](http://melisgl.github.io/mgl-pax-world/mgl-manual.html)
-  instead.
-
-  This is going to be the start of an introduction series on the
+  """This is going to be the start of an introduction series on the
   [MGL](http://cliki.net/MGL) Common Lisp machine learning library.
   MGL focuses mainly on [Boltzmann
   Machines](http://en.wikipedia.org/wiki/Boltzmann_machine) (BMs). In
@@ -1010,7 +1005,7 @@
   only recently that training of deep architectures [started to become
   feasible](http://www.cs.toronto.edu/~hinton/science.pdf).
 
-  Of deep learners, boltzmann machines deserve special attention as
+  Of deep learners, Boltzmann machines deserve special attention as
   they have demonstrated very good performance on a number of problems
   and have a biologically plausible, local,
   [Hebbian](http://en.wikipedia.org/wiki/Hebbian_theory) learning
@@ -1130,25 +1125,25 @@
   returns.
 
   The network multiplies `INPUT` taken as a 1x3 matrix by `WEIGHTS`
-  (initialized randomly) and the training aims to minimize the squared
-  error as calculated by the lump named `SSE`. Note that `SET-INPUT`
-  clamps both the real input and the target.
+  (initialized randomly), and the training aims to minimize the
+  squared error as calculated by the lump named `SSE`. Note that
+  `SET-INPUT` clamps both the real input and the target.
 
   We instantiate `BP-TRAINER` that inherits from
   `SEGMENTED-GD-TRAINER`. Now, `SEGMENTED-GD-TRAINER` itself does
   precious little: it only delegates training to child trainers where
   each child is supposed to be a `GD-TRAINER` (with all the usual
   knobs such as learning rate, momentum, weight decay, batch size,
-  etc). The mapping from segments
-  (bpn lumps here) of the learner to gd trainers is provided by the
-  function in the `:SEGMENTER` argument. By using `REPEATEDLY`, for now,
-  we simply create a distinct child trainer for each weight lump as it
-  makes a function that on each call evaluates the form in its body (as
-  opposed to `CONSTANTLY`).
+  etc). The mapping from segments (bpn lumps here) of the learner to
+  gd trainers is provided by the function in the `:SEGMENTER`
+  argument. By using `REPEATEDLY`, for now, we simply create a
+  distinct child trainer for each weight lump as it makes a function
+  that on each call evaluates the form in its body (as opposed to
+  `CONSTANTLY`).
 
-  That's it without any bells and whistles. If all goes well `WEIGHTS`
-  should be trained to be equal to `*MATRIX*`.
-  Inspect `(nodes (find-lump 'weights *bpn*))` to verify.
+  That's it without any bells and whistles. If all goes well,
+  `WEIGHTS` should be trained to be equal to `*MATRIX*`.
+  Inspect `(NODES (FIND-LUMP 'WEIGHTS *BPN*))` to verify.
 
   Impatience satisfied, examine the `BUILD-BPN` form in detail. The
   `:CLASS` argument is obvious, and the rest of the forms are a
@@ -1168,8 +1163,8 @@
   ```
 
   One can replicate this with `MAKE-INSTANCE` and `ADD-LUMP`, but it's
-  more work. For ease of comprehension the network can be visualized
-  by loading the `mgl-visuals` system and:
+  more work. For ease of comprehension, the network can be visualized
+  by loading the `MGL-VISUALS` system and:
 
   ```
   (let ((dgraph (cl-dot:generate-graph-from-roots *bpn* (lumps *bpn*))))
@@ -1209,18 +1204,17 @@
   layer, 10 neurons again in the reconstruction part and 3 in the
   output layer. However, randomly initialized backpropagation fails at
   learning this; a better solution is to first learn a Deep Belief
-  Network,
-  "unroll" it to a backprop network and use backprop to fine tune the
-  weights.
+  Network, \"unroll\" it to a backprop network and use backprop to
+  fine tune the weights.
 
   A [Deep Belief
   Network](http://www.scholarpedia.org/article/Boltzmann_machine#Learning_deep_networks_by_composing_restricted_Boltzmann_machines)
   is just a stack of [Restricted Boltzmann
   Machines](http://www.scholarpedia.org/article/Boltzmann_machine#Restricted_Boltzmann_machines).
   An RBM is a BM restricted to be a two layer network with no
-  intralayer connections. The "lower" layer is called visible and
-  the "higher" layer is called hidden layer, because from the point of
-  view of a single RBM it is the visible layer that's connected to –
+  intralayer connections. The lower layer is called the visible, and
+  the higher layer is called hidden layer because from the point of
+  view of a single RBM, it is the visible layer that's connected to –
   maybe indirectly – to external stimuli. In the upward pass of a DBN,
   where the low level representations are subsequently transformed
   into higher level ones by the constituent RBMs, the values of the
@@ -1282,7 +1276,7 @@
   ```
 
   Note that by default, each pair of visible and hidden chunks is
-  connected by a `FULL-CLOUD` that's the simplest kind of connection.
+  connected by a `FULL-CLOUD`, the simplest kind of connection.
   `INPUTS` via the cloud between `INPUTS` and `F1` contributes to the
   activation of `F1`: in the upward pass the values found in `INPUTS`
   are simply multiplied by a matrix of weights and the result is added
@@ -1293,8 +1287,7 @@
   of nodes and defines a probability distribution over them based on
   the activations. For instance, `SIGMOID-CHUNK` is a binary chunk:
   each node can take the value of 0 or 1 and the probability of 1 is
-  `1 /
-  (1 + e^(-x))` where `X` is the activation of the node.
+  `1 / (1 + e^(-x))` where `X` is the activation of the node.
 
   Nodes in a `GAUSSIAN-CHUNK` are normally distributed with means equal
   to their activations and unit variance. In `SPIRAL-DBN` above the
@@ -1399,9 +1392,9 @@
     (:title "Deep Boltzmann Machine on MNIST"
      :tags (@ai @lisp)
      :date "2010-01-18")
-  """Let me interrupt the flow of the
-  [MGL](http://cliki.net/MGL) introduction series with a short report
-  on what I learnt playing with [Deep Boltzmann
+  """Let me interrupt the flow of the [MGL](http://cliki.net/MGL)
+  introduction series with a short report on what I learnt playing
+  with [Deep Boltzmann
   Machines](http://www.cs.toronto.edu/~hinton/absps/dbm.pdf). First,
   lots of thanks to Ruslan Salakhutdinov, then at [University of
   Toronto](http://www.cs.toronto.edu/~rsalakhu/) now at
@@ -1415,13 +1408,13 @@
   permutation invariant task (no prior knowledge of geometry). A
   previous approach trained a
   [DBN](http://www.scholarpedia.org/article/Deep_belief_networks) in
-  an unsupervised manner and fine tuned it with backpropagation. Now
+  an unsupervised manner and fine tuned it with backpropagation. Now,
   there is one more step: turning the DBN into a DBM (Deep Boltzmann
   Machine) and tune it further before handing the baton over to
   backprop. While in a DBN the constituent RBMs are trained one by
   one, the DBM is trained as a whole which, in theory, allows it to
-  reconcile bottom-up and top-down signals, i.e. what you see and what
-  you think.
+  reconcile bottom-up and top-down signals, i.e. what it sees and what
+  it thinks.
 
   ![](blog-files/mnist-2-dbm.png)
 
@@ -1436,7 +1429,7 @@
 
   - The second RBM gets the the correct label as input which
     conveniently allows tracking classification accuracy during its
-    training, but also – more importantly – forces the top-level
+    training but also – more importantly – forces the top-level
     features to be somewhat geared towards reconstruction of labels
     and thus classification.
 
@@ -1461,11 +1454,11 @@
   training).
 
   The second variant performs DBM training but without any sparsity
-  term and gets 99.07%. The third is using a sparsity penalty ("normal
-  sparsity" in the diagram) for units in opposing opposing layers on
-  at the same time and nets 99.08%. The fourth is just a translation
-  of the sparsity penalty from the Matlab code. This one is
-  named "cheating sparsity" because it – perhaps in an effort to
+  term and gets 99.07%. The third is using a sparsity
+  penalty (\"normal sparsity\" in the diagram) for units in opposing
+  layers on at the same time and nets 99.08%. The fourth is just a
+  translation of the sparsity penalty from the Matlab code. This one
+  is named "cheating sparsity" because it – perhaps in an effort to
   reduce variance of the gradient – changes weights according to the
   average activation levels of units connected by them. Anyway, this
   last one reaches 99.09%.
@@ -1483,8 +1476,8 @@
     of 100) was tested for a hundred epochs after the usual 500. There
     was no improvement.
 
-  - In the BPN label weights and biases were initialized from the DBM.
-    This initial advantage diminishes gradually and by the end of
+  - In the BPN, label weights and biases were initialized from the
+    DBM. This initial advantage diminishes gradually and by the end of
     training there is nothing (+0.01%) between the initialized and
     uninitialized variants. Nevertheless, all results and diagrams are
     from runs with label weights initialized.
@@ -1505,12 +1498,12 @@
     (:title "Micmac Initial Release"
      :tags (@ai @lisp)
      :date "2010-02-06")
-  "From a failed experiment today I salvaged
+  "From a failed experiment today, I salvaged
   [Micmac](http://cliki.net/micmac), a statistical library wannabe,
-  that for now only has Metropolis-Hastings MCMC and Metropolis
-  Coupled MCMC implemented. The code doesn't weigh much but I think it
-  gets the API right. In other news [MGL](http://cliki.net/MGL) v0.0.6
-  was released.")
+  which for now only has Metropolis-Hastings MCMC and Metropolis
+  Coupled MCMC implemented. The code doesn't weigh much, but I think
+  it gets the API right. In other news [MGL](http://cliki.net/MGL)
+  v0.0.6 was released.")
 
 (defpost @upgrade-woes-2 (:title "Upgrade Woes 2"
                           :tags (@tech)
@@ -1528,16 +1521,16 @@
 (defpost @google-ai-challenge-2010 (:title "Google AI Challenge 2010"
                                     :tags (@ai @lisp)
                                     :date "2010-02-11")
-  "Tron is a fun little game of boxing out the
-  opponent and avoiding crashing into a wall first. The rules are
-  simple so the barrier to entry into [this
-  contest](https://web.archive.org/web/20100207135122/http://csclub.uwaterloo.ca/contest/index.php) is low.
-  Thanks to [aeruiqe](http://www.aerique.net/) who made to Common Lisp
-  starter pack it took as little as a few hours to get a very bare
-  bones algorithm going. It's doing surprisingly well: it is number 23
-  on the
-  [leaderboard](https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php) at
-  the moment with 43 wins, 2 losses and 9 draws.")
+  "Tron is a fun little game of boxing out the opponent and avoiding
+  crashing into a wall first. The rules are simple, so the barrier to
+  entry into [this
+  contest](https://web.archive.org/web/20100207135122/http://csclub.uwaterloo.ca/contest/index.php)
+  is low. Thanks to [aeruiqe](http://www.aerique.net/), who made the
+  Common Lisp starter pack, it took as little as a few hours to get a
+  very bare-bones algorithm going. It's doing surprisingly well: it is
+  number 23 on the
+  [leaderboard](https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php)
+  at the moment with 43 wins, 2 losses and 9 draws.")
 
 (defpost @google-ai-challenge-2010-results
     (:title "Google AI Challenge 2010 Results"
@@ -1552,12 +1545,12 @@
   Monte Carlo tree search family. It has been rather successful in
   Go (and in Hex too, taking the crown from
   [Six](hex/six/index.html)). So with UCT in mind, to serve as a
-  baseline I implemented a quick
+  baseline, I implemented a quick
   [minimax](http://en.wikipedia.org/wiki/Minimax) with a simple
   territory based evaluation function ... that everyone else in the
   competition seems to have invented independently. Trouble was
   looming because it was doing too well: with looking ahead only one
-  move (not even considering moves of the opponent) it played a very
+  move (not even considering moves of the opponent), it played a very
   nice positional game. That was the first sign that constructing a
   good evaluation function may not be as hard for Tron as it is for
   Go.
@@ -1569,7 +1562,7 @@
   that UCT is not suited to the game of Tron. A totally random default
   policy kept cornering itself in a big area faster than another
   player could hit the wall at the end of a long dead end. That was
-  worrisome, but fixable. After days of experimentation I finally gave
+  worrisome but fixable. After days of experimentation I finally gave
   up on it deciding that Tron is simply too tactical – or not fuzzy
   enough, if you prefer – for MC to work really well.
 
@@ -1588,21 +1581,22 @@
   principal variation, and [iterative
   deepening](http://en.wikipedia.org/wiki/Iterative_deepening). It
   seemed to do really well on the then current maps whose size was
-  severely reduced to 15x15 to control the load on the servers. Then I
-  had an idea to explore how the parities of squares in an area affect
-  the longest path possible which was quickly pointed out to me over
-  lunch by a friend. And those pesky competitors have also found and
-  advertised it in the contest forum. Bah.
+  severely reduced to 15x15 to control the load on the servers. Then,
+  I had an idea to explore how the parities of squares in an area
+  affect the longest path possible, which was quickly pointed out to
+  me over lunch by a friend. And those pesky competitors have also
+  found and advertised it in the contest forum. Bah.
 
-  There were only two days left at this point and I had to pull an all
-  nighter to finally implement a graph partitioning idea of mine that
-  unsurprisingly someone has described pretty closely in the forum. At
-  that point, I finally had the tool to improve the evaluation
-  function but neither much time or energy remained and I settled for
-  using it only in the end game where the players are separated.
+  There were only two days left at this point, and I had to pull an
+  all nighter to finally implement a graph partitioning idea of mine
+  that unsurprisingly someone has described pretty closely in the
+  forum. At that point, I finally had the tool to improve the
+  evaluation function but neither much time or energy remained and I
+  settled for using it only in the end game when the players are
+  separated.
 
   The code itself is as ugly as exploratory code can be, but in the
-  coming days I'll factor the UCT and the alpha–beta code out.")
+  coming days, I'll factor the UCT and the alpha–beta code out.")
 
 (defpost @uct (:title "UCT"
                :tags (@ai @lisp)
@@ -1616,10 +1610,11 @@
     (:title "Planet Wars Common Lisp Starter Package"
      :tags (@ai @lisp)
      :date "2010-09-19")
-  "The [Google AI Challenge](https://web.archive.org/web/20100926070007/http://ai-contest.com/) is
-  back with a new game that's supposed to be much harder than Tron was
-  this spring. The branching factor of the game tree is enormous which
-  only means that straight minimax is out of question this time
+  "The [Google AI
+  Challenge](https://web.archive.org/web/20100926070007/http://ai-contest.com/)
+  is back with a new game that's supposed to be much harder than Tron
+  was this spring. The branching factor of the game tree is enormous,
+  which only means that straight minimax is out of question this time
   around. Whether some cleverness can bring the game within reach of
   conventional algorithms remains to be seen.
   ""
@@ -1649,7 +1644,7 @@
   There is still a
   [problem](https://web.archive.org/web/20110709095120/http://ai-contest.com/forum/viewtopic.php?f=18&t=421&start=40)
   causing all lisp submissions to die on the first turn no matter
-  which starter package one uses which will hopefully be resolved.
+  which starter package one uses, which will hopefully be resolved.
   Until then there is dhartmei's excellent [unofficial tcp
   server](https://web.archive.org/web/20100926103520/http://ai-contest.com/forum/viewtopic.php?f=18&t=424).")
 
@@ -1661,10 +1656,9 @@
   v0.6 ([git](http://quotenil.com/git/?p=planet-wars.git;a=summary),
   [latest
   tarball](http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz)).
-  The way the server compiles lisp submissions was fixed and this
+  The way the server compiles lisp submissions was fixed, and this
   revealed a problem where MyBot.lisp redirected `*STANDARD-OUTPUT*`
-  to `*ERROR-OUTPUT*` causing the server to think compilation
-  failed.")
+  to `*ERROR-OUTPUT*` causing the server to think compilation failed.")
 
 (defpost @important-update-to-the-planet-wars-starter-package
     (:title "Important Update to the Planet Wars Starter Package"
@@ -1675,18 +1669,18 @@
   trying to port Python code that's pretty foreign in the sense of
   being far from the way I'd write it.
   """"""
-  More importantly, I found out the hard way that sbcl 1.0.11 that's
+  More importantly, I found out the hard way that sbcl 1.0.11, that's
   [still](http://code.google.com/p/ai-contest/issues/detail?id=183) on
-  the official servers has a number of bugs in its timer
+  the official servers, has a number of bugs in its timer
   implementation making `WITH-TIMEOUT` unreliable. Also, it can
-  trigger timeouts recursively eventually exceeding the maximum
+  trigger timeouts recursively, eventually exceeding the maximum
   interrupt nesting depth. Well, "found out" is not the right way to
   put it as we did fix most of these bugs ages ago.
 
   In the new starter package (v0.8 in
   [git](http://quotenil.com/git/?p=planet-wars.git;a=summary), [latest
   tarball](http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz)),
-  you'll find timer.lisp that's simply backported almost verbatim from
+  you'll find a timer.lisp that's simply backported almost verbatim from
   sbcl 1.0.41 to sbcl 1.0.11. Seems to work for me, but I also had to
   lower the timeout to 0.8 from 0.98 because the main server is
   extremely slow.
@@ -1694,12 +1688,12 @@
   The rate at which games are played on the servers is so low that it
   takes several days to ascend through the leaderboard. Nevertheless,
   an old buggy version is sitting on the
-  [top](https://web.archive.org/web/20101025070429/http://ai-contest.com/rankings.php) right now. Mind you,
-  introducing bugs is a great way exlopore the solution space and it's
-  quite worrisome just how adept I am at this poor man's evolutionary
-  programming. Most of them have since been fixed while the ideas they
-  brought to light remain, making the current version much
-  stronger.""")
+  [top](https://web.archive.org/web/20101025070429/http://ai-contest.com/rankings.php)
+  right now. Mind you, introducing bugs is a great way exlopore the
+  solution space, and it's quite worrisome just how adept I am at this
+  poor man's evolutionary programming. Most of them have since been
+  fixed while the ideas they brought to light remain, making the
+  current version much stronger.""")
 
 (defpost @planet-wars-post-mortem (:title "Planet Wars Post-Mortem"
                                    :tags (@ai @lisp)
@@ -1749,18 +1743,18 @@
   it.
 
   Another problem was the practically unlimited branching factor.
-  Without a similarity function over moves it was hopeless to explore
+  Without a similarity function over moves, it was hopeless to explore
   a meaningful portion of the game tree.
 
   ## Move Generation
 
   At this point I had to start getting my hands dirty. The first thing
-  was to implement simulating the future (see `FUTURE` class) that was
-  trivial except I screwed battle resolution up and for the longest
-  time it was holding results back. Think of a future as a vector of
-  owner and ship count over turns.
+  was to implement simulating the future (see `FUTURE` class), which
+  was trivial except I screwed battle resolution up and for the
+  longest time it was holding results back. Think of a future as a
+  vector of owner and ship count over turns.
 
-  By watching some games it became apparent that multi-planet,
+  By watching some games, it became apparent that multi-planet,
   synchronized attacks are the way to go. The implementation operates
   on step targets, steps and moves.
 
@@ -1777,27 +1771,27 @@
   invasion forces for attack.
 
   For each step target a number of steps can be found that produce the
-  desired arrivals. In the current implementation there is a single
+  desired arrivals. In the current implementation, there is a single
   step generated for a step target.
 
   For a while my bot could only make moves that consisted of a single
-  step, but it quickly became the limiting factor and strength testing
-  of modifications was impossible.
+  step, but it quickly became the limiting factor, and strength
+  testing of modifications was impossible.
 
   Combining steps into moves turned out to be easy. Not all
   combinations are valid, but the number of combinations can be huge.
-  To limit the number of moves generated we first evaluate steps one
+  To limit the number of moves generated, we first evaluate steps one
   by one, sort them in descending order of evaluation score and try to
   combine them starting from the first.
 
   ## Full Attack
 
-  Normally futures are calculated taking into account fleets already
+  Normally, futures are calculated taking into account fleets already
   in flight in the observable game state that the engine sends. Back
   when I was still walking up and down instead of typing away
-  furiously it occurred to me that if for all planets of player 1
+  furiously, it occurred to me that if for all planets of player 1,
   player 2 cannot take that planet if both players sent all ships to
-  it then player 2 cannot take any planet of player 1 even if he's
+  it, then player 2 cannot take any planet of player 1 even if he's
   allowed to attack multiple planets in any pattern. Clearly, this
   breaks down at the edges (simultaneous moves), but it was a useful
   idea that gave birth to the `FULL-ATTACK-FUTURE` class. The
@@ -1820,45 +1814,44 @@
   - bringing an imminent loss closer in time
 
   As soon as the full attack based position evaluation function was
-  operational results started to come. But there was a crucial
+  operational, results started to come. But there was a crucial
   off-by-one bug.
 
   ## Constraining Futures
 
-  That bug was in the scoring of futures. For player 1 it used the
+  That bug was in the scoring of futures. For player 1, it used the
   possible arrivals (number of ships) one turn before those of player
-  2. I made several attempts at fixing it but each time playing
+  2. I made several attempts at fixing it, but each time playing
   strength dropped like a stone.
 
   Finally, a principled solution emerged: when computing the full
-  attack future from the surpluses constrain the turn of departures.
+  attack future from the surpluses, constrain the turn of departures.
   That is, to roughly duplicate the effect of the off-by-one bug, one
   could say that surpluses of player 1 may not leave the planet before
-  turn 1
-  (turn 0 is current game state) (see `MIN-TURN-TO-DEPART-1` in the
-  code). This provided a knob to play with. Using 1 for
+  turn 1 (turn 0 is current game state) (see `MIN-TURN-TO-DEPART-1` in
+  the code). This provided a knob to play with. Using 1 for
   `MIN-TURN-TO-DEPART-1` made the bot actually prefer moves to just
   sitting idly, using 2 made it prefer moves that needed no
   reinforcement on the next turn.
 
-  I believe this is the most important one character change I made so
-  this gets its own paragraph. Using 2 as `MIN-TURN-TO-DEPART-1` makes
-  the bot tend towards situations in which the rock-paper-scissors
-  nature of the game is suppressed. The same bot with 1 beats the one
-  with 2, but as was often the case, on tcp the results were just the
-  opposite. By a big margin. TCP is dhartmei's unofficial server is
-  where most useful testing took place.
+  I believe the following is the most important one character change I
+  made, so this gets its own paragraph. Using 2 as
+  `MIN-TURN-TO-DEPART-1` makes the bot tend towards situations in
+  which the rock-paper-scissors nature of the game is suppressed. The
+  same bot with 1 beats the one with 2, but as was often the case, on
+  TCP the results were just the opposite. By a big margin. TCP is
+  dhartmei's unofficial server, where most useful testing took place.
 
-  Constraints were added for arrivals too (see `MIN-TURN-TO-ARRIVE`)
-  that eased scoring planets that started out neutral but were
+  Constraints were added for arrivals too (see `MIN-TURN-TO-ARRIVE`),
+  which eased scoring planets that started out neutral but were
   non-neutral at the horizon by making the evaluation function sniping
   aware.
 
-  Sniping is when one player takes a neutral losing ships in the
-  process and the opponent comes – typically on the next turn – and
+  Sniping is when one player takes a neutral, losing ships in the
+  process, and the opponent comes – typically on the next turn – and
   takes it away. [This
-  game](https://web.archive.org/web/20101213023101/http://www.ai-contest.com/visualizer.php?game_id=9347535) is a
-  nice illustration of the concept.
+  game](https://web.archive.org/web/20101213023101/http://www.ai-contest.com/visualizer.php?game_id=9347535)
+  is a nice illustration of the concept.
 
   ## Redistribution
 
@@ -1868,7 +1861,7 @@
   machinery described so far lends itself to easy implementation of
   redistribution.
 
-  When scoring a full attack future the scoring function gives a very
+  When scoring a full attack future, the scoring function gives a very
   slight positional penalty every simulated turn for every enemy ship.
   This has the effect of preferring positions where the friendly ships
   are near the enemy, and positions of influence with multiple enemy
@@ -1901,79 +1894,79 @@
   ## Nash Equilibrium
 
   There are – especially at the very beginning of games – situations
-  were there is no best move, it all depends on what the opponent
+  where there is no best move, it all depends on what the opponent
   plays on the same turn.
 
   If one has a number of candidate moves for each player and the score
-  for any pair of them the optimal mixed strategy can be computed
-  that's just a probability assigned to each move.
+  for any pair of them, the optimal mixed strategy can be computed,
+  which is just a probability assigned to each move.
 
-  I tried and tried to make it work but it kept making mistakes that
-  looked easy to exploit and although it did beat 1 ply minimax about
+  I tried and tried to make it work, but it kept making mistakes that
+  looked easy to exploit, and although it did beat 1 ply minimax about
   2 to 1 it was too slow to experiment with.
 
   ## Alpha–Beta
 
-  Yes, for the longest time it was a 1 ply search. Opponent moves were
-  never considered and position evaluation was good enough to pick up
-  the slack.
+  Yes, for the longest time, it was a 1-ply search. Opponent moves
+  were never considered, and position evaluation was good enough to
+  pick up the slack.
 
   However, there was a problem. The evaluation function did not score
   planets that were neutral at the end of the normal future, because
   doing so made the bot just sit there doing nothing, getting high
-  scores for all planets that could be conquered but when it tried to
+  scores for all planets that could be conquered, but when it tried to
   make a move it realized that it can conquer only one. Such is the
   nature of full attack based evaluation function, it was designed
   with complete disregard for neutrals.
 
-  The late change to the map generator increased the number of planets
+  A late change to the map generator increased the number of planets
   at an equal distance from the players and emphasized the
   rock-paper-scissors nature further. Some bots didn't like it, some
-  took this turn of events better. Before this point my bot had a very
-  comfortable lead on the official leaderboard which was greatly
+  took this turn of events better. Before this point, my bot had a
+  very comfortable lead on the official leaderboard, which was greatly
   reduced.
 
-  With the failure of the nash experiment I resurrected previously
+  With the failure of the Nash experiment, I resurrected previously
   unsuccessful alpha–beta code in hopes of that considering opponent
-  moves will show the bot the error of it ways and force it to not
+  moves will show the bot the error of it ways, and force it to not
   leave valuable central planets uncovered.
 
   It's tricky to make alpha–beta work with moves that consist of
   orders at arbitrary times in the future. I had all kinds of funky,
   correct and less correct ways to execute orders at different depths
-  of the search. In the end what prevailed was the most simple-minded,
-  incorrect variant that simply scheduled all orders that made up the
-  move (yes, even the future ones) and fixed things up when computing
-  the future so that ship counts stayed non-negative and sending enemy
-  ships did not occur.
+  of the search. In the end, what prevailed was the most
+  simple-minded, incorrect variant that simply scheduled all orders
+  that made up the move (yes, even the future ones) and fixed things
+  up when computing the future so that ship counts stayed non-negative
+  and sending enemy ships did not occur.
 
-  In local tests against older versions of my bot a two ply alpha–beta
-  bot showed very promising results but when it was tested on tcp it
-  fell way short of the expectations and performed worse than the one
-  ply bot. It seemed particularly vulnerable to a number of bots. In
-  retrospect, I think this was because their move generator was
-  sufficiently different that my bot was just blind to a good range of
-  real possibilities.
+  In local tests against older versions of my bot, a two ply
+  alpha–beta bot showed very promising results, but when it was tested
+  on tcp it fell way short of the expectations and performed worse
+  than the one ply bot. It seemed particularly vulnerable to a number
+  of bots. In retrospect, I think this was because their move
+  generator was sufficiently different that my bot was just blind to a
+  good range of real possibilities.
 
   In the end, I settled for using four ply alpha–beta for the opening
   phase (until the third planet was captured). This allowed the bot to
   outwait opponents when needed and win most openings. After the final
-  submission I realized that maybe I was trying to push things the
+  submission, I realized that maybe I was trying to push things the
   wrong way and even three planets is too many. With six hours left
-  until the deadline in a test against binaries of a few fellow
+  until the deadline, in a test against binaries of a few fellow
   competitors the two planet limit seemed to perform markedly better,
   but it was too late to properly test it against a bigger population.
 
   ## The End
 
-  Like many fellow contestants I am very happy that the contest is
+  Like many fellow contestants, I am very happy that the contest is
   over and I got my life back. I'm sure that many families breathed a
-  collective sigh of relief. But if I were to continue I'd try
-  rethinking the move generator, because that may just be the thing
-  that holds alpha–beta back and maybe nash too.
+  collective sigh of relief. But if I were to continue, I'd try
+  rethinking the move generator because that may just be the thing
+  that holds alpha–beta back and maybe Nash too.
 
   Dissapointingly, there was no learning, adapting to opponent
-  behaviour, etc. All that made it to the todo list, but had to take
+  behaviour, etc. All that made it to the todo list but had to take
   second seat to more pressing concerns.
 
   Ah, yes. One more thing. Bocsimackó (pronounced roughly as
@@ -1985,11 +1978,11 @@
 (defpost @nash-equilibrium-finder (:title "Nash Equilibrium Finder"
                                    :tags (@ai @lisp)
                                    :date "2010-12-26")
-  "While I seem to be unable to make my mind up on a
-  good interface to alpha–beta with a few bells and whistles, I added
-  a Nash equilibrium finder to [Micmac](http://cliki.net/micmac)
-  that's becoming less statistics oriented. This was one of the many
-  things in Planet Wars that never really made it.
+  "While I seem to be unable to make my mind up on a good interface to
+  alpha–beta with a few bells and whistles, I added a Nash equilibrium
+  finder to [Micmac](http://cliki.net/micmac), which is becoming less
+  statistics oriented. This was one of the many things in Planet Wars
+  that never really made it.
   ""
   Let's consider the [Matching
   pennies](http://en.wikipedia.org/wiki/Matching_pennies) game. The
@@ -2011,7 +2004,7 @@
   -0.01
   ```
 
-  That is both players should choose heads 50% of the time and the
+  That is, both players should choose heads 50% of the time and the
   expected payoff (for the row player) is zero of which -0.01 is an
   approximation:
 
@@ -2026,25 +2019,25 @@
 (defpost @alpha-beta (:title "Alpha–Beta"
                       :tags (@ai @lisp)
                       :date "2010-12-27")
-  """It hasn't been a year yet since I first promised that alpha–beta
-  snippet, and it is already added to micmac in all its [35 line
+  """It hasn't even been a year yet since I first promised that alpha–beta
+  snippet, and it is already added to Micmac in all its [35 line
   glory](https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/src/graph-search.lisp#L9).
   The good thing about not rushing it out the door is that it saw a
   bit more use. For a tutorialish tic-tac-toe example see
   [test/test-game-theory.lisp.](https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp).
 
   The logging code in the example produces
-  [output](blog-files/alpha-beta-log.png "output"), which is suitable for cut and pasting into an org-mode buffer and
-  exploring it by `TAB`bing into subtrees to answer the perpetual
-  'What the hell was it thinking?!' question.""")
+  [output](blog-files/alpha-beta-log.png), which is suitable for cut
+  and pasting into an org-mode buffer and exploring it by `TAB`bing
+  into subtrees to answer the perpetual 'What the hell was it
+  thinking?!' question.""")
 
 (defpost @offlineimap-with-encrypted-authinfo
     (:title "OfflineIMAP with Encrypted Authinfo"
      :tags (@tech)
      :date "2011-02-26")
-  """I've moved to an
-  [OfflineIMAP](http://offlineimap.org/) + [Gnus](http://gnus.org/)
-  setup that's outlined at
+  """I've moved to an [OfflineIMAP](http://offlineimap.org/) +
+  [Gnus](http://gnus.org/) setup that's outlined at
   [various](http://sachachua.com/blog/2008/05/geek-how-to-use-offlineimap-and-the-dovecot-mail-server-to-read-your-gmail-in-emacs-efficiently/)
   [places](http://nakkaya.com/2010/04/10/using-offlineimap-with-gnus/).
   Gnus can be configured to use
@@ -2053,10 +2046,10 @@
   [encrypted
   authinfo](http://www.emacswiki.org/emacs-en/GnusEncryptedAuthInfo)
   files as well. Offlineimap, on the other hand, offers no such
-  support and passwords to the local and remote imap accounts are
+  support, and passwords to the local and remote imap accounts are
   normally stored in clear text in `.offlineimaprc`.
   """"""
-  For the local account this can be overcome by not running a dovecot
+  For the local account, this can be overcome by not running a Dovecot
   server but making offlineimap spawn a dovecot process when needed:
 
       [Repository LocalGmail]
@@ -2064,9 +2057,9 @@
       preauthtunnel = /usr/sbin/dovecot -c ~/.dovecot.conf --exec-mail imap
 
   For the remote connection, ideally it should read the password from
-  `.authinfo.gpg` that Gnus may also read if it's configured to access
-  the remote server directly. This can be pulled off rather easily.
-  Add an /include/ to `.offlineimaprc` like this:
+  `.authinfo.gpg`, that Gnus may also read if it's configured to
+  access the remote server directly. This can be pulled off rather
+  easily. Add an /include/ to `.offlineimaprc` like this:
 
       [general]
       pythonfile = ~/.offlineimap.py
@@ -2103,11 +2096,11 @@
   long to [find out](http://hup.hu/node/98496) that this particular
   router drops "unused" tcp connections after five minutes.
   """"""
-  The fix recommended in the linked topic (namely sysctl'ing
-  `net.ipv4.tcp_keepalive_time` & co) was mostly effective but I had
+  The fix recommended in the linked topic (namely `sysctl`ing
+  `net.ipv4.tcp_keepalive_time` & co) was mostly effective, but I had
   to lower the keepalive to one minute to keep my ssh sessions alive.
   The trouble was that OfflineIMAP connections to the U.S. west coast
-  still hanged intermittently while it could work with Gmail just
+  still hanged intermittently, while it could work with Gmail just
   fine.
 
   In the end, OfflineIMAP had to be
@@ -2118,8 +2111,9 @@
                 net.ipv4.tcp_keepalive_intvl=15 \
                 net.ipv4.tcp_keepalive_probes=20
 
-  Oh, and always include `socktimeout` in the offlineimap config, that's
-  more important than keepalive unless you never have network issues.""")
+  Oh, and always include `socktimeout` in the OfflineIMAP config.
+  That's more important than keepalive unless you never have network
+  issues.""")
 
 (defpost @dirty-36cube (:title "Dirty 36Cube"
                         :tags (@personal)
@@ -2131,12 +2125,12 @@
 
   **\\WARNING**, spoilers ahead.
   ""
-  Got this crafty beast for Christmas and since then I lost many
+  Got this crafty beast for Christmas, and since then I lost many
   evenings to juggling permutations of towers over the inverted city
   skyline. The game can be solved two ways:
 
-  1. by being cleverer than Euler
-  2. by being streetwise
+  1. by being cleverer than Euler,
+  2. by being streetwise.
 
   We are going to concentrate on option 2 for the obvious reason. It
   can be argued that to solve this puzzle one must be an
@@ -2178,8 +2172,7 @@
   Since the data set – especially the class distribution – evolves
   with time, one crucial step is to compensate for the effect of time.
   This is partly accomplished by adding date and time information as
-  features, and also by training the ensemble on the most recent
-  posts.
+  features and also by training the ensemble on the most recent posts.
 
   Since the constituent models are trained on a subset of the
   stratified sample provided by the organizer, the ensemble does two
@@ -2193,9 +2186,10 @@
   ## Features Selection / Extraction
 
   Didn't spend too much time on handcrafting the features, just played
-  around with adding features one-by-one, keeping an eye on how the loss
-  changes. These are all binary features. For example (:post-hour 8) is
-  8 o'clock UTC, (:post-hour 11) is 11 o'clock UTC.
+  around with adding features one-by-one, keeping an eye on how the
+  loss changes. These are all binary features. For
+  example, `(:post-hour 8)` is 8 o'clock UTC, `(:post-hour 11)` is 11
+  o'clock UTC.
 
   Depending on the model the top-N features are used, where the features
   are sorted by log likelihood ratio. There were a number of other
@@ -2207,11 +2201,12 @@
 
   ### Deep Belief Networks
 
-  A DBN is made of boltzmann machines stacked on top of each other,
+  A DBN is made of Boltzmann machines stacked on top of each other,
   trained in a layerwise manner. After training (called 'pretraining')
-  the DBN is 'unrolled' into a backpropagation network that's trained
-  (called 'fine-tuning') to minimize the cross entropy between the
-  predicted and actual class probabilities.
+  the DBN is 'unrolled' into a backpropagation network. The BPN is
+  initialized with the weights of th DBN and is fine-tuned to minimize
+  the cross entropy between the predicted and actual class
+  probabilities.
 
   There are three DBNs in the ensemble. The first one looks like this
   (omitted the biases for clarity):
@@ -2222,23 +2217,23 @@
             |
           F2(800)
 
-  So we have 5 softmax neurons in the LABEL chunk, representing the
-  class probabilities. There are 2000 sigmoid neuron in the INPUTS
+  So, we have 5 softmax neurons in the LABEL chunk, representing the
+  class probabilities. There are 2000 sigmoid neurons in the INPUTS
   chunk standing for the top 2000 binary features extracted from the
-  post. Then we have two hidden layers of sigmoid neurons: F1 and F2.
+  post. Then, we have two hidden layers of sigmoid neurons: F1 and F2.
   This is created in the code by `MAKE-MALACKA-DBN-SMALL`.
 
   The second DBN is the same expect INPUTS, F1 and F2 have 10000, 800,
-  800 neurons respectively. See `MAKE-MALACKA-DBN-BIG`.
+  800 neurons, respectively. See `MAKE-MALACKA-DBN-BIG`.
 
   The third DBN is the same expect INPUTS, F1 and F2 have 10000, 2000,
   2000 neurons respectively. See `MAKE-MALACKA-DBN-BIGGER`. Note that
   this last DBN wasn't fine tuned due to time constraints; predictions
-  are extracted directly from the DBN that doesn't try to minimize
+  are extracted directly from the DBN, which doesn't try to minimize
   cross entropy.
 
   The RBMs in the DBN were trained with contrastive divergence with
-  mini batches of 100 posts. Learning rate was 0.001, momentum 0.9,
+  minibatches of 100 posts. Learning rate was 0.001, momentum 0.9,
   weight decay 0.0002.
 
   The backprop networks were trained for 38 epochs with the conjugate
@@ -2258,11 +2253,11 @@
       :c 256
       :eps 0.001
 
-  Even though it had access to a much larger set of features,
-  liblinear could only achieve ~0.83 on the stratified sample used for
-  development vs ~0.79 for the second DBN. Still, even though they
-  used the same kind of features, they were different enough to
-  slightly improve in the ensemble.
+  Although it had access to a much larger set of features, liblinear
+  could only achieve ~0.83 on the stratified sample used for
+  development vs ~0.79 for the second DBN. Even though they used the
+  same kind of features, their predictions were different enough to
+  produce a slightly better ensemble.
 
   ### Vowpal Wabbit
 
@@ -2287,17 +2282,18 @@
   in the prediction of the first DBN. The rest of PRED* are for the
   other two DBNs, the liblinear model, and VW.
 
-  The network was trained with gradient descent with mini batches of
-  100 posts. Learning rate started out as 0.01 and multiplies by 0.98
-  each epoch. Momentum started out as 0.5 and was increased to 0.99 in
-  50 epochs. Learning rate was also multiplied by (1 - momentum) to
-  disentangle it from the momentum. No weight decay was used.
+  The network was trained with gradient descent with minibatches of
+  100 posts. The learning rate started out as 0.01 and multiplies by
+  0.98 each epoch. Momentum started out as 0.5 and was increased to
+  0.99 in 50 epochs. Learning rate was also multiplied by (1 -
+  momentum) to disentangle it from the momentum. No weight decay was
+  used.
 
   I tried to get Hinton's dropout technique working, but it didn't
-  live up to my expectations. On the other hand, stochastic binary
-  neurons mentioned in the dropout presentation, did help a tiny bit.
+  live up to my expectations. On the other hand, the stochastic binary
+  neurons mentioned in the dropout presentation did help a tiny bit.
   Unfortunately, I managed to make the final submission with a broken
-  version where the weights of stochastic binary neurons were not
+  version, where the weights of stochastic binary neurons were not
   trained at all, effectively resulting in 800 random features (!).
 
   ### Bagging
@@ -2311,17 +2307,17 @@
   ### Time
 
   It was clear from the beginning that time plays an important role,
-  and if scores are close then predicting the class distribution of
+  and if scores are close, then predicting the class distribution of
   the test set could be the deciding factor. I saw the pace of
-  change (with regards to distribution of classes) picking up near the
-  end of the development training set and probed into the public
+  change (with regards to the distribution of classes) picking up near
+  the end of the development training set and probed into the public
   leaderboard by submitting a number different constant
   predictions (the same prior for every post). It seemed that the last
   two weeks or one month is best.
 
   There was no obvious seasonality or trend that could be exploited on
-  the scale of months. I checked whether stackoverflow were changing
-  the mechanics, but didn't find anything. I certainly didn't foresee
+  the scale of months. I checked whether Stackoverflow were changing
+  the mechanics but didn't find anything. I certainly didn't foresee
   the drastic class distribution change that was to come.
 
   ### Features
@@ -2332,8 +2328,8 @@
 
   In the end, I found that no important features were left out by
   playing with liblinear that could handle all features at the same
-  time. Take it with a grain of salt, of course, because there is
-  noise/signal issue lurking.
+  time. Take it with a grain of salt, of course, because there is a
+  signal/noise issue lurking.
 
   ### Naive Bayes, Random Forests, Gradient Boosting
 
@@ -2343,7 +2339,7 @@
 
   ### Libsvm
 
-  I couldn't get it to scale to several tens of thousands posts so I
+  I couldn't get it to scale to several tens of thousands posts, so I
   had to go with liblinear.
 
   ### Dropout
@@ -2356,7 +2352,7 @@
 
   Recall that the constituent models were trained only on 4/5 of the
   available data. After the ensemble was trainined, I intended to
-  replace retrain them on the whole stratified training set. Initial
+  retrain them on the whole stratified training set. Initial
   experiments with liblinear were promising, but with the DBN the
   public leaderboard score got a lot worse and I ran out of time to
   experiment.")
@@ -2366,7 +2362,7 @@
      :tags (@ai @lisp)
      :date "2013-04-09")
   "In addition to the cl-libsvm asdf system, there is now another asdf
-  system in the [ cl-libsvm](http://github.com/melisgl/cl-libsvm)
+  system in the [cl-libsvm](http://github.com/melisgl/cl-libsvm)
   library: cl-liblinear that, predictably enough, is a wrapper for
   [liblinear](http://www.csie.ntu.edu.tw/~cjlin/liblinear/). The API
   is similar to that of cl-libsvm.")
@@ -2385,25 +2381,24 @@
   [available](http://quotenil.com/higgsml/gabor-melis.zip).
 
   This has been the Kaggle competition that attracted the most
-  contestants so it feels really good to come out on top even though
+  contestants so it feels really good to come out on top although
   there was an element of luck involved due to the choice of
   evaluation metric and the amount of data available. The organizers
   did a great job explaining the physics, why there is no more data,
   motivating the choice of evaluation metric, and being prompt in
   communication in general.
-  ""
-  I hope that the HEP guys will find this useful in their search for
-  more evidence of tau tau decay of the Higgs boson. Note that I
-  didn't go for the 'HEP meets ML Award' so training time is
-  unnecessarily high
-  (one day with a GTX Titan GPU). By switching to single precision
-  floating point and a single neural network, training time could be
-  reduced to about 15 minutes with an expected drop in accuracy from
-  3.805 to about 3.750. Even with the bagging approach the code logs
-  out-of-bag estimates of the evaluation metric after training each
-  constituent model and the training process can be C-c'ed early.
-  Furthermore, the model can be run on a CPU with BLAS about 10 times
-  slower than on a Titan.")
+
+  ""I hope that the HEP guys will find this useful in their search for
+  more evidence of tau-tau decay of the Higgs boson. Note that I
+  didn't go for the 'HEP meets ML Award', so training time is
+  unnecessarily high (one day with a GTX Titan GPU). By switching to
+  single precision floating point and a single neural network,
+  training time could be reduced to about 15 minutes with an expected
+  drop in accuracy from 3.805 to about 3.750. Even with the bagging
+  approach, the code logs out-of-bag estimates of the evaluation
+  metric after training each constituent model and the training
+  process can be `C-c`ed early. Furthermore, the model can be run on a
+  CPU with BLAS about 10 times slower than on a Titan.")
 
 (defpost @higgs-boson-machine-learning-challenge-bits-and-pieces
     (:title "Higgs Boson Challenge Bits and Pieces"
@@ -2414,8 +2409,8 @@
   [Kaggle](http://kaggle.com) has ended. Sticking to my word at [ELS
   2014](http://medias.ircam.fr/xff38ba), I released some code that
   came about during these long four months.
-  ""
-  [MGL-GPR](https://github.com/melisgl/mgl-gpr) is no longer a
+
+  ""[MGL-GPR](https://github.com/melisgl/mgl-gpr) is no longer a
   [Genetic
   Programming](http://en.wikipedia.org/wiki/Genetic_programming) only
   library because it got another [Evolutionary
@@ -2428,13 +2423,13 @@
   contest and also because evolutionary algorithms just do not scale
   to larger problem sizes.
 
-  In other news, [MGL](http://github.com/melisgl/mgl) got
-  [cross-validation](http://en.wikipedia.org/wiki/Cross-validation_(statistics)),
+  In other news, [MGL](http://github.com/melisgl/mgl) got [cross
+  validation](http://en.wikipedia.org/wiki/Cross-validation_(statistics)),
   [bagging](http://en.wikipedia.org/wiki/Bootstrap_aggregating) and
   stratification support in the brand new
   [MGL-RESAMPLE](https://github.com/melisgl/mgl/blob/4b1800a6dcbdf290a66b5f952fe3bd81641b0b5c/src/resample.lisp)
   package documented with
-  [MGL-PAX](https://github.com/melisgl/mgl-pax) which all of you will
+  [MGL-PAX](https://github.com/melisgl/mgl-pax), which you all will
   most definitely want to use. My winning submission used bagged
   cross-validated dropout neural networks with stratified splits so
   this is where it's coming from.
@@ -2457,10 +2452,10 @@
   to be delivered as source and as binary. It sucks in all
   dependencies from quicklisp available at a certain date, clones the
   necessary repositories not available in quicklisp, builds an
-  executable, and has a simple 'make dist' rule as well.
+  executable, and has a simple `make dist` rule as well.
 
-  There is also a fairly generic ensembling algorithm that I will
-  factor out of the code later.")
+  There is also a fairly generic ensembling algorithm, which I will
+  factor out  later.")
 
 (defpost @migration-to-github (:title "Migration to Github"
                                :tags (@tech)
@@ -2480,9 +2475,9 @@
 (defpost @transcripts (:title "Transcripts"
                        :tags (@lisp)
                        :date "2014-10-20")
-  """I've just committed a major feature to MGL-PAX:
-  the ability to include code examples in docstrings. Printed output
-  and return values are marked up with ".." and "=>", respectively.
+  """I've just committed a major feature to MGL-PAX: the ability to
+  include code examples in docstrings. Printed output and return
+  values are marked up with ".." and "=>", respectively.
 
   ```
   (values (princ :hello) (list 1 2))
@@ -2493,13 +2488,13 @@
   """"""
   The extras are:
 
-  - parsing back and _updating_ a transcript
+  - parsing back and _updating_ a transcript,
 
-  - _auto-checking_ of up-to-dateness at documentation generation time
+  - _auto-checking_ of up-to-dateness at documentation generation time,
 
   - readable return values can be commented, hand-indented without
     breaking consistency checks and updates will not destroy those
-    changes
+    changes,
 
   - Emacs integration: transcribing the last expression and updating a
     transcript in a region.
@@ -2527,12 +2522,12 @@
   source files to docstrings is insanity or an
   [OOAO](http://c2.com/cgi/wiki?OnceAndOnlyOnce) violation,
   respectively.
-  ""
-  In response to this, PAX got the [INCLUDE
+
+  ""In response to this, PAX got the [INCLUDE
   locative](https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3AINCLUDE-20MGL-PAX-3ALOCATIVE-29) (see
   the linked documentation) and became its own first user at the same
   time. In a nutshell, the INCLUDE locative can refer to non-lisp
-  files and sections of lisp source files which makes it easy to add
+  files and sections of lisp source files, which makes it easy to add
   code examples and external stuff to the documentation without
   duplication. As always, `M-.` works as well.")
 
@@ -2540,7 +2535,7 @@
                           :tags (@ai @lisp)
                           :date "2015-01-19")
   "I've been cleaning up and documenting
-  [MGL](https://github.com/melisgl/mgl) for quite some time now and
+  [MGL](https://github.com/melisgl/mgl) for quite some time now, and
   while it's nowhere near done, a good portion of the code has been
   overhauled in the process. There are new additions such as the [Adam
   optimizer](http://arxiv.org/abs/1412.6980) and Recurrent Neural
@@ -2579,18 +2574,18 @@
 (defpost @pax-world (:title "PAX World"
                      :tags (@lisp)
                      :date "2015-01-26")
-  """The promise of
-  [MGL-PAX](https://github.com/melisgl/mgl-pax) has always been that
-  it will be easy to generate documentation for different libraries
-  without requiring extensive markup and relying on stable urls. For
-  example, without PAX if a docstring in the MGL library wanted to
-  reference the matrix class `MGL-MAT:MAT` from the MGL-MAT library,
+  """A promise of [MGL-PAX](https://github.com/melisgl/mgl-pax) has always
+  been that it will be easy to generate documentation for different
+  libraries without requiring extensive markup and relying on stable
+  URLs. For example, without PAX, if a docstring in the MGL library
+  referenced the matrix class `MGL-MAT:MAT` from the MGL-MAT library,
   it would need to include ugly HTML links in the markdown:
 
   ```
   "Returns a [some-terrible-github-link-to-html][MAT] object."
   ```
   """"""
+
   With PAX however, the uppercase symbol `MAT` will be automatically
   linked to the documentation of `MAT` if its whereabouts are known at
   documentation generation time, so the above becomes:
@@ -2624,9 +2619,8 @@
   [named-readtables](http://melisgl.github.io/mgl-pax-world/named-readtables-manual.html)
   and
   [micmac](http://melisgl.github.io/mgl-pax-world/micmac-manual.html)
-  has been added.
-  Badder because clicking on a name will produce a permalink such as
-  this:
+  has been added. Badder because clicking on a name will produce a
+  permalink such as this:
   [`*DOCUMENT-MARK-UP-SIGNATURES*`](http://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-MARK-UP-SIGNATURES-2A-20-28VARIABLE-29-29).
   Clicking on locative types such as `[variable]` on the page that has
   just been linked to will take you to the file and line on github
@@ -2636,8 +2630,9 @@
     (:title "On the Design of Matrix Libraries"
      :tags (@ai @lisp)
      :date "2015-02-26")
-  "**UPDATE**: *2020-05-03* – Things have been moving fast. This is a
-  non-issue in Tensorflow and possibly in other frameworks, as well.
+  "**UPDATE**: *2020-05-03* – Things have changed the during last 5
+  years. This is a non-issue in Tensorflow and possibly in other
+  frameworks, as well.
 
   I believe there is one design decision in
   [MGL-MAT](http://melisgl.github.io/mgl-pax-world/mat-manual.html)
@@ -2648,21 +2643,21 @@
   the possible representations.
   ""
   This allows existing code to keep functioning if support for
-  diagonal matrices (represented as a 1d array) lands and one can pick
+  diagonal matrices (represented as a 1d array) lands, and one can pick
   and choose the operations performance critical enough to implement
   with diagonals.
 
   Adding support for matrices that, for instance, live on a remote
   machine is thus possible with a new facet type (MAT lingo for
   representation) and existing code would continue to work (albeit
-  possibly slowly). Then one could optimize the bottleneck operations
+  possibly slowly). Then, one could optimize the bottleneck operations
   by sending commands over the network instead of copying data.
 
   Contrast this with what I understand to be the status quo over on
   the Python side. The specialized Python array libs (cudamat,
   gpuarray, cudandarray) try to be drop-in replacements for – or at
   least similar to – numpy.ndarray with various degrees of success.
-  There is lots of explicit conversion going on between ndarray and
+  There are lots of explicit conversion going on between ndarray and
   these CUDA blobs and adding new representations would make this
   exponentionally worse.
 
@@ -2671,14 +2666,16 @@
   explicit, which leads to pretty much the same problems.
 
   All of this is kind of understandable. When one thinks in terms of
-  single-dispatch (i.e. `object.method()`), this kind of design will
-  often emerge. With muliple-dispatch, data representation and
-  operations are more loosely coupled. The facet/operation duality of
-  MGL-MAT is reminiscent of how CLOS classes and generic functions
-  relate to each other. The anology is best if objects are allowed to
-  shapeshift to fit the method signatures.
+  single dispatch (i.e. `object.method()`), this kind of design will
+  often emerge. With [muliple
+  dispatch](https://en.wikipedia.org/wiki/Multiple_dispatch), data
+  representation and operations are more loosely coupled. The
+  facet/operation duality of MGL-MAT is reminiscent of how CLOS
+  classes and generic functions relate to each other. The anology is
+  best if objects are allowed to shapeshift to fit the method
+  signatures.
 
-  Speaking of multiple-dispatch, by making the operations generic
+  Speaking of multiple dispatch, by making the operations generic
   functions following some kind of protocol to decide which facets and
   implementation to use would decouple facets further. Ultimately,
   this could make the entire CUDA related part of MGL-MAT an add-on.")
@@ -2702,7 +2699,7 @@
   """Ever wished for machine-readable logs and [`TRACE`][cl-trace]s, maybe
   for writing tests or something more fancy? The
   [Journal][journal-background] library takes a simple idea:
-  user-defined execution traces, and implements
+  user-defined execution traces and implements
   [logging][logging-tutorial], [tracing][tracing-tutorial], a
   [testing][testing-tutorial] "framework" with [mock][mock-object]
   support, and an [Event Sourcing][event-sourcing] style
@@ -2738,13 +2735,11 @@
   this into a browser game so:
 
   - the state of the game must be saved,
-
   - and the game shall be resumed from the last saved state,
-
   - even if the web server's worker thread times out, or there is a
     power failure.
 
-  So these are the requirements apart from adding the webby stuff,
+  So, these are the requirements apart from adding the webby stuff,
   which I'm not going to bore you with. To implement them, we wrap
   `REPLAYED` around _external interactions_, `RANDOM` and `READ-LINE`:
 
@@ -2770,11 +2765,11 @@
     (play-guess-my-number))
   ```
 
-  This is invoked from the web server's worker and it replays the game
-  until it was interrupted last time around. Then it will block
-  waiting for user input in `READ-LINE` or, if the game is finished,
-  return. Note the `:SYNC T`, which tells Journal to take durability
-  seriously.
+  This is invoked from a web server worker thread, and it replays the
+  game until the point where it was interrupted last time around.
+  Then, it will block waiting for user input in `READ-LINE` or, if the
+  game is finished, return. Note the `:SYNC T`, which tells Journal to
+  take durability seriously.
 
   <div class='br'></div>
   <p>You can find the code [here][journal-code].</p>
@@ -2784,7 +2779,9 @@
                     :tags (@lisp)
                     :date "2022-02-16")
   """[PAX](http://github.com/melisgl/mgl-pax/) v0.1 is released.
-  At this point, I consider it fairly complete. Here is the changelog for the last year or so.
+  At this point, I consider it fairly complete. Here is the changelog
+  for the last year or so.
+
   ## New Features
 
   - To reduce deployment size, made the MGL-PAX system [autoload navigation, documentation generation, and transcription code](https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29).
@@ -2842,25 +2839,30 @@
 (defpost @there-is-try (:title "There is Try"
                         :tags (@lisp)
                         :date "2022-10-16")
-  """Do or do not. There is now Try.
-  I forgot to announce [Try](https://github.com/melisgl/try),
-  my Common Lisp test framework, on this blog.
+  """Do or do not. There is now Try. I forgot to announce
+  [Try](https://github.com/melisgl/try), my Common Lisp test
+  framework, on this blog.
 
   - Try does equally well in interactive and non-interactive mode by
     minimizing the function-test impedance mismatch.
+
   - It provides a single, extensible [check
     macro](https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FIS-20MGL-PAX-3ASECTION-29).
     All other checks are built on top of it.
-  - It is highly customizable: what to debug interactively, what to print, what
-    to describe in detail, what to rerun, what to count can all be easily changed.
-  - Customization is based on complex types built from
-    [event types](https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FEVENTS-20MGL-PAX-3ASECTION-29),
+
+  - It is highly customizable: what to debug interactively, what to
+    print, what to describe in detail, what to rerun, what to count
+    can all be easily changed.
+
+  - Customization is based on complex types built from [event
+    types](https://github.com/melisgl/try#x-28TRY-3A-40TRY-2FEVENTS-20MGL-PAX-3ASECTION-29),
     which are signalled when checks or tests are run.
   """"""
-  Try's behaviour is trivial: tests are functions, and checks behave like
-  CL:ASSERT. Test suites are test functions that call test functions. Skipping
-  tests is just a regular WHEN. Everything is as close to normal evaluation
-  rules as possible.
+
+  Try's behaviour is trivial: tests are functions, and checks behave
+  like CL:ASSERT. Test suites are test functions that call other test
+  functions. Skipping tests is just a regular WHEN. Everything is as
+  close to normal evaluation rules as possible.
 
   Behind the scenes, events are signalled for successes, failures, etc, and
   these events provide the basis of its customization. Non-interactive
@@ -3197,8 +3199,8 @@
 
   There is a number of problems with SWA:
 
-  - 10, the averaging length, must be chosen to maximize performance
-    on summarization.
+  - The averaging length (e.g. 10) must be chosen to maximize
+    performance on summarization.
 
   - A naive way to find the averaging length is to do a single
     training run and then search backwards extending the average one
@@ -3209,7 +3211,7 @@
 
   - To control the costs, we can lower checkpointing fequency, but
     does that make results worse? We can test that with multiple
-    training runs, and pay the cost there.
+    training runs and pay the cost there.
 
   - Also, how do we know when to stop training? We ideally want to
     stop training the language model when summarization works best
@@ -3227,12 +3229,13 @@
     storage and/or computation) and suboptimal (can miss early
     solutions).
 
+  These are the issues Two-Tailed Averaging tackles. 
+
   ## Two-Tailed Averaging
 
-  These are the issues Two-Tailed Averaging tackles. The algorithm
-  needs storage for only two sets of weights (constant storage cost)
-  and performance (e.g. of summarization) to be evaluated
-  periodically. In return, it provides a weight average of
+  The algorithm needs storage for only two sets of weights (constant
+  storage cost) and performance (e.g. of summarization) to be
+  evaluated periodically. In return, it provides a weight average of
   approximately optimal length at all optimization steps. Now, we can
   start training that language model, periodically evaluating how the
   averaged weights are doing at summarization. We can stop the
@@ -3322,9 +3325,9 @@
   ```
 
   We added some noise to the gradients in `df_dw` to make it more like
-  training with a neural net with SGD. Anyway, we take 2000
-  optimization steps, calling `update_2ta` on most but calling
-  `update_and_evaluate_2ta` on every 100 steps. Running
+  training a neural net with SGD. Anyway, we take 2000 optimization
+  steps, calling `update_2ta` on most but calling
+  `update_and_evaluate_2ta` every 100 steps. Running
   `test_2ta_simple`, we get something like this:
 
   ```
@@ -3352,7 +3355,7 @@
 
   In the above, `f(w_i)` is the loss with the non-averaged weights,
   `f(w_2ta)` is the loss with the weights provided by 2TA, and `l` is
-  the number of weights averaged. We see that with the high constant
+  the number of weights averaged. We see that with the high, constant
   learning rate, SGD keeps jumping around the optimum, and while 2TA
   does the same, its jitter is way smaller (it's beyond the three
   significant digits printed here). Also, the length of the average
@@ -3443,19 +3446,20 @@
   measures performance on the validation set or on a down-stream
   task (e.g. summarization).
 
-  ## Downsampling Weights
+  ## Scaling to Large Models
 
   In its proposed form, Two-Tailed Averaging incorporates every set of
   weights produced by the optimizer in both averages it maintains.
   This is good because [Tail Averaging][tail-averaging], also known as
   [Suffix Averaging][suffix-averaging], theory has nice things to say
-  about convergence to a local optimum in this setting. However, in a
-  memory constrained situation, these averages will not fit on the
-  GPU/TPU, so we must move the weights off the device to add them to
-  the averages (which may be in RAM or on disk). Moving stuff off the
-  device can be slow, so we might want to do that, say, every 20
-  optimization steps. Obviously, downsampling the weights too much
-  will affect the convergence rate, so there is a tradeoff.
+  about convergence to a local optimum of the training losss in this
+  setting. However, in a memory constrained situation, these averages
+  will not fit on the GPU/TPU, so we must move the weights off the
+  device to add them to the averages (which may be in RAM or on disk).
+  Moving stuff off the device can be slow, so we might want to do
+  that, say, every 20 optimization steps. Obviously, downsampling the
+  weights too much will affect the convergence rate, so there is a
+  tradeoff.
 
   ## Learning Rate
 
@@ -3474,10 +3478,10 @@
     produces reasonable averages from early on (unlike SWA), but $K$
     still needs to be set manually.
 
-  - [NT-ASGD][nt-asgd] starts averaging when the validation loss does
-    not improve for a fixed number of optimization steps, which trades
-    one hyperparameter for another, and it is sensitive to noise in
-    the raw validation loss. online.
+  - [NT-ASGD][nt-asgd] starts averaging when the validation loss has
+    not improved for a fixed number of optimization steps, which
+    trades one hyperparameter for another, and it is sensitive to
+    noise in the raw validation loss.
 
   **Adaptivity**: SWA and LAWA have hyperparameters that directly
   control the averaging length; NT-ASGD still has one, but its effect
@@ -3533,7 +3537,7 @@
   glyphs look much bigger in the [eye of the
   beholder](http://www.hardcoregaming101.net/eye-of-the-beholder/).
   Thus, the obvious alternative is to normalize the space usage.
-  Unfortunately, there is no convenient statistic available for this
+  Unfortunately, there is no convenient statistic available for this,
   so we have to resort to estimating the area required to set a given
   piece of reference text with a given font. The advantage of this
   method is that it takes
@@ -3589,7 +3593,10 @@
   font compared to [Times New
   Roman](https://github.com/melisgl/two-tailed-averaging/blob/main/samples/times-new-roman.pdf).
   No wonder Matthew Butterick [pushes
-  Charter](https://practicaltypography.com/charter.html).
+  Charter](https://practicaltypography.com/charter.html). By the way,
+  see what he has to say about
+  [grids](https://practicaltypography.com/grids.html) and baseline
+  grids, in particular.
   """)
 
 
