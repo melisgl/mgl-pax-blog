@@ -37,7 +37,7 @@ Averaging&lt;/a&gt; (SWA) does.&lt;/p&gt;
   averaging at a predefined point pays a steep price in computation
   for lower storage costs.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;To control the costs, we can lower checkpointing fequency, but
-  does that make results worse? We can test that with multiple
+  does that make results worse? We can test it with multiple
   training runs and pay the cost there.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Also, how do we know when to stop training? We ideally want to
   stop training the language model when summarization works best
@@ -50,8 +50,8 @@ Averaging&lt;/a&gt; (SWA) does.&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;The averaging length is a hyperparameter that&apos;s costly to set (it
-  is coupled to other hyperparameters especially to the length of
-  training and the learning rate).&lt;/p&gt;&lt;/li&gt;
+  is coupled with other hyperparameters especially with the length
+  of training and the learning rate).&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Determining the averaging length after training is both costly (in
   storage and/or computation) and suboptimal (can miss early
   solutions).&lt;/p&gt;&lt;/li&gt;
@@ -64,7 +64,7 @@ Averaging&lt;/a&gt; (SWA) does.&lt;/p&gt;
 &lt;p&gt;The algorithm needs storage for only two sets of weights (constant
 storage cost) and performance (e.g. of summarization) to be
 evaluated periodically. In return, it provides a weight average of
-approximately optimal length at all optimization steps. Now, we can
+approximately optimal length at all optimization steps. Now we can
 start training that language model, periodically evaluating how the
 averaged weights are doing at summarization. We can stop the
 training run any time if it&apos;s getting worse.&lt;/p&gt;
@@ -268,7 +268,7 @@ i=1900: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&g
 setting optimum=-8.930
 i=2000: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=242.481, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=242.481, l=   1 Reset!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Note that in these examples the evaluation function in 2TA was the
+&lt;p&gt;Note that in these examples, the evaluation function in 2TA was the
 training loss, but 2TA is intended for when the evaluation function
 measures performance on the validation set or on a down-stream
 task (e.g. summarization).&lt;/p&gt;
@@ -279,7 +279,7 @@ task (e.g. summarization).&lt;/p&gt;
 weights produced by the optimizer in both averages it maintains.
 This is good because &lt;a href=&quot;https://jmlr.org/papers/v18/16-595.html&quot; &gt;Tail Averaging&lt;/a&gt;, also known as
 &lt;a href=&quot;https://arxiv.org/abs/1109.5647&quot; &gt;Suffix Averaging&lt;/a&gt;, theory has nice things to say
-about convergence to a local optimum of the training losss in this
+about convergence to a local optimum of the training loss in this
 setting. However, in a memory constrained situation, these averages
 will not fit on the GPU/TPU, so we must move the weights off the
 device to add them to the averages (which may be in RAM or on disk).

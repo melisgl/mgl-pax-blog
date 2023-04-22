@@ -34,7 +34,7 @@ grids, in particular.&lt;/p&gt;
 right thing to do. Compare them at the same x-height or, better yet,
 at the same space usage.&lt;/p&gt;
 
-&lt;p&gt;In full, recently, I wanted to choose a font that looks good on
+&lt;p&gt;In full, recently I wanted to choose a font that looks good on
 screen at various resolutions and also in print. This is fairly
 subjective, of course, so there is a lot of noise out there. Going
 by the &lt;a href=&quot;https://tug.org/FontCatalogue/&quot; &gt;LaTeX Font Catalogue&lt;/a&gt;,
@@ -81,10 +81,10 @@ look and decide for yourself which fonts look best. To me, the most
 legible fonts are:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Libertinus and Stix2 in the Timeslike category.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Cochineal (Amiri, Crimson Text) among the Garamondlike.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;XCharter among the (almost) Slab Serifs.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Utopia is a very nice, neutral font.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Libertinus and Stix2 in the Timeslike category,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Cochineal (Amiri, Crimson Text) among the Garamondlike,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;XCharter among the (almost) Slab Serifs,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Utopia among the Transitional Serifs.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;My taste is apparently quite similar to &lt;a href=&quot;https://github.com/linoferreira/latex-font-survey&quot; &gt;Lino
