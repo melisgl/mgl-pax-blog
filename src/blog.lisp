@@ -3210,7 +3210,7 @@
     for lower storage costs.
 
   - To control the costs, we can lower checkpointing fequency, but
-    does that make results worse? We can test that with multiple
+    does that make results worse? We can test it with multiple
     training runs and pay the cost there.
 
   - Also, how do we know when to stop training? We ideally want to
@@ -3222,8 +3222,8 @@
   In summary, working with SWA is tricky because:
 
   - The averaging length is a hyperparameter that's costly to set (it
-    is coupled to other hyperparameters especially to the length of
-    training and the learning rate).
+    is coupled with other hyperparameters especially with the length
+    of training and the learning rate).
 
   - Determining the averaging length after training is both costly (in
     storage and/or computation) and suboptimal (can miss early
@@ -3236,7 +3236,7 @@
   The algorithm needs storage for only two sets of weights (constant
   storage cost) and performance (e.g. of summarization) to be
   evaluated periodically. In return, it provides a weight average of
-  approximately optimal length at all optimization steps. Now, we can
+  approximately optimal length at all optimization steps. Now we can
   start training that language model, periodically evaluating how the
   averaged weights are doing at summarization. We can stop the
   training run any time if it's getting worse.
@@ -3441,7 +3441,7 @@
   i=2000: f(w_i)=242.481, f(w_2ta)=242.481, l=   1 Reset!
   ```
 
-  Note that in these examples the evaluation function in 2TA was the
+  Note that in these examples, the evaluation function in 2TA was the
   training loss, but 2TA is intended for when the evaluation function
   measures performance on the validation set or on a down-stream
   task (e.g. summarization).
@@ -3452,7 +3452,7 @@
   weights produced by the optimizer in both averages it maintains.
   This is good because [Tail Averaging][tail-averaging], also known as
   [Suffix Averaging][suffix-averaging], theory has nice things to say
-  about convergence to a local optimum of the training losss in this
+  about convergence to a local optimum of the training loss in this
   setting. However, in a memory constrained situation, these averages
   will not fit on the GPU/TPU, so we must move the weights off the
   device to add them to the averages (which may be in RAM or on disk).
@@ -3512,7 +3512,7 @@
   right thing to do. Compare them at the same x-height or, better yet,
   at the same space usage.
 
-  In full, recently, I wanted to choose a font that looks good on
+  In full, recently I wanted to choose a font that looks good on
   screen at various resolutions and also in print. This is fairly
   subjective, of course, so there is a lot of noise out there. Going
   by the [LaTeX Font Catalogue](https://tug.org/FontCatalogue/),
@@ -3558,10 +3558,10 @@
   look and decide for yourself which fonts look best. To me, the most
   legible fonts are:
 
-  - Libertinus and Stix2 in the Timeslike category.
-  - Cochineal (Amiri, Crimson Text) among the Garamondlike.
-  - XCharter among the (almost) Slab Serifs.
-  - Utopia is a very nice, neutral font.
+  - Libertinus and Stix2 in the Timeslike category,
+  - Cochineal (Amiri, Crimson Text) among the Garamondlike,
+  - XCharter among the (almost) Slab Serifs,
+  - Utopia among the Transitional Serifs.
 
   My taste is apparently quite similar to [Lino
   Ferreira's](https://github.com/linoferreira/latex-font-survey). EB
