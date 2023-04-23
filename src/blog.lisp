@@ -167,8 +167,8 @@
          (*document-normalize-packages* nil)
          (*package* (find-package :mgl-pax-blog))
          (*document-html-head*
-           (lambda ()
-             (format nil "~A~A"
+           (lambda (stream)
+             (format stream "~A~A"
                      "<!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
