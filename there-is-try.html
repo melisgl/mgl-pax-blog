@@ -100,8 +100,8 @@ common situations.</p>
 ..   The variable IT.BESE.FIVEAM::CURRENT-TEST is unbound.
 
 <span class="comment">;;; In the Parachute version, (EQUAL 6 (1+ 5) is not explicit in the
-</span><span class="comment">;;; source; one cannot just evaluate it without the is for example
-</span><span class="comment">;;; with slime-eval-last-expression.
+</span><span class="comment">;;; source; one cannot just evaluate it without PARACHUTE:IS,
+</span><span class="comment">;;; for example, with slime-eval-last-expression.
 </span><span class="paren1">(<span class="code">parachute:is equal 6 <span class="paren2">(<span class="code">1+ 5</span>)</span></span>)</span>
 =&gt; 6
 
@@ -223,7 +223,7 @@ common situations.</p>
 </span>.. ⊟ TRY-TEST ⊟1
 ..</span></code></pre>
 
-<pre><code><span class="code"><span class="comment">;;;; Running tests non-interactively.
+<pre><code><span class="code"><span class="comment">;;;; Running tests non-interactively
 </span>
 <span class="paren1">(<span class="code">5am:run! '5am-test</span>)</span>
 ..

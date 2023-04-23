@@ -474,8 +474,8 @@ common situations.&lt;/p&gt;
 ..   The variable IT.BESE.FIVEAM::CURRENT-TEST is unbound.
 
 &lt;span class=&quot;comment&quot;&gt;;;; In the Parachute version, (EQUAL 6 (1+ 5) is not explicit in the
-&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;;;; source; one cannot just evaluate it without the is for example
-&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;;;; with slime-eval-last-expression.
+&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;;;; source; one cannot just evaluate it without PARACHUTE:IS,
+&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;;;; for example, with slime-eval-last-expression.
 &lt;/span&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;parachute:is equal 6 &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;1+ 5&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
 =&amp;gt; 6
 
@@ -597,7 +597,7 @@ common situations.&lt;/p&gt;
 &lt;/span&gt;.. ⊟ TRY-TEST ⊟1
 ..&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;comment&quot;&gt;;;;; Running tests non-interactively.
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;comment&quot;&gt;;;;; Running tests non-interactively
 &lt;/span&gt;
 &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;5am:run! &apos;5am-test&lt;/span&gt;)&lt;/span&gt;
 ..
