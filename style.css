@@ -342,10 +342,6 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   text-align: center;
 }
 
-img {
-  height: calc(12*var(--line-height));
-}
-
 img[alt$="end-of-post"] {
   height: calc(2*var(--line-height));
   margin-top: calc(2*var(--line-height));
@@ -357,7 +353,7 @@ img[alt$="about-me-die"] {
 }
 
 img[alt$="TTA (orange) vs SWA (green)"] {
-  width: 70%;
+  height: calc(8*var(--line-height));
 }
 
 img[alt$="typography-line-terms"] {
