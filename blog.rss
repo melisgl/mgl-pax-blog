@@ -3224,8 +3224,8 @@ could be &lt;em&gt;Caps Lock&lt;/em&gt; as well: I don&apos;t use it either way.
 a narrow &lt;em&gt;Space&lt;/em&gt; key, you can place your thumbs on the two &lt;em&gt;Control&lt;/em&gt;
 keys while the fingers rest on &apos;asdf&apos; and &apos;jkl;&apos;. Always press
 modifiers with the alternate hand. &lt;code&gt;C-a&lt;/code&gt; is right thumb + left
-pinky, &lt;code&gt;C-M-p&lt;/code&gt; is left-thumb + left-ring + right pinky. For &lt;code&gt;C-M-P&lt;/code&gt;,
-add left pinky for &lt;em&gt;Shift&lt;/em&gt;.&lt;/p&gt;
+pinky, &lt;code&gt;C-M-p&lt;/code&gt; is left-thumb + left-ring + right-pinky. For &lt;code&gt;C-M-P&lt;/code&gt;,
+add the left pinky for &lt;em&gt;Shift&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;Another thing I find tremendously useful is getting used to &lt;code&gt;C-n&lt;/code&gt;,
 &lt;code&gt;C-p&lt;/code&gt;, &lt;code&gt;C-b&lt;/code&gt;, &lt;code&gt;C-f&lt;/code&gt; instead of reaching for the arrow keys as often
