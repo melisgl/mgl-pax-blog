@@ -3607,37 +3607,38 @@
         (when link
           (eq (pax::link-page link) pax::*page*))))))
 
+(defun html-sidebar (stream)
+  (let ((spinneret:*html* stream)
+        (spinneret:*suppress-inserted-spaces* t))
+    (spinneret:with-html
+        (:div :id "toc"
+         (:div :id "home"
+          (:a :href (pax::object-to-uri @blog)
+           (if (on-current-page-p @blog)
+               "» (QUOTE NIL) «"
+               "(QUOTE NIL)")))
+         (:div :id "links"
+          "Ramblings on "
+          (:a :href (pax::object-to-uri @ai)
+           (if (on-current-page-p @ai) "» ai «" "ai"))
+          ", "
+          (:a :href (pax::object-to-uri @lisp)
+           (if (on-current-page-p @lisp) "» lisp «" "lisp"))
+          ", "
+          (:a :href (pax::object-to-uri @tech)
+           (if (on-current-page-p @tech) "» tech «" "tech"))
+          " and "
+          (:a :href (pax::object-to-uri @personal)
+           (if (on-current-page-p @personal)
+               "» personal «"
+               "personal"))
+          " topics by "
+          (:a :href (pax::object-to-uri @about-me)
+           (if (on-current-page-p @about-me)
+               "» me «"
+               "me"))
+          ".")))))
+
 #+nil
-(generate-pages
- (list @blog @tech @ai @lisp @personal)
- (lambda (stream)
-   (let ((spinneret:*html* stream)
-         (spinneret:*suppress-inserted-spaces* t))
-     (spinneret:with-html
-       (:div :id "toc"
-             (:div :id "home"
-                   (:a :href (pax::object-to-uri @blog)
-                       (if (on-current-page-p @blog)
-                           "» (QUOTE NIL) «"
-                           "(QUOTE NIL)")))
-             (:div :id "links"
-                   "Ramblings on "
-                   (:a :href (pax::object-to-uri @ai)
-                       (if (on-current-page-p @ai) "» ai «" "ai"))
-                   ", "
-                   (:a :href (pax::object-to-uri @lisp)
-                       (if (on-current-page-p @lisp) "» lisp «" "lisp"))
-                   ", "
-                   (:a :href (pax::object-to-uri @tech)
-                       (if (on-current-page-p @tech) "» tech «" "tech"))
-                   " and "
-                   (:a :href (pax::object-to-uri @personal)
-                       (if (on-current-page-p @personal)
-                           "» personal «"
-                           "personal"))
-                   " topics by "
-                   (:a :href (pax::object-to-uri @about-me)
-                       (if (on-current-page-p @about-me)
-                           "» me «"
-                           "me"))
-                   "."))))))
+(generate-pages (list @blog @tech @ai @lisp @personal)
+                'html-sidebar)
