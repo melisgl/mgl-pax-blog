@@ -392,8 +392,8 @@
   a narrow _Space_ key, you can place your thumbs on the two _Control_
   keys while the fingers rest on 'asdf' and 'jkl;'. Always press
   modifiers with the alternate hand. `C-a` is right thumb + left
-  pinky, `C-M-p` is left-thumb + left-ring + right pinky. For `C-M-P`,
-  add left pinky for _Shift_.
+  pinky, `C-M-p` is left-thumb + left-ring + right-pinky. For `C-M-P`,
+  add the left pinky for _Shift_.
 
   Another thing I find tremendously useful is getting used to `C-n`,
   `C-p`, `C-b`, `C-f` instead of reaching for the arrow keys as often
