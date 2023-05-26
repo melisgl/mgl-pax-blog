@@ -3598,6 +3598,19 @@
   [grids](https://practicaltypography.com/grids.html) and baseline
   grids, in particular.
   """)
+
+(defpost @pax-browser (:title "PAX Documentation Browser"
+                       :tags (@tech @lisp)
+                       :date "2023-05-26")
+  """PAX got a [Emacs-based documentation
+  browser](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@DOCUMENTING-IN-EMACS%20MGL-PAX:SECTION)
+  to make documentation generation a more interactive experience. The
+  trouble with interactivity is, of course, that it's difficult to get
+  the point across in documentation, so I made a short
+  [video](https://youtu.be/vH9hpk_Yirw) that demonstrates the very
+  basics. In a followup, I'll cover
+  [apropos](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION).
+  """)
 
 
 (defun on-current-page-p (object)
