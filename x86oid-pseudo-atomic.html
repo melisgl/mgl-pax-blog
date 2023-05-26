@@ -77,7 +77,7 @@ up pseudo-atomic in SBCL.</p>
 
 <h2><code>EBP</code></h2>
 
-<p>My first idea was that ORing is unnecessary since, with the slew of
+<p>My first idea was that <code>OR</code>(<a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_or.htm" title="OR (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>0</code></a> <a href="http://www.lispworks.com/documentation/HyperSpec/Body/t_or.htm" title="OR (MGL-PAX:CLHS TYPE)"><code>1</code></a>)ing is unnecessary since, with the slew of
 interrupt fixes going into 1.0.26, every interrupt deferred by
 pseudo-atomic is handled as soon as we leave the pa section. Hence,
 a simple <code>MOV</code> would suffice. Or, if we wanted to be fancy, we could

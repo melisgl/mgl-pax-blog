@@ -7,6 +7,21 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
+            <title>PAX Documentation Browser</title>
+            <link>http://quotenil.com/pax-browser.html</link>
+            <description>PAX got a &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@DOCUMENTING-IN-EMACS%20MGL-PAX:SECTION&quot; &gt;Emacs-based documentation
+browser&lt;/a&gt;
+to make documentation generation a more interactive experience. The
+trouble with interactivity is, of course, that it&apos;s difficult to get
+the point across in documentation, so I made a short
+&lt;a href=&quot;https://youtu.be/vH9hpk_Yirw&quot; &gt;video&lt;/a&gt; that demonstrates the very
+basics. In a followup, I&apos;ll cover
+&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION&quot; &gt;apropos&lt;/a&gt;.
+</description>
+            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <pubDate>Fri, 26 May 2023 01:00:00 +0100</pubDate>
+        </item>
+        <item>
             <title>There is Try</title>
             <link>http://quotenil.com/there-is-try.html</link>
             <description>&lt;p&gt;Do or do not. There is now Try. I forgot to announce
@@ -28,8 +43,8 @@ framework, on this blog.&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Try&apos;s behaviour is trivial: tests are functions, and checks behave
-like &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_assert.htm&quot; title=&quot;ASSERT MGL-PAX:MACRO&quot;&gt;&lt;code&gt;CL:ASSERT&lt;/code&gt;&lt;/a&gt;. Test suites are test functions that call other test
-functions. Skipping tests is just a regular &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_when_.htm&quot; title=&quot;WHEN MGL-PAX:MACRO&quot;&gt;&lt;code&gt;WHEN&lt;/code&gt;&lt;/a&gt;. Everything is as
+like &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_assert.htm&quot; title=&quot;ASSERT (MGL-PAX:CLHS MGL-PAX:MACRO)&quot;&gt;&lt;code&gt;CL:ASSERT&lt;/code&gt;&lt;/a&gt;. Test suites are test functions that call other test
+functions. Skipping tests is just a regular &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_when_.htm&quot; title=&quot;WHEN (MGL-PAX:CLHS MGL-PAX:MACRO)&quot;&gt;&lt;code&gt;WHEN&lt;/code&gt;&lt;/a&gt;. Everything is as
 close to normal evaluation rules as possible.&lt;/p&gt;
 
 &lt;p&gt;Behind the scenes, events are signalled for successes, failures, etc, and
@@ -339,8 +354,8 @@ for the last year or so.&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;To reduce deployment size, made the MGL-PAX system &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29&quot; &gt;autoload navigation, documentation generation, and transcription code&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Symbols in the CL package are &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29&quot; &gt;linked to the hyperspec&lt;/a&gt; like this: &lt;code&gt;PRINT&lt;/code&gt;, which renders as &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_wr_pr.htm&quot; title=&quot;PRINT FUNCTION&quot;&gt;&lt;code&gt;PRINT&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Hyperspec sections and issues can be linked to with the &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29&quot; &gt;CLHS locative&lt;/a&gt; like this: &lt;code&gt;[lambda lists][CLHS]&lt;/code&gt;, which renders as &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/03_d.htm&quot; title=&quot;&amp;quot;3.4&amp;quot; MGL-PAX:CLHS&quot;&gt;lambda lists&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Symbols in the CL package are &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29&quot; &gt;linked to the hyperspec&lt;/a&gt; like this: &lt;code&gt;PRINT&lt;/code&gt;, which renders as &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_wr_pr.htm&quot; title=&quot;PRINT (MGL-PAX:CLHS FUNCTION)&quot;&gt;&lt;code&gt;PRINT&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Hyperspec sections and issues can be linked to with the &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29&quot; &gt;CLHS locative&lt;/a&gt; like this: &lt;code&gt;[lambda lists][CLHS]&lt;/code&gt;, which renders as &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/03_d.htm&quot; title=&quot;&amp;quot;3.4&amp;quot; (MGL-PAX:CLHS MGL-PAX:SECTION)&quot;&gt;lambda lists&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Added support for &lt;code&gt;[see this][foo function]&lt;/code&gt; and &lt;code&gt;[see this][foo]&lt;/code&gt; style of &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-40MGL-PAX-LINKING-TO-CODE-20MGL-PAX-3ASECTION-29&quot; &gt;linking&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28DECLARATION-20MGL-PAX-3ALOCATIVE-29&quot; &gt;DECLARATION locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28READTABLE-20MGL-PAX-3ALOCATIVE-29&quot; &gt;READTABLE locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
@@ -376,17 +391,17 @@ for the last year or so.&lt;/p&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28CLASS-20MGL-PAX-3ALOCATIVE-29&quot; &gt;Unexported superclasses are not listed&lt;/a&gt; in the generated documentation of classes.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Improved documentation.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Introduced &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@OVERVIEW-OF-ESCAPING%20MGL-PAX:SECTION&quot; &gt;double backslash escapes&lt;/a&gt; to prevent downcasing in addition to linking.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Removed &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_desc_1.htm&quot; title=&quot;DESCRIBE-OBJECT FUNCTION&quot;&gt;&lt;code&gt;DESCRIBE-OBJECT&lt;/code&gt;&lt;/a&gt; method on &lt;code&gt;SECTION&lt;/code&gt;s. Call &lt;code&gt;DOCUMENT&lt;/code&gt; directly.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Removed &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_desc_1.htm&quot; title=&quot;DESCRIBE-OBJECT (MGL-PAX:CLHS GENERIC-FUNCTION)&quot;&gt;&lt;code&gt;DESCRIBE-OBJECT&lt;/code&gt;&lt;/a&gt; method on &lt;code&gt;SECTION&lt;/code&gt;s. Call &lt;code&gt;DOCUMENT&lt;/code&gt; directly.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Made URLs in the generated documentation more stable across implementations and &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-URL-VERSIONS*%20VARIABLE&quot; &gt;made them more human readable&lt;/a&gt;. Existing URLs still work.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Exported api for &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-DOCUMENT%20MGL-PAX:SECTION&quot; &gt;extending DOCUMENT&lt;/a&gt; and &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-FIND-SOURCE%20MGL-PAX:SECTION&quot; &gt;FIND-SOURCE&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION&quot; &gt;DOCUMENT&lt;/a&gt; can produce reasonably readable output with &lt;code&gt;:FORMAT&lt;/code&gt; &lt;code&gt;:PLAIN&lt;/code&gt; (the default). It is now suitable for use in the REPL as a kind of replacement for &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_docume.htm&quot; title=&quot;DOCUMENTATION GENERIC-FUNCTION&quot;&gt;&lt;code&gt;CL:DOCUMENTATION&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION&quot; &gt;DOCUMENT&lt;/a&gt; can produce reasonably readable output with &lt;code&gt;:FORMAT&lt;/code&gt; &lt;code&gt;:PLAIN&lt;/code&gt; (the default). It is now suitable for use in the REPL as a kind of replacement for &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_docume.htm&quot; title=&quot;DOCUMENTATION (MGL-PAX:CLHS GENERIC-FUNCTION)&quot;&gt;&lt;code&gt;CL:DOCUMENTATION&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2&gt;Bugs&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Made Emacs-side parsing for &lt;code&gt;M-.&lt;/code&gt; navigation more robust.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Fixed documentation generation on &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm&quot; title=&quot;TRACE MGL-PAX:MACRO&quot;&gt;&lt;code&gt;TRACE&lt;/code&gt;&lt;/a&gt;d functions.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Fixed documentation generation on &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm&quot; title=&quot;TRACE (MGL-PAX:CLHS MGL-PAX:MACRO)&quot;&gt;&lt;code&gt;TRACE&lt;/code&gt;&lt;/a&gt;d functions.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Fixed lots of minor bugs.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -441,7 +456,7 @@ this into a browser game so:&lt;/p&gt;
 
 &lt;p&gt;So, these are the requirements apart from adding the webby stuff,
 which I&apos;m not going to bore you with. To implement them, we wrap
-&lt;code&gt;REPLAYED&lt;/code&gt; around &lt;em&gt;external interactions&lt;/em&gt;, &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_random.htm&quot; title=&quot;RANDOM FUNCTION&quot;&gt;&lt;code&gt;RANDOM&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_rd_lin.htm&quot; title=&quot;READ-LINE FUNCTION&quot;&gt;&lt;code&gt;READ-LINE&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;code&gt;REPLAYED&lt;/code&gt; around &lt;em&gt;external interactions&lt;/em&gt;, &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_random.htm&quot; title=&quot;RANDOM (MGL-PAX:CLHS FUNCTION)&quot;&gt;&lt;code&gt;RANDOM&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_rd_lin.htm&quot; title=&quot;READ-LINE (MGL-PAX:CLHS FUNCTION)&quot;&gt;&lt;code&gt;READ-LINE&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defun&lt;/span&gt;&lt;/i&gt; play-guess-my-number &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;let&lt;/span&gt;&lt;/i&gt; &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;my-number &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;replayed &lt;span class=&quot;paren6&quot;&gt;(&lt;span class=&quot;code&quot;&gt;think-of-a-number&lt;/span&gt;)&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;; &amp;lt;- HERE
@@ -474,7 +489,7 @@ take durability seriously.
         <item>
             <title>Moving the Blog to PAX</title>
             <link>http://quotenil.com/moving-the-blog-to-pax.html</link>
-            <description>&lt;p&gt;After more than five years of silence, I may be resurrecting &lt;a href=&quot;https://web.archive.org/web/20190814015233/http://quotenil.com/&quot; &gt;my old
+            <description>After more than five years of silence, I may be resurrecting &lt;a href=&quot;https://web.archive.org/web/20190814015233/http://quotenil.com/&quot; &gt;my old
 blog&lt;/a&gt;.
 I already got as far as rewriting it using
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax/&quot; &gt;MGL-PAX&lt;/a&gt;, which is a curious
@@ -482,7 +497,7 @@ choice because PAX is a documentation generator for Common Lisp. The
 blog &amp;quot;engine&amp;quot; is rather bare-bones but works admirably, especially
 considering that the implementation is only 72 lines of code, most
 of which deals with post categories and overview pages with
-shortened posts, something PAX hasn&apos;t seen the need for.&lt;/p&gt;
+shortened posts, something PAX hasn&apos;t seen the need for.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Tue, 05 May 2020 01:00:00 +0100</pubDate>
@@ -500,8 +515,9 @@ that has far reaching consequences: to make a single matrix object
 capable of storing multiple representations of the same data and let
 operations decide which representation to use based on what&apos;s the
 most convenient or efficient, without having to even know about all
-the possible representations.
-This allows existing code to keep functioning if support for
+the possible representations.&lt;/p&gt;
+
+&lt;p&gt;This allows existing code to keep functioning if support for
 diagonal matrices (represented as a 1d array) lands, and one can pick
 and choose the operations performance critical enough to implement
 with diagonals.&lt;/p&gt;
@@ -533,11 +549,10 @@ facet/operation duality of MGL-MAT is reminiscent of how CLOS
 classes and generic functions relate to each other. The anology is
 best if objects are allowed to shapeshift to fit the method
 signatures.&lt;/p&gt;
-
-&lt;p&gt;Speaking of multiple dispatch, by making the operations generic
+Speaking of multiple dispatch, by making the operations generic
 functions following some kind of protocol to decide which facets and
 implementation to use would decouple facets further. Ultimately,
-this could make the entire CUDA related part of MGL-MAT an add-on.&lt;/p&gt;
+this could make the entire CUDA related part of MGL-MAT an add-on.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Thu, 26 Feb 2015 00:00:00 +0000</pubDate>
@@ -545,7 +560,7 @@ this could make the entire CUDA related part of MGL-MAT an add-on.&lt;/p&gt;
         <item>
             <title>Bigger and Badder PAX World</title>
             <link>http://quotenil.com/bigger-and-badder-pax-world.html</link>
-            <description>&lt;p&gt;Bigger because documentation for
+            <description>Bigger because documentation for
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/named-readtables-manual.html&quot; &gt;named-readtables&lt;/a&gt;
 and
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/micmac-manual.html&quot; &gt;micmac&lt;/a&gt;
@@ -554,7 +569,7 @@ permalink such as this:
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-MARK-UP-SIGNATURES-2A-20-28VARIABLE-29-29&quot; &gt;&lt;code&gt;*DOCUMENT-MARK-UP-SIGNATURES*&lt;/code&gt;&lt;/a&gt;.
 Clicking on locative types such as &lt;code&gt;[variable]&lt;/code&gt; on the page that has
 just been linked to will take you to the file and line on github
-where &lt;code&gt;*DOCUMENT-MARK-UP-SIGNATURES*&lt;/code&gt; is defined.&lt;/p&gt;
+where &lt;code&gt;*DOCUMENT-MARK-UP-SIGNATURES*&lt;/code&gt; is defined.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
@@ -581,8 +596,7 @@ documentation generation time, so the above becomes:&lt;/p&gt;
 documentation for all libraries at the same time like this:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;document &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;list mgl-mat:@mat-manual mgl:@mgl-manual&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is the gist of what
+This is the gist of what
 &lt;a href=&quot;https://github.com/melisgl/mgl-pax-world&quot; &gt;MGL-PAX-WORLD&lt;/a&gt; does. It
 has a list of stuff to document, and it creates a set of HTML files.
 Check out how its output looks on &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/&quot; &gt;github
@@ -591,7 +605,7 @@ pages&lt;/a&gt;. Here is a good
 cross-links&lt;/a&gt;.
 It&apos;s easy to play with locally: just get the gh-pages branch and
 call
-&lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-pax-world-manual.html#x-28MGL-PAX-WORLD-3AUPDATE-PAX-WORLD-20FUNCTION-29&quot; &gt;UPDATE-PAX-WORLD&lt;/a&gt;.&lt;/p&gt;
+&lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-pax-world-manual.html#x-28MGL-PAX-WORLD-3AUPDATE-PAX-WORLD-20FUNCTION-29&quot; &gt;UPDATE-PAX-WORLD&lt;/a&gt;.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 26 Jan 2015 00:00:00 +0000</pubDate>
@@ -605,15 +619,14 @@ while it&apos;s nowhere near done, a good portion of the code has been
 overhauled in the process. There are new additions such as the &lt;a href=&quot;http://arxiv.org/abs/1412.6980&quot; &gt;Adam
 optimizer&lt;/a&gt; and Recurrent Neural
 Nets. My efforts were mainly only the backprop stuff and I think the
-definition of feed-forward:
-&lt;code&gt;
-(build-fnn (:class &apos;digit-fnn)
-  (input (-&amp;gt;input :size *n-inputs*))
-  (hidden-activation (-&amp;gt;activation input :size n-hiddens))
-  (hidden (-&amp;gt;relu hidden-activation))
-  (output-activation (-&amp;gt;activation hidden :size *n-outputs*))
-  (output (-&amp;gt;softmax-xe-loss :x output-activation)))
-&lt;/code&gt;&lt;/p&gt;
+definition of feed-forward:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;build-fnn &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;:class&lt;/span&gt; &apos;digit-fnn&lt;/span&gt;)&lt;/span&gt;
+  &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;input &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;input &lt;span class=&quot;keyword&quot;&gt;:size&lt;/span&gt; &lt;span class=&quot;special&quot;&gt;*n-inputs*&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
+  &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;hidden-activation &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;activation input &lt;span class=&quot;keyword&quot;&gt;:size&lt;/span&gt; n-hiddens&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
+  &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;hidden &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;relu hidden-activation&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
+  &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;output-activation &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;activation hidden &lt;span class=&quot;keyword&quot;&gt;:size&lt;/span&gt; &lt;span class=&quot;special&quot;&gt;*n-outputs*&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
+  &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;output &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;softmax-xe-loss &lt;span class=&quot;keyword&quot;&gt;:x&lt;/span&gt; output-activation&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;and recurrent nets:&lt;/p&gt;
 
@@ -623,15 +636,14 @@ definition of feed-forward:
     &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;h &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;lstm input &lt;span class=&quot;keyword&quot;&gt;:size&lt;/span&gt; n-hiddens&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
     &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;prediction &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;softmax-xe-loss
                  &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;activation h &lt;span class=&quot;keyword&quot;&gt;:name&lt;/span&gt; &apos;prediction &lt;span class=&quot;keyword&quot;&gt;:size&lt;/span&gt; &lt;span class=&quot;special&quot;&gt;*n-outputs*&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;is fairly straight-forward already. There is still much code that
+is fairly straight-forward already. There is still much code that
 needs to accompany such a network definition, mostly having to do
 with how to give inputs and prediction targets to the network and
 also with monitoring training. See the full examples for
 &lt;a href=&quot;https://github.com/melisgl/mgl/blob/master/doc/md/mgl-manual.md#x-28MGL-BP-3A-40MGL-FNN-TUTORIAL-20MGL-PAX-3ASECTION-29&quot; &gt;feed-forward&lt;/a&gt;
 and
 &lt;a href=&quot;https://github.com/melisgl/mgl/blob/master/doc/md/mgl-manual.md#x-28MGL-BP-3A-40MGL-RNN-TUTORIAL-20MGL-PAX-3ASECTION-29&quot; &gt;recurrent&lt;/a&gt;
-nets in the documentation.&lt;/p&gt;
+nets in the documentation.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 19 Jan 2015 00:00:00 +0000</pubDate>
@@ -651,14 +663,13 @@ couple of forms of code in docstrings or copy-pasting them from
 source files to docstrings is insanity or an
 &lt;a href=&quot;http://c2.com/cgi/wiki?OnceAndOnlyOnce&quot; &gt;OOAO&lt;/a&gt; violation,
 respectively.&lt;/p&gt;
-
-&lt;p&gt;In response to this, PAX got the &lt;a href=&quot;https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3AINCLUDE-20MGL-PAX-3ALOCATIVE-29&quot; &gt;INCLUDE
+In response to this, PAX got the &lt;a href=&quot;https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3AINCLUDE-20MGL-PAX-3ALOCATIVE-29&quot; &gt;INCLUDE
 locative&lt;/a&gt; (see
 the linked documentation) and became its own first user at the same
 time. In a nutshell, the &lt;code&gt;INCLUDE&lt;/code&gt; locative can refer to non-lisp
 files and sections of lisp source files, which makes it easy to add
 code examples and external stuff to the documentation without
-duplication. As always, &lt;code&gt;M-.&lt;/code&gt; works as well.&lt;/p&gt;
+duplication. As always, &lt;code&gt;M-.&lt;/code&gt; works as well.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Sat, 06 Dec 2014 00:00:00 +0000</pubDate>
@@ -689,10 +700,9 @@ values are marked up with &amp;quot;..&amp;quot; and &amp;quot;=&amp;gt;&amp;quo
   works without the rest of MGL-PAX so it can be used to
   format bug reports or as a poor man&apos;s expect script.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;The
+The
 &lt;a href=&quot;https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3A-40MGL-PAX-TRANSCRIPT-20MGL-PAX-3ASECTION-29&quot; &gt;documentation&lt;/a&gt;
-provides a tutorialish treatment. I hope you&apos;ll find it useful.&lt;/p&gt;
+provides a tutorialish treatment. I hope you&apos;ll find it useful.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 20 Oct 2014 01:00:00 +0100</pubDate>
@@ -749,9 +759,8 @@ to be delivered as source and as binary. It sucks in all
 dependencies from quicklisp available at a certain date, clones the
 necessary repositories not available in quicklisp, builds an
 executable, and has a simple &lt;code&gt;make dist&lt;/code&gt; rule as well.&lt;/p&gt;
-
-&lt;p&gt;There is also a fairly generic ensembling algorithm, which I will
-factor out  later.&lt;/p&gt;
+There is also a fairly generic ensembling algorithm, which I will
+factor out  later.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Tue, 23 Sep 2014 01:00:00 +0100</pubDate>
@@ -775,8 +784,7 @@ evaluation metric and the amount of data available. The organizers
 did a great job explaining the physics, why there is no more data,
 motivating the choice of evaluation metric, and being prompt in
 communication in general.&lt;/p&gt;
-
-&lt;p&gt;I hope that the HEP guys will find this useful in their search for
+I hope that the HEP guys will find this useful in their search for
 more evidence of tau-tau decay of the Higgs boson. Note that I
 didn&apos;t go for the &apos;HEP meets ML Award&apos;, so training time is
 unnecessarily high (one day with a GTX Titan GPU). By switching to
@@ -786,7 +794,7 @@ drop in accuracy from 3.805 to about 3.750. Even with the bagging
 approach, the code logs out-of-bag estimates of the evaluation
 metric after training each constituent model and the training
 process can be &lt;code&gt;C-c&lt;/code&gt;ed early. Furthermore, the model can be run on a
-CPU with BLAS about 10 times slower than on a Titan.&lt;/p&gt;
+CPU with BLAS about 10 times slower than on a Titan.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Tue, 23 Sep 2014 01:00:00 +0100</pubDate>
@@ -794,11 +802,11 @@ CPU with BLAS about 10 times slower than on a Titan.&lt;/p&gt;
         <item>
             <title>Liblinear Support Added to cl-libsvm</title>
             <link>http://quotenil.com/liblinear-support-added-to-cl-libsvm.html</link>
-            <description>&lt;p&gt;In addition to the cl-libsvm asdf system, there is now another asdf
+            <description>In addition to the cl-libsvm asdf system, there is now another asdf
 system in the &lt;a href=&quot;http://github.com/melisgl/cl-libsvm&quot; &gt;cl-libsvm&lt;/a&gt;
 library: cl-liblinear that, predictably enough, is a wrapper for
 &lt;a href=&quot;http://www.csie.ntu.edu.tw/~cjlin/liblinear/&quot; &gt;liblinear&lt;/a&gt;. The API
-is similar to that of cl-libsvm.&lt;/p&gt;
+is similar to that of cl-libsvm.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Tue, 09 Apr 2013 01:00:00 +0100</pubDate>
@@ -1011,13 +1019,12 @@ the bugs) didn&apos;t work. The best I could achive was slightly worse
 than the conjugate gradient based score.&lt;/p&gt;
 
 &lt;h3&gt;Retraining Constituent Models&lt;/h3&gt;
-
-&lt;p&gt;Recall that the constituent models were trained only on 4/5 of the
+Recall that the constituent models were trained only on 4/5 of the
 available data. After the ensemble was trainined, I intended to
 retrain them on the whole stratified training set. Initial
 experiments with liblinear were promising, but with the DBN the
 public leaderboard score got a lot worse and I ran out of time to
-experiment.&lt;/p&gt;
+experiment.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Tue, 09 Apr 2013 01:00:00 +0100</pubDate>
@@ -1031,12 +1038,11 @@ glory&lt;/a&gt;.
 The good thing about not rushing it out the door is that it saw a
 bit more use. For a tutorialish tic-tac-toe example see
 &lt;a href=&quot;https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp&quot; &gt;test/test-game-theory.lisp.&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;The logging code in the example produces
+The logging code in the example produces
 &lt;a href=&quot;blog-files/alpha-beta-log.png&quot; &gt;output&lt;/a&gt;, which is suitable for cut
 and pasting into an org-mode buffer and exploring it by &lt;code&gt;TAB&lt;/code&gt;bing
 into subtrees to answer the perpetual &apos;What the hell was it
-thinking?!&apos; question.&lt;/p&gt;
+thinking?!&apos; question.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 27 Dec 2010 00:00:00 +0000</pubDate>
@@ -1048,8 +1054,9 @@ thinking?!&apos; question.&lt;/p&gt;
 alpha–beta with a few bells and whistles, I added a Nash equilibrium
 finder to &lt;a href=&quot;http://cliki.net/micmac&quot; &gt;Micmac&lt;/a&gt;, which is becoming less
 statistics oriented. This was one of the many things in Planet Wars
-that never really made it.
-Let&apos;s consider the &lt;a href=&quot;http://en.wikipedia.org/wiki/Matching_pennies&quot; &gt;Matching
+that never really made it.&lt;/p&gt;
+
+&lt;p&gt;Let&apos;s consider the &lt;a href=&quot;http://en.wikipedia.org/wiki/Matching_pennies&quot; &gt;Matching
 pennies&lt;/a&gt; game. The
 row player wins iff the two pennies show the same side. The payoff
 matrix is:&lt;/p&gt;
@@ -1358,8 +1365,7 @@ second seat to more pressing concerns.&lt;/p&gt;
 &lt;p&gt;Ah, yes. One more thing. Bocsimack&#xF3; (pronounced roughly as
 bo-chee-mats-ko), after whom the bot was named, is the handsome hero
 of a children&apos;s book, pictured on the left:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;&quot; /&gt;
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Wed, 01 Dec 2010 00:00:00 +0000</pubDate>
@@ -1370,8 +1376,9 @@ of a children&apos;s book, pictured on the left:&lt;/p&gt;
             <description>&lt;p&gt;First, is it possible to get something as simple
 as &lt;code&gt;RESOLVE-BATTLE&lt;/code&gt; wrong? Apparently, yes. That&apos;s what one gets for
 trying to port Python code that&apos;s pretty foreign in the sense of
-being far from the way I&apos;d write it.
-More importantly, I found out the hard way that sbcl 1.0.11, that&apos;s
+being far from the way I&apos;d write it.&lt;/p&gt;
+
+&lt;p&gt;More importantly, I found out the hard way that sbcl 1.0.11, that&apos;s
 &lt;a href=&quot;http://code.google.com/p/ai-contest/issues/detail?id=183&quot; &gt;still&lt;/a&gt; on
 the official servers, has a number of bugs in its timer
 implementation making &lt;code&gt;WITH-TIMEOUT&lt;/code&gt; unreliable. Also, it can
@@ -1386,8 +1393,7 @@ you&apos;ll find a timer.lisp that&apos;s simply backported almost verbatim from
 sbcl 1.0.41 to sbcl 1.0.11. Seems to work for me, but I also had to
 lower the timeout to 0.8 from 0.98 because the main server is
 extremely slow.&lt;/p&gt;
-
-&lt;p&gt;The rate at which games are played on the servers is so low that it
+The rate at which games are played on the servers is so low that it
 takes several days to ascend through the leaderboard. Nevertheless,
 an old buggy version is sitting on the
 &lt;a href=&quot;https://web.archive.org/web/20101025070429/http://ai-contest.com/rankings.php&quot; &gt;top&lt;/a&gt;
@@ -1395,7 +1401,7 @@ right now. Mind you, introducing bugs is a great way exlopore the
 solution space, and it&apos;s quite worrisome just how adept I am at this
 poor man&apos;s evolutionary programming. Most of them have since been
 fixed while the ideas they brought to light remain, making the
-current version much stronger.&lt;/p&gt;
+current version much stronger.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 25 Oct 2010 01:00:00 +0100</pubDate>
@@ -1408,8 +1414,8 @@ v0.6 (&lt;a href=&quot;http://quotenil.com/git/?p=planet-wars.git;a=summary&quot
 &lt;a href=&quot;http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz&quot; &gt;latest
 tarball&lt;/a&gt;).
 The way the server compiles lisp submissions was fixed, and this
-revealed a problem where MyBot.lisp redirected &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*STANDARD-OUTPUT* VARIABLE&quot;&gt;&lt;code&gt;*STANDARD-OUTPUT*&lt;/code&gt;&lt;/a&gt;
-to &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*ERROR-OUTPUT* VARIABLE&quot;&gt;&lt;code&gt;*ERROR-OUTPUT*&lt;/code&gt;&lt;/a&gt; causing the server to think compilation failed.&lt;/p&gt;
+revealed a problem where MyBot.lisp redirected &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*STANDARD-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*STANDARD-OUTPUT*&lt;/code&gt;&lt;/a&gt;
+to &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*ERROR-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*ERROR-OUTPUT*&lt;/code&gt;&lt;/a&gt; causing the server to think compilation failed.&lt;/p&gt;
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Tue, 21 Sep 2010 01:00:00 +0100</pubDate>
@@ -1423,8 +1429,9 @@ is back with a new game that&apos;s supposed to be much harder than Tron
 was this spring. The branching factor of the game tree is enormous,
 which only means that straight minimax is out of question this time
 around. Whether some cleverness can bring the game within reach of
-conventional algorithms remains to be seen.
-Anyway, I&apos;m adding &lt;a href=&quot;http://quotenil.com/git/?p=planet-wars.git;a=summary&quot; &gt;yet another starter
+conventional algorithms remains to be seen.&lt;/p&gt;
+
+&lt;p&gt;Anyway, I&apos;m adding &lt;a href=&quot;http://quotenil.com/git/?p=planet-wars.git;a=summary&quot; &gt;yet another starter
 package&lt;/a&gt; (&lt;a href=&quot;http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz&quot; &gt;latest
 tarball&lt;/a&gt;)
 to the
@@ -1450,13 +1457,12 @@ It is based heavily on aerique&apos;s.&lt;/p&gt;
 &lt;li&gt;&lt;p&gt;can serve any number of proxy bots&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;closes sockets properly&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;There is still a
+There is still a
 &lt;a href=&quot;https://web.archive.org/web/20110709095120/http://ai-contest.com/forum/viewtopic.php?f=18&amp;t=421&amp;start=40&quot; &gt;problem&lt;/a&gt;
 causing all lisp submissions to die on the first turn no matter
 which starter package one uses, which will hopefully be resolved.
 Until then there is dhartmei&apos;s excellent &lt;a href=&quot;https://web.archive.org/web/20100926103520/http://ai-contest.com/forum/viewtopic.php?f=18&amp;t=424&quot; &gt;unofficial tcp
-server&lt;/a&gt;.&lt;/p&gt;
+server&lt;/a&gt;.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Sun, 19 Sep 2010 01:00:00 +0100</pubDate>
@@ -1464,10 +1470,10 @@ server&lt;/a&gt;.&lt;/p&gt;
         <item>
             <title>UCT</title>
             <link>http://quotenil.com/uct.html</link>
-            <description>&lt;p&gt;As promised, my &lt;a href=&quot;http://senseis.xmp.net/?UCT&quot; &gt;UCT&lt;/a&gt;
+            <description>As promised, my &lt;a href=&quot;http://senseis.xmp.net/?UCT&quot; &gt;UCT&lt;/a&gt;
 implementation is released, albeit somewhat belatedly. It&apos;s in
 &lt;a href=&quot;http://cliki.net/Micmac&quot; &gt;Micmac&lt;/a&gt; v0.0.1, see &lt;code&gt;test/test-uct.lisp&lt;/code&gt;
-for an example. Now I only owe you alpha–beta.&lt;/p&gt;
+for an example. Now I only owe you alpha–beta.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Fri, 19 Mar 2010 00:00:00 +0000</pubDate>
@@ -1477,8 +1483,9 @@ for an example. Now I only owe you alpha–beta.&lt;/p&gt;
             <link>http://quotenil.com/google-ai-challenge-2010-results.html</link>
             <description>&lt;p&gt;For what has been a fun ride, the official results are now &lt;a href=&quot;https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php&quot; &gt;available&lt;/a&gt;.
 In the end, 11th out of 700 is not too bad and it&apos;s the highest
-ranking non-C++ entry by some margin.
-I entered the contest a bit late with a rather specific approach in
+ranking non-C++ entry by some margin.&lt;/p&gt;
+
+&lt;p&gt;I entered the contest a bit late with a rather specific approach in
 mind: &lt;a href=&quot;http://senseis.xmp.net/?UCT&quot; &gt;UCT&lt;/a&gt;, an algorithm from the
 Monte Carlo tree search family. It has been rather successful in
 Go (and in Hex too, taking the crown from
@@ -1532,9 +1539,8 @@ forum. At that point, I finally had the tool to improve the
 evaluation function but neither much time or energy remained and I
 settled for using it only in the end game when the players are
 separated.&lt;/p&gt;
-
-&lt;p&gt;The code itself is as ugly as exploratory code can be, but in the
-coming days, I&apos;ll factor the UCT and the alpha–beta code out.&lt;/p&gt;
+The code itself is as ugly as exploratory code can be, but in the
+coming days, I&apos;ll factor the UCT and the alpha–beta code out.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 01 Mar 2010 00:00:00 +0000</pubDate>
@@ -1542,7 +1548,7 @@ coming days, I&apos;ll factor the UCT and the alpha–beta code out.&lt;/p&gt;
         <item>
             <title>Google AI Challenge 2010</title>
             <link>http://quotenil.com/google-ai-challenge-2010.html</link>
-            <description>&lt;p&gt;Tron is a fun little game of boxing out the opponent and avoiding
+            <description>Tron is a fun little game of boxing out the opponent and avoiding
 crashing into a wall first. The rules are simple, so the barrier to
 entry into &lt;a href=&quot;https://web.archive.org/web/20100207135122/http://csclub.uwaterloo.ca/contest/index.php&quot; &gt;this
 contest&lt;/a&gt;
@@ -1551,7 +1557,7 @@ Common Lisp starter pack, it took as little as a few hours to get a
 very bare-bones algorithm going. It&apos;s doing surprisingly well: it is
 number 23 on the
 &lt;a href=&quot;https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php&quot; &gt;leaderboard&lt;/a&gt;
-at the moment with 43 wins, 2 losses and 9 draws.&lt;/p&gt;
+at the moment with 43 wins, 2 losses and 9 draws.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Thu, 11 Feb 2010 00:00:00 +0000</pubDate>
@@ -1559,12 +1565,12 @@ at the moment with 43 wins, 2 losses and 9 draws.&lt;/p&gt;
         <item>
             <title>Micmac Initial Release</title>
             <link>http://quotenil.com/micmac-initial-release.html</link>
-            <description>&lt;p&gt;From a failed experiment today, I salvaged
+            <description>From a failed experiment today, I salvaged
 &lt;a href=&quot;http://cliki.net/micmac&quot; &gt;Micmac&lt;/a&gt;, a statistical library wannabe,
 which for now only has Metropolis-Hastings MCMC and Metropolis
 Coupled MCMC implemented. The code doesn&apos;t weigh much, but I think
 it gets the API right. In other news &lt;a href=&quot;http://cliki.net/MGL&quot; &gt;MGL&lt;/a&gt;
-v0.0.6 was released.&lt;/p&gt;
+v0.0.6 was released.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Sat, 06 Feb 2010 00:00:00 +0000</pubDate>
@@ -1581,8 +1587,9 @@ Toronto&lt;/a&gt; now at
 &lt;a href=&quot;http://web.mit.edu/~rsalakhu/www/&quot; &gt;MIT&lt;/a&gt;, for making the Matlab
 source &lt;a href=&quot;http://web.mit.edu/~rsalakhu/www/DBM.html&quot; &gt;code&lt;/a&gt; for the
 &lt;a href=&quot;http://yann.lecun.com/exdb/mnist/&quot; &gt;MNIST&lt;/a&gt; digit classification
-problem available.
-The linked &lt;a href=&quot;http://www.cs.toronto.edu/~hinton/absps/dbm.pdf&quot; &gt;paper&lt;/a&gt;
+problem available.&lt;/p&gt;
+
+&lt;p&gt;The linked &lt;a href=&quot;http://www.cs.toronto.edu/~hinton/absps/dbm.pdf&quot; &gt;paper&lt;/a&gt;
 claims a record of 99.05% in classification accuracy on the
 permutation invariant task (no prior knowledge of geometry). A
 previous approach trained a
@@ -1668,11 +1675,10 @@ mention some experiments that were found to have no effect:&lt;/p&gt;
   sampled values DBM classification deteriorated. Using the
   expectations for chunks &lt;code&gt;INPUTS&lt;/code&gt; and &lt;code&gt;LABEL&lt;/code&gt; did not help, though.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;What I take home from these experiments is that from the
+What I take home from these experiments is that from the
 considerable edge of DBM over DBN training only a small fraction
 remains by the end of BPN training and that the additional sparsity
-constraint accounts for very little in this setup.&lt;/p&gt;
+constraint accounts for very little in this setup.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 18 Jan 2010 00:00:00 +0000</pubDate>
@@ -1688,8 +1694,9 @@ instead.&lt;/p&gt;
 &lt;p&gt;In &lt;code&gt;@INTRODUCTION-TO-MGL-PART-2&lt;/code&gt;, we went through a trivial example of
 a backprop network. I said before that the main focus is on
 Boltzmann Machines so let&apos;s kill the suspense here and now by
-cutting straight to the heart of the matter.
-&lt;a href=&quot;http://cseweb.ucsd.edu/users/gary/pubs/cottrell-science-2006.pdf&quot; &gt;Cottrell&apos;s Science
+cutting straight to the heart of the matter.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://cseweb.ucsd.edu/users/gary/pubs/cottrell-science-2006.pdf&quot; &gt;Cottrell&apos;s Science
 article&lt;/a&gt;
 provides a clear and easy to follow description of the spiral
 problem that we are going to implement. The executive summary is
@@ -1867,12 +1874,11 @@ pass:&lt;/p&gt;
                                          &lt;span class=&quot;keyword&quot;&gt;:batch-size&lt;/span&gt; 100&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
          bpn&lt;/span&gt;)&lt;/span&gt;
   bpn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I&apos;m tempted to dwell on pesky little details such as tracking errors,
+I&apos;m tempted to dwell on pesky little details such as tracking errors,
 but this entry is long enough already. Instead, load the &lt;code&gt;mgl-example&lt;/code&gt;
 system and see what &lt;code&gt;example/spiral.lisp&lt;/code&gt; has in addition to what was
 described. Evaluate the block commented forms at the end of the file
-to see how training goes.&lt;/p&gt;
+to see how training goes.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Tue, 29 Dec 2009 00:00:00 +0000</pubDate>
@@ -1887,8 +1893,9 @@ instead.&lt;/p&gt;
 
 &lt;p&gt;After &lt;code&gt;@INTRODUCTION-TO-MGL-PART-1&lt;/code&gt;, today we are going to walk
 through a small example and touch on the main concepts related to
-learning within this library.
-At the top of the food chain is the generic function &lt;code&gt;TRAIN&lt;/code&gt;:&lt;/p&gt;
+learning within this library.&lt;/p&gt;
+
+&lt;p&gt;At the top of the food chain is the generic function &lt;code&gt;TRAIN&lt;/code&gt;:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defgeneric&lt;/span&gt;&lt;/i&gt; train &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;sampler trainer learner&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;:documentation&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;Train LEARNER with TRAINER on the examples from
@@ -1995,7 +2002,7 @@ gd trainers is provided by the function in the &lt;code&gt;:SEGMENTER&lt;/code&g
 argument. By using &lt;code&gt;REPEATEDLY&lt;/code&gt;, for now, we simply create a
 distinct child trainer for each weight lump as it makes a function
 that on each call evaluates the form in its body (as opposed to
-&lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_cons_1.htm&quot; title=&quot;CONSTANTLY FUNCTION&quot;&gt;&lt;code&gt;CONSTANTLY&lt;/code&gt;&lt;/a&gt;).&lt;/p&gt;
+&lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_cons_1.htm&quot; title=&quot;CONSTANTLY (MGL-PAX:CLHS FUNCTION)&quot;&gt;&lt;code&gt;CONSTANTLY&lt;/code&gt;&lt;/a&gt;).&lt;/p&gt;
 
 &lt;p&gt;That&apos;s it without any bells and whistles. If all goes well,
 &lt;code&gt;WEIGHTS&lt;/code&gt; should be trained to be equal to &lt;code&gt;*MATRIX*&lt;/code&gt;.
@@ -2003,9 +2010,9 @@ Inspect &lt;code&gt;(NODES (FIND-LUMP &apos;WEIGHTS *BPN*))&lt;/code&gt; to veri
 
 &lt;p&gt;Impatience satisfied, examine the &lt;code&gt;BUILD-BPN&lt;/code&gt; form in detail. The
 &lt;code&gt;:CLASS&lt;/code&gt; argument is obvious, and the rest of the forms are a
-sequence of bindings like in a &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/s_let_l.htm&quot; title=&quot;LET* MGL-PAX:MACRO&quot;&gt;&lt;code&gt;LET*&lt;/code&gt;&lt;/a&gt;. The extra touches are that
+sequence of bindings like in a &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/s_let_l.htm&quot; title=&quot;LET* (MGL-PAX:CLHS MGL-PAX:MACRO)&quot;&gt;&lt;code&gt;LET*&lt;/code&gt;&lt;/a&gt;. The extra touches are that
 the name of the variable to which a lump is bound is going to be
-supplied as the &lt;code&gt;:NAME&lt;/code&gt; of the lump and an extra &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_mk_ins.htm&quot; title=&quot;MAKE-INSTANCE FUNCTION&quot;&gt;&lt;code&gt;MAKE-INSTANCE&lt;/code&gt;&lt;/a&gt; is
+supplied as the &lt;code&gt;:NAME&lt;/code&gt; of the lump and an extra &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_mk_ins.htm&quot; title=&quot;MAKE-INSTANCE (MGL-PAX:CLHS GENERIC-FUNCTION)&quot;&gt;&lt;code&gt;MAKE-INSTANCE&lt;/code&gt;&lt;/a&gt; is
 added so&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;input &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;input-lump &lt;span class=&quot;keyword&quot;&gt;:size&lt;/span&gt; n-inputs&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
@@ -2039,8 +2046,9 @@ fact, the few seemingly unrelated things it currently
 offers (gradient descent, conjugate gradient, backprop) are directly
 needed to implement the learning and fine tuning methods for
 different kinds of BMs. But before venturing too far into specifics,
-here is a quick glimpse at the bigger picture and the motivations.
-Most of the current learning algorithms are based on shallow
+here is a quick glimpse at the bigger picture and the motivations.&lt;/p&gt;
+
+&lt;p&gt;Most of the current learning algorithms are based on shallow
 architectures: they are fundamentally incapable of basing higher
 level concepts on other, learned concepts. The most prominent
 example of succesful shallow learners is Support Vector Machines,
@@ -2073,9 +2081,8 @@ they have demonstrated very good performance on a number of problems
 and have a biologically plausible, local,
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Hebbian_theory&quot; &gt;Hebbian&lt;/a&gt; learning
 rule.&lt;/p&gt;
-
-&lt;p&gt;Now that you are sufficiently motivated, stick around and in
-&lt;code&gt;@INTRODUCTION-TO-MGL-PART-2&lt;/code&gt;, we are going to see real examples.&lt;/p&gt;
+Now that you are sufficiently motivated, stick around and in
+&lt;code&gt;@INTRODUCTION-TO-MGL-PART-2&lt;/code&gt;, we are going to see real examples.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Wed, 02 Dec 2009 00:00:00 +0000</pubDate>
@@ -2153,14 +2160,13 @@ fine:&lt;/p&gt;
 
 &lt;p&gt;That&apos;s the best I could come up with; educate me if you have a
 better idea.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;: Lazy initialiation has been suggested as an alternative.
+&lt;strong&gt;UPDATE&lt;/strong&gt;: Lazy initialiation has been suggested as an alternative.
 However, a naive implementation based on &lt;code&gt;SLOT-BOUND-P&lt;/code&gt; is bound to
 run into problems when the lazily computed slot has an initform in a
 superclass. With &lt;code&gt;SLOT-VALUE-USING-CLASS&lt;/code&gt;, one can probably mimick
 most of the semantics here in a very clean manner, but to avoid
 recomputing the value on every access, additional bookkeeping is
-needed, again, due to initforms.&lt;/p&gt;
+needed, again, due to initforms.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Sat, 04 Jul 2009 01:00:00 +0100</pubDate>
@@ -2168,13 +2174,13 @@ needed, again, due to initforms.&lt;/p&gt;
         <item>
             <title>Global Compiler Policy</title>
             <link>http://quotenil.com/global-compiler-policy.html</link>
-            <description>&lt;p&gt;A quick note to library implementors: the effects of &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm&quot; title=&quot;DECLAIM MGL-PAX:MACRO&quot;&gt;&lt;code&gt;DECLAIM&lt;/code&gt;&lt;/a&gt; are
+            <description>&lt;p&gt;A quick note to library implementors: the effects of &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm&quot; title=&quot;DECLAIM (MGL-PAX:CLHS MGL-PAX:MACRO)&quot;&gt;&lt;code&gt;DECLAIM&lt;/code&gt;&lt;/a&gt; are
 &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm&quot; &gt;permitted to
 persist&lt;/a&gt;
 after the containing file is compiled, and it is unkind to mutate
 your user&apos;s settings. Personally, I find &lt;code&gt;DECLAIM&lt;/code&gt; too blunt and
 prefer to add declarations within functions, even going as far as
-introducing &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/s_locall.htm&quot; title=&quot;LOCALLY MGL-PAX:MACRO&quot;&gt;&lt;code&gt;LOCALLY&lt;/code&gt;&lt;/a&gt; subforms just to have a place on which to hang
+introducing &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/s_locall.htm&quot; title=&quot;LOCALLY (MGL-PAX:CLHS MGL-PAX:MACRO)&quot;&gt;&lt;code&gt;LOCALLY&lt;/code&gt;&lt;/a&gt; subforms just to have a place on which to hang
 declarations. But if you are really set on using &lt;code&gt;DECLAIM&lt;/code&gt;, please
 wrap it like this:&lt;/p&gt;
 
@@ -2201,7 +2207,7 @@ wrap the whole file in:&lt;/p&gt;
         <item>
             <title>Active Learning for cl-libsvm</title>
             <link>http://quotenil.com/active-learning-for-cl-libsvm.html</link>
-            <description>&lt;p&gt;Along the lines of &lt;a href=&quot;http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html&quot; &gt;active learning with python &amp;amp;
+            <description>Along the lines of &lt;a href=&quot;http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html&quot; &gt;active learning with python &amp;amp;
 libsvm&lt;/a&gt;,
 I &lt;a href=&quot;http://github.com/melisgl/cl-libsvm&quot; &gt;added&lt;/a&gt; support for
 calculating distance of a point from the separating hyperplane to
@@ -2218,7 +2224,7 @@ the separating hyperplane is the distance. &lt;code&gt;PREDICT-VALUES&lt;/code&g
 &lt;code&gt;MODEL-W2S&lt;/code&gt; are sufficient to calculate it. Note that among the
 distributed binaries only the linux-x86 version has been recompiled
 with the necessary changes, but patched sources are also included
-for your recompiling pleasure.&lt;/p&gt;
+for your recompiling pleasure.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 22 Jun 2009 01:00:00 +0100</pubDate>
@@ -2231,8 +2237,9 @@ convention&lt;/a&gt;
 is rather peculiar. Frames are allocated and mostly set up by the
 caller. The new frame starts with a pointer to the old frame, then
 comes the return address, an empty slot and the stack arguments (the
-first three are passed in registers on x86).
-Software archeology aside, the only reason I can see for this scheme
+first three are passed in registers on x86).&lt;/p&gt;
+
+&lt;p&gt;Software archeology aside, the only reason I can see for this scheme
 is that stack arguments are easier to manipulate when they are after
 the return address, old frame pointer part. In particular, tail
 calls with any number of arguments can be made without
@@ -2273,15 +2280,14 @@ gain about 25-50%. See results for
 &lt;a href=&quot;blog-files/x86oid-calling-convention-p4-results.txt&quot; &gt;P4&lt;/a&gt; and &lt;a href=&quot;blog-files/x86oid-calling-convention-64bit-opteron-results.txt&quot; &gt;64
 bit
 Opteron&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;This should take off another chunk off the proposed and already
+This should take off another chunk off the proposed and already
 partly done Summer of Code
 &lt;a href=&quot;http://coding.derkeiler.com/Archive/Lisp/comp.lang.lisp/2006-03/msg00528.html&quot; &gt;project&lt;/a&gt;
 for improving the x86 and x86-64 calling convention although a nicer
 solution may be possible. As to the future, it is unclear to me how
 callee allocated frames would pan out. Code for the current batch of
 changes is
-&lt;a href=&quot;http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=x86-calling-convention&quot; &gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;a href=&quot;http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=x86-calling-convention&quot; &gt;here&lt;/a&gt;.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Sun, 19 Apr 2009 01:00:00 +0100</pubDate>
@@ -2311,7 +2317,7 @@ up pseudo-atomic in SBCL.&lt;/p&gt;
 
 &lt;h2&gt;&lt;code&gt;EBP&lt;/code&gt;&lt;/h2&gt;
 
-&lt;p&gt;My first idea was that ORing is unnecessary since, with the slew of
+&lt;p&gt;My first idea was that &lt;code&gt;OR&lt;/code&gt;(&lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_or.htm&quot; title=&quot;OR (MGL-PAX:CLHS MGL-PAX:MACRO)&quot;&gt;&lt;code&gt;0&lt;/code&gt;&lt;/a&gt; &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/t_or.htm&quot; title=&quot;OR (MGL-PAX:CLHS TYPE)&quot;&gt;&lt;code&gt;1&lt;/code&gt;&lt;/a&gt;)ing is unnecessary since, with the slew of
 interrupt fixes going into 1.0.26, every interrupt deferred by
 pseudo-atomic is handled as soon as we leave the pa section. Hence,
 a simple &lt;code&gt;MOV&lt;/code&gt; would suffice. Or, if we wanted to be fancy, we could
@@ -2404,8 +2410,9 @@ under more ideal circumstances. Part of the reason is the
 insufficient number of iterations of some tests: measurement
 accuracy is really bad when the run time is below 0.2s, and it is
 abysmal when there is other activity on the system, which is easy to
-tell even in retrospect by comparing the real and user time columns.
-But that&apos;s not the end of the story, take for instance
+tell even in retrospect by comparing the real and user time columns.&lt;/p&gt;
+
+&lt;p&gt;But that&apos;s not the end of the story, take for instance
 &lt;code&gt;FPRINT/PRETTY&lt;/code&gt;: it takes more than two seconds but often
 experiences changes up to 7% caused by seemingly unrelated changes.
 People have fingered alignment as a likely cause.&lt;/p&gt;
@@ -2444,10 +2451,9 @@ practice even the tightest loops are already longer than 16 bytes
 &lt;a href=&quot;blog-files/align-code/piii-results&quot; &gt;PIII&lt;/a&gt;, a
 &lt;a href=&quot;blog-files/align-code/p4-results&quot; &gt;P4&lt;/a&gt;, a &lt;a href=&quot;blog-files/align-code/core-duo-results&quot; &gt;Core
 Duo&lt;/a&gt; system.&lt;/p&gt;
-
-&lt;p&gt;There may be a slight improvement, but its magnitude is pretty small
+There may be a slight improvement, but its magnitude is pretty small
 compared to the noise. I&apos;m declaring the evidence inconclusive and
-let the commit stay out of the official SBCL tree.&lt;/p&gt;
+let the commit stay out of the official SBCL tree.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 09 Mar 2009 00:00:00 +0000</pubDate>
@@ -2465,8 +2471,9 @@ there is a better way:&lt;/p&gt;
 &lt;p&gt;Note the placement of modifiers: &lt;em&gt;Control&lt;/em&gt;, &lt;em&gt;Meta&lt;/em&gt;, &lt;em&gt;Super&lt;/em&gt;, &lt;em&gt;Hyper&lt;/em&gt;
 on both sides of Space in this order, with &lt;em&gt;Control&lt;/em&gt; being the
 closest to it. Touch typers especially find having two of each key
-absolutely essential, and the symmetric placement appeals to me.
-Also note the &lt;em&gt;Rubout&lt;/em&gt; key next to &lt;em&gt;A&lt;/em&gt; where &lt;em&gt;Caps Lock&lt;/em&gt; resides on
+absolutely essential, and the symmetric placement appeals to me.&lt;/p&gt;
+
+&lt;p&gt;Also note the &lt;em&gt;Rubout&lt;/em&gt; key next to &lt;em&gt;A&lt;/em&gt; where &lt;em&gt;Caps Lock&lt;/em&gt; resides on
 modern keyboards. &lt;em&gt;Rubout&lt;/em&gt; is like &lt;em&gt;Backspace&lt;/em&gt; and is better to have
 on the home row than the most useless and annoying key in history.&lt;/p&gt;
 
@@ -2500,9 +2507,8 @@ xset r 66
 keyboard.&lt;/p&gt;
 
 &lt;p&gt;Oh, that xmodmap file above also has &lt;code&gt;[]&lt;/code&gt; and &lt;code&gt;()&lt;/code&gt; swapped.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2020-05-03&lt;/strong&gt; Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
-  version&lt;/a&gt;.&lt;/p&gt;
+&lt;strong&gt;2020-05-03&lt;/strong&gt; Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
+  version&lt;/a&gt;.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 15 Dec 2008 00:00:00 +0000</pubDate>

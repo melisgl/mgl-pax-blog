@@ -55,13 +55,13 @@
 
 <div class='br'></div>
 
-<p>A quick note to library implementors: the effects of <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" title="DECLAIM MGL-PAX:MACRO"><code>DECLAIM</code></a> are
+<p>A quick note to library implementors: the effects of <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" title="DECLAIM (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>DECLAIM</code></a> are
 <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" >permitted to
 persist</a>
 after the containing file is compiled, and it is unkind to mutate
 your user's settings. Personally, I find <code>DECLAIM</code> too blunt and
 prefer to add declarations within functions, even going as far as
-introducing <a href="http://www.lispworks.com/documentation/HyperSpec/Body/s_locall.htm" title="LOCALLY MGL-PAX:MACRO"><code>LOCALLY</code></a> subforms just to have a place on which to hang
+introducing <a href="http://www.lispworks.com/documentation/HyperSpec/Body/s_locall.htm" title="LOCALLY (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>LOCALLY</code></a> subforms just to have a place on which to hang
 declarations. But if you are really set on using <code>DECLAIM</code>, please
 wrap it like this:</p>
 

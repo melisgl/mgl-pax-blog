@@ -171,7 +171,7 @@ gd trainers is provided by the function in the <code>:SEGMENTER</code>
 argument. By using <code>REPEATEDLY</code>, for now, we simply create a
 distinct child trainer for each weight lump as it makes a function
 that on each call evaluates the form in its body (as opposed to
-<a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_cons_1.htm" title="CONSTANTLY FUNCTION"><code>CONSTANTLY</code></a>).</p>
+<a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_cons_1.htm" title="CONSTANTLY (MGL-PAX:CLHS FUNCTION)"><code>CONSTANTLY</code></a>).</p>
 
 <p>That's it without any bells and whistles. If all goes well,
 <code>WEIGHTS</code> should be trained to be equal to <code>*MATRIX*</code>.
@@ -179,9 +179,9 @@ Inspect <code>(NODES (FIND-LUMP 'WEIGHTS *BPN*))</code> to verify.</p>
 
 <p>Impatience satisfied, examine the <code>BUILD-BPN</code> form in detail. The
 <code>:CLASS</code> argument is obvious, and the rest of the forms are a
-sequence of bindings like in a <a href="http://www.lispworks.com/documentation/HyperSpec/Body/s_let_l.htm" title="LET* MGL-PAX:MACRO"><code>LET*</code></a>. The extra touches are that
+sequence of bindings like in a <a href="http://www.lispworks.com/documentation/HyperSpec/Body/s_let_l.htm" title="LET* (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>LET*</code></a>. The extra touches are that
 the name of the variable to which a lump is bound is going to be
-supplied as the <code>:NAME</code> of the lump and an extra <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_mk_ins.htm" title="MAKE-INSTANCE FUNCTION"><code>MAKE-INSTANCE</code></a> is
+supplied as the <code>:NAME</code> of the lump and an extra <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_mk_ins.htm" title="MAKE-INSTANCE (MGL-PAX:CLHS GENERIC-FUNCTION)"><code>MAKE-INSTANCE</code></a> is
 added so</p>
 
 <pre><code><span class="code"><span class="paren1">(<span class="code">input <span class="paren2">(<span class="code">input-lump <span class="keyword">:size</span> n-inputs</span>)</span></span>)</span></span></code></pre>

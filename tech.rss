@@ -7,9 +7,24 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
+            <title>PAX Documentation Browser</title>
+            <link>http://quotenil.com/pax-browser.html</link>
+            <description>PAX got a &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@DOCUMENTING-IN-EMACS%20MGL-PAX:SECTION&quot; &gt;Emacs-based documentation
+browser&lt;/a&gt;
+to make documentation generation a more interactive experience. The
+trouble with interactivity is, of course, that it&apos;s difficult to get
+the point across in documentation, so I made a short
+&lt;a href=&quot;https://youtu.be/vH9hpk_Yirw&quot; &gt;video&lt;/a&gt; that demonstrates the very
+basics. In a followup, I&apos;ll cover
+&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION&quot; &gt;apropos&lt;/a&gt;.
+</description>
+            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <pubDate>Fri, 26 May 2023 01:00:00 +0100</pubDate>
+        </item>
+        <item>
             <title>Grid Typesetting</title>
             <link>http://quotenil.com/grid-typesetting.html</link>
-            <description>&lt;p&gt;I put the sources of the Two-Tailed Averaging paper on
+            <description>I put the sources of the Two-Tailed Averaging paper on
 &lt;a href=&quot;https://github.com/melisgl/two-tailed-averaging&quot; &gt;github&lt;/a&gt;. Of
 course, the sources are also available on
 &lt;a href=&quot;https://arxiv.org/abs/2209.12581&quot; &gt;arxiv&lt;/a&gt;, but this may give better
@@ -22,7 +37,7 @@ No wonder Matthew Butterick &lt;a href=&quot;https://practicaltypography.com/cha
 Charter&lt;/a&gt;. By the way,
 see what he has to say about
 &lt;a href=&quot;https://practicaltypography.com/grids.html&quot; &gt;grids&lt;/a&gt; and baseline
-grids, in particular.&lt;/p&gt;
+grids, in particular.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 17 Apr 2023 01:00:00 +0100</pubDate>
@@ -129,8 +144,9 @@ EPC3925 modem-router to fix the speed issue I was having. The good
 news is that the connection operates near its advertised bandwidth,
 the bad news is that tcp connections started to hang. It didn&apos;t take
 long to &lt;a href=&quot;http://hup.hu/node/98496&quot; &gt;find out&lt;/a&gt; that this particular
-router drops &amp;quot;unused&amp;quot; tcp connections after five minutes.
-The fix recommended in the linked topic (namely &lt;code&gt;sysctl&lt;/code&gt;ing
+router drops &amp;quot;unused&amp;quot; tcp connections after five minutes.&lt;/p&gt;
+
+&lt;p&gt;The fix recommended in the linked topic (namely &lt;code&gt;sysctl&lt;/code&gt;ing
 &lt;code&gt;net.ipv4.tcp_keepalive_time&lt;/code&gt; &amp;amp; co) was mostly effective, but I had
 to lower the keepalive to one minute to keep my ssh sessions alive.
 The trouble was that OfflineIMAP connections to the U.S. west coast
@@ -145,10 +161,9 @@ to use the keepalive and the keepalive be lowered to 15s:&lt;/p&gt;
           net.ipv4.tcp_keepalive_intvl=15 \
           net.ipv4.tcp_keepalive_probes=20
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Oh, and always include &lt;code&gt;socktimeout&lt;/code&gt; in the OfflineIMAP config.
+Oh, and always include &lt;code&gt;socktimeout&lt;/code&gt; in the OfflineIMAP config.
 That&apos;s more important than keepalive unless you never have network
-issues.&lt;/p&gt;
+issues.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Sun, 27 Feb 2011 00:00:00 +0000</pubDate>
@@ -167,8 +182,9 @@ netrc style of file to read passwords from and can easily use
 authinfo&lt;/a&gt;
 files as well. Offlineimap, on the other hand, offers no such
 support, and passwords to the local and remote imap accounts are
-normally stored in clear text in &lt;code&gt;.offlineimaprc&lt;/code&gt;.
-For the local account, this can be overcome by not running a Dovecot
+normally stored in clear text in &lt;code&gt;.offlineimaprc&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;For the local account, this can be overcome by not running a Dovecot
 server but making offlineimap spawn a dovecot process when needed:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;[Repository LocalGmail]
@@ -207,8 +223,7 @@ def get_authinfo_password(machine, login, port):
 
 &lt;pre&gt;&lt;code&gt;machine imap.gmail.com login username@gmail.com password &amp;lt;password&amp;gt; port 993
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;That&apos;s it, no more cleartext passwords.&lt;/p&gt;
+That&apos;s it, no more cleartext passwords.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Sat, 26 Feb 2011 00:00:00 +0000</pubDate>
@@ -216,7 +231,7 @@ def get_authinfo_password(machine, login, port):
         <item>
             <title>Upgrade Woes 2</title>
             <link>http://quotenil.com/upgrade-woes-2.html</link>
-            <description>&lt;p&gt;Debian Squeeze finally got Xorg 7.5 instead of the old and dusty 7.4.
+            <description>Debian Squeeze finally got Xorg 7.5 instead of the old and dusty 7.4.
 The upgrade was as smooth as ever: &lt;a href=&quot;http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=568872&quot; &gt;DPI is
 off&lt;/a&gt;,
 keyboard repeat for the Caps Lock key &lt;a href=&quot;http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=568868&quot; &gt;does not survive
@@ -224,7 +239,7 @@ suspend/resume&lt;/a&gt;
 and the trackpoint &lt;a href=&quot;http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=568873&quot; &gt;stopped
 working&lt;/a&gt;.
 Synaptics click by tapping went away before the upgrade so that
-doesn&apos;t count.&lt;/p&gt;
+doesn&apos;t count.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 08 Feb 2010 00:00:00 +0000</pubDate>
@@ -235,8 +250,9 @@ doesn&apos;t count.&lt;/p&gt;
             <description>&lt;p&gt;Debian Lenny was released back in February. My conservativeness only
 lasts about half a year, so I decided to upgrade to Squeeze aka
 Debian testing. The upgrade itself went rather smoothly with a few
-notable exceptions. With KDE 4.3, I should have waited more.
-Notes:&lt;/p&gt;
+notable exceptions. With KDE 4.3, I should have waited more.&lt;/p&gt;
+
+&lt;p&gt;Notes:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Who thought it a grand idea that in the default theme (Oxygen) the
@@ -278,8 +294,9 @@ there is a better way:&lt;/p&gt;
 &lt;p&gt;Note the placement of modifiers: &lt;em&gt;Control&lt;/em&gt;, &lt;em&gt;Meta&lt;/em&gt;, &lt;em&gt;Super&lt;/em&gt;, &lt;em&gt;Hyper&lt;/em&gt;
 on both sides of Space in this order, with &lt;em&gt;Control&lt;/em&gt; being the
 closest to it. Touch typers especially find having two of each key
-absolutely essential, and the symmetric placement appeals to me.
-Also note the &lt;em&gt;Rubout&lt;/em&gt; key next to &lt;em&gt;A&lt;/em&gt; where &lt;em&gt;Caps Lock&lt;/em&gt; resides on
+absolutely essential, and the symmetric placement appeals to me.&lt;/p&gt;
+
+&lt;p&gt;Also note the &lt;em&gt;Rubout&lt;/em&gt; key next to &lt;em&gt;A&lt;/em&gt; where &lt;em&gt;Caps Lock&lt;/em&gt; resides on
 modern keyboards. &lt;em&gt;Rubout&lt;/em&gt; is like &lt;em&gt;Backspace&lt;/em&gt; and is better to have
 on the home row than the most useless and annoying key in history.&lt;/p&gt;
 
@@ -313,9 +330,8 @@ xset r 66
 keyboard.&lt;/p&gt;
 
 &lt;p&gt;Oh, that xmodmap file above also has &lt;code&gt;[]&lt;/code&gt; and &lt;code&gt;()&lt;/code&gt; swapped.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2020-05-03&lt;/strong&gt; Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
-  version&lt;/a&gt;.&lt;/p&gt;
+&lt;strong&gt;2020-05-03&lt;/strong&gt; Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
+  version&lt;/a&gt;.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 15 Dec 2008 00:00:00 +0000</pubDate>
@@ -370,10 +386,9 @@ away:&lt;/p&gt;
 
  cleanup
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Note, that it&apos;s this easy since I basically have only one file
+Note, that it&apos;s this easy since I basically have only one file
 system (only &lt;code&gt;/boot&lt;/code&gt; is separate), and that resides on LVM, which
-makes it trivial to snapshot.&lt;/p&gt;
+makes it trivial to snapshot.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Fri, 28 Mar 2008 00:00:00 +0000</pubDate>
@@ -396,9 +411,8 @@ solution with comment filtering.&lt;/p&gt;
 org-mode 5.17a, and I only had time to bring it to some basic level
 of functionality. That said, here is the
 &lt;a href=&quot;blog-files/blorg-init.el&quot; &gt;blorg-init.el&lt;/a&gt; file I&apos;m using right now.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2020-05-03&lt;/strong&gt;: Since then, this blog has been moved to
-  &lt;a href=&quot;http://github.com/melisgl/mgl-pax&quot; &gt;MGL-PAX&lt;/a&gt;.&lt;/p&gt;
+&lt;strong&gt;2020-05-03&lt;/strong&gt;: Since then, this blog has been moved to
+  &lt;a href=&quot;http://github.com/melisgl/mgl-pax&quot; &gt;MGL-PAX&lt;/a&gt;.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Fri, 01 Feb 2008 00:00:00 +0000</pubDate>

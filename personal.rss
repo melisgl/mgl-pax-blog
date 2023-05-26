@@ -14,8 +14,9 @@ good puzzle and why the trick
 &lt;a href=&quot;http://en.wikipedia.org/wiki/36_cube&quot; &gt;36Cube&lt;/a&gt; pulls is rather
 dirty.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;WARNING&lt;/strong&gt;, spoilers ahead.
-Got this crafty beast for Christmas, and since then I lost many
+&lt;p&gt;&lt;strong&gt;WARNING&lt;/strong&gt;, spoilers ahead.&lt;/p&gt;
+
+&lt;p&gt;Got this crafty beast for Christmas, and since then I lost many
 evenings to juggling permutations of towers over the inverted city
 skyline. The game can be solved two ways:&lt;/p&gt;
 
@@ -28,13 +29,12 @@ skyline. The game can be solved two ways:&lt;/p&gt;
 can be argued that to solve this puzzle one must be an
 outside-the-box thinker, examine every opportunity, leave no stone
 unturned. No tower, rather.&lt;/p&gt;
-
-&lt;p&gt;The fact that I wouldn&apos;t even have solved it without the help of my
+The fact that I wouldn&apos;t even have solved it without the help of my
 wife (who has a few more feet on the ground than I do) must make me
 an in-the-box thinker. A naive one, too, who believes that the
 differences on the insides of towers must be manufacturing
 artifacts. Damn you, thnkbx, you have just crossed the line of
-having no decency at all.&lt;/p&gt;
+having no decency at all.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Sun, 19 Aug 2012 01:00:00 +0100</pubDate>
@@ -48,8 +48,9 @@ written eons ago.&lt;/p&gt;
 &lt;p&gt;This build is focused on survival. No save/loading, &lt;a href=&quot;http://www.killap.net/&quot; &gt;killap&apos;s final
 patch&lt;/a&gt;, hard combat and game difficulty. As
 it is not only ironman but a munchkin too, it must be a Sniper since
-HtH is a bit underpowered.
-See &lt;a href=&quot;http://faqs.ign.com/articles/777/777224p1.html&quot; &gt;this&lt;/a&gt; for good
+HtH is a bit underpowered.&lt;/p&gt;
+
+&lt;p&gt;See &lt;a href=&quot;http://faqs.ign.com/articles/777/777224p1.html&quot; &gt;this&lt;/a&gt; for good
 insights into ironman survival. The two most important pieces of
 advice it has is: Sneak and Outdoorsman. Sneak does not work as well
 for me as advertised, that is, I cannot end combat in all cases if
@@ -164,8 +165,7 @@ as many Scout Handbooks as you can.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.fanmadefallout.com/fo2-items/&quot; &gt;http://www.fanmadefallout.com/fo2-items/&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.fanmadefallout.com/procrit/&quot; &gt;http://www.fanmadefallout.com/procrit/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2&quot; &gt;http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2&quot; &gt;http://www.playithardcore.com/pihwiki/index.php?title=Fallout_2&lt;/a&gt;
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Sat, 21 Nov 2009 00:00:00 +0000</pubDate>
@@ -176,14 +176,14 @@ as many Scout Handbooks as you can.&lt;/p&gt;
             <description>&lt;p&gt;An &lt;a href=&quot;blog-files/guns.jpg&quot; &gt;example&lt;/a&gt; may speak a hundred
 words, but sometimes not even that is enough and you want to be
 &lt;a href=&quot;blog-files/dangerous-objects.jpg&quot; &gt;very explicit&lt;/a&gt; about the dangers of
-hand grenades on board.
-Finally, some trash talk carefully designed to intimidate:&lt;/p&gt;
+hand grenades on board.&lt;/p&gt;
+
+&lt;p&gt;Finally, some trash talk carefully designed to intimidate:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;blog-files/remainders.jpg&quot; alt=&quot;trash talk&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Never die without having made the necessary arrangements.&lt;/p&gt;
-
-&lt;p&gt;All pictures were taken at M&#xE1;laga airport.&lt;/p&gt;
+All pictures were taken at M&#xE1;laga airport.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Mon, 04 Feb 2008 00:00:00 +0000</pubDate>
@@ -206,9 +206,8 @@ solution with comment filtering.&lt;/p&gt;
 org-mode 5.17a, and I only had time to bring it to some basic level
 of functionality. That said, here is the
 &lt;a href=&quot;blog-files/blorg-init.el&quot; &gt;blorg-init.el&lt;/a&gt; file I&apos;m using right now.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2020-05-03&lt;/strong&gt;: Since then, this blog has been moved to
-  &lt;a href=&quot;http://github.com/melisgl/mgl-pax&quot; &gt;MGL-PAX&lt;/a&gt;.&lt;/p&gt;
+&lt;strong&gt;2020-05-03&lt;/strong&gt;: Since then, this blog has been moved to
+  &lt;a href=&quot;http://github.com/melisgl/mgl-pax&quot; &gt;MGL-PAX&lt;/a&gt;.
 </description>
             <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
             <pubDate>Fri, 01 Feb 2008 00:00:00 +0000</pubDate>

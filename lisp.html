@@ -46,6 +46,24 @@
   href=about-me.html>me</a>.
  </div>
 </div><div id="content">
+<p><a id="x-28MGL-PAX-BLOG-3A-40LISP--40PAX-BROWSER-SHORT-20MGL-PAX-3ASECTION-29"></a>
+<a id="MGL-PAX-BLOG:@LISP-@PAX-BROWSER-SHORT%20MGL-PAX:SECTION"></a></p>
+
+<h1><a href="pax-browser.html" title="PAX Documentation Browser">PAX Documentation Browser</a></h1>
+
+<p><span class='post-data'><em>Tags</em>: <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2023-05-26</span></p>
+
+<div class='br'></div>
+
+<p>PAX got a <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@DOCUMENTING-IN-EMACS%20MGL-PAX:SECTION" >Emacs-based documentation
+browser</a>
+to make documentation generation a more interactive experience. The
+trouble with interactivity is, of course, that it's difficult to get
+the point across in documentation, so I made a short
+<a href="https://youtu.be/vH9hpk_Yirw" >video</a> that demonstrates the very
+basics. In a followup, I'll cover
+<a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION" >apropos</a>.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40LISP--40THERE-IS-TRY-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@LISP-@THERE-IS-TRY-SHORT%20MGL-PAX:SECTION"></a></p>
 
@@ -92,8 +110,8 @@ for the last year or so.</p>
 
 <ul>
 <li><p>To reduce deployment size, made the MGL-PAX system <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29" >autoload navigation, documentation generation, and transcription code</a>.</p></li>
-<li><p>Symbols in the CL package are <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29" >linked to the hyperspec</a> like this: <code>PRINT</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_wr_pr.htm" title="PRINT FUNCTION"><code>PRINT</code></a>.</p></li>
-<li><p>Hyperspec sections and issues can be linked to with the <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29" >CLHS locative</a> like this: <code>[lambda lists][CLHS]</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/03_d.htm" title="&quot;3.4&quot; MGL-PAX:CLHS">lambda lists</a>.</p></li>
+<li><p>Symbols in the CL package are <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29" >linked to the hyperspec</a> like this: <code>PRINT</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_wr_pr.htm" title="PRINT (MGL-PAX:CLHS FUNCTION)"><code>PRINT</code></a>.</p></li>
+<li><p>Hyperspec sections and issues can be linked to with the <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29" >CLHS locative</a> like this: <code>[lambda lists][CLHS]</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/03_d.htm" title="&quot;3.4&quot; (MGL-PAX:CLHS MGL-PAX:SECTION)">lambda lists</a>.</p></li>
 <li><p>Added support for <code>[see this][foo function]</code> and <code>[see this][foo]</code> style of <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-40MGL-PAX-LINKING-TO-CODE-20MGL-PAX-3ASECTION-29" >linking</a>.</p></li>
 <li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28DECLARATION-20MGL-PAX-3ALOCATIVE-29" >DECLARATION locative</a>.</p></li>
 </ul>
@@ -437,8 +455,8 @@ v0.6 (<a href="http://quotenil.com/git/?p=planet-wars.git;a=summary" >git</a>,
 <a href="http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz" >latest
 tarball</a>).
 The way the server compiles lisp submissions was fixed, and this
-revealed a problem where MyBot.lisp redirected <a href="http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm" title="*STANDARD-OUTPUT* VARIABLE"><code>*STANDARD-OUTPUT*</code></a>
-to <a href="http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm" title="*ERROR-OUTPUT* VARIABLE"><code>*ERROR-OUTPUT*</code></a> causing the server to think compilation failed.</p>
+revealed a problem where MyBot.lisp redirected <a href="http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm" title="*STANDARD-OUTPUT* (MGL-PAX:CLHS VARIABLE)"><code>*STANDARD-OUTPUT*</code></a>
+to <a href="http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm" title="*ERROR-OUTPUT* (MGL-PAX:CLHS VARIABLE)"><code>*ERROR-OUTPUT*</code></a> causing the server to think compilation failed.</p>
 
 <p><a id="x-28MGL-PAX-BLOG-3A-40LISP--40PLANET-WARS-COMMON-LISP-STARTER-PACKAGE-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@LISP-@PLANET-WARS-COMMON-LISP-STARTER-PACKAGE-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -641,13 +659,13 @@ slots <code>A</code> and <code>B</code>:</p>
 
 <div class='br'></div>
 
-<p>A quick note to library implementors: the effects of <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" title="DECLAIM MGL-PAX:MACRO"><code>DECLAIM</code></a> are
+<p>A quick note to library implementors: the effects of <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" title="DECLAIM (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>DECLAIM</code></a> are
 <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" >permitted to
 persist</a>
 after the containing file is compiled, and it is unkind to mutate
 your user's settings. Personally, I find <code>DECLAIM</code> too blunt and
 prefer to add declarations within functions, even going as far as
-introducing <a href="http://www.lispworks.com/documentation/HyperSpec/Body/s_locall.htm" title="LOCALLY MGL-PAX:MACRO"><code>LOCALLY</code></a> subforms just to have a place on which to hang
+introducing <a href="http://www.lispworks.com/documentation/HyperSpec/Body/s_locall.htm" title="LOCALLY (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>LOCALLY</code></a> subforms just to have a place on which to hang
 declarations. But if you are really set on using <code>DECLAIM</code>, please
 wrap it like this:</p>
 

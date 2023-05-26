@@ -63,8 +63,8 @@ for the last year or so.</p>
 
 <ul>
 <li><p>To reduce deployment size, made the MGL-PAX system <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29" >autoload navigation, documentation generation, and transcription code</a>.</p></li>
-<li><p>Symbols in the CL package are <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29" >linked to the hyperspec</a> like this: <code>PRINT</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_wr_pr.htm" title="PRINT FUNCTION"><code>PRINT</code></a>.</p></li>
-<li><p>Hyperspec sections and issues can be linked to with the <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29" >CLHS locative</a> like this: <code>[lambda lists][CLHS]</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/03_d.htm" title="&quot;3.4&quot; MGL-PAX:CLHS">lambda lists</a>.</p></li>
+<li><p>Symbols in the CL package are <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29" >linked to the hyperspec</a> like this: <code>PRINT</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_wr_pr.htm" title="PRINT (MGL-PAX:CLHS FUNCTION)"><code>PRINT</code></a>.</p></li>
+<li><p>Hyperspec sections and issues can be linked to with the <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29" >CLHS locative</a> like this: <code>[lambda lists][CLHS]</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/03_d.htm" title="&quot;3.4&quot; (MGL-PAX:CLHS MGL-PAX:SECTION)">lambda lists</a>.</p></li>
 <li><p>Added support for <code>[see this][foo function]</code> and <code>[see this][foo]</code> style of <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-40MGL-PAX-LINKING-TO-CODE-20MGL-PAX-3ASECTION-29" >linking</a>.</p></li>
 <li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28DECLARATION-20MGL-PAX-3ALOCATIVE-29" >DECLARATION locative</a>.</p></li>
 <li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28READTABLE-20MGL-PAX-3ALOCATIVE-29" >READTABLE locative</a>.</p></li>
@@ -100,17 +100,17 @@ for the last year or so.</p>
 <li><p><a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28CLASS-20MGL-PAX-3ALOCATIVE-29" >Unexported superclasses are not listed</a> in the generated documentation of classes.</p></li>
 <li><p>Improved documentation.</p></li>
 <li><p>Introduced <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@OVERVIEW-OF-ESCAPING%20MGL-PAX:SECTION" >double backslash escapes</a> to prevent downcasing in addition to linking.</p></li>
-<li><p>Removed <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_desc_1.htm" title="DESCRIBE-OBJECT FUNCTION"><code>DESCRIBE-OBJECT</code></a> method on <code>SECTION</code>s. Call <code>DOCUMENT</code> directly.</p></li>
+<li><p>Removed <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_desc_1.htm" title="DESCRIBE-OBJECT (MGL-PAX:CLHS GENERIC-FUNCTION)"><code>DESCRIBE-OBJECT</code></a> method on <code>SECTION</code>s. Call <code>DOCUMENT</code> directly.</p></li>
 <li><p>Made URLs in the generated documentation more stable across implementations and <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-URL-VERSIONS*%20VARIABLE" >made them more human readable</a>. Existing URLs still work.</p></li>
 <li><p>Exported api for <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-DOCUMENT%20MGL-PAX:SECTION" >extending DOCUMENT</a> and <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-FIND-SOURCE%20MGL-PAX:SECTION" >FIND-SOURCE</a></p></li>
-<li><p><a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION" >DOCUMENT</a> can produce reasonably readable output with <code>:FORMAT</code> <code>:PLAIN</code> (the default). It is now suitable for use in the REPL as a kind of replacement for <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_docume.htm" title="DOCUMENTATION GENERIC-FUNCTION"><code>CL:DOCUMENTATION</code></a>.</p></li>
+<li><p><a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION" >DOCUMENT</a> can produce reasonably readable output with <code>:FORMAT</code> <code>:PLAIN</code> (the default). It is now suitable for use in the REPL as a kind of replacement for <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_docume.htm" title="DOCUMENTATION (MGL-PAX:CLHS GENERIC-FUNCTION)"><code>CL:DOCUMENTATION</code></a>.</p></li>
 </ul>
 
 <h2>Bugs</h2>
 
 <ul>
 <li><p>Made Emacs-side parsing for <code>M-.</code> navigation more robust.</p></li>
-<li><p>Fixed documentation generation on <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm" title="TRACE MGL-PAX:MACRO"><code>TRACE</code></a>d functions.</p></li>
+<li><p>Fixed documentation generation on <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm" title="TRACE (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>TRACE</code></a>d functions.</p></li>
 <li><p>Fixed lots of minor bugs.</p></li>
 </ul>
 
