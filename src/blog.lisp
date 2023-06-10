@@ -227,14 +227,14 @@
           (xml-emitter:rss-item
            (section-title post)
            :link (quotenil-page (object-page post))
-           ;; FIXME: relative URLs (e.g. ![](blog-files/...))
-           :description (document
-                         ;; Cut the Date and Tag line and the
-                         ;; end-of-post image.
-                         (subseq entries 1 (1- (length entries)))
-                         :stream nil
-                         :format :html)
-           :author "Gábor Melis <mega@retes.hu>"
+           :description (let ((pax::*document-base-url* "http://quotenil.com"))
+                          (document
+                           ;; Cut the Date and Tag line and the
+                           ;; end-of-post image.
+                           (subseq entries 1 (1- (length entries)))
+                           :stream nil
+                           :format :html))
+           :author "mega@retes.hu (Gábor Melis)"
            :pubDate (local-time:format-rfc1123-timestring
                      nil (local-time:parse-timestring
                           (slot-value post 'date)))))))))
@@ -3599,17 +3599,33 @@
   grids, in particular.
   """)
 
-(defpost @pax-browser (:title "PAX Documentation Browser"
+(defpost @pax-browser (:title "PAX Live Documentation Browser"
                        :tags (@tech @lisp)
-                       :date "2023-05-26")
-  """PAX got a [Emacs-based documentation
-  browser](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@DOCUMENTING-IN-EMACS%20MGL-PAX:SECTION)
-  to make documentation generation a more interactive experience. The
-  trouble with interactivity is, of course, that it's difficult to get
-  the point across in documentation, so I made a short
-  [video](https://youtu.be/vH9hpk_Yirw) that demonstrates the very
-  basics. In a followup, I'll cover
-  [apropos](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION).
+                       :date "2023-06-10")
+  """PAX got a [live documentation
+  browser][md-pax-live-browser] to make documentation generation a
+  more interactive experience. A great thing about Lisp development is
+  changing a single function and quickly seeing how it behaves without
+  the delay of a full recompile. Previously, editing a docstring
+  required regenerating the full documentation to see how the changes
+  turned out. The live documentation browser does away with this step,
+  which tightens the edit/document loop.
+
+  PAX also got an [apropos browser][md-pax-apropos]. It could always
+  generate documentation for stuff not written with PAX in mind, so
+  with the live browser already implemented, this was a just a small
+  add-on.
+
+    [md-pax-live-browser]: https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION
+    [md-pax-apropos]: https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION
+
+  The trouble with interactivity is, of course, that it's difficult to
+  get the point across in text, so I made two short videos that
+  demonstrate the basics.
+
+  - [Live browsing with w3m](https://youtu.be/vH9hpk_Yirw)
+
+  - [Live browsing with other browsers](https://youtu.be/ilPRgwKZkeo)
   """)
 
 
