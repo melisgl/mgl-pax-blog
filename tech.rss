@@ -32,7 +32,7 @@ demonstrate the basics.&lt;/p&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://youtu.be/ilPRgwKZkeo&quot; &gt;Live browsing with other browsers&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Sat, 10 Jun 2023 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -53,7 +53,7 @@ see what he has to say about
 &lt;a href=&quot;https://practicaltypography.com/grids.html&quot; &gt;grids&lt;/a&gt; and baseline
 grids, in particular.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 17 Apr 2023 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -127,7 +127,7 @@ for the body text.
 &lt;a href=&quot;https://twitter.com/GaborMelis/status/1645484950957830144&quot; &gt;Twitter&lt;/a&gt;
 or &lt;a href=&quot;https://mastodon.social/@melisgl/110175790416538571&quot; &gt;Mastodon&lt;/a&gt;.&lt;/p&gt;&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 10 Apr 2023 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -147,7 +147,7 @@ move all non-obsolete code over to github. This affects:&lt;/p&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/cl-libsvm&quot; &gt;cl-libsvm&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Thu, 25 Sep 2014 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -179,7 +179,7 @@ Oh, and always include &lt;code&gt;socktimeout&lt;/code&gt; in the OfflineIMAP c
 That&apos;s more important than keepalive unless you never have network
 issues.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Sun, 27 Feb 2011 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -239,7 +239,7 @@ def get_authinfo_password(machine, login, port):
 &lt;/code&gt;&lt;/pre&gt;
 That&apos;s it, no more cleartext passwords.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Sat, 26 Feb 2011 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -255,7 +255,7 @@ working&lt;/a&gt;.
 Synaptics click by tapping went away before the upgrade so that
 doesn&apos;t count.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 08 Feb 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -292,7 +292,7 @@ notable exceptions. With KDE 4.3, I should have waited more.&lt;/p&gt;
   a couple of hacks to get this entry out the door.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Fri, 06 Nov 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -347,7 +347,7 @@ keyboard.&lt;/p&gt;
 &lt;strong&gt;2020-05-03&lt;/strong&gt; Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
   version&lt;/a&gt;.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 15 Dec 2008 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -404,7 +404,7 @@ Note, that it&apos;s this easy since I basically have only one file
 system (only &lt;code&gt;/boot&lt;/code&gt; is separate), and that resides on LVM, which
 makes it trivial to snapshot.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Fri, 28 Mar 2008 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -428,7 +428,7 @@ of functionality. That said, here is the
 &lt;strong&gt;2020-05-03&lt;/strong&gt;: Since then, this blog has been moved to
   &lt;a href=&quot;http://github.com/melisgl/mgl-pax&quot; &gt;MGL-PAX&lt;/a&gt;.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Fri, 01 Feb 2008 00:00:00 +0000</pubDate>
         </item>
     </channel>

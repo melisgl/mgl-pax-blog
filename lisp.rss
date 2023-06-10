@@ -32,7 +32,7 @@ demonstrate the basics.&lt;/p&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://youtu.be/ilPRgwKZkeo&quot; &gt;Live browsing with other browsers&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Sat, 10 Jun 2023 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -354,7 +354,7 @@ common situations.&lt;/p&gt;
 ..
 ==&amp;gt; #&amp;lt;TRY:TRIAL &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;TRY-SUITE&lt;/span&gt;)&lt;/span&gt; UNEXPECTED-FAILURE 0.004s ⊠1&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Sun, 16 Oct 2022 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -429,7 +429,7 @@ for the last year or so.&lt;/p&gt;
 &lt;li&gt;&lt;p&gt;Autoloading no longer produces warnings on SBCL and fresh SLIME.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Wed, 16 Feb 2022 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -497,7 +497,7 @@ game is finished, return. Note the &lt;code&gt;:SYNC T&lt;/code&gt;, which tells
 take durability seriously.
 &lt;div class=&apos;br&apos;&gt;&lt;/div&gt;&lt;p&gt;You can find the code &lt;a href=&quot;https://github.com/melisgl/journal&quot; &gt;here&lt;/a&gt;.&lt;/p&gt;&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Fri, 04 Sep 2020 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -513,7 +513,7 @@ considering that the implementation is only 72 lines of code, most
 of which deals with post categories and overview pages with
 shortened posts, something PAX hasn&apos;t seen the need for.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Tue, 05 May 2020 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -568,7 +568,7 @@ functions following some kind of protocol to decide which facets and
 implementation to use would decouple facets further. Ultimately,
 this could make the entire CUDA related part of MGL-MAT an add-on.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Thu, 26 Feb 2015 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -585,7 +585,7 @@ Clicking on locative types such as &lt;code&gt;[variable]&lt;/code&gt; on the pa
 just been linked to will take you to the file and line on github
 where &lt;code&gt;*DOCUMENT-MARK-UP-SIGNATURES*&lt;/code&gt; is defined.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -621,7 +621,7 @@ It&apos;s easy to play with locally: just get the gh-pages branch and
 call
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-pax-world-manual.html#x-28MGL-PAX-WORLD-3AUPDATE-PAX-WORLD-20FUNCTION-29&quot; &gt;UPDATE-PAX-WORLD&lt;/a&gt;.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 26 Jan 2015 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -659,7 +659,7 @@ and
 &lt;a href=&quot;https://github.com/melisgl/mgl/blob/master/doc/md/mgl-manual.md#x-28MGL-BP-3A-40MGL-RNN-TUTORIAL-20MGL-PAX-3ASECTION-29&quot; &gt;recurrent&lt;/a&gt;
 nets in the documentation.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 19 Jan 2015 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -685,7 +685,7 @@ files and sections of lisp source files, which makes it easy to add
 code examples and external stuff to the documentation without
 duplication. As always, &lt;code&gt;M-.&lt;/code&gt; works as well.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Sat, 06 Dec 2014 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -718,7 +718,7 @@ The
 &lt;a href=&quot;https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3A-40MGL-PAX-TRANSCRIPT-20MGL-PAX-3ASECTION-29&quot; &gt;documentation&lt;/a&gt;
 provides a tutorialish treatment. I hope you&apos;ll find it useful.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 20 Oct 2014 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -776,7 +776,7 @@ executable, and has a simple &lt;code&gt;make dist&lt;/code&gt; rule as well.&lt
 There is also a fairly generic ensembling algorithm, which I will
 factor out  later.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Tue, 23 Sep 2014 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -810,7 +810,7 @@ metric after training each constituent model and the training
 process can be &lt;code&gt;C-c&lt;/code&gt;ed early. Furthermore, the model can be run on a
 CPU with BLAS about 10 times slower than on a Titan.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Tue, 23 Sep 2014 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -822,7 +822,7 @@ library: cl-liblinear that, predictably enough, is a wrapper for
 &lt;a href=&quot;http://www.csie.ntu.edu.tw/~cjlin/liblinear/&quot; &gt;liblinear&lt;/a&gt;. The API
 is similar to that of cl-libsvm.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Tue, 09 Apr 2013 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -1040,7 +1040,7 @@ experiments with liblinear were promising, but with the DBN the
 public leaderboard score got a lot worse and I ran out of time to
 experiment.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Tue, 09 Apr 2013 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -1058,7 +1058,7 @@ and pasting into an org-mode buffer and exploring it by &lt;code&gt;TAB&lt;/code
 into subtrees to answer the perpetual &apos;What the hell was it
 thinking?!&apos; question.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 27 Dec 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1099,7 +1099,7 @@ approximation:&lt;/p&gt;
 #&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;500 500&lt;/span&gt;)&lt;/span&gt;
 -0.001&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Sun, 26 Dec 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1381,7 +1381,7 @@ bo-chee-mats-ko), after whom the bot was named, is the handsome hero
 of a children&apos;s book, pictured on the left:&lt;/p&gt;
 &lt;img src=&quot;http://quotenil.com/blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;&quot; /&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Wed, 01 Dec 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1417,7 +1417,7 @@ poor man&apos;s evolutionary programming. Most of them have since been
 fixed while the ideas they brought to light remain, making the
 current version much stronger.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 25 Oct 2010 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -1431,7 +1431,7 @@ The way the server compiles lisp submissions was fixed, and this
 revealed a problem where MyBot.lisp redirected &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*STANDARD-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*STANDARD-OUTPUT*&lt;/code&gt;&lt;/a&gt;
 to &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*ERROR-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*ERROR-OUTPUT*&lt;/code&gt;&lt;/a&gt; causing the server to think compilation failed.&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Tue, 21 Sep 2010 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -1478,7 +1478,7 @@ which starter package one uses, which will hopefully be resolved.
 Until then there is dhartmei&apos;s excellent &lt;a href=&quot;https://web.archive.org/web/20100926103520/http://ai-contest.com/forum/viewtopic.php?f=18&amp;t=424&quot; &gt;unofficial tcp
 server&lt;/a&gt;.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Sun, 19 Sep 2010 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -1489,7 +1489,7 @@ implementation is released, albeit somewhat belatedly. It&apos;s in
 &lt;a href=&quot;http://cliki.net/Micmac&quot; &gt;Micmac&lt;/a&gt; v0.0.1, see &lt;code&gt;test/test-uct.lisp&lt;/code&gt;
 for an example. Now I only owe you alpha–beta.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Fri, 19 Mar 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1556,7 +1556,7 @@ separated.&lt;/p&gt;
 The code itself is as ugly as exploratory code can be, but in the
 coming days, I&apos;ll factor the UCT and the alpha–beta code out.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 01 Mar 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1573,7 +1573,7 @@ number 23 on the
 &lt;a href=&quot;https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php&quot; &gt;leaderboard&lt;/a&gt;
 at the moment with 43 wins, 2 losses and 9 draws.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Thu, 11 Feb 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1586,7 +1586,7 @@ Coupled MCMC implemented. The code doesn&apos;t weigh much, but I think
 it gets the API right. In other news &lt;a href=&quot;http://cliki.net/MGL&quot; &gt;MGL&lt;/a&gt;
 v0.0.6 was released.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Sat, 06 Feb 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1694,7 +1694,7 @@ considerable edge of DBM over DBN training only a small fraction
 remains by the end of BPN training and that the additional sparsity
 constraint accounts for very little in this setup.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 18 Jan 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1894,7 +1894,7 @@ system and see what &lt;code&gt;example/spiral.lisp&lt;/code&gt; has in addition
 described. Evaluate the block commented forms at the end of the file
 to see how training goes.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Tue, 29 Dec 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -2046,7 +2046,7 @@ by loading the &lt;code&gt;MGL-VISUALS&lt;/code&gt; system and:&lt;/p&gt;
 
 &lt;p&gt;That&apos;s it for today, thank you for your kind attention.&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Thu, 17 Dec 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -2098,7 +2098,7 @@ rule.&lt;/p&gt;
 Now that you are sufficiently motivated, stick around and in
 &lt;code&gt;@INTRODUCTION-TO-MGL-PART-2&lt;/code&gt;, we are going to see real examples.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Wed, 02 Dec 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -2182,7 +2182,7 @@ most of the semantics here in a very clean manner, but to avoid
 recomputing the value on every access, additional bookkeeping is
 needed, again, due to initforms.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Sat, 04 Jul 2009 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -2215,7 +2215,7 @@ wrap the whole file in:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;locally&lt;/span&gt;&lt;/i&gt; &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;declare &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;optimize speed&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; ...&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Tue, 30 Jun 2009 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -2240,7 +2240,7 @@ distributed binaries only the linux-x86 version has been recompiled
 with the necessary changes, but patched sources are also included
 for your recompiling pleasure.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 22 Jun 2009 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -2303,7 +2303,7 @@ callee allocated frames would pan out. Code for the current batch of
 changes is
 &lt;a href=&quot;http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=x86-calling-convention&quot; &gt;here&lt;/a&gt;.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Sun, 19 Apr 2009 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -2409,7 +2409,7 @@ is okay for such a small change. Code is available
 &lt;a href=&quot;http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=pseudo-atomic&quot; &gt;here&lt;/a&gt; (from
 the pseudo-atomic branch of my git tree).&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Sun, 29 Mar 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -2469,7 +2469,7 @@ There may be a slight improvement, but its magnitude is pretty small
 compared to the noise. I&apos;m declaring the evidence inconclusive and
 let the commit stay out of the official SBCL tree.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 09 Mar 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -2524,7 +2524,7 @@ keyboard.&lt;/p&gt;
 &lt;strong&gt;2020-05-03&lt;/strong&gt; Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
   version&lt;/a&gt;.
 </description>
-            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 15 Dec 2008 00:00:00 +0000</pubDate>
         </item>
     </channel>
