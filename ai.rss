@@ -73,7 +73,7 @@ training run any time if it&apos;s getting worse.&lt;/p&gt;
 tuned to start averaging at the point that&apos;s optimal for final
 validation loss:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/tta-vs-swa.png&quot; alt=&quot;2TA (orange) vs SWA (green)&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/tta-vs-swa.png&quot; alt=&quot;2TA (orange) vs SWA (green)&quot; /&gt;&lt;/p&gt;
 
 &lt;h2&gt;The Algorithm&lt;/h2&gt;
 
@@ -327,7 +327,7 @@ without optimizing yet another hyperparameter.
 &lt;a href=&quot;https://twitter.com/GaborMelis/status/1600479387937144833&quot; &gt;Twitter&lt;/a&gt;
 or &lt;a href=&quot;https://mastodon.social/@melisgl/109472579530491223&quot; &gt;Mastodon&lt;/a&gt;.&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -382,7 +382,7 @@ functions following some kind of protocol to decide which facets and
 implementation to use would decouple facets further. Ultimately,
 this could make the entire CUDA related part of MGL-MAT an add-on.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Thu, 26 Feb 2015 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -420,7 +420,7 @@ and
 &lt;a href=&quot;https://github.com/melisgl/mgl/blob/master/doc/md/mgl-manual.md#x-28MGL-BP-3A-40MGL-RNN-TUTORIAL-20MGL-PAX-3ASECTION-29&quot; &gt;recurrent&lt;/a&gt;
 nets in the documentation.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 19 Jan 2015 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -478,7 +478,7 @@ executable, and has a simple &lt;code&gt;make dist&lt;/code&gt; rule as well.&lt
 There is also a fairly generic ensembling algorithm, which I will
 factor out  later.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 23 Sep 2014 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -512,7 +512,7 @@ metric after training each constituent model and the training
 process can be &lt;code&gt;C-c&lt;/code&gt;ed early. Furthermore, the model can be run on a
 CPU with BLAS about 10 times slower than on a Titan.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 23 Sep 2014 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -524,7 +524,7 @@ library: cl-liblinear that, predictably enough, is a wrapper for
 &lt;a href=&quot;http://www.csie.ntu.edu.tw/~cjlin/liblinear/&quot; &gt;liblinear&lt;/a&gt;. The API
 is similar to that of cl-libsvm.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 09 Apr 2013 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -536,7 +536,7 @@ competition, last September I decided to enter the
 contest on &lt;a href=&quot;http://kaggle.com&quot; &gt;Kaggle&lt;/a&gt;. It was a straightforward
 text classification problem with extremely unbalanced classes.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;Malacka&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;Malacka&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Just as Bocsimack&#xF3; did the last time around, his lazier sidekick (on
 the right) brought
@@ -742,7 +742,7 @@ experiments with liblinear were promising, but with the DBN the
 public leaderboard score got a lot worse and I ran out of time to
 experiment.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 09 Apr 2013 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -755,12 +755,12 @@ The good thing about not rushing it out the door is that it saw a
 bit more use. For a tutorialish tic-tac-toe example see
 &lt;a href=&quot;https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp&quot; &gt;test/test-game-theory.lisp.&lt;/a&gt;.&lt;/p&gt;
 The logging code in the example produces
-&lt;a href=&quot;blog-files/alpha-beta-log.png&quot; &gt;output&lt;/a&gt;, which is suitable for cut
+&lt;a href=&quot;http://quotenil.com/blog-files/alpha-beta-log.png&quot; &gt;output&lt;/a&gt;, which is suitable for cut
 and pasting into an org-mode buffer and exploring it by &lt;code&gt;TAB&lt;/code&gt;bing
 into subtrees to answer the perpetual &apos;What the hell was it
 thinking?!&apos; question.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 27 Dec 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -801,7 +801,7 @@ approximation:&lt;/p&gt;
 #&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;500 500&lt;/span&gt;)&lt;/span&gt;
 -0.001&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Sun, 26 Dec 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1081,9 +1081,9 @@ second seat to more pressing concerns.&lt;/p&gt;
 &lt;p&gt;Ah, yes. One more thing. Bocsimack&#xF3; (pronounced roughly as
 bo-chee-mats-ko), after whom the bot was named, is the handsome hero
 of a children&apos;s book, pictured on the left:&lt;/p&gt;
-&lt;img src=&quot;blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://quotenil.com/blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;&quot; /&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Wed, 01 Dec 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1119,7 +1119,7 @@ poor man&apos;s evolutionary programming. Most of them have since been
 fixed while the ideas they brought to light remain, making the
 current version much stronger.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 25 Oct 2010 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -1133,7 +1133,7 @@ The way the server compiles lisp submissions was fixed, and this
 revealed a problem where MyBot.lisp redirected &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*STANDARD-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*STANDARD-OUTPUT*&lt;/code&gt;&lt;/a&gt;
 to &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*ERROR-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*ERROR-OUTPUT*&lt;/code&gt;&lt;/a&gt; causing the server to think compilation failed.&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 21 Sep 2010 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -1180,7 +1180,7 @@ which starter package one uses, which will hopefully be resolved.
 Until then there is dhartmei&apos;s excellent &lt;a href=&quot;https://web.archive.org/web/20100926103520/http://ai-contest.com/forum/viewtopic.php?f=18&amp;t=424&quot; &gt;unofficial tcp
 server&lt;/a&gt;.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Sun, 19 Sep 2010 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -1191,7 +1191,7 @@ implementation is released, albeit somewhat belatedly. It&apos;s in
 &lt;a href=&quot;http://cliki.net/Micmac&quot; &gt;Micmac&lt;/a&gt; v0.0.1, see &lt;code&gt;test/test-uct.lisp&lt;/code&gt;
 for an example. Now I only owe you alpha–beta.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Fri, 19 Mar 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1205,7 +1205,7 @@ ranking non-C++ entry by some margin.&lt;/p&gt;
 mind: &lt;a href=&quot;http://senseis.xmp.net/?UCT&quot; &gt;UCT&lt;/a&gt;, an algorithm from the
 Monte Carlo tree search family. It has been rather successful in
 Go (and in Hex too, taking the crown from
-&lt;a href=&quot;hex/six/index.html&quot; &gt;Six&lt;/a&gt;). So with UCT in mind, to serve as a
+&lt;a href=&quot;http://quotenil.com/hex/six/index.html&quot; &gt;Six&lt;/a&gt;). So with UCT in mind, to serve as a
 baseline, I implemented a quick
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Minimax&quot; &gt;minimax&lt;/a&gt; with a simple
 territory based evaluation function ... that everyone else in the
@@ -1258,7 +1258,7 @@ separated.&lt;/p&gt;
 The code itself is as ugly as exploratory code can be, but in the
 coming days, I&apos;ll factor the UCT and the alpha–beta code out.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 01 Mar 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1275,7 +1275,7 @@ number 23 on the
 &lt;a href=&quot;https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php&quot; &gt;leaderboard&lt;/a&gt;
 at the moment with 43 wins, 2 losses and 9 draws.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Thu, 11 Feb 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1288,7 +1288,7 @@ Coupled MCMC implemented. The code doesn&apos;t weigh much, but I think
 it gets the API right. In other news &lt;a href=&quot;http://cliki.net/MGL&quot; &gt;MGL&lt;/a&gt;
 v0.0.6 was released.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Sat, 06 Feb 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1318,7 +1318,7 @@ one, the DBM is trained as a whole which, in theory, allows it to
 reconcile bottom-up and top-down signals, i.e. what it sees and what
 it thinks.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/mnist-2-dbm.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-dbm.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In the diagram above, as before, dark gray boxes are constants (to
 provide the connected chunks with biases), inputs are colored mid
@@ -1343,7 +1343,7 @@ may or may not be important to this result:&lt;/p&gt;
 variants of the basic approach. All of them start with the same DBN
 whose RBMs are trained for 100 epochs each:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/mnist-2-dbn-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-dbn-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;DBN training finishes with around 97.77%, averaging 97.9% in the
 last 10 epochs.&lt;/p&gt;
@@ -1366,9 +1366,9 @@ reduce variance of the gradient – changes weights according to the
 average activation levels of units connected by them. Anyway, this
 last one reaches 99.09%.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/mnist-2-dbm-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-dbm-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/mnist-2-bpn-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-bpn-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;To reduce &lt;a href=&quot;http://en.wikipedia.org/wiki/Publication_bias&quot; &gt;publication
 bias&lt;/a&gt; a bit, let me
@@ -1396,7 +1396,7 @@ considerable edge of DBM over DBN training only a small fraction
 remains by the end of BPN training and that the additional sparsity
 constraint accounts for very little in this setup.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 18 Jan 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1518,7 +1518,7 @@ to their activations and unit variance. In &lt;code&gt;SPIRAL-DBN&lt;/code&gt; a
        &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dgraph &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:generate-graph-from-roots dbn &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;chunks dbn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:dot-graph dgraph &lt;span class=&quot;string&quot;&gt;&quot;spiral-dbn.png&quot;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:format&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:png&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/spiral-dbn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/spiral-dbn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In a box the first line shows the class of the chunk and the number
 of nodes in parens (omitted if 1), while the second line is the name
@@ -1573,7 +1573,7 @@ pass:&lt;/p&gt;
        &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dgraph &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:generate-graph-from-roots bpn &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;lumps bpn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:dot-graph dgraph &lt;span class=&quot;string&quot;&gt;&quot;spiral-bpn.png&quot;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:format&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:png&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/spiral-bpn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/spiral-bpn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Training it is as easy as:&lt;/p&gt;
 
@@ -1596,7 +1596,7 @@ system and see what &lt;code&gt;example/spiral.lisp&lt;/code&gt; has in addition
 described. Evaluate the block commented forms at the end of the file
 to see how training goes.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 29 Dec 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1744,11 +1744,11 @@ by loading the &lt;code&gt;MGL-VISUALS&lt;/code&gt; system and:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;let&lt;/span&gt;&lt;/i&gt; &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dgraph &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:generate-graph-from-roots &lt;span class=&quot;special&quot;&gt;*bpn*&lt;/span&gt; &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;lumps &lt;span class=&quot;special&quot;&gt;*bpn*&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:dot-graph dgraph &lt;span class=&quot;string&quot;&gt;&quot;linear-bpn.png&quot;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:format&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:png&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/linear-bpn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/linear-bpn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;That&apos;s it for today, thank you for your kind attention.&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Thu, 17 Dec 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1800,7 +1800,7 @@ rule.&lt;/p&gt;
 Now that you are sufficiently motivated, stick around and in
 &lt;code&gt;@INTRODUCTION-TO-MGL-PART-2&lt;/code&gt;, we are going to see real examples.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Wed, 02 Dec 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1825,14 +1825,14 @@ distributed binaries only the linux-x86 version has been recompiled
 with the necessary changes, but patched sources are also included
 for your recompiling pleasure.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 22 Jun 2009 01:00:00 +0100</pubDate>
         </item>
         <item>
             <title>2008 Computer Games Olympiad</title>
             <link>http://quotenil.com/2008-computer-games-olympiad.html</link>
             <description>&lt;p&gt;It seems that the competition has not been standing still (as opposed
-to &lt;a href=&quot;hex/six/index.html&quot; &gt;Six&lt;/a&gt;), and this year marks the end of the
+to &lt;a href=&quot;http://quotenil.com/hex/six/index.html&quot; &gt;Six&lt;/a&gt;), and this year marks the end of the
 golden era. Congratulations to both Wolve and MoHex, who beat Six!
 Thanks to Ryan Hayward, who again, kindly registered Six for the
 &lt;a href=&quot;https://web.archive.org/web/20090121203454/http://www.grappa.univ-lille3.fr/icga/tournament.php?id=185&quot; &gt;Olympiad&lt;/a&gt;.&lt;/p&gt;
@@ -1840,7 +1840,7 @@ About the future, I don&apos;t really plan on resuming work on
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Hex_(board_game)&quot; &gt;Hex&lt;/a&gt; in general (and
 Six in particular) although losing does irk me a bit.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Thu, 11 Dec 2008 00:00:00 +0000</pubDate>
         </item>
     </channel>

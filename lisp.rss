@@ -7,19 +7,33 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
-            <title>PAX Documentation Browser</title>
+            <title>PAX Live Documentation Browser</title>
             <link>http://quotenil.com/pax-browser.html</link>
-            <description>PAX got a &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@DOCUMENTING-IN-EMACS%20MGL-PAX:SECTION&quot; &gt;Emacs-based documentation
-browser&lt;/a&gt;
-to make documentation generation a more interactive experience. The
-trouble with interactivity is, of course, that it&apos;s difficult to get
-the point across in documentation, so I made a short
-&lt;a href=&quot;https://youtu.be/vH9hpk_Yirw&quot; &gt;video&lt;/a&gt; that demonstrates the very
-basics. In a followup, I&apos;ll cover
-&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION&quot; &gt;apropos&lt;/a&gt;.
+            <description>&lt;p&gt;PAX got a &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION&quot; &gt;live documentation
+browser&lt;/a&gt; to make documentation generation a
+more interactive experience. A great thing about Lisp development is
+changing a single function and quickly seeing how it behaves without
+the delay of a full recompile. Previously, editing a docstring
+required regenerating the full documentation to see how the changes
+turned out. The live documentation browser does away with this step,
+which tightens the edit/document loop.&lt;/p&gt;
+
+&lt;p&gt;PAX also got an &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION&quot; &gt;apropos browser&lt;/a&gt;. It could always
+generate documentation for stuff not written with PAX in mind, so
+with the live browser already implemented, this was a just a small
+add-on.&lt;/p&gt;
+
+&lt;p&gt;The trouble with interactivity is, of course, that it&apos;s difficult to
+get the point across in text, so I made two short videos that
+demonstrate the basics.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://youtu.be/vH9hpk_Yirw&quot; &gt;Live browsing with w3m&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://youtu.be/ilPRgwKZkeo&quot; &gt;Live browsing with other browsers&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
-            <pubDate>Fri, 26 May 2023 01:00:00 +0100</pubDate>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
+            <pubDate>Sat, 10 Jun 2023 01:00:00 +0100</pubDate>
         </item>
         <item>
             <title>There is Try</title>
@@ -340,7 +354,7 @@ common situations.&lt;/p&gt;
 ..
 ==&amp;gt; #&amp;lt;TRY:TRIAL &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;TRY-SUITE&lt;/span&gt;)&lt;/span&gt; UNEXPECTED-FAILURE 0.004s ⊠1&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Sun, 16 Oct 2022 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -415,7 +429,7 @@ for the last year or so.&lt;/p&gt;
 &lt;li&gt;&lt;p&gt;Autoloading no longer produces warnings on SBCL and fresh SLIME.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Wed, 16 Feb 2022 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -483,7 +497,7 @@ game is finished, return. Note the &lt;code&gt;:SYNC T&lt;/code&gt;, which tells
 take durability seriously.
 &lt;div class=&apos;br&apos;&gt;&lt;/div&gt;&lt;p&gt;You can find the code &lt;a href=&quot;https://github.com/melisgl/journal&quot; &gt;here&lt;/a&gt;.&lt;/p&gt;&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Fri, 04 Sep 2020 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -499,7 +513,7 @@ considering that the implementation is only 72 lines of code, most
 of which deals with post categories and overview pages with
 shortened posts, something PAX hasn&apos;t seen the need for.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 05 May 2020 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -554,7 +568,7 @@ functions following some kind of protocol to decide which facets and
 implementation to use would decouple facets further. Ultimately,
 this could make the entire CUDA related part of MGL-MAT an add-on.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Thu, 26 Feb 2015 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -571,7 +585,7 @@ Clicking on locative types such as &lt;code&gt;[variable]&lt;/code&gt; on the pa
 just been linked to will take you to the file and line on github
 where &lt;code&gt;*DOCUMENT-MARK-UP-SIGNATURES*&lt;/code&gt; is defined.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -607,7 +621,7 @@ It&apos;s easy to play with locally: just get the gh-pages branch and
 call
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-pax-world-manual.html#x-28MGL-PAX-WORLD-3AUPDATE-PAX-WORLD-20FUNCTION-29&quot; &gt;UPDATE-PAX-WORLD&lt;/a&gt;.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 26 Jan 2015 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -645,7 +659,7 @@ and
 &lt;a href=&quot;https://github.com/melisgl/mgl/blob/master/doc/md/mgl-manual.md#x-28MGL-BP-3A-40MGL-RNN-TUTORIAL-20MGL-PAX-3ASECTION-29&quot; &gt;recurrent&lt;/a&gt;
 nets in the documentation.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 19 Jan 2015 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -671,7 +685,7 @@ files and sections of lisp source files, which makes it easy to add
 code examples and external stuff to the documentation without
 duplication. As always, &lt;code&gt;M-.&lt;/code&gt; works as well.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Sat, 06 Dec 2014 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -704,7 +718,7 @@ The
 &lt;a href=&quot;https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3A-40MGL-PAX-TRANSCRIPT-20MGL-PAX-3ASECTION-29&quot; &gt;documentation&lt;/a&gt;
 provides a tutorialish treatment. I hope you&apos;ll find it useful.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 20 Oct 2014 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -762,7 +776,7 @@ executable, and has a simple &lt;code&gt;make dist&lt;/code&gt; rule as well.&lt
 There is also a fairly generic ensembling algorithm, which I will
 factor out  later.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 23 Sep 2014 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -796,7 +810,7 @@ metric after training each constituent model and the training
 process can be &lt;code&gt;C-c&lt;/code&gt;ed early. Furthermore, the model can be run on a
 CPU with BLAS about 10 times slower than on a Titan.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 23 Sep 2014 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -808,7 +822,7 @@ library: cl-liblinear that, predictably enough, is a wrapper for
 &lt;a href=&quot;http://www.csie.ntu.edu.tw/~cjlin/liblinear/&quot; &gt;liblinear&lt;/a&gt;. The API
 is similar to that of cl-libsvm.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 09 Apr 2013 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -820,7 +834,7 @@ competition, last September I decided to enter the
 contest on &lt;a href=&quot;http://kaggle.com&quot; &gt;Kaggle&lt;/a&gt;. It was a straightforward
 text classification problem with extremely unbalanced classes.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;Malacka&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;Malacka&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Just as Bocsimack&#xF3; did the last time around, his lazier sidekick (on
 the right) brought
@@ -1026,7 +1040,7 @@ experiments with liblinear were promising, but with the DBN the
 public leaderboard score got a lot worse and I ran out of time to
 experiment.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 09 Apr 2013 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -1039,12 +1053,12 @@ The good thing about not rushing it out the door is that it saw a
 bit more use. For a tutorialish tic-tac-toe example see
 &lt;a href=&quot;https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp&quot; &gt;test/test-game-theory.lisp.&lt;/a&gt;.&lt;/p&gt;
 The logging code in the example produces
-&lt;a href=&quot;blog-files/alpha-beta-log.png&quot; &gt;output&lt;/a&gt;, which is suitable for cut
+&lt;a href=&quot;http://quotenil.com/blog-files/alpha-beta-log.png&quot; &gt;output&lt;/a&gt;, which is suitable for cut
 and pasting into an org-mode buffer and exploring it by &lt;code&gt;TAB&lt;/code&gt;bing
 into subtrees to answer the perpetual &apos;What the hell was it
 thinking?!&apos; question.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 27 Dec 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1085,7 +1099,7 @@ approximation:&lt;/p&gt;
 #&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;500 500&lt;/span&gt;)&lt;/span&gt;
 -0.001&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Sun, 26 Dec 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1365,9 +1379,9 @@ second seat to more pressing concerns.&lt;/p&gt;
 &lt;p&gt;Ah, yes. One more thing. Bocsimack&#xF3; (pronounced roughly as
 bo-chee-mats-ko), after whom the bot was named, is the handsome hero
 of a children&apos;s book, pictured on the left:&lt;/p&gt;
-&lt;img src=&quot;blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://quotenil.com/blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;&quot; /&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Wed, 01 Dec 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1403,7 +1417,7 @@ poor man&apos;s evolutionary programming. Most of them have since been
 fixed while the ideas they brought to light remain, making the
 current version much stronger.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 25 Oct 2010 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -1417,7 +1431,7 @@ The way the server compiles lisp submissions was fixed, and this
 revealed a problem where MyBot.lisp redirected &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*STANDARD-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*STANDARD-OUTPUT*&lt;/code&gt;&lt;/a&gt;
 to &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*ERROR-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*ERROR-OUTPUT*&lt;/code&gt;&lt;/a&gt; causing the server to think compilation failed.&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 21 Sep 2010 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -1464,7 +1478,7 @@ which starter package one uses, which will hopefully be resolved.
 Until then there is dhartmei&apos;s excellent &lt;a href=&quot;https://web.archive.org/web/20100926103520/http://ai-contest.com/forum/viewtopic.php?f=18&amp;t=424&quot; &gt;unofficial tcp
 server&lt;/a&gt;.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Sun, 19 Sep 2010 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -1475,7 +1489,7 @@ implementation is released, albeit somewhat belatedly. It&apos;s in
 &lt;a href=&quot;http://cliki.net/Micmac&quot; &gt;Micmac&lt;/a&gt; v0.0.1, see &lt;code&gt;test/test-uct.lisp&lt;/code&gt;
 for an example. Now I only owe you alpha–beta.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Fri, 19 Mar 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1489,7 +1503,7 @@ ranking non-C++ entry by some margin.&lt;/p&gt;
 mind: &lt;a href=&quot;http://senseis.xmp.net/?UCT&quot; &gt;UCT&lt;/a&gt;, an algorithm from the
 Monte Carlo tree search family. It has been rather successful in
 Go (and in Hex too, taking the crown from
-&lt;a href=&quot;hex/six/index.html&quot; &gt;Six&lt;/a&gt;). So with UCT in mind, to serve as a
+&lt;a href=&quot;http://quotenil.com/hex/six/index.html&quot; &gt;Six&lt;/a&gt;). So with UCT in mind, to serve as a
 baseline, I implemented a quick
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Minimax&quot; &gt;minimax&lt;/a&gt; with a simple
 territory based evaluation function ... that everyone else in the
@@ -1542,7 +1556,7 @@ separated.&lt;/p&gt;
 The code itself is as ugly as exploratory code can be, but in the
 coming days, I&apos;ll factor the UCT and the alpha–beta code out.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 01 Mar 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1559,7 +1573,7 @@ number 23 on the
 &lt;a href=&quot;https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php&quot; &gt;leaderboard&lt;/a&gt;
 at the moment with 43 wins, 2 losses and 9 draws.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Thu, 11 Feb 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1572,7 +1586,7 @@ Coupled MCMC implemented. The code doesn&apos;t weigh much, but I think
 it gets the API right. In other news &lt;a href=&quot;http://cliki.net/MGL&quot; &gt;MGL&lt;/a&gt;
 v0.0.6 was released.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Sat, 06 Feb 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1602,7 +1616,7 @@ one, the DBM is trained as a whole which, in theory, allows it to
 reconcile bottom-up and top-down signals, i.e. what it sees and what
 it thinks.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/mnist-2-dbm.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-dbm.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In the diagram above, as before, dark gray boxes are constants (to
 provide the connected chunks with biases), inputs are colored mid
@@ -1627,7 +1641,7 @@ may or may not be important to this result:&lt;/p&gt;
 variants of the basic approach. All of them start with the same DBN
 whose RBMs are trained for 100 epochs each:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/mnist-2-dbn-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-dbn-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;DBN training finishes with around 97.77%, averaging 97.9% in the
 last 10 epochs.&lt;/p&gt;
@@ -1650,9 +1664,9 @@ reduce variance of the gradient – changes weights according to the
 average activation levels of units connected by them. Anyway, this
 last one reaches 99.09%.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/mnist-2-dbm-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-dbm-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/mnist-2-bpn-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-bpn-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;To reduce &lt;a href=&quot;http://en.wikipedia.org/wiki/Publication_bias&quot; &gt;publication
 bias&lt;/a&gt; a bit, let me
@@ -1680,7 +1694,7 @@ considerable edge of DBM over DBN training only a small fraction
 remains by the end of BPN training and that the additional sparsity
 constraint accounts for very little in this setup.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 18 Jan 2010 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -1802,7 +1816,7 @@ to their activations and unit variance. In &lt;code&gt;SPIRAL-DBN&lt;/code&gt; a
        &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dgraph &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:generate-graph-from-roots dbn &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;chunks dbn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:dot-graph dgraph &lt;span class=&quot;string&quot;&gt;&quot;spiral-dbn.png&quot;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:format&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:png&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/spiral-dbn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/spiral-dbn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In a box the first line shows the class of the chunk and the number
 of nodes in parens (omitted if 1), while the second line is the name
@@ -1857,7 +1871,7 @@ pass:&lt;/p&gt;
        &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dgraph &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:generate-graph-from-roots bpn &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;lumps bpn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:dot-graph dgraph &lt;span class=&quot;string&quot;&gt;&quot;spiral-bpn.png&quot;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:format&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:png&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/spiral-bpn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/spiral-bpn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Training it is as easy as:&lt;/p&gt;
 
@@ -1880,7 +1894,7 @@ system and see what &lt;code&gt;example/spiral.lisp&lt;/code&gt; has in addition
 described. Evaluate the block commented forms at the end of the file
 to see how training goes.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 29 Dec 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -2028,11 +2042,11 @@ by loading the &lt;code&gt;MGL-VISUALS&lt;/code&gt; system and:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;let&lt;/span&gt;&lt;/i&gt; &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dgraph &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:generate-graph-from-roots &lt;span class=&quot;special&quot;&gt;*bpn*&lt;/span&gt; &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;lumps &lt;span class=&quot;special&quot;&gt;*bpn*&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:dot-graph dgraph &lt;span class=&quot;string&quot;&gt;&quot;linear-bpn.png&quot;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:format&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:png&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/linear-bpn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/linear-bpn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;That&apos;s it for today, thank you for your kind attention.&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Thu, 17 Dec 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -2084,7 +2098,7 @@ rule.&lt;/p&gt;
 Now that you are sufficiently motivated, stick around and in
 &lt;code&gt;@INTRODUCTION-TO-MGL-PART-2&lt;/code&gt;, we are going to see real examples.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Wed, 02 Dec 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -2168,7 +2182,7 @@ most of the semantics here in a very clean manner, but to avoid
 recomputing the value on every access, additional bookkeeping is
 needed, again, due to initforms.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Sat, 04 Jul 2009 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -2201,7 +2215,7 @@ wrap the whole file in:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;locally&lt;/span&gt;&lt;/i&gt; &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;declare &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;optimize speed&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; ...&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Tue, 30 Jun 2009 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -2226,7 +2240,7 @@ distributed binaries only the linux-x86 version has been recompiled
 with the necessary changes, but patched sources are also included
 for your recompiling pleasure.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 22 Jun 2009 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -2277,7 +2291,7 @@ return pc slot and &lt;code&gt;JMP&lt;/code&gt;s to the target. With this small 
 number of benchmarks in the cl-bench suit benefit greatly: &lt;code&gt;TAK&lt;/code&gt;,
 &lt;code&gt;FIB&lt;/code&gt;, &lt;code&gt;FIB-RATIO&lt;/code&gt;, &lt;code&gt;DERIV&lt;/code&gt;, &lt;code&gt;DIV2-TEST-2&lt;/code&gt;, &lt;code&gt;TRAVERSE&lt;/code&gt;, &lt;code&gt;TRIANGLE&lt;/code&gt;
 gain about 25-50%. See results for
-&lt;a href=&quot;blog-files/x86oid-calling-convention-p4-results.txt&quot; &gt;P4&lt;/a&gt; and &lt;a href=&quot;blog-files/x86oid-calling-convention-64bit-opteron-results.txt&quot; &gt;64
+&lt;a href=&quot;http://quotenil.com/blog-files/x86oid-calling-convention-p4-results.txt&quot; &gt;P4&lt;/a&gt; and &lt;a href=&quot;http://quotenil.com/blog-files/x86oid-calling-convention-64bit-opteron-results.txt&quot; &gt;64
 bit
 Opteron&lt;/a&gt;.&lt;/p&gt;
 This should take off another chunk off the proposed and already
@@ -2289,7 +2303,7 @@ callee allocated frames would pan out. Code for the current batch of
 changes is
 &lt;a href=&quot;http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=x86-calling-convention&quot; &gt;here&lt;/a&gt;.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Sun, 19 Apr 2009 01:00:00 +0100</pubDate>
         </item>
         <item>
@@ -2340,7 +2354,7 @@ non-zero:&lt;/p&gt;
       &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;emit-label ,label&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This shaves a few bytes off the code and is an overall 0.5% win in
-cl-bench (see &amp;quot;pseudo-atomic.ebp&amp;quot; in the &lt;a href=&quot;blog-files/pseduo-atomic/p4-results.txt&quot; &gt;results&lt;/a&gt;).&lt;/p&gt;
+cl-bench (see &amp;quot;pseudo-atomic.ebp&amp;quot; in the &lt;a href=&quot;http://quotenil.com/blog-files/pseduo-atomic/p4-results.txt&quot; &gt;results&lt;/a&gt;).&lt;/p&gt;
 
 &lt;h2&gt;&lt;code&gt;mprotect&lt;/code&gt;&lt;/h2&gt;
 
@@ -2395,7 +2409,7 @@ is okay for such a small change. Code is available
 &lt;a href=&quot;http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=pseudo-atomic&quot; &gt;here&lt;/a&gt; (from
 the pseudo-atomic branch of my git tree).&lt;/p&gt;
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Sun, 29 Mar 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -2447,15 +2461,15 @@ practice even the tightest loops are already longer than 16 bytes
 ...&lt;/p&gt;
 
 &lt;p&gt;For now, here are the cl-bench results from a 32 bit binary on an
-&lt;a href=&quot;blog-files/align-code/opteron-32bit-results&quot; &gt;Opteron&lt;/a&gt;, a
-&lt;a href=&quot;blog-files/align-code/piii-results&quot; &gt;PIII&lt;/a&gt;, a
-&lt;a href=&quot;blog-files/align-code/p4-results&quot; &gt;P4&lt;/a&gt;, a &lt;a href=&quot;blog-files/align-code/core-duo-results&quot; &gt;Core
+&lt;a href=&quot;http://quotenil.com/blog-files/align-code/opteron-32bit-results&quot; &gt;Opteron&lt;/a&gt;, a
+&lt;a href=&quot;http://quotenil.com/blog-files/align-code/piii-results&quot; &gt;PIII&lt;/a&gt;, a
+&lt;a href=&quot;http://quotenil.com/blog-files/align-code/p4-results&quot; &gt;P4&lt;/a&gt;, a &lt;a href=&quot;http://quotenil.com/blog-files/align-code/core-duo-results&quot; &gt;Core
 Duo&lt;/a&gt; system.&lt;/p&gt;
 There may be a slight improvement, but its magnitude is pretty small
 compared to the noise. I&apos;m declaring the evidence inconclusive and
 let the commit stay out of the official SBCL tree.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 09 Mar 2009 00:00:00 +0000</pubDate>
         </item>
         <item>
@@ -2466,7 +2480,7 @@ finger, which is used to press the &lt;em&gt;Control&lt;/em&gt; key. The standar
 answer to that is to map &lt;em&gt;Caps Lock&lt;/em&gt; to &lt;em&gt;Control&lt;/em&gt;. I believe that
 there is a better way:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;blog-files/symbolics-keyboard.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/symbolics-keyboard.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Note the placement of modifiers: &lt;em&gt;Control&lt;/em&gt;, &lt;em&gt;Meta&lt;/em&gt;, &lt;em&gt;Super&lt;/em&gt;, &lt;em&gt;Hyper&lt;/em&gt;
 on both sides of Space in this order, with &lt;em&gt;Control&lt;/em&gt; being the
@@ -2493,7 +2507,7 @@ as a vi user for &lt;em&gt;Escape&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Well, that&apos;s the narration. To implement the above, I guess, one can
 create an xkb description, but last time I tried, documentation was
 extremely unhelpful, so I ended up hacking together an xmodmap file.
-I&apos;m told this file is not really portable, so it&apos;s &lt;a href=&quot;blog-files/lisp-machine-pc105-us.xmodmap&quot; &gt;provided
+I&apos;m told this file is not really portable, so it&apos;s &lt;a href=&quot;http://quotenil.com/blog-files/lisp-machine-pc105-us.xmodmap&quot; &gt;provided
 here&lt;/a&gt; only for
 illustration, and it&apos;s easy enough to do the same yourself for your
 keyboard. To switch to the new layout do:&lt;/p&gt;
@@ -2510,7 +2524,7 @@ keyboard.&lt;/p&gt;
 &lt;strong&gt;2020-05-03&lt;/strong&gt; Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
   version&lt;/a&gt;.
 </description>
-            <author>G&#xE1;bor Melis &lt;mega@retes.hu&gt;</author>
+            <author>G&#xE1;bor Melis (mega@retes.hu)</author>
             <pubDate>Mon, 15 Dec 2008 00:00:00 +0000</pubDate>
         </item>
     </channel>
