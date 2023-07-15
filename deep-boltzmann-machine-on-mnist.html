@@ -49,13 +49,9 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40DEEP-BOLTZMANN-MACHINE-ON-MNIST-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@DEEP-BOLTZMANN-MACHINE-ON-MNIST%20MGL-PAX:SECTION"></a></p>
-
 <h1><a href="deep-boltzmann-machine-on-mnist.html">Deep Boltzmann Machine on MNIST</a></h1>
-
 <p><span class='post-data'><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2010-01-18</span></p>
-
 <div class='br'></div>
-
 <p>Let me interrupt the flow of the <a href="http://cliki.net/MGL" >MGL</a>
 introduction series with a short report on what I learnt playing
 with <a href="http://www.cs.toronto.edu/~hinton/absps/dbm.pdf" >Deep Boltzmann
@@ -66,7 +62,6 @@ Toronto</a> now at
 source <a href="http://web.mit.edu/~rsalakhu/www/DBM.html" >code</a> for the
 <a href="http://yann.lecun.com/exdb/mnist/" >MNIST</a> digit classification
 problem available.</p>
-
 <p>The linked <a href="http://www.cs.toronto.edu/~hinton/absps/dbm.pdf" >paper</a>
 claims a record of 99.05% in classification accuracy on the
 permutation invariant task (no prior knowledge of geometry). A
@@ -79,18 +74,14 @@ backprop. While in a DBN the constituent RBMs are trained one by
 one, the DBM is trained as a whole which, in theory, allows it to
 reconcile bottom-up and top-down signals, i.e. what it sees and what
 it thinks.</p>
-
 <p><img src="blog-files/mnist-2-dbm.png" alt="" /></p>
-
 <p>In the diagram above, as before, dark gray boxes are constants (to
 provide the connected chunks with biases), inputs are colored mid
 gray while hidden features are light gray. <code>INPUTS</code> is where the
 28x28 pixel image is clamped and <code>LABEL</code> is a softmax chunk for the
 10 digit classes.</p>
-
 <p>In the Matlab code, there are a number of prominent features that
 may or may not be important to this result:</p>
-
 <ul>
 <li><p>The second RBM gets the the correct label as input which
   conveniently allows tracking classification accuracy during its
@@ -100,16 +91,12 @@ may or may not be important to this result:</p>
 <li><p>A sparsity term is added to the gradient. Sparse representations
   are often better for classification.</p></li>
 </ul>
-
 <p>Focusing only on what makes DBM learning tick, I tried a few
 variants of the basic approach. All of them start with the same DBN
 whose RBMs are trained for 100 epochs each:</p>
-
 <p><img src="blog-files/mnist-2-dbn-training.png" alt="" /></p>
-
 <p>DBN training finishes with around 97.77%, averaging 97.9% in the
 last 10 epochs.</p>
-
 <p>On to the DBM. As the baseline, the DBM was not trained at all and
 the BPN did not get the marginals of the approximate posterior as
 inputs as prescribed in the paper, only the normal input. It's as if
@@ -117,7 +104,6 @@ the DBN were unrolled into a BPN directly. Surprisingly, this
 baseline is already at 99.00% at the end of BPN training (all
 reported accuracies are averages from the last 10 epochs of
 training).</p>
-
 <p>The second variant performs DBM training but without any sparsity
 term and gets 99.07%. The third is using a sparsity
 penalty (\&quot;normal sparsity\&quot; in the diagram) for units in opposing
@@ -127,15 +113,11 @@ is named &quot;cheating sparsity&quot; because it – perhaps in an effort to
 reduce variance of the gradient – changes weights according to the
 average activation levels of units connected by them. Anyway, this
 last one reaches 99.09%.</p>
-
 <p><img src="blog-files/mnist-2-dbm-training.png" alt="" /></p>
-
 <p><img src="blog-files/mnist-2-bpn-training.png" alt="" /></p>
-
 <p>To reduce <a href="http://en.wikipedia.org/wiki/Publication_bias" >publication
 bias</a> a bit, let me
 mention some experiments that were found to have no effect:</p>
-
 <ul>
 <li><p>In an effort to see whether DBM training is held back by high
   variance of the gradient estimates a batch size of 1000 (instead
@@ -153,13 +135,11 @@ mention some experiments that were found to have no effect:</p>
   sampled values DBM classification deteriorated. Using the
   expectations for chunks <code>INPUTS</code> and <code>LABEL</code> did not help, though.</p></li>
 </ul>
-
 <p>What I take home from these experiments is that from the
 considerable edge of DBM over DBN training only a small fraction
 remains by the end of BPN training and that the additional sparsity
 constraint accounts for very little in this setup.</p>
-
-<p><img src="blog-files/die.png" alt="end-of-post" /></p>
+<img src="blog-files/die.png" alt="end-of-post" />
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>

@@ -49,18 +49,13 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40IMPORTANT-UPDATE-TO-THE-PLANET-WARS-STARTER-PACKAGE-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@IMPORTANT-UPDATE-TO-THE-PLANET-WARS-STARTER-PACKAGE%20MGL-PAX:SECTION"></a></p>
-
 <h1><a href="important-update-to-the-planet-wars-starter-package.html">Important Update to the Planet Wars Starter Package</a></h1>
-
 <p><span class='post-data'><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2010-10-25</span></p>
-
 <div class='br'></div>
-
 <p>First, is it possible to get something as simple
 as <code>RESOLVE-BATTLE</code> wrong? Apparently, yes. That's what one gets for
 trying to port Python code that's pretty foreign in the sense of
 being far from the way I'd write it.</p>
-
 <p>More importantly, I found out the hard way that sbcl 1.0.11, that's
 <a href="http://code.google.com/p/ai-contest/issues/detail?id=183" >still</a> on
 the official servers, has a number of bugs in its timer
@@ -68,7 +63,6 @@ implementation making <code>WITH-TIMEOUT</code> unreliable. Also, it can
 trigger timeouts recursively, eventually exceeding the maximum
 interrupt nesting depth. Well, &quot;found out&quot; is not the right way to
 put it as we did fix most of these bugs ages ago.</p>
-
 <p>In the new starter package (v0.8 in
 <a href="http://quotenil.com/git/?p=planet-wars.git;a=summary" >git</a>, <a href="http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz" >latest
 tarball</a>),
@@ -76,7 +70,6 @@ you'll find a timer.lisp that's simply backported almost verbatim from
 sbcl 1.0.41 to sbcl 1.0.11. Seems to work for me, but I also had to
 lower the timeout to 0.8 from 0.98 because the main server is
 extremely slow.</p>
-
 <p>The rate at which games are played on the servers is so low that it
 takes several days to ascend through the leaderboard. Nevertheless,
 an old buggy version is sitting on the
@@ -86,8 +79,7 @@ solution space, and it's quite worrisome just how adept I am at this
 poor man's evolutionary programming. Most of them have since been
 fixed while the ideas they brought to light remain, making the
 current version much stronger.</p>
-
-<p><img src="blog-files/die.png" alt="end-of-post" /></p>
+<img src="blog-files/die.png" alt="end-of-post" />
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>

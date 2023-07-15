@@ -17,16 +17,13 @@ the delay of a full recompile. Previously, editing a docstring
 required regenerating the full documentation to see how the changes
 turned out. The live documentation browser does away with this step,
 which tightens the edit/document loop.&lt;/p&gt;
-
 &lt;p&gt;PAX also got an &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION&quot; &gt;apropos browser&lt;/a&gt;. It could always
 generate documentation for stuff not written with PAX in mind, so
 with the live browser already implemented, this was a just a small
 add-on.&lt;/p&gt;
-
 &lt;p&gt;The trouble with interactivity is, of course, that it&apos;s difficult to
 get the point across in text, so I made two short videos that
 demonstrate the basics.&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://youtu.be/vH9hpk_Yirw&quot; &gt;Live browsing with w3m&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://youtu.be/ilPRgwKZkeo&quot; &gt;Live browsing with other browsers&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
@@ -62,7 +59,6 @@ grids, in particular.
             <description>&lt;p&gt;In short, comparing fonts at the same font size is almost never the
 right thing to do. Compare them at the same x-height or, better yet,
 at the same space usage.&lt;/p&gt;
-
 &lt;p&gt;In full, recently I wanted to choose a font that looks good on
 screen at various resolutions and also in print. This is fairly
 subjective, of course, so there is a lot of noise out there. Going
@@ -78,9 +74,7 @@ determined by the
 &lt;a href=&quot;https://en.wikipedia.org/wiki/X-height&quot; &gt;x-height&lt;/a&gt; (&lt;code&gt;ex&lt;/code&gt; in LaTeX
 and CSS). &lt;code&gt;1ex&lt;/code&gt; is the height of the character &lt;code&gt;x&lt;/code&gt;, which is pretty
 close to the height of other lowercase characters for most fonts.&lt;/p&gt;
-
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/Typography_Line_Terms.svg&quot; alt=&quot;typography-line-terms&quot; /&gt;&lt;/p&gt;
-
 &lt;p&gt;So it makes a lot of sense to compare fonts at the same x-height,
 and this is what I first did for a number of LaTeX fonts:
 &lt;a href=&quot;http://quotenil.com/blog-files/fonts-by-x-height.pdf&quot; &gt;fonts-by-x-height.pdf&lt;/a&gt;. On the
@@ -108,14 +102,12 @@ strongly enough in addition to x-height to make them change the
 results: &lt;a href=&quot;http://quotenil.com/blog-files/fonts-by-space.pdf&quot; &gt;fonts-by-space.pdf&lt;/a&gt;. Have a
 look and decide for yourself which fonts look best. To me, the most
 legible fonts are:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Libertinus and Stix2 in the Timeslike category,&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Cochineal (Amiri, Crimson Text) among the Garamondlike,&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;XCharter among the (almost) Slab Serifs,&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Utopia among the Transitional Serifs.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;My taste is apparently quite similar to &lt;a href=&quot;https://github.com/linoferreira/latex-font-survey&quot; &gt;Lino
 Ferreira&apos;s&lt;/a&gt;. EB
 Garamond is a personal favourite, but it is just a bit too quirky
@@ -137,7 +129,6 @@ or &lt;a href=&quot;https://mastodon.social/@melisgl/110175790416538571&quot; &g
 &lt;a href=&quot;http://seclists.org/oss-sec/2014/q3/685&quot; &gt;giving&lt;/a&gt;, I had to disable
 gitweb at &lt;a href=&quot;http://quotenil.com/git/&quot; &gt;http://quotenil.com/git/&lt;/a&gt; and
 move all non-obsolete code over to github. This affects:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/six&quot; &gt;Six the Hex AI&lt;/a&gt;,&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/planet-wars&quot; &gt;the Planet Wars bot&lt;/a&gt;,&lt;/p&gt;&lt;/li&gt;
@@ -159,18 +150,15 @@ news is that the connection operates near its advertised bandwidth,
 the bad news is that tcp connections started to hang. It didn&apos;t take
 long to &lt;a href=&quot;http://hup.hu/node/98496&quot; &gt;find out&lt;/a&gt; that this particular
 router drops &amp;quot;unused&amp;quot; tcp connections after five minutes.&lt;/p&gt;
-
 &lt;p&gt;The fix recommended in the linked topic (namely &lt;code&gt;sysctl&lt;/code&gt;ing
 &lt;code&gt;net.ipv4.tcp_keepalive_time&lt;/code&gt; &amp;amp; co) was mostly effective, but I had
 to lower the keepalive to one minute to keep my ssh sessions alive.
 The trouble was that OfflineIMAP connections to the U.S. west coast
 still hanged intermittently, while it could work with Gmail just
 fine.&lt;/p&gt;
-
 &lt;p&gt;In the end, OfflineIMAP had to be
 &lt;a href=&quot;http://permalink.gmane.org/gmane.mail.imap.offlineimap.general/2815&quot; &gt;patched&lt;/a&gt;
 to use the keepalive and the keepalive be lowered to 15s:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;sysctl -w net.ipv4.tcp_keepalive_time=15 \
           net.ipv4.tcp_keepalive_intvl=15 \
           net.ipv4.tcp_keepalive_probes=20
@@ -197,27 +185,21 @@ authinfo&lt;/a&gt;
 files as well. Offlineimap, on the other hand, offers no such
 support, and passwords to the local and remote imap accounts are
 normally stored in clear text in &lt;code&gt;.offlineimaprc&lt;/code&gt;.&lt;/p&gt;
-
 &lt;p&gt;For the local account, this can be overcome by not running a Dovecot
 server but making offlineimap spawn a dovecot process when needed:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;[Repository LocalGmail]
 type = IMAP
 preauthtunnel = /usr/sbin/dovecot -c ~/.dovecot.conf --exec-mail imap
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;For the remote connection, ideally it should read the password from
 &lt;code&gt;.authinfo.gpg&lt;/code&gt;, that Gnus may also read if it&apos;s configured to
 access the remote server directly. This can be pulled off rather
 easily. Add an /include/ to &lt;code&gt;.offlineimaprc&lt;/code&gt; like this:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;[general]
 pythonfile = ~/.offlineimap.py
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;where &lt;code&gt;~/.offlineimap.py&lt;/code&gt; just defines a single function called
 &lt;code&gt;get_authinfo_password&lt;/code&gt;:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;#!/usr/bin/python
 import re, os
 
@@ -227,14 +209,10 @@ def get_authinfo_password(machine, login, port):
     authinfo = os.popen(&amp;quot;gpg -q --no-tty -d ~/.authinfo.gpg&amp;quot;).read()
     return p.search(authinfo).group(1)
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Now, all that&apos;s left is to change remotepass to something like this:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;remotepasseval = get_authinfo_password(&amp;quot;imap.gmail.com&amp;quot;, &amp;quot;username@gmail.com&amp;quot;, 993)
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Of course, &lt;code&gt;.authinfo.gpg&lt;/code&gt; should also have the corresponding entry:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;machine imap.gmail.com login username@gmail.com password &amp;lt;password&amp;gt; port 993
 &lt;/code&gt;&lt;/pre&gt;
 That&apos;s it, no more cleartext passwords.
@@ -265,9 +243,7 @@ doesn&apos;t count.
 lasts about half a year, so I decided to upgrade to Squeeze aka
 Debian testing. The upgrade itself went rather smoothly with a few
 notable exceptions. With KDE 4.3, I should have waited more.&lt;/p&gt;
-
 &lt;p&gt;Notes:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Who thought it a grand idea that in the default theme (Oxygen) the
   color of the panel and window title bar cannot be customized?
@@ -302,18 +278,14 @@ notable exceptions. With KDE 4.3, I should have waited more.&lt;/p&gt;
 finger, which is used to press the &lt;em&gt;Control&lt;/em&gt; key. The standard
 answer to that is to map &lt;em&gt;Caps Lock&lt;/em&gt; to &lt;em&gt;Control&lt;/em&gt;. I believe that
 there is a better way:&lt;/p&gt;
-
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/symbolics-keyboard.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
 &lt;p&gt;Note the placement of modifiers: &lt;em&gt;Control&lt;/em&gt;, &lt;em&gt;Meta&lt;/em&gt;, &lt;em&gt;Super&lt;/em&gt;, &lt;em&gt;Hyper&lt;/em&gt;
 on both sides of Space in this order, with &lt;em&gt;Control&lt;/em&gt; being the
 closest to it. Touch typers especially find having two of each key
 absolutely essential, and the symmetric placement appeals to me.&lt;/p&gt;
-
 &lt;p&gt;Also note the &lt;em&gt;Rubout&lt;/em&gt; key next to &lt;em&gt;A&lt;/em&gt; where &lt;em&gt;Caps Lock&lt;/em&gt; resides on
 modern keyboards. &lt;em&gt;Rubout&lt;/em&gt; is like &lt;em&gt;Backspace&lt;/em&gt; and is better to have
 on the home row than the most useless and annoying key in history.&lt;/p&gt;
-
 &lt;p&gt;Under X11, the above are the modifications I make to the default
 layout. I keep the original Backspace key too as Backspace, but it
 could be &lt;em&gt;Caps Lock&lt;/em&gt; as well: I don&apos;t use it either way. If you have
@@ -322,11 +294,9 @@ keys while the fingers rest on &apos;asdf&apos; and &apos;jkl;&apos;. Always pre
 modifiers with the alternate hand. &lt;code&gt;C-a&lt;/code&gt; is right thumb + left
 pinky, &lt;code&gt;C-M-p&lt;/code&gt; is left-thumb + left-ring + right-pinky. For &lt;code&gt;C-M-P&lt;/code&gt;,
 add the left pinky for &lt;em&gt;Shift&lt;/em&gt;.&lt;/p&gt;
-
 &lt;p&gt;Another thing I find tremendously useful is getting used to &lt;code&gt;C-n&lt;/code&gt;,
 &lt;code&gt;C-p&lt;/code&gt;, &lt;code&gt;C-b&lt;/code&gt;, &lt;code&gt;C-f&lt;/code&gt; instead of reaching for the arrow keys as often
 as a vi user for &lt;em&gt;Escape&lt;/em&gt;.&lt;/p&gt;
-
 &lt;p&gt;Well, that&apos;s the narration. To implement the above, I guess, one can
 create an xkb description, but last time I tried, documentation was
 extremely unhelpful, so I ended up hacking together an xmodmap file.
@@ -334,15 +304,12 @@ I&apos;m told this file is not really portable, so it&apos;s &lt;a href=&quot;ht
 here&lt;/a&gt; only for
 illustration, and it&apos;s easy enough to do the same yourself for your
 keyboard. To switch to the new layout do:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;xmodmap lisp-machine-pc105-us.xmodmap
 xset r 66
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;where the second command enables auto repeat on the fresh, new
 &lt;em&gt;Backspace&lt;/em&gt; key. It works on a pc105 (with one Win key) notebook
 keyboard.&lt;/p&gt;
-
 &lt;p&gt;Oh, that xmodmap file above also has &lt;code&gt;[]&lt;/code&gt; and &lt;code&gt;()&lt;/code&gt; swapped.&lt;/p&gt;
 &lt;strong&gt;2020-05-03&lt;/strong&gt; Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
   version&lt;/a&gt;.
@@ -357,17 +324,14 @@ keyboard.&lt;/p&gt;
 it made me worry about losing something important, and the backup
 didn&apos;t fit on a single DVD, so I invested in a WD Passport and
 created an encrypted file system on it:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;modprobe cryptoloop
 modprobe aes
 losetup -e aes /dev/loop0 /dev/sdb
 mke2fs /dev/loop0
 tune2fs -i 0 -c 0 -j /dev/loop0
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Then, taking a backup is an &lt;code&gt;rsync&lt;/code&gt; and some setup-up/tear-down code
 away:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt; #!/bin/sh
  set -e -x
 
@@ -420,7 +384,6 @@ organizer. Blorg basically converts an org mode buffer to html files,
 so it is completely static: send me &lt;a href=&quot;mailto:mega@retes.hu&quot; &gt;email&lt;/a&gt; if
 you have comments, I have no desire to maintain a more complex
 solution with comment filtering.&lt;/p&gt;
-
 &lt;p&gt;Small fixes had to be made for blorg to be able to deal with
 org-mode 5.17a, and I only had time to bring it to some basic level
 of functionality. That said, here is the

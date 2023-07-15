@@ -13,20 +13,16 @@
 paper&lt;/a&gt;, approached from the
 direction of what I think is a fairly common technique: averaging
 checkpoints.&lt;/p&gt;
-
 &lt;p&gt;We want to speed up training and improve generalization. One way to
 do that is by averaging weights from optimization, and that&apos;s a big
-win (e.g. &lt;a href=&quot;https://arxiv.org/abs/1708.02182&quot; &gt;1&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/abs/1803.05407&quot; &gt;2&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/abs/2209.14981&quot; &gt;3&lt;/a&gt;). For example, while
+win (e.g. &lt;a href=&quot;https://arxiv.org/abs/1708.02182&quot; title=&quot;nt-asgd&quot;&gt;1&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/abs/1803.05407&quot; title=&quot;SWA&quot;&gt;2&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/abs/2209.14981&quot; title=&quot;LAWA&quot;&gt;3&lt;/a&gt;). For example, while
 training a language model for the down-stream task of summarization,
 we can save checkpoints periodically and average the model weights
 from the last 10 or so checkpoints to produce the final solution.
 This is pretty much what &lt;a href=&quot;https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/&quot; &gt;Stochastic Weight
 Averaging&lt;/a&gt; (SWA) does.&lt;/p&gt;
-
 &lt;h2&gt;Problems with SWA&lt;/h2&gt;
-
 &lt;p&gt;There is a number of problems with SWA:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;The averaging length (e.g. 10) must be chosen to maximize
   performance on summarization.&lt;/p&gt;&lt;/li&gt;
@@ -45,9 +41,7 @@ Averaging&lt;/a&gt; (SWA) does.&lt;/p&gt;
   naive search has to be run periodically making it even more
   expensive.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;In summary, working with SWA is tricky because:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;The averaging length is a hyperparameter that&apos;s costly to set (it
   is coupled with other hyperparameters especially with the length
@@ -56,11 +50,8 @@ Averaging&lt;/a&gt; (SWA) does.&lt;/p&gt;
   storage and/or computation) and suboptimal (can miss early
   solutions).&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;These are the issues Two-Tailed Averaging tackles. &lt;/p&gt;
-
 &lt;h2&gt;Two-Tailed Averaging&lt;/h2&gt;
-
 &lt;p&gt;The algorithm needs storage for only two sets of weights (constant
 storage cost) and performance (e.g. of summarization) to be
 evaluated periodically. In return, it provides a weight average of
@@ -68,15 +59,11 @@ approximately optimal length at all optimization steps. Now we can
 start training that language model, periodically evaluating how the
 averaged weights are doing at summarization. We can stop the
 training run any time if it&apos;s getting worse.&lt;/p&gt;
-
 &lt;p&gt;This is how Two-Tailed Averaged (orange) compares to SWA (green)
 tuned to start averaging at the point that&apos;s optimal for final
 validation loss:&lt;/p&gt;
-
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/tta-vs-swa.png&quot; alt=&quot;2TA (orange) vs SWA (green)&quot; /&gt;&lt;/p&gt;
-
 &lt;h2&gt;The Algorithm&lt;/h2&gt;
-
 &lt;p&gt;The core algorithm maintains two weight averages. Both averages are
 over the most recent weights weight produced by the optimizer, but
 they differ in length (i.e. how many weights they average). As the
@@ -86,7 +73,6 @@ each average. If the short average (the one that currently has fewer
 weights averaged) does at least as well as the long average
 according to some arbitrary evaluation function, then we empty the
 long average, which will now be the short one.&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# Initialize the short (s, sw) and long averages (l, lw). s and l are
 &lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;# the number of weights averaged (the &quot;averaging lengths&quot;). sw and lw
 &lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;# are the averaged weights.
@@ -125,13 +111,10 @@ class=&quot;keyword&quot;&gt; evaluate_2ta&lt;/span&gt;&lt;span class=&quot;pare
   else:
     &lt;span class=&quot;comment&quot;&gt;# Return the long average.
 &lt;/span&gt;    &lt;span class=&quot;symbol&quot;&gt;return&lt;/span&gt; fl, lw, l&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;In addition to the core algorithm, the code above has some extra
 logic to deal with the non-averaged weights being better than the
 averaged ones.&lt;/p&gt;
-
 &lt;p&gt;Let&apos;s write a fake a training loop that optimizes $f(x)=x^2$.&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;symbol&quot;&gt;import&lt;/span&gt; random
 
 &lt;span class=&quot;special&quot;&gt;def&lt;/span&gt;&lt;span
@@ -152,13 +135,11 @@ class=&quot;keyword&quot;&gt; df_dw&lt;/span&gt;&lt;span class=&quot;paren1&quot
       f_2ta, w_2ta, l_2ta = evaluate_2ta&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w, f&lt;/span&gt;)&lt;/span&gt;
       &lt;span class=&quot;symbol&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;f&lt;span class=&quot;string&quot;&gt;&apos;i={i:4d}: f(w_i)={f(w):7.3f},&apos;&lt;/span&gt;
             f&lt;span class=&quot;string&quot;&gt;&apos; f(w_2ta)={f_2ta:7.3f}, l={l_2ta:4d}&apos;&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;We added some noise to the gradients in &lt;code&gt;df_dw&lt;/code&gt; to make it more like
 training a neural net with SGD. Anyway, we take 2000 optimization
 steps, calling &lt;code&gt;update_2ta&lt;/code&gt; on most but calling
 &lt;code&gt;update_and_evaluate_2ta&lt;/code&gt; every 100 steps. Running
 &lt;code&gt;test_2ta_simple&lt;/code&gt;, we get something like this:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;i= 100: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.108, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 100
 i= 200: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.011, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 200
 i= 300: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.098, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=0.000, l= 200
@@ -179,7 +160,6 @@ i=1700: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&g
 i=1800: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.020, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=0.000, l=1300
 i=1900: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.090, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=0.000, l=1400
 i=2000: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.115, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=0.000, l=1500&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;In the above, &lt;code&gt;f(w_i)&lt;/code&gt; is the loss with the non-averaged weights,
 &lt;code&gt;f(w_2ta)&lt;/code&gt; is the loss with the weights provided by 2TA, and &lt;code&gt;l&lt;/code&gt; is
 the number of weights averaged. We see that with the high, constant
@@ -188,13 +168,11 @@ does the same, its jitter is way smaller (it&apos;s beyond the three
 significant digits printed here). Also, the length of the average
 increases almost monotonically but not quite due to the switching
 logic.&lt;/p&gt;
-
 &lt;p&gt;OK, that was easy. Let&apos;s now do something a bit more involved, where
 the function being optimized changes. We will change the loss
 function to $f(x) = (x-m)^2$ where $m$ is set randomly every 400
 steps. We will deal with this non-stationarity by resetting the long
 average if it has not improved for a while.&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;special&quot;&gt;def&lt;/span&gt;&lt;span
 class=&quot;keyword&quot;&gt; reset_2ta_long_average&lt;/span&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;/span&gt;)&lt;/span&gt;:
   &lt;span class=&quot;symbol&quot;&gt;global&lt;/span&gt; s, sw, l, lw
@@ -237,11 +215,9 @@ class=&quot;keyword&quot;&gt; df_dw&lt;/span&gt;&lt;span class=&quot;paren1&quot
         reset_2ta_long_average&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;/span&gt;)&lt;/span&gt;
         best_f = float&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;string&quot;&gt;&quot;inf&quot;&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
         best_iteration = 0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;We can see that 2TA adapts to the non-stationarity in a reasonable
 way although the reset heuristic gets triggered spuriously a couple
 of times:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;i= 100: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.008, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=  0.005, l= 100
 i= 200: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.060, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 100
 i= 300: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.004, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 100
@@ -267,49 +243,40 @@ i=1800: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&g
 i=1900: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.217, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 100
 setting optimum=-8.930
 i=2000: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=242.481, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=242.481, l=   1 Reset!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Note that in these examples, the evaluation function in 2TA was the
 training loss, but 2TA is intended for when the evaluation function
 measures performance on the validation set or on a down-stream
 task (e.g. summarization).&lt;/p&gt;
-
 &lt;h2&gt;Scaling to Large Models&lt;/h2&gt;
-
 &lt;p&gt;In its proposed form, Two-Tailed Averaging incorporates every set of
 weights produced by the optimizer in both averages it maintains.
-This is good because &lt;a href=&quot;https://jmlr.org/papers/v18/16-595.html&quot; &gt;Tail Averaging&lt;/a&gt;, also known as
-&lt;a href=&quot;https://arxiv.org/abs/1109.5647&quot; &gt;Suffix Averaging&lt;/a&gt;, theory has nice things to say
-about convergence to a local optimum of the training loss in this
-setting. However, in a memory constrained situation, these averages
-will not fit on the GPU/TPU, so we must move the weights off the
-device to add them to the averages (which may be in RAM or on disk).
-Moving stuff off the device can be slow, so we might want to do
-that, say, every 20 optimization steps. Obviously, downsampling the
-weights too much will affect the convergence rate, so there is a
-tradeoff.&lt;/p&gt;
-
+This is good because &lt;a href=&quot;https://jmlr.org/papers/v18/16-595.html&quot; title=&quot;Tail Averaging&quot;&gt;Tail Averaging&lt;/a&gt;, also known as
+&lt;a href=&quot;https://arxiv.org/abs/1109.5647&quot; title=&quot;Suffix Averaging&quot;&gt;Suffix Averaging&lt;/a&gt;, theory has nice things to say about convergence
+to a local optimum of the training loss in this setting. However, in
+a memory constrained situation, these averages will not fit on the
+GPU/TPU, so we must move the weights off the device to add them to
+the averages (which may be in RAM or on disk). Moving stuff off the
+device can be slow, so we might want to do that, say, every 20
+optimization steps. Obviously, downsampling the weights too much
+will affect the convergence rate, so there is a tradeoff.&lt;/p&gt;
 &lt;h2&gt;Learning Rate&lt;/h2&gt;
-
 &lt;p&gt;Note that in our experiments with Two-Tailed Averaging, we used a
 constant learning rate motivated by the fact that the closely
 related method of Tail Averaging guarantees optimal convergence rate
 learning rate in such a setting. The algorithm should work with
 decreasing learning rates but would require modification for
 cyclical schedules.&lt;/p&gt;
-
 &lt;h2&gt;Related Works&lt;/h2&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1803.05407&quot; &gt;SWA&lt;/a&gt; averages the last $K$ checkpoints.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2209.14981&quot; &gt;LAWA&lt;/a&gt; averages the $K$ most recent checkpoints, so it
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1803.05407&quot; title=&quot;SWA&quot;&gt;SWA&lt;/a&gt; averages the last $K$ checkpoints.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2209.14981&quot; title=&quot;LAWA&quot;&gt;LAWA&lt;/a&gt; averages the $K$ most recent checkpoints, so it
   produces reasonable averages from early on (unlike SWA), but $K$
   still needs to be set manually.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1708.02182&quot; &gt;NT-ASGD&lt;/a&gt; starts averaging when the validation loss has
-  not improved for a fixed number of optimization steps, which
-  trades one hyperparameter for another, and it is sensitive to
-  noise in the raw validation loss.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1708.02182&quot; title=&quot;nt-asgd&quot;&gt;nt-asgd&lt;/a&gt; starts averaging when the validation loss has not
+  improved for a fixed number of optimization steps, which trades
+  one hyperparameter for another, and it is sensitive to noise in
+  the raw validation loss.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;&lt;strong&gt;Adaptivity&lt;/strong&gt;: SWA and LAWA have hyperparameters that directly
 control the averaging length; NT-ASGD still has one, but its effect
 is more indirect. &lt;strong&gt;Anytimeness&lt;/strong&gt;: LAWA provides an average at all
@@ -317,7 +284,6 @@ times, SWA and NT-ASGD don&apos;t. &lt;strong&gt;Optimality&lt;/strong&gt;: The 
 SWA and LAWA are optimal if their hyperparameters are well-tuned;
 intermediate results of LAWA are unlikely to be optimal; NT-ASGD can
 miss the right time to start averaging.&lt;/p&gt;
-
 &lt;h2&gt;Summary&lt;/h2&gt;
 Two-Tailed Averaging can be thought of as online SWA with no
 hyperparameters. It is a great option when training runs take a long
@@ -336,7 +302,6 @@ or &lt;a href=&quot;https://mastodon.social/@melisgl/109472579530491223&quot; &g
             <description>&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;: &lt;em&gt;2020-05-03&lt;/em&gt; – Things have changed the during last 5
 years. This is a non-issue in Tensorflow and possibly in other
 frameworks, as well.&lt;/p&gt;
-
 &lt;p&gt;I believe there is one design decision in
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mat-manual.html&quot; &gt;MGL-MAT&lt;/a&gt;
 that has far reaching consequences: to make a single matrix object
@@ -344,18 +309,15 @@ capable of storing multiple representations of the same data and let
 operations decide which representation to use based on what&apos;s the
 most convenient or efficient, without having to even know about all
 the possible representations.&lt;/p&gt;
-
 &lt;p&gt;This allows existing code to keep functioning if support for
 diagonal matrices (represented as a 1d array) lands, and one can pick
 and choose the operations performance critical enough to implement
 with diagonals.&lt;/p&gt;
-
 &lt;p&gt;Adding support for matrices that, for instance, live on a remote
 machine is thus possible with a new facet type (MAT lingo for
 representation) and existing code would continue to work (albeit
 possibly slowly). Then, one could optimize the bottleneck operations
 by sending commands over the network instead of copying data.&lt;/p&gt;
-
 &lt;p&gt;Contrast this with what I understand to be the status quo over on
 the Python side. The specialized Python array libs (cudamat,
 gpuarray, cudandarray) try to be drop-in replacements for – or at
@@ -363,11 +325,9 @@ least similar to – numpy.ndarray with various degrees of success.
 There are lots of explicit conversion going on between ndarray and
 these CUDA blobs and adding new representations would make this
 exponentionally worse.&lt;/p&gt;
-
 &lt;p&gt;&lt;a href=&quot;http://torch.ch/&quot; &gt;Torch&lt;/a&gt; (Lua) also has CUDA and non-CUDA tensors
 are separate types, and copying between main and GPU memory is
 explicit, which leads to pretty much the same problems.&lt;/p&gt;
-
 &lt;p&gt;All of this is kind of understandable. When one thinks in terms of
 single dispatch (i.e. &lt;code&gt;object.method()&lt;/code&gt;), this kind of design will
 often emerge. With &lt;a href=&quot;https://en.wikipedia.org/wiki/Multiple_dispatch&quot; &gt;muliple
@@ -395,16 +355,13 @@ overhauled in the process. There are new additions such as the &lt;a href=&quot;
 optimizer&lt;/a&gt; and Recurrent Neural
 Nets. My efforts were mainly only the backprop stuff and I think the
 definition of feed-forward:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;build-fnn &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;:class&lt;/span&gt; &apos;digit-fnn&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;input &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;input &lt;span class=&quot;keyword&quot;&gt;:size&lt;/span&gt; &lt;span class=&quot;special&quot;&gt;*n-inputs*&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;hidden-activation &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;activation input &lt;span class=&quot;keyword&quot;&gt;:size&lt;/span&gt; n-hiddens&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;hidden &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;relu hidden-activation&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;output-activation &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;activation hidden &lt;span class=&quot;keyword&quot;&gt;:size&lt;/span&gt; &lt;span class=&quot;special&quot;&gt;*n-outputs*&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;output &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;softmax-xe-loss &lt;span class=&quot;keyword&quot;&gt;:x&lt;/span&gt; output-activation&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;and recurrent nets:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;build-rnn &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;build-fnn &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;:class&lt;/span&gt; &apos;sum-sign-fnn&lt;/span&gt;)&lt;/span&gt;
     &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;input &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-&amp;gt;input &lt;span class=&quot;keyword&quot;&gt;:size&lt;/span&gt; 1&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
@@ -431,7 +388,6 @@ contest&lt;/a&gt; on
 &lt;a href=&quot;http://kaggle.com&quot; &gt;Kaggle&lt;/a&gt; has ended. Sticking to my word at &lt;a href=&quot;http://medias.ircam.fr/xff38ba&quot; &gt;ELS
 2014&lt;/a&gt;, I released some code that
 came about during these long four months.&lt;/p&gt;
-
 &lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/mgl-gpr&quot; &gt;MGL-GPR&lt;/a&gt; is no longer a
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Genetic_programming&quot; &gt;Genetic
 Programming&lt;/a&gt; only
@@ -444,7 +400,6 @@ physicists in their insistence on comprehensibility overlooked, but
 it didn&apos;t work as well as I had hoped for reasons specific to this
 contest and also because evolutionary algorithms just do not scale
 to larger problem sizes.&lt;/p&gt;
-
 &lt;p&gt;In other news, &lt;a href=&quot;http://github.com/melisgl/mgl&quot; &gt;MGL&lt;/a&gt; got &lt;a href=&quot;http://en.wikipedia.org/wiki/Cross-validation_(statistics)&quot; &gt;cross
 validation&lt;/a&gt;,
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Bootstrap_aggregating&quot; &gt;bagging&lt;/a&gt; and
@@ -455,7 +410,6 @@ package documented with
 most definitely want to use. My winning submission used bagged
 cross-validated dropout neural networks with stratified splits so
 this is where it&apos;s coming from.&lt;/p&gt;
-
 &lt;p&gt;MGL itself and &lt;a href=&quot;https://github.com/melisgl/mgl-mat&quot; &gt;MGL-MAT&lt;/a&gt; were
 updated to work with the latest
 &lt;a href=&quot;https://github.com/takagi/cl-cuda&quot; &gt;CL-CUDA&lt;/a&gt;. The neural network
@@ -467,7 +421,6 @@ further cleanups to MGL, writing documentation and moving it to
 github. Also, there is some hope that one day CL-CUDA can be
 included in quicklisp allowing my stuff there to be updated to their
 latest versions.&lt;/p&gt;
-
 &lt;p&gt;The code for this contest is available at
 &lt;a href=&quot;https://github.com/melisgl/higgsml&quot; &gt;https://github.com/melisgl/higgsml&lt;/a&gt;,
 which from now on doubles as my skeleton for lisp projects that need
@@ -492,7 +445,6 @@ included in the &lt;a href=&quot;https://github.com/melisgl/higgsml&quot; &gt;gi
 stand-alone distribution with all library dependencies and an x86-64
 linux precompiled binary is also
 &lt;a href=&quot;http://quotenil.com/higgsml/gabor-melis.zip&quot; &gt;available&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;This has been the Kaggle competition that attracted the most
 contestants so it feels really good to come out on top although
 there was an element of luck involved due to the choice of
@@ -535,163 +487,124 @@ competition, last September I decided to enter the
 &lt;a href=&quot;http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow&quot; &gt;Stackoverflow&lt;/a&gt;
 contest on &lt;a href=&quot;http://kaggle.com&quot; &gt;Kaggle&lt;/a&gt;. It was a straightforward
 text classification problem with extremely unbalanced classes.&lt;/p&gt;
-
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/malacka-es-bocsimacko.jpg&quot; alt=&quot;Malacka&quot; /&gt;&lt;/p&gt;
-
 &lt;p&gt;Just as Bocsimack&#xF3; did the last time around, his lazier sidekick (on
 the right) brought
 &lt;a href=&quot;http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow/leaderboard&quot; &gt;success&lt;/a&gt;.
 I would have loved to be lazy and still win, but the leaderboard was
 too close for comfort.&lt;/p&gt;
-
 &lt;h2&gt;Overview&lt;/h2&gt;
-
 &lt;p&gt;The winning model is an average of 10 neural network ensembles of
 five constituent models, three of which are Deep Belief Networks,
 one is logistic regression, and one is Vowpal Wabbit. Features are
 all binary and include handcrafted, binned indicators (time of post,
 length of title, etc) and unigrams from the title and body.&lt;/p&gt;
-
 &lt;p&gt;Since the data set – especially the class distribution – evolves
 with time, one crucial step is to compensate for the effect of time.
 This is partly accomplished by adding date and time information as
 features and also by training the ensemble on the most recent posts.&lt;/p&gt;
-
 &lt;p&gt;Since the constituent models are trained on a subset of the
 stratified sample provided by the organizer, the ensemble does two
 of things:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Blend the constituent models, duh.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Compensate for the differences between the stratified sample and
   the most recent months of the full training set.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2&gt;Features Selection / Extraction&lt;/h2&gt;
-
 &lt;p&gt;Didn&apos;t spend too much time on handcrafting the features, just played
 around with adding features one-by-one, keeping an eye on how the
 loss changes. These are all binary features. For
 example, &lt;code&gt;(:post-hour 8)&lt;/code&gt; is 8 o&apos;clock UTC, &lt;code&gt;(:post-hour 11)&lt;/code&gt; is 11
 o&apos;clock UTC.&lt;/p&gt;
-
 &lt;p&gt;Depending on the model the top-N features are used, where the features
 are sorted by log likelihood ratio. There were a number of other
 feature selection methods tried, see below.&lt;/p&gt;
-
 &lt;h2&gt;Modeling Techniques and Training&lt;/h2&gt;
-
 &lt;p&gt;First let&apos;s look one by one at the models that went into the ensemble.&lt;/p&gt;
-
 &lt;h3&gt;Deep Belief Networks&lt;/h3&gt;
-
 &lt;p&gt;A DBN is made of Boltzmann machines stacked on top of each other,
 trained in a layerwise manner. After training (called &apos;pretraining&apos;)
 the DBN is &apos;unrolled&apos; into a backpropagation network. The BPN is
 initialized with the weights of th DBN and is fine-tuned to minimize
 the cross entropy between the predicted and actual class
 probabilities.&lt;/p&gt;
-
 &lt;p&gt;There are three DBNs in the ensemble. The first one looks like this
 (omitted the biases for clarity):&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;LABEL(5) INPUTS(2000)
        /
     F1(400)
       |
     F2(800)
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;So, we have 5 softmax neurons in the LABEL chunk, representing the
 class probabilities. There are 2000 sigmoid neurons in the INPUTS
 chunk standing for the top 2000 binary features extracted from the
 post. Then, we have two hidden layers of sigmoid neurons: F1 and F2.
 This is created in the code by &lt;code&gt;MAKE-MALACKA-DBN-SMALL&lt;/code&gt;.&lt;/p&gt;
-
 &lt;p&gt;The second DBN is the same expect INPUTS, F1 and F2 have 10000, 800,
 800 neurons, respectively. See &lt;code&gt;MAKE-MALACKA-DBN-BIG&lt;/code&gt;.&lt;/p&gt;
-
 &lt;p&gt;The third DBN is the same expect INPUTS, F1 and F2 have 10000, 2000,
 2000 neurons respectively. See &lt;code&gt;MAKE-MALACKA-DBN-BIGGER&lt;/code&gt;. Note that
 this last DBN wasn&apos;t fine tuned due to time constraints; predictions
 are extracted directly from the DBN, which doesn&apos;t try to minimize
 cross entropy.&lt;/p&gt;
-
 &lt;p&gt;The RBMs in the DBN were trained with contrastive divergence with
 minibatches of 100 posts. Learning rate was 0.001, momentum 0.9,
 weight decay 0.0002.&lt;/p&gt;
-
 &lt;p&gt;The backprop networks were trained for 38 epochs with the conjugate
 gradient method with three line searches on batches of 10000 posts.
 For the first 5 epochs, only the softmax units were trained, and for
 the last 3 epochs there was only one batch epoch (i.e. normal
 conjugate gradient).&lt;/p&gt;
-
 &lt;p&gt;These guys take several hours to days to train.&lt;/p&gt;
-
 &lt;h3&gt;Logistic Regression&lt;/h3&gt;
-
 &lt;p&gt;Not much to say here. I used liblinear with the top 250000 features,
 with these parameters:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;:solver-type :l2r-lr
 :c 256
 :eps 0.001
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Although it had access to a much larger set of features, liblinear
 could only achieve ~0.83 on the stratified sample used for
 development vs ~0.79 for the second DBN. Even though they used the
 same kind of features, their predictions were different enough to
 produce a slightly better ensemble.&lt;/p&gt;
-
 &lt;h3&gt;Vowpal Wabbit&lt;/h3&gt;
-
 &lt;p&gt;I&apos;m not sure adding this helped at all in the end, the results
 weren&apos;t entirely convincing. I just took Foxtrot&apos;s code. VW is run
 with &lt;code&gt;--loss_function logistic --oaa 5&lt;/code&gt;.&lt;/p&gt;
-
 &lt;h3&gt;The Ensemble&lt;/h3&gt;
-
 &lt;p&gt;The ensemble is a backpropagation neural network with one hidden
 layer of 800 stochastic sigmoid neurons (at least that was the
 intention, see below). The network looked like this:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;PRED1 PRED2 PRED3 PRED4 PRED5
      _______|___/____/
             OUTPUT(800)
               |
          CROSS-ENTROPY
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;PRED1 is made of five neurons representing the class probabilities
 in the prediction of the first DBN. The rest of PRED* are for the
 other two DBNs, the liblinear model, and VW.&lt;/p&gt;
-
 &lt;p&gt;The network was trained with gradient descent with minibatches of
 100 posts. The learning rate started out as 0.01 and multiplies by
 0.98 each epoch. Momentum started out as 0.5 and was increased to
 0.99 in 50 epochs. Learning rate was also multiplied by (1 -
 momentum) to disentangle it from the momentum. No weight decay was
 used.&lt;/p&gt;
-
 &lt;p&gt;I tried to get Hinton&apos;s dropout technique working, but it didn&apos;t
 live up to my expectations. On the other hand, the stochastic binary
 neurons mentioned in the dropout presentation did help a tiny bit.
 Unfortunately, I managed to make the final submission with a broken
 version, where the weights of stochastic binary neurons were not
 trained at all, effectively resulting in 800 random features (!).&lt;/p&gt;
-
 &lt;h3&gt;Bagging&lt;/h3&gt;
-
 &lt;p&gt;As good as stochastic binary neurons were before I broke the code,
 it still helped a tiny bit (as in a couple of 0.0001s) to average 10
 ensembles.&lt;/p&gt;
-
 &lt;h2&gt;Additional Comments and Observations&lt;/h2&gt;
-
 &lt;h3&gt;Time&lt;/h3&gt;
-
 &lt;p&gt;It was clear from the beginning that time plays an important role,
 and if scores are close, then predicting the class distribution of
 the test set could be the deciding factor. I saw the pace of
@@ -700,40 +613,29 @@ the end of the development training set and probed into the public
 leaderboard by submitting a number different constant
 predictions (the same prior for every post). It seemed that the last
 two weeks or one month is best.&lt;/p&gt;
-
 &lt;p&gt;There was no obvious seasonality or trend that could be exploited on
 the scale of months. I checked whether Stackoverflow were changing
 the mechanics but didn&apos;t find anything. I certainly didn&apos;t foresee
 the drastic class distribution change that was to come.&lt;/p&gt;
-
 &lt;h3&gt;Features&lt;/h3&gt;
-
 &lt;p&gt;I tried a couple of feature extraction methods. The
 Key-Substring-Group extractor looked very promising, but it simply
 didn&apos;t scale to more than a thousand features.&lt;/p&gt;
-
 &lt;p&gt;In the end, I found that no important features were left out by
 playing with liblinear that could handle all features at the same
 time. Take it with a grain of salt, of course, because there is a
 signal/noise issue lurking.&lt;/p&gt;
-
 &lt;h3&gt;Naive Bayes, Random Forests, Gradient Boosting&lt;/h3&gt;
-
 &lt;p&gt;I experimented with the above in scikit-learn. The results were
 terrible, but worse, they didn&apos;t contribute to the ensemble either.
 Maybe it was only me.&lt;/p&gt;
-
 &lt;h3&gt;Libsvm&lt;/h3&gt;
-
 &lt;p&gt;I couldn&apos;t get it to scale to several tens of thousands posts, so I
 had to go with liblinear.&lt;/p&gt;
-
 &lt;h3&gt;Dropout&lt;/h3&gt;
-
 &lt;p&gt;Fine tuning DBNs with dropout or stochastic binary neurons (without
 the bugs) didn&apos;t work. The best I could achive was slightly worse
 than the conjugate gradient based score.&lt;/p&gt;
-
 &lt;h3&gt;Retraining Constituent Models&lt;/h3&gt;
 Recall that the constituent models were trained only on 4/5 of the
 available data. After the ensemble was trainined, I intended to
@@ -753,7 +655,7 @@ snippet, and it is already added to Micmac in all its &lt;a href=&quot;https://g
 glory&lt;/a&gt;.
 The good thing about not rushing it out the door is that it saw a
 bit more use. For a tutorialish tic-tac-toe example see
-&lt;a href=&quot;https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp&quot; &gt;test/test-game-theory.lisp.&lt;/a&gt;.&lt;/p&gt;
+&lt;a href=&quot;https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp&quot; &gt;test/test-game-theory.lisp&lt;/a&gt;.&lt;/p&gt;
 The logging code in the example produces
 &lt;a href=&quot;http://quotenil.com/blog-files/alpha-beta-log.png&quot; &gt;output&lt;/a&gt;, which is suitable for cut
 and pasting into an org-mode buffer and exploring it by &lt;code&gt;TAB&lt;/code&gt;bing
@@ -771,30 +673,24 @@ alpha–beta with a few bells and whistles, I added a Nash equilibrium
 finder to &lt;a href=&quot;http://cliki.net/micmac&quot; &gt;Micmac&lt;/a&gt;, which is becoming less
 statistics oriented. This was one of the many things in Planet Wars
 that never really made it.&lt;/p&gt;
-
 &lt;p&gt;Let&apos;s consider the &lt;a href=&quot;http://en.wikipedia.org/wiki/Matching_pennies&quot; &gt;Matching
 pennies&lt;/a&gt; game. The
 row player wins iff the two pennies show the same side. The payoff
 matrix is:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;|       | Heads | Tails |
 +-------+-------+-------+
 | Heads |     1 |    -1 |
 | Tails |    -1 |     1 |
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Find the mixed strategy equilibrium:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;find-nash-equilibrium &apos;&lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-1 1&lt;/span&gt;)&lt;/span&gt; &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;1 -1&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
 =&amp;gt;
 #&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;49 51&lt;/span&gt;)&lt;/span&gt;
 #&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;50 50&lt;/span&gt;)&lt;/span&gt;
 -0.01&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;That is, both players should choose heads 50% of the time and the
 expected payoff (for the row player) is zero of which -0.01 is an
 approximation:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;find-nash-equilibrium &apos;&lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;-1 1&lt;/span&gt;)&lt;/span&gt; &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;1 -1&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:n-iterations&lt;/span&gt; 1000&lt;/span&gt;)&lt;/span&gt;
 =&amp;gt;
 #&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;499 501&lt;/span&gt;)&lt;/span&gt;
@@ -809,32 +705,23 @@ approximation:&lt;/p&gt;
             <link>http://quotenil.com/planet-wars-post-mortem.html</link>
             <description>&lt;p&gt;I can&apos;t believe I &lt;a href=&quot;https://web.archive.org/web/20101205003152/http://ai-contest.com/rankings.php&quot; &gt;won&lt;/a&gt;.&lt;br&gt;
 I can&apos;t believe I won &lt;em&gt;decisively&lt;/em&gt; at all.&lt;/p&gt;
-
 &lt;p&gt;The lead in the last month or so was an indicator of having good
 chances, but there was a huge shuffling of ranks in the last week
 and some last minute casualties.&lt;/p&gt;
-
 &lt;h2&gt;Code&lt;/h2&gt;
-
 &lt;p&gt;Note that the git repository is available at
 [https://github.com/melisgl/planet-wars(https://github.com/melisgl/planet-wars).&lt;/p&gt;
-
 &lt;h2&gt;Denial&lt;/h2&gt;
-
 &lt;p&gt;I had promised myself not to enter this one and resisted for about
 two weeks when my defenses were worn away and I was drawn into the
 fray.&lt;/p&gt;
-
 &lt;p&gt;The game didn&apos;t look very exciting at first. I thought that the bots
 would soon reach a point of near perfect tactics and the
 rock-paper-scissors scenarios would dominate (more on this later).&lt;/p&gt;
-
 &lt;p&gt;That&apos;s enough of
 &lt;a href=&quot;https://web.archive.org/web/20100307014152/http://www.a1k0n.net/blah/archives/2010/03/index.html&quot; &gt;tribute&lt;/a&gt;,
 let&apos;s steer off the trodden path.&lt;/p&gt;
-
 &lt;h2&gt;Beginning&lt;/h2&gt;
-
 &lt;p&gt;Driven by the first
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Larry_Wall#Virtues_of_a_programmer&quot; &gt;virtue&lt;/a&gt;
 of programmers I was going to approach the game in a
@@ -843,58 +730,45 @@ machine. The second virtue was kept in check for a week while I was
 working out how to do that exactly. In the meantime, the third
 spurred me to take &lt;a href=&quot;http://aerique.blogspot.com/&quot; &gt;aerique&apos;s&lt;/a&gt; starter
 pack and to make myself comfortable with minor modifications to it.&lt;/p&gt;
-
 &lt;p&gt;As with tron, UCT was on my mind. However, I was keenly aware of
 failing to make it work acceptably last time. No matter how cool UCT
 was, it was hard to miss one important similarity to tron: the
 fitness function is very jagged, one ship more or less can make all
 the difference. Clearly, a naive random policy was not going to cut
 it.&lt;/p&gt;
-
 &lt;p&gt;Another problem was the practically unlimited branching factor.
 Without a similarity function over moves, it was hopeless to explore
 a meaningful portion of the game tree.&lt;/p&gt;
-
 &lt;h2&gt;Move Generation&lt;/h2&gt;
-
 &lt;p&gt;At this point I had to start getting my hands dirty. The first thing
 was to implement simulating the future (see &lt;code&gt;FUTURE&lt;/code&gt; class), which
 was trivial except I screwed battle resolution up and for the
 longest time it was holding results back. Think of a future as a
 vector of owner and ship count over turns.&lt;/p&gt;
-
 &lt;p&gt;By watching some games, it became apparent that multi-planet,
 synchronized attacks are the way to go. The implementation operates
 on step targets, steps and moves.&lt;/p&gt;
-
 &lt;p&gt;A &lt;em&gt;step&lt;/em&gt; is a set of orders from the same player targeting the same
 planet. The constituent orders need not be for the same turn,
 neither do they need to arrive on the same turn.&lt;/p&gt;
-
 &lt;p&gt;A &lt;em&gt;move&lt;/em&gt; is a set of orders from the same player without any
 restriction. That includes future orders too.&lt;/p&gt;
-
 &lt;p&gt;Move generation first computes so called step targets. A &lt;em&gt;step target&lt;/em&gt;
 is a ship count vector over turns representing the desired arrivals.
 The desired arrivals are simply minimal reinforcements for defense and
 invasion forces for attack.&lt;/p&gt;
-
 &lt;p&gt;For each step target a number of steps can be found that produce the
 desired arrivals. In the current implementation, there is a single
 step generated for a step target.&lt;/p&gt;
-
 &lt;p&gt;For a while my bot could only make moves that consisted of a single
 step, but it quickly became the limiting factor, and strength
 testing of modifications was impossible.&lt;/p&gt;
-
 &lt;p&gt;Combining steps into moves turned out to be easy. Not all
 combinations are valid, but the number of combinations can be huge.
 To limit the number of moves generated, we first evaluate steps one
 by one, sort them in descending order of evaluation score and try to
 combine them starting from the first.&lt;/p&gt;
-
 &lt;h2&gt;Full Attack&lt;/h2&gt;
-
 &lt;p&gt;Normally, futures are calculated taking into account fleets already
 in flight in the observable game state that the engine sends. Back
 when I was still walking up and down instead of typing away
@@ -906,33 +780,26 @@ breaks down at the edges (simultaneous moves), but it was a useful
 idea that gave birth to the &lt;code&gt;FULL-ATTACK-FUTURE&lt;/code&gt; class. The
 intention was to base position evaluation on the sum of scores of
 individual full attack futures (one per planet).&lt;/p&gt;
-
 &lt;p&gt;Now the problem with full attack future is that sending all
 available ships away from a planet can invalidate some orders
 scheduled from that planet for the future. Enter the concept (and
 class) of &lt;code&gt;SURPLUS&lt;/code&gt;.&lt;/p&gt;
-
 &lt;p&gt;The surplus of player P at planet A at time t is the number of ships
 that can be sent away on that turn from the defending army without:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;making any scheduled order from planet A invalid&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;causing the planet to be lost anytime after that (observing only
   the fleets already in space)&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;bringing an imminent loss closer in time&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;As soon as the full attack based position evaluation function was
 operational, results started to come. But there was a crucial
 off-by-one bug.&lt;/p&gt;
-
 &lt;h2&gt;Constraining Futures&lt;/h2&gt;
-
 &lt;p&gt;That bug was in the scoring of futures. For player 1, it used the
 possible arrivals (number of ships) one turn before those of player
 2. I made several attempts at fixing it, but each time playing
 strength dropped like a stone.&lt;/p&gt;
-
 &lt;p&gt;Finally, a principled solution emerged: when computing the full
 attack future from the surpluses, constrain the turn of departures.
 That is, to roughly duplicate the effect of the off-by-one bug, one
@@ -942,7 +809,6 @@ the code). This provided a knob to play with. Using 1 for
 &lt;code&gt;MIN-TURN-TO-DEPART-1&lt;/code&gt; made the bot actually prefer moves to just
 sitting idly, using 2 made it prefer moves that needed no
 reinforcement on the next turn.&lt;/p&gt;
-
 &lt;p&gt;I believe the following is the most important one character change I
 made, so this gets its own paragraph. Using 2 as
 &lt;code&gt;MIN-TURN-TO-DEPART-1&lt;/code&gt; makes the bot tend towards situations in
@@ -950,48 +816,38 @@ which the rock-paper-scissors nature of the game is suppressed. The
 same bot with 1 beats the one with 2, but as was often the case, on
 TCP the results were just the opposite. By a big margin. TCP is
 dhartmei&apos;s unofficial server, where most useful testing took place.&lt;/p&gt;
-
 &lt;p&gt;Constraints were added for arrivals too (see &lt;code&gt;MIN-TURN-TO-ARRIVE&lt;/code&gt;),
 which eased scoring planets that started out neutral but were
 non-neutral at the horizon by making the evaluation function sniping
 aware.&lt;/p&gt;
-
 &lt;p&gt;Sniping is when one player takes a neutral, losing ships in the
 process, and the opponent comes – typically on the next turn – and
 takes it away. &lt;a href=&quot;https://web.archive.org/web/20101213023101/http://www.ai-contest.com/visualizer.php?game_id=9347535&quot; &gt;This
 game&lt;/a&gt;
 is a nice illustration of the concept.&lt;/p&gt;
-
 &lt;h2&gt;Redistribution&lt;/h2&gt;
-
 &lt;p&gt;As pointed out by
 &lt;a href=&quot;https://web.archive.org/web/20110210212413/http://iouri-khramtsov.blogspot.com/2010/11/google-ai-challenge-planet-wars-entry.html&quot; &gt;iouri&lt;/a&gt;
 in his post-mortem, redistribution of ships is a major factor. The
 machinery described so far lends itself to easy implementation of
 redistribution.&lt;/p&gt;
-
 &lt;p&gt;When scoring a full attack future, the scoring function gives a very
 slight positional penalty every simulated turn for every enemy ship.
 This has the effect of preferring positions where the friendly ships
 are near the enemy, and positions of influence with multiple enemy
 planets being threatened.&lt;/p&gt;
-
 &lt;p&gt;The move generator was modified to generate steps to each friendly
 planet from each friendly planet on turn 0 sending all the surplus
 at that turn. This scheme is rather restrictive, the more flexible
 solutions had mixed results.&lt;/p&gt;
-
 &lt;p&gt;There is a knob, of course, to control how aggressively ships are
 redistributed. It&apos;s called &lt;code&gt;POSITIONAL-MIN-TURN-TO-DEPART-1&lt;/code&gt;. As its
 name implies it&apos;s like &lt;code&gt;MIN-TURN-TO-DEPART-1&lt;/code&gt; but used only when
 computing the positional penalty.&lt;/p&gt;
-
 &lt;h2&gt;Dynamic Horizon&lt;/h2&gt;
-
 &lt;p&gt;How far ahead the bot looks has a very strong effect on its play:
 too far and it will be blind to tactics, too close and it will miss
 capturing higher cost neutrals.&lt;/p&gt;
-
 &lt;p&gt;Horizon was constant 30 for quite some time. I wanted to raise it
 but couldn&apos;t without seriously hurting close range fighting ability.
 After much experimentation with a slightly complicated mechanism the
@@ -999,27 +855,20 @@ horizon was set so that the three earliest breakeven turns of safe
 to take neutrals are included. A neutral is deemed safe to take if
 from the initial investment until the breakeven point no friendly
 planet can be possibly lost in a full attack future.&lt;/p&gt;
-
 &lt;h2&gt;Nash Equilibrium&lt;/h2&gt;
-
 &lt;p&gt;There are – especially at the very beginning of games – situations
 where there is no best move, it all depends on what the opponent
 plays on the same turn.&lt;/p&gt;
-
 &lt;p&gt;If one has a number of candidate moves for each player and the score
 for any pair of them, the optimal mixed strategy can be computed,
 which is just a probability assigned to each move.&lt;/p&gt;
-
 &lt;p&gt;I tried and tried to make it work, but it kept making mistakes that
 looked easy to exploit, and although it did beat 1 ply minimax about
 2 to 1 it was too slow to experiment with.&lt;/p&gt;
-
 &lt;h2&gt;Alpha–Beta&lt;/h2&gt;
-
 &lt;p&gt;Yes, for the longest time, it was a 1-ply search. Opponent moves
 were never considered, and position evaluation was good enough to
 pick up the slack.&lt;/p&gt;
-
 &lt;p&gt;However, there was a problem. The evaluation function did not score
 planets that were neutral at the end of the normal future, because
 doing so made the bot just sit there doing nothing, getting high
@@ -1027,19 +876,16 @@ scores for all planets that could be conquered, but when it tried to
 make a move it realized that it can conquer only one. Such is the
 nature of full attack based evaluation function, it was designed
 with complete disregard for neutrals.&lt;/p&gt;
-
 &lt;p&gt;A late change to the map generator increased the number of planets
 at an equal distance from the players and emphasized the
 rock-paper-scissors nature further. Some bots didn&apos;t like it, some
 took this turn of events better. Before this point, my bot had a
 very comfortable lead on the official leaderboard, which was greatly
 reduced.&lt;/p&gt;
-
 &lt;p&gt;With the failure of the Nash experiment, I resurrected previously
 unsuccessful alpha–beta code in hopes of that considering opponent
 moves will show the bot the error of it ways, and force it to not
 leave valuable central planets uncovered.&lt;/p&gt;
-
 &lt;p&gt;It&apos;s tricky to make alpha–beta work with moves that consist of
 orders at arbitrary times in the future. I had all kinds of funky,
 correct and less correct ways to execute orders at different depths
@@ -1048,7 +894,6 @@ simple-minded, incorrect variant that simply scheduled all orders
 that made up the move (yes, even the future ones) and fixed things
 up when computing the future so that ship counts stayed non-negative
 and sending enemy ships did not occur.&lt;/p&gt;
-
 &lt;p&gt;In local tests against older versions of my bot, a two ply
 alpha–beta bot showed very promising results, but when it was tested
 on tcp it fell way short of the expectations and performed worse
@@ -1056,7 +901,6 @@ than the one ply bot. It seemed particularly vulnerable to a number
 of bots. In retrospect, I think this was because their move
 generator was sufficiently different that my bot was just blind to a
 good range of real possibilities.&lt;/p&gt;
-
 &lt;p&gt;In the end, I settled for using four ply alpha–beta for the opening
 phase (until the third planet was captured). This allowed the bot to
 outwait opponents when needed and win most openings. After the final
@@ -1065,19 +909,15 @@ wrong way and even three planets is too many. With six hours left
 until the deadline, in a test against binaries of a few fellow
 competitors the two planet limit seemed to perform markedly better,
 but it was too late to properly test it against a bigger population.&lt;/p&gt;
-
 &lt;h2&gt;The End&lt;/h2&gt;
-
 &lt;p&gt;Like many fellow contestants, I am very happy that the contest is
 over and I got my life back. I&apos;m sure that many families breathed a
 collective sigh of relief. But if I were to continue, I&apos;d try
 rethinking the move generator because that may just be the thing
 that holds alpha–beta back and maybe Nash too.&lt;/p&gt;
-
 &lt;p&gt;Dissapointingly, there was no learning, adapting to opponent
 behaviour, etc. All that made it to the todo list but had to take
 second seat to more pressing concerns.&lt;/p&gt;
-
 &lt;p&gt;Ah, yes. One more thing. Bocsimack&#xF3; (pronounced roughly as
 bo-chee-mats-ko), after whom the bot was named, is the handsome hero
 of a children&apos;s book, pictured on the left:&lt;/p&gt;
@@ -1093,7 +933,6 @@ of a children&apos;s book, pictured on the left:&lt;/p&gt;
 as &lt;code&gt;RESOLVE-BATTLE&lt;/code&gt; wrong? Apparently, yes. That&apos;s what one gets for
 trying to port Python code that&apos;s pretty foreign in the sense of
 being far from the way I&apos;d write it.&lt;/p&gt;
-
 &lt;p&gt;More importantly, I found out the hard way that sbcl 1.0.11, that&apos;s
 &lt;a href=&quot;http://code.google.com/p/ai-contest/issues/detail?id=183&quot; &gt;still&lt;/a&gt; on
 the official servers, has a number of bugs in its timer
@@ -1101,7 +940,6 @@ implementation making &lt;code&gt;WITH-TIMEOUT&lt;/code&gt; unreliable. Also, it
 trigger timeouts recursively, eventually exceeding the maximum
 interrupt nesting depth. Well, &amp;quot;found out&amp;quot; is not the right way to
 put it as we did fix most of these bugs ages ago.&lt;/p&gt;
-
 &lt;p&gt;In the new starter package (v0.8 in
 &lt;a href=&quot;http://quotenil.com/git/?p=planet-wars.git;a=summary&quot; &gt;git&lt;/a&gt;, &lt;a href=&quot;http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz&quot; &gt;latest
 tarball&lt;/a&gt;),
@@ -1125,13 +963,13 @@ current version much stronger.
         <item>
             <title>Planet Wars Common Lisp Starter Package Actually Works</title>
             <link>http://quotenil.com/planet-wars-common-lisp-starter-package-that-actually-works.html</link>
-            <description>&lt;p&gt;Released
+            <description>Released
 v0.6 (&lt;a href=&quot;http://quotenil.com/git/?p=planet-wars.git;a=summary&quot; &gt;git&lt;/a&gt;,
 &lt;a href=&quot;http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz&quot; &gt;latest
 tarball&lt;/a&gt;).
 The way the server compiles lisp submissions was fixed, and this
 revealed a problem where MyBot.lisp redirected &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*STANDARD-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*STANDARD-OUTPUT*&lt;/code&gt;&lt;/a&gt;
-to &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*ERROR-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*ERROR-OUTPUT*&lt;/code&gt;&lt;/a&gt; causing the server to think compilation failed.&lt;/p&gt;
+to &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*ERROR-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*ERROR-OUTPUT*&lt;/code&gt;&lt;/a&gt; causing the server to think compilation failed.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Tue, 21 Sep 2010 01:00:00 +0100</pubDate>
@@ -1146,16 +984,13 @@ was this spring. The branching factor of the game tree is enormous,
 which only means that straight minimax is out of question this time
 around. Whether some cleverness can bring the game within reach of
 conventional algorithms remains to be seen.&lt;/p&gt;
-
 &lt;p&gt;Anyway, I&apos;m adding &lt;a href=&quot;http://quotenil.com/git/?p=planet-wars.git;a=summary&quot; &gt;yet another starter
 package&lt;/a&gt; (&lt;a href=&quot;http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz&quot; &gt;latest
 tarball&lt;/a&gt;)
 to the
 &lt;a href=&quot;http://aerique.blogspot.com/2010/09/planet-wars-common-lisp-start-package.html&quot; &gt;lot&lt;/a&gt;.
 It is based heavily on aerique&apos;s.&lt;/p&gt;
-
 &lt;p&gt;Highlights compared to his version:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;no excessive use of specials (&lt;code&gt;*INPUT*&lt;/code&gt;, &lt;code&gt;*FLEETS*&lt;/code&gt;, etc)&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;player class to support different types of players&lt;/p&gt;&lt;/li&gt;
@@ -1164,9 +999,7 @@ It is based heavily on aerique&apos;s.&lt;/p&gt;
 &lt;li&gt;&lt;p&gt;made it easier to run tests with executables (&lt;code&gt;./MyBot&lt;/code&gt;) or when
   starting a fresh sbcl (&lt;code&gt;./bin/run-bot.sh&lt;/code&gt;)&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;Proxy bot server:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;can run compiled (&lt;code&gt;./ProxyBot&lt;/code&gt;) or &lt;code&gt;./bin/run-proxy-bot.sh&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;started explicitly (no &lt;code&gt;:PWBOT-LOCAL&lt;/code&gt; reader magic)&lt;/p&gt;&lt;/li&gt;
@@ -1200,7 +1033,6 @@ for an example. Now I only owe you alpha–beta.
             <description>&lt;p&gt;For what has been a fun ride, the official results are now &lt;a href=&quot;https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php&quot; &gt;available&lt;/a&gt;.
 In the end, 11th out of 700 is not too bad and it&apos;s the highest
 ranking non-C++ entry by some margin.&lt;/p&gt;
-
 &lt;p&gt;I entered the contest a bit late with a rather specific approach in
 mind: &lt;a href=&quot;http://senseis.xmp.net/?UCT&quot; &gt;UCT&lt;/a&gt;, an algorithm from the
 Monte Carlo tree search family. It has been rather successful in
@@ -1215,7 +1047,6 @@ move (not even considering moves of the opponent), it played a very
 nice positional game. That was the first sign that constructing a
 good evaluation function may not be as hard for Tron as it is for
 Go.&lt;/p&gt;
-
 &lt;p&gt;But with everyone else doing minimax, the plan was to keep silent
 and Monte Carlo to victory. As with most plans, it didn&apos;t quite work
 out. First, to my dismay, some contestants were attempting to do the
@@ -1226,7 +1057,6 @@ player could hit the wall at the end of a long dead end. That was
 worrisome but fixable. After days of experimentation I finally gave
 up on it deciding that Tron is simply too tactical – or not fuzzy
 enough, if you prefer – for MC to work really well.&lt;/p&gt;
-
 &lt;p&gt;Of course, it can be that the kind of default policies I tried were
 biased (a sure thing), misguided and suboptimal. But then again, I
 was not alone and watched the UCT based players struggle badly. In
@@ -1236,7 +1066,6 @@ policies and switched between them randomly with little apparent
 success. Which makes me think that including a virtual strategy
 selection move at some points in the UCT search tree should be
 interesting, but I digress.&lt;/p&gt;
-
 &lt;p&gt;So I went back to minimax, implemented &lt;a href=&quot;http://en.wikipedia.org/wiki/Alpha-beta_pruning&quot; &gt;alpha–beta
 pruning&lt;/a&gt; with
 principal variation, and &lt;a href=&quot;http://en.wikipedia.org/wiki/Iterative_deepening&quot; &gt;iterative
@@ -1247,7 +1076,6 @@ I had an idea to explore how the parities of squares in an area
 affect the longest path possible, which was quickly pointed out to
 me over lunch by a friend. And those pesky competitors have also
 found and advertised it in the contest forum. Bah.&lt;/p&gt;
-
 &lt;p&gt;There were only two days left at this point, and I had to pull an
 all nighter to finally implement a graph partitioning idea of mine
 that unsurprisingly someone has described pretty closely in the
@@ -1304,7 +1132,6 @@ Toronto&lt;/a&gt; now at
 source &lt;a href=&quot;http://web.mit.edu/~rsalakhu/www/DBM.html&quot; &gt;code&lt;/a&gt; for the
 &lt;a href=&quot;http://yann.lecun.com/exdb/mnist/&quot; &gt;MNIST&lt;/a&gt; digit classification
 problem available.&lt;/p&gt;
-
 &lt;p&gt;The linked &lt;a href=&quot;http://www.cs.toronto.edu/~hinton/absps/dbm.pdf&quot; &gt;paper&lt;/a&gt;
 claims a record of 99.05% in classification accuracy on the
 permutation invariant task (no prior knowledge of geometry). A
@@ -1317,18 +1144,14 @@ backprop. While in a DBN the constituent RBMs are trained one by
 one, the DBM is trained as a whole which, in theory, allows it to
 reconcile bottom-up and top-down signals, i.e. what it sees and what
 it thinks.&lt;/p&gt;
-
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-dbm.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
 &lt;p&gt;In the diagram above, as before, dark gray boxes are constants (to
 provide the connected chunks with biases), inputs are colored mid
 gray while hidden features are light gray. &lt;code&gt;INPUTS&lt;/code&gt; is where the
 28x28 pixel image is clamped and &lt;code&gt;LABEL&lt;/code&gt; is a softmax chunk for the
 10 digit classes.&lt;/p&gt;
-
 &lt;p&gt;In the Matlab code, there are a number of prominent features that
 may or may not be important to this result:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;The second RBM gets the the correct label as input which
   conveniently allows tracking classification accuracy during its
@@ -1338,16 +1161,12 @@ may or may not be important to this result:&lt;/p&gt;
 &lt;li&gt;&lt;p&gt;A sparsity term is added to the gradient. Sparse representations
   are often better for classification.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;Focusing only on what makes DBM learning tick, I tried a few
 variants of the basic approach. All of them start with the same DBN
 whose RBMs are trained for 100 epochs each:&lt;/p&gt;
-
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-dbn-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
 &lt;p&gt;DBN training finishes with around 97.77%, averaging 97.9% in the
 last 10 epochs.&lt;/p&gt;
-
 &lt;p&gt;On to the DBM. As the baseline, the DBM was not trained at all and
 the BPN did not get the marginals of the approximate posterior as
 inputs as prescribed in the paper, only the normal input. It&apos;s as if
@@ -1355,7 +1174,6 @@ the DBN were unrolled into a BPN directly. Surprisingly, this
 baseline is already at 99.00% at the end of BPN training (all
 reported accuracies are averages from the last 10 epochs of
 training).&lt;/p&gt;
-
 &lt;p&gt;The second variant performs DBM training but without any sparsity
 term and gets 99.07%. The third is using a sparsity
 penalty (\&amp;quot;normal sparsity\&amp;quot; in the diagram) for units in opposing
@@ -1365,15 +1183,11 @@ is named &amp;quot;cheating sparsity&amp;quot; because it – perhaps in an effo
 reduce variance of the gradient – changes weights according to the
 average activation levels of units connected by them. Anyway, this
 last one reaches 99.09%.&lt;/p&gt;
-
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-dbm-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-bpn-training.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
 &lt;p&gt;To reduce &lt;a href=&quot;http://en.wikipedia.org/wiki/Publication_bias&quot; &gt;publication
 bias&lt;/a&gt; a bit, let me
 mention some experiments that were found to have no effect:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;In an effort to see whether DBM training is held back by high
   variance of the gradient estimates a batch size of 1000 (instead
@@ -1406,12 +1220,10 @@ constraint accounts for very little in this setup.
 Please refer to the
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-manual.html&quot; &gt;documentation&lt;/a&gt;
 instead.&lt;/p&gt;
-
 &lt;p&gt;In &lt;code&gt;@INTRODUCTION-TO-MGL-PART-2&lt;/code&gt;, we went through a trivial example of
 a backprop network. I said before that the main focus is on
 Boltzmann Machines so let&apos;s kill the suspense here and now by
 cutting straight to the heart of the matter.&lt;/p&gt;
-
 &lt;p&gt;&lt;a href=&quot;http://cseweb.ucsd.edu/users/gary/pubs/cottrell-science-2006.pdf&quot; &gt;Cottrell&apos;s Science
 article&lt;/a&gt;
 provides a clear and easy to follow description of the spiral
@@ -1421,7 +1233,6 @@ input as output with a small encoding layer somewhere in between. By
 forcing the information through the bottleneck of the encoding layer
 the network should pick up a low dimensional code that represents
 the input, thus performing dimensionality reduction.&lt;/p&gt;
-
 &lt;p&gt;The function under consideration is &lt;code&gt;f(x)&lt;/code&gt;[x, sin(x), cos(x)]&lt;code&gt;. It
 is suprisingly difficult to learn the mapping from&lt;/code&gt;x&lt;code&gt;to&lt;/code&gt;f(x)`. A
 network architecture that is able to represent this transformation
@@ -1431,7 +1242,6 @@ output layer. However, randomly initialized backpropagation fails at
 learning this; a better solution is to first learn a Deep Belief
 Network, \&amp;quot;unroll\&amp;quot; it to a backprop network and use backprop to
 fine tune the weights.&lt;/p&gt;
-
 &lt;p&gt;A &lt;a href=&quot;http://www.scholarpedia.org/article/Boltzmann_machine#Learning_deep_networks_by_composing_restricted_Boltzmann_machines&quot; &gt;Deep Belief
 Network&lt;/a&gt;
 is just a stack of &lt;a href=&quot;http://www.scholarpedia.org/article/Boltzmann_machine#Restricted_Boltzmann_machines&quot; &gt;Restricted Boltzmann
@@ -1447,9 +1257,7 @@ hidden units are clamped onto the visible units of the next RBM. In
 other words, an RBM shares its visible and hidden layers with the
 hidden and visible layers of the RBM below and above, respectively,
 respectively.&lt;/p&gt;
-
 &lt;p&gt;Let&apos;s start with a few utility functions:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defun&lt;/span&gt;&lt;/i&gt; sample-spiral &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;random &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;flt &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;* 4 pi&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
 
@@ -1469,20 +1277,16 @@ respectively.&lt;/p&gt;
           for stripe upfrom 0
           do &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;with-stripes&lt;/span&gt;&lt;/i&gt; &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren6&quot;&gt;(&lt;span class=&quot;code&quot;&gt;stripe striped start&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
                &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;clamp-array sample nodes start&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Subclass &lt;code&gt;RBM&lt;/code&gt; and define &lt;code&gt;SET-INPUT&lt;/code&gt; using the above utilites:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defclass&lt;/span&gt;&lt;/i&gt; spiral-rbm &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;rbm&lt;/span&gt;)&lt;/span&gt; &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defmethod&lt;/span&gt;&lt;/i&gt; mgl-train:set-input &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;samples &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;rbm spiral-rbm&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;let&lt;/span&gt;&lt;/i&gt; &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;chunk &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;find &apos;inputs &lt;span class=&quot;paren6&quot;&gt;(&lt;span class=&quot;code&quot;&gt;visible-chunks rbm&lt;/span&gt;)&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:key&lt;/span&gt; #&apos;name&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
     &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;when chunk
       &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;clamp-striped-nodes samples chunk&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Define the DBN as a stack of two RBMs: one between the 3 inputs and
 10 hidden features, the other between the 10 hidden features and the
 encoding layer that&apos;s unsurprisingly has a single neuron:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defclass&lt;/span&gt;&lt;/i&gt; spiral-dbn &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dbn&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;:default-initargs&lt;/span&gt;
@@ -1493,39 +1297,31 @@ encoding layer that&apos;s unsurprisingly has a single neuron:&lt;/p&gt;
                  &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;list &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;make-instance &apos;constant-chunk &lt;span class=&quot;keyword&quot;&gt;:name&lt;/span&gt; &apos;c2&lt;/span&gt;)&lt;/span&gt;
                        &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;make-instance &apos;gaussian-chunk &lt;span class=&quot;keyword&quot;&gt;:name&lt;/span&gt; &apos;f2 &lt;span class=&quot;keyword&quot;&gt;:size&lt;/span&gt; 1&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
     &lt;span class=&quot;keyword&quot;&gt;:rbm-class&lt;/span&gt; &apos;spiral-rbm&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Note that by default, each pair of visible and hidden chunks is
 connected by a &lt;code&gt;FULL-CLOUD&lt;/code&gt;, the simplest kind of connection.
 &lt;code&gt;INPUTS&lt;/code&gt; via the cloud between &lt;code&gt;INPUTS&lt;/code&gt; and &lt;code&gt;F1&lt;/code&gt; contributes to the
 activation of &lt;code&gt;F1&lt;/code&gt;: in the upward pass the values found in &lt;code&gt;INPUTS&lt;/code&gt;
 are simply multiplied by a matrix of weights and the result is added
 to the activation of &lt;code&gt;F1&lt;/code&gt;. Downward pass is similar.&lt;/p&gt;
-
 &lt;p&gt;Once the activations are calculated according to what the clouds
 prescribe, chunks take over control. Each chunk consists of a number
 of nodes and defines a probability distribution over them based on
 the activations. For instance, &lt;code&gt;SIGMOID-CHUNK&lt;/code&gt; is a binary chunk:
 each node can take the value of 0 or 1 and the probability of 1 is
 &lt;code&gt;1 / (1 + e^(-x))&lt;/code&gt; where &lt;code&gt;X&lt;/code&gt; is the activation of the node.&lt;/p&gt;
-
 &lt;p&gt;Nodes in a &lt;code&gt;GAUSSIAN-CHUNK&lt;/code&gt; are normally distributed with means equal
 to their activations and unit variance. In &lt;code&gt;SPIRAL-DBN&lt;/code&gt; above the
 &lt;code&gt;INPUTS&lt;/code&gt; and the final code, &lt;code&gt;F2&lt;/code&gt;, are gaussian.&lt;/p&gt;
-
 &lt;p&gt;Let&apos;s check out how it looks:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;let*&lt;/span&gt;&lt;/i&gt; &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dbn &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;make-instance &apos;spiral-dbn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
        &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dgraph &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:generate-graph-from-roots dbn &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;chunks dbn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:dot-graph dgraph &lt;span class=&quot;string&quot;&gt;&quot;spiral-dbn.png&quot;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:format&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:png&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/spiral-dbn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
 &lt;p&gt;In a box the first line shows the class of the chunk and the number
 of nodes in parens (omitted if 1), while the second line is the name
 of the chunk itself. The constant chunks – in case you wonder –
 provide the connected chunks with a bias. So far so good. Let&apos;s
 train it RBM by RBM:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defclass&lt;/span&gt;&lt;/i&gt; spiral-rbm-trainer &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;rbm-cd-trainer&lt;/span&gt;)&lt;/span&gt; &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defun&lt;/span&gt;&lt;/i&gt; train-spiral-dbn &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&amp;amp;key &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;max-n-stripes 1&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
@@ -1539,11 +1335,9 @@ train it RBM by RBM:&lt;/p&gt;
                                                        &lt;span class=&quot;keyword&quot;&gt;:batch-size&lt;/span&gt; 100&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
              rbm&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
     dbn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Now we can unroll the DBN to a backprop network and add the sum of the
 squared differences between the inputs and the reconstructions as the
 error:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defclass&lt;/span&gt;&lt;/i&gt; spiral-bpn &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;bpn&lt;/span&gt;)&lt;/span&gt; &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defmethod&lt;/span&gt;&lt;/i&gt; mgl-train:set-input &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;samples &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;bpn spiral-bpn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
@@ -1563,20 +1357,15 @@ error:&lt;/p&gt;
       &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;let&lt;/span&gt;&lt;/i&gt; &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren6&quot;&gt;(&lt;span class=&quot;code&quot;&gt;bpn &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;eval bpn-def&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
         &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;initialize-bpn-from-bm bpn dbn inits&lt;/span&gt;)&lt;/span&gt;
         bpn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;The BPN looks a whole lot more complicated, but it does nothing more
 than performing a full upward pass in the DBN and a full downward
 pass:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;let*&lt;/span&gt;&lt;/i&gt; &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dbn &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;make-instance &apos;spiral-dbn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
        &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;bpn &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;unroll-spiral-dbn dbn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
        &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dgraph &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:generate-graph-from-roots bpn &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;lumps bpn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:dot-graph dgraph &lt;span class=&quot;string&quot;&gt;&quot;spiral-bpn.png&quot;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:format&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:png&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/spiral-bpn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
 &lt;p&gt;Training it is as easy as:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defclass&lt;/span&gt;&lt;/i&gt; spiral-bp-trainer &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;bp-trainer&lt;/span&gt;)&lt;/span&gt; &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
  
 &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defun&lt;/span&gt;&lt;/i&gt; train-spiral-bpn &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;bpn&lt;/span&gt;)&lt;/span&gt;
@@ -1606,18 +1395,14 @@ to see how training goes.
 Please refer to the
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-manual.html&quot; &gt;documentation&lt;/a&gt;
 instead.&lt;/p&gt;
-
 &lt;p&gt;After &lt;code&gt;@INTRODUCTION-TO-MGL-PART-1&lt;/code&gt;, today we are going to walk
 through a small example and touch on the main concepts related to
 learning within this library.&lt;/p&gt;
-
 &lt;p&gt;At the top of the food chain is the generic function &lt;code&gt;TRAIN&lt;/code&gt;:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defgeneric&lt;/span&gt;&lt;/i&gt; train &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;sampler trainer learner&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;:documentation&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;Train LEARNER with TRAINER on the examples from
 SAMPLER. Before that TRAINER is initialized for LEARNER with
 INITIALIZE-TRAINER. Training continues until SAMPLER is finished.&quot;&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;A learner is anything that can be taught, which currently means it&apos;s
 either a
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Backpropagation&quot; &gt;backpropagation&amp;nbsp;network&lt;/a&gt; (&lt;code&gt;BPN&lt;/code&gt;)
@@ -1630,17 +1415,14 @@ be used to train a BPN, and either contrastive
 divergence (&lt;code&gt;RBM-CD-TRAINER&lt;/code&gt;) or persistent contrastive
 divergence (&lt;code&gt;BM-PCD-TRAINER&lt;/code&gt;) can be used to train a restricted
 boltzmann machine (&lt;code&gt;RBM&lt;/code&gt;).&lt;/p&gt;
-
 &lt;p&gt;The function &lt;code&gt;TRAIN&lt;/code&gt; takes training examples from
 &lt;code&gt;SAMPLER&lt;/code&gt; (observing the batch size of the trainer, if applicable)
 and calls &lt;code&gt;TRAIN-BATCH&lt;/code&gt; with the list of examples, the trainer and
 the learner. This may be as simple as:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;defmethod&lt;/span&gt;&lt;/i&gt; train &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;sampler &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;trainer bp-trainer&lt;/span&gt;)&lt;/span&gt; &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;bpn bpn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;while &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;not &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;finishedp sampler&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
     &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;train-batch &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;sample-batch sampler &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;n-inputs-until-update trainer&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
                  trainer bpn&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Ultimately, &lt;code&gt;TRAIN-BATCH&lt;/code&gt; arranges for the training examples to be
 given as input to the learner (&amp;quot;clamped&amp;quot; on the input nodes of some
 network) by &lt;code&gt;SET-INPUT&lt;/code&gt;; exactly how this should be done must be
@@ -1648,9 +1430,7 @@ customized. Then, in the case of &lt;code&gt;BP-TRAINER&lt;/code&gt;, the gradie
 calculated and added to the gradient accumulators that live in the
 trainer. When the whole batch is processed the weights of the
 network are updated according to the gradients.&lt;/p&gt;
-
 &lt;p&gt;Let&apos;s put together a toy example:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;use-package &lt;span class=&quot;keyword&quot;&gt;:mgl-util&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
 &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;use-package &lt;span class=&quot;keyword&quot;&gt;:mgl-train&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
 &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;use-package &lt;span class=&quot;keyword&quot;&gt;:mgl-gd&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
@@ -1697,17 +1477,14 @@ network are updated according to the gradients.&lt;/p&gt;
                                        &lt;span class=&quot;keyword&quot;&gt;:momentum&lt;/span&gt; &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;flt 0.9&lt;/span&gt;)&lt;/span&gt;
                                        &lt;span class=&quot;keyword&quot;&gt;:batch-size&lt;/span&gt; 10&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
        &lt;span class=&quot;special&quot;&gt;*bpn*&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;We subclassed &lt;code&gt;BPN&lt;/code&gt; as &lt;code&gt;LINEAR-BPN&lt;/code&gt; and hanged a &lt;code&gt;SET-INPUT&lt;/code&gt; method
 on it. The &lt;code&gt;SAMPLES&lt;/code&gt; argument will be a sequence of samples returned
 by the sampler passed to &lt;code&gt;TRAIN&lt;/code&gt;, that is, what &lt;code&gt;SAMPLE-INPUT&lt;/code&gt;
 returns.&lt;/p&gt;
-
 &lt;p&gt;The network multiplies &lt;code&gt;INPUT&lt;/code&gt; taken as a 1x3 matrix by &lt;code&gt;WEIGHTS&lt;/code&gt;
 (initialized randomly), and the training aims to minimize the
 squared error as calculated by the lump named &lt;code&gt;SSE&lt;/code&gt;. Note that
 &lt;code&gt;SET-INPUT&lt;/code&gt; clamps both the real input and the target.&lt;/p&gt;
-
 &lt;p&gt;We instantiate &lt;code&gt;BP-TRAINER&lt;/code&gt; that inherits from
 &lt;code&gt;SEGMENTED-GD-TRAINER&lt;/code&gt;. Now, &lt;code&gt;SEGMENTED-GD-TRAINER&lt;/code&gt; itself does
 precious little: it only delegates training to child trainers where
@@ -1719,34 +1496,25 @@ argument. By using &lt;code&gt;REPEATEDLY&lt;/code&gt;, for now, we simply creat
 distinct child trainer for each weight lump as it makes a function
 that on each call evaluates the form in its body (as opposed to
 &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_cons_1.htm&quot; title=&quot;CONSTANTLY (MGL-PAX:CLHS FUNCTION)&quot;&gt;&lt;code&gt;CONSTANTLY&lt;/code&gt;&lt;/a&gt;).&lt;/p&gt;
-
 &lt;p&gt;That&apos;s it without any bells and whistles. If all goes well,
 &lt;code&gt;WEIGHTS&lt;/code&gt; should be trained to be equal to &lt;code&gt;*MATRIX*&lt;/code&gt;.
 Inspect &lt;code&gt;(NODES (FIND-LUMP &apos;WEIGHTS *BPN*))&lt;/code&gt; to verify.&lt;/p&gt;
-
 &lt;p&gt;Impatience satisfied, examine the &lt;code&gt;BUILD-BPN&lt;/code&gt; form in detail. The
 &lt;code&gt;:CLASS&lt;/code&gt; argument is obvious, and the rest of the forms are a
 sequence of bindings like in a &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/s_let_l.htm&quot; title=&quot;LET* (MGL-PAX:CLHS MGL-PAX:MACRO)&quot;&gt;&lt;code&gt;LET*&lt;/code&gt;&lt;/a&gt;. The extra touches are that
 the name of the variable to which a lump is bound is going to be
 supplied as the &lt;code&gt;:NAME&lt;/code&gt; of the lump and an extra &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_mk_ins.htm&quot; title=&quot;MAKE-INSTANCE (MGL-PAX:CLHS GENERIC-FUNCTION)&quot;&gt;&lt;code&gt;MAKE-INSTANCE&lt;/code&gt;&lt;/a&gt; is
 added so&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;input &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;input-lump &lt;span class=&quot;keyword&quot;&gt;:size&lt;/span&gt; n-inputs&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;is something like&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;make-instance &apos;input-lump &lt;span class=&quot;keyword&quot;&gt;:name&lt;/span&gt; &apos;input &lt;span class=&quot;keyword&quot;&gt;:size&lt;/span&gt; n-inputs&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;One can replicate this with &lt;code&gt;MAKE-INSTANCE&lt;/code&gt; and &lt;code&gt;ADD-LUMP&lt;/code&gt;, but it&apos;s
 more work. For ease of comprehension, the network can be visualized
 by loading the &lt;code&gt;MGL-VISUALS&lt;/code&gt; system and:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;let&lt;/span&gt;&lt;/i&gt; &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dgraph &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:generate-graph-from-roots &lt;span class=&quot;special&quot;&gt;*bpn*&lt;/span&gt; &lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;lumps &lt;span class=&quot;special&quot;&gt;*bpn*&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:dot-graph dgraph &lt;span class=&quot;string&quot;&gt;&quot;linear-bpn.png&quot;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:format&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:png&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/linear-bpn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;That&apos;s it for today, thank you for your kind attention.&lt;/p&gt;
+That&apos;s it for today, thank you for your kind attention.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Thu, 17 Dec 2009 00:00:00 +0000</pubDate>
@@ -1763,7 +1531,6 @@ offers (gradient descent, conjugate gradient, backprop) are directly
 needed to implement the learning and fine tuning methods for
 different kinds of BMs. But before venturing too far into specifics,
 here is a quick glimpse at the bigger picture and the motivations.&lt;/p&gt;
-
 &lt;p&gt;Most of the current learning algorithms are based on shallow
 architectures: they are fundamentally incapable of basing higher
 level concepts on other, learned concepts. The most prominent
@@ -1771,12 +1538,10 @@ example of succesful shallow learners is Support Vector Machines,
 for which there is a simple &lt;a href=&quot;http://cliki.net/cl-libsvm&quot; &gt;CL wrapper&lt;/a&gt;
 around &lt;a href=&quot;http://www.csie.ntu.edu.tw/~cjlin/libsvm/&quot; &gt;libsvm&lt;/a&gt;, but
 that&apos;s a story for another day.&lt;/p&gt;
-
 &lt;p&gt;On the other hand, deep learners are theorethically capable of
 building abstraction on top of abstraction, the main hurdle in front
 of their acceptance being that they don&apos;t exist or – more precisely
 – we don&apos;t know how to train them.&lt;/p&gt;
-
 &lt;p&gt;A good example of a deep learner is the multi-layer perceptron: with
 only three layers it is a &lt;a href=&quot;http://en.wikipedia.org/wiki/Universal_approximation_theorem&quot; &gt;universal
 approximator&lt;/a&gt;
@@ -1784,14 +1549,12 @@ which is not a particularly difficult achievement, and the practical
 implications of this result are not earth shattering: the number of
 required training examples and hidden units can be very high and
 generalization can be bad.&lt;/p&gt;
-
 &lt;p&gt;Deep architectures mimic the layered organization of the brain and,
 in theory, have better abstraction, generalization capability,
 higher encoding effeciency. Of course, these qualities are strongly
 related. While this has been known/suspected for a long time, it was
 only recently that training of deep architectures &lt;a href=&quot;http://www.cs.toronto.edu/~hinton/science.pdf&quot; &gt;started to become
 feasible&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;Of deep learners, Boltzmann machines deserve special attention as
 they have demonstrated very good performance on a number of problems
 and have a biologically plausible, local,

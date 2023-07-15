@@ -49,13 +49,9 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40CODE-ALIGNMENT-ON-X86-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CODE-ALIGNMENT-ON-X86%20MGL-PAX:SECTION"></a></p>
-
 <h1><a href="code-alignment-on-x86.html">Code Alignment on x86</a></h1>
-
 <p><span class='post-data'><em>Tags</em>: <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2009-03-09</span></p>
-
 <div class='br'></div>
-
 <p>There has always been a lot of wiggling of SBCL
 <a href="https://web.archive.org/web/20080513083106/http://sbcl.boinkor.net/bench/" >boinkmarks</a>
 results. It's easy to chalk this up to system load, but the same can
@@ -66,18 +62,15 @@ insufficient number of iterations of some tests: measurement
 accuracy is really bad when the run time is below 0.2s, and it is
 abysmal when there is other activity on the system, which is easy to
 tell even in retrospect by comparing the real and user time columns.</p>
-
 <p>But that's not the end of the story, take for instance
 <code>FPRINT/PRETTY</code>: it takes more than two seconds but often
 experiences changes up to 7% caused by seemingly unrelated changes.
 People have fingered alignment as a likely cause.</p>
-
 <p>Recently, this issue has become more pressing as I've been trying to
 reduce the overhead of x86's pseudo atomic. Unfortunately, the
 effect is smallish, which makes measurement difficult, so I tried
 aligning loops on 16 byte boundaries. This being on x86, that meant
 aligning code similarly first (it's 8 byte aligned currently).</p>
-
 <p>The <a href="http://quotenil.com/git/?p=sbcl.git;a=commit;h=2148639257c45f43c99f8c24087f17c9d8d03abb" >change
 itself</a> (from
 the allocate-code-object branch of my git tree) is rather trivial,
@@ -91,7 +84,6 @@ only
 It certainly seems that the Core Duo (and likely the Pentium M) is
 so deeply unnerved by a jump instruction near the end of a 16 byte
 block that it cannot execute the loop at its normal speed.</p>
-
 <p>This led to an experiment where the compiler was modified to pad
 innermost loops with a few preceding NOPs so that their ends either
 stay at least 3 bytes from the end of the block or spill over it by
@@ -100,18 +92,15 @@ implementation</a>
 of the above there is no discernible improvement. It may be that in
 practice even the tightest loops are already longer than 16 bytes
 ...</p>
-
 <p>For now, here are the cl-bench results from a 32 bit binary on an
 <a href="blog-files/align-code/opteron-32bit-results" >Opteron</a>, a
 <a href="blog-files/align-code/piii-results" >PIII</a>, a
 <a href="blog-files/align-code/p4-results" >P4</a>, a <a href="blog-files/align-code/core-duo-results" >Core
 Duo</a> system.</p>
-
 <p>There may be a slight improvement, but its magnitude is pretty small
 compared to the noise. I'm declaring the evidence inconclusive and
 let the commit stay out of the official SBCL tree.</p>
-
-<p><img src="blog-files/die.png" alt="end-of-post" /></p>
+<img src="blog-files/die.png" alt="end-of-post" />
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>

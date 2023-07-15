@@ -49,13 +49,9 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40JOURNAL-THE-KITCHEN-SINK-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@JOURNAL-THE-KITCHEN-SINK%20MGL-PAX:SECTION"></a></p>
-
 <h1><a href="journal-the-kitchen-sink.html">Journal, the Kitchen Sink</a></h1>
-
 <p><span class='post-data'><em>Tags</em>: <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2020-09-04</span></p>
-
 <div class='br'></div>
-
 <p>Ever wished for machine-readable logs and <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm" ><code>TRACE</code></a>s, maybe
 for writing tests or something more fancy? The
 <a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40JOURNAL-BACKGROUND-20MGL-PAX-3ASECTION-29" >Journal</a> library takes a simple idea:
@@ -64,10 +60,8 @@ user-defined execution traces and implements
 <a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TESTING-20MGL-PAX-3ASECTION-29" >testing</a> &quot;framework&quot; with <a href="https://en.wikipedia.org/wiki/Mock_object" >mock</a>
 support, and an <a href="https://martinfowler.com/eaaDev/EventSourcing.html" >Event Sourcing</a> style
 <a href="http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40PERSISTENCE-20MGL-PAX-3ASECTION-29" >database</a> on top.</p>
-
 <p>Perhaps the highlight from the linked tutorials is how easy
 persistence is. Let's write a simple game:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defun</span></i> play-guess-my-number <span class="paren2">(<span class="code"></span>)</span>
   <span class="paren2">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren3">(<span class="code"><span class="paren4">(<span class="code">my-number <span class="paren5">(<span class="code">random 10</span>)</span></span>)</span></span>)</span>
     <span class="paren3">(<span class="code">format t <span class="string">"~%I thought of a number.~%"</span></span>)</span>
@@ -78,21 +72,17 @@ persistence is. Let's write a simple game:</p>
         <span class="paren5">(<span class="code">when <span class="paren6">(<span class="code">= guess my-number</span>)</span>
           <span class="paren6">(<span class="code">format t <span class="string">"You guessed it in ~D tries!"</span> <span class="paren1">(<span class="code">1+ i</span>)</span></span>)</span>
           <span class="paren6">(<span class="code">return</span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
-
 <p>That came out pretty ugly, didn't it? Now, suppose we want to turn
 this into a browser game so:</p>
-
 <ul>
 <li><p>the state of the game must be saved,</p></li>
 <li><p>and the game shall be resumed from the last saved state,</p></li>
 <li><p>even if the web server's worker thread times out, or there is a
   power failure.</p></li>
 </ul>
-
 <p>So, these are the requirements apart from adding the webby stuff,
 which I'm not going to bore you with. To implement them, we wrap
 <code>REPLAYED</code> around <em>external interactions</em>, <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_random.htm" title="RANDOM (MGL-PAX:CLHS FUNCTION)"><code>RANDOM</code></a> and <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_rd_lin.htm" title="READ-LINE (MGL-PAX:CLHS FUNCTION)"><code>READ-LINE</code></a>:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defun</span></i> play-guess-my-number <span class="paren2">(<span class="code"></span>)</span>
   <span class="paren2">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren3">(<span class="code"><span class="paren4">(<span class="code">my-number <span class="paren5">(<span class="code">replayed <span class="paren6">(<span class="code">think-of-a-number</span>)</span> <span class="comment">; &lt;- HERE
 </span>                     <span class="paren6">(<span class="code">random 10</span>)</span></span>)</span></span>)</span></span>)</span>
@@ -105,20 +95,17 @@ which I'm not going to bore you with. To implement them, we wrap
         <span class="paren5">(<span class="code">when <span class="paren6">(<span class="code">= guess my-number</span>)</span>
           <span class="paren6">(<span class="code">format t <span class="string">"You guessed it in ~D tries!"</span> <span class="paren1">(<span class="code">1+ i</span>)</span></span>)</span>
           <span class="paren6">(<span class="code">return</span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
-
 <p>Now, we need to say where to store the event journal:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">with-bundle</span></i> <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">make-file-bundle <span class="string">"/tmp/guess-my-number/"</span> <span class="keyword">:sync</span> t</span>)</span></span>)</span>
   <span class="paren2">(<span class="code">play-guess-my-number</span>)</span></span>)</span></span></code></pre>
-
 <p>This is invoked from a web server worker thread, and it replays the
 game until the point where it was interrupted last time around.
 Then, it will block waiting for user input in <code>READ-LINE</code> or, if the
 game is finished, return. Note the <code>:SYNC T</code>, which tells Journal to
 take durability seriously.
-<div class='br'></div><p>You can find the code <a href="https://github.com/melisgl/journal" >here</a>.</p></p>
-
-<p><img src="blog-files/die.png" alt="end-of-post" /></p>
+<div class='br'></div>
+You can find the code <a href="https://github.com/melisgl/journal" >here</a>.</p>
+<img src="blog-files/die.png" alt="end-of-post" />
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>

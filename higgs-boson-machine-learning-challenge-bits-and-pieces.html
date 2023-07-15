@@ -49,19 +49,14 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40HIGGS-BOSON-MACHINE-LEARNING-CHALLENGE-BITS-AND-PIECES-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@HIGGS-BOSON-MACHINE-LEARNING-CHALLENGE-BITS-AND-PIECES%20MGL-PAX:SECTION"></a></p>
-
 <h1><a href="higgs-boson-machine-learning-challenge-bits-and-pieces.html">Higgs Boson Challenge Bits and Pieces</a></h1>
-
 <p><span class='post-data'><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2014-09-23</span></p>
-
 <div class='br'></div>
-
 <p>The <a href="http://www.kaggle.com/c/higgs-boson" >Higgs Boson
 contest</a> on
 <a href="http://kaggle.com" >Kaggle</a> has ended. Sticking to my word at <a href="http://medias.ircam.fr/xff38ba" >ELS
 2014</a>, I released some code that
 came about during these long four months.</p>
-
 <p><a href="https://github.com/melisgl/mgl-gpr" >MGL-GPR</a> is no longer a
 <a href="http://en.wikipedia.org/wiki/Genetic_programming" >Genetic
 Programming</a> only
@@ -74,7 +69,6 @@ physicists in their insistence on comprehensibility overlooked, but
 it didn't work as well as I had hoped for reasons specific to this
 contest and also because evolutionary algorithms just do not scale
 to larger problem sizes.</p>
-
 <p>In other news, <a href="http://github.com/melisgl/mgl" >MGL</a> got <a href="http://en.wikipedia.org/wiki/Cross-validation_(statistics)" >cross
 validation</a>,
 <a href="http://en.wikipedia.org/wiki/Bootstrap_aggregating" >bagging</a> and
@@ -85,7 +79,6 @@ package documented with
 most definitely want to use. My winning submission used bagged
 cross-validated dropout neural networks with stratified splits so
 this is where it's coming from.</p>
-
 <p>MGL itself and <a href="https://github.com/melisgl/mgl-mat" >MGL-MAT</a> were
 updated to work with the latest
 <a href="https://github.com/takagi/cl-cuda" >CL-CUDA</a>. The neural network
@@ -97,7 +90,6 @@ further cleanups to MGL, writing documentation and moving it to
 github. Also, there is some hope that one day CL-CUDA can be
 included in quicklisp allowing my stuff there to be updated to their
 latest versions.</p>
-
 <p>The code for this contest is available at
 <a href="https://github.com/melisgl/higgsml" >https://github.com/melisgl/higgsml</a>,
 which from now on doubles as my skeleton for lisp projects that need
@@ -105,11 +97,9 @@ to be delivered as source and as binary. It sucks in all
 dependencies from quicklisp available at a certain date, clones the
 necessary repositories not available in quicklisp, builds an
 executable, and has a simple <code>make dist</code> rule as well.</p>
-
 <p>There is also a fairly generic ensembling algorithm, which I will
 factor out  later.</p>
-
-<p><img src="blog-files/die.png" alt="end-of-post" /></p>
+<img src="blog-files/die.png" alt="end-of-post" />
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>

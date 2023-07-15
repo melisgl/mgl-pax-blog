@@ -49,13 +49,9 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40RECURRENT-NETS-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@RECURRENT-NETS%20MGL-PAX:SECTION"></a></p>
-
 <h1><a href="recurrent-nets.html">Recurrent Nets</a></h1>
-
 <p><span class='post-data'><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2015-01-19</span></p>
-
 <div class='br'></div>
-
 <p>I've been cleaning up and documenting
 <a href="https://github.com/melisgl/mgl" >MGL</a> for quite some time now, and
 while it's nowhere near done, a good portion of the code has been
@@ -63,23 +59,19 @@ overhauled in the process. There are new additions such as the <a href="http://a
 optimizer</a> and Recurrent Neural
 Nets. My efforts were mainly only the backprop stuff and I think the
 definition of feed-forward:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code">build-fnn <span class="paren2">(<span class="code"><span class="keyword">:class</span> 'digit-fnn</span>)</span>
   <span class="paren2">(<span class="code">input <span class="paren3">(<span class="code">-&gt;input <span class="keyword">:size</span> <span class="special">*n-inputs*</span></span>)</span></span>)</span>
   <span class="paren2">(<span class="code">hidden-activation <span class="paren3">(<span class="code">-&gt;activation input <span class="keyword">:size</span> n-hiddens</span>)</span></span>)</span>
   <span class="paren2">(<span class="code">hidden <span class="paren3">(<span class="code">-&gt;relu hidden-activation</span>)</span></span>)</span>
   <span class="paren2">(<span class="code">output-activation <span class="paren3">(<span class="code">-&gt;activation hidden <span class="keyword">:size</span> <span class="special">*n-outputs*</span></span>)</span></span>)</span>
   <span class="paren2">(<span class="code">output <span class="paren3">(<span class="code">-&gt;softmax-xe-loss <span class="keyword">:x</span> output-activation</span>)</span></span>)</span></span>)</span></span></code></pre>
-
 <p>and recurrent nets:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code">build-rnn <span class="paren2">(<span class="code"></span>)</span>
   <span class="paren2">(<span class="code">build-fnn <span class="paren3">(<span class="code"><span class="keyword">:class</span> 'sum-sign-fnn</span>)</span>
     <span class="paren3">(<span class="code">input <span class="paren4">(<span class="code">-&gt;input <span class="keyword">:size</span> 1</span>)</span></span>)</span>
     <span class="paren3">(<span class="code">h <span class="paren4">(<span class="code">-&gt;lstm input <span class="keyword">:size</span> n-hiddens</span>)</span></span>)</span>
     <span class="paren3">(<span class="code">prediction <span class="paren4">(<span class="code">-&gt;softmax-xe-loss
                  <span class="paren5">(<span class="code">-&gt;activation h <span class="keyword">:name</span> 'prediction <span class="keyword">:size</span> <span class="special">*n-outputs*</span></span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
-
 <p>is fairly straight-forward already. There is still much code that
 needs to accompany such a network definition, mostly having to do
 with how to give inputs and prediction targets to the network and
@@ -88,8 +80,7 @@ also with monitoring training. See the full examples for
 and
 <a href="https://github.com/melisgl/mgl/blob/master/doc/md/mgl-manual.md#x-28MGL-BP-3A-40MGL-RNN-TUTORIAL-20MGL-PAX-3ASECTION-29" >recurrent</a>
 nets in the documentation.</p>
-
-<p><img src="blog-files/die.png" alt="end-of-post" /></p>
+<img src="blog-files/die.png" alt="end-of-post" />
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>

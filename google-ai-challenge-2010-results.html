@@ -49,17 +49,12 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40GOOGLE-AI-CHALLENGE-2010-RESULTS-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@GOOGLE-AI-CHALLENGE-2010-RESULTS%20MGL-PAX:SECTION"></a></p>
-
 <h1><a href="google-ai-challenge-2010-results.html">Google AI Challenge 2010 Results</a></h1>
-
 <p><span class='post-data'><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2010-03-01</span></p>
-
 <div class='br'></div>
-
 <p>For what has been a fun ride, the official results are now <a href="https://web.archive.org/web/20110724100751/http://csclub.uwaterloo.ca/contest/rankings.php" >available</a>.
 In the end, 11th out of 700 is not too bad and it's the highest
 ranking non-C++ entry by some margin.</p>
-
 <p>I entered the contest a bit late with a rather specific approach in
 mind: <a href="http://senseis.xmp.net/?UCT" >UCT</a>, an algorithm from the
 Monte Carlo tree search family. It has been rather successful in
@@ -74,7 +69,6 @@ move (not even considering moves of the opponent), it played a very
 nice positional game. That was the first sign that constructing a
 good evaluation function may not be as hard for Tron as it is for
 Go.</p>
-
 <p>But with everyone else doing minimax, the plan was to keep silent
 and Monte Carlo to victory. As with most plans, it didn't quite work
 out. First, to my dismay, some contestants were attempting to do the
@@ -85,7 +79,6 @@ player could hit the wall at the end of a long dead end. That was
 worrisome but fixable. After days of experimentation I finally gave
 up on it deciding that Tron is simply too tactical – or not fuzzy
 enough, if you prefer – for MC to work really well.</p>
-
 <p>Of course, it can be that the kind of default policies I tried were
 biased (a sure thing), misguided and suboptimal. But then again, I
 was not alone and watched the UCT based players struggle badly. In
@@ -95,7 +88,6 @@ policies and switched between them randomly with little apparent
 success. Which makes me think that including a virtual strategy
 selection move at some points in the UCT search tree should be
 interesting, but I digress.</p>
-
 <p>So I went back to minimax, implemented <a href="http://en.wikipedia.org/wiki/Alpha-beta_pruning" >alpha–beta
 pruning</a> with
 principal variation, and <a href="http://en.wikipedia.org/wiki/Iterative_deepening" >iterative
@@ -106,7 +98,6 @@ I had an idea to explore how the parities of squares in an area
 affect the longest path possible, which was quickly pointed out to
 me over lunch by a friend. And those pesky competitors have also
 found and advertised it in the contest forum. Bah.</p>
-
 <p>There were only two days left at this point, and I had to pull an
 all nighter to finally implement a graph partitioning idea of mine
 that unsurprisingly someone has described pretty closely in the
@@ -114,11 +105,9 @@ forum. At that point, I finally had the tool to improve the
 evaluation function but neither much time or energy remained and I
 settled for using it only in the end game when the players are
 separated.</p>
-
 <p>The code itself is as ugly as exploratory code can be, but in the
 coming days, I'll factor the UCT and the alpha–beta code out.</p>
-
-<p><img src="blog-files/die.png" alt="end-of-post" /></p>
+<img src="blog-files/die.png" alt="end-of-post" />
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>

@@ -49,32 +49,25 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40CALLING-CONVENTION-HACKS-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@CALLING-CONVENTION-HACKS%20MGL-PAX:SECTION"></a></p>
-
 <h1><a href="calling-convention-hacks.html">Calling Convention Hacks</a></h1>
-
 <p><span class='post-data'><em>Tags</em>: <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2009-04-19</span></p>
-
 <div class='br'></div>
-
 <p>SBCL's <a href="http://www.sbcl.org/sbcl-internals/Calling-Convention.html" >calling
 convention</a>
 is rather peculiar. Frames are allocated and mostly set up by the
 caller. The new frame starts with a pointer to the old frame, then
 comes the return address, an empty slot and the stack arguments (the
 first three are passed in registers on x86).</p>
-
 <p>Software archeology aside, the only reason I can see for this scheme
 is that stack arguments are easier to manipulate when they are after
 the return address, old frame pointer part. In particular, tail
 calls with any number of arguments can be made without
 re[al]locating the frame.</p>
-
 <p>The first step towards callee allocated frames is swapping the
 return address and old fp slots. Asking an innocent question on
 <code>#lisp</code> accomplished most of the work as <a href="http://www.lisphacker.com/" >Alastair
 Bridgewater</a> had a patch for x86 against
 a 0.9ish version that does exactly this.</p>
-
 <p>Forward porting it to current SBCL was a breeze. Relatively
 speaking, of course, because debugging cold init failures is never
 pleasant. He also had another patch that biases the frame pointer to
@@ -82,7 +75,6 @@ point to the old fp slot instead of just before the return address.
 This has the benefit of making Lisp and foreign frame layouts the
 same which makes backtraces more reliable and allows external
 debugging tools recognize all frames.</p>
-
 <p>Callee allocated frames are still quite some way off, but while in
 the area, I sought a bit of optimization fun. With the return
 address before old fp, it is now possible to return with the
@@ -91,7 +83,6 @@ multiple values are returned than there are argument passing
 registers, they are placed on the stack exactly where the arguments
 normally reside. Obviously, in this case the frame cannot be
 dismantled.</p>
-
 <p>Strangely, turning these <code>JMP</code>s into <code>RET</code>s in multiple value return
 has no measureable effect on performance even though it results in
 more paired <code>CALL</code>s. What about the other way: addressing unpaired
@@ -104,7 +95,6 @@ gain about 25-50%. See results for
 <a href="blog-files/x86oid-calling-convention-p4-results.txt" >P4</a> and <a href="blog-files/x86oid-calling-convention-64bit-opteron-results.txt" >64
 bit
 Opteron</a>.</p>
-
 <p>This should take off another chunk off the proposed and already
 partly done Summer of Code
 <a href="http://coding.derkeiler.com/Archive/Lisp/comp.lang.lisp/2006-03/msg00528.html" >project</a>
@@ -113,8 +103,7 @@ solution may be possible. As to the future, it is unclear to me how
 callee allocated frames would pan out. Code for the current batch of
 changes is
 <a href="http://quotenil.com/git/?p=sbcl.git;a=shortlog;h=x86-calling-convention" >here</a>.</p>
-
-<p><img src="blog-files/die.png" alt="end-of-post" /></p>
+<img src="blog-files/die.png" alt="end-of-post" />
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>

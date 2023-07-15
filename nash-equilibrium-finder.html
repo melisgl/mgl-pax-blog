@@ -49,49 +49,38 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40NASH-EQUILIBRIUM-FINDER-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@NASH-EQUILIBRIUM-FINDER%20MGL-PAX:SECTION"></a></p>
-
 <h1><a href="nash-equilibrium-finder.html">Nash Equilibrium Finder</a></h1>
-
 <p><span class='post-data'><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2010-12-26</span></p>
-
 <div class='br'></div>
-
 <p>While I seem to be unable to make my mind up on a good interface to
 alpha–beta with a few bells and whistles, I added a Nash equilibrium
 finder to <a href="http://cliki.net/micmac" >Micmac</a>, which is becoming less
 statistics oriented. This was one of the many things in Planet Wars
 that never really made it.</p>
-
 <p>Let's consider the <a href="http://en.wikipedia.org/wiki/Matching_pennies" >Matching
 pennies</a> game. The
 row player wins iff the two pennies show the same side. The payoff
 matrix is:</p>
-
 <pre><code>|       | Heads | Tails |
 +-------+-------+-------+
 | Heads |     1 |    -1 |
 | Tails |    -1 |     1 |
 </code></pre>
-
 <p>Find the mixed strategy equilibrium:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code">find-nash-equilibrium '<span class="paren2">(<span class="code"><span class="paren3">(<span class="code">-1 1</span>)</span> <span class="paren3">(<span class="code">1 -1</span>)</span></span>)</span></span>)</span>
 =&gt;
 #<span class="paren1">(<span class="code">49 51</span>)</span>
 #<span class="paren1">(<span class="code">50 50</span>)</span>
 -0.01</span></code></pre>
-
 <p>That is, both players should choose heads 50% of the time and the
 expected payoff (for the row player) is zero of which -0.01 is an
 approximation:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code">find-nash-equilibrium '<span class="paren2">(<span class="code"><span class="paren3">(<span class="code">-1 1</span>)</span> <span class="paren3">(<span class="code">1 -1</span>)</span></span>)</span> <span class="keyword">:n-iterations</span> 1000</span>)</span>
 =&gt;
 #<span class="paren1">(<span class="code">499 501</span>)</span>
 #<span class="paren1">(<span class="code">500 500</span>)</span>
 -0.001</span></code></pre>
-
-<p><img src="blog-files/die.png" alt="end-of-post" /></p>
+<img src="blog-files/die.png" alt="end-of-post" />
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>

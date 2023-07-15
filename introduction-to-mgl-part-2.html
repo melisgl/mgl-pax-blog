@@ -49,29 +49,21 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40INTRODUCTION-TO-MGL-PART-2-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@INTRODUCTION-TO-MGL-PART-2%20MGL-PAX:SECTION"></a></p>
-
 <h1><a href="introduction-to-mgl-part-2.html">Introduction to MGL (part 2)</a></h1>
-
 <p><span class='post-data'><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2009-12-17</span></p>
-
 <div class='br'></div>
-
 <p><strong>UPDATE</strong>: This post out of date with regards to current MGL.
 Please refer to the
 <a href="http://melisgl.github.io/mgl-pax-world/mgl-manual.html" >documentation</a>
 instead.</p>
-
 <p>After <a href="introduction-to-mgl-part-1.html" title="Introduction to MGL (part 1)">Introduction to MGL (part 1)</a>, today we are going to walk
 through a small example and touch on the main concepts related to
 learning within this library.</p>
-
 <p>At the top of the food chain is the generic function <code>TRAIN</code>:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defgeneric</span></i> train <span class="paren2">(<span class="code">sampler trainer learner</span>)</span>
   <span class="paren2">(<span class="code"><span class="keyword">:documentation</span> <span class="string">"Train LEARNER with TRAINER on the examples from
 SAMPLER. Before that TRAINER is initialized for LEARNER with
 INITIALIZE-TRAINER. Training continues until SAMPLER is finished."</span></span>)</span></span>)</span></span></code></pre>
-
 <p>A learner is anything that can be taught, which currently means it's
 either a
 <a href="http://en.wikipedia.org/wiki/Backpropagation" >backpropagation&nbsp;network</a> (<code>BPN</code>)
@@ -84,17 +76,14 @@ be used to train a BPN, and either contrastive
 divergence (<code>RBM-CD-TRAINER</code>) or persistent contrastive
 divergence (<code>BM-PCD-TRAINER</code>) can be used to train a restricted
 boltzmann machine (<code>RBM</code>).</p>
-
 <p>The function <code>TRAIN</code> takes training examples from
 <code>SAMPLER</code> (observing the batch size of the trainer, if applicable)
 and calls <code>TRAIN-BATCH</code> with the list of examples, the trainer and
 the learner. This may be as simple as:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defmethod</span></i> train <span class="paren2">(<span class="code">sampler <span class="paren3">(<span class="code">trainer bp-trainer</span>)</span> <span class="paren3">(<span class="code">bpn bpn</span>)</span></span>)</span>
   <span class="paren2">(<span class="code">while <span class="paren3">(<span class="code">not <span class="paren4">(<span class="code">finishedp sampler</span>)</span></span>)</span>
     <span class="paren3">(<span class="code">train-batch <span class="paren4">(<span class="code">sample-batch sampler <span class="paren5">(<span class="code">n-inputs-until-update trainer</span>)</span></span>)</span>
                  trainer bpn</span>)</span></span>)</span></span>)</span></span></code></pre>
-
 <p>Ultimately, <code>TRAIN-BATCH</code> arranges for the training examples to be
 given as input to the learner (&quot;clamped&quot; on the input nodes of some
 network) by <code>SET-INPUT</code>; exactly how this should be done must be
@@ -102,9 +91,7 @@ customized. Then, in the case of <code>BP-TRAINER</code>, the gradients are
 calculated and added to the gradient accumulators that live in the
 trainer. When the whole batch is processed the weights of the
 network are updated according to the gradients.</p>
-
 <p>Let's put together a toy example:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code">use-package <span class="keyword">:mgl-util</span></span>)</span>
 <span class="paren1">(<span class="code">use-package <span class="keyword">:mgl-train</span></span>)</span>
 <span class="paren1">(<span class="code">use-package <span class="keyword">:mgl-gd</span></span>)</span>
@@ -151,17 +138,14 @@ network are updated according to the gradients.</p>
                                        <span class="keyword">:momentum</span> <span class="paren5">(<span class="code">flt 0.9</span>)</span>
                                        <span class="keyword">:batch-size</span> 10</span>)</span></span>)</span></span>)</span>
        <span class="special">*bpn*</span></span>)</span></span></code></pre>
-
 <p>We subclassed <code>BPN</code> as <code>LINEAR-BPN</code> and hanged a <code>SET-INPUT</code> method
 on it. The <code>SAMPLES</code> argument will be a sequence of samples returned
 by the sampler passed to <code>TRAIN</code>, that is, what <code>SAMPLE-INPUT</code>
 returns.</p>
-
 <p>The network multiplies <code>INPUT</code> taken as a 1x3 matrix by <code>WEIGHTS</code>
 (initialized randomly), and the training aims to minimize the
 squared error as calculated by the lump named <code>SSE</code>. Note that
 <code>SET-INPUT</code> clamps both the real input and the target.</p>
-
 <p>We instantiate <code>BP-TRAINER</code> that inherits from
 <code>SEGMENTED-GD-TRAINER</code>. Now, <code>SEGMENTED-GD-TRAINER</code> itself does
 precious little: it only delegates training to child trainers where
@@ -173,36 +157,26 @@ argument. By using <code>REPEATEDLY</code>, for now, we simply create a
 distinct child trainer for each weight lump as it makes a function
 that on each call evaluates the form in its body (as opposed to
 <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_cons_1.htm" title="CONSTANTLY (MGL-PAX:CLHS FUNCTION)"><code>CONSTANTLY</code></a>).</p>
-
 <p>That's it without any bells and whistles. If all goes well,
 <code>WEIGHTS</code> should be trained to be equal to <code>*MATRIX*</code>.
 Inspect <code>(NODES (FIND-LUMP 'WEIGHTS *BPN*))</code> to verify.</p>
-
 <p>Impatience satisfied, examine the <code>BUILD-BPN</code> form in detail. The
 <code>:CLASS</code> argument is obvious, and the rest of the forms are a
 sequence of bindings like in a <a href="http://www.lispworks.com/documentation/HyperSpec/Body/s_let_l.htm" title="LET* (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>LET*</code></a>. The extra touches are that
 the name of the variable to which a lump is bound is going to be
 supplied as the <code>:NAME</code> of the lump and an extra <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_mk_ins.htm" title="MAKE-INSTANCE (MGL-PAX:CLHS GENERIC-FUNCTION)"><code>MAKE-INSTANCE</code></a> is
 added so</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code">input <span class="paren2">(<span class="code">input-lump <span class="keyword">:size</span> n-inputs</span>)</span></span>)</span></span></code></pre>
-
 <p>is something like</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code">make-instance 'input-lump <span class="keyword">:name</span> 'input <span class="keyword">:size</span> n-inputs</span>)</span></span></code></pre>
-
 <p>One can replicate this with <code>MAKE-INSTANCE</code> and <code>ADD-LUMP</code>, but it's
 more work. For ease of comprehension, the network can be visualized
 by loading the <code>MGL-VISUALS</code> system and:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">dgraph <span class="paren4">(<span class="code">cl-dot:generate-graph-from-roots <span class="special">*bpn*</span> <span class="paren5">(<span class="code">lumps <span class="special">*bpn*</span></span>)</span></span>)</span></span>)</span></span>)</span>
   <span class="paren2">(<span class="code">cl-dot:dot-graph dgraph <span class="string">"linear-bpn.png"</span> <span class="keyword">:format</span> <span class="keyword">:png</span></span>)</span></span>)</span></span></code></pre>
-
 <p><img src="blog-files/linear-bpn.png" alt="" /></p>
-
 <p>That's it for today, thank you for your kind attention.</p>
-
-<p><img src="blog-files/die.png" alt="end-of-post" /></p>
+<img src="blog-files/die.png" alt="end-of-post" />
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>

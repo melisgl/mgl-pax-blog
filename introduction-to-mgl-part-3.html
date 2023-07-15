@@ -49,23 +49,17 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40INTRODUCTION-TO-MGL-PART-3-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@INTRODUCTION-TO-MGL-PART-3%20MGL-PAX:SECTION"></a></p>
-
 <h1><a href="introduction-to-mgl-part-3.html">Introduction to MGL (part 3)</a></h1>
-
 <p><span class='post-data'><em>Tags</em>: <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2009-12-29</span></p>
-
 <div class='br'></div>
-
 <p><strong>UPDATE</strong>: This post out of date with regards to current MGL.
 Please refer to the
 <a href="http://melisgl.github.io/mgl-pax-world/mgl-manual.html" >documentation</a>
 instead.</p>
-
 <p>In <a href="introduction-to-mgl-part-2.html" title="Introduction to MGL (part 2)">Introduction to MGL (part 2)</a>, we went through a trivial example of
 a backprop network. I said before that the main focus is on
 Boltzmann Machines so let's kill the suspense here and now by
 cutting straight to the heart of the matter.</p>
-
 <p><a href="http://cseweb.ucsd.edu/users/gary/pubs/cottrell-science-2006.pdf" >Cottrell's Science
 article</a>
 provides a clear and easy to follow description of the spiral
@@ -75,7 +69,6 @@ input as output with a small encoding layer somewhere in between. By
 forcing the information through the bottleneck of the encoding layer
 the network should pick up a low dimensional code that represents
 the input, thus performing dimensionality reduction.</p>
-
 <p>The function under consideration is <code>f(x)</code>[x, sin(x), cos(x)]<code>. It
 is suprisingly difficult to learn the mapping from</code>x<code>to</code>f(x)`. A
 network architecture that is able to represent this transformation
@@ -85,7 +78,6 @@ output layer. However, randomly initialized backpropagation fails at
 learning this; a better solution is to first learn a Deep Belief
 Network, \&quot;unroll\&quot; it to a backprop network and use backprop to
 fine tune the weights.</p>
-
 <p>A <a href="http://www.scholarpedia.org/article/Boltzmann_machine#Learning_deep_networks_by_composing_restricted_Boltzmann_machines" >Deep Belief
 Network</a>
 is just a stack of <a href="http://www.scholarpedia.org/article/Boltzmann_machine#Restricted_Boltzmann_machines" >Restricted Boltzmann
@@ -101,9 +93,7 @@ hidden units are clamped onto the visible units of the next RBM. In
 other words, an RBM shares its visible and hidden layers with the
 hidden and visible layers of the RBM below and above, respectively,
 respectively.</p>
-
 <p>Let's start with a few utility functions:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defun</span></i> sample-spiral <span class="paren2">(<span class="code"></span>)</span>
   <span class="paren2">(<span class="code">random <span class="paren3">(<span class="code">flt <span class="paren4">(<span class="code">* 4 pi</span>)</span></span>)</span></span>)</span></span>)</span>
 
@@ -123,20 +113,16 @@ respectively.</p>
           for stripe upfrom 0
           do <span class="paren4">(<span class="code"><i><span class="symbol">with-stripes</span></i> <span class="paren5">(<span class="code"><span class="paren6">(<span class="code">stripe striped start</span>)</span></span>)</span>
                <span class="paren5">(<span class="code">clamp-array sample nodes start</span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
-
 <p>Subclass <code>RBM</code> and define <code>SET-INPUT</code> using the above utilites:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> spiral-rbm <span class="paren2">(<span class="code">rbm</span>)</span> <span class="paren2">(<span class="code"></span>)</span></span>)</span>
 
 <span class="paren1">(<span class="code"><i><span class="symbol">defmethod</span></i> mgl-train:set-input <span class="paren2">(<span class="code">samples <span class="paren3">(<span class="code">rbm spiral-rbm</span>)</span></span>)</span>
   <span class="paren2">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren3">(<span class="code"><span class="paren4">(<span class="code">chunk <span class="paren5">(<span class="code">find 'inputs <span class="paren6">(<span class="code">visible-chunks rbm</span>)</span> <span class="keyword">:key</span> #'name</span>)</span></span>)</span></span>)</span>
     <span class="paren3">(<span class="code">when chunk
       <span class="paren4">(<span class="code">clamp-striped-nodes samples chunk</span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
-
 <p>Define the DBN as a stack of two RBMs: one between the 3 inputs and
 10 hidden features, the other between the 10 hidden features and the
 encoding layer that's unsurprisingly has a single neuron:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> spiral-dbn <span class="paren2">(<span class="code">dbn</span>)</span>
   <span class="paren2">(<span class="code"></span>)</span>
   <span class="paren2">(<span class="code"><span class="keyword">:default-initargs</span>
@@ -147,39 +133,31 @@ encoding layer that's unsurprisingly has a single neuron:</p>
                  <span class="paren4">(<span class="code">list <span class="paren5">(<span class="code">make-instance 'constant-chunk <span class="keyword">:name</span> 'c2</span>)</span>
                        <span class="paren5">(<span class="code">make-instance 'gaussian-chunk <span class="keyword">:name</span> 'f2 <span class="keyword">:size</span> 1</span>)</span></span>)</span></span>)</span>
     <span class="keyword">:rbm-class</span> 'spiral-rbm</span>)</span></span>)</span></span></code></pre>
-
 <p>Note that by default, each pair of visible and hidden chunks is
 connected by a <code>FULL-CLOUD</code>, the simplest kind of connection.
 <code>INPUTS</code> via the cloud between <code>INPUTS</code> and <code>F1</code> contributes to the
 activation of <code>F1</code>: in the upward pass the values found in <code>INPUTS</code>
 are simply multiplied by a matrix of weights and the result is added
 to the activation of <code>F1</code>. Downward pass is similar.</p>
-
 <p>Once the activations are calculated according to what the clouds
 prescribe, chunks take over control. Each chunk consists of a number
 of nodes and defines a probability distribution over them based on
 the activations. For instance, <code>SIGMOID-CHUNK</code> is a binary chunk:
 each node can take the value of 0 or 1 and the probability of 1 is
 <code>1 / (1 + e^(-x))</code> where <code>X</code> is the activation of the node.</p>
-
 <p>Nodes in a <code>GAUSSIAN-CHUNK</code> are normally distributed with means equal
 to their activations and unit variance. In <code>SPIRAL-DBN</code> above the
 <code>INPUTS</code> and the final code, <code>F2</code>, are gaussian.</p>
-
 <p>Let's check out how it looks:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">let*</span></i> <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">dbn <span class="paren4">(<span class="code">make-instance 'spiral-dbn</span>)</span></span>)</span>
        <span class="paren3">(<span class="code">dgraph <span class="paren4">(<span class="code">cl-dot:generate-graph-from-roots dbn <span class="paren5">(<span class="code">chunks dbn</span>)</span></span>)</span></span>)</span></span>)</span>
   <span class="paren2">(<span class="code">cl-dot:dot-graph dgraph <span class="string">"spiral-dbn.png"</span> <span class="keyword">:format</span> <span class="keyword">:png</span></span>)</span></span>)</span></span></code></pre>
-
 <p><img src="blog-files/spiral-dbn.png" alt="" /></p>
-
 <p>In a box the first line shows the class of the chunk and the number
 of nodes in parens (omitted if 1), while the second line is the name
 of the chunk itself. The constant chunks – in case you wonder –
 provide the connected chunks with a bias. So far so good. Let's
 train it RBM by RBM:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> spiral-rbm-trainer <span class="paren2">(<span class="code">rbm-cd-trainer</span>)</span> <span class="paren2">(<span class="code"></span>)</span></span>)</span>
 
 <span class="paren1">(<span class="code"><i><span class="symbol">defun</span></i> train-spiral-dbn <span class="paren2">(<span class="code">&amp;key <span class="paren3">(<span class="code">max-n-stripes 1</span>)</span></span>)</span>
@@ -193,11 +171,9 @@ train it RBM by RBM:</p>
                                                        <span class="keyword">:batch-size</span> 100</span>)</span></span>)</span></span>)</span>
              rbm</span>)</span></span>)</span>
     dbn</span>)</span></span>)</span></span></code></pre>
-
 <p>Now we can unroll the DBN to a backprop network and add the sum of the
 squared differences between the inputs and the reconstructions as the
 error:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> spiral-bpn <span class="paren2">(<span class="code">bpn</span>)</span> <span class="paren2">(<span class="code"></span>)</span></span>)</span>
 
 <span class="paren1">(<span class="code"><i><span class="symbol">defmethod</span></i> mgl-train:set-input <span class="paren2">(<span class="code">samples <span class="paren3">(<span class="code">bpn spiral-bpn</span>)</span></span>)</span>
@@ -217,20 +193,15 @@ error:</p>
       <span class="paren4">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren5">(<span class="code"><span class="paren6">(<span class="code">bpn <span class="paren1">(<span class="code">eval bpn-def</span>)</span></span>)</span></span>)</span>
         <span class="paren5">(<span class="code">initialize-bpn-from-bm bpn dbn inits</span>)</span>
         bpn</span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
-
 <p>The BPN looks a whole lot more complicated, but it does nothing more
 than performing a full upward pass in the DBN and a full downward
 pass:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">let*</span></i> <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">dbn <span class="paren4">(<span class="code">make-instance 'spiral-dbn</span>)</span></span>)</span>
        <span class="paren3">(<span class="code">bpn <span class="paren4">(<span class="code">unroll-spiral-dbn dbn</span>)</span></span>)</span>
        <span class="paren3">(<span class="code">dgraph <span class="paren4">(<span class="code">cl-dot:generate-graph-from-roots bpn <span class="paren5">(<span class="code">lumps bpn</span>)</span></span>)</span></span>)</span></span>)</span>
   <span class="paren2">(<span class="code">cl-dot:dot-graph dgraph <span class="string">"spiral-bpn.png"</span> <span class="keyword">:format</span> <span class="keyword">:png</span></span>)</span></span>)</span></span></code></pre>
-
 <p><img src="blog-files/spiral-bpn.png" alt="" /></p>
-
 <p>Training it is as easy as:</p>
-
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> spiral-bp-trainer <span class="paren2">(<span class="code">bp-trainer</span>)</span> <span class="paren2">(<span class="code"></span>)</span></span>)</span>
  
 <span class="paren1">(<span class="code"><i><span class="symbol">defun</span></i> train-spiral-bpn <span class="paren2">(<span class="code">bpn</span>)</span>
@@ -244,14 +215,12 @@ pass:</p>
                                          <span class="keyword">:batch-size</span> 100</span>)</span></span>)</span></span>)</span>
          bpn</span>)</span>
   bpn</span>)</span></span></code></pre>
-
 <p>I'm tempted to dwell on pesky little details such as tracking errors,
 but this entry is long enough already. Instead, load the <code>mgl-example</code>
 system and see what <code>example/spiral.lisp</code> has in addition to what was
 described. Evaluate the block commented forms at the end of the file
 to see how training goes.</p>
-
-<p><img src="blog-files/die.png" alt="end-of-post" /></p>
+<img src="blog-files/die.png" alt="end-of-post" />
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>
