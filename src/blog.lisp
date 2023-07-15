@@ -2,9 +2,24 @@
 
 (in-readtable pythonic-string-syntax)
 
+(define-locative-type category ())
+
+(defclass category-dref (pax::section-dref) ())
+
 (defclass category (section)
   ((post-names :initform ())
    (long-title :initarg :long-title :reader category-long-title)))
+
+(defmethod dref-ext:locate-dref ((category category))
+  (make-instance 'category-dref
+                 :name (section-name category)
+                 :locative 'category))
+
+(defun actualize-section-to-category (dref)
+  (when (eq (dref-ext:dref-locative-type dref) 'section)
+    (dref:locate (dref-ext:dref-name dref) 'category nil)))
+
+(dref-ext:add-dref-actualizer 'actualize-section-to-category)
 
 (defmacro defcategory (name (&key title long-title))
   `(defparameter ,name
@@ -19,13 +34,13 @@
 
 (defun category-posts (category)
   (loop for post-name in (slot-value category 'post-names)
-        collect (locate post-name 'section)))
+        collect (dref:resolve (dref:locate post-name 'section))))
 
 (defun prepare-category (category)
   (let ((category-name (symbol-name (section-name category))))
-    (setf (slot-value category 'pax::entries)
+    (setf (slot-value category 'pax::%entries)
           (loop for post in (category-posts category)
-                collect (canonical-reference
+                collect (dref:resolve
                          (define-shortened-post category-name post))))))
 
 (defun define-shortened-post (name-prefix post)
@@ -40,7 +55,7 @@
                               :entries (shorten-entries name
                                                         (section-entries post))
                               :tags tags :date date
-                              :link-title-to (canonical-reference post))))))
+                              :link-title-to (dref:locate post))))))
 
 (defun shorten-entries (name entries)
   (let ((max-n-entries 2)
@@ -54,29 +69,18 @@
                               name :section)))
         entries)))
 
-;;; Same as the method on SECTION, but doesn't print the heading.
-(defmethod document-object ((section category) stream)
-  (let ((same-package (and (boundp '*section*)
-                           (eq *package* (section-package section))))
-        (*package* (if *document-normalize-packages*
-                       (section-package section)
-                       *package*))
-        (*readtable* (if *document-normalize-packages*
-                         (section-readtable section)
-                         *readtable*))
-        (pax::*section* section))
-    (when (and *document-normalize-packages* (not same-package))
-      (format stream "###### \\[in package ~A~A\\]~%" (package-name *package*)
-              (if (package-nicknames *package*)
-                  (format nil " with nicknames ~{~A~^, ~}"
-                          (package-nicknames *package*))
-                  "")))
+;;; Like DOCUMENT-DREF (method () (pax::section-dref t)), but has no
+;;; WITH-HEADING and `[in package ...]`.
+(defmethod document-dref ((dref category-dref) stream)
+  (let* ((section (dref:resolve dref))
+         (*package* (section-package section))
+         (*readtable* (section-readtable section)))
     (let ((firstp t))
       (dolist (entry (section-entries section))
         (if firstp
             (setq firstp nil)
             (terpri stream))
-        (document-object entry stream)))))
+        (pax::document-object entry stream)))))
 
 
 (defclass post (section)
@@ -85,7 +89,7 @@
 
 (defmacro defpost (name (&key title tags date) &body entries)
   ;; Let's check the syntax as early as possible.
-  (pax::transform-entries entries name)
+  (pax::check-section-entries entries name)
   `(progn
      (defparameter ,name
        (make-post ',name ,title (list ,@tags) ,date ',entries))
@@ -110,7 +114,7 @@
                                   tags)
                           date)
                   (append
-                   (pax::transform-entries entries name)
+                   (mapcar #'pax::section-entry-to-xref entries)
                    (list
                     (format nil "~%~%  ![end-of-post](blog-files/die.png)"))))
    :tags tags
@@ -160,7 +164,7 @@
 (defun generate-pages (categories html-sidebar)
   (mapc #'prepare-category categories)
   (let* ((*document-max-numbering-level* 0)
-         (*document-max-table-of-contents-level* 0)
+         (*document-max-table-of-contents-level* -1)
          (*document-html-max-navigation-table-of-contents-level* -1)
          (*document-fancy-html-navigation* nil)
          ;; No "in package" output, please.
@@ -2024,7 +2028,7 @@
   glory](https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/src/graph-search.lisp#L9).
   The good thing about not rushing it out the door is that it saw a
   bit more use. For a tutorialish tic-tac-toe example see
-  [test/test-game-theory.lisp.](https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp).
+  [test/test-game-theory.lisp](https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp).
 
   The logging code in the example produces
   [output](blog-files/alpha-beta-log.png), which is suitable for cut
@@ -3170,6 +3174,26 @@
   ```
   """)
 
+(define-glossary-term @tail-averaging
+    (:title "Tail Averaging"
+     :url "https://jmlr.org/papers/v18/16-595.html"))
+
+(define-glossary-term @suffix-averaging
+    (:title "Suffix Averaging"
+     :url "https://arxiv.org/abs/1109.5647"))
+
+(define-glossary-term @swa
+    (:title "SWA"
+     :url "https://arxiv.org/abs/1803.05407"))
+
+(define-glossary-term @lawa
+    (:title "LAWA"
+     :url "https://arxiv.org/abs/2209.14981"))
+
+(define-glossary-term @nt-asgd
+    (:title "nt-asgd"
+     :url "https://arxiv.org/abs/1708.02182"))
+
 (defpost @tta-practitioner
     (:title "Practitioner's Guide to Two-Tailed Averaging"
      :tags (@ai)
@@ -3181,19 +3205,14 @@
 
   We want to speed up training and improve generalization. One way to
   do that is by averaging weights from optimization, and that's a big
-  win (e.g. [1][nt-asgd], [2][swa], [3][lawa]). For example, while
+  win (e.g. [1][@nt-asgd], [2][@swa], [3][@lawa]). For example, while
   training a language model for the down-stream task of summarization,
   we can save checkpoints periodically and average the model weights
   from the last 10 or so checkpoints to produce the final solution.
   This is pretty much what [Stochastic Weight
   Averaging][swa-blog] (SWA) does.
 
-    [tail-averaging]: https://jmlr.org/papers/v18/16-595.html
-    [suffix-averaging]: https://arxiv.org/abs/1109.5647
-    [swa]: https://arxiv.org/abs/1803.05407
     [swa-blog]: https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/
-    [lawa]: https://arxiv.org/abs/2209.14981
-    [nt-asgd]: https://arxiv.org/abs/1708.02182
   """"""
   ## Problems with SWA
 
@@ -3450,16 +3469,15 @@
 
   In its proposed form, Two-Tailed Averaging incorporates every set of
   weights produced by the optimizer in both averages it maintains.
-  This is good because [Tail Averaging][tail-averaging], also known as
-  [Suffix Averaging][suffix-averaging], theory has nice things to say
-  about convergence to a local optimum of the training loss in this
-  setting. However, in a memory constrained situation, these averages
-  will not fit on the GPU/TPU, so we must move the weights off the
-  device to add them to the averages (which may be in RAM or on disk).
-  Moving stuff off the device can be slow, so we might want to do
-  that, say, every 20 optimization steps. Obviously, downsampling the
-  weights too much will affect the convergence rate, so there is a
-  tradeoff.
+  This is good because @TAIL-AVERAGING, also known as
+  @SUFFIX-AVERAGING, theory has nice things to say about convergence
+  to a local optimum of the training loss in this setting. However, in
+  a memory constrained situation, these averages will not fit on the
+  GPU/TPU, so we must move the weights off the device to add them to
+  the averages (which may be in RAM or on disk). Moving stuff off the
+  device can be slow, so we might want to do that, say, every 20
+  optimization steps. Obviously, downsampling the weights too much
+  will affect the convergence rate, so there is a tradeoff.
 
   ## Learning Rate
 
@@ -3472,16 +3490,16 @@
 
   ## Related Works
 
-  - [SWA][swa] averages the last $K$ checkpoints.
+  - @SWA averages the last $K$ checkpoints.
 
-  - [LAWA][lawa] averages the $K$ most recent checkpoints, so it
+  - @LAWA averages the $K$ most recent checkpoints, so it
     produces reasonable averages from early on (unlike SWA), but $K$
     still needs to be set manually.
 
-  - [NT-ASGD][nt-asgd] starts averaging when the validation loss has
-    not improved for a fixed number of optimization steps, which
-    trades one hyperparameter for another, and it is sensitive to
-    noise in the raw validation loss.
+  - @NT-ASGD starts averaging when the validation loss has not
+    improved for a fixed number of optimization steps, which trades
+    one hyperparameter for another, and it is sensitive to noise in
+    the raw validation loss.
 
   **Adaptivity**: SWA and LAWA have hyperparameters that directly
   control the averaging length; NT-ASGD still has one, but its effect
@@ -3630,7 +3648,7 @@
 
 
 (defun on-current-page-p (object)
-  (let ((reference (canonical-reference object)))
+  (let ((reference (dref:locate object)))
     (when reference
       (let ((link (pax::find-link reference)))
         (when link
