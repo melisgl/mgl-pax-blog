@@ -2,24 +2,9 @@
 
 (in-readtable pythonic-string-syntax)
 
-(define-locative-type category ())
-
-(defclass category-dref (pax::section-dref) ())
-
 (defclass category (section)
   ((post-names :initform ())
    (long-title :initarg :long-title :reader category-long-title)))
-
-(defmethod dref-ext:locate-dref ((category category))
-  (make-instance 'category-dref
-                 :name (section-name category)
-                 :locative 'category))
-
-(defun actualize-section-to-category (dref)
-  (when (eq (dref-ext:dref-locative-type dref) 'section)
-    (dref:locate (dref-ext:dref-name dref) 'category nil)))
-
-(dref-ext:add-dref-actualizer 'actualize-section-to-category)
 
 (defmacro defcategory (name (&key title long-title))
   `(defparameter ,name
@@ -34,7 +19,7 @@
 
 (defun category-posts (category)
   (loop for post-name in (slot-value category 'post-names)
-        collect (dref:resolve (dref:locate post-name 'section))))
+        collect (dref:resolve (dref:dref post-name 'section))))
 
 (defun prepare-category (category)
   (let ((category-name (symbol-name (section-name category))))
@@ -71,10 +56,9 @@
 
 ;;; Like DOCUMENT-DREF (method () (pax::section-dref t)), but has no
 ;;; WITH-HEADING and `[in package ...]`.
-(defmethod document-dref ((dref category-dref) stream)
-  (let* ((section (dref:resolve dref))
-         (*package* (section-package section))
-         (*readtable* (section-readtable section)))
+(defmethod document-object* ((section category) stream)
+  (let ((*package* (section-package section))
+        (*readtable* (section-readtable section)))
     (let ((firstp t))
       (dolist (entry (section-entries section))
         (if firstp
@@ -2712,7 +2696,6 @@
     [cl-trace]: http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm
     [mock-object]: https://en.wikipedia.org/wiki/Mock_object
     [event-sourcing]: https://martinfowler.com/eaaDev/EventSourcing.html
-    [journal-code]: https://github.com/melisgl/journal
     [journal-background]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40JOURNAL-BACKGROUND-20MGL-PAX-3ASECTION-29
     [logging-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40LOGGING-20MGL-PAX-3ASECTION-29
     [tracing-tutorial]: http://melisgl.github.io/mgl-pax-world/journal-manual.html#x-28JOURNAL-3A-40TRACING-20MGL-PAX-3ASECTION-29
@@ -2776,7 +2759,10 @@
   take durability seriously.
 
   <div class='br'></div>
-  <p>You can find the code [here][journal-code].</p>
+  
+  You can find the code [here][journal-code].
+
+    [journal-code]: https://github.com/melisgl/journal
   """)
 
 (defpost @pax-v0.1 (:title "PAX v0.1"
