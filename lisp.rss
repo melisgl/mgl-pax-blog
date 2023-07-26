@@ -7,6 +7,95 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
+            <title>DRef and PAX v0.3</title>
+            <link>http://quotenil.com/dref.html</link>
+            <description>&lt;p&gt;&lt;code&gt;DEFSECTION&lt;/code&gt; needs to refer to definitions that do not create a
+first-class object (e.g. stuff like &lt;code&gt;(*DOCUMENT-LINK-TO-HYPERSPEC*
+VARIABLE)&lt;/code&gt;), and since its original release in 2014, a substantial
+part of
+&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html&quot; &gt;PAX&lt;/a&gt; dealt
+with locatives and references, which reify definitions. This release
+finally factors that code out into a library called
+&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html&quot; &gt;DRef&lt;/a&gt;,
+allowing PAX to focus on documentation. Being very young, DRef lives
+under adult supervision, in a
+&lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref&quot; &gt;subdirectory&lt;/a&gt;
+of the PAX repository.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;definitions&lt;/span&gt;&lt;/i&gt; &apos;pax:document-object*&lt;/span&gt;)&lt;/span&gt;
+&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;#&amp;lt;DREF DOCUMENT-OBJECT* GENERIC-FUNCTION&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;MGL-PAX-BLOG::CATEGORY T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;UNKNOWN-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;MGL-PAX::CLHS-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;MGL-PAX::INCLUDE-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;MGL-PAX::GO-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;GLOSSARY-TERM T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;SECTION T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;ASDF-SYSTEM-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;CLASS-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;STRUCTURE-ACCESSOR-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;WRITER-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;READER-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;ACCESSOR-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;SETF-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;VARIABLE-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+ #&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;T T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;&lt;/span&gt;)&lt;/span&gt;
+
+DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dref &apos;pax:document-object* &apos;&lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;method nil &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;class-dref t&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
+#&amp;lt;DREF DOCUMENT-OBJECT* &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;METHOD NIL &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;CLASS-DREF T&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+
+DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;arglist *&lt;/span&gt;)&lt;/span&gt;
+&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;DREF STREAM&lt;/span&gt;)&lt;/span&gt;
+:ORDINARY
+
+DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;docstring **&lt;/span&gt;)&lt;/span&gt;
+&quot;For definitions with a CLASS locative, the arglist printed is the
+  list of immediate superclasses with STANDARD-OBJECT, CONDITION and
+  non-exported symbols omitted.&quot;
+
+DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;pax:document &lt;span class=&quot;special&quot;&gt;***&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
+- [method] DOCUMENT-OBJECT* &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;DREF CLASS-DREF&lt;/span&gt;)&lt;/span&gt; STREAM
+
+    For definitions with a CLASS locative, the arglist printed is the
+    list of immediate superclasses with STANDARD-OBJECT, CONDITION and
+    non-exported symbols omitted.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;During the refactoring, the references API was cleaned up. How to
+write extensions has seen lots of changes (see &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF-EXT:@EXTENDING-DREF%20MGL-PAX:SECTION&quot; &gt;Extending
+DRef&lt;/a&gt;
+and &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENSION-API%20MGL-PAX:SECTION&quot; &gt;Extending
+PAX&lt;/a&gt;),
+but normal use is the same. DRef is similar to Shinmera&apos;s
+&lt;a href=&quot;https://github.com/Shinmera/definitions&quot; &gt;Definitions&lt;/a&gt; library but
+is more tailored to the needs of PAX.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;Also in this release:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION&quot; &gt;Apropos&lt;/a&gt;
+  got a detailed view feature, which includes the docstrings of all
+  listed definitions not just the reference itself. This is very
+  useful for getting an overview of a package.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/alexandria-apropos.png&quot; alt=&quot;alexandria-apropos&quot; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The detailed view often has to render docstrings which have not
+  been written with PAX in mind and are not proper markdown. These
+  docstrings are now sanitized aggressively in a unavoidably
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@MARKDOWN-IN-DOCSTRINGS%20MGL-PAX:SECTION&quot; &gt;heuristic
+  manner&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;There are now two supported CSS styles for HTML output: &lt;code&gt;:DEFAULT&lt;/code&gt;
+  with &lt;code&gt;sans-serif&lt;/code&gt;, and &lt;code&gt;:CHARTER&lt;/code&gt; with Charter as the main
+  font (which is bundled). The &lt;code&gt;:CHARTER&lt;/code&gt; style is used in the linked
+  PAX World documentation on this blog. See
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*BROWSE-HTML-STYLE*%20VARIABLE&quot; &gt;PAX:*BROWSE-HTML-STYLE*&lt;/a&gt;
+  and
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:UPDATE-ASDF-SYSTEM-HTML-DOCS%20FUNCTION&quot; &gt;PAX:UPDATE-ASDF-SYSTEM-HTML-DOCS&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;As usual, quite a few bug fixes and some optimizations also found
+  their way into this release.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
+            <pubDate>Wed, 26 Jul 2023 01:00:00 +0100</pubDate>
+        </item>
+        <item>
             <title>PAX Live Documentation Browser</title>
             <link>http://quotenil.com/pax-browser.html</link>
             <description>&lt;p&gt;PAX got a &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION&quot; &gt;live documentation

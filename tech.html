@@ -47,6 +47,93 @@
   href=about-me.html>me</a>.
  </div>
 </div><div id="content">
+<p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40DREF-SHORT-20MGL-PAX-3ASECTION-29"></a>
+<a id="MGL-PAX-BLOG:@TECH-@DREF-SHORT%20MGL-PAX:SECTION"></a></p>
+<h1><a href="dref.html" title="DRef and PAX v0.3">DRef and PAX v0.3</a></h1>
+<p><span class='post-data'><em>Tags</em>: <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2023-07-26</span></p>
+<div class='br'></div>
+<p><code>DEFSECTION</code> needs to refer to definitions that do not create a
+first-class object (e.g. stuff like <code>(*DOCUMENT-LINK-TO-HYPERSPEC*
+VARIABLE)</code>), and since its original release in 2014, a substantial
+part of
+<a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html" >PAX</a> dealt
+with locatives and references, which reify definitions. This release
+finally factors that code out into a library called
+<a href="https://melisgl.github.io/mgl-pax-world/dref-manual.html" >DRef</a>,
+allowing PAX to focus on documentation. Being very young, DRef lives
+under adult supervision, in a
+<a href="https://github.com/melisgl/mgl-pax/tree/master/dref" >subdirectory</a>
+of the PAX repository.</p>
+<pre><code><span class="code">DREF&gt; <span class="paren1">(<span class="code"><i><span class="symbol">definitions</span></i> 'pax:document-object*</span>)</span>
+<span class="paren1">(<span class="code">#&lt;DREF DOCUMENT-OBJECT* GENERIC-FUNCTION&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">MGL-PAX-BLOG::CATEGORY T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">UNKNOWN-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">MGL-PAX::CLHS-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">MGL-PAX::INCLUDE-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">MGL-PAX::GO-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">GLOSSARY-TERM T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">SECTION T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">ASDF-SYSTEM-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">CLASS-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">STRUCTURE-ACCESSOR-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">WRITER-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">READER-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">ACCESSOR-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">METHOD-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">SETF-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">VARIABLE-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">T T</span>)</span></span>)</span>&gt;</span>)</span>
+
+DREF&gt; <span class="paren1">(<span class="code">dref 'pax:document-object* '<span class="paren2">(<span class="code">method nil <span class="paren3">(<span class="code">class-dref t</span>)</span></span>)</span></span>)</span>
+#&lt;DREF DOCUMENT-OBJECT* <span class="paren1">(<span class="code">METHOD NIL <span class="paren2">(<span class="code">CLASS-DREF T</span>)</span></span>)</span>&gt;
+
+DREF&gt; <span class="paren1">(<span class="code">arglist *</span>)</span>
+<span class="paren1">(<span class="code">DREF STREAM</span>)</span>
+:ORDINARY
+
+DREF&gt; <span class="paren1">(<span class="code">docstring **</span>)</span>
+"For definitions with a CLASS locative, the arglist printed is the
+  list of immediate superclasses with STANDARD-OBJECT, CONDITION and
+  non-exported symbols omitted."
+
+DREF&gt; <span class="paren1">(<span class="code">pax:document <span class="special">***</span></span>)</span>
+- [method] DOCUMENT-OBJECT* <span class="paren1">(<span class="code">DREF CLASS-DREF</span>)</span> STREAM
+
+    For definitions with a CLASS locative, the arglist printed is the
+    list of immediate superclasses with STANDARD-OBJECT, CONDITION and
+    non-exported symbols omitted.</span></code></pre>
+<p>During the refactoring, the references API was cleaned up. How to
+write extensions has seen lots of changes (see <a href="https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF-EXT:@EXTENDING-DREF%20MGL-PAX:SECTION" >Extending
+DRef</a>
+and <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENSION-API%20MGL-PAX:SECTION" >Extending
+PAX</a>),
+but normal use is the same. DRef is similar to Shinmera's
+<a href="https://github.com/Shinmera/definitions" >Definitions</a> library but
+is more tailored to the needs of PAX.</p>
+<p><br>Also in this release:</p>
+<ul>
+<li><p><a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION" >Apropos</a>
+  got a detailed view feature, which includes the docstrings of all
+  listed definitions not just the reference itself. This is very
+  useful for getting an overview of a package.</p>
+
+<p><img src="blog-files/alexandria-apropos.png" alt="alexandria-apropos" /></p></li>
+<li><p>The detailed view often has to render docstrings which have not
+  been written with PAX in mind and are not proper markdown. These
+  docstrings are now sanitized aggressively in a unavoidably
+  <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@MARKDOWN-IN-DOCSTRINGS%20MGL-PAX:SECTION" >heuristic
+  manner</a>.</p></li>
+<li><p>There are now two supported CSS styles for HTML output: <code>:DEFAULT</code>
+  with <code>sans-serif</code>, and <code>:CHARTER</code> with Charter as the main
+  font (which is bundled). The <code>:CHARTER</code> style is used in the linked
+  PAX World documentation on this blog. See
+  <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*BROWSE-HTML-STYLE*%20VARIABLE" >PAX:*BROWSE-HTML-STYLE*</a>
+  and
+  <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:UPDATE-ASDF-SYSTEM-HTML-DOCS%20FUNCTION" >PAX:UPDATE-ASDF-SYSTEM-HTML-DOCS</a>.</p></li>
+<li><p>As usual, quite a few bug fixes and some optimizations also found
+  their way into this release.</p></li>
+</ul>
 <p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40PAX-BROWSER-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@TECH-@PAX-BROWSER-SHORT%20MGL-PAX:SECTION"></a></p>
 <h1><a href="pax-browser.html" title="PAX Live Documentation Browser">PAX Live Documentation Browser</a></h1>
