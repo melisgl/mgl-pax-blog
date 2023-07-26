@@ -3631,6 +3631,100 @@
 
   - [Live browsing with other browsers](https://youtu.be/ilPRgwKZkeo)
   """)
+
+(defpost @dref (:title "DRef and PAX v0.3"
+                       :tags (@tech @lisp)
+                       :date "2023-07-26")
+  """DEFSECTION needs to refer to definitions that do not create a
+  first-class object (e.g. stuff like `(*DOCUMENT-LINK-TO-HYPERSPEC*
+  VARIABLE)`), and since its original release in 2014, a substantial
+  part of
+  [PAX](https://melisgl.github.io/mgl-pax-world/pax-manual.html) dealt
+  with locatives and references, which reify definitions. This release
+  finally factors that code out into a library called
+  [DRef](https://melisgl.github.io/mgl-pax-world/dref-manual.html),
+  allowing PAX to focus on documentation. Being very young, DRef lives
+  under adult supervision, in a
+  [subdirectory](https://github.com/melisgl/mgl-pax/tree/master/dref)
+  of the PAX repository.
+
+  ```
+  DREF> (definitions 'pax:document-object*)
+  (#<DREF DOCUMENT-OBJECT* GENERIC-FUNCTION>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (MGL-PAX-BLOG::CATEGORY T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (UNKNOWN-DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (MGL-PAX::CLHS-DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (MGL-PAX::INCLUDE-DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (MGL-PAX::GO-DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (GLOSSARY-TERM T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (SECTION T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (ASDF-SYSTEM-DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (CLASS-DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (STRUCTURE-ACCESSOR-DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (WRITER-DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (READER-DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (ACCESSOR-DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (METHOD-DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (SETF-DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (VARIABLE-DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (DREF T))>
+   #<DREF DOCUMENT-OBJECT* (METHOD NIL (T T))>)
+
+  DREF> (dref 'pax:document-object* '(method nil (class-dref t)))
+  #<DREF DOCUMENT-OBJECT* (METHOD NIL (CLASS-DREF T))>
+
+  DREF> (arglist *)
+  (DREF STREAM)
+  :ORDINARY
+
+  DREF> (docstring **)
+  "For definitions with a CLASS locative, the arglist printed is the
+    list of immediate superclasses with STANDARD-OBJECT, CONDITION and
+    non-exported symbols omitted."
+
+  DREF> (pax:document ***)
+  - [method] DOCUMENT-OBJECT* (DREF CLASS-DREF) STREAM
+
+      For definitions with a CLASS locative, the arglist printed is the
+      list of immediate superclasses with STANDARD-OBJECT, CONDITION and
+      non-exported symbols omitted.
+  ```
+
+  During the refactoring, the references API was cleaned up. How to
+  write extensions has seen lots of changes (see [Extending
+  DRef](https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF-EXT:@EXTENDING-DREF%20MGL-PAX:SECTION)
+  and [Extending
+  PAX](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENSION-API%20MGL-PAX:SECTION)),
+  but normal use is the same. DRef is similar to Shinmera's
+  [Definitions](https://github.com/Shinmera/definitions) library but
+  is more tailored to the needs of PAX.
+
+  <br>Also in this release:
+
+  - [Apropos](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION)
+    got a detailed view feature, which includes the docstrings of all
+    listed definitions not just the reference itself. This is very
+    useful for getting an overview of a package.
+
+        ![alexandria-apropos](blog-files/alexandria-apropos.png)
+
+  - The detailed view often has to render docstrings which have not
+    been written with PAX in mind and are not proper markdown. These
+    docstrings are now sanitized aggressively in a unavoidably
+    [heuristic
+    manner](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@MARKDOWN-IN-DOCSTRINGS%20MGL-PAX:SECTION).
+
+  - There are now two supported CSS styles for HTML output: :DEFAULT
+    with `sans-serif`, and :CHARTER with Charter as the main
+    font (which is bundled). The :CHARTER style is used in the linked
+    PAX World documentation on this blog. See
+    [PAX:*BROWSE-HTML-STYLE*](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*BROWSE-HTML-STYLE*%20VARIABLE)
+    and
+    [PAX:UPDATE-ASDF-SYSTEM-HTML-DOCS](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:UPDATE-ASDF-SYSTEM-HTML-DOCS%20FUNCTION).
+
+  - As usual, quite a few bug fixes and some optimizations also found
+    their way into this release.
+  """)
 
 
 (defun on-current-page-p (object)
