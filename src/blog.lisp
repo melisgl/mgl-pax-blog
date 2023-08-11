@@ -132,7 +132,7 @@
 
   - <a href='https://www.kaggle.com/melisgl'>kaggle/melisgl</a>
 
-  ## About this Blog
+  ## About This Blog
 
   There is an <a href='http://quotenil.com/blog.rss'>RSS feed for the
   entire blog</a>, and one for each tag: <a
