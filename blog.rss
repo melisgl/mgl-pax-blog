@@ -7,6 +7,36 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
+            <title>Try in Emacs</title>
+            <link>http://quotenil.com/try-in-emacs.html</link>
+            <description>&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/try&quot; &gt;Try&lt;/a&gt;, my test anti-framework,
+has just got light Emacs integration. Consider the following test:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;deftest&lt;/span&gt;&lt;/i&gt; test-foo &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;/span&gt;)&lt;/span&gt;
+  &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;is &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;equal &lt;span class=&quot;string&quot;&gt;&quot;xxx&quot;&lt;/span&gt; 5&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
+  &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;is &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;equal 7 7&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
+  &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;with-failure-expected&lt;/span&gt;&lt;/i&gt; &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;t&lt;/span&gt;)&lt;/span&gt;
+    &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;is &lt;span class=&quot;paren4&quot;&gt;(&lt;span class=&quot;code&quot;&gt;same-set-p &apos;&lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;1&lt;/span&gt;)&lt;/span&gt; &apos;&lt;span class=&quot;paren5&quot;&gt;(&lt;span class=&quot;code&quot;&gt;2&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The test can be run from Lisp with &lt;code&gt;(test-foo)&lt;/code&gt; (interactive
+debugging) or &lt;code&gt;(try &apos;test-foo)&lt;/code&gt; (non-interactive), but now there is
+a third option: run it from Emacs and get a couple of conveniences
+in return. In particular, with &lt;code&gt;M-x mgl-try&lt;/code&gt; then entering
+&lt;code&gt;test-foo&lt;/code&gt;, a new buffer pops up with the test output, which is
+font-locked based on the type of the outcome. The buffer also has
+outline minor mode, which matches the hierarchical structure of the
+output.&lt;/p&gt;
+&lt;img src=&quot;http://quotenil.com/blog-files/try-emacs.png&quot; alt=&quot;try-emacs&quot; /&gt; The buffer&apos;s major mode is
+Lisp, so &lt;code&gt;M-.&lt;/code&gt; and all the usual key bindings work. In additition,
+a couple of keys bound to navigation commands are available. See the
+&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/try-manual.html#TRY:@TRY%2FEMACS%20MGL-PAX:SECTION&quot; &gt;documentation&lt;/a&gt;
+for the details. Note that Quicklisp has an older version of Try
+that does not have Emacs integration, so you&apos;ll need to use
+&lt;a href=&quot;https://github.com/melisgl/try&quot; &gt;https://github.com/melisgl/try&lt;/a&gt;
+until the next Quicklisp release.
+</description>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
+            <pubDate>Mon, 14 Aug 2023 01:00:00 +0100</pubDate>
+        </item>
+        <item>
             <title>DRef and PAX v0.3</title>
             <link>http://quotenil.com/dref.html</link>
             <description>&lt;p&gt;&lt;code&gt;DEFSECTION&lt;/code&gt; needs to refer to definitions that do not create a
@@ -543,8 +573,8 @@ common situations.&lt;/p&gt;
 .. debugger invoked on UNBOUND-VARIABLE:
 ..   The variable IT.BESE.FIVEAM::CURRENT-TEST is unbound.
 
-&lt;span class=&quot;comment&quot;&gt;;;; In the Parachute version, (EQUAL 6 (1+ 5) is not explicit in the
-&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;;;; source; one cannot just evaluate it without PARACHUTE:IS,
+&lt;span class=&quot;comment&quot;&gt;;;; In the Parachute version, (EQUAL 6 (1+ 5)) is not explicit in
+&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;;;; the source; one cannot easily evaluate it without PARACHUTE:IS,
 &lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;;;; for example, with slime-eval-last-expression.
 &lt;/span&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;parachute:is equal 6 &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;1+ 5&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
 =&amp;gt; 6

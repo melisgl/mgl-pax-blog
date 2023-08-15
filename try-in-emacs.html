@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>Try in Emacs
+</title>
+<link type='text/css' href='style.css' rel='stylesheet'>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width">
+   <script src="jquery.min.js"></script>
+<script src="toc.min.js"></script>
+<script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       tex2jax: {
+         inlineMath: [['$','$']],
+         processEscapes: true
+       }
+     });
+   </script>
+   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+   </script>
+   <!-- Google tag (gtag.js) -->
+<script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7X64Q1D73F');
+</script>
+<link rel='shortcut icon' type='image/png' href='favicon.png'>
+<link rel='preconnect' href='https://fonts.googleapis.com'>
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+<link href='https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet'>
+<style> @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap'); </style>
+<link rel='alternate' href='http://quotenil.com/blog.rss' type='application/rss+xml'/>
+
+</head>
+<body>
+<div id="content-container">
+<div id=toc>
+ <div id=home>
+  <a href=blog.html>(QUOTE NIL)</a>
+ </div>
+ <div id=links>
+  Ramblings on <a href=ai.html>ai</a>, <a href=lisp.html>lisp</a>, <a
+  href=tech.html>tech</a> and <a href=personal.html>personal</a> topics by <a
+  href=about-me.html>me</a>.
+ </div>
+</div><div id="content">
+<p><a id="x-28MGL-PAX-BLOG-3A-40TRY-IN-EMACS-20MGL-PAX-3ASECTION-29"></a>
+<a id="MGL-PAX-BLOG:@TRY-IN-EMACS%20MGL-PAX:SECTION"></a></p>
+<h1><a href="try-in-emacs.html">Try in Emacs</a></h1>
+<p><span class='post-data'><em>Tags</em>: <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <em>Date</em>: 2023-08-14</span></p>
+<div class='br'></div>
+<p><a href="https://github.com/melisgl/try" >Try</a>, my test anti-framework,
+has just got light Emacs integration. Consider the following test:</p>
+<pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">deftest</span></i> test-foo <span class="paren2">(<span class="code"></span>)</span>
+  <span class="paren2">(<span class="code">is <span class="paren3">(<span class="code">equal <span class="string">"xxx"</span> 5</span>)</span></span>)</span>
+  <span class="paren2">(<span class="code">is <span class="paren3">(<span class="code">equal 7 7</span>)</span></span>)</span>
+  <span class="paren2">(<span class="code"><i><span class="symbol">with-failure-expected</span></i> <span class="paren3">(<span class="code">t</span>)</span>
+    <span class="paren3">(<span class="code">is <span class="paren4">(<span class="code">same-set-p '<span class="paren5">(<span class="code">1</span>)</span> '<span class="paren5">(<span class="code">2</span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
+<p>The test can be run from Lisp with <code>(test-foo)</code> (interactive
+debugging) or <code>(try 'test-foo)</code> (non-interactive), but now there is
+a third option: run it from Emacs and get a couple of conveniences
+in return. In particular, with <code>M-x mgl-try</code> then entering
+<code>test-foo</code>, a new buffer pops up with the test output, which is
+font-locked based on the type of the outcome. The buffer also has
+outline minor mode, which matches the hierarchical structure of the
+output.</p>
+<p><img src="blog-files/try-emacs.png" alt="try-emacs" /> The buffer's major mode is
+Lisp, so <code>M-.</code> and all the usual key bindings work. In additition,
+a couple of keys bound to navigation commands are available. See the
+<a href="https://melisgl.github.io/mgl-pax-world/try-manual.html#TRY:@TRY%2FEMACS%20MGL-PAX:SECTION" >documentation</a>
+for the details. Note that Quicklisp has an older version of Try
+that does not have Emacs integration, so you'll need to use
+<a href="https://github.com/melisgl/try" >https://github.com/melisgl/try</a>
+until the next Quicklisp release.</p>
+<img src="blog-files/die.png" alt="end-of-post" />
+  </div>
+</div>
+<script>$('#page-toc').toc({'selectors': ''});</script>
+</body>
+</html>
