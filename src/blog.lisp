@@ -2876,8 +2876,8 @@
   .. debugger invoked on UNBOUND-VARIABLE:
   ..   The variable IT.BESE.FIVEAM::CURRENT-TEST is unbound.
 
-  ;;; In the Parachute version, (EQUAL 6 (1+ 5) is not explicit in the
-  ;;; source; one cannot just evaluate it without PARACHUTE:IS,
+  ;;; In the Parachute version, (EQUAL 6 (1+ 5)) is not explicit in
+  ;;; the source; one cannot easily evaluate it without PARACHUTE:IS,
   ;;; for example, with slime-eval-last-expression.
   (parachute:is equal 6 (1+ 5))
   => 6
@@ -3725,6 +3725,38 @@
   - As usual, quite a few bug fixes and some optimizations also found
     their way into this release.
   """)
+
+(defpost @try-in-emacs (:title "Try in Emacs"
+                        :tags (@tech @lisp)
+                        :date "2023-08-14")
+  """[Try](https://github.com/melisgl/try), my test anti-framework,
+  has just got light Emacs integration. Consider the following test:
+
+  ```
+  (deftest test-foo ()
+    (is (equal "xxx" 5))
+    (is (equal 7 7))
+    (with-failure-expected (t)
+      (is (same-set-p '(1) '(2)))))
+  ```
+
+  The test can be run from Lisp with `(test-foo)` (interactive
+  debugging) or `(try 'test-foo)` (non-interactive), but now there is
+  a third option: run it from Emacs and get a couple of conveniences
+  in return. In particular, with `M-x mgl-try` then entering
+  `test-foo`, a new buffer pops up with the test output, which is
+  font-locked based on the type of the outcome. The buffer also has
+  outline minor mode, which matches the hierarchical structure of the
+  output.
+
+  ![try-emacs](blog-files/try-emacs.png) The buffer's major mode is
+  Lisp, so `\\M-.` and all the usual key bindings work. In additition,
+  a couple of keys bound to navigation commands are available. See the
+  [documentation](https://melisgl.github.io/mgl-pax-world/try-manual.html#TRY:@TRY%2FEMACS%20MGL-PAX:SECTION)
+  for the details. Note that Quicklisp has an older version of Try
+  that does not have Emacs integration, so you'll need to use
+  [https://github.com/melisgl/try](https://github.com/melisgl/try)
+  until the next Quicklisp release.""")
 
 
 (defun on-current-page-p (object)
