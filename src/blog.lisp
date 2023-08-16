@@ -251,6 +251,8 @@
 (defcategory @personal (:title "personal"
                         :long-title "Category Personal in Gábor Melis' Blog"))
 
+(defcategory @pompousness (:title "pompousness"))
+
 (defpost @first-post (:title "First Post"
                       :tags (@personal @tech)
                       :date "2008-02-01")
@@ -3514,7 +3516,7 @@
      :date "2023-04-10")
   """In short, comparing fonts at the same font size is almost never the
   right thing to do. Compare them at the same x-height or, better yet,
-  at the same space usage.
+  at the same space usage.""""""
 
   In full, recently I wanted to choose a font that looks good on
   screen at various resolutions and also in print. This is fairly
@@ -3534,7 +3536,7 @@
 
   ![typography-line-terms](blog-files/Typography_Line_Terms.svg)
 
-  """"So it makes a lot of sense to compare fonts at the same x-height,
+  So it makes a lot of sense to compare fonts at the same x-height,
   and this is what I first did for a number of LaTeX fonts:
   [fonts-by-x-height.pdf](blog-files/fonts-by-x-height.pdf). On the
   other hand, normalizing for x-height can make fonts with wider
@@ -3646,7 +3648,7 @@
   allowing PAX to focus on documentation. Being very young, DRef lives
   under adult supervision, in a
   [subdirectory](https://github.com/melisgl/mgl-pax/tree/master/dref)
-  of the PAX repository.
+  of the PAX repository.""""""
 
   ```
   DREF> (definitions 'pax:document-object*)
@@ -3757,6 +3759,98 @@
   that does not have Emacs integration, so you'll need to use
   [https://github.com/melisgl/try](https://github.com/melisgl/try)
   until the next Quicklisp release.""")
+
+(defpost @multifaceted-development
+    (:title "On Multifaceted Development and the Role of Documentation"
+     :tags (@tech @lisp @pompousness)
+     :date "2023-08-17")
+  "Catchy title, innit? I came up with it while trying to
+  name the development style [PAX](https://github.com/melisgl/mgl-pax)
+  enables. I wanted something vaguely self-explanatory in a straight
+  out of a marketing department kind of way, with tendrils right into
+  your unconscious. Documentation-driven development sounded just the
+  thing, but it's already taken. Luckily, I came to realize that
+  neither documentation nor any other single thing should drive
+  development. Less luckily for the philosophically disinclined, this
+  epiphany unleashed my inner [Richard P.
+  Gabriel](https://en.wikipedia.org/wiki/Richard_P._Gabriel). I reckon
+  if there is a point to what follows, it's abstract enough to make it
+  hard to tell.
+
+  In programming, there is always a formalization step involved: we
+  must go from idea to code. Very rarely, we have a formal definition
+  of the problem, but apart from purely theoretical exercises,
+  formalization always involves a jump of faith. It's like math word
+  problems: the translation from natural to formal language is out of
+  the scope of formal methods.
+
+  We strive to shorten the jump by looking at the solution carefully
+  from different angles (code, docs, specs), and by poking at it and
+  observing its behaviour (tests, logs, input-output, debugging).
+  These facets (descriptive or behavioural) of the solution are
+  redundant with the code and each other. This redundancy is our main
+  tool to shorten the jump. Ultimately, some faith will still be
+  required, but the hope is that if a thing looks good from several
+  angles and behaves well, then it's likely to be a good solution.
+  Programming is empirical.
+
+  Tests, on the abstract level, have the same primary job as any other
+  facet: constrain the solution by introducing redundancy. If
+  automatic, they have useful properties: 1. they are cheap to run; 2.
+  inconsistencies between code and tests are found automatically; 3.
+  they exert pressure to keep the code easily testable (when tracking
+  test coverage); 4. sometimes it's easiest to start with writing the
+  tests. On the other hand, tests incur a maintenance cost (often
+  small compared to the gains).
+
+  Unlike tests, documentation is mostly in natural language. This has
+  the following considerable disadvantages: documentation is expensive
+  to write and to check (must be read and compared to the
+  implementation, which involves humans for a short while longer),
+  consequently, it easily diverges from the code. It seems like the
+  wrong kind of redundancy. On the positive side, 1. it is valuable
+  for users (e.g. user manual) and also for the programmer to
+  understand the intention; 2. it encourages easily explainable
+  designs; 3. sometimes it's easiest to start with writing the
+  documentation.
+
+  Like tests or any other facet, documentation is not always needed,
+  it can drive the development process, or it can lag. But it is a
+  tremendously useful tool to encourage clean design and keep the code
+  comprehensible.
+
+  Writing and maintaining good documentation is costly, but the cost
+  can vary greatly. Knuth's Literate Programming took the very
+  opinionated stance of treating documentation of internals as the
+  primary product, which is a great fit for certain types of problems.
+  PAX is much more mellow. It does not require a complete overhaul of
+  the development process or tooling; giving up interactive
+  development would be too high a price. PAX is chiefly about reducing
+  the distance between code and its documentation, so that they can be
+  changed together. By doing so, it reduces the maintenance cost,
+  improves both the design and the documentation, while making the
+  code more comprehensible.
+
+  In summary,
+
+  - Multiple, redundant facets are needed to have confidence in a
+    solution.
+
+  - Maintaining them has a cost.
+
+  - This cost shapes the solution.
+
+  - There is no universally good set of facets.
+
+  - There need not be a primary facet to drive development.
+
+  - We mentally switch between facets frequently.
+
+  - Our tools should make working with multiple facets easier.
+
+  This is what PAX tries to do for documentation and code.
+  <br>
+  And that's the best 4KiB name I could come up with.")
 
 
 (defun on-current-page-p (object)
