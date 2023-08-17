@@ -256,24 +256,22 @@
 (defpost @first-post (:title "First Post"
                       :tags (@personal @tech)
                       :date "2008-02-01")
-  "After a long time of waiting to write my own blog
+  "**2020-05-03**: Since then, this [blog has been moved to PAX][ @MOVING-THE-BLOG-TO-PAX].
+
+  After a long time of waiting to write my own blog
   software like true hackers with infinite time do (and those
   irritated by Wordpress), I bit the bullet and installed
-  [blorg](https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html) – a very low
-  overhead emacs blog engine – on top of
+  [blorg](https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html),
+  a very low-overhead Emacs blog engine on top of
   [org-mode](http://orgmode.org/), that I happen to use as an
-  organizer. Blorg basically converts an org mode buffer to html files,
-  so it is completely static: send me [email](mailto:mega@retes.hu) if
-  you have comments, I have no desire to maintain a more complex
-  solution with comment filtering.
-
-  Small fixes had to be made for blorg to be able to deal with
+  organizer. Blorg basically converts an org mode buffer to HTML
+  files, so it is completely static: send me
+  [email](mailto:mega@retes.hu) if you have comments, I have no desire
+  to maintain a more complex solution with comment filtering."
+  "Small fixes had to be made for blorg to be able to deal with
   org-mode 5.17a, and I only had time to bring it to some basic level
   of functionality. That said, here is the
-  [blorg-init.el](blog-files/blorg-init.el) file I'm using right now.
-
-  **2020-05-03**: Since then, this blog has been moved to
-    [MGL-PAX](http://github.com/melisgl/mgl-pax).")
+  [blorg-init.el](blog-files/blorg-init.el) file I'm using right now.")
 
 (defpost @important-remainder (:title "Important Remainder"
                                :tags (@personal)
@@ -295,17 +293,17 @@
                   :tags (@tech)
                   :date "2008-03-28")
   "My carefully updated list of files to back up had grown so long that
-  it made me worry about losing something important, and the backup
-  didn't fit on a single DVD, so I invested in a WD Passport and
-  created an encrypted file system on it:
+  it made me worry about losing something important."
+  "The backup didn't fit on a single DVD, so I invested in a WD
+  Passport and created an encrypted file system on it:
 
       modprobe cryptoloop
       modprobe aes
       losetup -e aes /dev/loop0 /dev/sdb
       mke2fs /dev/loop0
-      tune2fs -i 0 -c 0 -j /dev/loop0"
+      tune2fs -i 0 -c 0 -j /dev/loop0
 
-  "Then, taking a backup is an `rsync` and some setup-up/tear-down code
+  Then, taking a backup is an `rsync` and some setup-up/tear-down code
   away:
 
        #!/bin/sh
@@ -363,16 +361,15 @@
   "Emacs users often report problems caused by strain on the pinky
   finger, which is used to press the _Control_ key. The standard
   answer to that is to map _Caps Lock_ to _Control_. I believe that
-  there is a better way:
-
-  ![](blog-files/symbolics-keyboard.jpg)
+  there is a better way:"
+  "![](blog-files/symbolics-keyboard.jpg)
 
   Note the placement of modifiers: _Control_, _Meta_, _Super_, _Hyper_
   on both sides of Space in this order, with _Control_ being the
   closest to it. Touch typers especially find having two of each key
-  absolutely essential, and the symmetric placement appeals to me."
+  absolutely essential, and the symmetric placement appeals to me.
 
-  "Also note the _Rubout_ key next to _A_ where _Caps Lock_ resides on
+  Also note the _Rubout_ key next to _A_ where _Caps Lock_ resides on
   modern keyboards. _Rubout_ is like _Backspace_ and is better to have
   on the home row than the most useless and annoying key in history.
 
@@ -475,7 +472,7 @@
   - [chat](http://www.pvk.ca/Blog/LowLevel/VM_tricks_safepoints.html)
   about allocation and interrupts have had me looking at ways to speed
   up pseudo-atomic in SBCL.
-
+  """"""
   ```
    (defmacro pseudo-atomic (&rest forms)
     (with-unique-names (label)
@@ -491,7 +488,7 @@
          (inst break pending-interrupt-trap)
          (emit-label ,label))))
   ```
-  """"""
+
   ## `EBP`
 
   My first idea was that ORing is unnecessary since, with the slew of
@@ -2142,7 +2139,7 @@
   [Stackoverflow](http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow)
   contest on [Kaggle](http://kaggle.com). It was a straightforward
   text classification problem with extremely unbalanced classes.
-
+  ""
   ![Malacka](blog-files/malacka-es-bocsimacko.jpg)
 
   Just as Bocsimackó did the last time around, his lazier sidekick (on
@@ -2150,7 +2147,7 @@
   [success](http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow/leaderboard).
   I would have loved to be lazy and still win, but the leaderboard was
   too close for comfort.
-  ""
+
   ## Overview
 
   The winning model is an average of 10 neural network ensembles of
