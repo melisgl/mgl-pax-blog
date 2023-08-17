@@ -7,6 +7,87 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
+            <title>On Multifaceted Development and the Role of Documentation</title>
+            <link>http://quotenil.com/multifaceted-development.html</link>
+            <description>&lt;p&gt;Catchy title, innit? I came up with it while trying to
+name the development style &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; &gt;PAX&lt;/a&gt;
+enables. I wanted something vaguely self-explanatory in a straight
+out of a marketing department kind of way, with tendrils right into
+your unconscious. Documentation-driven development sounded just the
+thing, but it&apos;s already taken. Luckily, I came to realize that
+neither documentation nor any other single thing should drive
+development. Less luckily for the philosophically disinclined, this
+epiphany unleashed my inner &lt;a href=&quot;https://en.wikipedia.org/wiki/Richard_P._Gabriel&quot; &gt;Richard P.
+Gabriel&lt;/a&gt;. I reckon
+if there is a point to what follows, it&apos;s abstract enough to make it
+hard to tell.&lt;/p&gt;
+&lt;p&gt;In programming, there is always a formalization step involved: we
+must go from idea to code. Very rarely, we have a formal definition
+of the problem, but apart from purely theoretical exercises,
+formalization always involves a jump of faith. It&apos;s like math word
+problems: the translation from natural to formal language is out of
+the scope of formal methods.&lt;/p&gt;
+&lt;p&gt;We strive to shorten the jump by looking at the solution carefully
+from different angles (code, docs, specs), and by poking at it and
+observing its behaviour (tests, logs, input-output, debugging).
+These facets (descriptive or behavioural) of the solution are
+redundant with the code and each other. This redundancy is our main
+tool to shorten the jump. Ultimately, some faith will still be
+required, but the hope is that if a thing looks good from several
+angles and behaves well, then it&apos;s likely to be a good solution.
+Programming is empirical.&lt;/p&gt;
+&lt;p&gt;Tests, on the abstract level, have the same primary job as any other
+facet: constrain the solution by introducing redundancy. If
+automatic, they have useful properties: 1. they are cheap to run; 2.
+inconsistencies between code and tests are found automatically; 3.
+they exert pressure to keep the code easily testable (when tracking
+test coverage); 4. sometimes it&apos;s easiest to start with writing the
+tests. On the other hand, tests incur a maintenance cost (often
+small compared to the gains).&lt;/p&gt;
+&lt;p&gt;Unlike tests, documentation is mostly in natural language. This has
+the following considerable disadvantages: documentation is expensive
+to write and to check (must be read and compared to the
+implementation, which involves humans for a short while longer),
+consequently, it easily diverges from the code. It seems like the
+wrong kind of redundancy. On the positive side, 1. it is valuable
+for users (e.g. user manual) and also for the programmer to
+understand the intention; 2. it encourages easily explainable
+designs; 3. sometimes it&apos;s easiest to start with writing the
+documentation.&lt;/p&gt;
+&lt;p&gt;Like tests or any other facet, documentation is not always needed,
+it can drive the development process, or it can lag. But it is a
+tremendously useful tool to encourage clean design and keep the code
+comprehensible.&lt;/p&gt;
+&lt;p&gt;Writing and maintaining good documentation is costly, but the cost
+can vary greatly. Knuth&apos;s Literate Programming took the very
+opinionated stance of treating documentation of internals as the
+primary product, which is a great fit for certain types of problems.
+PAX is much more mellow. It does not require a complete overhaul of
+the development process or tooling; giving up interactive
+development would be too high a price. PAX is chiefly about reducing
+the distance between code and its documentation, so that they can be
+changed together. By doing so, it reduces the maintenance cost,
+improves both the design and the documentation, while making the
+code more comprehensible.&lt;/p&gt;
+&lt;p&gt;In summary,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Multiple, redundant facets are needed to have confidence in a
+  solution.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Maintaining them has a cost.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;This cost shapes the solution.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;There is no universally good set of facets.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;There need not be a primary facet to drive development.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We mentally switch between facets frequently.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Our tools should make working with multiple facets easier.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+This is what PAX tries to do for documentation and code.
+&lt;br&gt;
+And that&apos;s the best 4KiB name I could come up with.
+</description>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
+            <pubDate>Thu, 17 Aug 2023 01:00:00 +0100</pubDate>
+        </item>
+        <item>
             <title>Try in Emacs</title>
             <link>http://quotenil.com/try-in-emacs.html</link>
             <description>&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/try&quot; &gt;Try&lt;/a&gt;, my test anti-framework,
@@ -227,7 +308,7 @@ legible fonts are:&lt;/p&gt;
 &lt;li&gt;&lt;p&gt;XCharter among the (almost) Slab Serifs,&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Utopia among the Transitional Serifs.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;My taste is apparently quite similar to &lt;a href=&quot;https://github.com/linoferreira/latex-font-survey&quot; &gt;Lino
+My taste is apparently quite similar to &lt;a href=&quot;https://github.com/linoferreira/latex-font-survey&quot; &gt;Lino
 Ferreira&apos;s&lt;/a&gt;. EB
 Garamond is a personal favourite, but it is just a bit too quirky
 for body text. Those same quirks make it great at larger sizes
@@ -236,7 +317,7 @@ for the body text.
 &lt;div class=&apos;br&apos;&gt;&lt;/div&gt;&lt;p&gt;The messy LaTeX sources of the above documents are available on
 &lt;a href=&quot;https://github.com/melisgl/latex-font-comparison&quot; &gt;github&lt;/a&gt;.&lt;/p&gt;&lt;div class=&apos;br&apos;&gt;&lt;/div&gt;&lt;p&gt;Comment on
 &lt;a href=&quot;https://twitter.com/GaborMelis/status/1645484950957830144&quot; &gt;Twitter&lt;/a&gt;
-or &lt;a href=&quot;https://mastodon.social/@melisgl/110175790416538571&quot; &gt;Mastodon&lt;/a&gt;.&lt;/p&gt;&lt;/p&gt;
+or &lt;a href=&quot;https://mastodon.social/@melisgl/110175790416538571&quot; &gt;Mastodon&lt;/a&gt;.&lt;/p&gt;
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 10 Apr 2023 01:00:00 +0100</pubDate>

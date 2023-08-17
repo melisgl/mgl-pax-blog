@@ -47,6 +47,85 @@
   href=about-me.html>me</a>.
  </div>
 </div><div id="content">
+<p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40MULTIFACETED-DEVELOPMENT-SHORT-20MGL-PAX-3ASECTION-29"></a>
+<a id="MGL-PAX-BLOG:@TECH-@MULTIFACETED-DEVELOPMENT-SHORT%20MGL-PAX:SECTION"></a></p>
+<h1><a href="multifaceted-development.html" title="On Multifaceted Development and the Role of Documentation">On Multifaceted Development and the Role of Documentation</a></h1>
+<p><span class='post-data'><em>Tags</em>: <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <code>pompousness</code>, <em>Date</em>: 2023-08-17</span></p>
+<div class='br'></div>
+<p>Catchy title, innit? I came up with it while trying to
+name the development style <a href="https://github.com/melisgl/mgl-pax" >PAX</a>
+enables. I wanted something vaguely self-explanatory in a straight
+out of a marketing department kind of way, with tendrils right into
+your unconscious. Documentation-driven development sounded just the
+thing, but it's already taken. Luckily, I came to realize that
+neither documentation nor any other single thing should drive
+development. Less luckily for the philosophically disinclined, this
+epiphany unleashed my inner <a href="https://en.wikipedia.org/wiki/Richard_P._Gabriel" >Richard P.
+Gabriel</a>. I reckon
+if there is a point to what follows, it's abstract enough to make it
+hard to tell.</p>
+<p>In programming, there is always a formalization step involved: we
+must go from idea to code. Very rarely, we have a formal definition
+of the problem, but apart from purely theoretical exercises,
+formalization always involves a jump of faith. It's like math word
+problems: the translation from natural to formal language is out of
+the scope of formal methods.</p>
+<p>We strive to shorten the jump by looking at the solution carefully
+from different angles (code, docs, specs), and by poking at it and
+observing its behaviour (tests, logs, input-output, debugging).
+These facets (descriptive or behavioural) of the solution are
+redundant with the code and each other. This redundancy is our main
+tool to shorten the jump. Ultimately, some faith will still be
+required, but the hope is that if a thing looks good from several
+angles and behaves well, then it's likely to be a good solution.
+Programming is empirical.</p>
+<p>Tests, on the abstract level, have the same primary job as any other
+facet: constrain the solution by introducing redundancy. If
+automatic, they have useful properties: 1. they are cheap to run; 2.
+inconsistencies between code and tests are found automatically; 3.
+they exert pressure to keep the code easily testable (when tracking
+test coverage); 4. sometimes it's easiest to start with writing the
+tests. On the other hand, tests incur a maintenance cost (often
+small compared to the gains).</p>
+<p>Unlike tests, documentation is mostly in natural language. This has
+the following considerable disadvantages: documentation is expensive
+to write and to check (must be read and compared to the
+implementation, which involves humans for a short while longer),
+consequently, it easily diverges from the code. It seems like the
+wrong kind of redundancy. On the positive side, 1. it is valuable
+for users (e.g. user manual) and also for the programmer to
+understand the intention; 2. it encourages easily explainable
+designs; 3. sometimes it's easiest to start with writing the
+documentation.</p>
+<p>Like tests or any other facet, documentation is not always needed,
+it can drive the development process, or it can lag. But it is a
+tremendously useful tool to encourage clean design and keep the code
+comprehensible.</p>
+<p>Writing and maintaining good documentation is costly, but the cost
+can vary greatly. Knuth's Literate Programming took the very
+opinionated stance of treating documentation of internals as the
+primary product, which is a great fit for certain types of problems.
+PAX is much more mellow. It does not require a complete overhaul of
+the development process or tooling; giving up interactive
+development would be too high a price. PAX is chiefly about reducing
+the distance between code and its documentation, so that they can be
+changed together. By doing so, it reduces the maintenance cost,
+improves both the design and the documentation, while making the
+code more comprehensible.</p>
+<p>In summary,</p>
+<ul>
+<li><p>Multiple, redundant facets are needed to have confidence in a
+  solution.</p></li>
+<li><p>Maintaining them has a cost.</p></li>
+<li><p>This cost shapes the solution.</p></li>
+<li><p>There is no universally good set of facets.</p></li>
+<li><p>There need not be a primary facet to drive development.</p></li>
+<li><p>We mentally switch between facets frequently.</p></li>
+<li><p>Our tools should make working with multiple facets easier.</p></li>
+</ul>
+<p>This is what PAX tries to do for documentation and code.
+<br>
+And that's the best 4KiB name I could come up with.</p>
 <p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40TRY-IN-EMACS-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@TECH-@TRY-IN-EMACS-SHORT%20MGL-PAX:SECTION"></a></p>
 <h1><a href="try-in-emacs.html" title="Try in Emacs">Try in Emacs</a></h1>
@@ -92,76 +171,7 @@ allowing PAX to focus on documentation. Being very young, DRef lives
 under adult supervision, in a
 <a href="https://github.com/melisgl/mgl-pax/tree/master/dref" >subdirectory</a>
 of the PAX repository.</p>
-<pre><code><span class="code">DREF&gt; <span class="paren1">(<span class="code"><i><span class="symbol">definitions</span></i> 'pax:document-object*</span>)</span>
-<span class="paren1">(<span class="code">#&lt;DREF DOCUMENT-OBJECT* GENERIC-FUNCTION&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">MGL-PAX-BLOG::CATEGORY T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">UNKNOWN-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">MGL-PAX::CLHS-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">MGL-PAX::INCLUDE-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">MGL-PAX::GO-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">GLOSSARY-TERM T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">SECTION T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">ASDF-SYSTEM-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">CLASS-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">STRUCTURE-ACCESSOR-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">WRITER-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">READER-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">ACCESSOR-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">METHOD-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">SETF-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">VARIABLE-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">T T</span>)</span></span>)</span>&gt;</span>)</span>
-
-DREF&gt; <span class="paren1">(<span class="code">dref 'pax:document-object* '<span class="paren2">(<span class="code">method nil <span class="paren3">(<span class="code">class-dref t</span>)</span></span>)</span></span>)</span>
-#&lt;DREF DOCUMENT-OBJECT* <span class="paren1">(<span class="code">METHOD NIL <span class="paren2">(<span class="code">CLASS-DREF T</span>)</span></span>)</span>&gt;
-
-DREF&gt; <span class="paren1">(<span class="code">arglist *</span>)</span>
-<span class="paren1">(<span class="code">DREF STREAM</span>)</span>
-:ORDINARY
-
-DREF&gt; <span class="paren1">(<span class="code">docstring **</span>)</span>
-"For definitions with a CLASS locative, the arglist printed is the
-  list of immediate superclasses with STANDARD-OBJECT, CONDITION and
-  non-exported symbols omitted."
-
-DREF&gt; <span class="paren1">(<span class="code">pax:document <span class="special">***</span></span>)</span>
-- [method] DOCUMENT-OBJECT* <span class="paren1">(<span class="code">DREF CLASS-DREF</span>)</span> STREAM
-
-    For definitions with a CLASS locative, the arglist printed is the
-    list of immediate superclasses with STANDARD-OBJECT, CONDITION and
-    non-exported symbols omitted.</span></code></pre>
-<p>During the refactoring, the references API was cleaned up. How to
-write extensions has seen lots of changes (see <a href="https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF-EXT:@EXTENDING-DREF%20MGL-PAX:SECTION" >Extending
-DRef</a>
-and <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENSION-API%20MGL-PAX:SECTION" >Extending
-PAX</a>),
-but normal use is the same. DRef is similar to Shinmera's
-<a href="https://github.com/Shinmera/definitions" >Definitions</a> library but
-is more tailored to the needs of PAX.</p>
-<p><br>Also in this release:</p>
-<ul>
-<li><p><a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION" >Apropos</a>
-  got a detailed view feature, which includes the docstrings of all
-  listed definitions not just the reference itself. This is very
-  useful for getting an overview of a package.</p>
-
-<p><img src="blog-files/alexandria-apropos.png" alt="alexandria-apropos" /></p></li>
-<li><p>The detailed view often has to render docstrings which have not
-  been written with PAX in mind and are not proper markdown. These
-  docstrings are now sanitized aggressively in a unavoidably
-  <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@MARKDOWN-IN-DOCSTRINGS%20MGL-PAX:SECTION" >heuristic
-  manner</a>.</p></li>
-<li><p>There are now two supported CSS styles for HTML output: <code>:DEFAULT</code>
-  with <code>sans-serif</code>, and <code>:CHARTER</code> with Charter as the main
-  font (which is bundled). The <code>:CHARTER</code> style is used in the linked
-  PAX World documentation on this blog. See
-  <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*BROWSE-HTML-STYLE*%20VARIABLE" >PAX:*BROWSE-HTML-STYLE*</a>
-  and
-  <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:UPDATE-ASDF-SYSTEM-HTML-DOCS%20FUNCTION" >PAX:UPDATE-ASDF-SYSTEM-HTML-DOCS</a>.</p></li>
-<li><p>As usual, quite a few bug fixes and some optimizations also found
-  their way into this release.</p></li>
-</ul>
+<p><div class='br'></div><p>... read the rest of <a href="dref.html" title="DRef and PAX v0.3">DRef and PAX v0.3</a>.</p></p>
 <p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40PAX-BROWSER-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@TECH-@PAX-BROWSER-SHORT%20MGL-PAX:SECTION"></a></p>
 <h1><a href="pax-browser.html" title="PAX Live Documentation Browser">PAX Live Documentation Browser</a></h1>
@@ -213,22 +223,6 @@ grids, in particular.</p>
 <p>In short, comparing fonts at the same font size is almost never the
 right thing to do. Compare them at the same x-height or, better yet,
 at the same space usage.</p>
-<p>In full, recently I wanted to choose a font that looks good on
-screen at various resolutions and also in print. This is fairly
-subjective, of course, so there is a lot of noise out there. Going
-by the <a href="https://tug.org/FontCatalogue/" >LaTeX Font Catalogue</a>,
-<a href="https://fonts.google.com/" >Google Fonts</a>, and similar font
-comparison sites turned out to be fairly misleading because they
-present fonts at the same font
-size (<a href="https://en.wikipedia.org/wiki/Em_(typography)" ><code>em</code></a> in LaTeX
-and CSS). The problem is that <code>1em</code> is the size of a bounding box
-for the largest character, which can be arbitrarily loose. The
-perceived size of typical English text is much more closely
-determined by the
-<a href="https://en.wikipedia.org/wiki/X-height" >x-height</a> (<code>ex</code> in LaTeX
-and CSS). <code>1ex</code> is the height of the character <code>x</code>, which is pretty
-close to the height of other lowercase characters for most fonts.</p>
-<p><img src="blog-files/Typography_Line_Terms.svg" alt="typography-line-terms" /></p>
 <p><div class='br'></div><p>... read the rest of <a href="how-to-compare-fonts.html" title="Normalize Fonts for Comparison">Normalize Fonts for Comparison</a>.</p></p>
 <p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40MIGRATION-TO-GITHUB-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@TECH-@MIGRATION-TO-GITHUB-SHORT%20MGL-PAX:SECTION"></a></p>

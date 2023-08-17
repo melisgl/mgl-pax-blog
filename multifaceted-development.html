@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>On Multifaceted Development and the Role of Documentation
+</title>
+<link type='text/css' href='style.css' rel='stylesheet'>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width">
+   <script src="jquery.min.js"></script>
+<script src="toc.min.js"></script>
+<script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       tex2jax: {
+         inlineMath: [['$','$']],
+         processEscapes: true
+       }
+     });
+   </script>
+   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+   </script>
+   <!-- Google tag (gtag.js) -->
+<script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7X64Q1D73F');
+</script>
+<link rel='shortcut icon' type='image/png' href='favicon.png'>
+<link rel='preconnect' href='https://fonts.googleapis.com'>
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+<link href='https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet'>
+<style> @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap'); </style>
+<link rel='alternate' href='http://quotenil.com/blog.rss' type='application/rss+xml'/>
+
+</head>
+<body>
+<div id="content-container">
+<div id=toc>
+ <div id=home>
+  <a href=blog.html>(QUOTE NIL)</a>
+ </div>
+ <div id=links>
+  Ramblings on <a href=ai.html>ai</a>, <a href=lisp.html>lisp</a>, <a
+  href=tech.html>tech</a> and <a href=personal.html>personal</a> topics by <a
+  href=about-me.html>me</a>.
+ </div>
+</div><div id="content">
+<p><a id="x-28MGL-PAX-BLOG-3A-40MULTIFACETED-DEVELOPMENT-20MGL-PAX-3ASECTION-29"></a>
+<a id="MGL-PAX-BLOG:@MULTIFACETED-DEVELOPMENT%20MGL-PAX:SECTION"></a></p>
+<h1><a href="multifaceted-development.html">On Multifaceted Development and the Role of Documentation</a></h1>
+<p><span class='post-data'><em>Tags</em>: <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <code>pompousness</code>, <em>Date</em>: 2023-08-17</span></p>
+<div class='br'></div>
+<p>Catchy title, innit? I came up with it while trying to
+name the development style <a href="https://github.com/melisgl/mgl-pax" >PAX</a>
+enables. I wanted something vaguely self-explanatory in a straight
+out of a marketing department kind of way, with tendrils right into
+your unconscious. Documentation-driven development sounded just the
+thing, but it's already taken. Luckily, I came to realize that
+neither documentation nor any other single thing should drive
+development. Less luckily for the philosophically disinclined, this
+epiphany unleashed my inner <a href="https://en.wikipedia.org/wiki/Richard_P._Gabriel" >Richard P.
+Gabriel</a>. I reckon
+if there is a point to what follows, it's abstract enough to make it
+hard to tell.</p>
+<p>In programming, there is always a formalization step involved: we
+must go from idea to code. Very rarely, we have a formal definition
+of the problem, but apart from purely theoretical exercises,
+formalization always involves a jump of faith. It's like math word
+problems: the translation from natural to formal language is out of
+the scope of formal methods.</p>
+<p>We strive to shorten the jump by looking at the solution carefully
+from different angles (code, docs, specs), and by poking at it and
+observing its behaviour (tests, logs, input-output, debugging).
+These facets (descriptive or behavioural) of the solution are
+redundant with the code and each other. This redundancy is our main
+tool to shorten the jump. Ultimately, some faith will still be
+required, but the hope is that if a thing looks good from several
+angles and behaves well, then it's likely to be a good solution.
+Programming is empirical.</p>
+<p>Tests, on the abstract level, have the same primary job as any other
+facet: constrain the solution by introducing redundancy. If
+automatic, they have useful properties: 1. they are cheap to run; 2.
+inconsistencies between code and tests are found automatically; 3.
+they exert pressure to keep the code easily testable (when tracking
+test coverage); 4. sometimes it's easiest to start with writing the
+tests. On the other hand, tests incur a maintenance cost (often
+small compared to the gains).</p>
+<p>Unlike tests, documentation is mostly in natural language. This has
+the following considerable disadvantages: documentation is expensive
+to write and to check (must be read and compared to the
+implementation, which involves humans for a short while longer),
+consequently, it easily diverges from the code. It seems like the
+wrong kind of redundancy. On the positive side, 1. it is valuable
+for users (e.g. user manual) and also for the programmer to
+understand the intention; 2. it encourages easily explainable
+designs; 3. sometimes it's easiest to start with writing the
+documentation.</p>
+<p>Like tests or any other facet, documentation is not always needed,
+it can drive the development process, or it can lag. But it is a
+tremendously useful tool to encourage clean design and keep the code
+comprehensible.</p>
+<p>Writing and maintaining good documentation is costly, but the cost
+can vary greatly. Knuth's Literate Programming took the very
+opinionated stance of treating documentation of internals as the
+primary product, which is a great fit for certain types of problems.
+PAX is much more mellow. It does not require a complete overhaul of
+the development process or tooling; giving up interactive
+development would be too high a price. PAX is chiefly about reducing
+the distance between code and its documentation, so that they can be
+changed together. By doing so, it reduces the maintenance cost,
+improves both the design and the documentation, while making the
+code more comprehensible.</p>
+<p>In summary,</p>
+<ul>
+<li><p>Multiple, redundant facets are needed to have confidence in a
+  solution.</p></li>
+<li><p>Maintaining them has a cost.</p></li>
+<li><p>This cost shapes the solution.</p></li>
+<li><p>There is no universally good set of facets.</p></li>
+<li><p>There need not be a primary facet to drive development.</p></li>
+<li><p>We mentally switch between facets frequently.</p></li>
+<li><p>Our tools should make working with multiple facets easier.</p></li>
+</ul>
+<p>This is what PAX tries to do for documentation and code.
+<br>
+And that's the best 4KiB name I could come up with.</p>
+<img src="blog-files/die.png" alt="end-of-post" />
+  </div>
+</div>
+<script>$('#page-toc').toc({'selectors': ''});</script>
+</body>
+</html>
