@@ -3114,9 +3114,9 @@ Six in particular) although losing does irk me a bit.
             <title>Backup</title>
             <link>http://quotenil.com/backup.html</link>
             <description>&lt;p&gt;My carefully updated list of files to back up had grown so long that
-it made me worry about losing something important, and the backup
-didn&apos;t fit on a single DVD, so I invested in a WD Passport and
-created an encrypted file system on it:&lt;/p&gt;
+it made me worry about losing something important.&lt;/p&gt;
+&lt;p&gt;The backup didn&apos;t fit on a single DVD, so I invested in a WD
+Passport and created an encrypted file system on it:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;modprobe cryptoloop
 modprobe aes
 losetup -e aes /dev/loop0 /dev/sdb
@@ -3182,22 +3182,21 @@ All pictures were taken at M&#xE1;laga airport.
         <item>
             <title>First Post</title>
             <link>http://quotenil.com/first-post.html</link>
-            <description>&lt;p&gt;After a long time of waiting to write my own blog
+            <description>&lt;p&gt;&lt;strong&gt;2020-05-03&lt;/strong&gt;: Since then, this blog has been moved to PAX.&lt;/p&gt;
+&lt;p&gt;After a long time of waiting to write my own blog
 software like true hackers with infinite time do (and those
 irritated by Wordpress), I bit the bullet and installed
-&lt;a href=&quot;https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html&quot; &gt;blorg&lt;/a&gt; – a very low
-overhead emacs blog engine – on top of
+&lt;a href=&quot;https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html&quot; &gt;blorg&lt;/a&gt;,
+a very low-overhead Emacs blog engine on top of
 &lt;a href=&quot;http://orgmode.org/&quot; &gt;org-mode&lt;/a&gt;, that I happen to use as an
-organizer. Blorg basically converts an org mode buffer to html files,
-so it is completely static: send me &lt;a href=&quot;mailto:mega@retes.hu&quot; &gt;email&lt;/a&gt; if
-you have comments, I have no desire to maintain a more complex
-solution with comment filtering.&lt;/p&gt;
-&lt;p&gt;Small fixes had to be made for blorg to be able to deal with
+organizer. Blorg basically converts an org mode buffer to HTML
+files, so it is completely static: send me
+&lt;a href=&quot;mailto:mega@retes.hu&quot; &gt;email&lt;/a&gt; if you have comments, I have no desire
+to maintain a more complex solution with comment filtering.&lt;/p&gt;
+Small fixes had to be made for blorg to be able to deal with
 org-mode 5.17a, and I only had time to bring it to some basic level
 of functionality. That said, here is the
-&lt;a href=&quot;http://quotenil.com/blog-files/blorg-init.el&quot; &gt;blorg-init.el&lt;/a&gt; file I&apos;m using right now.&lt;/p&gt;
-&lt;strong&gt;2020-05-03&lt;/strong&gt;: Since then, this blog has been moved to
-  &lt;a href=&quot;http://github.com/melisgl/mgl-pax&quot; &gt;MGL-PAX&lt;/a&gt;.
+&lt;a href=&quot;http://quotenil.com/blog-files/blorg-init.el&quot; &gt;blorg-init.el&lt;/a&gt; file I&apos;m using right now.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Fri, 01 Feb 2008 00:00:00 +0000</pubDate>

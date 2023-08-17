@@ -465,12 +465,6 @@ competition, last September I decided to enter the
 <a href="http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow" >Stackoverflow</a>
 contest on <a href="http://kaggle.com" >Kaggle</a>. It was a straightforward
 text classification problem with extremely unbalanced classes.</p>
-<p><img src="blog-files/malacka-es-bocsimacko.jpg" alt="Malacka" /></p>
-<p>Just as Bocsimackó did the last time around, his lazier sidekick (on
-the right) brought
-<a href="http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow/leaderboard" >success</a>.
-I would have loved to be lazy and still win, but the leaderboard was
-too close for comfort.</p>
 <p><div class='br'></div><p>... read the rest of <a href="stackoverflow-post-mortem.html" title="Stackoverflow Post-Mortem">Stackoverflow Post-Mortem</a>.</p></p>
 <p><a id="x-28MGL-PAX-BLOG-3A-40BLOG--40DIRTY-36CUBE-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@BLOG-@DIRTY-36CUBE-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -803,19 +797,6 @@ first three are passed in registers on x86).</p>
 - <a href="http://www.pvk.ca/Blog/LowLevel/VM_tricks_safepoints.html" >chat</a>
 about allocation and interrupts have had me looking at ways to speed
 up pseudo-atomic in SBCL.</p>
-<pre><code><span class="code"> <span class="paren1">(<span class="code"><i><span class="symbol">defmacro</span></i> pseudo-atomic <span class="paren2">(<span class="code">&amp;rest forms</span>)</span>
-  <span class="paren2">(<span class="code"><i><span class="symbol">with-unique-names</span></i> <span class="paren3">(<span class="code">label</span>)</span>
-    `<span class="paren3">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren4">(<span class="code"><span class="paren5">(<span class="code">,label <span class="paren6">(<span class="code">gen-label</span>)</span></span>)</span></span>)</span>
-       <span class="paren4">(<span class="code">inst or <span class="paren5">(<span class="code">make-ea <span class="keyword">:byte</span> <span class="keyword">:disp</span> <span class="paren6">(<span class="code">* 4 thread-pseudo-atomic-bits-slot</span>)</span></span>)</span>
-             <span class="paren5">(<span class="code">fixnumize 1</span>)</span> <span class="keyword">:fs</span></span>)</span>
-       ,@forms
-       <span class="paren4">(<span class="code">inst xor <span class="paren5">(<span class="code">make-ea <span class="keyword">:byte</span> <span class="keyword">:disp</span> <span class="paren6">(<span class="code">* 4 thread-pseudo-atomic-bits-slot</span>)</span></span>)</span>
-             <span class="paren5">(<span class="code">fixnumize 1</span>)</span> <span class="keyword">:fs</span></span>)</span>
-       <span class="paren4">(<span class="code">inst jmp <span class="keyword">:z</span> ,label</span>)</span>
-       <span class="comment">;; if PAI was set, interrupts were disabled at the same
-</span>       <span class="comment">;; time using the process signal mask.
-</span>       <span class="paren4">(<span class="code">inst break pending-interrupt-trap</span>)</span>
-       <span class="paren4">(<span class="code">emit-label ,label</span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
 <p><div class='br'></div><p>... read the rest of <a href="x86oid-pseudo-atomic.html" title="X86oid Pseudo Atomic">X86oid Pseudo Atomic</a>.</p></p>
 <p><a id="x-28MGL-PAX-BLOG-3A-40BLOG--40CODE-ALIGNMENT-ON-X86-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@BLOG-@CODE-ALIGNMENT-ON-X86-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -842,11 +823,6 @@ tell even in retrospect by comparing the real and user time columns.</p>
 finger, which is used to press the <em>Control</em> key. The standard
 answer to that is to map <em>Caps Lock</em> to <em>Control</em>. I believe that
 there is a better way:</p>
-<p><img src="blog-files/symbolics-keyboard.jpg" alt="" /></p>
-<p>Note the placement of modifiers: <em>Control</em>, <em>Meta</em>, <em>Super</em>, <em>Hyper</em>
-on both sides of Space in this order, with <em>Control</em> being the
-closest to it. Touch typers especially find having two of each key
-absolutely essential, and the symmetric placement appeals to me.</p>
 <p><div class='br'></div><p>... read the rest of <a href="space-cadet.html" title="Space Cadet">Space Cadet</a>.</p></p>
 <p><a id="x-28MGL-PAX-BLOG-3A-40BLOG--402008-COMPUTER-GAMES-OLYMPIAD-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@BLOG-@2008-COMPUTER-GAMES-OLYMPIAD-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -867,15 +843,7 @@ Six in particular) although losing does irk me a bit.</p>
 <p><span class='post-data'><em>Tags</em>: <a href="tech.html" title="tech"><code>tech</code></a>, <em>Date</em>: 2008-03-28</span></p>
 <div class='br'></div>
 <p>My carefully updated list of files to back up had grown so long that
-it made me worry about losing something important, and the backup
-didn't fit on a single DVD, so I invested in a WD Passport and
-created an encrypted file system on it:</p>
-<pre><code>modprobe cryptoloop
-modprobe aes
-losetup -e aes /dev/loop0 /dev/sdb
-mke2fs /dev/loop0
-tune2fs -i 0 -c 0 -j /dev/loop0
-</code></pre>
+it made me worry about losing something important.</p>
 <p><div class='br'></div><p>... read the rest of <a href="backup.html" title="Backup">Backup</a>.</p></p>
 <p><a id="x-28MGL-PAX-BLOG-3A-40BLOG--40IMPORTANT-REMAINDER-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@BLOG-@IMPORTANT-REMAINDER-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -892,22 +860,18 @@ hand grenades on board.</p>
 <h1><a href="first-post.html" title="First Post">First Post</a></h1>
 <p><span class='post-data'><em>Tags</em>: <a href="personal.html" title="personal"><code>personal</code></a>, <a href="tech.html" title="tech"><code>tech</code></a>, <em>Date</em>: 2008-02-01</span></p>
 <div class='br'></div>
+<p><strong>2020-05-03</strong>: Since then, this <a href="moving-the-blog-to-pax.html" title="Moving the Blog to PAX">blog has been moved to PAX</a>.</p>
 <p>After a long time of waiting to write my own blog
 software like true hackers with infinite time do (and those
 irritated by Wordpress), I bit the bullet and installed
-<a href="https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html" >blorg</a> – a very low
-overhead emacs blog engine – on top of
+<a href="https://web.archive.org/web/20080610092633/http://lumiere.ens.fr/~guerry/blorg.html" >blorg</a>,
+a very low-overhead Emacs blog engine on top of
 <a href="http://orgmode.org/" >org-mode</a>, that I happen to use as an
-organizer. Blorg basically converts an org mode buffer to html files,
-so it is completely static: send me <a href="mailto:mega@retes.hu" >email</a> if
-you have comments, I have no desire to maintain a more complex
-solution with comment filtering.</p>
-<p>Small fixes had to be made for blorg to be able to deal with
-org-mode 5.17a, and I only had time to bring it to some basic level
-of functionality. That said, here is the
-<a href="blog-files/blorg-init.el" >blorg-init.el</a> file I'm using right now.</p>
-<strong>2020-05-03</strong>: Since then, this blog has been moved to
-  <a href="http://github.com/melisgl/mgl-pax" >MGL-PAX</a>.
+organizer. Blorg basically converts an org mode buffer to HTML
+files, so it is completely static: send me
+<a href="mailto:mega@retes.hu" >email</a> if you have comments, I have no desire
+to maintain a more complex solution with comment filtering.</p>
+<div class='br'></div><p>... read the rest of <a href="first-post.html" title="First Post">First Post</a>.</p>
   </div>
 </div>
 <script>$('#page-toc').toc({'selectors': ''});</script>

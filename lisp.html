@@ -402,12 +402,6 @@ competition, last September I decided to enter the
 <a href="http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow" >Stackoverflow</a>
 contest on <a href="http://kaggle.com" >Kaggle</a>. It was a straightforward
 text classification problem with extremely unbalanced classes.</p>
-<p><img src="blog-files/malacka-es-bocsimacko.jpg" alt="Malacka" /></p>
-<p>Just as Bocsimackó did the last time around, his lazier sidekick (on
-the right) brought
-<a href="http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow/leaderboard" >success</a>.
-I would have loved to be lazy and still win, but the leaderboard was
-too close for comfort.</p>
 <p><div class='br'></div><p>... read the rest of <a href="stackoverflow-post-mortem.html" title="Stackoverflow Post-Mortem">Stackoverflow Post-Mortem</a>.</p></p>
 <p><a id="x-28MGL-PAX-BLOG-3A-40LISP--40ALPHA-BETA-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@LISP-@ALPHA-BETA-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -663,19 +657,6 @@ first three are passed in registers on x86).</p>
 - <a href="http://www.pvk.ca/Blog/LowLevel/VM_tricks_safepoints.html" >chat</a>
 about allocation and interrupts have had me looking at ways to speed
 up pseudo-atomic in SBCL.</p>
-<pre><code><span class="code"> <span class="paren1">(<span class="code"><i><span class="symbol">defmacro</span></i> pseudo-atomic <span class="paren2">(<span class="code">&amp;rest forms</span>)</span>
-  <span class="paren2">(<span class="code"><i><span class="symbol">with-unique-names</span></i> <span class="paren3">(<span class="code">label</span>)</span>
-    `<span class="paren3">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren4">(<span class="code"><span class="paren5">(<span class="code">,label <span class="paren6">(<span class="code">gen-label</span>)</span></span>)</span></span>)</span>
-       <span class="paren4">(<span class="code">inst or <span class="paren5">(<span class="code">make-ea <span class="keyword">:byte</span> <span class="keyword">:disp</span> <span class="paren6">(<span class="code">* 4 thread-pseudo-atomic-bits-slot</span>)</span></span>)</span>
-             <span class="paren5">(<span class="code">fixnumize 1</span>)</span> <span class="keyword">:fs</span></span>)</span>
-       ,@forms
-       <span class="paren4">(<span class="code">inst xor <span class="paren5">(<span class="code">make-ea <span class="keyword">:byte</span> <span class="keyword">:disp</span> <span class="paren6">(<span class="code">* 4 thread-pseudo-atomic-bits-slot</span>)</span></span>)</span>
-             <span class="paren5">(<span class="code">fixnumize 1</span>)</span> <span class="keyword">:fs</span></span>)</span>
-       <span class="paren4">(<span class="code">inst jmp <span class="keyword">:z</span> ,label</span>)</span>
-       <span class="comment">;; if PAI was set, interrupts were disabled at the same
-</span>       <span class="comment">;; time using the process signal mask.
-</span>       <span class="paren4">(<span class="code">inst break pending-interrupt-trap</span>)</span>
-       <span class="paren4">(<span class="code">emit-label ,label</span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
 <p><div class='br'></div><p>... read the rest of <a href="x86oid-pseudo-atomic.html" title="X86oid Pseudo Atomic">X86oid Pseudo Atomic</a>.</p></p>
 <p><a id="x-28MGL-PAX-BLOG-3A-40LISP--40CODE-ALIGNMENT-ON-X86-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@LISP-@CODE-ALIGNMENT-ON-X86-SHORT%20MGL-PAX:SECTION"></a></p>
@@ -702,11 +683,6 @@ tell even in retrospect by comparing the real and user time columns.</p>
 finger, which is used to press the <em>Control</em> key. The standard
 answer to that is to map <em>Caps Lock</em> to <em>Control</em>. I believe that
 there is a better way:</p>
-<p><img src="blog-files/symbolics-keyboard.jpg" alt="" /></p>
-<p>Note the placement of modifiers: <em>Control</em>, <em>Meta</em>, <em>Super</em>, <em>Hyper</em>
-on both sides of Space in this order, with <em>Control</em> being the
-closest to it. Touch typers especially find having two of each key
-absolutely essential, and the symmetric placement appeals to me.</p>
 <div class='br'></div><p>... read the rest of <a href="space-cadet.html" title="Space Cadet">Space Cadet</a>.</p>
   </div>
 </div>
