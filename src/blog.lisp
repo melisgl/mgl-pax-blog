@@ -3763,13 +3763,13 @@
      :date "2023-08-17")
   "Catchy title, innit? I came up with it while trying to
   name the development style [PAX](https://github.com/melisgl/mgl-pax)
-  enables. I wanted something vaguely self-explanatory in a straight
-  out of a marketing department kind of way, with tendrils right into
-  your unconscious. Documentation-driven development sounded just the
-  thing, but it's already taken. Luckily, I came to realize that
-  neither documentation nor any other single thing should drive
-  development. Less luckily for the philosophically disinclined, this
-  epiphany unleashed my inner [Richard P.
+  enables. The original idea was something vaguely self-explanatory in
+  a straight out of a marketing department kind of way, with tendrils
+  right into your unconscious. Documentation-driven development
+  sounded just the thing, but it's already taken. Luckily, I came to
+  realize that neither documentation nor any other single thing should
+  drive development. Less luckily for the philosophically disinclined,
+  this epiphany unleashed my inner [Richard P.
   Gabriel](https://en.wikipedia.org/wiki/Richard_P._Gabriel). I reckon
   if there is a point to what follows, it's abstract enough to make it
   hard to tell.
@@ -3782,7 +3782,7 @@
   the scope of formal methods.
 
   We strive to shorten the jump by looking at the solution carefully
-  from different angles (code, docs, specs), and by poking at it and
+  from different angles (code, docs, specs), by poking at it and
   observing its behaviour (tests, logs, input-output, debugging).
   These facets (descriptive or behavioural) of the solution are
   redundant with the code and each other. This redundancy is our main
