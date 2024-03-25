@@ -27,8 +27,8 @@ body {
   font-family: var(--font-family);
   font-feature-settings: var(--font-feature-settings);
   margin: auto;
-  background-color: #faf9f6;
-  color: #333;
+  background-color: #fdfdfc;
+  color: #181818;
   /* max-width: calc(73ch + 8*var(--line-height)); */
   hyphens: auto;
   hyphenate-limit-chars: 4 2 2;
@@ -163,7 +163,7 @@ blockquote, table, pre {
 
 pre {
   background-color: #F5F3ED;
-  color: #333;
+  color: #181818;
   border: 0.1em solid #CCCCCC;
   line-height: 1.25em;
   overflow: auto;
