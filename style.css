@@ -29,7 +29,7 @@ body {
   margin: auto;
   background-color: #fdfdfc;
   color: #181818;
-  /* max-width: calc(73ch + 8*var(--line-height)); */
+  /* max-width: calc(70ch + 8*var(--line-height)); */
   hyphens: auto;
   hyphenate-limit-chars: 4 2 2;
   min-height: 100vh;
@@ -139,9 +139,9 @@ h6 a {
 
 pre {
   font-family: var(--font-family-monospace);
-  /* With DejaVu Sans Mono 97% gets about 80 characters per line at full
-   * width (73ch). */
-  font-size: 97%;
+  /* With DejaVu Sans Mono, 93% gets about 80 characters per line at
+   * full width (70ch). */
+  font-size: 93%;
 }
 
 code {
@@ -279,7 +279,7 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
 /* toc on the top */
 #content
 {
-  max-width: 73ch;
+  max-width: 70ch;
   margin: 0 auto;
   padding-left: 2ch;
   padding-right: 2ch;
