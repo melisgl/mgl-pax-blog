@@ -3793,10 +3793,10 @@
 
   Tests, on the abstract level, have the same primary job as any other
   facet: constrain the solution by introducing redundancy. If
-  automatic, they have useful properties: 1. they are cheap to run; 2.
-  inconsistencies between code and tests are found automatically; 3.
-  they exert pressure to keep the code easily testable (when tracking
-  test coverage); 4. sometimes it's easiest to start with writing the
+  automatic, they have useful properties: 1.&nbsp;they are cheap to run;
+  2.&nbsp;inconsistencies between code and tests are found automatically;
+  3.&nbsp;they exert pressure to keep the code easily testable (when tracking
+  test coverage); 4.&nbsp;sometimes it's easiest to start with writing the
   tests. On the other hand, tests incur a maintenance cost (often
   small compared to the gains).
 
@@ -3805,10 +3805,10 @@
   to write and to check (must be read and compared to the
   implementation, which involves humans for a short while longer),
   consequently, it easily diverges from the code. It seems like the
-  wrong kind of redundancy. On the positive side, 1. it is valuable
+  wrong kind of redundancy. On the positive side, 1.&nbsp;it is valuable
   for users (e.g. user manual) and also for the programmer to
-  understand the intention; 2. it encourages easily explainable
-  designs; 3. sometimes it's easiest to start with writing the
+  understand the intention; 2.&nbsp;it encourages easily explainable
+  designs; 3.&nbsp;sometimes it's easiest to start with writing the
   documentation.
 
   Like tests or any other facet, documentation is not always needed,
