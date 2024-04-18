@@ -122,6 +122,8 @@
 
   - <a href='https://scholar.google.com/citations?user=TbLw2lcAAAAJ'>Google Scholar</a>
 
+  - <a href='https://orcid.org/0009-0000-3976-9122'>https://orcid.org/0009-0000-3976-9122</a>
+
   - <a href='https://mastodon.social/@melisgl'>mastodon.social/@melisgl</a>
 
   - <a href='https://twitter.com/GaborMelis'>twitter/GaborMelis</a>
