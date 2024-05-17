@@ -15,6 +15,7 @@
 html {
   font-size: calc(0.9em + 0.25vw);
   background-color: #888;
+  min-width: min-content;
 }
 
 @media (min-width: 40rem) {
