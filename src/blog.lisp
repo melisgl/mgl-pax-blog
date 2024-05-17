@@ -110,7 +110,6 @@
 
 (defsection @about-me (:title "About me")
   "I'm a Lisp hacker impersonating a research scientist.
-
   ![about-me-die](blog-files/die.png)
 
   - <a href='mailto:mega@retes.hu'>Gábor Melis &lt;mega@retes.hu&gt;</a>
@@ -122,7 +121,7 @@
 
   - <a href='https://scholar.google.com/citations?user=TbLw2lcAAAAJ'>Google Scholar</a>
 
-  - <a href='https://orcid.org/0009-0000-3976-9122'>https://orcid.org/0009-0000-3976-9122</a>
+  - <a href='https://orcid.org/0009-0000-3976-9122'>orcid.org/0009-0000-3976-9122</a>
 
   - <a href='https://mastodon.social/@melisgl'>mastodon.social/@melisgl</a>
 
@@ -137,14 +136,14 @@
   ## About This Blog
 
   There is an <a href='http://quotenil.com/blog.rss'>RSS feed for the
-  entire blog</a>, and one for each tag: <a
+  entire blog</a> and one for each tag: <a
   href='http://quotenil.com/ai.rss'>ai</a>, <a
   href='http://quotenil.com/lisp.rss'>lisp</a>, <a
   href='http://quotenil.com/tech.rss'>tech</a>, <a
   href='http://quotenil.com/personal.rss'>personal</a>. The blog is
   generated with a <a
   href='https://github.com/melisgl/mgl-pax-blog'>homegrown blog
-  engine</a> built on <a
+  engine</a> on top of <a
   href='https://github.com/melisgl/mgl-pax'>PAX</a>.")
 
 (defun generate-pages (categories html-sidebar)
@@ -379,7 +378,7 @@
   layout. I keep the original Backspace key too as Backspace, but it
   could be _Caps Lock_ as well: I don't use it either way. If you have
   a narrow _Space_ key, you can place your thumbs on the two _Control_
-  keys while the fingers rest on 'asdf' and 'jkl;'. Always press
+  keys while the fingers rest on _ASDF_ and _JKL;_. Always press
   modifiers with the alternate hand. `C-a` is right thumb + left
   pinky, `C-M-p` is left-thumb + left-ring + right-pinky. For `C-M-P`,
   add the left pinky for _Shift_.
@@ -400,7 +399,7 @@
       xset r 66
 
   where the second command enables auto repeat on the fresh, new
-  _Backspace_ key. It works on a pc105 (with one Win key) notebook
+  _Backspace_ key. It works on a PC105 (with one Win key) notebook
   keyboard.
 
   Oh, that xmodmap file above also has `[]` and `()` swapped.
@@ -3521,7 +3520,7 @@
   screen at various resolutions and also in print. This is fairly
   subjective, of course, so there is a lot of noise out there. Going
   by the [LaTeX Font Catalogue](https://tug.org/FontCatalogue/),
-  [Google Fonts](https://fonts.google.com/), and similar font
+  [Google Fonts](https://fonts.google.com/) and similar font
   comparison sites turned out to be fairly misleading because they
   present fonts at the same font
   size ([`em`](https://en.wikipedia.org/wiki/Em_(typography)) in LaTeX
@@ -3716,7 +3715,7 @@
     manner](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@MARKDOWN-IN-DOCSTRINGS%20MGL-PAX:SECTION).
 
   - There are now two supported CSS styles for HTML output: :DEFAULT
-    with `sans-serif`, and :CHARTER with Charter as the main
+    with `sans-serif` and :CHARTER with Charter as the main
     font (which is bundled). The :CHARTER style is used in the linked
     PAX World documentation on this blog. See
     [PAX:*BROWSE-HTML-STYLE*](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*BROWSE-HTML-STYLE*%20VARIABLE)
