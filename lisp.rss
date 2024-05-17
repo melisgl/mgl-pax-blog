@@ -193,7 +193,7 @@ is more tailored to the needs of PAX.&lt;/p&gt;
   &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@MARKDOWN-IN-DOCSTRINGS%20MGL-PAX:SECTION&quot; &gt;heuristic
   manner&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;There are now two supported CSS styles for HTML output: &lt;code&gt;:DEFAULT&lt;/code&gt;
-  with &lt;code&gt;sans-serif&lt;/code&gt;, and &lt;code&gt;:CHARTER&lt;/code&gt; with Charter as the main
+  with &lt;code&gt;sans-serif&lt;/code&gt; and &lt;code&gt;:CHARTER&lt;/code&gt; with Charter as the main
   font (which is bundled). The &lt;code&gt;:CHARTER&lt;/code&gt; style is used in the linked
   PAX World documentation on this blog. See
   &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*BROWSE-HTML-STYLE*%20VARIABLE&quot; &gt;PAX:*BROWSE-HTML-STYLE*&lt;/a&gt;
