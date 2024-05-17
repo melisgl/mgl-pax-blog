@@ -2403,7 +2403,7 @@ on the home row than the most useless and annoying key in history.&lt;/p&gt;
 layout. I keep the original Backspace key too as Backspace, but it
 could be &lt;em&gt;Caps Lock&lt;/em&gt; as well: I don&apos;t use it either way. If you have
 a narrow &lt;em&gt;Space&lt;/em&gt; key, you can place your thumbs on the two &lt;em&gt;Control&lt;/em&gt;
-keys while the fingers rest on &apos;asdf&apos; and &apos;jkl;&apos;. Always press
+keys while the fingers rest on &lt;em&gt;ASDF&lt;/em&gt; and &lt;em&gt;JKL;&lt;/em&gt;. Always press
 modifiers with the alternate hand. &lt;code&gt;C-a&lt;/code&gt; is right thumb + left
 pinky, &lt;code&gt;C-M-p&lt;/code&gt; is left-thumb + left-ring + right-pinky. For &lt;code&gt;C-M-P&lt;/code&gt;,
 add the left pinky for &lt;em&gt;Shift&lt;/em&gt;.&lt;/p&gt;
@@ -2421,7 +2421,7 @@ keyboard. To switch to the new layout do:&lt;/p&gt;
 xset r 66
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;where the second command enables auto repeat on the fresh, new
-&lt;em&gt;Backspace&lt;/em&gt; key. It works on a pc105 (with one Win key) notebook
+&lt;em&gt;Backspace&lt;/em&gt; key. It works on a PC105 (with one Win key) notebook
 keyboard.&lt;/p&gt;
 &lt;p&gt;Oh, that xmodmap file above also has &lt;code&gt;[]&lt;/code&gt; and &lt;code&gt;()&lt;/code&gt; swapped.&lt;/p&gt;
 &lt;strong&gt;2020-05-03&lt;/strong&gt; Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
