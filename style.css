@@ -34,11 +34,11 @@ body {
   hyphens: auto;
   hyphenate-limit-chars: 4 2 2;
   min-height: 100vh;
+  line-height: var(--line-height);
 }
 
 p {
   margin: var(--line-height) 0 0 0;
-  line-height: var(--line-height);
 }
 
 p + p {
