@@ -1406,9 +1406,9 @@
 
   ![](blog-files/mnist-2-dbm.png)
 
-  In the diagram above, as before, dark gray boxes are constants (to
+  In the diagram above, as before, dark grey boxes are constants (to
   provide the connected chunks with biases), inputs are colored mid
-  gray while hidden features are light gray. `INPUTS` is where the
+  grey while hidden features are light grey. `INPUTS` is where the
   28x28 pixel image is clamped and `LABEL` is a softmax chunk for the
   10 digit classes.
 
@@ -3234,7 +3234,7 @@
     storage and/or computation) and suboptimal (can miss early
     solutions).
 
-  These are the issues Two-Tailed Averaging tackles. 
+  These are the issues Two-Tailed Averaging tackles.
 
   ## Two-Tailed Averaging
 
@@ -3773,9 +3773,9 @@
   this epiphany unleashed my inner [Richard P.
   Gabriel](https://en.wikipedia.org/wiki/Richard_P._Gabriel). I reckon
   if there is a point to what follows, it's abstract enough to make it
-  hard to tell.
+  hard to tell."
 
-  In programming, there is always a formalization step involved: we
+  "In programming, there is always a formalization step involved: we
   must go from idea to code. Very rarely, we have a formal definition
   of the problem, but apart from purely theoretical exercises,
   formalization always involves a jump of faith. It's like math word
@@ -3849,6 +3849,80 @@
   This is what PAX tries to do for documentation and code.
   <br>
   And that's the best 4KiB name I could come up with.")
+
+(defpost @argmin-meehl-summary
+    (:title "TLDR of Argmin's Summary of Half of the Meehl Lectures"
+     :tags (@ai @pompousness)
+     :date "2024-05-22")
+  "Over at [argmin.net][argmin], Ben Recht [is reflecting on Meehl's
+  lectures][argmin-series] on the metatheory of science, which is
+  about how science progresses. The original lectures are fascinating
+  but also long as well as long-winded, and I found Ben's blog series
+  a much better read (especially since the originals are video
+  recordings). Still, at the time of writing, with 13 blog posts
+  covering less than half of the lectures (5/12), no self-respecting
+  21st century scientist can risk the time investment (equivalent to
+  publishing 0.25 papers in machine learning) or – even worse –
+  getting slowed down by methodological considerations.
+
+  [argmin]: https://www.argmin.net
+  [argmin-series]: https://www.argmin.net/p/meehls-philosophical-probability
+
+  So, here is my TLDR for the busy professional: _it's all Bayes and
+  incentives_. There is no silver bullet method, and while we do
+  questionable things for all the wrong reasons, time will clean up
+  any mess that we make anyway.
+
+  Expanding that for slightly longer attention spans:
+
+  - Theories can be disproved but cannot be proved.
+
+  - We can only accumulate evidence that supports a theory.
+
+  - _Evidence is subjective._
+
+  - All theories are wrong, but some are useful.
+
+  - _The utility of a theory is its only grounding in reality_.
+
+  At this point, the rest is somewhat predictable; my armchair is
+  like any other. But if you can tolerate examples and spelling out
+  implications, read on.
+
+  - We want to run convincing experiments, but what is convincing to
+    someone depends on their beliefs about the possible hypotheses,
+    results and what they know about our methodology (never fully
+    specified) and us (e.g. motivations, beliefs, funding).
+
+  - We choose experiments to rule out large swaths of the hypothesis
+    space weighted by our beliefs, which might bear little resemblance
+    to others' beliefs.
+
+  - If the hypothesis space is large and we don't have very strong
+    beliefs, it may be that we don't even think in terms of
+    hypotheses. Instead, we may think in terms of probability of
+    results (as if we marginalized out the hypotheses). \"Hey, these
+    results hold to 37 decimal places! What do you think the chances
+    of that are if our model was wrong?\"
+
+  - The entire process that produced a result is considered in belief
+    updates. This includes the researcher, the machinery, the funding
+    agency, the organization, etc.
+
+  - With so many factors, there is always room for different
+    interpretations of results. Eventually, theories die when they are
+    no longer useful (for _any_ purpose).
+
+  - Classical formal logic has limited use in this setting. It seems
+    to be all Bayes with a bit of decision/game theory thrown in.
+
+  - In these Bayesian belief updates, perceived incentives play a
+    prominent role: many results are downweighted because we know the
+    twisted academic and applied research incentive structure.
+
+  I believe improving the incentives is the most important
+  contribution one can make in today's world. Now, go and read Ben's
+  [posts][argmin-series].")
 
 
 (defun on-current-page-p (object)
