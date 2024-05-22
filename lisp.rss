@@ -1635,9 +1635,9 @@ one, the DBM is trained as a whole which, in theory, allows it to
 reconcile bottom-up and top-down signals, i.e. what it sees and what
 it thinks.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-dbm.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;In the diagram above, as before, dark gray boxes are constants (to
+&lt;p&gt;In the diagram above, as before, dark grey boxes are constants (to
 provide the connected chunks with biases), inputs are colored mid
-gray while hidden features are light gray. &lt;code&gt;INPUTS&lt;/code&gt; is where the
+grey while hidden features are light grey. &lt;code&gt;INPUTS&lt;/code&gt; is where the
 28x28 pixel image is clamped and &lt;code&gt;LABEL&lt;/code&gt; is a softmax chunk for the
 10 digit classes.&lt;/p&gt;
 &lt;p&gt;In the Matlab code, there are a number of prominent features that

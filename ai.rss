@@ -7,6 +7,67 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
+            <title>TLDR of Argmin&apos;s Summary of Half of the Meehl Lectures</title>
+            <link>http://quotenil.com/argmin-meehl-summary.html</link>
+            <description>&lt;p&gt;Over at &lt;a href=&quot;https://www.argmin.net&quot; &gt;argmin.net&lt;/a&gt;, Ben Recht &lt;a href=&quot;https://www.argmin.net/p/meehls-philosophical-probability&quot; &gt;is reflecting on Meehl&apos;s
+lectures&lt;/a&gt; on the metatheory of science, which is
+about how science progresses. The original lectures are fascinating
+but also long as well as long-winded, and I found Ben&apos;s blog series
+a much better read (especially since the originals are video
+recordings). Still, at the time of writing, with 13 blog posts
+covering less than half of the lectures (5/12), no self-respecting
+21st century scientist can risk the time investment (equivalent to
+publishing 0.25 papers in machine learning) or – even worse –
+getting slowed down by methodological considerations.&lt;/p&gt;
+&lt;p&gt;So, here is my TLDR for the busy professional: &lt;em&gt;it&apos;s all Bayes and
+incentives&lt;/em&gt;. There is no silver bullet method, and while we do
+questionable things for all the wrong reasons, time will clean up
+any mess that we make anyway.&lt;/p&gt;
+&lt;p&gt;Expanding that for slightly longer attention spans:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Theories can be disproved but cannot be proved.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We can only accumulate evidence that supports a theory.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Evidence is subjective.&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;All theories are wrong, but some are useful.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;The utility of a theory is its only grounding in reality&lt;/em&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;At this point, the rest is somewhat predictable; my armchair is
+like any other. But if you can tolerate examples and spelling out
+implications, read on.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;We want to run convincing experiments, but what is convincing to
+  someone depends on their beliefs about the possible hypotheses,
+  results and what they know about our methodology (never fully
+  specified) and us (e.g. motivations, beliefs, funding).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We choose experiments to rule out large swaths of the hypothesis
+  space weighted by our beliefs, which might bear little resemblance
+  to others&apos; beliefs.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If the hypothesis space is large and we don&apos;t have very strong
+  beliefs, it may be that we don&apos;t even think in terms of
+  hypotheses. Instead, we may think in terms of probability of
+  results (as if we marginalized out the hypotheses). &amp;quot;Hey, these
+  results hold to 37 decimal places! What do you think the chances
+  of that are if our model was wrong?&amp;quot;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The entire process that produced a result is considered in belief
+  updates. This includes the researcher, the machinery, the funding
+  agency, the organization, etc.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;With so many factors, there is always room for different
+  interpretations of results. Eventually, theories die when they are
+  no longer useful (for &lt;em&gt;any&lt;/em&gt; purpose).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Classical formal logic has limited use in this setting. It seems
+  to be all Bayes with a bit of decision/game theory thrown in.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;In these Bayesian belief updates, perceived incentives play a
+  prominent role: many results are downweighted because we know the
+  twisted academic and applied research incentive structure.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+I believe improving the incentives is the most important
+contribution one can make in today&apos;s world. Now, go and read Ben&apos;s
+&lt;a href=&quot;https://www.argmin.net/p/meehls-philosophical-probability&quot; &gt;posts&lt;/a&gt;.
+</description>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
+            <pubDate>Wed, 22 May 2024 01:00:00 +0100</pubDate>
+        </item>
+        <item>
             <title>Practitioner&apos;s Guide to Two-Tailed Averaging</title>
             <link>http://quotenil.com/tta-practitioner.html</link>
             <description>&lt;p&gt;This is a complement to the &lt;a href=&quot;https://arxiv.org/abs/2209.12581&quot; &gt;Two-Tailed Averaging
@@ -50,7 +111,7 @@ Averaging&lt;/a&gt; (SWA) does.&lt;/p&gt;
   storage and/or computation) and suboptimal (can miss early
   solutions).&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;These are the issues Two-Tailed Averaging tackles. &lt;/p&gt;
+&lt;p&gt;These are the issues Two-Tailed Averaging tackles.&lt;/p&gt;
 &lt;h2&gt;Two-Tailed Averaging&lt;/h2&gt;
 &lt;p&gt;The algorithm needs storage for only two sets of weights (constant
 storage cost) and performance (e.g. of summarization) to be
@@ -1145,9 +1206,9 @@ one, the DBM is trained as a whole which, in theory, allows it to
 reconcile bottom-up and top-down signals, i.e. what it sees and what
 it thinks.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/mnist-2-dbm.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;In the diagram above, as before, dark gray boxes are constants (to
+&lt;p&gt;In the diagram above, as before, dark grey boxes are constants (to
 provide the connected chunks with biases), inputs are colored mid
-gray while hidden features are light gray. &lt;code&gt;INPUTS&lt;/code&gt; is where the
+grey while hidden features are light grey. &lt;code&gt;INPUTS&lt;/code&gt; is where the
 28x28 pixel image is clamped and &lt;code&gt;LABEL&lt;/code&gt; is a softmax chunk for the
 10 digit classes.&lt;/p&gt;
 &lt;p&gt;In the Matlab code, there are a number of prominent features that
