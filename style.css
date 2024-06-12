@@ -13,7 +13,7 @@
 }
 
 html {
-  font-size: calc(0.95em + 0.25vw);
+  font-size: calc(0.95em + 0.2vw);
   background-color: #888;
   min-width: min-content;
 }
