@@ -9,11 +9,13 @@
   --font-family-monospace: 'DejaVu Sans Mono', 'Liberation Mono', 'Hack', 'Roboto Mono', monospace;
   /* To make DejaVu Sans Mono's x-height match XCharter's. */
   --font-size-monospace: 86%;
-  --line-height: 1.6rem;
+  /* The line height goes from 1.4rem to 1.5rem as the viewport size
+     increases. */
+  --line-height: min(calc(1.4rem + 0.3vw), 1.5rem);
 }
 
 html {
-  font-size: calc(0.95em + 0.2vw);
+  font-size: min(calc(0.95em + 0.2vw), 1.2em);
   background-color: #888;
   min-width: min-content;
 }
