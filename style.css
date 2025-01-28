@@ -121,13 +121,10 @@ h1 a {
   text-decoration: none;
   color: #1a1a1a;
 }
-h1 > a:hover {
-  /* color: #0233c8; */
-  text-decoration: underline;
-  text-decoration-thickness: 0.01em;
-  text-decoration-color: #1a1a1a;
+h1 a:hover {
+  /* Match horizontal stroke thickness. */
+  text-decoration-thickness: 0.028em;
 }
-
 h2 a {
   text-decoration: none;
   color: #1a1a1a;
@@ -195,14 +192,15 @@ li {
 a {
   text-decoration: none;
   color: #0233c8;
-  /* text-decoration-thickness: 0.04em; */
-  /* text-underline-offset: 0.1em; */
 }
 
 a:hover {
   text-decoration: underline;
+  /* This roughly matches the thickness of a horizontal stroke in
+   * XCharter (e.g. in e or in A). */
   text-decoration-thickness: 0.04em;
-  text-underline-offset: 0.09em;
+  /* About halfway down on descenders */
+  text-underline-offset: 0.07em;
 }
 
 img {
