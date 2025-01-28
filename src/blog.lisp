@@ -88,7 +88,7 @@
    :readtable *readtable*
    :title title
    :entries (cons (format nil "<span class='post-data'>~
-                              _Tags_: ~{[`~A`][~A]~^, ~}, _Date_: ~A</span>~%~%~
+                              _Tags:_ ~{[`~A`][~A]~^, ~},&nbsp; _Date:_ ~A</span>~%~%~
                               <div class='br'></div>"
                           (mapcan (lambda (category)
                                     (let ((name (category-display-name
