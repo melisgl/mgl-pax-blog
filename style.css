@@ -121,6 +121,13 @@ h1 a {
   text-decoration: none;
   color: #1a1a1a;
 }
+h1 > a:hover {
+  /* color: #0233c8; */
+  text-decoration: underline;
+  text-decoration-thickness: 0.01em;
+  text-decoration-color: #1a1a1a;
+}
+
 h2 a {
   text-decoration: none;
   color: #1a1a1a;
@@ -194,6 +201,8 @@ a {
 
 a:hover {
   text-decoration: underline;
+  text-decoration-thickness: 0.04em;
+  text-underline-offset: 0.09em;
 }
 
 img {
