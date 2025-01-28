@@ -198,7 +198,7 @@ a:hover {
   text-decoration: underline;
   /* This roughly matches the thickness of a horizontal stroke in
    * XCharter (e.g. in e or in A). */
-  text-decoration-thickness: 0.04em;
+  text-decoration-thickness: 0.05em;
   /* About halfway down on descenders */
   text-underline-offset: 0.07em;
 }
