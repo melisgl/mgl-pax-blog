@@ -77,7 +77,7 @@ h1 {
   font-feature-settings: var(--font-feature-settings-heading);
   font-weight: normal;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.10em;
   /* text-shadow: 0.05em 0.05em 0.02em #DDD; */
   margin-bottom: 0.4em;
   line-height: calc(2*var(--line-height));
