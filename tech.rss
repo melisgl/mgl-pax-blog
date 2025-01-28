@@ -85,7 +85,7 @@ This is what PAX tries to do for documentation and code.
 And that&apos;s the best 4KiB name I could come up with.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Thu, 17 Aug 2023 01:00:00 +0100</pubDate>
+            <pubDate>Thu, 17 Aug 2023 02:00:00 +0200</pubDate>
         </item>
         <item>
             <title>Try in Emacs</title>
@@ -115,7 +115,7 @@ that does not have Emacs integration, so you&apos;ll need to use
 until the next Quicklisp release.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Mon, 14 Aug 2023 01:00:00 +0100</pubDate>
+            <pubDate>Mon, 14 Aug 2023 02:00:00 +0200</pubDate>
         </item>
         <item>
             <title>DRef and PAX v0.3</title>
@@ -204,7 +204,7 @@ is more tailored to the needs of PAX.&lt;/p&gt;
 &lt;/ul&gt;
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Wed, 26 Jul 2023 01:00:00 +0100</pubDate>
+            <pubDate>Wed, 26 Jul 2023 02:00:00 +0200</pubDate>
         </item>
         <item>
             <title>PAX Live Documentation Browser</title>
@@ -230,7 +230,7 @@ demonstrate the basics.&lt;/p&gt;
 &lt;/ul&gt;
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Sat, 10 Jun 2023 01:00:00 +0100</pubDate>
+            <pubDate>Sat, 10 Jun 2023 02:00:00 +0200</pubDate>
         </item>
         <item>
             <title>Grid Typesetting</title>
@@ -251,7 +251,7 @@ see what he has to say about
 grids, in particular.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Mon, 17 Apr 2023 01:00:00 +0100</pubDate>
+            <pubDate>Mon, 17 Apr 2023 02:00:00 +0200</pubDate>
         </item>
         <item>
             <title>Normalize Fonts for Comparison</title>
@@ -320,7 +320,7 @@ for the body text.
 or &lt;a href=&quot;https://mastodon.social/@melisgl/110175790416538571&quot; &gt;Mastodon&lt;/a&gt;.&lt;/p&gt;
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Mon, 10 Apr 2023 01:00:00 +0100</pubDate>
+            <pubDate>Mon, 10 Apr 2023 02:00:00 +0200</pubDate>
         </item>
         <item>
             <title>Migration to Github</title>
@@ -339,7 +339,7 @@ move all non-obsolete code over to github. This affects:&lt;/p&gt;
 &lt;/ul&gt;
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Thu, 25 Sep 2014 01:00:00 +0100</pubDate>
+            <pubDate>Thu, 25 Sep 2014 02:00:00 +0200</pubDate>
         </item>
         <item>
             <title>Hung Connections</title>
@@ -368,7 +368,7 @@ That&apos;s more important than keepalive unless you never have network
 issues.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Sun, 27 Feb 2011 00:00:00 +0000</pubDate>
+            <pubDate>Sun, 27 Feb 2011 01:00:00 +0100</pubDate>
         </item>
         <item>
             <title>OfflineIMAP with Encrypted Authinfo</title>
@@ -418,7 +418,7 @@ def get_authinfo_password(machine, login, port):
 That&apos;s it, no more cleartext passwords.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Sat, 26 Feb 2011 00:00:00 +0000</pubDate>
+            <pubDate>Sat, 26 Feb 2011 01:00:00 +0100</pubDate>
         </item>
         <item>
             <title>Upgrade Woes 2</title>
@@ -434,7 +434,7 @@ Synaptics click by tapping went away before the upgrade so that
 doesn&apos;t count.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Mon, 08 Feb 2010 00:00:00 +0000</pubDate>
+            <pubDate>Mon, 08 Feb 2010 01:00:00 +0100</pubDate>
         </item>
         <item>
             <title>Upgrade Woes</title>
@@ -469,7 +469,7 @@ notable exceptions. With KDE 4.3, I should have waited more.&lt;/p&gt;
 &lt;/ul&gt;
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Fri, 06 Nov 2009 00:00:00 +0000</pubDate>
+            <pubDate>Fri, 06 Nov 2009 01:00:00 +0100</pubDate>
         </item>
         <item>
             <title>Space Cadet</title>
@@ -515,7 +515,7 @@ keyboard.&lt;/p&gt;
   version&lt;/a&gt;.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Mon, 15 Dec 2008 00:00:00 +0000</pubDate>
+            <pubDate>Mon, 15 Dec 2008 01:00:00 +0100</pubDate>
         </item>
         <item>
             <title>Backup</title>
@@ -569,7 +569,7 @@ system (only &lt;code&gt;/boot&lt;/code&gt; is separate), and that resides on LV
 makes it trivial to snapshot.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Fri, 28 Mar 2008 00:00:00 +0000</pubDate>
+            <pubDate>Fri, 28 Mar 2008 01:00:00 +0100</pubDate>
         </item>
         <item>
             <title>First Post</title>
@@ -591,7 +591,7 @@ of functionality. That said, here is the
 &lt;a href=&quot;http://quotenil.com/blog-files/blorg-init.el&quot; &gt;blorg-init.el&lt;/a&gt; file I&apos;m using right now.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
-            <pubDate>Fri, 01 Feb 2008 00:00:00 +0000</pubDate>
+            <pubDate>Fri, 01 Feb 2008 01:00:00 +0100</pubDate>
         </item>
     </channel>
 </rss>
