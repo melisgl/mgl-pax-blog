@@ -124,7 +124,7 @@ h1 a {
 }
 h1 a:hover {
   /* Match horizontal stroke thickness. */
-  text-decoration-thickness: 0.028em;
+  text-decoration-thickness: 0.035em;
 }
 h2 a {
   text-decoration: none;
