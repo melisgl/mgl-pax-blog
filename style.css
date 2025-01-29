@@ -18,6 +18,7 @@
 }
 
 html {
+  counter-reset: subheading;
   font-size: min(calc(0.95em + 0.2vw), 1.2em);
   background-color: #888;
   min-width: min-content;
@@ -90,25 +91,30 @@ h1 {
   /* margin: calc(3*var(--line-height)) 0 calc(2*var(--line-height)) 0; */
   text-align: center;
 }
-
+h2:before {
+  content: counter(subheading)"  ";
+  counter-increment: subheading;
+  counter-reset: subsubheading;
+}
 h2 {
-  font-family: var(--font-family-heading);
-  font-feature-settings: var(--font-feature-settings-heading);
   font-weight: normal;
   font-variant: small-caps;
+  font-size: 1rem;
   text-transform: lowercase;
-  font-size: var(--font-size-heading);
-  color: black;
   letter-spacing: 0.08em;
   word-spacing: 0.08em;
   line-height: var(--line-height);
   margin: var(--line-height) 0;
 }
-
+h3:before {
+  content: counter(subheading)"."counter(subsubheading)"  ";
+  counter-increment: subsubheading;
+}
 h3 {
   font-family: var(--font-family-heading);
   font-feature-settings: var(--font-feature-settings-heading);
   font-weight: normal;
+  font-size: 1rem;
   font-style: italic;
   line-height: var(--line-height);
   margin: calc(0.5*var(--line-height)) 0;
