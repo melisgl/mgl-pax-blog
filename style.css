@@ -91,7 +91,7 @@ h1 {
   /* margin: calc(3*var(--line-height)) 0 calc(2*var(--line-height)) 0; */
   text-align: center;
 }
-h2:before {
+h2:not(:only-of-type):before {
   content: counter(subheading)"  ";
   counter-increment: subheading;
   counter-reset: subsubheading;
