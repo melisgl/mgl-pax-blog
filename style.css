@@ -127,16 +127,15 @@ h4, h5, h6 {
   margin: calc(0.5*var(--line-height)) 0;
 }
 
-h1 a {
+h1 a:link, h1 a:visited {
   text-decoration: none;
   color: #1a1a1a;
 }
 h1 a:hover {
-  /* Match the default color of links on hover. */
   text-decoration: none;
-  color: #2b6ac8;
+  color: #233556;
   /* Or when underlined, match horizontal stroke thickness. */
-  text-decoration-thickness: 0.035em;
+  /* text-decoration-thickness: 0.035em; */
 }
 h2 a {
   text-decoration: none;
@@ -202,18 +201,29 @@ li {
   margin: 0;
 }
 
-a {
-  text-decoration: none;
-  color: #2b6ac8;
+/* Link styling a'la Wikipedia */
+a:link, a:visited, a:focus {
+  color: #3366cc;
 }
-
 a:hover {
+  color: #3056a9;
+}
+a:active {
+  color: #233556;
+}
+a:link {
+  text-decoration: none;
+}
+a:focus, a:hover, a:active {
   text-decoration: underline;
-  /* This roughly matches the thickness of a horizontal stroke in
-   * XCharter (e.g. in e or in A). */
-  text-decoration-thickness: 0.05em;
+  text-decoration-thickness: 0.06em;
   /* About halfway down on descenders */
   text-underline-offset: 0.07em;
+}
+a:focus {
+  border-radius: 0.1em 0.1em;
+  outline: 0.08em solid #3056a9;
+  outline-offset: 0.05em;
 }
 
 img {
