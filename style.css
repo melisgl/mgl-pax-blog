@@ -358,6 +358,9 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   color: #fff;
   text-decoration: none;
 }
+#toc a:focus {
+  outline-color: #fff;
+}
 
 #home {
   background-color: #444;
