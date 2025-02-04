@@ -391,6 +391,7 @@ img[alt$="typography-line-terms"] {
   height: calc(8*var(--line-height));
 }
 
+/* To debug alignment to baseline grid. */
 /* body { */
 /*   background-size: 1000vw var(--line-height); */
 /*   background-image: */
