@@ -12,8 +12,8 @@
   /* To make XEB Garamond's x-height match XCharter's. */
   --font-size-heading: 109%;
   /* The line height goes from 1.25rem to 1.4rem as the viewport width
-     increases. This reaches its maximum at about 70ch width, which is
-     the max for #content. */
+   * increases. This reaches its maximum at about 70ch width, which is
+   * the max for #content. */
   --line-height: min(calc(1.25rem + 0.35vw), 1.4rem);
 }
 
@@ -383,7 +383,7 @@ img[alt$="about-me-die"] {
   float: right;
 }
 
-img[alt$="TTA (orange) vs SWA (green)"] {
+img[alt$="2TA (orange) vs SWA (green)"] {
   height: calc(8*var(--line-height));
 }
 
