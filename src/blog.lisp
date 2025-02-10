@@ -1034,7 +1034,7 @@ window.addEventListener('resize', adjustHeight);
 (defpost @introduction-to-mgl-part-2 (:title "Introduction to MGL (part 2)"
                                       :tags (@ai @lisp)
                                       :date "2009-12-17")
-  """**UPDATE** – This post out of date with regards to current MGL.
+  """**UPDATE** – This post is out of date with regards to current MGL.
   Please refer to the
   [documentation](http://melisgl.github.io/mgl-pax-world/mgl-manual.html)
   instead.
@@ -1194,7 +1194,7 @@ window.addEventListener('resize', adjustHeight);
 (defpost @introduction-to-mgl-part-3 (:title "Introduction to MGL (part 3)"
                                       :tags (@ai @lisp)
                                       :date "2009-12-29")
-  """**UPDATE** – This post out of date with regards to current MGL.
+  """**UPDATE** – This post is out of date with regards to current MGL.
   Please refer to the
   [documentation](http://melisgl.github.io/mgl-pax-world/mgl-manual.html)
   instead.
