@@ -44,21 +44,12 @@ body {
 }
 
 p {
-  margin: var(--line-height) 0 0 0;
-}
-
-p + p {
-  margin: 0;
-  text-indent: var(--line-height);
-}
-
-ul + p, ol + p, dl + p {
   margin: 0;
   text-indent: 0;
 }
 
-li > p {
-  margin: 0;
+p + p {
+  text-indent: var(--line-height);
 }
 
 /* This moves the Tags/Date line right below the H1 heading.*/
@@ -83,7 +74,6 @@ h1 {
   letter-spacing: 0.08em;
   word-spacing: 0.08em;
   /* text-shadow: 0.05em 0.05em 0.02em #DDD; */
-  margin-bottom: 0.4em;
   line-height: calc(2*var(--line-height));
   /* This makes the baselineskip 1.5 times the cap height. */
   font-size: 1.67rem;
@@ -92,7 +82,7 @@ h1 {
   text-align: center;
 }
 h2:not(:only-of-type):before {
-  content: counter(subheading)"  ";
+  content: counter(subheading)" ";
   counter-increment: subheading;
   counter-reset: subsubheading;
 }
@@ -107,7 +97,7 @@ h2 {
   margin: var(--line-height) 0;
 }
 h3:before {
-  content: counter(subheading)"."counter(subsubheading)"  ";
+  content: counter(subheading)"."counter(subsubheading)" ";
   counter-increment: subsubheading;
 }
 h3 {
@@ -164,6 +154,8 @@ pre {
    * full width (70ch). */
   font-size: 93%;
   max-width: 87vw;
+  line-height: var(--line-height);
+  margin: 0;
 }
 
 code {
@@ -178,8 +170,7 @@ hr {
   background-color: #CCCCCC;
 }
 
-blockquote, table, pre {
-  line-height: var(--line-height);
+blockquote, table {
   margin: var(--line-height) 0 0 0;
 }
 
@@ -395,6 +386,5 @@ img[alt$="typography-line-terms"] {
 /* body { */
 /*   background-size: 1000vw var(--line-height); */
 /*   background-image: */
-/*     linear-gradient(to right, grey 1px, transparent 1px), */
 /*     linear-gradient(to bottom, grey 1px, transparent 1px); */
 /* } */

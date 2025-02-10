@@ -27,6 +27,36 @@
 
   gtag('config', 'G-7X64Q1D73F');
 </script>
+<script>
+function adjustHeight() {
+  document.querySelectorAll('pre, img').forEach(el => {
+    if (el.alt == 'end-of-post' || el.alt == 'about-me-die') {
+      return;
+    }
+    // This includes padding, which the current CSS doesn't have;
+    // offsetHeight doesn't but is rounded.
+    let currentHeight = el.getBoundingClientRect().height;
+    let lineHeight = parseFloat(window.getComputedStyle(document.body).lineHeight);
+    let targetHeight = Math.ceil(currentHeight / lineHeight) * lineHeight;
+    if (el.parentNode.className != 'padding-wrapper') {
+      w = document.createElement('div');
+      w.className = 'padding-wrapper';
+      el.replaceWith(w);
+      w.appendChild(el);
+    }
+    let extraPadding = targetHeight - currentHeight;
+    if (extraPadding < 0.75*lineHeight) {
+      extraPadding += lineHeight;
+    }
+    let remPx = parseFloat(getComputedStyle(document.documentElement).fontSize)
+    extraPadding = extraPadding / 2 /remPx;
+    el.parentNode.style.paddingTop = `${extraPadding}rem`;
+    el.parentNode.style.paddingBottom = `${extraPadding}rem`;
+  });
+}
+window.addEventListener('load', adjustHeight);
+window.addEventListener('resize', adjustHeight);
+</script>
 <link rel='shortcut icon' type='image/png' href='favicon.png'>
 <link rel='preconnect' href='https://fonts.googleapis.com'>
 <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
