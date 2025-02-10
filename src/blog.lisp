@@ -286,7 +286,7 @@ window.addEventListener('resize', adjustHeight);
 (defpost @first-post (:title "First Post"
                       :tags (@personal @tech)
                       :date "2008-02-01")
-  "**2020-05-03**: Since then, this [blog has been moved to PAX][ @MOVING-THE-BLOG-TO-PAX].
+  "**UPDATE**: *2020-05-05* – Since then, this [blog has been moved to PAX][ @MOVING-THE-BLOG-TO-PAX].
 
   After a long time of waiting to write my own blog
   software like true hackers with infinite time do (and those
@@ -433,8 +433,8 @@ window.addEventListener('resize', adjustHeight);
 
   Oh, that xmodmap file above also has `[]` and `()` swapped.
 
-  **2020-05-03** Later on, I broke down and wrote an [xkb
-    version](https://github.com/melisgl/lisp-machine-xkb).")
+  **UPDATE**: *2020-05-03* – Later on, I broke down and wrote an [xkb
+  version](https://github.com/melisgl/lisp-machine-xkb).")
 
 (defpost @code-alignment-on-x86 (:title "Code Alignment on x86"
                                  :tags (@lisp)
