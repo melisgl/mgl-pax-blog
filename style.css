@@ -384,6 +384,10 @@ img[alt$="2TA (orange) vs SWA (green)"] {
   height: calc(8*var(--line-height));
 }
 
+img[alt$="try-emacs"] {
+  height: calc(10*var(--line-height));
+}
+
 img[alt$="typography-line-terms"] {
   height: calc(8*var(--line-height));
 }
