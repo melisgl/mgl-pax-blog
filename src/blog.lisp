@@ -3389,13 +3389,13 @@ window.addEventListener('resize', adjustHeight);
   ```
 
   In the above, `f(w_i)` is the loss with the non-averaged weights,
-  `f(w_2ta)` is the loss with the weights provided by 2TA, and `l` is
-  the number of weights averaged. We see that with the high, constant
-  learning rate, SGD keeps jumping around the optimum, and while 2TA
-  does the same, its jitter is way smaller (it's beyond the three
-  significant digits printed here). Also, the length of the average
-  increases almost monotonically but not quite due to the switching
-  logic.
+  `f(w_2ta)` is the loss with the weights provided by <span
+  class='lnum'>2TA</span>, and `l` is the number of weights averaged.
+  We see that with the high, constant learning rate, SGD keeps jumping
+  around the optimum, and while <span class='lnum'>2TA</span> does the
+  same, its jitter is way smaller (it's beyond the three significant
+  digits printed here). Also, the length of the average increases
+  almost monotonically but not quite due to the switching logic.
 
   OK, that was easy. Let's now do something a bit more involved, where
   the function being optimized changes. We will change the loss
@@ -3444,7 +3444,7 @@ window.addEventListener('resize', adjustHeight);
           best_iteration = 0
   ```
 
-  We can see that 2TA adapts to the non-stationarity in a reasonable
+  We can see that <span class='lnum'>2TA</span> adapts to the non-stationarity in a reasonable
   way although the reset heuristic gets triggered spuriously a couple
   of times:
 
@@ -3476,8 +3476,9 @@ window.addEventListener('resize', adjustHeight);
   i=2000: f(w_i)=242.481, f(w_2ta)=242.481, l=   1 Reset!
   ```
 
-  Note that in these examples, the evaluation function in 2TA was the
-  training loss, but 2TA is intended for when the evaluation function
+  Note that in these examples, the evaluation function in <span
+  class='lnum'>2TA</span> was the training loss, but <span
+  class='lnum'>2TA</span> is intended for when the evaluation function
   measures performance on the validation set or on a down-stream
   task (e.g. summarization).
 
