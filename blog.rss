@@ -1128,7 +1128,7 @@ shortened posts, something PAX hasn&apos;t seen the need for.
         <item>
             <title>On the Design of Matrix Libraries</title>
             <link>http://quotenil.com/on-the-design-of-matrix-libraries.html</link>
-            <description>&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;: &lt;em&gt;2020-05-03&lt;/em&gt; – Things have changed the during last 5
+            <description>&lt;p&gt;&lt;strong&gt;2020-05-03&lt;/strong&gt; – Things have changed the during last 5
 years. This is a non-issue in Tensorflow and possibly in other
 frameworks, as well.&lt;/p&gt;
 &lt;p&gt;I believe there is one design decision in
@@ -2291,7 +2291,7 @@ constraint accounts for very little in this setup.
         <item>
             <title>Introduction to MGL (part 3)</title>
             <link>http://quotenil.com/introduction-to-mgl-part-3.html</link>
-            <description>&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;: This post out of date with regards to current MGL.
+            <description>&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt; – This post out of date with regards to current MGL.
 Please refer to the
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-manual.html&quot; &gt;documentation&lt;/a&gt;
 instead.&lt;/p&gt;
@@ -2466,7 +2466,7 @@ to see how training goes.
         <item>
             <title>Introduction to MGL (part 2)</title>
             <link>http://quotenil.com/introduction-to-mgl-part-2.html</link>
-            <description>&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;: This post out of date with regards to current MGL.
+            <description>&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt; – This post out of date with regards to current MGL.
 Please refer to the
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-manual.html&quot; &gt;documentation&lt;/a&gt;
 instead.&lt;/p&gt;
@@ -2842,13 +2842,13 @@ fine:&lt;/p&gt;
 &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;a &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;make-instance &apos;sub4 &lt;span class=&quot;keyword&quot;&gt;:c&lt;/span&gt; 10&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; =&amp;gt; 12&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;That&apos;s the best I could come up with; educate me if you have a
 better idea.&lt;/p&gt;
-&lt;strong&gt;UPDATE&lt;/strong&gt;: Lazy initialiation has been suggested as an alternative.
-However, a naive implementation based on &lt;code&gt;SLOT-BOUND-P&lt;/code&gt; is bound to
-run into problems when the lazily computed slot has an initform in a
-superclass. With &lt;code&gt;SLOT-VALUE-USING-CLASS&lt;/code&gt;, one can probably mimick
-most of the semantics here in a very clean manner, but to avoid
-recomputing the value on every access, additional bookkeeping is
-needed, again, due to initforms.
+&lt;strong&gt;UPDATE&lt;/strong&gt; – Lazy initialiation has been suggested as an
+alternative. However, a naive implementation based on &lt;code&gt;SLOT-BOUND-P&lt;/code&gt;
+is bound to run into problems when the lazily computed slot has an
+initform in a superclass. With &lt;code&gt;SLOT-VALUE-USING-CLASS&lt;/code&gt;, one can
+probably mimick most of the semantics here in a very clean manner,
+but to avoid recomputing the value on every access, additional
+bookkeeping is needed, again, due to initforms.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Sat, 04 Jul 2009 02:00:00 +0200</pubDate>
@@ -2873,7 +2873,7 @@ compiler&lt;/a&gt;,
 which makes a practical difference on Allegro. It goes without
 saying that you don&apos;t want &lt;code&gt;(PROCLAIM &apos;(OPTIMIZE ...))&lt;/code&gt; in a
 library, either.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;: The above works but is not mandated by the spec because
+&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt; – The above works but is not mandated by the spec because
 the dynamic execution context of the compiler does not include the
 global declarations. Alas, by the spec the portable solution is to
 wrap the whole file in:&lt;/p&gt;
@@ -3151,7 +3151,7 @@ xset r 66
 &lt;em&gt;Backspace&lt;/em&gt; key. It works on a PC105 (with one Win key) notebook
 keyboard.&lt;/p&gt;
 &lt;p&gt;Oh, that xmodmap file above also has &lt;code&gt;[]&lt;/code&gt; and &lt;code&gt;()&lt;/code&gt; swapped.&lt;/p&gt;
-&lt;strong&gt;UPDATE&lt;/strong&gt;: &lt;em&gt;2020-05-03&lt;/em&gt; – Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
+&lt;strong&gt;2020-05-03&lt;/strong&gt; – Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
 version&lt;/a&gt;.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
@@ -3244,7 +3244,7 @@ All pictures were taken at M&#xE1;laga airport.
         <item>
             <title>First Post</title>
             <link>http://quotenil.com/first-post.html</link>
-            <description>&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;: &lt;em&gt;2020-05-05&lt;/em&gt; – Since then, this blog has been moved to PAX.&lt;/p&gt;
+            <description>&lt;p&gt;&lt;strong&gt;2020-05-05&lt;/strong&gt; – Since then, this blog has been moved to PAX.&lt;/p&gt;
 &lt;p&gt;After a long time of waiting to write my own blog
 software like true hackers with infinite time do (and those
 irritated by Wordpress), I bit the bullet and installed

@@ -138,13 +138,13 @@ fine:</p>
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'sub4 <span class="keyword">:c</span> 10</span>)</span></span>)</span> =&gt; 12</span></code></pre>
 <p>That's the best I could come up with; educate me if you have a
 better idea.</p>
-<p><strong>UPDATE</strong>: Lazy initialiation has been suggested as an alternative.
-However, a naive implementation based on <code>SLOT-BOUND-P</code> is bound to
-run into problems when the lazily computed slot has an initform in a
-superclass. With <code>SLOT-VALUE-USING-CLASS</code>, one can probably mimick
-most of the semantics here in a very clean manner, but to avoid
-recomputing the value on every access, additional bookkeeping is
-needed, again, due to initforms.</p>
+<p><strong>UPDATE</strong> – Lazy initialiation has been suggested as an
+alternative. However, a naive implementation based on <code>SLOT-BOUND-P</code>
+is bound to run into problems when the lazily computed slot has an
+initform in a superclass. With <code>SLOT-VALUE-USING-CLASS</code>, one can
+probably mimick most of the semantics here in a very clean manner,
+but to avoid recomputing the value on every access, additional
+bookkeeping is needed, again, due to initforms.</p>
 <img src="blog-files/die.png" alt="end-of-post" />
   </div>
 </div>
