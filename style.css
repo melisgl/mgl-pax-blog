@@ -84,7 +84,6 @@ h1 {
   /* This makes the baselineskip 1.5 times the cap height. */
   font-size: 1.67rem;
   margin: calc(2*var(--line-height)) 0;
-  /* margin: calc(3*var(--line-height)) 0 calc(2*var(--line-height)) 0; */
   text-align: center;
 }
 h2:not(:only-of-type):before {
