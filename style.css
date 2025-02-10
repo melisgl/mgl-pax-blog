@@ -4,6 +4,7 @@
 :root {
   --font-family: 'XCharter', serif;
   --font-feature-settings: "onum" 1, "cv01" 1;
+  --font-feature-lnum-settings: "onum" 0;
   --font-family-heading: 'XEB Garamond', serif;
   --font-feature-settings-heading: "onum" 0;
   --font-family-monospace: 'DejaVu Sans Mono', 'Liberation Mono', 'Hack', 'Roboto Mono', monospace;
@@ -41,6 +42,11 @@ body {
   hyphenate-limit-chars: 4 2 2;
   min-height: 100vh;
   line-height: var(--line-height);
+}
+
+/* Lining nums */
+.lnum {
+  font-feature-settings: "onum" 0;
 }
 
 p {

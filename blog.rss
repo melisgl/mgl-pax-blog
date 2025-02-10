@@ -538,13 +538,13 @@ i=1800: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&g
 i=1900: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.090, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=0.000, l=1400
 i=2000: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=0.115, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=0.000, l=1500&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In the above, &lt;code&gt;f(w_i)&lt;/code&gt; is the loss with the non-averaged weights,
-&lt;code&gt;f(w_2ta)&lt;/code&gt; is the loss with the weights provided by 2TA, and &lt;code&gt;l&lt;/code&gt; is
-the number of weights averaged. We see that with the high, constant
-learning rate, SGD keeps jumping around the optimum, and while 2TA
-does the same, its jitter is way smaller (it&apos;s beyond the three
-significant digits printed here). Also, the length of the average
-increases almost monotonically but not quite due to the switching
-logic.&lt;/p&gt;
+&lt;code&gt;f(w_2ta)&lt;/code&gt; is the loss with the weights provided by &lt;span
+class=&apos;lnum&apos;&gt;2TA&lt;/span&gt;, and &lt;code&gt;l&lt;/code&gt; is the number of weights averaged.
+We see that with the high, constant learning rate, SGD keeps jumping
+around the optimum, and while &lt;span class=&apos;lnum&apos;&gt;2TA&lt;/span&gt; does the
+same, its jitter is way smaller (it&apos;s beyond the three significant
+digits printed here). Also, the length of the average increases
+almost monotonically but not quite due to the switching logic.&lt;/p&gt;
 &lt;p&gt;OK, that was easy. Let&apos;s now do something a bit more involved, where
 the function being optimized changes. We will change the loss
 function to $f(x) = (x-m)^2$ where $m$ is set randomly every 400
@@ -592,7 +592,7 @@ class=&quot;keyword&quot;&gt; df_dw&lt;/span&gt;&lt;span class=&quot;paren1&quot
         reset_2ta_long_average&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;/span&gt;)&lt;/span&gt;
         best_f = float&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;string&quot;&gt;&quot;inf&quot;&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
         best_iteration = 0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We can see that 2TA adapts to the non-stationarity in a reasonable
+&lt;p&gt;We can see that &lt;span class=&apos;lnum&apos;&gt;2TA&lt;/span&gt; adapts to the non-stationarity in a reasonable
 way although the reset heuristic gets triggered spuriously a couple
 of times:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;i= 100: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.008, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=  0.005, l= 100
@@ -620,8 +620,9 @@ i=1800: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&g
 i=1900: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=  0.217, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=  0.000, l= 100
 setting optimum=-8.930
 i=2000: f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_i&lt;/span&gt;)&lt;/span&gt;=242.481, f&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;w_2ta&lt;/span&gt;)&lt;/span&gt;=242.481, l=   1 Reset!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Note that in these examples, the evaluation function in 2TA was the
-training loss, but 2TA is intended for when the evaluation function
+&lt;p&gt;Note that in these examples, the evaluation function in &lt;span
+class=&apos;lnum&apos;&gt;2TA&lt;/span&gt; was the training loss, but &lt;span
+class=&apos;lnum&apos;&gt;2TA&lt;/span&gt; is intended for when the evaluation function
 measures performance on the validation set or on a down-stream
 task (e.g. summarization).&lt;/p&gt;
 &lt;h2&gt;Scaling to Large Models&lt;/h2&gt;
