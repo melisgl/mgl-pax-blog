@@ -3151,8 +3151,8 @@ xset r 66
 &lt;em&gt;Backspace&lt;/em&gt; key. It works on a PC105 (with one Win key) notebook
 keyboard.&lt;/p&gt;
 &lt;p&gt;Oh, that xmodmap file above also has &lt;code&gt;[]&lt;/code&gt; and &lt;code&gt;()&lt;/code&gt; swapped.&lt;/p&gt;
-&lt;strong&gt;2020-05-03&lt;/strong&gt; Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
-  version&lt;/a&gt;.
+&lt;strong&gt;UPDATE&lt;/strong&gt;: &lt;em&gt;2020-05-03&lt;/em&gt; – Later on, I broke down and wrote an &lt;a href=&quot;https://github.com/melisgl/lisp-machine-xkb&quot; &gt;xkb
+version&lt;/a&gt;.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 15 Dec 2008 01:00:00 +0100</pubDate>
@@ -3244,7 +3244,7 @@ All pictures were taken at M&#xE1;laga airport.
         <item>
             <title>First Post</title>
             <link>http://quotenil.com/first-post.html</link>
-            <description>&lt;p&gt;&lt;strong&gt;2020-05-03&lt;/strong&gt;: Since then, this blog has been moved to PAX.&lt;/p&gt;
+            <description>&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;: &lt;em&gt;2020-05-05&lt;/em&gt; – Since then, this blog has been moved to PAX.&lt;/p&gt;
 &lt;p&gt;After a long time of waiting to write my own blog
 software like true hackers with infinite time do (and those
 irritated by Wordpress), I bit the bullet and installed
