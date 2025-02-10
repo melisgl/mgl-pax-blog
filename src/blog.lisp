@@ -49,8 +49,7 @@
     ;; The first entry is the Tags and Date line.
     (if (< max-n-entries (length entries))
         (append (subseq entries 0 max-n-entries)
-                (list (format nil "<div class='br'></div>~
-                                   <p>... read the rest of [~A][~A].</p>"
+                (list (format nil "... read the rest of [~A][~A].~%~%"
                               name :section)))
         entries)))
 
