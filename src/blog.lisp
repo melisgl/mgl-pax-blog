@@ -286,7 +286,7 @@ window.addEventListener('resize', adjustHeight);
 (defpost @first-post (:title "First Post"
                       :tags (@personal @tech)
                       :date "2008-02-01")
-  "**UPDATE**: *2020-05-05* – Since then, this [blog has been moved to PAX][ @MOVING-THE-BLOG-TO-PAX].
+  "**2020-05-05** – Since then, this [blog has been moved to PAX][ @MOVING-THE-BLOG-TO-PAX].
 
   After a long time of waiting to write my own blog
   software like true hackers with infinite time do (and those
@@ -433,7 +433,7 @@ window.addEventListener('resize', adjustHeight);
 
   Oh, that xmodmap file above also has `[]` and `()` swapped.
 
-  **UPDATE**: *2020-05-03* – Later on, I broke down and wrote an [xkb
+  **2020-05-03** – Later on, I broke down and wrote an [xkb
   version](https://github.com/melisgl/lisp-machine-xkb).")
 
 (defpost @code-alignment-on-x86 (:title "Code Alignment on x86"
@@ -714,7 +714,7 @@ window.addEventListener('resize', adjustHeight);
   saying that you don't want `(PROCLAIM '(OPTIMIZE ...))` in a
   library, either.
 
-  **UPDATE**: The above works but is not mandated by the spec because
+  **UPDATE** – The above works but is not mandated by the spec because
   the dynamic execution context of the compiler does not include the
   global declarations. Alas, by the spec the portable solution is to
   wrap the whole file in:
@@ -812,13 +812,13 @@ window.addEventListener('resize', adjustHeight);
   That's the best I could come up with; educate me if you have a
   better idea.
 
-  **UPDATE**: Lazy initialiation has been suggested as an alternative.
-  However, a naive implementation based on `SLOT-BOUND-P` is bound to
-  run into problems when the lazily computed slot has an initform in a
-  superclass. With `SLOT-VALUE-USING-CLASS`, one can probably mimick
-  most of the semantics here in a very clean manner, but to avoid
-  recomputing the value on every access, additional bookkeeping is
-  needed, again, due to initforms.")
+  **UPDATE** – Lazy initialiation has been suggested as an
+  alternative. However, a naive implementation based on `SLOT-BOUND-P`
+  is bound to run into problems when the lazily computed slot has an
+  initform in a superclass. With `SLOT-VALUE-USING-CLASS`, one can
+  probably mimick most of the semantics here in a very clean manner,
+  but to avoid recomputing the value on every access, additional
+  bookkeeping is needed, again, due to initforms.")
 
 (defpost @upgrade-woes (:title "Upgrade Woes"
                         :tags (@tech)
@@ -1034,7 +1034,7 @@ window.addEventListener('resize', adjustHeight);
 (defpost @introduction-to-mgl-part-2 (:title "Introduction to MGL (part 2)"
                                       :tags (@ai @lisp)
                                       :date "2009-12-17")
-  """**UPDATE**: This post out of date with regards to current MGL.
+  """**UPDATE** – This post out of date with regards to current MGL.
   Please refer to the
   [documentation](http://melisgl.github.io/mgl-pax-world/mgl-manual.html)
   instead.
@@ -1194,7 +1194,7 @@ window.addEventListener('resize', adjustHeight);
 (defpost @introduction-to-mgl-part-3 (:title "Introduction to MGL (part 3)"
                                       :tags (@ai @lisp)
                                       :date "2009-12-29")
-  """**UPDATE**: This post out of date with regards to current MGL.
+  """**UPDATE** – This post out of date with regards to current MGL.
   Please refer to the
   [documentation](http://melisgl.github.io/mgl-pax-world/mgl-manual.html)
   instead.
@@ -2647,7 +2647,7 @@ window.addEventListener('resize', adjustHeight);
     (:title "On the Design of Matrix Libraries"
      :tags (@ai @lisp)
      :date "2015-02-26")
-  "**UPDATE**: *2020-05-03* – Things have changed the during last 5
+  "**2020-05-03** – Things have changed the during last 5
   years. This is a non-issue in Tensorflow and possibly in other
   frameworks, as well.
 
