@@ -79,7 +79,6 @@ h1 {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   word-spacing: 0.08em;
-  /* text-shadow: 0.05em 0.05em 0.02em #DDD; */
   line-height: calc(2*var(--line-height));
   /* This makes the baselineskip 1.5 times the cap height. */
   font-size: 1.67rem;
@@ -324,7 +323,7 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   font-size: var(--font-size-monospace);
   /* With two lines, 2*0.8+2*0.2=2. */
   line-height: calc(0.8*var(--line-height));
-  padding: calc(0.20*var(--line-height)) 0;
+  padding: calc(0.2*var(--line-height)) 0;
 }
 
 /* toc on the left*/
