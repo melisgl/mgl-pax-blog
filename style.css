@@ -160,7 +160,6 @@ pre {
   line-height: 1.25em;
   max-width: 87vw;
   background-color: #F5F3ED;
-  color: #181818;
   padding: 0;
   border: 0.1em solid #CCCCCC;
   margin: 0;
@@ -171,7 +170,12 @@ code {
   font-family: var(--font-family-monospace);
   font-size: var(--font-size-monospace);
   line-break: anywhere;
-  color: #444;
+}
+
+p > code {
+  color: #000;
+  /* Increase the font weight ever so slightly. */
+  text-shadow: 0.0em 0.0em 0.01em #AAA;
 }
 
 hr {
@@ -183,9 +187,6 @@ hr {
 
 blockquote, table {
   margin: var(--line-height) 0 0 0;
-}
-
-pre {
 }
 
 ul, ol, dl {
