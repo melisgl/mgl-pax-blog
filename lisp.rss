@@ -845,7 +845,7 @@ duplication. As always, &lt;code&gt;M-.&lt;/code&gt; works as well.
             <link>http://quotenil.com/transcripts.html</link>
             <description>&lt;p&gt;I&apos;ve just committed a major feature to MGL-PAX: the ability to
 include code examples in docstrings. Printed output and return
-values are marked up with &amp;quot;..&amp;quot; and &amp;quot;=&amp;gt;&amp;quot;, respectively.&lt;/p&gt;
+values are marked up with &amp;quot;&lt;code&gt;..&lt;/code&gt;&amp;quot; and &amp;quot;&lt;code&gt;=&amp;gt;&lt;/code&gt;&amp;quot;, respectively.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;values &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;princ &lt;span class=&quot;keyword&quot;&gt;:hello&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;list 1 2&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
 .. HELLO
 =&amp;gt; :HELLO

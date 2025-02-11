@@ -378,7 +378,7 @@ issues.
 &lt;a href=&quot;http://sachachua.com/blog/2008/05/geek-how-to-use-offlineimap-and-the-dovecot-mail-server-to-read-your-gmail-in-emacs-efficiently/&quot; &gt;various&lt;/a&gt;
 &lt;a href=&quot;http://nakkaya.com/2010/04/10/using-offlineimap-with-gnus/&quot; &gt;places&lt;/a&gt;.
 Gnus can be configured to use
-&lt;a href=&quot;http://www.emacswiki.org/emacs-en/GnusAuthinfo&quot; &gt;~/.authinfo&lt;/a&gt; as a
+&lt;a href=&quot;http://www.emacswiki.org/emacs-en/GnusAuthinfo&quot; &gt;&lt;code&gt;~/.authinfo&lt;/code&gt;&lt;/a&gt; as a
 netrc style of file to read passwords from and can easily use
 &lt;a href=&quot;http://www.emacswiki.org/emacs-en/GnusEncryptedAuthInfo&quot; &gt;encrypted
 authinfo&lt;/a&gt;
