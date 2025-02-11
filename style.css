@@ -157,9 +157,14 @@ pre {
   /* With DejaVu Sans Mono, 93% gets about 80 characters per line at
    * full width (70ch). */
   font-size: 93%;
+  line-height: 1.25em;
   max-width: 87vw;
-  line-height: var(--line-height);
+  background-color: #F5F3ED;
+  color: #181818;
+  padding: 0;
+  border: 0.1em solid #CCCCCC;
   margin: 0;
+  overflow: auto;
 }
 
 code {
@@ -180,12 +185,6 @@ blockquote, table {
 }
 
 pre {
-  background-color: #F5F3ED;
-  color: #181818;
-  border: 0.1em solid #CCCCCC;
-  line-height: 1.25em;
-  overflow: auto;
-  padding: 0;
 }
 
 ul, ol, dl {
