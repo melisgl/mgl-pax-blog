@@ -6,8 +6,9 @@
 <link type='text/css' href='style.css' rel='stylesheet'>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width">
-   <script src="jquery.min.js"></script>
+<script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
+<script src="grid.js"></script>
 <script type="text/x-mathjax-config">
      MathJax.Hub.Config({
        tex2jax: {
@@ -16,8 +17,7 @@
        }
      });
    </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-   </script>
+   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -27,49 +27,7 @@
 
   gtag('config', 'G-7X64Q1D73F');
 </script>
-<script>
-function padToBaselineGrid() {
-  document.querySelectorAll('pre, img, #toc').forEach(el => {
-    if (el.alt == 'end-of-post' || el.alt == 'about-me-die') {
-      return;
-    }
-    // We either add a wrapper div and pad that or pad the element
-    // itself.
-    let padSelf = (el.id == 'toc');
-    let currentHeight = el.getBoundingClientRect().height;
-    if (padSelf) {
-      var paddingTop = parseFloat(window.getComputedStyle(el).getPropertyValue('padding-top'));
-      var paddingBottom = parseFloat(window.getComputedStyle(el).getPropertyValue('padding-bottom'));
-      currentHeight -= paddingTop + paddingBottom;
-    }
-    let lineHeight = parseFloat(window.getComputedStyle(document.body).lineHeight);
-    let targetHeight = Math.ceil(currentHeight / lineHeight) * lineHeight;
-    let extraPadding = targetHeight - currentHeight;
-    if (padSelf) {
-      elToPad = el;
-    } else {
-      if (el.parentNode.className != 'padding-wrapper') {
-        w = document.createElement('div');
-        w.className = 'padding-wrapper';
-        el.replaceWith(w);
-        w.appendChild(el);
-      }
-      if (extraPadding < 0.75*lineHeight) {
-        extraPadding += lineHeight;
-      }
-      elToPad = el.parentNode;
-    }
-    // Specify padding in rem, so that it scales with font size
-    // changes.
-    let remPx = parseFloat(getComputedStyle(document.documentElement).fontSize)
-    extraPadding = extraPadding / 2 /remPx;
-    elToPad.style.paddingTop = `${extraPadding}rem`;
-    elToPad.style.paddingBottom = `${extraPadding}rem`;
-  });
-}
-window.addEventListener('load', padToBaselineGrid);
-window.addEventListener('resize', padToBaselineGrid);
-</script>
+<script src='grid.js'></script>
 <link rel='shortcut icon' type='image/png' href='favicon.png'>
 <link rel='preconnect' href='https://fonts.googleapis.com'>
 <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
