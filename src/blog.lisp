@@ -2508,7 +2508,7 @@ window.addEventListener('resize', padToBaselineGrid);
                        :date "2014-10-20")
   """I've just committed a major feature to MGL-PAX: the ability to
   include code examples in docstrings. Printed output and return
-  values are marked up with "`..`" and "`=>`", respectively.
+  values are marked up with `..` and `=>`, respectively.
 
   ```
   (values (princ :hello) (list 1 2))
@@ -3912,11 +3912,13 @@ window.addEventListener('resize', padToBaselineGrid);
   [argmin]: https://www.argmin.net
   [argmin-series]: https://www.argmin.net/p/meehls-philosophical-probability
 
-  So, here is my TLDR for [the short-haul commuter and the busy senior
-  executive](https://www.youtube.com/watch?v=0nTmSu6v0LA&t=32s): _it's
-  all Bayes and incentives_. There is no silver bullet method, and
-  while we do questionable things for all the wrong reasons, time will
-  clean up any mess that we make anyway.
+  So, here is my TLDR suitable for [the short-haul commuter and the
+  busy senior executive][suitable-poetry]: _it's all Bayes and
+  incentives_. There is no silver bullet method, and while we do
+  questionable things for all the wrong reasons, time will clean up
+  any mess that we make anyway.
+
+  [suitable-poetry]: https://www.youtube.com/watch?v=0nTmSu6v0LA&t=32s
 
   Expanding that for slightly longer attention spans:
 
