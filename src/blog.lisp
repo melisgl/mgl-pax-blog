@@ -2072,7 +2072,7 @@ window.addEventListener('resize', padToBaselineGrid);
   [various](http://sachachua.com/blog/2008/05/geek-how-to-use-offlineimap-and-the-dovecot-mail-server-to-read-your-gmail-in-emacs-efficiently/)
   [places](http://nakkaya.com/2010/04/10/using-offlineimap-with-gnus/).
   Gnus can be configured to use
-  [~/.authinfo](http://www.emacswiki.org/emacs-en/GnusAuthinfo) as a
+  [`~/.authinfo`](http://www.emacswiki.org/emacs-en/GnusAuthinfo) as a
   netrc style of file to read passwords from and can easily use
   [encrypted
   authinfo](http://www.emacswiki.org/emacs-en/GnusEncryptedAuthInfo)
@@ -2508,7 +2508,7 @@ window.addEventListener('resize', padToBaselineGrid);
                        :date "2014-10-20")
   """I've just committed a major feature to MGL-PAX: the ability to
   include code examples in docstrings. Printed output and return
-  values are marked up with ".." and "=>", respectively.
+  values are marked up with "`..`" and "`=>`", respectively.
 
   ```
   (values (princ :hello) (list 1 2))
