@@ -321,7 +321,9 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   color: #aaa;
   font-family: var(--font-family-monospace);
   font-size: var(--font-size-monospace);
-  /* With two lines, 2*0.8+2*0.2=2. */
+  /* With two lines, 2*0.8+2*0.2=2, so it likely starts out with the
+   * correct padding, but the Javascript padToBaselineGrid() will fix
+   * it up in any case. */
   line-height: calc(0.8*var(--line-height));
   padding: calc(0.2*var(--line-height)) 0;
 }
