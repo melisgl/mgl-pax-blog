@@ -3912,7 +3912,7 @@ window.addEventListener('resize', padToBaselineGrid);
   [argmin]: https://www.argmin.net
   [argmin-series]: https://www.argmin.net/p/meehls-philosophical-probability
 
-  So, here is my TLDR for the [short-haul commuter and the busy senior
+  So, here is my TLDR for [the short-haul commuter and the busy senior
   executive](https://www.youtube.com/watch?v=0nTmSu6v0LA&t=32s): _it's
   all Bayes and incentives_. There is no silver bullet method, and
   while we do questionable things for all the wrong reasons, time will
