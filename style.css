@@ -326,12 +326,12 @@ a.symbol:hover { color : #229955; background-color : transparent; text-decoratio
   padding: calc(0.2*var(--line-height)) 0;
 }
 
-/* toc on the left*/
+/* toc on the left */
 /* #content */
 /* { */
 /*   margin-left: min(16.5rem,33%); */
 /*   padding-left: 1em; */
-/*   max-width: 85ex; */
+/*   max-width: 70ch; */
 /* } */
 /*  */
 /* #toc { */
