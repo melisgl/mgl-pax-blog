@@ -286,7 +286,7 @@ window.addEventListener('resize', adjustHeight);
 (defpost @first-post (:title "First Post"
                       :tags (@personal @tech)
                       :date "2008-02-01")
-  "**2020-05-05** – Since then, this [blog has been moved to PAX][ @MOVING-THE-BLOG-TO-PAX].
+  "**2020-05-05** – This [blog was moved to PAX][ @MOVING-THE-BLOG-TO-PAX].
 
   After a long time of waiting to write my own blog
   software like true hackers with infinite time do (and those
