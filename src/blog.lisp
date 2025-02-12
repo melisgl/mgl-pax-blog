@@ -4,6 +4,7 @@
 
 (defclass category (section)
   ((post-names :initform ())
+   ;; This is used only for the RSS feed.
    (long-title :initarg :long-title :reader category-long-title)))
 
 (defmacro defcategory (name (&key title long-title))
@@ -107,45 +108,7 @@
   (string-downcase (subseq (symbol-name (section-name category)) 1)))
 
 
-(defsection @about-me (:title "About me")
-  "I'm a Lisp hacker impersonating a research scientist.
-  ![about-me-die](blog-files/die.png)
-
-  - <a href='mailto:mega@retes.hu'>Gábor Melis &lt;mega@retes.hu&gt;</a>
-
-  - <a href='mega.gpg.asc'>gpg key</a>
-
-  - <a href='http://github.com/melisgl/'>github/melisgl</a>
-    (<a href='https://melisgl.github.io/mgl-pax-world/'>documentation</a>)
-
-  - <a href='https://scholar.google.com/citations?user=TbLw2lcAAAAJ'>Google Scholar</a>
-
-  - <a href='https://orcid.org/0009-0000-3976-9122'>orcid.org/0009-0000-3976-9122</a>
-
-  - <a href='https://mastodon.social/@melisgl'>mastodon.social/@melisgl</a>
-
-  - <a href='https://twitter.com/GaborMelis'>twitter/GaborMelis</a>
-
-  - <a href='http://discord.com/users/melisgl#0879'>discord/melisgl#0879</a>
-
-  - <a href='https://www.linkedin.com/in/melisgabor/'>linkedin/melisgabor</a>
-
-  - <a href='https://www.kaggle.com/melisgl'>kaggle/melisgl</a>
-
-  ## About This Blog
-
-  There is an <a href='http://quotenil.com/blog.rss'>RSS feed for the
-  entire blog</a> and one for each tag: <a
-  href='http://quotenil.com/ai.rss'>ai</a>, <a
-  href='http://quotenil.com/lisp.rss'>lisp</a>, <a
-  href='http://quotenil.com/tech.rss'>tech</a>, <a
-  href='http://quotenil.com/personal.rss'>personal</a>. The blog is
-  generated with a <a
-  href='https://github.com/melisgl/mgl-pax-blog'>homegrown blog
-  engine</a> on top of <a
-  href='https://github.com/melisgl/mgl-pax'>PAX</a>.")
-
-(defun generate-pages (categories html-sidebar)
+(defun generate-pages (categories specials html-sidebar)
   (mapc #'prepare-category categories)
   (let* ((*document-max-numbering-level* 0)
          (*document-max-table-of-contents-level* -1)
@@ -179,10 +142,10 @@
          ;; The shortened posts are reachable normally from CATEGORY's
          ;; SECTION-ENTRIES.
          (posts (delete-duplicates (mapcan #'category-posts categories)))
-         (objects (append categories posts (list @about-me))))
+         (objects (append categories posts specials)))
     (update-asdf-system-html-docs
      objects :mgl-pax-blog
-     ;; Every overview and post is on its own page.
+     ;; Every category and post is on its own page.
      :pages (mapcar (lambda (section) `(:objects (,section)))
                     objects)
      :update-css-p nil)
@@ -242,6 +205,8 @@
   (pax::sections-to-filename (list object) ""))
 
 
+;;;; Categories and special pages
+
 (defcategory @blog (:title "(QUOTE NIL)"
                     :long-title "Gábor Melis' Blog"))
 (defcategory @lisp (:title "lisp"
@@ -252,8 +217,81 @@
                     :long-title "Category Tech in Gábor Melis' Blog"))
 (defcategory @personal (:title "personal"
                         :long-title "Category Personal in Gábor Melis' Blog"))
-
+;;; This is just for fun and doesn't get a separate page or RSS feed
+;;; currently.
 (defcategory @pompousness (:title "pompousness"))
+
+(defsection @about-me (:title "About me")
+  "I'm a Lisp hacker impersonating a research scientist.
+  ![about-me-die](blog-files/die.png)
+
+  - <a href='mailto:mega@retes.hu'>Gábor Melis &lt;mega@retes.hu&gt;</a>
+
+  - <a href='mega.gpg.asc'>gpg key</a>
+
+  - <a href='http://github.com/melisgl/'>github/melisgl</a>
+    (<a href='https://melisgl.github.io/mgl-pax-world/'>documentation</a>)
+
+  - <a href='https://scholar.google.com/citations?user=TbLw2lcAAAAJ'>Google Scholar</a>
+
+  - <a href='https://orcid.org/0009-0000-3976-9122'>orcid.org/0009-0000-3976-9122</a>
+
+  - <a href='https://mastodon.social/@melisgl'>mastodon.social/@melisgl</a>
+
+  - <a href='https://twitter.com/GaborMelis'>twitter/GaborMelis</a>
+
+  - <a href='http://discord.com/users/melisgl#0879'>discord/melisgl#0879</a>
+
+  - <a href='https://www.linkedin.com/in/melisgabor/'>linkedin/melisgabor</a>
+
+  - <a href='https://www.kaggle.com/melisgl'>kaggle/melisgl</a>
+
+  ## About This Blog
+
+  There is an <a href='http://quotenil.com/blog.rss'>RSS feed for the
+  entire blog</a> and one for each tag: <a
+  href='http://quotenil.com/ai.rss'>ai</a>, <a
+  href='http://quotenil.com/lisp.rss'>lisp</a>, <a
+  href='http://quotenil.com/tech.rss'>tech</a>, <a
+  href='http://quotenil.com/personal.rss'>personal</a>. The blog is
+  generated with a <a
+  href='https://github.com/melisgl/mgl-pax-blog'>homegrown blog
+  engine</a> on top of <a
+  href='https://github.com/melisgl/mgl-pax'>PAX</a>.")
+
+
+;;;; The "sidebar", that links to the categories and special pages
+;;;; above and happens to be at the top of the page ...
+
+(defun on-current-page-p (object)
+  (let ((reference (dref:locate object)))
+    (when reference
+      (let ((link (pax::find-link reference)))
+        (when link
+          (eq (pax::link-page link) pax::*page*))))))
+
+(defun link-to-category (category &optional (title (section-title category)))
+  (spinneret:with-html
+    (:a :href (pax::object-to-uri category)
+     (if (on-current-page-p category)
+         (format nil "» ~A «" title)
+         title))))
+
+(defun html-sidebar (stream)
+  (let ((spinneret:*html* stream)
+        (spinneret:*suppress-inserted-spaces* t))
+    (spinneret:with-html
+        (:div :id "toc"
+         (:div :id "home"
+          (link-to-category @blog ))
+         (:div :id "links"
+          "Ramblings on "
+          (link-to-category @ai) ", "
+          (link-to-category @lisp) ", "
+          (link-to-category @tech) " and "
+          (link-to-category @personal) " topics by "
+          (link-to-category @about-me "me") ".")))))
+
 
 (defpost @first-post (:title "First Post"
                       :tags (@personal @tech)
@@ -3930,45 +3968,7 @@
   [posts][argmin-series].")
 
 
-(defun on-current-page-p (object)
-  (let ((reference (dref:locate object)))
-    (when reference
-      (let ((link (pax::find-link reference)))
-        (when link
-          (eq (pax::link-page link) pax::*page*))))))
-
-(defun html-sidebar (stream)
-  (let ((spinneret:*html* stream)
-        (spinneret:*suppress-inserted-spaces* t))
-    (spinneret:with-html
-        (:div :id "toc"
-         (:div :id "home"
-          (:a :href (pax::object-to-uri @blog)
-           (if (on-current-page-p @blog)
-               "» (QUOTE NIL) «"
-               "(QUOTE NIL)")))
-         (:div :id "links"
-          "Ramblings on "
-          (:a :href (pax::object-to-uri @ai)
-           (if (on-current-page-p @ai) "» ai «" "ai"))
-          ", "
-          (:a :href (pax::object-to-uri @lisp)
-           (if (on-current-page-p @lisp) "» lisp «" "lisp"))
-          ", "
-          (:a :href (pax::object-to-uri @tech)
-           (if (on-current-page-p @tech) "» tech «" "tech"))
-          " and "
-          (:a :href (pax::object-to-uri @personal)
-           (if (on-current-page-p @personal)
-               "» personal «"
-               "personal"))
-          " topics by "
-          (:a :href (pax::object-to-uri @about-me)
-           (if (on-current-page-p @about-me)
-               "» me «"
-               "me"))
-          ".")))))
-
 #+nil
 (generate-pages (list @blog @tech @ai @lisp @personal)
+                (list @about-me)
                 'html-sidebar)
