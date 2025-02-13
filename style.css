@@ -8,7 +8,8 @@
   --font-family-heading: 'XEB Garamond', serif;
   --font-feature-settings-heading: "onum" 0;
   --font-family-monospace: 'DejaVu Sans Mono', 'Liberation Mono', 'Hack', 'Roboto Mono', monospace;
-  /* To make DejaVu Sans Mono's x-height match XCharter's. */
+  /* To make DejaVu Sans Mono's x-height match XCharter's (e.g. in
+   * inline <code>. */
   --font-size-monospace: 86%;
   /* To make XEB Garamond's x-height match XCharter's. */
   --font-size-heading: 109%;
@@ -172,6 +173,13 @@ code {
   line-break: anywhere;
 }
 
+h2 code {
+  font-size: 75%;
+  font-variant: normal;
+  text-transform: none;
+}
+
+/* Only apply to direct children, don't mess with code e.g. in links. */
 p > code {
   color: #000;
   /* Increase the font weight ever so slightly. */
@@ -330,6 +338,14 @@ a.symbol:hover { color: #229955; background-color: transparent; text-decoration:
   line-height: calc(0.8*var(--line-height));
   padding: calc(0.2*var(--line-height)) 0;
 }
+
+#toc code {
+  /* Do not adjust the monospace font size to match XCharter's x-height
+   * because we use monospace everywhere in the #toc. */
+  font-size: 100%;
+  line-break: auto;
+}
+
 
 /* toc on the left */
 /* #content */
