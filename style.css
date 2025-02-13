@@ -7,7 +7,8 @@
   --font-feature-lnum-settings: "onum" 0;
   --font-family-heading: 'XEB Garamond', serif;
   --font-feature-settings-heading: "onum" 0;
-  --font-family-monospace: 'DejaVu Sans Mono', 'Liberation Mono', 'Hack', 'Roboto Mono', monospace;
+  --font-family-monospace: 'DejaVu Sans Mono', 'Liberation Mono', 'Hack',
+                           'Roboto Mono', monospace;
   /* To make DejaVu Sans Mono's x-height match XCharter's (e.g. in
    * inline <code>. */
   --font-size-monospace: 86%;
@@ -183,7 +184,7 @@ h2 code {
 p > code {
   color: #000;
   /* Increase the font weight ever so slightly. */
-  text-shadow: 0.0em 0.0em 0.01em #AAA;
+  /* text-shadow: 0.0em 0.0em 0.01em #AAA; */
 }
 
 hr {
