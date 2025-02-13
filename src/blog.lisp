@@ -2,7 +2,26 @@
 
 (in-readtable pythonic-string-syntax)
 
-(defclass category (section)
+;;;; A PAX:SECTION whose entries are generated on the fly and is
+;;;; presented without the usual WITH-HEADING and `[in package ...]`
+;;;; (see DOCUMENT-DREF (method () (pax::section-dref t)))
+
+(defclass dynamic-section (section)
+  ((pax::%entries :initform ())))
+
+(defmethod document-object* ((section dynamic-section) stream)
+  (let ((*package* (section-package section))
+        (*readtable* (section-readtable section))
+        (pax::*section* section))
+    (let ((firstp t))
+      (dolist (entry (section-entries section))
+        (if firstp
+            (setq firstp nil)
+            (terpri stream))
+        (pax::document-object entry stream)))))
+
+
+(defclass category (dynamic-section)
   ((post-names :initform ())
    ;; This is used only for the RSS feed.
    (long-title :initarg :long-title :reader category-long-title)))
@@ -22,7 +41,7 @@
   (loop for post-name in (slot-value category 'post-names)
         collect (dref:resolve (dref:dref post-name 'section))))
 
-(defun prepare-category (category)
+(defmethod document-object* :before ((category category) stream)
   (let ((category-name (symbol-name (section-name category))))
     (setf (slot-value category 'pax::%entries)
           (loop for post in (category-posts category)
@@ -53,23 +72,37 @@
                 (list (format nil "... read the rest of [~A][~A].~%~%"
                               name :section)))
         entries)))
+
 
-;;; Like DOCUMENT-DREF (method () (pax::section-dref t)), but has no
-;;; WITH-HEADING and `[in package ...]`.
-(defmethod document-object* ((section category) stream)
-  (let ((*package* (section-package section))
-        (*readtable* (section-readtable section)))
-    (let ((firstp t))
-      (dolist (entry (section-entries section))
-        (if firstp
-            (setq firstp nil)
-            (terpri stream))
-        (pax::document-object entry stream)))))
+(defclass overview (dynamic-section)
+  ((category-name :initarg :category-name :reader category-name)))
+
+(defmacro defoverview (name (&key category title))
+  `(defparameter ,name
+     (make-instance
+      'overview
+      :name ',name
+      :package *package*
+      :readtable *readtable*
+      :title ,title
+      :category-name ',category)))
+
+(defmethod document-object* :before ((overview overview) stream)
+  (let ((category (dref:resolve (dref:dref (category-name overview)
+                                           'section))))
+    (setf (slot-value overview 'pax::%entries)
+          (list*
+           (format nil "## ~A~%~%" (section-title category))
+           (loop for post in (category-posts category)
+                 collect (format nil "- ~A – [~A][~A]~%"
+                                 (post-date post)
+                                 (section-name post)
+                                 :section))))))
 
 
 (defclass post (section)
   ((tags :initform () :initarg :tags)
-   (date :initform nil :initarg :date)))
+   (date :initform nil :initarg :date :reader post-date)))
 
 (defmacro defpost (name (&key title tags date) &body entries)
   ;; Let's check the syntax as early as possible.
@@ -88,7 +121,8 @@
    :readtable *readtable*
    :title title
    :entries (cons (format nil "<span class='post-data'>~
-                              _Tags:_ ~{[`~A`][~A]~^, ~},&nbsp; _Date:_ ~A</span>~%~%~
+                              _Tags:_ ~{[`~A`][~A]~^, ~},&nbsp; ~
+                              _Date:_ ~A</span>~%~%~
                               <div class='br'></div>"
                           (mapcan (lambda (category)
                                     (let ((name (category-display-name
@@ -108,8 +142,7 @@
   (string-downcase (subseq (symbol-name (section-name category)) 1)))
 
 
-(defun generate-pages (categories specials html-sidebar)
-  (mapc #'prepare-category categories)
+(defun generate-pages (categories overviews specials html-sidebar)
   (let* ((*document-max-numbering-level* 0)
          (*document-max-table-of-contents-level* -1)
          (*document-html-max-navigation-table-of-contents-level* -1)
@@ -139,10 +172,13 @@
 "
                      (quotenil-rss-feed-for-current-page categories))))
          (*document-html-sidebar* html-sidebar)
-         ;; The shortened posts are reachable normally from CATEGORY's
-         ;; SECTION-ENTRIES.
+         ;; KLUDGE: The shortened posts are reachable by PAX normally
+         ;; via CATEGORY's SECTION-ENTRIES, but we need to tell PAX to
+         ;; document the full posts (these go on their own pages),
+         ;; too. The same post may belong to multiple categories, so
+         ;; deduplicate.
          (posts (delete-duplicates (mapcan #'category-posts categories)))
-         (objects (append categories posts specials)))
+         (objects (append categories overviews posts specials)))
     (update-asdf-system-html-docs
      objects :mgl-pax-blog
      ;; Every category and post is on its own page.
@@ -220,6 +256,8 @@
 ;;; This is just for fun and doesn't get a separate page or RSS feed
 ;;; currently.
 (defcategory @pompousness (:title "pompousness"))
+
+(defoverview @blog-overview (:category @blog))
 
 (defsection @about-me (:title "About me")
   "I'm a Lisp hacker impersonating a research scientist.
@@ -3970,5 +4008,6 @@
 
 #+nil
 (generate-pages (list @blog @tech @ai @lisp @personal)
+                (list @blog-overview)
                 (list @about-me)
                 'html-sidebar)
