@@ -243,7 +243,7 @@
 
 ;;;; Categories and special pages
 
-(defcategory @blog (:title "(QUOTE NIL)"
+(defcategory @blog (:title "`(QUOTE NIL)`"
                     :long-title "Gábor Melis' Blog"))
 (defcategory @lisp (:title "lisp"
                     :long-title "Category Lisp in Gábor Melis' Blog"))
@@ -311,9 +311,12 @@
 (defun link-to-category (category &optional (title (section-title category)))
   (spinneret:with-html
     (:a :href (pax::object-to-uri category)
-     (if (on-current-page-p category)
-         (format nil "» ~A «" title)
-         title))))
+     (:raw (pax::trim-whitespace
+            (document
+             (if (on-current-page-p category)
+                 (format nil "» ~A «" title)
+                 title)
+             :stream nil :format :html))))))
 
 (defun html-sidebar (stream)
   (let ((spinneret:*html* stream)
@@ -4007,7 +4010,7 @@
 
 
 #+nil
-(generate-pages (list @blog @tech @ai @lisp @personal)
-                (list @blog-overview)
-                (list @about-me)
-                'html-sidebar)
+(time (generate-pages (list @blog @tech @ai @lisp @personal)
+                      (list @blog-overview)
+                      (list @about-me)
+                      'html-sidebar))
