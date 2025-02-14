@@ -94,7 +94,7 @@
           (list*
            (format nil "## ~A~%~%" (section-title category))
            (loop for post in (category-posts category)
-                 collect (format nil "- ~A – [~A][~A]~%"
+                 collect (format nil "<div/>~A &nbsp; [~A][~A]~%~%"
                                  (post-date post)
                                  (section-name post)
                                  :section))))))
@@ -309,14 +309,13 @@
           (eq (pax::link-page link) pax::*page*))))))
 
 (defun link-to-category (category &optional (title (section-title category)))
-  (spinneret:with-html
-    (:a :href (pax::object-to-uri category)
-     (:raw (pax::trim-whitespace
-            (document
-             (if (on-current-page-p category)
-                 (format nil "» ~A «" title)
-                 title)
-             :stream nil :format :html))))))
+  (let ((title (pax::trim-whitespace
+                (document title :stream nil :format :html))))
+    (spinneret:with-html
+      (:a :href (pax::object-to-uri category)
+       (if (on-current-page-p category)
+           (:span :class "current-category" (:raw title))
+           (:raw title))))))
 
 (defun html-sidebar (stream)
   (let ((spinneret:*html* stream)
