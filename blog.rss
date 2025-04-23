@@ -258,9 +258,9 @@ is more tailored to the needs of PAX.&lt;/p&gt;
   with &lt;code&gt;sans-serif&lt;/code&gt; and &lt;code&gt;:CHARTER&lt;/code&gt; with Charter as the main
   font (which is bundled). The &lt;code&gt;:CHARTER&lt;/code&gt; style is used in the linked
   PAX World documentation on this blog. See
-  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*BROWSE-HTML-STYLE*%20VARIABLE&quot; &gt;PAX:*BROWSE-HTML-STYLE*&lt;/a&gt;
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*BROWSE-HTML-STYLE*%20VARIABLE&quot; &gt;&lt;code&gt;PAX:*BROWSE-HTML-STYLE*&lt;/code&gt;&lt;/a&gt;
   and
-  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:UPDATE-ASDF-SYSTEM-HTML-DOCS%20FUNCTION&quot; &gt;PAX:UPDATE-ASDF-SYSTEM-HTML-DOCS&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:UPDATE-ASDF-SYSTEM-HTML-DOCS%20FUNCTION&quot; &gt;&lt;code&gt;PAX:UPDATE-ASDF-SYSTEM-HTML-DOCS&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;As usual, quite a few bug fixes and some optimizations also found
   their way into this release.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -997,12 +997,12 @@ for the last year or so.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;To reduce deployment size, made the MGL-PAX system &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29&quot; &gt;autoload navigation, documentation generation, and transcription code&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Symbols in the CL package are &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29&quot; &gt;linked to the hyperspec&lt;/a&gt; like this: &lt;code&gt;PRINT&lt;/code&gt;, which renders as &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_wr_pr.htm&quot; title=&quot;PRINT (MGL-PAX:CLHS FUNCTION)&quot;&gt;&lt;code&gt;PRINT&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Hyperspec sections and issues can be linked to with the &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29&quot; &gt;CLHS locative&lt;/a&gt; like this: &lt;code&gt;[lambda lists][CLHS]&lt;/code&gt;, which renders as &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/03_d.htm&quot; title=&quot;&amp;quot;3.4&amp;quot; (MGL-PAX:CLHS MGL-PAX:SECTION)&quot;&gt;lambda lists&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Hyperspec sections and issues can be linked to with the &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29&quot; &gt;&lt;code&gt;CLHS&lt;/code&gt; locative&lt;/a&gt; like this: &lt;code&gt;[lambda lists][CLHS]&lt;/code&gt;, which renders as &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/03_d.htm&quot; title=&quot;&amp;quot;3.4&amp;quot; (MGL-PAX:CLHS MGL-PAX:SECTION)&quot;&gt;lambda lists&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Added support for &lt;code&gt;[see this][foo function]&lt;/code&gt; and &lt;code&gt;[see this][foo]&lt;/code&gt; style of &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-40MGL-PAX-LINKING-TO-CODE-20MGL-PAX-3ASECTION-29&quot; &gt;linking&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28DECLARATION-20MGL-PAX-3ALOCATIVE-29&quot; &gt;DECLARATION locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28READTABLE-20MGL-PAX-3ALOCATIVE-29&quot; &gt;READTABLE locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ASYMBOL-MACRO-20MGL-PAX-3ALOCATIVE-29&quot; &gt;SYMBOL-MACRO locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28METHOD-COMBINATION-20MGL-PAX-3ALOCATIVE-29&quot; &gt;METHOD-COMBINATION locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28DECLARATION-20MGL-PAX-3ALOCATIVE-29&quot; &gt;&lt;code&gt;DECLARATION&lt;/code&gt; locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28READTABLE-20MGL-PAX-3ALOCATIVE-29&quot; &gt;&lt;code&gt;READTABLE&lt;/code&gt; locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ASYMBOL-MACRO-20MGL-PAX-3ALOCATIVE-29&quot; &gt;&lt;code&gt;SYMBOL-MACRO&lt;/code&gt; locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28METHOD-COMBINATION-20MGL-PAX-3ALOCATIVE-29&quot; &gt;&lt;code&gt;METHOD-COMBINATION&lt;/code&gt; locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:EXPORTABLE-REFERENCE-P%20GENERIC-FUNCTION&quot; &gt;&lt;code&gt;EXPORTABLE-REFERENCE-P&lt;/code&gt;&lt;/a&gt; to allow specializing decisions on whether to export a symbol in &lt;code&gt;DEFPOST&lt;/code&gt; based on &lt;code&gt;SECTION-PACKAGE&lt;/code&gt;. PAX no longer exports its documentation and drops the &lt;code&gt;MGL-PAX-&lt;/code&gt; prefix from names like &lt;code&gt;@MGL-PAX-LINKS&lt;/code&gt; to reduce clutter.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-DOWNCASE-UPPERCASE-CODE*%20VARIABLE&quot; &gt;Downcasing&lt;/a&gt; now works well and is the default for PAX World.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@UNRESOLVABLE-REFLINKS%20MGL-PAX:SECTION&quot; &gt;Warn on unresolvable reflinks&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
@@ -1029,8 +1029,8 @@ for the last year or so.&lt;/p&gt;
 &lt;li&gt;&lt;p&gt;Introduced &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@OVERVIEW-OF-ESCAPING%20MGL-PAX:SECTION&quot; &gt;double backslash escapes&lt;/a&gt; to prevent downcasing in addition to linking.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Removed &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_desc_1.htm&quot; title=&quot;DESCRIBE-OBJECT (MGL-PAX:CLHS GENERIC-FUNCTION)&quot;&gt;&lt;code&gt;DESCRIBE-OBJECT&lt;/code&gt;&lt;/a&gt; method on &lt;code&gt;SECTION&lt;/code&gt;s. Call &lt;code&gt;DOCUMENT&lt;/code&gt; directly.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Made URLs in the generated documentation more stable across implementations and &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-URL-VERSIONS*%20VARIABLE&quot; &gt;made them more human readable&lt;/a&gt;. Existing URLs still work.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Exported api for &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-DOCUMENT%20MGL-PAX:SECTION&quot; &gt;extending DOCUMENT&lt;/a&gt; and &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-FIND-SOURCE%20MGL-PAX:SECTION&quot; &gt;FIND-SOURCE&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION&quot; &gt;DOCUMENT&lt;/a&gt; can produce reasonably readable output with &lt;code&gt;:FORMAT&lt;/code&gt; &lt;code&gt;:PLAIN&lt;/code&gt; (the default). It is now suitable for use in the REPL as a kind of replacement for &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_docume.htm&quot; title=&quot;DOCUMENTATION (MGL-PAX:CLHS GENERIC-FUNCTION)&quot;&gt;&lt;code&gt;CL:DOCUMENTATION&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Exported api for &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-DOCUMENT%20MGL-PAX:SECTION&quot; &gt;extending &lt;code&gt;DOCUMENT&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-FIND-SOURCE%20MGL-PAX:SECTION&quot; &gt;FIND-SOURCE&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION&quot; &gt;&lt;code&gt;DOCUMENT&lt;/code&gt;&lt;/a&gt; can produce reasonably readable output with &lt;code&gt;:FORMAT&lt;/code&gt; &lt;code&gt;:PLAIN&lt;/code&gt; (the default). It is now suitable for use in the REPL as a kind of replacement for &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_docume.htm&quot; title=&quot;DOCUMENTATION (MGL-PAX:CLHS GENERIC-FUNCTION)&quot;&gt;&lt;code&gt;CL:DOCUMENTATION&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;Bugs&lt;/h2&gt;
 &lt;ul&gt;
@@ -1218,7 +1218,7 @@ pages&lt;/a&gt;. Here is a good
 cross-links&lt;/a&gt;.
 It&apos;s easy to play with locally: just get the gh-pages branch and
 call
-&lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-pax-world-manual.html#x-28MGL-PAX-WORLD-3AUPDATE-PAX-WORLD-20FUNCTION-29&quot; &gt;UPDATE-PAX-WORLD&lt;/a&gt;.
+&lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-pax-world-manual.html#x-28MGL-PAX-WORLD-3AUPDATE-PAX-WORLD-20FUNCTION-29&quot; &gt;&lt;code&gt;UPDATE-PAX-WORLD&lt;/code&gt;&lt;/a&gt;.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 26 Jan 2015 01:00:00 +0100</pubDate>
@@ -1272,7 +1272,7 @@ couple of forms of code in docstrings or copy-pasting them from
 source files to docstrings is insanity or an
 &lt;a href=&quot;http://c2.com/cgi/wiki?OnceAndOnlyOnce&quot; &gt;OOAO&lt;/a&gt; violation,
 respectively.&lt;/p&gt;
-In response to this, PAX got the &lt;a href=&quot;https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3AINCLUDE-20MGL-PAX-3ALOCATIVE-29&quot; &gt;INCLUDE
+In response to this, PAX got the &lt;a href=&quot;https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3AINCLUDE-20MGL-PAX-3ALOCATIVE-29&quot; &gt;&lt;code&gt;INCLUDE&lt;/code&gt;
 locative&lt;/a&gt; (see
 the linked documentation) and became its own first user at the same
 time. In a nutshell, the &lt;code&gt;INCLUDE&lt;/code&gt; locative can refer to non-lisp
@@ -1302,7 +1302,7 @@ values are marked up with &lt;code&gt;..&lt;/code&gt; and &lt;code&gt;=&amp;gt;&
   changes,&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Emacs integration: transcribing the last expression and updating a
   transcript in a region.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3ATRANSCRIBE-20FUNCTION-29&quot; &gt;TRANSCRIBE&lt;/a&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3ATRANSCRIBE-20FUNCTION-29&quot; &gt;&lt;code&gt;TRANSCRIBE&lt;/code&gt;&lt;/a&gt;
   works without the rest of MGL-PAX so it can be used to
   format bug reports or as a poor man&apos;s expect script.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
