@@ -46,6 +46,80 @@
   by <a href=about-me.html>me</a>.
  </div>
 </div><div id="content">
+<p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40PAX-V0-2E4-SHORT-20MGL-PAX-3ASECTION-29"></a>
+<a id="MGL-PAX-BLOG:@TECH-@PAX-V0.4-SHORT%20MGL-PAX:SECTION"></a></p>
+<h1><a href="pax-v0.4.html" title="PAX and DRef v0.4">PAX and DRef v0.4</a></h1>
+<p><span class='post-data'><em>Tags:</em> <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2025-04-23</span></p>
+<div class='br'></div>
+<p>Version 0.4 of <a href="http://github.com/melisgl/mgl-pax/" >PAX</a>, the
+documentation system, and
+<a href="https://github.com/melisgl/mgl-pax/tree/master/dref/" >DRef</a>, the
+definition reifier, was released. There were large refactorings, bug
+fixes, minor features, cosmetics, documentation and performance
+improvements <a href="https://github.com/melisgl/mgl-pax/commits/parse-word" >too numerous to
+list</a>. Here
+is a summary of the new features and notable changes.</p>
+<ul>
+<li><p>DRef now supports
+  <a href="https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:@DTYPES%20MGL-PAX:SECTION" ><code>DTYPE</code>s</a>,
+  which allow filtering
+  <a href="https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:DEFINITIONS%20FUNCTION" ><code>DEFINITIONS</code></a>
+  and
+  <a href="https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:DREF-APROPOS%20FUNCTION" ><code>DREF-APROPOS</code></a>
+  results according to the locative type hierarchy:</p>
+
+<pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">definitions</span></i> 'print</span>)</span>
+==&gt; <span class="paren1">(<span class="code">#&lt;DREF PRINT FUNCTION&gt;
+--&gt;  #&lt;DREF PRINT <span class="paren2">(<span class="code">UNKNOWN <span class="paren3">(<span class="code"><span class="keyword">:DEFOPTIMIZER</span> PRINT SB-C:DERIVE-TYPE</span>)</span></span>)</span>&gt;
+--&gt;  #&lt;DREF PRINT <span class="paren2">(<span class="code">UNKNOWN
+--&gt;                <span class="paren3">(<span class="code">DECLAIM PRINT
+--&gt;                         <i><span class="symbol">SB-C:DEFKNOWN</span></i></span>)</span></span>)</span>&gt;</span>)</span></span></code></pre>
+
+<pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">definitions</span></i> 'print <span class="keyword">:dtype</span> '<span class="paren2">(<span class="code">and t <span class="paren3">(<span class="code">not unknown</span>)</span></span>)</span></span>)</span>
+==&gt; <span class="paren1">(<span class="code">#&lt;DREF PRINT FUNCTION&gt;</span>)</span></span></code></pre>
+
+<p>The <code>AND T</code> bit restricts the query to definitions in the
+running Lisp. The top of the <code>DTYPE</code> hierarchy is
+<a href="https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:TOP%20DREF:DTYPE" ><code>DREF:TOP</code></a>,
+which includes external definitions such as the <code>CLHS</code>, that comes
+with PAX:</p>
+
+<pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">definitions</span></i> 'print <span class="keyword">:dtype</span> '<span class="paren2">(<span class="code">not unknown</span>)</span></span>)</span>
+==&gt; <span class="paren1">(<span class="code">#&lt;DREF PRINT <span class="paren2">(<span class="code">CLHS <i><span class="symbol">FUNCTION</span></i></span>)</span>&gt; #&lt;DREF PRINT FUNCTION&gt;</span>)</span></span></code></pre>
+
+<pre><code><span class="code"><span class="paren1">(<span class="code">dref-apropos <span class="string">"method"</span> <span class="keyword">:package</span> <span class="keyword">:dref</span> <span class="keyword">:external-only</span> t <span class="keyword">:dtype</span> 'class</span>)</span>
+==&gt; <span class="paren1">(<span class="code">#&lt;DREF METHOD CLASS&gt; #&lt;DREF METHOD-COMBINATION CLASS&gt;</span>)</span></span></code></pre>
+
+<p>The <a href="https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF-EXT:@LOCATIVE-TYPE-HIERARCHY%20MGL-PAX:SECTION" >locative type
+hierarchy</a>
+can be queried programmatically, and this information is included in their documentation (see for example <a href="https://melisgl.github.io/mgl-pax-world/dref-manual.html#GENERIC-FUNCTION%20MGL-PAX:LOCATIVE" >the <code>GENERIC-FUNCTION</code> locative type</a>).</p></li>
+<li><p>The <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@PAX-LIVE-HOME-PAGE%20MGL-PAX:SECTION" >PAX Live Home
+  Page</a>
+  better supports exploration without having to leave the browser.</p>
+
+<ul>
+<li><p>It lists packages grouped by ASDF systems that define
+  them (when this can be determined from the source locations).</p></li>
+<li><p>It links to apropos pages for each locative type.</p></li>
+<li><p>It has an input box for looking up documentation right from
+  the browser (as if with <code>mgl-pax-document</code> from Emacs).</p></li>
+<li><p>It has an input box for looking up apropos right from the
+  browser (as if with <code>mgl-pax-apropos</code> from Emacs).</p></li>
+<li><p>The web server can be
+  <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:ENSURE-WEB-SERVER%20FUNCTION" >started</a>
+  without Emacs.</p></li>
+</ul></li>
+<li><p>Completion of names and locatives in Emacs is much improved.</p></li>
+<li><p>New aliases were added to the <code>CLHS</code> pages documenting format
+  directives (e.g. <code>~F</code>), standard macro characters (<code>#A</code>) and loop
+  keywords (<code>sum</code>, <code>:sum</code>, <code>loop:sum</code>), so that one can just
+  <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION" ><code>C-.</code></a> (<code>mgl-pax-document</code>)
+  them. See the documentation of the <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:CLHS%20MGL-PAX:LOCATIVE" ><code>CLHS</code>
+  locative</a>.</p></li>
+<li><p>The <a href="https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF-EXT:@EXTENDING-DREF%20MGL-PAX:SECTION" >DRef extension
+  api</a>
+  has been cleaned up.</p></li>
+</ul>
 <p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40MULTIFACETED-DEVELOPMENT-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@TECH-@MULTIFACETED-DEVELOPMENT-SHORT%20MGL-PAX:SECTION"></a></p>
 <h1><a href="multifaceted-development.html" title="On Multifaceted Development and the Role of Documentation">On Multifaceted Development and the Role of Documentation</a></h1>
@@ -162,6 +236,23 @@ grids, in particular.</p>
 right thing to do. Compare them at the same x-height or, better yet,
 at the same space usage.</p>
 <p>... read the rest of <a href="how-to-compare-fonts.html" title="Normalize Fonts for Comparison">Normalize Fonts for Comparison</a>.</p>
+<p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40PAX-V0-2E1-SHORT-20MGL-PAX-3ASECTION-29"></a>
+<a id="MGL-PAX-BLOG:@TECH-@PAX-V0.1-SHORT%20MGL-PAX:SECTION"></a></p>
+<h1><a href="pax-v0.1.html" title="PAX v0.1">PAX v0.1</a></h1>
+<p><span class='post-data'><em>Tags:</em> <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2022-02-16</span></p>
+<div class='br'></div>
+<p><a href="http://github.com/melisgl/mgl-pax/" >PAX</a> v0.1 is released.
+At this point, I consider it fairly complete. Here is the changelog
+for the last year or so.</p>
+<h2>New Features</h2>
+<ul>
+<li><p>To reduce deployment size, made the MGL-PAX system <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29" >autoload navigation, documentation generation, and transcription code</a>.</p></li>
+<li><p>Symbols in the CL package are <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29" >linked to the hyperspec</a> like this: <code>PRINT</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_wr_pr.htm" title="PRINT (MGL-PAX:CLHS FUNCTION)"><code>PRINT</code></a>.</p></li>
+<li><p>Hyperspec sections and issues can be linked to with the <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29" ><code>CLHS</code> locative</a> like this: <code>[lambda lists][CLHS]</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/03_d.htm" title="&quot;3.4&quot; (MGL-PAX:CLHS MGL-PAX:SECTION)">lambda lists</a>.</p></li>
+<li><p>Added support for <code>[see this][foo function]</code> and <code>[see this][foo]</code> style of <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-40MGL-PAX-LINKING-TO-CODE-20MGL-PAX-3ASECTION-29" >linking</a>.</p></li>
+<li><p>Added <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28DECLARATION-20MGL-PAX-3ALOCATIVE-29" ><code>DECLARATION</code> locative</a>.</p></li>
+</ul>
+<p>... read the rest of <a href="pax-v0.1.html" title="PAX v0.1">PAX v0.1</a>.</p>
 <p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40MIGRATION-TO-GITHUB-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@TECH-@MIGRATION-TO-GITHUB-SHORT%20MGL-PAX:SECTION"></a></p>
 <h1><a href="migration-to-github.html" title="Migration to Github">Migration to Github</a></h1>

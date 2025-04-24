@@ -7,6 +7,82 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
+            <title>PAX and DRef v0.4</title>
+            <link>http://quotenil.com/pax-v0.4.html</link>
+            <description>&lt;p&gt;Version 0.4 of &lt;a href=&quot;http://github.com/melisgl/mgl-pax/&quot; &gt;PAX&lt;/a&gt;, the
+documentation system, and
+&lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref/&quot; &gt;DRef&lt;/a&gt;, the
+definition reifier, was released. There were large refactorings, bug
+fixes, minor features, cosmetics, documentation and performance
+improvements &lt;a href=&quot;https://github.com/melisgl/mgl-pax/commits/parse-word&quot; &gt;too numerous to
+list&lt;/a&gt;. Here
+is a summary of the new features and notable changes.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;DRef now supports
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:@DTYPES%20MGL-PAX:SECTION&quot; &gt;&lt;code&gt;DTYPE&lt;/code&gt;s&lt;/a&gt;,
+  which allow filtering
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:DEFINITIONS%20FUNCTION&quot; &gt;&lt;code&gt;DEFINITIONS&lt;/code&gt;&lt;/a&gt;
+  and
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:DREF-APROPOS%20FUNCTION&quot; &gt;&lt;code&gt;DREF-APROPOS&lt;/code&gt;&lt;/a&gt;
+  results according to the locative type hierarchy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;definitions&lt;/span&gt;&lt;/i&gt; &apos;print&lt;/span&gt;)&lt;/span&gt;
+==&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;#&amp;lt;DREF PRINT FUNCTION&amp;gt;
+--&amp;gt;  #&amp;lt;DREF PRINT &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;UNKNOWN &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;:DEFOPTIMIZER&lt;/span&gt; PRINT SB-C:DERIVE-TYPE&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+--&amp;gt;  #&amp;lt;DREF PRINT &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;UNKNOWN
+--&amp;gt;                &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;DECLAIM PRINT
+--&amp;gt;                         &lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;SB-C:DEFKNOWN&lt;/span&gt;&lt;/i&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;definitions&lt;/span&gt;&lt;/i&gt; &apos;print &lt;span class=&quot;keyword&quot;&gt;:dtype&lt;/span&gt; &apos;&lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;and t &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;not unknown&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
+==&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;#&amp;lt;DREF PRINT FUNCTION&amp;gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;AND T&lt;/code&gt; bit restricts the query to definitions in the
+running Lisp. The top of the &lt;code&gt;DTYPE&lt;/code&gt; hierarchy is
+&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:TOP%20DREF:DTYPE&quot; &gt;&lt;code&gt;DREF:TOP&lt;/code&gt;&lt;/a&gt;,
+which includes external definitions such as the &lt;code&gt;CLHS&lt;/code&gt;, that comes
+with PAX:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;definitions&lt;/span&gt;&lt;/i&gt; &apos;print &lt;span class=&quot;keyword&quot;&gt;:dtype&lt;/span&gt; &apos;&lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;not unknown&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
+==&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;#&amp;lt;DREF PRINT &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;CLHS &lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;FUNCTION&lt;/span&gt;&lt;/i&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt; #&amp;lt;DREF PRINT FUNCTION&amp;gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dref-apropos &lt;span class=&quot;string&quot;&gt;&quot;method&quot;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:package&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:dref&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:external-only&lt;/span&gt; t &lt;span class=&quot;keyword&quot;&gt;:dtype&lt;/span&gt; &apos;class&lt;/span&gt;)&lt;/span&gt;
+==&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;#&amp;lt;DREF METHOD CLASS&amp;gt; #&amp;lt;DREF METHOD-COMBINATION CLASS&amp;gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF-EXT:@LOCATIVE-TYPE-HIERARCHY%20MGL-PAX:SECTION&quot; &gt;locative type
+hierarchy&lt;/a&gt;
+can be queried programmatically, and this information is included in their documentation (see for example &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#GENERIC-FUNCTION%20MGL-PAX:LOCATIVE&quot; &gt;the &lt;code&gt;GENERIC-FUNCTION&lt;/code&gt; locative type&lt;/a&gt;).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@PAX-LIVE-HOME-PAGE%20MGL-PAX:SECTION&quot; &gt;PAX Live Home
+  Page&lt;/a&gt;
+  better supports exploration without having to leave the browser.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;It lists packages grouped by ASDF systems that define
+  them (when this can be determined from the source locations).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It links to apropos pages for each locative type.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It has an input box for looking up documentation right from
+  the browser (as if with &lt;code&gt;mgl-pax-document&lt;/code&gt; from Emacs).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It has an input box for looking up apropos right from the
+  browser (as if with &lt;code&gt;mgl-pax-apropos&lt;/code&gt; from Emacs).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The web server can be
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:ENSURE-WEB-SERVER%20FUNCTION&quot; &gt;started&lt;/a&gt;
+  without Emacs.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Completion of names and locatives in Emacs is much improved.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;New aliases were added to the &lt;code&gt;CLHS&lt;/code&gt; pages documenting format
+  directives (e.g. &lt;code&gt;~F&lt;/code&gt;), standard macro characters (&lt;code&gt;#A&lt;/code&gt;) and loop
+  keywords (&lt;code&gt;sum&lt;/code&gt;, &lt;code&gt;:sum&lt;/code&gt;, &lt;code&gt;loop:sum&lt;/code&gt;), so that one can just
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION&quot; &gt;&lt;code&gt;C-.&lt;/code&gt;&lt;/a&gt; (&lt;code&gt;mgl-pax-document&lt;/code&gt;)
+  them. See the documentation of the &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:CLHS%20MGL-PAX:LOCATIVE&quot; &gt;&lt;code&gt;CLHS&lt;/code&gt;
+  locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF-EXT:@EXTENDING-DREF%20MGL-PAX:SECTION&quot; &gt;DRef extension
+  api&lt;/a&gt;
+  has been cleaned up.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
+            <pubDate>Wed, 23 Apr 2025 02:00:00 +0200</pubDate>
+        </item>
+        <item>
             <title>TLDR of Argmin&apos;s Summary of Half of the Meehl Lectures</title>
             <link>http://quotenil.com/argmin-meehl-summary.html</link>
             <description>&lt;p&gt;Over at &lt;a href=&quot;https://www.argmin.net&quot; &gt;argmin.net&lt;/a&gt;, Ben Recht &lt;a href=&quot;https://www.argmin.net/p/meehls-philosophical-probability&quot; &gt;is reflecting on Meehl&apos;s

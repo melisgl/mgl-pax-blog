@@ -7,6 +7,82 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
+            <title>PAX and DRef v0.4</title>
+            <link>http://quotenil.com/pax-v0.4.html</link>
+            <description>&lt;p&gt;Version 0.4 of &lt;a href=&quot;http://github.com/melisgl/mgl-pax/&quot; &gt;PAX&lt;/a&gt;, the
+documentation system, and
+&lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref/&quot; &gt;DRef&lt;/a&gt;, the
+definition reifier, was released. There were large refactorings, bug
+fixes, minor features, cosmetics, documentation and performance
+improvements &lt;a href=&quot;https://github.com/melisgl/mgl-pax/commits/parse-word&quot; &gt;too numerous to
+list&lt;/a&gt;. Here
+is a summary of the new features and notable changes.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;DRef now supports
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:@DTYPES%20MGL-PAX:SECTION&quot; &gt;&lt;code&gt;DTYPE&lt;/code&gt;s&lt;/a&gt;,
+  which allow filtering
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:DEFINITIONS%20FUNCTION&quot; &gt;&lt;code&gt;DEFINITIONS&lt;/code&gt;&lt;/a&gt;
+  and
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:DREF-APROPOS%20FUNCTION&quot; &gt;&lt;code&gt;DREF-APROPOS&lt;/code&gt;&lt;/a&gt;
+  results according to the locative type hierarchy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;definitions&lt;/span&gt;&lt;/i&gt; &apos;print&lt;/span&gt;)&lt;/span&gt;
+==&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;#&amp;lt;DREF PRINT FUNCTION&amp;gt;
+--&amp;gt;  #&amp;lt;DREF PRINT &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;UNKNOWN &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;:DEFOPTIMIZER&lt;/span&gt; PRINT SB-C:DERIVE-TYPE&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;
+--&amp;gt;  #&amp;lt;DREF PRINT &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;UNKNOWN
+--&amp;gt;                &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;DECLAIM PRINT
+--&amp;gt;                         &lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;SB-C:DEFKNOWN&lt;/span&gt;&lt;/i&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;definitions&lt;/span&gt;&lt;/i&gt; &apos;print &lt;span class=&quot;keyword&quot;&gt;:dtype&lt;/span&gt; &apos;&lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;and t &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;not unknown&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
+==&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;#&amp;lt;DREF PRINT FUNCTION&amp;gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;AND T&lt;/code&gt; bit restricts the query to definitions in the
+running Lisp. The top of the &lt;code&gt;DTYPE&lt;/code&gt; hierarchy is
+&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:TOP%20DREF:DTYPE&quot; &gt;&lt;code&gt;DREF:TOP&lt;/code&gt;&lt;/a&gt;,
+which includes external definitions such as the &lt;code&gt;CLHS&lt;/code&gt;, that comes
+with PAX:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;definitions&lt;/span&gt;&lt;/i&gt; &apos;print &lt;span class=&quot;keyword&quot;&gt;:dtype&lt;/span&gt; &apos;&lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;not unknown&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
+==&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;#&amp;lt;DREF PRINT &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;CLHS &lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;FUNCTION&lt;/span&gt;&lt;/i&gt;&lt;/span&gt;)&lt;/span&gt;&amp;gt; #&amp;lt;DREF PRINT FUNCTION&amp;gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;dref-apropos &lt;span class=&quot;string&quot;&gt;&quot;method&quot;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:package&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:dref&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:external-only&lt;/span&gt; t &lt;span class=&quot;keyword&quot;&gt;:dtype&lt;/span&gt; &apos;class&lt;/span&gt;)&lt;/span&gt;
+==&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;#&amp;lt;DREF METHOD CLASS&amp;gt; #&amp;lt;DREF METHOD-COMBINATION CLASS&amp;gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF-EXT:@LOCATIVE-TYPE-HIERARCHY%20MGL-PAX:SECTION&quot; &gt;locative type
+hierarchy&lt;/a&gt;
+can be queried programmatically, and this information is included in their documentation (see for example &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#GENERIC-FUNCTION%20MGL-PAX:LOCATIVE&quot; &gt;the &lt;code&gt;GENERIC-FUNCTION&lt;/code&gt; locative type&lt;/a&gt;).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@PAX-LIVE-HOME-PAGE%20MGL-PAX:SECTION&quot; &gt;PAX Live Home
+  Page&lt;/a&gt;
+  better supports exploration without having to leave the browser.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;It lists packages grouped by ASDF systems that define
+  them (when this can be determined from the source locations).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It links to apropos pages for each locative type.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It has an input box for looking up documentation right from
+  the browser (as if with &lt;code&gt;mgl-pax-document&lt;/code&gt; from Emacs).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It has an input box for looking up apropos right from the
+  browser (as if with &lt;code&gt;mgl-pax-apropos&lt;/code&gt; from Emacs).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The web server can be
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:ENSURE-WEB-SERVER%20FUNCTION&quot; &gt;started&lt;/a&gt;
+  without Emacs.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Completion of names and locatives in Emacs is much improved.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;New aliases were added to the &lt;code&gt;CLHS&lt;/code&gt; pages documenting format
+  directives (e.g. &lt;code&gt;~F&lt;/code&gt;), standard macro characters (&lt;code&gt;#A&lt;/code&gt;) and loop
+  keywords (&lt;code&gt;sum&lt;/code&gt;, &lt;code&gt;:sum&lt;/code&gt;, &lt;code&gt;loop:sum&lt;/code&gt;), so that one can just
+  &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION&quot; &gt;&lt;code&gt;C-.&lt;/code&gt;&lt;/a&gt; (&lt;code&gt;mgl-pax-document&lt;/code&gt;)
+  them. See the documentation of the &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:CLHS%20MGL-PAX:LOCATIVE&quot; &gt;&lt;code&gt;CLHS&lt;/code&gt;
+  locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF-EXT:@EXTENDING-DREF%20MGL-PAX:SECTION&quot; &gt;DRef extension
+  api&lt;/a&gt;
+  has been cleaned up.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
+            <pubDate>Wed, 23 Apr 2025 02:00:00 +0200</pubDate>
+        </item>
+        <item>
             <title>On Multifaceted Development and the Role of Documentation</title>
             <link>http://quotenil.com/multifaceted-development.html</link>
             <description>&lt;p&gt;Catchy title, innit? I came up with it while trying to
@@ -321,6 +397,69 @@ or &lt;a href=&quot;https://mastodon.social/@melisgl/110175790416538571&quot; &g
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Mon, 10 Apr 2023 02:00:00 +0200</pubDate>
+        </item>
+        <item>
+            <title>PAX v0.1</title>
+            <link>http://quotenil.com/pax-v0.1.html</link>
+            <description>&lt;p&gt;&lt;a href=&quot;http://github.com/melisgl/mgl-pax/&quot; &gt;PAX&lt;/a&gt; v0.1 is released.
+At this point, I consider it fairly complete. Here is the changelog
+for the last year or so.&lt;/p&gt;
+&lt;h2&gt;New Features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;To reduce deployment size, made the MGL-PAX system &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29&quot; &gt;autoload navigation, documentation generation, and transcription code&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Symbols in the CL package are &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29&quot; &gt;linked to the hyperspec&lt;/a&gt; like this: &lt;code&gt;PRINT&lt;/code&gt;, which renders as &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_wr_pr.htm&quot; title=&quot;PRINT (MGL-PAX:CLHS FUNCTION)&quot;&gt;&lt;code&gt;PRINT&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Hyperspec sections and issues can be linked to with the &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ACLHS-20MGL-PAX-3ALOCATIVE-29&quot; &gt;&lt;code&gt;CLHS&lt;/code&gt; locative&lt;/a&gt; like this: &lt;code&gt;[lambda lists][CLHS]&lt;/code&gt;, which renders as &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/03_d.htm&quot; title=&quot;&amp;quot;3.4&amp;quot; (MGL-PAX:CLHS MGL-PAX:SECTION)&quot;&gt;lambda lists&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Added support for &lt;code&gt;[see this][foo function]&lt;/code&gt; and &lt;code&gt;[see this][foo]&lt;/code&gt; style of &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-40MGL-PAX-LINKING-TO-CODE-20MGL-PAX-3ASECTION-29&quot; &gt;linking&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28DECLARATION-20MGL-PAX-3ALOCATIVE-29&quot; &gt;&lt;code&gt;DECLARATION&lt;/code&gt; locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28READTABLE-20MGL-PAX-3ALOCATIVE-29&quot; &gt;&lt;code&gt;READTABLE&lt;/code&gt; locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3ASYMBOL-MACRO-20MGL-PAX-3ALOCATIVE-29&quot; &gt;&lt;code&gt;SYMBOL-MACRO&lt;/code&gt; locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28METHOD-COMBINATION-20MGL-PAX-3ALOCATIVE-29&quot; &gt;&lt;code&gt;METHOD-COMBINATION&lt;/code&gt; locative&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:EXPORTABLE-REFERENCE-P%20GENERIC-FUNCTION&quot; &gt;&lt;code&gt;EXPORTABLE-REFERENCE-P&lt;/code&gt;&lt;/a&gt; to allow specializing decisions on whether to export a symbol in &lt;code&gt;DEFPOST&lt;/code&gt; based on &lt;code&gt;SECTION-PACKAGE&lt;/code&gt;. PAX no longer exports its documentation and drops the &lt;code&gt;MGL-PAX-&lt;/code&gt; prefix from names like &lt;code&gt;@MGL-PAX-LINKS&lt;/code&gt; to reduce clutter.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-DOWNCASE-UPPERCASE-CODE*%20VARIABLE&quot; &gt;Downcasing&lt;/a&gt; now works well and is the default for PAX World.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@UNRESOLVABLE-REFLINKS%20MGL-PAX:SECTION&quot; &gt;Warn on unresolvable reflinks&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Transcribe&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Transcription consistency checking is now &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-FINER-GRAINED-CONSISTENCY-CHECKS%20MGL-PAX:SECTION&quot; &gt;customizable&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Transcription consistency checking and dynamic environment &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-DYNENV%20MGL-PAX:SECTION&quot; &gt;can be controlled for code blocks&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Errors during transcribing are &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@TRANSCRIPT-API%20MGL-PAX:SECTION&quot; &gt;included&lt;/a&gt; in the transcript.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Portability&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Tested on ABCL, AllegroCL, CCL, CLISP, CMUCL, ECL, and SBCL.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;SLIME &lt;code&gt;M-.&lt;/code&gt; is now as capable on all Lisps as the Swank implementation allows.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Improvements&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Generalized, cleaned up, and documented handling &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#toc-6-2-parsing&quot; &gt;trimming of punctuation and plurals&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;DOCUMENT&lt;/code&gt; &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT-OBJECT%20%28METHOD%20NIL%20%28STRING%20T%29%29&quot; &gt;works on &lt;code&gt;STRING&lt;/code&gt;s&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Autolinking for the same name happens at most &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-CODE-2A-20VARIABLE-29&quot; &gt;once per docstring&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Within the same docstring explicit links (in addition to autolinks) also &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@SUPPRESSED-LINKS%20MGL-PAX:SECTION&quot; &gt;prevent subsequent autolinking of the same object&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28CLASS-20MGL-PAX-3ALOCATIVE-29&quot; &gt;Unexported superclasses are not listed&lt;/a&gt; in the generated documentation of classes.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Improved documentation.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Introduced &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@OVERVIEW-OF-ESCAPING%20MGL-PAX:SECTION&quot; &gt;double backslash escapes&lt;/a&gt; to prevent downcasing in addition to linking.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Removed &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_desc_1.htm&quot; title=&quot;DESCRIBE-OBJECT (MGL-PAX:CLHS GENERIC-FUNCTION)&quot;&gt;&lt;code&gt;DESCRIBE-OBJECT&lt;/code&gt;&lt;/a&gt; method on &lt;code&gt;SECTION&lt;/code&gt;s. Call &lt;code&gt;DOCUMENT&lt;/code&gt; directly.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Made URLs in the generated documentation more stable across implementations and &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-URL-VERSIONS*%20VARIABLE&quot; &gt;made them more human readable&lt;/a&gt;. Existing URLs still work.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Exported api for &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-DOCUMENT%20MGL-PAX:SECTION&quot; &gt;extending &lt;code&gt;DOCUMENT&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-FIND-SOURCE%20MGL-PAX:SECTION&quot; &gt;FIND-SOURCE&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION&quot; &gt;&lt;code&gt;DOCUMENT&lt;/code&gt;&lt;/a&gt; can produce reasonably readable output with &lt;code&gt;:FORMAT&lt;/code&gt; &lt;code&gt;:PLAIN&lt;/code&gt; (the default). It is now suitable for use in the REPL as a kind of replacement for &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/f_docume.htm&quot; title=&quot;DOCUMENTATION (MGL-PAX:CLHS GENERIC-FUNCTION)&quot;&gt;&lt;code&gt;CL:DOCUMENTATION&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Bugs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Made Emacs-side parsing for &lt;code&gt;M-.&lt;/code&gt; navigation more robust.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Fixed documentation generation on &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm&quot; title=&quot;TRACE (MGL-PAX:CLHS MGL-PAX:MACRO)&quot;&gt;&lt;code&gt;TRACE&lt;/code&gt;&lt;/a&gt;d functions.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Fixed lots of minor bugs.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Internals&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Tests moved to &lt;a href=&quot;https://github.com/melisgl/try&quot; &gt;Try&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Added lost of tests.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Made documentation generation faster especially for small jobs.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Improved error reporting.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Autoloading no longer produces warnings on SBCL and fresh SLIME.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
+            <pubDate>Wed, 16 Feb 2022 01:00:00 +0100</pubDate>
         </item>
         <item>
             <title>Migration to Github</title>
