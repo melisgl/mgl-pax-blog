@@ -2845,7 +2845,7 @@
   """)
 
 (defpost @pax-v0.1 (:title "PAX v0.1"
-                    :tags (@lisp)
+                    :tags (@tech @lisp)
                     :date "2022-02-16")
   """[PAX](http://github.com/melisgl/mgl-pax/) v0.1 is released.
   At this point, I consider it fairly complete. Here is the changelog
@@ -4006,6 +4006,92 @@
   I believe improving the incentives is the most important
   contribution one can make in today's world. Now, go and read Ben's
   [posts][argmin-series].")
+
+(defpost @pax-v0.4
+    (:title "PAX and DRef v0.4"
+     :tags (@tech @lisp)
+     :date "2025-04-23")
+  """Version 0.4 of [PAX](http://github.com/melisgl/mgl-pax/), the
+  documentation system, and
+  [DRef](https://github.com/melisgl/mgl-pax/tree/master/dref/), the
+  definition reifier, was released. There were large refactorings, bug
+  fixes, minor features, cosmetics, documentation and performance
+  improvements [too numerous to
+  list](https://github.com/melisgl/mgl-pax/commits/parse-word). Here
+  is a summary of the new features and notable changes.
+
+  - DRef now supports
+    [`DTYPE`s](https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:@DTYPES%20MGL-PAX:SECTION),
+    which allow filtering
+    [`DEFINITIONS`](https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:DEFINITIONS%20FUNCTION)
+    and
+    [`DREF-APROPOS`](https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:DREF-APROPOS%20FUNCTION)
+    results according to the locative type hierarchy:
+
+      ```
+      (definitions 'print)
+      ==> (#<DREF PRINT FUNCTION>
+      -->  #<DREF PRINT (UNKNOWN (:DEFOPTIMIZER PRINT SB-C:DERIVE-TYPE))>
+      -->  #<DREF PRINT (UNKNOWN
+      -->                (DECLAIM PRINT
+      -->                         SB-C:DEFKNOWN))>)
+      ```
+      ```
+      (definitions 'print :dtype '(and t (not unknown)))
+      ==> (#<DREF PRINT FUNCTION>)
+      ```
+
+      The `AND T` bit restricts the query to definitions in the
+      running Lisp. The top of the DTYPE hierarchy is
+      [DREF:TOP](https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF:TOP%20DREF:DTYPE),
+      which includes external definitions such as the CLHS, that comes
+      with PAX:
+
+      ```
+      (definitions 'print :dtype '(not unknown))
+      ==> (#<DREF PRINT (CLHS FUNCTION)> #<DREF PRINT FUNCTION>)
+      ```
+
+      ```
+      (dref-apropos "method" :package :dref :external-only t :dtype 'class)
+      ==> (#<DREF METHOD CLASS> #<DREF METHOD-COMBINATION CLASS>)
+      ```
+
+      The [locative type
+      hierarchy](https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF-EXT:@LOCATIVE-TYPE-HIERARCHY%20MGL-PAX:SECTION)
+      can be queried programmatically, and this information is included in their documentation (see for example [the GENERIC-FUNCTION locative type](https://melisgl.github.io/mgl-pax-world/dref-manual.html#GENERIC-FUNCTION%20MGL-PAX:LOCATIVE)).
+
+  - The [PAX Live Home
+    Page](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@PAX-LIVE-HOME-PAGE%20MGL-PAX:SECTION)
+    better supports exploration without having to leave the browser.
+
+      - It lists packages grouped by ASDF systems that define
+        them (when this can be determined from the source locations).
+
+      - It links to apropos pages for each locative type.
+
+      - It has an input box for looking up documentation right from
+        the browser (as if with `mgl-pax-document` from Emacs).
+
+      - It has an input box for looking up apropos right from the
+        browser (as if with `mgl-pax-apropos` from Emacs).
+
+      - The web server can be
+        [started](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:ENSURE-WEB-SERVER%20FUNCTION)
+        without Emacs.
+
+  - Completion of names and locatives in Emacs is much improved.
+
+  - New aliases were added to the CLHS pages documenting format
+    directives (e.g. `~F`), standard macro characters (`#A`) and loop
+    keywords (`sum`, `:sum`, `loop:sum`), so that one can just
+    [`C-.`](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION) (`mgl-pax-document`)
+    them. See the documentation of the [CLHS
+    locative](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:CLHS%20MGL-PAX:LOCATIVE).
+
+  - The [DRef extension
+    api](https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF-EXT:@EXTENDING-DREF%20MGL-PAX:SECTION)
+    has been cleaned up.""")
 
 
 #+nil
