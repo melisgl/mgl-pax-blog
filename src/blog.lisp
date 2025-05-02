@@ -4096,7 +4096,7 @@
 (defpost @adaptive-hashing
     (:title "Adaptive Hashing"
      :tags (@tech @lisp)
-     :date "2025-05-03")
+     :date "2025-05-02")
   """At the [2024 ELS](https://www.european-lisp-symposium.org/2024/),
   I gave a [talk on adaptive
   hashing](https://quotenil.com/adaptive-hash-talk.pdf), which
