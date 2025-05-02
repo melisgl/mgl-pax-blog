@@ -4147,18 +4147,18 @@
   Note how SBCL's regret starts out much lower and becomes much higher
   than that of Murmur, but if anything, it advantage grows.
 
-  These gains must more than offset the cost of choosing a hash
-  function and switching to it, but we have to make some assumption
-  about the distribution of keys. In fact, some default hash functions
-  already make such assumptions to make the common cases faster,
-  usually at the cost of weakened worst-case guarantees.
-
   ## Implementation
 
   The general idea is sound, but turning it into real performance
-  gains is hard. The rest of this post is about how SBCL's built-in
-  hash tables, which had been reasonably fast, were modified. The core
-  switching mechanism looks at
+  gains is hard due to the cost of choosing a hash function and
+  switching to it. First, we have to make some assumption about the
+  distribution of keys. In fact, default hash functions in language
+  runtimes often make such assumptions to make the common cases
+  faster, usually at the cost of weakened worst-case guarantees.
+
+  The rest of this post is about how SBCL's built-in hash tables,
+  which had been reasonably fast, were modified. The core switching
+  mechanism looks at
 
   - the length of the collision chain on PUT operations,
 
