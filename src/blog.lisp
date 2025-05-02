@@ -4144,6 +4144,9 @@
   wiggling of the graphs is due to the resizing of the hash table as
   keys are added to it.
 
+  Note how SBCL's regret starts out much lower and becomes much higher
+  than that of Murmur, but if anything, it advantage grows.
+
   These gains must more than offset the cost of choosing a hash
   function and switching to it, but we have to make some assumption
   about the distribution of keys. In fact, some default hash functions
