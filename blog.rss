@@ -52,16 +52,16 @@ wiggling of the graphs is due to the resizing of the hash table as
 keys are added to it.&lt;/p&gt;
 &lt;p&gt;Note how SBCL&apos;s regret starts out much lower and becomes much higher
 than that of Murmur, but if anything, it advantage grows.&lt;/p&gt;
-&lt;p&gt;These gains must more than offset the cost of choosing a hash
-function and switching to it, but we have to make some assumption
-about the distribution of keys. In fact, some default hash functions
-already make such assumptions to make the common cases faster,
-usually at the cost of weakened worst-case guarantees.&lt;/p&gt;
 &lt;h2&gt;Implementation&lt;/h2&gt;
 &lt;p&gt;The general idea is sound, but turning it into real performance
-gains is hard. The rest of this post is about how SBCL&apos;s built-in
-hash tables, which had been reasonably fast, were modified. The core
-switching mechanism looks at&lt;/p&gt;
+gains is hard due to the cost of choosing a hash function and
+switching to it. First, we have to make some assumption about the
+distribution of keys. In fact, default hash functions in language
+runtimes often make such assumptions to make the common cases
+faster, usually at the cost of weakened worst-case guarantees.&lt;/p&gt;
+&lt;p&gt;The rest of this post is about how SBCL&apos;s built-in hash tables,
+which had been reasonably fast, were modified. The core switching
+mechanism looks at&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;the length of the collision chain on PUT operations,&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;the collision count on rehash (when the hash table is grown), and&lt;/p&gt;&lt;/li&gt;
