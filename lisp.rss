@@ -7,6 +7,103 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
+            <title>Adaptive Hashing</title>
+            <link>http://quotenil.com/adaptive-hashing.html</link>
+            <description>&lt;p&gt;At the &lt;a href=&quot;https://www.european-lisp-symposium.org/2024/&quot; &gt;2024 ELS&lt;/a&gt;,
+I gave a &lt;a href=&quot;https://quotenil.com/adaptive-hash-talk.pdf&quot; &gt;talk on adaptive
+hashing&lt;/a&gt;, which
+focusses on making general purpose hash tables &lt;em&gt;faster and more
+robust&lt;/em&gt; at the same time.&lt;/p&gt;
+&lt;h2&gt;Theory vs Practice&lt;/h2&gt;
+&lt;p&gt;Hash table theory most concerns itself with the asymptotic
+worst-case cost with a hash function chosen randomly from a family
+of hash functions. Although these results are very relevant in
+practice,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;those pesky constant factors, that the big-O cost ignores, do
+  matter, and&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;we don&apos;t pick hash functions randomly but fix the hash function
+  for the lifetime of the hash table.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are &lt;a href=&quot;https://en.wikipedia.org/wiki/Perfect_hash_function&quot; &gt;Perfect
+Hashing&lt;/a&gt;
+algorithms, that choose an optimal hash function for a given set of
+keys. The drawback is that they either require the set of keys to be
+fixed or they are too slow to be used as general purpose hash
+tables.&lt;/p&gt;
+&lt;p&gt;Still, the idea that we can do better by adapting the hash function
+to the actual keys is key. Can we do that &lt;em&gt;online&lt;/em&gt;, that is, while
+the hash table is being used? Potential performance gains come from
+improving the constant factors mentioned above by&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;having fewer collisions, and&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/cache-friendliness-regret.png&quot; alt=&quot;cache-friendliness-regret&quot; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;being more cache-friendly.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/cache-friendliness-put.png&quot; alt=&quot;cache-friendliness-put&quot; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The images above plot regret (the expected number of comparisons of
+per lookup minus the minimum achievable) and the measured run-time
+of PUT operations vs the number of keys in the hash table with a
+particular key distribution. Green is Murmur (a robust hash
+function), Blue is SBCL&apos;s expedient &lt;code&gt;EQ&lt;/code&gt; hash. The
+wiggling of the graphs is due to the resizing of the hash table as
+keys are added to it.&lt;/p&gt;
+&lt;p&gt;These gains must more than offset the cost of choosing a hash
+function and switching to it, but we have to make some assumption
+about the distribution of keys. In fact, some default hash functions
+already make such assumptions to make the common cases faster,
+usually at the cost of weakened worst-case guarantees.&lt;/p&gt;
+&lt;h2&gt;Implementation&lt;/h2&gt;
+&lt;p&gt;The general idea is sound, but turning it into real performance
+gains is hard. The rest of this post is about how SBCL&apos;s built-in
+hash tables, which had been reasonably fast, were modified. The core
+switching mechanism looks at&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;the length of the collision chain on PUT operations,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;the collision count on rehash (when the hash table is grown), and&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;the size of the hash table.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Adapting &lt;code&gt;EQ&lt;/code&gt; hash tables&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Init to to constant hash function. This a fancy way of saying
+   that we do linear search in a vector internally. This is an &lt;code&gt;EQ&lt;/code&gt;
+   hash table, so key comparison is as single assembly instruction.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;When the hash table is grown to more than 32 keys and it must be
+   rehashed anyway, we switch to a hash function that does a single
+   right shift with the number of bits to shift determined from the
+   longest common run of low-bits in the keys.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If too many collisions, we switch to the previous default SBCL
+   &lt;code&gt;EQ&lt;/code&gt;-hash function that has been tuned for a long time.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If too many collisions, we switch to Murmur, a general purpose
+   hash. We could also go all the way to cryptographic hashes.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In step 2, the hash function with the single shift fits the memory
+allocator&apos;s behaviour nicely: it is a perfect hash for keys forming
+arithmetic sequences, which is often approximately true for objects
+of the same type allocated in a loop.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/adaptive-hash-eq-put.png&quot; alt=&quot;adaptive-hash-eq-put&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;In this figure, the red line is the adaptive hash.&lt;/p&gt;
+&lt;h3&gt;Adapting &lt;code&gt;EQUAL&lt;/code&gt; hash tables&lt;/h3&gt;
+&lt;p&gt;For composite keys, running the hash function is the main cost.
+Adaptive hashing does the following.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;For string keys, hash only the first and last 2 characters.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;For list keys, only hash the first 4 elements.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If too many collisions, double the limit.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/adaptive-hash-string-put.png&quot; alt=&quot;adaptive-hash-string-put&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+So, SBCL hash tables have been adaptive for almost a year now,
+gaining some speed in common cases, and robustness in others.&lt;/p&gt;
+&lt;p&gt;The full paper is &lt;a href=&quot;https://zenodo.org/records/11091296&quot; &gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;img src=&quot;http://quotenil.com/blog-files/adaptive-hash.png&quot; alt=&quot;adaptive-hashing&quot; /&gt;
+</description>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
+            <pubDate>Sat, 03 May 2025 02:00:00 +0200</pubDate>
+        </item>
+        <item>
             <title>PAX and DRef v0.4</title>
             <link>http://quotenil.com/pax-v0.4.html</link>
             <description>&lt;p&gt;Version 0.4 of &lt;a href=&quot;http://github.com/melisgl/mgl-pax/&quot; &gt;PAX&lt;/a&gt;, the
