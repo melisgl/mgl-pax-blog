@@ -3946,9 +3946,9 @@
   getting slowed down by methodological considerations.
 
   [argmin]: https://www.argmin.net
-  [argmin-series]: https://www.argmin.net/p/meehls-philosophical-probability
+  [argmin-series]: https://www.argmin.net/p/meehls-philosophical-probability"
 
-  So, here is my TLDR suitable for [the short-haul commuter and the
+  "So, here is my TLDR suitable for [the short-haul commuter and the
   busy senior executive][suitable-poetry]: _it's all Bayes and
   incentives_. There is no silver bullet method, and while we do
   questionable things for all the wrong reasons, time will clean up
