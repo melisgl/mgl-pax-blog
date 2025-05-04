@@ -4145,7 +4145,7 @@
   keys are added to it.
 
   Note how SBCL's regret starts out much lower and becomes much higher
-  than that of Murmur, but if anything, it advantage grows.
+  than that of Murmur, but if anything, its advantage grows.
 
   ## Implementation
 
