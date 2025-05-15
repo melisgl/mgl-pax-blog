@@ -84,15 +84,16 @@ improving the constant factors mentioned above by</p>
 
 <p><img src="blog-files/cache-friendliness-put.png" alt="cache-friendliness-put" /></p></li>
 </ul>
-<p>The images above plot regret (the expected number of comparisons of
-per lookup minus the minimum achievable) and the measured run-time
-of PUT operations vs the number of keys in the hash table with a
-particular key distribution. Green is Murmur (a robust hash
-function), Blue is SBCL's expedient <code>EQ</code> hash. The
-wiggling of the graphs is due to the resizing of the hash table as
-keys are added to it.</p>
+<p>The first image above plots the regret (the expected number of
+comparisons of per lookup minus the minimum achievable) and the
+measured run-time of PUT operations vs the number of keys in the
+hash table with a particular key distribution. Green is Murmur (a
+robust hash function), Blue is SBCL's expedient <code>EQ</code>
+hash. The wiggling of the graphs is due to the resizing of the hash
+table as keys are added to it.</p>
 <p>Note how SBCL's regret starts out much lower and becomes much higher
-than that of Murmur, but if anything, its advantage grows.</p>
+than that of Murmur, but if anything, its advantage in run
+time (second image) grows.</p>
 <h2>Implementation</h2>
 <p>The general idea is sound, but turning it into real performance
 gains is hard due to the cost of choosing a hash function and

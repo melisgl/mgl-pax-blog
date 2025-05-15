@@ -468,11 +468,10 @@ validation&lt;/a&gt;,
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Bootstrap_aggregating&quot; &gt;bagging&lt;/a&gt; and
 stratification support in the brand new
 &lt;a href=&quot;https://github.com/melisgl/mgl/blob/4b1800a6dcbdf290a66b5f952fe3bd81641b0b5c/src/resample.lisp&quot; &gt;MGL-RESAMPLE&lt;/a&gt;
-package documented with
-&lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; &gt;MGL-PAX&lt;/a&gt;, which you all will
-most definitely want to use. My winning submission used bagged
-cross-validated dropout neural networks with stratified splits so
-this is where it&apos;s coming from.&lt;/p&gt;
+package documented with &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt;, which you all will most definitely
+want to use. My winning submission used bagged cross-validated
+dropout neural networks with stratified splits so this is where it&apos;s
+coming from.&lt;/p&gt;
 &lt;p&gt;MGL itself and &lt;a href=&quot;https://github.com/melisgl/mgl-mat&quot; &gt;MGL-MAT&lt;/a&gt; were
 updated to work with the latest
 &lt;a href=&quot;https://github.com/takagi/cl-cuda&quot; &gt;CL-CUDA&lt;/a&gt;. The neural network
@@ -1283,7 +1282,7 @@ constraint accounts for very little in this setup.
 Please refer to the
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-manual.html&quot; &gt;documentation&lt;/a&gt;
 instead.&lt;/p&gt;
-&lt;p&gt;In &lt;code&gt;@INTRODUCTION-TO-MGL-PART-2&lt;/code&gt;, we went through a trivial example of
+&lt;p&gt;In Introduction to MGL (part 2), we went through a trivial example of
 a backprop network. I said before that the main focus is on
 Boltzmann Machines so let&apos;s kill the suspense here and now by
 cutting straight to the heart of the matter.&lt;/p&gt;
@@ -1458,7 +1457,7 @@ to see how training goes.
 Please refer to the
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-manual.html&quot; &gt;documentation&lt;/a&gt;
 instead.&lt;/p&gt;
-&lt;p&gt;After &lt;code&gt;@INTRODUCTION-TO-MGL-PART-1&lt;/code&gt;, today we are going to walk
+&lt;p&gt;After Introduction to MGL (part 1), today we are going to walk
 through a small example and touch on the main concepts related to
 learning within this library.&lt;/p&gt;
 &lt;p&gt;At the top of the food chain is the generic function &lt;code&gt;TRAIN&lt;/code&gt;:&lt;/p&gt;
@@ -1624,7 +1623,7 @@ and have a biologically plausible, local,
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Hebbian_theory&quot; &gt;Hebbian&lt;/a&gt; learning
 rule.&lt;/p&gt;
 Now that you are sufficiently motivated, stick around and in
-&lt;code&gt;@INTRODUCTION-TO-MGL-PART-2&lt;/code&gt;, we are going to see real examples.
+Introduction to MGL (part 2), we are going to see real examples.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Wed, 02 Dec 2009 01:00:00 +0100</pubDate>

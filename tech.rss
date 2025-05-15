@@ -43,15 +43,16 @@ improving the constant factors mentioned above by&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/cache-friendliness-put.png&quot; alt=&quot;cache-friendliness-put&quot; /&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The images above plot regret (the expected number of comparisons of
-per lookup minus the minimum achievable) and the measured run-time
-of PUT operations vs the number of keys in the hash table with a
-particular key distribution. Green is Murmur (a robust hash
-function), Blue is SBCL&apos;s expedient &lt;code&gt;EQ&lt;/code&gt; hash. The
-wiggling of the graphs is due to the resizing of the hash table as
-keys are added to it.&lt;/p&gt;
+&lt;p&gt;The first image above plots the regret (the expected number of
+comparisons of per lookup minus the minimum achievable) and the
+measured run-time of PUT operations vs the number of keys in the
+hash table with a particular key distribution. Green is Murmur (a
+robust hash function), Blue is SBCL&apos;s expedient &lt;code&gt;EQ&lt;/code&gt;
+hash. The wiggling of the graphs is due to the resizing of the hash
+table as keys are added to it.&lt;/p&gt;
 &lt;p&gt;Note how SBCL&apos;s regret starts out much lower and becomes much higher
-than that of Murmur, but if anything, its advantage grows.&lt;/p&gt;
+than that of Murmur, but if anything, its advantage in run
+time (second image) grows.&lt;/p&gt;
 &lt;h2&gt;Implementation&lt;/h2&gt;
 &lt;p&gt;The general idea is sound, but turning it into real performance
 gains is hard due to the cost of choosing a hash function and
@@ -108,9 +109,7 @@ gaining some speed in common cases, and robustness in others.&lt;/p&gt;
         <item>
             <title>PAX and DRef v0.4</title>
             <link>http://quotenil.com/pax-v0.4.html</link>
-            <description>&lt;p&gt;Version 0.4 of &lt;a href=&quot;http://github.com/melisgl/mgl-pax/&quot; &gt;PAX&lt;/a&gt;, the
-documentation system, and
-&lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref/&quot; &gt;DRef&lt;/a&gt;, the
+            <description>&lt;p&gt;Version 0.4 of &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt;, the documentation system, and &lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref/&quot; title=&quot;DRef&quot;&gt;DRef&lt;/a&gt;, the
 definition reifier, was released. There were large refactorings, bug
 fixes, minor features, cosmetics, documentation and performance
 improvements &lt;a href=&quot;https://github.com/melisgl/mgl-pax/commits/parse-word&quot; &gt;too numerous to
@@ -185,14 +184,14 @@ can be queried programmatically, and this information is included in their docum
             <title>On Multifaceted Development and the Role of Documentation</title>
             <link>http://quotenil.com/multifaceted-development.html</link>
             <description>&lt;p&gt;Catchy title, innit? I came up with it while trying to
-name the development style &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; &gt;PAX&lt;/a&gt;
-enables. The original idea was something vaguely self-explanatory in
-a straight out of a marketing department kind of way, with tendrils
-right into your unconscious. Documentation-driven development
-sounded just the thing, but it&apos;s already taken. Luckily, I came to
-realize that neither documentation nor any other single thing should
-drive development. Less luckily for the philosophically disinclined,
-this epiphany unleashed my inner &lt;a href=&quot;https://en.wikipedia.org/wiki/Richard_P._Gabriel&quot; &gt;Richard P.
+name the development style &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt; enables. The original idea was
+something vaguely self-explanatory in a straight out of a marketing
+department kind of way, with tendrils right into your unconscious.
+Documentation-driven development sounded just the thing, but it&apos;s
+already taken. Luckily, I came to realize that neither documentation
+nor any other single thing should drive development. Less luckily
+for the philosophically disinclined, this epiphany unleashed my
+inner &lt;a href=&quot;https://en.wikipedia.org/wiki/Richard_P._Gabriel&quot; &gt;Richard P.
 Gabriel&lt;/a&gt;. I reckon
 if there is a point to what follows, it&apos;s abstract enough to make it
 hard to tell.&lt;/p&gt;
@@ -294,17 +293,14 @@ until the next Quicklisp release.
         </item>
         <item>
             <title>DRef and PAX v0.3</title>
-            <link>http://quotenil.com/dref.html</link>
+            <link>http://quotenil.com/dref-and-pax-v0.3.html</link>
             <description>&lt;p&gt;&lt;code&gt;DEFSECTION&lt;/code&gt; needs to refer to definitions that do not create a
 first-class object (e.g. stuff like &lt;code&gt;(*DOCUMENT-LINK-TO-HYPERSPEC*
 VARIABLE)&lt;/code&gt;), and since its original release in 2014, a substantial
-part of
-&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html&quot; &gt;PAX&lt;/a&gt; dealt
-with locatives and references, which reify definitions. This release
-finally factors that code out into a library called
-&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html&quot; &gt;DRef&lt;/a&gt;,
-allowing PAX to focus on documentation. Being very young, DRef lives
-under adult supervision, in a
+part of &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt; dealt with locatives and references, which reify
+definitions. This release finally factors that code out into a
+library called &lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref/&quot; title=&quot;DRef&quot;&gt;DRef&lt;/a&gt;, allowing PAX to focus on documentation. Being
+very young, DRef lives under adult supervision, in a
 &lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref&quot; &gt;subdirectory&lt;/a&gt;
 of the PAX repository.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;definitions&lt;/span&gt;&lt;/i&gt; &apos;pax:document-object*&lt;/span&gt;)&lt;/span&gt;
@@ -337,8 +333,8 @@ DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quo
 
 DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;docstring **&lt;/span&gt;)&lt;/span&gt;
 &quot;For definitions with a CLASS locative, the arglist printed is the
-  list of immediate superclasses with STANDARD-OBJECT, CONDITION and
-  non-exported symbols omitted.&quot;
+list of immediate superclasses with STANDARD-OBJECT, CONDITION and
+non-exported symbols omitted.&quot;
 
 DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;pax:document &lt;span class=&quot;special&quot;&gt;***&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
 - [method] DOCUMENT-OBJECT* &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;DREF CLASS-DREF&lt;/span&gt;)&lt;/span&gt; STREAM
@@ -500,9 +496,8 @@ or &lt;a href=&quot;https://mastodon.social/@melisgl/110175790416538571&quot; &g
         <item>
             <title>PAX v0.1</title>
             <link>http://quotenil.com/pax-v0.1.html</link>
-            <description>&lt;p&gt;&lt;a href=&quot;http://github.com/melisgl/mgl-pax/&quot; &gt;PAX&lt;/a&gt; v0.1 is released.
-At this point, I consider it fairly complete. Here is the changelog
-for the last year or so.&lt;/p&gt;
+            <description>&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt; v0.1 is released. At this point, I consider it fairly
+complete. Here is the changelog for the last year or so.&lt;/p&gt;
 &lt;h2&gt;New Features&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;To reduce deployment size, made the MGL-PAX system &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29&quot; &gt;autoload navigation, documentation generation, and transcription code&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;

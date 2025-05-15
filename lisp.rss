@@ -43,15 +43,16 @@ improving the constant factors mentioned above by&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/cache-friendliness-put.png&quot; alt=&quot;cache-friendliness-put&quot; /&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The images above plot regret (the expected number of comparisons of
-per lookup minus the minimum achievable) and the measured run-time
-of PUT operations vs the number of keys in the hash table with a
-particular key distribution. Green is Murmur (a robust hash
-function), Blue is SBCL&apos;s expedient &lt;code&gt;EQ&lt;/code&gt; hash. The
-wiggling of the graphs is due to the resizing of the hash table as
-keys are added to it.&lt;/p&gt;
+&lt;p&gt;The first image above plots the regret (the expected number of
+comparisons of per lookup minus the minimum achievable) and the
+measured run-time of PUT operations vs the number of keys in the
+hash table with a particular key distribution. Green is Murmur (a
+robust hash function), Blue is SBCL&apos;s expedient &lt;code&gt;EQ&lt;/code&gt;
+hash. The wiggling of the graphs is due to the resizing of the hash
+table as keys are added to it.&lt;/p&gt;
 &lt;p&gt;Note how SBCL&apos;s regret starts out much lower and becomes much higher
-than that of Murmur, but if anything, its advantage grows.&lt;/p&gt;
+than that of Murmur, but if anything, its advantage in run
+time (second image) grows.&lt;/p&gt;
 &lt;h2&gt;Implementation&lt;/h2&gt;
 &lt;p&gt;The general idea is sound, but turning it into real performance
 gains is hard due to the cost of choosing a hash function and
@@ -108,9 +109,7 @@ gaining some speed in common cases, and robustness in others.&lt;/p&gt;
         <item>
             <title>PAX and DRef v0.4</title>
             <link>http://quotenil.com/pax-v0.4.html</link>
-            <description>&lt;p&gt;Version 0.4 of &lt;a href=&quot;http://github.com/melisgl/mgl-pax/&quot; &gt;PAX&lt;/a&gt;, the
-documentation system, and
-&lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref/&quot; &gt;DRef&lt;/a&gt;, the
+            <description>&lt;p&gt;Version 0.4 of &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt;, the documentation system, and &lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref/&quot; title=&quot;DRef&quot;&gt;DRef&lt;/a&gt;, the
 definition reifier, was released. There were large refactorings, bug
 fixes, minor features, cosmetics, documentation and performance
 improvements &lt;a href=&quot;https://github.com/melisgl/mgl-pax/commits/parse-word&quot; &gt;too numerous to
@@ -185,14 +184,14 @@ can be queried programmatically, and this information is included in their docum
             <title>On Multifaceted Development and the Role of Documentation</title>
             <link>http://quotenil.com/multifaceted-development.html</link>
             <description>&lt;p&gt;Catchy title, innit? I came up with it while trying to
-name the development style &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; &gt;PAX&lt;/a&gt;
-enables. The original idea was something vaguely self-explanatory in
-a straight out of a marketing department kind of way, with tendrils
-right into your unconscious. Documentation-driven development
-sounded just the thing, but it&apos;s already taken. Luckily, I came to
-realize that neither documentation nor any other single thing should
-drive development. Less luckily for the philosophically disinclined,
-this epiphany unleashed my inner &lt;a href=&quot;https://en.wikipedia.org/wiki/Richard_P._Gabriel&quot; &gt;Richard P.
+name the development style &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt; enables. The original idea was
+something vaguely self-explanatory in a straight out of a marketing
+department kind of way, with tendrils right into your unconscious.
+Documentation-driven development sounded just the thing, but it&apos;s
+already taken. Luckily, I came to realize that neither documentation
+nor any other single thing should drive development. Less luckily
+for the philosophically disinclined, this epiphany unleashed my
+inner &lt;a href=&quot;https://en.wikipedia.org/wiki/Richard_P._Gabriel&quot; &gt;Richard P.
 Gabriel&lt;/a&gt;. I reckon
 if there is a point to what follows, it&apos;s abstract enough to make it
 hard to tell.&lt;/p&gt;
@@ -294,17 +293,14 @@ until the next Quicklisp release.
         </item>
         <item>
             <title>DRef and PAX v0.3</title>
-            <link>http://quotenil.com/dref.html</link>
+            <link>http://quotenil.com/dref-and-pax-v0.3.html</link>
             <description>&lt;p&gt;&lt;code&gt;DEFSECTION&lt;/code&gt; needs to refer to definitions that do not create a
 first-class object (e.g. stuff like &lt;code&gt;(*DOCUMENT-LINK-TO-HYPERSPEC*
 VARIABLE)&lt;/code&gt;), and since its original release in 2014, a substantial
-part of
-&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html&quot; &gt;PAX&lt;/a&gt; dealt
-with locatives and references, which reify definitions. This release
-finally factors that code out into a library called
-&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html&quot; &gt;DRef&lt;/a&gt;,
-allowing PAX to focus on documentation. Being very young, DRef lives
-under adult supervision, in a
+part of &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt; dealt with locatives and references, which reify
+definitions. This release finally factors that code out into a
+library called &lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref/&quot; title=&quot;DRef&quot;&gt;DRef&lt;/a&gt;, allowing PAX to focus on documentation. Being
+very young, DRef lives under adult supervision, in a
 &lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref&quot; &gt;subdirectory&lt;/a&gt;
 of the PAX repository.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;definitions&lt;/span&gt;&lt;/i&gt; &apos;pax:document-object*&lt;/span&gt;)&lt;/span&gt;
@@ -337,8 +333,8 @@ DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quo
 
 DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;docstring **&lt;/span&gt;)&lt;/span&gt;
 &quot;For definitions with a CLASS locative, the arglist printed is the
-  list of immediate superclasses with STANDARD-OBJECT, CONDITION and
-  non-exported symbols omitted.&quot;
+list of immediate superclasses with STANDARD-OBJECT, CONDITION and
+non-exported symbols omitted.&quot;
 
 DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;pax:document &lt;span class=&quot;special&quot;&gt;***&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
 - [method] DOCUMENT-OBJECT* &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;DREF CLASS-DREF&lt;/span&gt;)&lt;/span&gt; STREAM
@@ -722,9 +718,8 @@ common situations.&lt;/p&gt;
         <item>
             <title>PAX v0.1</title>
             <link>http://quotenil.com/pax-v0.1.html</link>
-            <description>&lt;p&gt;&lt;a href=&quot;http://github.com/melisgl/mgl-pax/&quot; &gt;PAX&lt;/a&gt; v0.1 is released.
-At this point, I consider it fairly complete. Here is the changelog
-for the last year or so.&lt;/p&gt;
+            <description>&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt; v0.1 is released. At this point, I consider it fairly
+complete. Here is the changelog for the last year or so.&lt;/p&gt;
 &lt;h2&gt;New Features&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;To reduce deployment size, made the MGL-PAX system &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29&quot; &gt;autoload navigation, documentation generation, and transcription code&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
@@ -927,12 +922,12 @@ where &lt;code&gt;*DOCUMENT-MARK-UP-SIGNATURES*&lt;/code&gt; is defined.
         <item>
             <title>PAX World</title>
             <link>http://quotenil.com/pax-world.html</link>
-            <description>&lt;p&gt;A promise of &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; &gt;MGL-PAX&lt;/a&gt; has always
-been that it will be easy to generate documentation for different
-libraries without requiring extensive markup and relying on stable
-URLs. For example, without PAX, if a docstring in the MGL library
-referenced the matrix class &lt;code&gt;MGL-MAT:MAT&lt;/code&gt; from the MGL-MAT library,
-it would need to include ugly HTML links in the markdown:&lt;/p&gt;
+            <description>&lt;p&gt;A promise of &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt; has always been that it will be easy to
+generate documentation for different libraries without requiring
+extensive markup and relying on stable URLs. For example, without
+PAX, if a docstring in the MGL library referenced the matrix class
+&lt;code&gt;MGL-MAT:MAT&lt;/code&gt; from the MGL-MAT library, it would need to include
+ugly HTML links in the markdown:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&quot;Returns a [some-terrible-github-link-to-html][MAT] object.&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;With PAX however, the uppercase symbol &lt;code&gt;MAT&lt;/code&gt; will be automatically
 linked to the documentation of &lt;code&gt;MAT&lt;/code&gt; if its whereabouts are known at
@@ -994,11 +989,10 @@ nets in the documentation.
             <title>INCLUDE Locative for PAX</title>
             <link>http://quotenil.com/include-locative-for-pax.html</link>
             <description>&lt;p&gt;I&apos;m getting so used to the &lt;code&gt;M-.&lt;/code&gt; plus documentation
-generation hack that&apos;s
-&lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; &gt;MGL-PAX&lt;/a&gt;, that I use it for all
-new code, which highlighted an issue of with code examples.&lt;/p&gt;
+generation hack that&apos;s &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt;, that I use it for all new code, which
+highlighted an issue of with code examples.&lt;/p&gt;
 &lt;p&gt;The problem is that, the ideally runnable, examples had to live in
-docstrings. Small code examples presented as verifiable &lt;code&gt;@TRANSCRIPTS&lt;/code&gt;
+docstrings. Small code examples presented as verifiable Transcripts
 within docstrings were great, but developing anything beyond a
 couple of forms of code in docstrings or copy-pasting them from
 source files to docstrings is insanity or an
@@ -1070,11 +1064,10 @@ validation&lt;/a&gt;,
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Bootstrap_aggregating&quot; &gt;bagging&lt;/a&gt; and
 stratification support in the brand new
 &lt;a href=&quot;https://github.com/melisgl/mgl/blob/4b1800a6dcbdf290a66b5f952fe3bd81641b0b5c/src/resample.lisp&quot; &gt;MGL-RESAMPLE&lt;/a&gt;
-package documented with
-&lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; &gt;MGL-PAX&lt;/a&gt;, which you all will
-most definitely want to use. My winning submission used bagged
-cross-validated dropout neural networks with stratified splits so
-this is where it&apos;s coming from.&lt;/p&gt;
+package documented with &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt;, which you all will most definitely
+want to use. My winning submission used bagged cross-validated
+dropout neural networks with stratified splits so this is where it&apos;s
+coming from.&lt;/p&gt;
 &lt;p&gt;MGL itself and &lt;a href=&quot;https://github.com/melisgl/mgl-mat&quot; &gt;MGL-MAT&lt;/a&gt; were
 updated to work with the latest
 &lt;a href=&quot;https://github.com/takagi/cl-cuda&quot; &gt;CL-CUDA&lt;/a&gt;. The neural network
@@ -1885,7 +1878,7 @@ constraint accounts for very little in this setup.
 Please refer to the
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-manual.html&quot; &gt;documentation&lt;/a&gt;
 instead.&lt;/p&gt;
-&lt;p&gt;In &lt;code&gt;@INTRODUCTION-TO-MGL-PART-2&lt;/code&gt;, we went through a trivial example of
+&lt;p&gt;In Introduction to MGL (part 2), we went through a trivial example of
 a backprop network. I said before that the main focus is on
 Boltzmann Machines so let&apos;s kill the suspense here and now by
 cutting straight to the heart of the matter.&lt;/p&gt;
@@ -2060,7 +2053,7 @@ to see how training goes.
 Please refer to the
 &lt;a href=&quot;http://melisgl.github.io/mgl-pax-world/mgl-manual.html&quot; &gt;documentation&lt;/a&gt;
 instead.&lt;/p&gt;
-&lt;p&gt;After &lt;code&gt;@INTRODUCTION-TO-MGL-PART-1&lt;/code&gt;, today we are going to walk
+&lt;p&gt;After Introduction to MGL (part 1), today we are going to walk
 through a small example and touch on the main concepts related to
 learning within this library.&lt;/p&gt;
 &lt;p&gt;At the top of the food chain is the generic function &lt;code&gt;TRAIN&lt;/code&gt;:&lt;/p&gt;
@@ -2226,7 +2219,7 @@ and have a biologically plausible, local,
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Hebbian_theory&quot; &gt;Hebbian&lt;/a&gt; learning
 rule.&lt;/p&gt;
 Now that you are sufficiently motivated, stick around and in
-&lt;code&gt;@INTRODUCTION-TO-MGL-PART-2&lt;/code&gt;, we are going to see real examples.
+Introduction to MGL (part 2), we are going to see real examples.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Wed, 02 Dec 2009 01:00:00 +0100</pubDate>
