@@ -4213,6 +4213,37 @@
 
   ![adaptive-hashing](blog-files/adaptive-hash.png)
   """)
+
+(defpost @pax-pdf-output
+    (:title "PAX PDF Output"
+     :tags (@tech @lisp)
+     :date "2025-05-15")
+  """Thanks to [Paul A. Patience](https://github.com/paulapatience),
+  @PAX now has [PDF support][pax-pdf-output]. See
+  [pax-manual-v0.4.1.pdf][pax-pdf-manual] and
+  [dref-manual-v0.4.1.pdf][dref-pdf-manual]. The PDF is very similar
+  to the [HTML][pax-world], even down to the locative types (e.g
+  `[function]`) being linked to the sources on GitHub, but
+  cross-linking between PDFs doesn't work reliably on most viewers, so
+  that's disabled. Also, for reading PDFs so heavy on internal linking
+  to be enjoyable, one needs a viewer that supports going back within
+  the PDF (not the case with Chrome at the moment). Here is a blurry
+  screenshot to entice:
+
+    [pax-world]: https://melisgl.github.io/mgl-pax-world/
+    [pax-pdf-output]: https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3A-40PDF-OUTPUT-20MGL-PAX-3ASECTION-29
+    [pax-pdf-manual]: http://quotenil.com/blog-files/pax-manual-v0.4.1.pdf
+    [dref-pdf-manual]: http://quotenil.com/blog-files/dref-manual-v0.4.1.pdf
+
+  ![pax-pdf-doc](blog-files/pax-pdf-doc.png)
+
+  There is a bit of a Christmas tree effect due to syntax highlighting
+  and the colouring of the links. Blue links are internal to the PDF,
+  [maroon](https://en.wikipedia.org/wiki/Maroon) links are external. I
+  might want to change that to make it look more like the HTML, but I
+  have not found a way on LaTeX to underline text without breaking
+  automatic hyphenation.
+  """)
 
 
 #+nil
