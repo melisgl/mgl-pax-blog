@@ -294,8 +294,7 @@
   href='http://quotenil.com/personal.rss'>personal</a>. The blog is
   generated with a <a
   href='https://github.com/melisgl/mgl-pax-blog'>homegrown blog
-  engine</a> on top of <a
-  href='https://github.com/melisgl/mgl-pax'>PAX</a>.")
+  engine</a> on top of @PAX.")
 
 
 ;;;; The "sidebar", that links to the categories and special pages
@@ -2495,11 +2494,10 @@
   [bagging](http://en.wikipedia.org/wiki/Bootstrap_aggregating) and
   stratification support in the brand new
   [MGL-RESAMPLE](https://github.com/melisgl/mgl/blob/4b1800a6dcbdf290a66b5f952fe3bd81641b0b5c/src/resample.lisp)
-  package documented with
-  [MGL-PAX](https://github.com/melisgl/mgl-pax), which you all will
-  most definitely want to use. My winning submission used bagged
-  cross-validated dropout neural networks with stratified splits so
-  this is where it's coming from.
+  package documented with @PAX, which you all will most definitely
+  want to use. My winning submission used bagged cross-validated
+  dropout neural networks with stratified splits so this is where it's
+  coming from.
 
   MGL itself and [MGL-MAT](https://github.com/melisgl/mgl-mat) were
   updated to work with the latest
@@ -2578,9 +2576,8 @@
                                     :tags (@lisp)
                                     :date "2014-12-06")
   "I'm getting so used to the `M-.` plus documentation
-  generation hack that's
-  [MGL-PAX](https://github.com/melisgl/mgl-pax), that I use it for all
-  new code, which highlighted an issue of with code examples.
+  generation hack that's @PAX, that I use it for all new code, which
+  highlighted an issue of with code examples.
 
   The problem is that, the ideally runnable, examples had to live in
   docstrings. Small code examples presented as verifiable @TRANSCRIPTS
@@ -2641,12 +2638,12 @@
 (defpost @pax-world (:title "PAX World"
                      :tags (@lisp)
                      :date "2015-01-26")
-  """A promise of [MGL-PAX](https://github.com/melisgl/mgl-pax) has always
-  been that it will be easy to generate documentation for different
-  libraries without requiring extensive markup and relying on stable
-  URLs. For example, without PAX, if a docstring in the MGL library
-  referenced the matrix class `MGL-MAT:MAT` from the MGL-MAT library,
-  it would need to include ugly HTML links in the markdown:
+  """A promise of @PAX has always been that it will be easy to
+  generate documentation for different libraries without requiring
+  extensive markup and relying on stable URLs. For example, without
+  PAX, if a docstring in the MGL library referenced the matrix class
+  `MGL-MAT:MAT` from the MGL-MAT library, it would need to include
+  ugly HTML links in the markdown:
 
   ```
   "Returns a [some-terrible-github-link-to-html][MAT] object."
@@ -2847,9 +2844,8 @@
 (defpost @pax-v0.1 (:title "PAX v0.1"
                     :tags (@tech @lisp)
                     :date "2022-02-16")
-  """[PAX](http://github.com/melisgl/mgl-pax/) v0.1 is released.
-  At this point, I consider it fairly complete. Here is the changelog
-  for the last year or so.
+  """@PAX v0.1 is released. At this point, I consider it fairly
+  complete. Here is the changelog for the last year or so.
 
   ## New Features
 
@@ -3712,19 +3708,16 @@
   - [Live browsing with other browsers](https://youtu.be/ilPRgwKZkeo)
   """)
 
-(defpost @dref (:title "DRef and PAX v0.3"
-                       :tags (@tech @lisp)
-                       :date "2023-07-26")
+(defpost @dref-and-pax-v0.3 (:title "DRef and PAX v0.3"
+                             :tags (@tech @lisp)
+                             :date "2023-07-26")
   """DEFSECTION needs to refer to definitions that do not create a
   first-class object (e.g. stuff like `(*DOCUMENT-LINK-TO-HYPERSPEC*
   VARIABLE)`), and since its original release in 2014, a substantial
-  part of
-  [PAX](https://melisgl.github.io/mgl-pax-world/pax-manual.html) dealt
-  with locatives and references, which reify definitions. This release
-  finally factors that code out into a library called
-  [DRef](https://melisgl.github.io/mgl-pax-world/dref-manual.html),
-  allowing PAX to focus on documentation. Being very young, DRef lives
-  under adult supervision, in a
+  part of @PAX dealt with locatives and references, which reify
+  definitions. This release finally factors that code out into a
+  library called @DREF, allowing PAX to focus on documentation. Being
+  very young, DRef lives under adult supervision, in a
   [subdirectory](https://github.com/melisgl/mgl-pax/tree/master/dref)
   of the PAX repository.""""""
 
@@ -3759,8 +3752,8 @@
 
   DREF> (docstring **)
   "For definitions with a CLASS locative, the arglist printed is the
-    list of immediate superclasses with STANDARD-OBJECT, CONDITION and
-    non-exported symbols omitted."
+  list of immediate superclasses with STANDARD-OBJECT, CONDITION and
+  non-exported symbols omitted."
 
   DREF> (pax:document ***)
   - [method] DOCUMENT-OBJECT* (DREF CLASS-DREF) STREAM
@@ -3838,19 +3831,27 @@
   [https://github.com/melisgl/try](https://github.com/melisgl/try)
   until the next Quicklisp release.""")
 
+(define-glossary-term @pax
+    (:title "PAX"
+     :url "https://github.com/melisgl/mgl-pax"))
+
+(define-glossary-term @dref
+    (:title "DRef"
+     :url "https://github.com/melisgl/mgl-pax/tree/master/dref/"))
+
 (defpost @multifaceted-development
     (:title "On Multifaceted Development and the Role of Documentation"
      :tags (@tech @lisp @pompousness)
      :date "2023-08-17")
   "Catchy title, innit? I came up with it while trying to
-  name the development style [PAX](https://github.com/melisgl/mgl-pax)
-  enables. The original idea was something vaguely self-explanatory in
-  a straight out of a marketing department kind of way, with tendrils
-  right into your unconscious. Documentation-driven development
-  sounded just the thing, but it's already taken. Luckily, I came to
-  realize that neither documentation nor any other single thing should
-  drive development. Less luckily for the philosophically disinclined,
-  this epiphany unleashed my inner [Richard P.
+  name the development style @PAX enables. The original idea was
+  something vaguely self-explanatory in a straight out of a marketing
+  department kind of way, with tendrils right into your unconscious.
+  Documentation-driven development sounded just the thing, but it's
+  already taken. Luckily, I came to realize that neither documentation
+  nor any other single thing should drive development. Less luckily
+  for the philosophically disinclined, this epiphany unleashed my
+  inner [Richard P.
   Gabriel](https://en.wikipedia.org/wiki/Richard_P._Gabriel). I reckon
   if there is a point to what follows, it's abstract enough to make it
   hard to tell."
@@ -4011,9 +4012,7 @@
     (:title "PAX and DRef v0.4"
      :tags (@tech @lisp)
      :date "2025-04-23")
-  """Version 0.4 of [PAX](http://github.com/melisgl/mgl-pax/), the
-  documentation system, and
-  [DRef](https://github.com/melisgl/mgl-pax/tree/master/dref/), the
+  """Version 0.4 of @PAX, the documentation system, and @DREF, the
   definition reifier, was released. There were large refactorings, bug
   fixes, minor features, cosmetics, documentation and performance
   improvements [too numerous to
@@ -4136,16 +4135,17 @@
 
       ![cache-friendliness-put](blog-files/cache-friendliness-put.png)
 
-  The images above plot regret (the expected number of comparisons of
-  per lookup minus the minimum achievable) and the measured run-time
-  of PUT operations vs the number of keys in the hash table with a
-  particular key distribution. Green is Murmur (a robust hash
-  function), Blue is SBCL's expedient [EQ][dislocated] hash. The
-  wiggling of the graphs is due to the resizing of the hash table as
-  keys are added to it.
+  The first image above plots the regret (the expected number of
+  comparisons of per lookup minus the minimum achievable) and the
+  measured run-time of PUT operations vs the number of keys in the
+  hash table with a particular key distribution. Green is Murmur (a
+  robust hash function), Blue is SBCL's expedient [EQ][dislocated]
+  hash. The wiggling of the graphs is due to the resizing of the hash
+  table as keys are added to it.
 
   Note how SBCL's regret starts out much lower and becomes much higher
-  than that of Murmur, but if anything, its advantage grows.
+  than that of Murmur, but if anything, its advantage in run
+  time (second image) grows.
 
   ## Implementation
 
