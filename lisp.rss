@@ -176,7 +176,8 @@ hierarchy&lt;/a&gt;
 can be queried programmatically, and this information is included in their documentation (see for example &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/dref-manual.html#GENERIC-FUNCTION%20MGL-PAX:LOCATIVE&quot; &gt;the &lt;code&gt;GENERIC-FUNCTION&lt;/code&gt; locative type&lt;/a&gt;).&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;The &lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@PAX-LIVE-HOME-PAGE%20MGL-PAX:SECTION&quot; &gt;PAX Live Home
   Page&lt;/a&gt;
-  better supports exploration without having to leave the browser.&lt;/p&gt;
+  better supports exploration without having to leave the browser.
+  &lt;a href=&quot;https://youtu.be/4bl8PS8OW94&quot; &gt;See the video.&lt;/a&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;It lists packages grouped by ASDF systems that define
