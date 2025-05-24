@@ -264,28 +264,8 @@ hard to tell.</p>
 <p><span class='post-data'><em>Tags:</em> <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2023-08-14</span></p>
 <div class='br'></div>
 <p><a href="https://github.com/melisgl/try" >Try</a>, my test anti-framework,
-has just got light Emacs integration. Consider the following test:</p>
-<pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">deftest</span></i> test-foo <span class="paren2">(<span class="code"></span>)</span>
-  <span class="paren2">(<span class="code">is <span class="paren3">(<span class="code">equal <span class="string">"xxx"</span> 5</span>)</span></span>)</span>
-  <span class="paren2">(<span class="code">is <span class="paren3">(<span class="code">equal 7 7</span>)</span></span>)</span>
-  <span class="paren2">(<span class="code"><i><span class="symbol">with-failure-expected</span></i> <span class="paren3">(<span class="code">t</span>)</span>
-    <span class="paren3">(<span class="code">is <span class="paren4">(<span class="code">same-set-p '<span class="paren5">(<span class="code">1</span>)</span> '<span class="paren5">(<span class="code">2</span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
-<p>The test can be run from Lisp with <code>(test-foo)</code> (interactive
-debugging) or <code>(try 'test-foo)</code> (non-interactive), but now there is
-a third option: run it from Emacs and get a couple of conveniences
-in return. In particular, with <code>M-x mgl-try</code> then entering
-<code>test-foo</code>, a new buffer pops up with the test output, which is
-font-locked based on the type of the outcome. The buffer also has
-outline minor mode, which matches the hierarchical structure of the
-output.</p>
-<p><img src="blog-files/try-emacs.png" alt="try-emacs" /> The buffer's major mode is
-Lisp, so <code>M-.</code> and all the usual key bindings work. In additition,
-a couple of keys bound to navigation commands are available. See the
-<a href="https://melisgl.github.io/mgl-pax-world/try-manual.html#TRY:@TRY%2FEMACS%20MGL-PAX:SECTION" >documentation</a>
-for the details. Note that Quicklisp has an older version of Try
-that does not have Emacs integration, so you'll need to use
-<a href="https://github.com/melisgl/try" >https://github.com/melisgl/try</a>
-until the next Quicklisp release.</p>
+has just got light Emacs integration.</p>
+<p>... read the rest of <a href="try-in-emacs.html" title="Try in Emacs">Try in Emacs</a>.</p>
 <p><a id="x-28MGL-PAX-BLOG-3A-40LISP--40DREF-AND-PAX-V0-2E3-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@LISP-@DREF-AND-PAX-V0.3-SHORT%20MGL-PAX:SECTION"></a></p>
 <h1><a href="dref-and-pax-v0.3.html" title="DRef and PAX v0.3">DRef and PAX v0.3</a></h1>

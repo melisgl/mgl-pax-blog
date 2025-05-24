@@ -291,7 +291,8 @@ And that&apos;s the best 4KiB name I could come up with.
             <title>Try in Emacs</title>
             <link>http://quotenil.com/try-in-emacs.html</link>
             <description>&lt;p&gt;&lt;a href=&quot;https://github.com/melisgl/try&quot; &gt;Try&lt;/a&gt;, my test anti-framework,
-has just got light Emacs integration. Consider the following test:&lt;/p&gt;
+has just got light Emacs integration.&lt;/p&gt;
+&lt;p&gt;Consider the following test:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;&lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;deftest&lt;/span&gt;&lt;/i&gt; test-foo &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;is &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;equal &lt;span class=&quot;string&quot;&gt;&quot;xxx&quot;&lt;/span&gt; 5&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;is &lt;span class=&quot;paren3&quot;&gt;(&lt;span class=&quot;code&quot;&gt;equal 7 7&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
