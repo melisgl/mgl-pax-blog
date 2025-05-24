@@ -107,8 +107,6 @@ h3:before {
   counter-increment: subsubheading;
 }
 h3 {
-  font-family: var(--font-family-heading);
-  font-feature-settings: var(--font-feature-settings-heading);
   font-weight: normal;
   font-size: 1rem;
   font-style: italic;
