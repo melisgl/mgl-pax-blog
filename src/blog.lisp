@@ -4,11 +4,12 @@
 
 ;;;; A PAX:SECTION whose entries are generated on the fly and is
 ;;;; presented without the usual WITH-HEADING and `[in package ...]`
-;;;; (see DOCUMENT-DREF (method (pax::section-dref t)))
+;;;; (see DOCUMENT-OBJECT* (method (section t)))
 
 (defclass dynamic-section (section)
   ((pax::%entries :initform ())))
 
+;;; This is just to avoid printing the title of e.g. the category.
 (defmethod document-object* ((section dynamic-section) stream)
   (let ((*package* (section-package section))
         (*readtable* (section-readtable section))
@@ -42,11 +43,12 @@
         collect (dref:resolve (dref:dref post-name 'section))))
 
 (defmethod document-object* :before ((category category) stream)
-  (let ((category-name (symbol-name (section-name category))))
-    (setf (slot-value category 'pax::%entries)
-          (loop for post in (category-posts category)
-                collect (dref:resolve
-                         (define-shortened-post category-name post))))))
+  (when pax::*first-pass*
+    (let ((category-name (symbol-name (section-name category))))
+      (setf (slot-value category 'pax::%entries)
+            (loop for post in (category-posts category)
+                  collect (dref:resolve
+                           (define-shortened-post category-name post)))))))
 
 (defun define-shortened-post (name-prefix post)
   (with-slots (tags date) post
@@ -88,16 +90,17 @@
       :category-name ',category)))
 
 (defmethod document-object* :before ((overview overview) stream)
-  (let ((category (dref:resolve (dref:dref (category-name overview)
-                                           'section))))
-    (setf (slot-value overview 'pax::%entries)
-          (list*
-           (format nil "## ~A~%~%" (section-title category))
-           (loop for post in (category-posts category)
-                 collect (format nil "<div/>~A &nbsp; [~A][~A]~%~%"
-                                 (post-date post)
-                                 (section-name post)
-                                 :section))))))
+  (when pax::*first-pass*
+    (let ((category (dref:resolve (dref:dref (category-name overview)
+                                             'section))))
+      (setf (slot-value overview 'pax::%entries)
+            (list*
+             (format nil "## ~A~%~%" (section-title category))
+             (loop for post in (category-posts category)
+                   collect (format nil "<div/>~A &nbsp; [~A][~A]~%~%"
+                                   (post-date post)
+                                   (section-name post)
+                                   :section)))))))
 
 
 (defclass post (section)
