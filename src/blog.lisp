@@ -4069,6 +4069,7 @@
   - The [PAX Live Home
     Page](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@PAX-LIVE-HOME-PAGE%20MGL-PAX:SECTION)
     better supports exploration without having to leave the browser.
+    [See the video.](https://youtu.be/4bl8PS8OW94)
 
       - It lists packages grouped by ASDF systems that define
         them (when this can be determined from the source locations).
