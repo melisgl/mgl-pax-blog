@@ -24,6 +24,9 @@
 
 (defclass category (dynamic-section)
   ((post-names :initform ())
+   (max-n-posts :initform 15
+                :initarg :max-n-posts
+                :reader category-max-n-posts)
    ;; This is used only for the RSS feed.
    (long-title :initarg :long-title :reader category-long-title)))
 
@@ -44,11 +47,18 @@
 
 (defmethod document-object* :before ((category category) stream)
   (when pax::*first-pass*
-    (let ((category-name (symbol-name (section-name category))))
+    (let* ((category-name (symbol-name (section-name category)))
+           (posts (loop for post in (category-posts category)
+                        collect (dref:resolve
+                                 (define-shortened-post category-name post))))
+           (overview (find-overview (section-name category))))
       (setf (slot-value category 'pax::%entries)
-            (loop for post in (category-posts category)
-                  collect (dref:resolve
-                           (define-shortened-post category-name post)))))))
+            (if (and overview (< (category-max-n-posts category)
+                                 (length posts)))
+                (append (subseq posts 0 (category-max-n-posts category))
+                        (list (format nil "# [... see older posts][~S]"
+                                      (section-name overview))))
+                posts)))))
 
 (defun define-shortened-post (name-prefix post)
   (with-slots (tags date) post
@@ -79,15 +89,23 @@
 (defclass overview (dynamic-section)
   ((category-name :initarg :category-name :reader category-name)))
 
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defparameter *overviews* ()))
+
 (defmacro defoverview (name (&key category title))
-  `(defparameter ,name
-     (make-instance
-      'overview
-      :name ',name
-      :package *package*
-      :readtable *readtable*
-      :title ,title
-      :category-name ',category)))
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
+     (defparameter ,name
+       (make-instance
+        'overview
+        :name ',name
+        :package *package*
+        :readtable *readtable*
+        :title ,title
+        :category-name ',category))
+     (push ,name *overviews*)))
+
+(defun find-overview (category-name)
+  (find category-name *overviews* :key #'category-name))
 
 (defmethod document-object* :before ((overview overview) stream)
   (when pax::*first-pass*
@@ -260,7 +278,12 @@
 ;;; currently.
 (defcategory @pompousness (:title "pompousness"))
 
-(defoverview @blog-overview (:category @blog))
+(defoverview @blog-overview (:category @blog :title "All posts"))
+(defoverview @ai-overview (:category @ai :title "Posts tagged `ai`"))
+(defoverview @lisp-overview (:category @lisp :title "Posts tagged `lisp`"))
+(defoverview @tech-overview (:category @tech :title "Posts tagged `tech`"))
+(defoverview @personal-overview (:category @personal
+                                 :title "Posts tagged `personal`"))
 
 (defsection @about-me (:title "About me")
   "I'm a Lisp hacker impersonating a research scientist.
@@ -289,15 +312,17 @@
 
   ## About This Blog
 
-  There is an <a href='http://quotenil.com/blog.rss'>RSS feed for the
-  entire blog</a> and one for each tag: <a
-  href='http://quotenil.com/ai.rss'>ai</a>, <a
-  href='http://quotenil.com/lisp.rss'>lisp</a>, <a
-  href='http://quotenil.com/tech.rss'>tech</a>, <a
-  href='http://quotenil.com/personal.rss'>personal</a>. The blog is
-  generated with a <a
-  href='https://github.com/melisgl/mgl-pax-blog'>homegrown blog
-  engine</a> on top of @PAX.")
+  There is an [RSS feed for the entire blog](blog.rss) and for each
+  tag: [`ai`](ai.rss), [`lisp`](lisp.rss), [`tech`](tech.rss),
+  [`personal`](personal.rss).
+  <br>
+  Similary, there is an [overview page for
+  the entire blog][@blog-overview] and for each
+  tag: [`ai`][@ai-overview], [`lisp`][@lisp-overview],
+  [`tech`][@tech-overview], [`personal`][@personal-overview].
+  <br>
+  The blog is generated with a [homegrown blog engine][@pax-blog] on
+  top of @PAX.")
 
 
 ;;;; The "sidebar", that links to the categories and special pages
@@ -3841,6 +3866,10 @@
   [https://github.com/melisgl/try](https://github.com/melisgl/try)
   until the next Quicklisp release.""")
 
+(define-glossary-term @pax-blog
+    (:title "PAX Blog"
+     :url "https://github.com/melisgl/mgl-pax-blog"))
+
 (define-glossary-term @pax
     (:title "PAX"
      :url "https://github.com/melisgl/mgl-pax"))
@@ -4259,6 +4288,6 @@
 
 #+nil
 (time (generate-pages (list @blog @tech @ai @lisp @personal)
-                      (list @blog-overview)
+                      *overviews*
                       (list @about-me)
                       'html-sidebar))
