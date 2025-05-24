@@ -61,27 +61,33 @@ very young, DRef lives under adult supervision, in a
 of the PAX repository.</p>
 <pre><code><span class="code">DREF&gt; <span class="paren1">(<span class="code"><i><span class="symbol">definitions</span></i> 'pax:document-object*</span>)</span>
 <span class="paren1">(<span class="code">#&lt;DREF DOCUMENT-OBJECT* GENERIC-FUNCTION&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">MGL-PAX-BLOG::CATEGORY T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">UNKNOWN-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">MGL-PAX::CLHS-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">MGL-PAX::INCLUDE-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">MGL-PAX::GO-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">GLOSSARY-TERM T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">SECTION T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">ASDF-SYSTEM-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">CLASS-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">STRUCTURE-ACCESSOR-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">WRITER-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">READER-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">ACCESSOR-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">METHOD-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">SETF-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">VARIABLE-DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">DREF T</span>)</span></span>)</span>&gt;
- #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD NIL <span class="paren3">(<span class="code">T T</span>)</span></span>)</span>&gt;</span>)</span>
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="keyword">:BEFORE</span> <span class="paren3">(<span class="code">OVERVIEW T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="keyword">:BEFORE</span> <span class="paren3">(<span class="code">CATEGORY T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DYNAMIC-SECTION T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:UNKNOWN-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">MGL-PAX::CLHS-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">MGL-PAX::INCLUDE-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">MGL-PAX::GO-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">GLOSSARY-TERM T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">SECTION T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:LOCATIVE-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:PACKAGE-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:ASDF-SYSTEM-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:CONDITION-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:CLASS-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:STRUCTURE-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:STRUCTURE-ACCESSOR-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:WRITER-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:READER-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:ACCESSOR-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:METHOD-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:SETF-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF-EXT:VARIABLE-DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">DREF T</span>)</span></span>)</span>&gt;
+ #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="paren3">(<span class="code">T T</span>)</span></span>)</span>&gt;</span>)</span>
 
-DREF&gt; <span class="paren1">(<span class="code">dref 'pax:document-object* '<span class="paren2">(<span class="code">method nil <span class="paren3">(<span class="code">class-dref t</span>)</span></span>)</span></span>)</span>
-#&lt;DREF DOCUMENT-OBJECT* <span class="paren1">(<span class="code">METHOD NIL <span class="paren2">(<span class="code">CLASS-DREF T</span>)</span></span>)</span>&gt;
+DREF&gt; <span class="paren1">(<span class="code">dref 'pax:document-object* '<span class="paren2">(<span class="code">method <span class="paren3">(<span class="code">class-dref t</span>)</span></span>)</span></span>)</span>
+#&lt;DREF DOCUMENT-OBJECT* <span class="paren1">(<span class="code">METHOD <span class="paren2">(<span class="code">CLASS-DREF T</span>)</span></span>)</span>&gt;
 
 DREF&gt; <span class="paren1">(<span class="code">arglist *</span>)</span>
 <span class="paren1">(<span class="code">DREF STREAM</span>)</span>
