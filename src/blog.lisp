@@ -3809,7 +3809,8 @@
                         :tags (@tech @lisp)
                         :date "2023-08-14")
   """[Try](https://github.com/melisgl/try), my test anti-framework,
-  has just got light Emacs integration. Consider the following test:
+  has just got light Emacs integration."""
+  """Consider the following test:
 
   ```
   (deftest test-foo ()
