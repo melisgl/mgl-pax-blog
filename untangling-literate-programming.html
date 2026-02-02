@@ -130,11 +130,11 @@ tangling.</p>
    can for the most part follow narrative order. In practice, we
    end up with some <code>DEFVAR</code>s far from their parent
    <code>DEFSECTION</code>s (but <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" title="DECLAIM (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>DECLAIM</code></a> <a href="http://www.lispworks.com/documentation/HyperSpec/Body/d_specia.htm" title="SPECIAL (MGL-PAX:CLHS DECLARATION)"><code>SPECIAL</code></a> helps).</p></li>
-<li><p><code>DEFSECTION</code> controls documentation order. The references to
-   Lisp definitions in <code>DEFSECTION</code> determine narrative order
-   independently from the code order. This allows the few
-   ordering problems to be patched over in the generated
-   documentation.</p></li>
+<li><p><a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@INTRODUCTION%20MGL-PAX:SECTION" ><code>DEFSECTION</code></a> controls documentation order. The
+   references to Lisp definitions in <code>DEFSECTION</code> determine
+   narrative order independently from the code order. This
+   allows the few ordering problems to be patched over in the
+   generated documentation.</p></li>
 <li><p>Furthermore, because <code>DEFSECTION</code> can handle the exporting of
    symbols, we can declare the public interface piecemeal, right
    next to the relevant definitions, rather than in a monolithic

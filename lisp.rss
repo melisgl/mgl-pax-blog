@@ -93,11 +93,11 @@ tangling.&lt;/p&gt;
    can for the most part follow narrative order. In practice, we
    end up with some &lt;code&gt;DEFVAR&lt;/code&gt;s far from their parent
    &lt;code&gt;DEFSECTION&lt;/code&gt;s (but &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm&quot; title=&quot;DECLAIM (MGL-PAX:CLHS MGL-PAX:MACRO)&quot;&gt;&lt;code&gt;DECLAIM&lt;/code&gt;&lt;/a&gt; &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/d_specia.htm&quot; title=&quot;SPECIAL (MGL-PAX:CLHS DECLARATION)&quot;&gt;&lt;code&gt;SPECIAL&lt;/code&gt;&lt;/a&gt; helps).&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;DEFSECTION&lt;/code&gt; controls documentation order. The references to
-   Lisp definitions in &lt;code&gt;DEFSECTION&lt;/code&gt; determine narrative order
-   independently from the code order. This allows the few
-   ordering problems to be patched over in the generated
-   documentation.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@INTRODUCTION%20MGL-PAX:SECTION&quot; &gt;&lt;code&gt;DEFSECTION&lt;/code&gt;&lt;/a&gt; controls documentation order. The
+   references to Lisp definitions in &lt;code&gt;DEFSECTION&lt;/code&gt; determine
+   narrative order independently from the code order. This
+   allows the few ordering problems to be patched over in the
+   generated documentation.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Furthermore, because &lt;code&gt;DEFSECTION&lt;/code&gt; can handle the exporting of
    symbols, we can declare the public interface piecemeal, right
    next to the relevant definitions, rather than in a monolithic
