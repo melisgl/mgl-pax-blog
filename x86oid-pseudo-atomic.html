@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,14 +39,19 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40X86OID-PSEUDO-ATOMIC-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@X86OID-PSEUDO-ATOMIC%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="x86oid-pseudo-atomic.html">X86oid Pseudo Atomic</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2009-03-29</span></p>
+
 <div class='br'></div>
+
 <p>The relatively recent
 <a href="http://www.method-combination.net/blog/archives/2008/02/01/vm-tricks.html" >chit</a>
 - <a href="http://www.pvk.ca/Blog/LowLevel/VM_tricks_safepoints.html" >chat</a>
 about allocation and interrupts have had me looking at ways to speed
 up pseudo-atomic in SBCL.</p>
+
 <pre><code><span class="code"> <span class="paren1">(<span class="code"><i><span class="symbol">defmacro</span></i> pseudo-atomic <span class="paren2">(<span class="code">&amp;rest forms</span>)</span>
   <span class="paren2">(<span class="code"><i><span class="symbol">with-unique-names</span></i> <span class="paren3">(<span class="code">label</span>)</span>
     `<span class="paren3">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren4">(<span class="code"><span class="paren5">(<span class="code">,label <span class="paren6">(<span class="code">gen-label</span>)</span></span>)</span></span>)</span>
@@ -68,7 +65,9 @@ up pseudo-atomic in SBCL.</p>
 </span>       <span class="comment">;; time using the process signal mask.
 </span>       <span class="paren4">(<span class="code">inst break pending-interrupt-trap</span>)</span>
        <span class="paren4">(<span class="code">emit-label ,label</span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
+
 <h2><code>EBP</code></h2>
+
 <p>My first idea was that <code>OR</code>(<a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_or.htm" title="OR (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>0</code></a> <a href="http://www.lispworks.com/documentation/HyperSpec/Body/t_or.htm" title="OR (MGL-PAX:CLHS TYPE)"><code>1</code></a>)ing is unnecessary since, with the slew of
 interrupt fixes going into 1.0.26, every interrupt deferred by
 pseudo-atomic is handled as soon as we leave the pa section. Hence,
@@ -76,6 +75,7 @@ a simple <code>MOV</code> would suffice. Or, if we wanted to be fancy, we could
 rely on the fact that within SBCL <code>EBP</code> is always even (that leaves
 the first bit of <code>PSEUDO-ATOMIC-BITS</code> for the interrupted flag) and
 non-zero:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defmacro</span></i> pseudo-atomic <span class="paren2">(<span class="code">&amp;rest forms</span>)</span>
  <span class="paren2">(<span class="code"><i><span class="symbol">with-unique-names</span></i> <span class="paren3">(<span class="code">label</span>)</span>
    `<span class="paren3">(<span class="code"><i><span class="symbol">let</span></i> <span class="paren4">(<span class="code"><span class="paren5">(<span class="code">,label <span class="paren6">(<span class="code">gen-label</span>)</span></span>)</span></span>)</span>
@@ -89,12 +89,16 @@ non-zero:</p>
 </span>      <span class="comment">;; using the process signal mask.
 </span>      <span class="paren4">(<span class="code">inst break pending-interrupt-trap</span>)</span>
       <span class="paren4">(<span class="code">emit-label ,label</span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
+
 <p>This shaves a few bytes off the code and is an overall 0.5% win in
 cl-bench (see &quot;pseudo-atomic.ebp&quot; in the <a href="blog-files/pseduo-atomic/p4-results.txt" >results</a>).</p>
+
 <h2><code>mprotect</code></h2>
+
 <p>But if the page of <code>PSEDUO-ATOMIC-BITS</code> is made write protected when
 an interrupt is deferred, then the pending interrupt can be run from
 the SIGSEGV handler, where we land coming out of pseudo-atomic:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defmacro</span></i> pseudo-atomic <span class="paren2">(<span class="code">&amp;rest forms</span>)</span>
  `<span class="paren2">(<span class="code"><i><span class="symbol">progn</span></i>
     <span class="paren3">(<span class="code">inst mov <span class="paren4">(<span class="code">make-ea <span class="keyword">:dword</span> <span class="keyword">:disp</span> <span class="paren5">(<span class="code">* 4 thread-pseudo-atomic-bits-slot</span>)</span></span>)</span>
@@ -102,12 +106,14 @@ the SIGSEGV handler, where we land coming out of pseudo-atomic:</p>
     ,@forms
     <span class="paren3">(<span class="code">inst xor <span class="paren4">(<span class="code">make-ea <span class="keyword">:dword</span> <span class="keyword">:disp</span> <span class="paren5">(<span class="code">* 4 thread-pseudo-atomic-bits-slot</span>)</span></span>)</span>
           ebp-tn <span class="keyword">:fs</span></span>)</span></span>)</span></span>)</span></span></code></pre>
+
 <p>And four more bytes are saved, making the total overhead of
 pseudo-atomic 12 bytes (+2 bytes with threads). This version is
 labelled
 &quot;pseudo-atomic.mprotect.ebp&quot; and is not faster than the previous one.
 Somewhat suprisingly, this variant (&quot;pseudo-atomic.mprotect.mov&quot;) is
 just as fast:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defmacro</span></i> pseudo-atomic <span class="paren2">(<span class="code">&amp;rest forms</span>)</span>
  `<span class="paren2">(<span class="code"><i><span class="symbol">progn</span></i>
     <span class="paren3">(<span class="code">inst mov <span class="paren4">(<span class="code">make-ea <span class="keyword">:byte</span> <span class="keyword">:disp</span> <span class="paren5">(<span class="code">* 4 thread-pseudo-atomic-bits-slot</span>)</span></span>)</span>
@@ -115,8 +121,11 @@ just as fast:</p>
     ,@forms
     <span class="paren3">(<span class="code">inst mov <span class="paren4">(<span class="code">make-ea <span class="keyword">:byte</span> <span class="keyword">:disp</span> <span class="paren5">(<span class="code">* 4 thread-pseudo-atomic-bits-slot</span>)</span></span>)</span>
           0 <span class="keyword">:fs</span></span>)</span></span>)</span></span>)</span></span></code></pre>
+
 <h2>Direction Flag</h2>
+
 <p>Another idea is to hijack the direction flag:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defmacro</span></i> pseudo-atomic <span class="paren2">(<span class="code">&amp;rest forms</span>)</span>
  `<span class="paren2">(<span class="code"><i><span class="symbol">progn</span></i>
     <span class="paren3">(<span class="code">inst std</span>)</span>
@@ -124,11 +133,13 @@ just as fast:</p>
     <span class="paren3">(<span class="code">inst cld</span>)</span>
     <span class="paren3">(<span class="code">inst mov <span class="paren4">(<span class="code">make-ea <span class="keyword">:byte</span> <span class="keyword">:disp</span> <span class="paren5">(<span class="code">* 4 thread-pseudo-atomic-bits-slot</span>)</span></span>)</span>
           0 <span class="keyword">:fs</span></span>)</span></span>)</span></span>)</span></span></code></pre>
+
 <p>where the <code>MOV</code> instruction sigsegvs if pseudo-atomic was
 interrupted. This is little more than a quick hack to gauge expected
 performance because SBCL itself uses the direction flag in a number
 of places, to say nothing about alien land. However, there seems to
 be no reason to pursue this further as its performance disappoints.</p>
+
 <p>All in all, I have expected more gains. In particular, I'm
 disappointed by the performance of the <code>mprotect</code> trick. Still 0.5%
 is okay for such a small change. Code is available

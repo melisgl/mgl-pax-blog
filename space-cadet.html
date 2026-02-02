@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,21 +39,29 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40SPACE-CADET-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@SPACE-CADET%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="space-cadet.html">Space Cadet</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="lisp.html" title="lisp"><code>lisp</code></a>, <a href="tech.html" title="tech"><code>tech</code></a>,&nbsp; <em>Date:</em> 2008-12-15</span></p>
+
 <div class='br'></div>
+
 <p>Emacs users often report problems caused by strain on the pinky
 finger, which is used to press the <em>Control</em> key. The standard
 answer to that is to map <em>Caps Lock</em> to <em>Control</em>. I believe that
 there is a better way:</p>
+
 <p><img src="blog-files/symbolics-keyboard.jpg" alt="" /></p>
+
 <p>Note the placement of modifiers: <em>Control</em>, <em>Meta</em>, <em>Super</em>, <em>Hyper</em>
 on both sides of Space in this order, with <em>Control</em> being the
 closest to it. Touch typers especially find having two of each key
 absolutely essential, and the symmetric placement appeals to me.</p>
+
 <p>Also note the <em>Rubout</em> key next to <em>A</em> where <em>Caps Lock</em> resides on
 modern keyboards. <em>Rubout</em> is like <em>Backspace</em> and is better to have
 on the home row than the most useless and annoying key in history.</p>
+
 <p>Under X11, the above are the modifications I make to the default
 layout. I keep the original Backspace key too as Backspace, but it
 could be <em>Caps Lock</em> as well: I don't use it either way. If you have
@@ -70,9 +70,11 @@ keys while the fingers rest on <em>ASDF</em> and <em>JKL;</em>. Always press
 modifiers with the alternate hand. <code>C-a</code> is right thumb + left
 pinky, <code>C-M-p</code> is left-thumb + left-ring + right-pinky. For <code>C-M-P</code>,
 add the left pinky for <em>Shift</em>.</p>
+
 <p>Another thing I find tremendously useful is getting used to <code>C-n</code>,
 <code>C-p</code>, <code>C-b</code>, <code>C-f</code> instead of reaching for the arrow keys as often
 as a vi user for <em>Escape</em>.</p>
+
 <p>Well, that's the narration. To implement the above, I guess, one can
 create an xkb description, but last time I tried, documentation was
 extremely unhelpful, so I ended up hacking together an xmodmap file.
@@ -80,13 +82,17 @@ I'm told this file is not really portable, so it's <a href="blog-files/lisp-mach
 here</a> only for
 illustration, and it's easy enough to do the same yourself for your
 keyboard. To switch to the new layout do:</p>
+
 <pre><code>xmodmap lisp-machine-pc105-us.xmodmap
 xset r 66
 </code></pre>
+
 <p>where the second command enables auto repeat on the fresh, new
 <em>Backspace</em> key. It works on a PC105 (with one Win key) notebook
 keyboard.</p>
+
 <p>Oh, that xmodmap file above also has <code>[]</code> and <code>()</code> swapped.</p>
+
 <p><strong>2020-05-03</strong> – Later on, I broke down and wrote an <a href="https://github.com/melisgl/lisp-machine-xkb" >xkb
 version</a>.</p>
 <img src="blog-files/die.png" alt="end-of-post" />

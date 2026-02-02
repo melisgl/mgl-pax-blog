@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,12 +39,17 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40THERE-IS-TRY-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@THERE-IS-TRY%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="there-is-try.html">There is Try</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2022-10-16</span></p>
+
 <div class='br'></div>
+
 <p>Do or do not. There is now Try. I forgot to announce
 <a href="https://github.com/melisgl/try" >Try</a>, my Common Lisp test
 framework, on this blog.</p>
+
 <ul>
 <li><p>Try does equally well in interactive and non-interactive mode by
   minimizing the function-test impedance mismatch.</p></li>
@@ -66,13 +63,16 @@ framework, on this blog.</p>
   types</a>,
   which are signalled when checks or tests are run.</p></li>
 </ul>
+
 <p>Try's behaviour is trivial: tests are functions, and checks behave
 like <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_assert.htm" title="ASSERT (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>CL:ASSERT</code></a>. Test suites are test functions that call other test
 functions. Skipping tests is just a regular <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_when_.htm" title="WHEN (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>WHEN</code></a>. Everything is as
 close to normal evaluation rules as possible.</p>
+
 <p>Behind the scenes, events are signalled for successes, failures, etc, and
 these events provide the basis of its customization. Non-interactive
 mode is just a particular customization.</p>
+
 <p>Read the HTML
 <a href="https://melisgl.github.io/mgl-pax-world/try-manual.html" >documentation</a>
 or <a href="https://sabracrolleton.github.io/testing-framework#orgf2e5476" >Sabra Crolleton's
@@ -82,6 +82,7 @@ transcripts</a>
 show how Try differs from <a href="https://fiveam.common-lisp.dev/" >5am</a> and
 <a href="https://github.com/Shinmera/parachute" >Parachute</a> in a couple of
 common situations.</p>
+
 <pre><code><span class="code"><span class="comment">;;;; Evaluating successful checks without tests
 </span>
 <span class="comment">;;; 5am fails to perform the check. May be a bug.
@@ -97,6 +98,7 @@ common situations.</p>
 
 <span class="paren1">(<span class="code">try:is <span class="paren2">(<span class="code">equal 6 <span class="paren3">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span>
 =&gt; T</span></code></pre>
+
 <pre><code><span class="code"><span class="comment">;;;; Evaluating failing checks without tests
 </span>
 <span class="comment">;;; 5am signals a CHECK-FAILURE and prints an informative message.
@@ -133,6 +135,7 @@ common situations.</p>
 ..     <span class="paren1">(<span class="code">TRY:IS <span class="paren2">(<span class="code">EQUAL NIL #1=<span class="paren3">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span>
 ..   where
 ..     #1# = 6</span></code></pre>
+
 <pre><code><span class="code"><span class="comment">;;;; Defining tests
 </span>
 <span class="paren1">(<span class="code"><i><span class="symbol">5am:def-test</span></i> 5am-test <span class="paren2">(<span class="code"></span>)</span>
@@ -143,6 +146,7 @@ common situations.</p>
 
 <span class="paren1">(<span class="code"><i><span class="symbol">try:deftest</span></i> try-test <span class="paren2">(<span class="code"></span>)</span>
   <span class="paren2">(<span class="code">try:is <span class="paren3">(<span class="code">equal nil <span class="paren4">(<span class="code">1+ 5</span>)</span></span>)</span></span>)</span></span>)</span></span></code></pre>
+
 <pre><code><span class="code"><span class="comment">;;;; Running tests interactively
 </span>
 <span class="paren1">(<span class="code">5am:debug! '5am-test</span>)</span>
@@ -209,6 +213,7 @@ common situations.</p>
 ..   ⊟ non-local exit<span class="comment">; E.g. the user selected the ABORT restart in the debugger.
 </span>.. ⊟ TRY-TEST ⊟1
 ..</span></code></pre>
+
 <pre><code><span class="code"><span class="comment">;;;; Running tests non-interactively
 </span>
 <span class="paren1">(<span class="code">5am:run! '5am-test</span>)</span>
@@ -276,6 +281,7 @@ common situations.</p>
 .. ⊠ TRY-TEST ⊠1
 ..
 ==&gt; #&lt;TRY:TRIAL <span class="paren1">(<span class="code">TRY-TEST</span>)</span> UNEXPECTED-FAILURE 0.000s ⊠1&gt;</span></code></pre>
+
 <pre><code><span class="code"><span class="comment">;;;; Suites
 </span>
 <span class="paren1">(<span class="code"><i><span class="symbol">5am:def-suite</span></i> 5am-suite</span>)</span>

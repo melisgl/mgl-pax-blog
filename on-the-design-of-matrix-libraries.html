@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,12 +39,17 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40ON-THE-DESIGN-OF-MATRIX-LIBRARIES-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@ON-THE-DESIGN-OF-MATRIX-LIBRARIES%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="on-the-design-of-matrix-libraries.html">On the Design of Matrix Libraries</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2015-02-26</span></p>
+
 <div class='br'></div>
+
 <p><strong>2020-05-03</strong> – Things have changed the during last 5
 years. This is a non-issue in Tensorflow and possibly in other
 frameworks, as well.</p>
+
 <p>I believe there is one design decision in
 <a href="http://melisgl.github.io/mgl-pax-world/mat-manual.html" >MGL-MAT</a>
 that has far reaching consequences: to make a single matrix object
@@ -60,15 +57,18 @@ capable of storing multiple representations of the same data and let
 operations decide which representation to use based on what's the
 most convenient or efficient, without having to even know about all
 the possible representations.</p>
+
 <p>This allows existing code to keep functioning if support for
 diagonal matrices (represented as a 1d array) lands, and one can pick
 and choose the operations performance critical enough to implement
 with diagonals.</p>
+
 <p>Adding support for matrices that, for instance, live on a remote
 machine is thus possible with a new facet type (MAT lingo for
 representation) and existing code would continue to work (albeit
 possibly slowly). Then, one could optimize the bottleneck operations
 by sending commands over the network instead of copying data.</p>
+
 <p>Contrast this with what I understand to be the status quo over on
 the Python side. The specialized Python array libs (cudamat,
 gpuarray, cudandarray) try to be drop-in replacements for – or at
@@ -76,9 +76,11 @@ least similar to – numpy.ndarray with various degrees of success.
 There are lots of explicit conversion going on between ndarray and
 these CUDA blobs and adding new representations would make this
 exponentionally worse.</p>
+
 <p><a href="http://torch.ch/" >Torch</a> (Lua) also has CUDA and non-CUDA tensors
 are separate types, and copying between main and GPU memory is
 explicit, which leads to pretty much the same problems.</p>
+
 <p>All of this is kind of understandable. When one thinks in terms of
 single dispatch (i.e. <code>object.method()</code>), this kind of design will
 often emerge. With <a href="https://en.wikipedia.org/wiki/Multiple_dispatch" >muliple
@@ -88,6 +90,7 @@ facet/operation duality of MGL-MAT is reminiscent of how CLOS
 classes and generic functions relate to each other. The anology is
 best if objects are allowed to shapeshift to fit the method
 signatures.</p>
+
 <p>Speaking of multiple dispatch, by making the operations generic
 functions following some kind of protocol to decide which facets and
 implementation to use would decouple facets further. Ultimately,

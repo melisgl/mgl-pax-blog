@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,12 +39,17 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40INCLUDE-LOCATIVE-FOR-PAX-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@INCLUDE-LOCATIVE-FOR-PAX%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="include-locative-for-pax.html"><code>INCLUDE</code> Locative for PAX</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2014-12-06</span></p>
+
 <div class='br'></div>
+
 <p>I'm getting so used to the <code>M-.</code> plus documentation
 generation hack that's <a href="https://github.com/melisgl/mgl-pax" title="PAX">PAX</a>, that I use it for all new code, which
 highlighted an issue of with code examples.</p>
+
 <p>The problem is that, the ideally runnable, examples had to live in
 docstrings. Small code examples presented as verifiable <a href="transcripts.html" title="Transcripts">Transcripts</a>
 within docstrings were great, but developing anything beyond a
@@ -60,6 +57,7 @@ couple of forms of code in docstrings or copy-pasting them from
 source files to docstrings is insanity or an
 <a href="http://c2.com/cgi/wiki?OnceAndOnlyOnce" >OOAO</a> violation,
 respectively.</p>
+
 <p>In response to this, PAX got the <a href="https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3AINCLUDE-20MGL-PAX-3ALOCATIVE-29" ><code>INCLUDE</code>
 locative</a> (see
 the linked documentation) and became its own first user at the same

@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,12 +39,18 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40PAX-V0-2E1-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@PAX-V0.1%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="pax-v0.1.html">PAX v0.1</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2022-02-16</span></p>
+
 <div class='br'></div>
+
 <p><a href="https://github.com/melisgl/mgl-pax" title="PAX">PAX</a> v0.1 is released. At this point, I consider it fairly
 complete. Here is the changelog for the last year or so.</p>
+
 <h2>New Features</h2>
+
 <ul>
 <li><p>To reduce deployment size, made the MGL-PAX system <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28-22mgl-pax-22-20ASDF-2FSYSTEM-3ASYSTEM-29" >autoload navigation, documentation generation, and transcription code</a>.</p></li>
 <li><p>Symbols in the CL package are <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#x-28MGL-PAX-3A-2ADOCUMENT-LINK-TO-HYPERSPEC-2A-20VARIABLE-29" >linked to the hyperspec</a> like this: <code>PRINT</code>, which renders as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_wr_pr.htm" title="PRINT (MGL-PAX:CLHS FUNCTION)"><code>PRINT</code></a>.</p></li>
@@ -66,18 +64,24 @@ complete. Here is the changelog for the last year or so.</p>
 <li><p><a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:*DOCUMENT-DOWNCASE-UPPERCASE-CODE*%20VARIABLE" >Downcasing</a> now works well and is the default for PAX World.</p></li>
 <li><p><a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@UNRESOLVABLE-REFLINKS%20MGL-PAX:SECTION" >Warn on unresolvable reflinks</a>.</p></li>
 </ul>
+
 <h2>Transcribe</h2>
+
 <ul>
 <li><p>Transcription consistency checking is now <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-FINER-GRAINED-CONSISTENCY-CHECKS%20MGL-PAX:SECTION" >customizable</a>.</p></li>
 <li><p>Transcription consistency checking and dynamic environment <a href="https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@TRANSCRIPT-DYNENV%20MGL-PAX:SECTION" >can be controlled for code blocks</a>.</p></li>
 <li><p>Errors during transcribing are <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@TRANSCRIPT-API%20MGL-PAX:SECTION" >included</a> in the transcript.</p></li>
 </ul>
+
 <h2>Portability</h2>
+
 <ul>
 <li><p>Tested on ABCL, AllegroCL, CCL, CLISP, CMUCL, ECL, and SBCL.</p></li>
 <li><p>SLIME <code>M-.</code> is now as capable on all Lisps as the Swank implementation allows.</p></li>
 </ul>
+
 <h2>Improvements</h2>
+
 <ul>
 <li><p>Generalized, cleaned up, and documented handling <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#toc-6-2-parsing" >trimming of punctuation and plurals</a>.</p></li>
 <li><p><code>DOCUMENT</code> <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT-OBJECT%20%28METHOD%20NIL%20%28STRING%20T%29%29" >works on <code>STRING</code>s</a>.</p></li>
@@ -91,13 +95,17 @@ complete. Here is the changelog for the last year or so.</p>
 <li><p>Exported api for <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-DOCUMENT%20MGL-PAX:SECTION" >extending <code>DOCUMENT</code></a> and <a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@EXTENDING-FIND-SOURCE%20MGL-PAX:SECTION" >FIND-SOURCE</a></p></li>
 <li><p><a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:DOCUMENT%20FUNCTION" ><code>DOCUMENT</code></a> can produce reasonably readable output with <code>:FORMAT</code> <code>:PLAIN</code> (the default). It is now suitable for use in the REPL as a kind of replacement for <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_docume.htm" title="DOCUMENTATION (MGL-PAX:CLHS GENERIC-FUNCTION)"><code>CL:DOCUMENTATION</code></a>.</p></li>
 </ul>
+
 <h2>Bugs</h2>
+
 <ul>
 <li><p>Made Emacs-side parsing for <code>M-.</code> navigation more robust.</p></li>
 <li><p>Fixed documentation generation on <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm" title="TRACE (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>TRACE</code></a>d functions.</p></li>
 <li><p>Fixed lots of minor bugs.</p></li>
 </ul>
+
 <h2>Internals</h2>
+
 <ul>
 <li><p>Tests moved to <a href="https://github.com/melisgl/try" >Try</a>.</p></li>
 <li><p>Added lost of tests.</p></li>

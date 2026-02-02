@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,21 +39,29 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40BACKUP-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@BACKUP%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="backup.html">Backup</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="tech.html" title="tech"><code>tech</code></a>,&nbsp; <em>Date:</em> 2008-03-28</span></p>
+
 <div class='br'></div>
+
 <p>My carefully updated list of files to back up had grown so long that
 it made me worry about losing something important.</p>
+
 <p>The backup didn't fit on a single DVD, so I invested in a WD
 Passport and created an encrypted file system on it:</p>
+
 <pre><code>modprobe cryptoloop
 modprobe aes
 losetup -e aes /dev/loop0 /dev/sdb
 mke2fs /dev/loop0
 tune2fs -i 0 -c 0 -j /dev/loop0
 </code></pre>
+
 <p>Then, taking a backup is an <code>rsync</code> and some setup-up/tear-down code
 away:</p>
+
 <pre><code> #!/bin/sh
  set -e -x
 
@@ -94,6 +94,7 @@ away:</p>
 
  cleanup
 </code></pre>
+
 <p>Note, that it's this easy since I basically have only one file
 system (only <code>/boot</code> is separate), and that resides on LVM, which
 makes it trivial to snapshot.</p>

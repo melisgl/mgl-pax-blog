@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,17 +39,24 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40TRANSCRIPTS-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@TRANSCRIPTS%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="transcripts.html">Transcripts</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2014-10-20</span></p>
+
 <div class='br'></div>
+
 <p>I've just committed a major feature to MGL-PAX: the ability to
 include code examples in docstrings. Printed output and return
 values are marked up with <code>..</code> and <code>=&gt;</code>, respectively.</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code">values <span class="paren2">(<span class="code">princ <span class="keyword">:hello</span></span>)</span> <span class="paren2">(<span class="code">list 1 2</span>)</span></span>)</span>
 .. HELLO
 =&gt; :HELLO
 =&gt; <span class="paren1">(<span class="code">1 2</span>)</span></span></code></pre>
+
 <p>The extras are:</p>
+
 <ul>
 <li><p>parsing back and <em>updating</em> a transcript,</p></li>
 <li><p><em>auto-checking</em> of up-to-dateness at documentation generation time,</p></li>
@@ -70,6 +69,7 @@ values are marked up with <code>..</code> and <code>=&gt;</code>, respectively.<
   works without the rest of MGL-PAX so it can be used to
   format bug reports or as a poor man's expect script.</p></li>
 </ul>
+
 <p>The
 <a href="https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3A-40MGL-PAX-TRANSCRIPT-20MGL-PAX-3ASECTION-29" >documentation</a>
 provides a tutorialish treatment. I hope you'll find it useful.</p>

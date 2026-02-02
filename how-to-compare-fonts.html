@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,12 +39,17 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40HOW-TO-COMPARE-FONTS-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@HOW-TO-COMPARE-FONTS%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="how-to-compare-fonts.html">Normalize Fonts for Comparison</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="tech.html" title="tech"><code>tech</code></a>,&nbsp; <em>Date:</em> 2023-04-10</span></p>
+
 <div class='br'></div>
+
 <p>In short, comparing fonts at the same font size is almost never the
 right thing to do. Compare them at the same x-height or, better yet,
 at the same space usage.</p>
+
 <p>In full, recently I wanted to choose a font that looks good on
 screen at various resolutions and also in print. This is fairly
 subjective, of course, so there is a lot of noise out there. Going
@@ -68,7 +65,9 @@ determined by the
 <a href="https://en.wikipedia.org/wiki/X-height" >x-height</a> (<code>ex</code> in LaTeX
 and CSS). <code>1ex</code> is the height of the character <code>x</code>, which is pretty
 close to the height of other lowercase characters for most fonts.</p>
+
 <p><img src="blog-files/Typography_Line_Terms.svg" alt="typography-line-terms" /></p>
+
 <p>So it makes a lot of sense to compare fonts at the same x-height,
 and this is what I first did for a number of LaTeX fonts:
 <a href="blog-files/fonts-by-x-height.pdf" >fonts-by-x-height.pdf</a>. On the
@@ -96,12 +95,14 @@ strongly enough in addition to x-height to make them change the
 results: <a href="blog-files/fonts-by-space.pdf" >fonts-by-space.pdf</a>. Have a
 look and decide for yourself which fonts look best. To me, the most
 legible fonts are:</p>
+
 <ul>
 <li><p>Libertinus and Stix2 in the Timeslike category,</p></li>
 <li><p>Cochineal (Amiri, Crimson Text) among the Garamondlike,</p></li>
 <li><p>XCharter among the (almost) Slab Serifs,</p></li>
 <li><p>Utopia among the Transitional Serifs.</p></li>
 </ul>
+
 <p>My taste is apparently quite similar to <a href="https://github.com/linoferreira/latex-font-survey" >Lino
 Ferreira's</a>. EB
 Garamond is a personal favourite, but it is just a bit too quirky

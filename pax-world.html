@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,23 +39,33 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40PAX-WORLD-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@PAX-WORLD%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="pax-world.html">PAX World</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2015-01-26</span></p>
+
 <div class='br'></div>
+
 <p>A promise of <a href="https://github.com/melisgl/mgl-pax" title="PAX">PAX</a> has always been that it will be easy to
 generate documentation for different libraries without requiring
 extensive markup and relying on stable URLs. For example, without
 PAX, if a docstring in the MGL library referenced the matrix class
 <code>MGL-MAT:MAT</code> from the MGL-MAT library, it would need to include
 ugly HTML links in the markdown:</p>
+
 <pre><code><span class="code">"Returns a [some-terrible-github-link-to-html][MAT] object."</span></code></pre>
+
 <p>With PAX however, the uppercase symbol <code>MAT</code> will be automatically
 linked to the documentation of <code>MAT</code> if its whereabouts are known at
 documentation generation time, so the above becomes:</p>
+
 <pre><code><span class="code">"Returns a MAT object."</span></code></pre>
+
 <p>The easiest way to tell PAX where to link is to let it generate the
 documentation for all libraries at the same time like this:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code">document <span class="paren2">(<span class="code">list mgl-mat:@mat-manual mgl:@mgl-manual</span>)</span></span>)</span></span></code></pre>
+
 <p>This is the gist of what
 <a href="https://github.com/melisgl/mgl-pax-world" >MGL-PAX-WORLD</a> does. It
 has a list of stuff to document, and it creates a set of HTML files.

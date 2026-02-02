@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,9 +39,13 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40PLANET-WARS-COMMON-LISP-STARTER-PACKAGE-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@PLANET-WARS-COMMON-LISP-STARTER-PACKAGE%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="planet-wars-common-lisp-starter-package.html">Planet Wars Common Lisp Starter Package</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2010-09-19</span></p>
+
 <div class='br'></div>
+
 <p>The <a href="https://web.archive.org/web/20100926070007/http://ai-contest.com/" >Google AI
 Challenge</a>
 is back with a new game that's supposed to be much harder than Tron
@@ -57,13 +53,16 @@ was this spring. The branching factor of the game tree is enormous,
 which only means that straight minimax is out of question this time
 around. Whether some cleverness can bring the game within reach of
 conventional algorithms remains to be seen.</p>
+
 <p>Anyway, I'm adding <a href="http://quotenil.com/git/?p=planet-wars.git;a=summary" >yet another starter
 package</a> (<a href="http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz" >latest
 tarball</a>)
 to the
 <a href="http://aerique.blogspot.com/2010/09/planet-wars-common-lisp-start-package.html" >lot</a>.
 It is based heavily on aerique's.</p>
+
 <p>Highlights compared to his version:</p>
+
 <ul>
 <li><p>no excessive use of specials (<code>*INPUT*</code>, <code>*FLEETS*</code>, etc)</p></li>
 <li><p>player class to support different types of players</p></li>
@@ -72,13 +71,16 @@ It is based heavily on aerique's.</p>
 <li><p>made it easier to run tests with executables (<code>./MyBot</code>) or when
   starting a fresh sbcl (<code>./bin/run-bot.sh</code>)</p></li>
 </ul>
+
 <p>Proxy bot server:</p>
+
 <ul>
 <li><p>can run compiled (<code>./ProxyBot</code>) or <code>./bin/run-proxy-bot.sh</code></p></li>
 <li><p>started explicitly (no <code>:PWBOT-LOCAL</code> reader magic)</p></li>
 <li><p>can serve any number of proxy bots</p></li>
 <li><p>closes sockets properly</p></li>
 </ul>
+
 <p>There is still a
 <a href="https://web.archive.org/web/20110709095120/http://ai-contest.com/forum/viewtopic.php?f=18&t=421&start=40" >problem</a>
 causing all lisp submissions to die on the first turn no matter

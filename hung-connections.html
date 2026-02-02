@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,28 +39,36 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40HUNG-CONNECTIONS-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@HUNG-CONNECTIONS%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="hung-connections.html">Hung Connections</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="tech.html" title="tech"><code>tech</code></a>,&nbsp; <em>Date:</em> 2011-02-27</span></p>
+
 <div class='br'></div>
+
 <p>My ISP replaced a Thomson modem with a Cisco
 EPC3925 modem-router to fix the speed issue I was having. The good
 news is that the connection operates near its advertised bandwidth,
 the bad news is that tcp connections started to hang. It didn't take
 long to <a href="http://hup.hu/node/98496" >find out</a> that this particular
 router drops &quot;unused&quot; tcp connections after five minutes.</p>
+
 <p>The fix recommended in the linked topic (namely <code>sysctl</code>ing
 <code>net.ipv4.tcp_keepalive_time</code> &amp; co) was mostly effective, but I had
 to lower the keepalive to one minute to keep my ssh sessions alive.
 The trouble was that OfflineIMAP connections to the U.S. west coast
 still hanged intermittently, while it could work with Gmail just
 fine.</p>
+
 <p>In the end, OfflineIMAP had to be
 <a href="http://permalink.gmane.org/gmane.mail.imap.offlineimap.general/2815" >patched</a>
 to use the keepalive and the keepalive be lowered to 15s:</p>
+
 <pre><code>sysctl -w net.ipv4.tcp_keepalive_time=15 \
           net.ipv4.tcp_keepalive_intvl=15 \
           net.ipv4.tcp_keepalive_probes=20
 </code></pre>
+
 <p>Oh, and always include <code>socktimeout</code> in the OfflineIMAP config.
 That's more important than keepalive unless you never have network
 issues.</p>

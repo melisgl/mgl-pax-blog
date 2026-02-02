@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,9 +39,13 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40DREF-AND-PAX-V0-2E3-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@DREF-AND-PAX-V0.3%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="dref-and-pax-v0.3.html">DRef and PAX v0.3</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2023-07-26</span></p>
+
 <div class='br'></div>
+
 <p><code>DEFSECTION</code> needs to refer to definitions that do not create a
 first-class object (e.g. stuff like <code>(*DOCUMENT-LINK-TO-HYPERSPEC*
 VARIABLE)</code>), and since its original release in 2014, a substantial
@@ -59,6 +55,7 @@ library called <a href="https://github.com/melisgl/mgl-pax/tree/master/dref/" ti
 very young, DRef lives under adult supervision, in a
 <a href="https://github.com/melisgl/mgl-pax/tree/master/dref" >subdirectory</a>
 of the PAX repository.</p>
+
 <pre><code><span class="code">DREF&gt; <span class="paren1">(<span class="code"><i><span class="symbol">definitions</span></i> 'pax:document-object*</span>)</span>
 <span class="paren1">(<span class="code">#&lt;DREF DOCUMENT-OBJECT* GENERIC-FUNCTION&gt;
  #&lt;DREF DOCUMENT-OBJECT* <span class="paren2">(<span class="code">METHOD <span class="keyword">:BEFORE</span> <span class="paren3">(<span class="code">OVERVIEW T</span>)</span></span>)</span>&gt;
@@ -104,6 +101,7 @@ DREF&gt; <span class="paren1">(<span class="code">pax:document <span class="spec
     For definitions with a CLASS locative, the arglist printed is the
     list of immediate superclasses with STANDARD-OBJECT, CONDITION and
     non-exported symbols omitted.</span></code></pre>
+
 <p>During the refactoring, the references API was cleaned up. How to
 write extensions has seen lots of changes (see <a href="https://melisgl.github.io/mgl-pax-world/dref-manual.html#DREF-EXT:@EXTENDING-DREF%20MGL-PAX:SECTION" >Extending
 DRef</a>
@@ -112,7 +110,9 @@ PAX</a>),
 but normal use is the same. DRef is similar to Shinmera's
 <a href="https://github.com/Shinmera/definitions" >Definitions</a> library but
 is more tailored to the needs of PAX.</p>
+
 <p><br>Also in this release:</p>
+
 <ul>
 <li><p><a href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@APROPOS%20MGL-PAX:SECTION" >Apropos</a>
   got a detailed view feature, which includes the docstrings of all

@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,9 +39,13 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40GLOBAL-COMPILER-POLICY-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@GLOBAL-COMPILER-POLICY%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="global-compiler-policy.html">Global Compiler Policy</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2009-06-30</span></p>
+
 <div class='br'></div>
+
 <p>A quick note to library implementors: the effects of <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" title="DECLAIM (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>DECLAIM</code></a> are
 <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_declai.htm" >permitted to
 persist</a>
@@ -59,18 +55,22 @@ prefer to add declarations within functions, even going as far as
 introducing <a href="http://www.lispworks.com/documentation/HyperSpec/Body/s_locall.htm" title="LOCALLY (MGL-PAX:CLHS MGL-PAX:MACRO)"><code>LOCALLY</code></a> subforms just to have a place on which to hang
 declarations. But if you are really set on using <code>DECLAIM</code>, please
 wrap it like this:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">eval-when</span></i> <span class="paren2">(<span class="code"><span class="keyword">:compile-toplevel</span></span>)</span>
   <span class="paren2">(<span class="code">declaim <span class="paren3">(<span class="code">optimize speed</span>)</span></span>)</span></span>)</span></span></code></pre>
+
 <p>to ensure that the body is evaluated in <a href="http://www.lispworks.com/documentation/HyperSpec/Body/03_bca.htm" >the dynamic execution
 context of the
 compiler</a>,
 which makes a practical difference on Allegro. It goes without
 saying that you don't want <code>(PROCLAIM '(OPTIMIZE ...))</code> in a
 library, either.</p>
+
 <p><strong>UPDATE</strong> – The above works but is not mandated by the spec because
 the dynamic execution context of the compiler does not include the
 global declarations. Alas, by the spec the portable solution is to
 wrap the whole file in:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">locally</span></i> <span class="paren2">(<span class="code">declare <span class="paren3">(<span class="code">optimize speed</span>)</span></span>)</span> ...</span>)</span></span></code></pre>
 <img src="blog-files/die.png" alt="end-of-post" />
   </div>

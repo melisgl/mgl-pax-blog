@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -48,9 +40,13 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40ARGMIN-MEEHL-SUMMARY-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@ARGMIN-MEEHL-SUMMARY-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="argmin-meehl-summary.html" title="TLDR of Argmin's Summary of Half of the Meehl Lectures">TLDR of Argmin's Summary of Half of the Meehl Lectures</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <code>pompousness</code>,&nbsp; <em>Date:</em> 2024-05-22</span></p>
+
 <div class='br'></div>
+
 <p>Over at <a href="https://www.argmin.net" >argmin.net</a>, Ben Recht <a href="https://www.argmin.net/p/meehls-philosophical-probability" >is reflecting on Meehl's
 lectures</a> on the metatheory of science, which is
 about how science progresses. The original lectures are fascinating
@@ -61,16 +57,23 @@ covering less than half of the lectures (5/12), no self-respecting
 21st century scientist can risk the time investment (equivalent to
 publishing 0.25 papers in machine learning) or – even worse –
 getting slowed down by methodological considerations.</p>
+
 <p>... read the rest of <a href="argmin-meehl-summary.html" title="TLDR of Argmin's Summary of Half of the Meehl Lectures">TLDR of Argmin's Summary of Half of the Meehl Lectures</a>.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40TTA-PRACTITIONER-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@TTA-PRACTITIONER-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="tta-practitioner.html" title="Practitioner's Guide to Two-Tailed Averaging">Practitioner's Guide to Two-Tailed Averaging</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>,&nbsp; <em>Date:</em> 2022-12-06</span></p>
+
 <div class='br'></div>
+
 <p>This is a complement to the <a href="https://arxiv.org/abs/2209.12581" >Two-Tailed Averaging
 paper</a>, approached from the
 direction of what I think is a fairly common technique: averaging
 checkpoints.</p>
+
 <p>We want to speed up training and improve generalization. One way to
 do that is by averaging weights from optimization, and that's a big
 win (e.g. <a href="https://arxiv.org/abs/1708.02182" title="nt-asgd">1</a>, <a href="https://arxiv.org/abs/1803.05407" title="SWA">2</a>, <a href="https://arxiv.org/abs/2209.14981" title="LAWA">3</a>). For example, while
@@ -79,15 +82,22 @@ we can save checkpoints periodically and average the model weights
 from the last 10 or so checkpoints to produce the final solution.
 This is pretty much what <a href="https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/" >Stochastic Weight
 Averaging</a> (SWA) does.</p>
+
 <p>... read the rest of <a href="tta-practitioner.html" title="Practitioner's Guide to Two-Tailed Averaging">Practitioner's Guide to Two-Tailed Averaging</a>.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40ON-THE-DESIGN-OF-MATRIX-LIBRARIES-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@ON-THE-DESIGN-OF-MATRIX-LIBRARIES-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="on-the-design-of-matrix-libraries.html" title="On the Design of Matrix Libraries">On the Design of Matrix Libraries</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2015-02-26</span></p>
+
 <div class='br'></div>
+
 <p><strong>2020-05-03</strong> – Things have changed the during last 5
 years. This is a non-issue in Tensorflow and possibly in other
 frameworks, as well.</p>
+
 <p>I believe there is one design decision in
 <a href="http://melisgl.github.io/mgl-pax-world/mat-manual.html" >MGL-MAT</a>
 that has far reaching consequences: to make a single matrix object
@@ -95,12 +105,18 @@ capable of storing multiple representations of the same data and let
 operations decide which representation to use based on what's the
 most convenient or efficient, without having to even know about all
 the possible representations.</p>
+
 <p>... read the rest of <a href="on-the-design-of-matrix-libraries.html" title="On the Design of Matrix Libraries">On the Design of Matrix Libraries</a>.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40RECURRENT-NETS-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@RECURRENT-NETS-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="recurrent-nets.html" title="Recurrent Nets">Recurrent Nets</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2015-01-19</span></p>
+
 <div class='br'></div>
+
 <p>I've been cleaning up and documenting
 <a href="https://github.com/melisgl/mgl" >MGL</a> for quite some time now, and
 while it's nowhere near done, a good portion of the code has been
@@ -108,23 +124,35 @@ overhauled in the process. There are new additions such as the <a href="http://a
 optimizer</a> and Recurrent Neural
 Nets. My efforts were mainly only the backprop stuff and I think the
 definition of feed-forward:</p>
+
 <p>... read the rest of <a href="recurrent-nets.html" title="Recurrent Nets">Recurrent Nets</a>.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40HIGGS-BOSON-MACHINE-LEARNING-CHALLENGE-BITS-AND-PIECES-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@HIGGS-BOSON-MACHINE-LEARNING-CHALLENGE-BITS-AND-PIECES-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="higgs-boson-machine-learning-challenge-bits-and-pieces.html" title="Higgs Boson Challenge Bits and Pieces">Higgs Boson Challenge Bits and Pieces</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2014-09-23</span></p>
+
 <div class='br'></div>
+
 <p>The <a href="http://www.kaggle.com/c/higgs-boson" >Higgs Boson
 contest</a> on
 <a href="http://kaggle.com" >Kaggle</a> has ended. Sticking to my word at <a href="http://medias.ircam.fr/xff38ba" >ELS
 2014</a>, I released some code that
 came about during these long four months.</p>
+
 <p>... read the rest of <a href="higgs-boson-machine-learning-challenge-bits-and-pieces.html" title="Higgs Boson Challenge Bits and Pieces">Higgs Boson Challenge Bits and Pieces</a>.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40HIGGS-BOSON-MACHINE-LEARNING-CHALLENGE-POST-MORTEM-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@HIGGS-BOSON-MACHINE-LEARNING-CHALLENGE-POST-MORTEM-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="higgs-boson-machine-learning-challenge-post-mortem.html" title="Higgs Boson Challenge Post-Mortem">Higgs Boson Challenge Post-Mortem</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2014-09-23</span></p>
+
 <div class='br'></div>
+
 <p>Actually, I'll only link to the
 <a href="http://www.kaggle.com/c/higgs-boson/forums/t/10344/winning-methodology-sharing/53944#post53944" >post-mortem</a>
 I wrote in the forum. There is a also a <a href="https://github.com/melisgl/higgsml/blob/master/doc/model.md" >model
@@ -133,6 +161,7 @@ included in the <a href="https://github.com/melisgl/higgsml" >git repo</a>. A
 stand-alone distribution with all library dependencies and an x86-64
 linux precompiled binary is also
 <a href="http://quotenil.com/higgsml/gabor-melis.zip" >available</a>.</p>
+
 <p>This has been the Kaggle competition that attracted the most
 contestants so it feels really good to come out on top although
 there was an element of luck involved due to the choice of
@@ -140,81 +169,123 @@ evaluation metric and the amount of data available. The organizers
 did a great job explaining the physics, why there is no more data,
 motivating the choice of evaluation metric, and being prompt in
 communication in general.</p>
+
 <p>... read the rest of <a href="higgs-boson-machine-learning-challenge-post-mortem.html" title="Higgs Boson Challenge Post-Mortem">Higgs Boson Challenge Post-Mortem</a>.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40LIBLINEAR-SUPPORT-ADDED-TO-CL-LIBSVM-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@LIBLINEAR-SUPPORT-ADDED-TO-CL-LIBSVM-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="liblinear-support-added-to-cl-libsvm.html" title="Liblinear Support Added to cl-libsvm">Liblinear Support Added to cl-libsvm</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2013-04-09</span></p>
+
 <div class='br'></div>
+
 <p>In addition to the cl-libsvm asdf system, there is now another asdf
 system in the <a href="http://github.com/melisgl/cl-libsvm" >cl-libsvm</a>
 library: cl-liblinear that, predictably enough, is a wrapper for
 <a href="http://www.csie.ntu.edu.tw/~cjlin/liblinear/" >liblinear</a>. The API
 is similar to that of cl-libsvm.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40STACKOVERFLOW-POST-MORTEM-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@STACKOVERFLOW-POST-MORTEM-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="stackoverflow-post-mortem.html" title="Stackoverflow Post-Mortem">Stackoverflow Post-Mortem</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2013-04-09</span></p>
+
 <div class='br'></div>
+
 <p>After almost two years without a single
 competition, last September I decided to enter the
 <a href="http://www.kaggle.com/c/predict-closed-questions-on-stack-overflow" >Stackoverflow</a>
 contest on <a href="http://kaggle.com" >Kaggle</a>. It was a straightforward
 text classification problem with extremely unbalanced classes.</p>
+
 <p>... read the rest of <a href="stackoverflow-post-mortem.html" title="Stackoverflow Post-Mortem">Stackoverflow Post-Mortem</a>.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40ALPHA-BETA-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@ALPHA-BETA-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="alpha-beta.html" title="Alpha–Beta">Alpha–Beta</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2010-12-27</span></p>
+
 <div class='br'></div>
+
 <p>It hasn't even been a year yet since I first promised that alpha–beta
 snippet, and it is already added to Micmac in all its <a href="https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/src/graph-search.lisp#L9" >35 line
 glory</a>.
 The good thing about not rushing it out the door is that it saw a
 bit more use. For a tutorialish tic-tac-toe example see
 <a href="https://github.com/melisgl/micmac/blob/ea5f6aa2b16be54f6c83a514d9aec223a00baf92/test/test-alpha-beta.lisp" >test/test-game-theory.lisp</a>.</p>
+
 <p>The logging code in the example produces
 <a href="blog-files/alpha-beta-log.png" >output</a>, which is suitable for cut
 and pasting into an org-mode buffer and exploring it by <code>TAB</code>bing
 into subtrees to answer the perpetual 'What the hell was it
 thinking?!' question.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40NASH-EQUILIBRIUM-FINDER-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@NASH-EQUILIBRIUM-FINDER-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="nash-equilibrium-finder.html" title="Nash Equilibrium Finder">Nash Equilibrium Finder</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2010-12-26</span></p>
+
 <div class='br'></div>
+
 <p>While I seem to be unable to make my mind up on a good interface to
 alpha–beta with a few bells and whistles, I added a Nash equilibrium
 finder to <a href="http://cliki.net/micmac" >Micmac</a>, which is becoming less
 statistics oriented. This was one of the many things in Planet Wars
 that never really made it.</p>
+
 <p>... read the rest of <a href="nash-equilibrium-finder.html" title="Nash Equilibrium Finder">Nash Equilibrium Finder</a>.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40PLANET-WARS-POST-MORTEM-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@PLANET-WARS-POST-MORTEM-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="planet-wars-post-mortem.html" title="Planet Wars Post-Mortem">Planet Wars Post-Mortem</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2010-12-01</span></p>
+
 <div class='br'></div>
+
 <p>I can't believe I <a href="https://web.archive.org/web/20101205003152/http://ai-contest.com/rankings.php" >won</a>.<br>
 I can't believe I won <em>decisively</em> at all.</p>
+
 <p>The lead in the last month or so was an indicator of having good
 chances, but there was a huge shuffling of ranks in the last week
 and some last minute casualties.</p>
+
 <p>... read the rest of <a href="planet-wars-post-mortem.html" title="Planet Wars Post-Mortem">Planet Wars Post-Mortem</a>.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40IMPORTANT-UPDATE-TO-THE-PLANET-WARS-STARTER-PACKAGE-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@IMPORTANT-UPDATE-TO-THE-PLANET-WARS-STARTER-PACKAGE-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="important-update-to-the-planet-wars-starter-package.html" title="Important Update to the Planet Wars Starter Package">Important Update to the Planet Wars Starter Package</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2010-10-25</span></p>
+
 <div class='br'></div>
+
 <p>First, is it possible to get something as simple
 as <code>RESOLVE-BATTLE</code> wrong? Apparently, yes. That's what one gets for
 trying to port Python code that's pretty foreign in the sense of
 being far from the way I'd write it.</p>
+
 <p>... read the rest of <a href="important-update-to-the-planet-wars-starter-package.html" title="Important Update to the Planet Wars Starter Package">Important Update to the Planet Wars Starter Package</a>.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40PLANET-WARS-COMMON-LISP-STARTER-PACKAGE-THAT-ACTUALLY-WORKS-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@PLANET-WARS-COMMON-LISP-STARTER-PACKAGE-THAT-ACTUALLY-WORKS-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="planet-wars-common-lisp-starter-package-that-actually-works.html" title="Planet Wars Common Lisp Starter Package Actually Works">Planet Wars Common Lisp Starter Package Actually Works</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2010-09-21</span></p>
+
 <div class='br'></div>
+
 <p>Released
 v0.6 (<a href="http://quotenil.com/git/?p=planet-wars.git;a=summary" >git</a>,
 <a href="http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz" >latest
@@ -222,11 +293,16 @@ tarball</a>).
 The way the server compiles lisp submissions was fixed, and this
 revealed a problem where MyBot.lisp redirected <a href="http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm" title="*STANDARD-OUTPUT* (MGL-PAX:CLHS VARIABLE)"><code>*STANDARD-OUTPUT*</code></a>
 to <a href="http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm" title="*ERROR-OUTPUT* (MGL-PAX:CLHS VARIABLE)"><code>*ERROR-OUTPUT*</code></a> causing the server to think compilation failed.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40PLANET-WARS-COMMON-LISP-STARTER-PACKAGE-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@PLANET-WARS-COMMON-LISP-STARTER-PACKAGE-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="planet-wars-common-lisp-starter-package.html" title="Planet Wars Common Lisp Starter Package">Planet Wars Common Lisp Starter Package</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2010-09-19</span></p>
+
 <div class='br'></div>
+
 <p>The <a href="https://web.archive.org/web/20100926070007/http://ai-contest.com/" >Google AI
 Challenge</a>
 is back with a new game that's supposed to be much harder than Tron
@@ -234,16 +310,23 @@ was this spring. The branching factor of the game tree is enormous,
 which only means that straight minimax is out of question this time
 around. Whether some cleverness can bring the game within reach of
 conventional algorithms remains to be seen.</p>
+
 <p>... read the rest of <a href="planet-wars-common-lisp-starter-package.html" title="Planet Wars Common Lisp Starter Package">Planet Wars Common Lisp Starter Package</a>.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40AI--40UCT-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@AI-@UCT-SHORT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="uct.html" title="UCT">UCT</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2010-03-19</span></p>
+
 <div class='br'></div>
+
 <p>As promised, my <a href="http://senseis.xmp.net/?UCT" >UCT</a>
 implementation is released, albeit somewhat belatedly. It's in
 <a href="http://cliki.net/Micmac" >Micmac</a> v0.0.1, see <code>test/test-uct.lisp</code>
 for an example. Now I only owe you alpha–beta.</p>
+
 <h1><a href="ai-overview.html" title="Posts tagged `ai`">... see older posts</a></h1>
   </div>
 </div>

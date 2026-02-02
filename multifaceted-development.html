@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,9 +39,13 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40MULTIFACETED-DEVELOPMENT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@MULTIFACETED-DEVELOPMENT%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="multifaceted-development.html">On Multifaceted Development and the Role of Documentation</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>, <code>pompousness</code>,&nbsp; <em>Date:</em> 2023-08-17</span></p>
+
 <div class='br'></div>
+
 <p>Catchy title, innit? I came up with it while trying to
 name the development style <a href="https://github.com/melisgl/mgl-pax" title="PAX">PAX</a> enables. The original idea was
 something vaguely self-explanatory in a straight out of a marketing
@@ -62,12 +58,14 @@ inner <a href="https://en.wikipedia.org/wiki/Richard_P._Gabriel" >Richard P.
 Gabriel</a>. I reckon
 if there is a point to what follows, it's abstract enough to make it
 hard to tell.</p>
+
 <p>In programming, there is always a formalization step involved: we
 must go from idea to code. Very rarely, we have a formal definition
 of the problem, but apart from purely theoretical exercises,
 formalization always involves a jump of faith. It's like math word
 problems: the translation from natural to formal language is out of
-the scope of formal methods.</p>
+scope for formal methods.</p>
+
 <p>We strive to shorten the jump by looking at the solution carefully
 from different angles (code, docs, specs), by poking at it and
 observing its behaviour (tests, logs, input-output, debugging).
@@ -77,6 +75,7 @@ tool to shorten the jump. Ultimately, some faith will still be
 required, but the hope is that if a thing looks good from several
 angles and behaves well, then it's likely to be a good solution.
 Programming is empirical.</p>
+
 <p>Tests, on the abstract level, have the same primary job as any other
 facet: constrain the solution by introducing redundancy. If
 automatic, they have useful properties: 1.&nbsp;they are cheap to run;
@@ -85,6 +84,7 @@ automatic, they have useful properties: 1.&nbsp;they are cheap to run;
 test coverage); 4.&nbsp;sometimes it's easiest to start with writing the
 tests. On the other hand, tests incur a maintenance cost (often
 small compared to the gains).</p>
+
 <p>Unlike tests, documentation is mostly in natural language. This has
 the following considerable disadvantages: documentation is expensive
 to write and to check (must be read and compared to the
@@ -95,10 +95,12 @@ for users (e.g. user manual) and also for the programmer to
 understand the intention; 2.&nbsp;it encourages easily explainable
 designs; 3.&nbsp;sometimes it's easiest to start with writing the
 documentation.</p>
+
 <p>Like tests or any other facet, documentation is not always needed,
 it can drive the development process, or it can lag. But it is a
 tremendously useful tool to encourage clean design and keep the code
 comprehensible.</p>
+
 <p>Writing and maintaining good documentation is costly, but the cost
 can vary greatly. Knuth's Literate Programming took the very
 opinionated stance of treating documentation of internals as the
@@ -110,7 +112,9 @@ the distance between code and its documentation, so that they can be
 changed together. By doing so, it reduces the maintenance cost,
 improves both the design and the documentation, while making the
 code more comprehensible.</p>
+
 <p>In summary,</p>
+
 <ul>
 <li><p>Multiple, redundant facets are needed to have confidence in a
   solution.</p></li>
@@ -121,6 +125,7 @@ code more comprehensible.</p>
 <li><p>We mentally switch between facets frequently.</p></li>
 <li><p>Our tools should make working with multiple facets easier.</p></li>
 </ul>
+
 <p>This is what PAX tries to do for documentation and code.
 <br>
 And that's the best 4KiB name I could come up with.</p>

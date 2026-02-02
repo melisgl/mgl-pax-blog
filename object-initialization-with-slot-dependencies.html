@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,11 +39,16 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40OBJECT-INITIALIZATION-WITH-SLOT-DEPENDENCIES-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@OBJECT-INITIALIZATION-WITH-SLOT-DEPENDENCIES%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="object-initialization-with-slot-dependencies.html">Object Initialization with Slot Dependencies</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2009-07-04</span></p>
+
 <div class='br'></div>
+
 <p>Consider a class with a trivial initialization dependency between
 slots <code>A</code> and <code>B</code>:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> super <span class="paren2">(<span class="code"></span>)</span>
  <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">a <span class="keyword">:initarg</span> <span class="keyword">:a</span> <span class="keyword">:reader</span> a</span>)</span>
   <span class="paren3">(<span class="code">b <span class="keyword">:initform</span> 0 <span class="keyword">:initarg</span> <span class="keyword">:b</span> <span class="keyword">:reader</span> b</span>)</span></span>)</span></span>)</span>
@@ -61,39 +58,51 @@ slots <code>A</code> and <code>B</code>:</p>
 
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'super</span>)</span></span>)</span> =&gt; 1
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'super <span class="keyword">:b</span> 1</span>)</span></span>)</span> =&gt; 2</span></code></pre>
+
 <p>You may even subclass it, add an initform, and it still works:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> sub <span class="paren2">(<span class="code">super</span>)</span>
  <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">b <span class="keyword">:initform</span> 1</span>)</span></span>)</span></span>)</span>
 
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'sub</span>)</span></span>)</span> =&gt; 2</span></code></pre>
+
 <p>The complication begins when a subclass adds another slot, <code>C</code>, from
 which <code>B</code> is to be computed:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> sub2 <span class="paren2">(<span class="code">super</span>)</span>
  <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">c <span class="keyword">:initarg</span> <span class="keyword">:c</span></span>)</span></span>)</span></span>)</span></span></code></pre>
+
 <p>Say, <code>B</code> is to be initialized to <code>C + 1</code>. That's easy, let's just
 add an after method, but the after method of the subclass runs after
 the after method of the superclass, hence the value of <code>A</code> is wrong:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defmethod</span></i> initialize-instance <span class="keyword">:after</span> <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">sub2 sub2</span>)</span> &amp;key c &amp;allow-other-keys</span>)</span>
  <span class="paren2">(<span class="code">setf <span class="paren3">(<span class="code">slot-value sub2 'b</span>)</span> <span class="paren3">(<span class="code">1+ c</span>)</span></span>)</span></span>)</span>
 
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'sub2 <span class="keyword">:c</span> 1</span>)</span></span>)</span> =&gt; 1</span></code></pre>
+
 <p>Sure, it should be a before method. And the previous example is now fixed:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defmethod</span></i> initialize-instance <span class="keyword">:before</span> <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">sub2 sub2</span>)</span> &amp;key c &amp;allow-other-keys</span>)</span>
  <span class="paren2">(<span class="code">setf <span class="paren3">(<span class="code">slot-value sub2 'b</span>)</span> <span class="paren3">(<span class="code">1+ c</span>)</span></span>)</span></span>)</span>
 
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'sub2 <span class="keyword">:c</span> 1</span>)</span></span>)</span> =&gt; 3</span></code></pre>
+
 <p>However, it doesn't work if <code>SUB2</code> or a subclass of it has an
 initform on <code>C</code>:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> sub3 <span class="paren2">(<span class="code">sub2</span>)</span>
  <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">c <span class="keyword">:initform</span> 2 <span class="keyword">:initarg</span> <span class="keyword">:c</span></span>)</span></span>)</span></span>)</span>
 
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'sub3</span>)</span></span>)</span> =&gt; error</span></code></pre>
+
 <p>because <code>C</code> is not passed as an initarg for which the before method
 is unprepared. At this point, one can say screw initforms and use
 <code>DEFAULT-INITARGS</code>, but that's fragile in the face of unsuspecting
 subclasses breaking this convention. Alternatively, one can
 initialize <code>C</code> early, which handles both initforms and initargs
 fine:</p>
+
 <pre><code><span class="code"><span class="paren1">(<span class="code"><i><span class="symbol">defclass</span></i> sub4 <span class="paren2">(<span class="code">super</span>)</span>
  <span class="paren2">(<span class="code"><span class="paren3">(<span class="code">c <span class="keyword">:initform</span> 2 <span class="keyword">:initarg</span> <span class="keyword">:c</span></span>)</span></span>)</span></span>)</span>
 
@@ -104,8 +113,10 @@ fine:</p>
 
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'sub4</span>)</span></span>)</span> =&gt; 4
 <span class="paren1">(<span class="code">a <span class="paren2">(<span class="code">make-instance 'sub4 <span class="keyword">:c</span> 10</span>)</span></span>)</span> =&gt; 12</span></code></pre>
+
 <p>That's the best I could come up with; educate me if you have a
 better idea.</p>
+
 <p><strong>UPDATE</strong> – Lazy initialiation has been suggested as an
 alternative. However, a naive implementation based on <code>SLOT-BOUND-P</code>
 is bound to run into problems when the lazily computed slot has an

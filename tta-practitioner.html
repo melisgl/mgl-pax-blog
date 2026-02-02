@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,13 +39,18 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40TTA-PRACTITIONER-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@TTA-PRACTITIONER%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="tta-practitioner.html">Practitioner's Guide to Two-Tailed Averaging</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>,&nbsp; <em>Date:</em> 2022-12-06</span></p>
+
 <div class='br'></div>
+
 <p>This is a complement to the <a href="https://arxiv.org/abs/2209.12581" >Two-Tailed Averaging
 paper</a>, approached from the
 direction of what I think is a fairly common technique: averaging
 checkpoints.</p>
+
 <p>We want to speed up training and improve generalization. One way to
 do that is by averaging weights from optimization, and that's a big
 win (e.g. <a href="https://arxiv.org/abs/1708.02182" title="nt-asgd">1</a>, <a href="https://arxiv.org/abs/1803.05407" title="SWA">2</a>, <a href="https://arxiv.org/abs/2209.14981" title="LAWA">3</a>). For example, while
@@ -62,8 +59,11 @@ we can save checkpoints periodically and average the model weights
 from the last 10 or so checkpoints to produce the final solution.
 This is pretty much what <a href="https://pytorch.org/blog/stochastic-weight-averaging-in-pytorch/" >Stochastic Weight
 Averaging</a> (SWA) does.</p>
+
 <h2>Problems with SWA</h2>
+
 <p>There is a number of problems with SWA:</p>
+
 <ul>
 <li><p>The averaging length (e.g. 10) must be chosen to maximize
   performance on summarization.</p></li>
@@ -82,7 +82,9 @@ Averaging</a> (SWA) does.</p>
   naive search has to be run periodically making it even more
   expensive.</p></li>
 </ul>
+
 <p>In summary, working with SWA is tricky because:</p>
+
 <ul>
 <li><p>The averaging length is a hyperparameter that's costly to set (it
   is coupled with other hyperparameters especially with the length
@@ -91,8 +93,11 @@ Averaging</a> (SWA) does.</p>
   storage and/or computation) and suboptimal (can miss early
   solutions).</p></li>
 </ul>
+
 <p>These are the issues Two-Tailed Averaging tackles.</p>
+
 <h2>Two-Tailed Averaging</h2>
+
 <p>The algorithm needs storage for only two sets of weights (constant
 storage cost) and performance (e.g. of summarization) to be
 evaluated periodically. In return, it provides a weight average of
@@ -100,11 +105,15 @@ approximately optimal length at all optimization steps. Now we can
 start training that language model, periodically evaluating how the
 averaged weights are doing at summarization. We can stop the
 training run any time if it's getting worse.</p>
+
 <p>This is how Two-Tailed Averaged (orange) compares to SWA (green)
 tuned to start averaging at the point that's optimal for final
 validation loss:</p>
+
 <p><img src="blog-files/tta-vs-swa.png" alt="2TA (orange) vs SWA (green)" /></p>
+
 <h2>The Algorithm</h2>
+
 <p>The core algorithm maintains two weight averages. Both averages are
 over the most recent weights weight produced by the optimizer, but
 they differ in length (i.e. how many weights they average). As the
@@ -114,6 +123,7 @@ each average. If the short average (the one that currently has fewer
 weights averaged) does at least as well as the long average
 according to some arbitrary evaluation function, then we empty the
 long average, which will now be the short one.</p>
+
 <pre><code><span class="code"><span class="comment"># Initialize the short (s, sw) and long averages (l, lw). s and l are
 </span><span class="comment"># the number of weights averaged (the "averaging lengths"). sw and lw
 </span><span class="comment"># are the averaged weights.
@@ -152,10 +162,13 @@ class="keyword"> evaluate_2ta</span><span class="paren1">(<span class="code">w, 
   else:
     <span class="comment"># Return the long average.
 </span>    <span class="symbol">return</span> fl, lw, l</span></code></pre>
+
 <p>In addition to the core algorithm, the code above has some extra
 logic to deal with the non-averaged weights being better than the
 averaged ones.</p>
-<p>Let's write a fake a training loop that optimizes $f(x)=x^2$.</p>
+
+<p>Let's write a fake a training loop that optimizes \(f(x)=x^2\).</p>
+
 <pre><code><span class="code"><span class="symbol">import</span> random
 
 <span class="special">def</span><span
@@ -176,11 +189,13 @@ class="keyword"> df_dw</span><span class="paren1">(<span class="code">w</span>)<
       f_2ta, w_2ta, l_2ta = evaluate_2ta<span class="paren1">(<span class="code">w, f</span>)</span>
       <span class="symbol">print</span><span class="paren1">(<span class="code">f<span class="string">'i={i:4d}: f(w_i)={f(w):7.3f},'</span>
             f<span class="string">' f(w_2ta)={f_2ta:7.3f}, l={l_2ta:4d}'</span></span>)</span></span></code></pre>
+
 <p>We added some noise to the gradients in <code>df_dw</code> to make it more like
 training a neural net with SGD. Anyway, we take 2000 optimization
 steps, calling <code>update_2ta</code> on most but calling
 <code>update_and_evaluate_2ta</code> every 100 steps. Running
 <code>test_2ta_simple</code>, we get something like this:</p>
+
 <pre><code><span class="code">i= 100: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.108, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 100
 i= 200: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.011, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 200
 i= 300: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.098, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l= 200
@@ -201,6 +216,7 @@ i=1700: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.001, f<sp
 i=1800: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.020, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l=1300
 i=1900: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.090, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l=1400
 i=2000: f<span class="paren1">(<span class="code">w_i</span>)</span>=0.115, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=0.000, l=1500</span></code></pre>
+
 <p>In the above, <code>f(w_i)</code> is the loss with the non-averaged weights,
 <code>f(w_2ta)</code> is the loss with the weights provided by <span
 class='lnum'>2TA</span>, and <code>l</code> is the number of weights averaged.
@@ -209,11 +225,13 @@ around the optimum, and while <span class='lnum'>2TA</span> does the
 same, its jitter is way smaller (it's beyond the three significant
 digits printed here). Also, the length of the average increases
 almost monotonically but not quite due to the switching logic.</p>
+
 <p>OK, that was easy. Let's now do something a bit more involved, where
 the function being optimized changes. We will change the loss
-function to $f(x) = (x-m)^2$ where $m$ is set randomly every 400
+function to \(f(x) = (x-m)^2\) where \(m\) is set randomly every 400
 steps. We will deal with this non-stationarity by resetting the long
 average if it has not improved for a while.</p>
+
 <pre><code><span class="code"><span class="special">def</span><span
 class="keyword"> reset_2ta_long_average</span><span class="paren1">(<span class="code"></span>)</span>:
   <span class="symbol">global</span> s, sw, l, lw
@@ -256,9 +274,11 @@ class="keyword"> df_dw</span><span class="paren1">(<span class="code">w</span>)<
         reset_2ta_long_average<span class="paren1">(<span class="code"></span>)</span>
         best_f = float<span class="paren1">(<span class="code"><span class="string">"inf"</span></span>)</span>
         best_iteration = 0</span></code></pre>
+
 <p>We can see that <span class='lnum'>2TA</span> adapts to the non-stationarity in a reasonable
 way although the reset heuristic gets triggered spuriously a couple
 of times:</p>
+
 <pre><code><span class="code">i= 100: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.008, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.005, l= 100
 i= 200: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.060, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 100
 i= 300: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.004, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 100
@@ -284,12 +304,15 @@ i=1800: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.229, f<
 i=1900: f<span class="paren1">(<span class="code">w_i</span>)</span>=  0.217, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=  0.000, l= 100
 setting optimum=-8.930
 i=2000: f<span class="paren1">(<span class="code">w_i</span>)</span>=242.481, f<span class="paren1">(<span class="code">w_2ta</span>)</span>=242.481, l=   1 Reset!</span></code></pre>
+
 <p>Note that in these examples, the evaluation function in <span
 class='lnum'>2TA</span> was the training loss, but <span
 class='lnum'>2TA</span> is intended for when the evaluation function
 measures performance on the validation set or on a down-stream
 task (e.g. summarization).</p>
+
 <h2>Scaling to Large Models</h2>
+
 <p>In its proposed form, Two-Tailed Averaging incorporates every set of
 weights produced by the optimizer in both averages it maintains.
 This is good because <a href="https://jmlr.org/papers/v18/16-595.html" title="Tail Averaging">Tail Averaging</a>, also known as
@@ -301,24 +324,29 @@ the averages (which may be in RAM or on disk). Moving stuff off the
 device can be slow, so we might want to do that, say, every 20
 optimization steps. Obviously, downsampling the weights too much
 will affect the convergence rate, so there is a tradeoff.</p>
+
 <h2>Learning Rate</h2>
+
 <p>Note that in our experiments with Two-Tailed Averaging, we used a
 constant learning rate motivated by the fact that the closely
 related method of Tail Averaging guarantees optimal convergence rate
 learning rate in such a setting. The algorithm should work with
 decreasing learning rates but would require modification for
 cyclical schedules.</p>
+
 <h2>Related Works</h2>
+
 <ul>
-<li><p><a href="https://arxiv.org/abs/1803.05407" title="SWA">SWA</a> averages the last $K$ checkpoints.</p></li>
-<li><p><a href="https://arxiv.org/abs/2209.14981" title="LAWA">LAWA</a> averages the $K$ most recent checkpoints, so it
-  produces reasonable averages from early on (unlike SWA), but $K$
+<li><p><a href="https://arxiv.org/abs/1803.05407" title="SWA">SWA</a> averages the last \(K\) checkpoints.</p></li>
+<li><p><a href="https://arxiv.org/abs/2209.14981" title="LAWA">LAWA</a> averages the \(K\) most recent checkpoints, so it
+  produces reasonable averages from early on (unlike SWA), but \(K\)
   still needs to be set manually.</p></li>
 <li><p><a href="https://arxiv.org/abs/1708.02182" title="nt-asgd">nt-asgd</a> starts averaging when the validation loss has not
   improved for a fixed number of optimization steps, which trades
   one hyperparameter for another, and it is sensitive to noise in
   the raw validation loss.</p></li>
 </ul>
+
 <p><strong>Adaptivity</strong>: SWA and LAWA have hyperparameters that directly
 control the averaging length; NT-ASGD still has one, but its effect
 is more indirect. <strong>Anytimeness</strong>: LAWA provides an average at all
@@ -326,7 +354,9 @@ times, SWA and NT-ASGD don't. <strong>Optimality</strong>: The final averages of
 SWA and LAWA are optimal if their hyperparameters are well-tuned;
 intermediate results of LAWA are unlikely to be optimal; NT-ASGD can
 miss the right time to start averaging.</p>
+
 <h2>Summary</h2>
+
 <p>Two-Tailed Averaging can be thought of as online SWA with no
 hyperparameters. It is a great option when training runs take a long
 (or even an a priori unknown amount of) time, and when we could do

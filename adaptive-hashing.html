@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,35 +39,45 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40ADAPTIVE-HASHING-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@ADAPTIVE-HASHING%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="adaptive-hashing.html">Adaptive Hashing</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2025-05-02</span></p>
+
 <div class='br'></div>
+
 <p>At the <a href="https://www.european-lisp-symposium.org/2024/" >2024 ELS</a>,
 I gave a <a href="https://quotenil.com/adaptive-hash-talk.pdf" >talk on adaptive
 hashing</a>, which
 focusses on making general purpose hash tables <em>faster and more
 robust</em> at the same time.</p>
+
 <h2>Theory vs Practice</h2>
+
 <p>Hash table theory most concerns itself with the asymptotic
 worst-case cost with a hash function chosen randomly from a family
 of hash functions. Although these results are very relevant in
 practice,</p>
+
 <ul>
 <li><p>those pesky constant factors, that the big-O cost ignores, do
   matter, and</p></li>
 <li><p>we don't pick hash functions randomly but fix the hash function
   for the lifetime of the hash table.</p></li>
 </ul>
+
 <p>There are <a href="https://en.wikipedia.org/wiki/Perfect_hash_function" >Perfect
 Hashing</a>
 algorithms, that choose an optimal hash function for a given set of
 keys. The drawback is that they either require the set of keys to be
 fixed or they are too slow to be used as general purpose hash
 tables.</p>
+
 <p>Still, the idea that we can do better by adapting the hash function
 to the actual keys is key. Can we do that <em>online</em>, that is, while
 the hash table is being used? Potential performance gains come from
 improving the constant factors mentioned above by</p>
+
 <ul>
 <li><p>having fewer collisions, and</p>
 
@@ -84,6 +86,7 @@ improving the constant factors mentioned above by</p>
 
 <p><img src="blog-files/cache-friendliness-put.png" alt="cache-friendliness-put" /></p></li>
 </ul>
+
 <p>The first image above plots the regret (the expected number of
 comparisons of per lookup minus the minimum achievable) and the
 measured run-time of PUT operations vs the number of keys in the
@@ -91,25 +94,32 @@ hash table with a particular key distribution. Green is Murmur (a
 robust hash function), Blue is SBCL's expedient <code>EQ</code>
 hash. The wiggling of the graphs is due to the resizing of the hash
 table as keys are added to it.</p>
+
 <p>Note how SBCL's regret starts out much lower and becomes much higher
 than that of Murmur, but if anything, its advantage in run
 time (second image) grows.</p>
+
 <h2>Implementation</h2>
+
 <p>The general idea is sound, but turning it into real performance
 gains is hard due to the cost of choosing a hash function and
 switching to it. First, we have to make some assumption about the
 distribution of keys. In fact, default hash functions in language
 runtimes often make such assumptions to make the common cases
 faster, usually at the cost of weakened worst-case guarantees.</p>
+
 <p>The rest of this post is about how SBCL's built-in hash tables,
 which had been reasonably fast, were modified. The core switching
 mechanism looks at</p>
+
 <ul>
 <li><p>the length of the collision chain on PUT operations,</p></li>
 <li><p>the collision count on rehash (when the hash table is grown), and</p></li>
 <li><p>the size of the hash table.</p></li>
 </ul>
+
 <h3>Adapting <code>EQ</code> hash tables</h3>
+
 <ol>
 <li><p>Init to to constant hash function. This a fancy way of saying
    that we do linear search in a vector internally. This is an <code>EQ</code>
@@ -123,25 +133,35 @@ mechanism looks at</p>
 <li><p>If too many collisions, we switch to Murmur, a general purpose
    hash. We could also go all the way to cryptographic hashes.</p></li>
 </ol>
+
 <p>In step 2, the hash function with the single shift fits the memory
 allocator's behaviour nicely: it is a perfect hash for keys forming
 arithmetic sequences, which is often approximately true for objects
 of the same type allocated in a loop.</p>
+
 <p><img src="blog-files/adaptive-hash-eq-put.png" alt="adaptive-hash-eq-put" /></p>
+
 <p>In this figure, the red line is the adaptive hash.</p>
+
 <h3>Adapting <code>EQUAL</code> hash tables</h3>
+
 <p>For composite keys, running the hash function is the main cost.
 Adaptive hashing does the following.</p>
+
 <ul>
 <li><p>For string keys, hash only the first and last 2 characters.</p></li>
 <li><p>For list keys, only hash the first 4 elements.</p></li>
 <li><p>If too many collisions, double the limit.</p></li>
 </ul>
+
 <p><img src="blog-files/adaptive-hash-string-put.png" alt="adaptive-hash-string-put" /></p>
+
 <p><br>
 So, SBCL hash tables have been adaptive for almost a year now,
 gaining some speed in common cases, and robustness in others.</p>
+
 <p>The full paper is <a href="https://zenodo.org/records/11091296" >here</a>.</p>
+
 <p><img src="blog-files/adaptive-hash.png" alt="adaptive-hashing" /></p>
 <img src="blog-files/die.png" alt="end-of-post" />
   </div>

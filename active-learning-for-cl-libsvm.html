@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,16 +39,20 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40ACTIVE-LEARNING-FOR-CL-LIBSVM-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@ACTIVE-LEARNING-FOR-CL-LIBSVM%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="active-learning-for-cl-libsvm.html">Active Learning for cl-libsvm</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2009-06-22</span></p>
+
 <div class='br'></div>
+
 <p>Along the lines of <a href="http://mlbiomedicine.blogspot.com/2009/03/python-libsvm-or-on-hacking-libsvm.html" >active learning with python &amp;
 libsvm</a>,
 I <a href="http://github.com/melisgl/cl-libsvm" >added</a> support for
 calculating distance of a point from the separating hyperplane to
 <a href="http://cliki.net/cl-libsvm" >cl-libsvm</a>. In binary classification,
 there is only one SVM involved and one hyperplane. However, with
-N-class problems, there is a binary SVM for each of the $N(N-1)/2$
+N-class problems, there is a binary SVM for each of the \(N(N-1)/2\)
 pairs of classes, and there are as many separating hyperplanes,
 something the linked python code fails to take into account. As per
 the <a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/faq.html#f4151" >libsvm

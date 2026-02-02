@@ -7,15 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <script src="jquery.min.js"></script>
 <script src="toc.min.js"></script>
-<script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {
-         inlineMath: [['$','$']],
-         processEscapes: true
-       }
-     });
-   </script>
-   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
    <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
 <script>
@@ -47,9 +39,13 @@
 </div><div id="content">
 <p><a id="x-28MGL-PAX-BLOG-3A-40INTRODUCTION-TO-MGL-PART-1-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@INTRODUCTION-TO-MGL-PART-1%20MGL-PAX:SECTION"></a></p>
+
 <h1><a href="introduction-to-mgl-part-1.html">Introduction to MGL (part 1)</a></h1>
+
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2009-12-02</span></p>
+
 <div class='br'></div>
+
 <p>This is going to be the start of an introduction series on the
 <a href="http://cliki.net/MGL" >MGL</a> Common Lisp machine learning library.
 MGL focuses mainly on <a href="http://en.wikipedia.org/wiki/Boltzmann_machine" >Boltzmann
@@ -59,6 +55,7 @@ offers (gradient descent, conjugate gradient, backprop) are directly
 needed to implement the learning and fine tuning methods for
 different kinds of BMs. But before venturing too far into specifics,
 here is a quick glimpse at the bigger picture and the motivations.</p>
+
 <p>Most of the current learning algorithms are based on shallow
 architectures: they are fundamentally incapable of basing higher
 level concepts on other, learned concepts. The most prominent
@@ -66,10 +63,12 @@ example of succesful shallow learners is Support Vector Machines,
 for which there is a simple <a href="http://cliki.net/cl-libsvm" >CL wrapper</a>
 around <a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/" >libsvm</a>, but
 that's a story for another day.</p>
+
 <p>On the other hand, deep learners are theorethically capable of
 building abstraction on top of abstraction, the main hurdle in front
 of their acceptance being that they don't exist or – more precisely
 – we don't know how to train them.</p>
+
 <p>A good example of a deep learner is the multi-layer perceptron: with
 only three layers it is a <a href="http://en.wikipedia.org/wiki/Universal_approximation_theorem" >universal
 approximator</a>
@@ -77,17 +76,20 @@ which is not a particularly difficult achievement, and the practical
 implications of this result are not earth shattering: the number of
 required training examples and hidden units can be very high and
 generalization can be bad.</p>
+
 <p>Deep architectures mimic the layered organization of the brain and,
 in theory, have better abstraction, generalization capability,
 higher encoding effeciency. Of course, these qualities are strongly
 related. While this has been known/suspected for a long time, it was
 only recently that training of deep architectures <a href="http://www.cs.toronto.edu/~hinton/science.pdf" >started to become
 feasible</a>.</p>
+
 <p>Of deep learners, Boltzmann machines deserve special attention as
 they have demonstrated very good performance on a number of problems
 and have a biologically plausible, local,
 <a href="http://en.wikipedia.org/wiki/Hebbian_theory" >Hebbian</a> learning
 rule.</p>
+
 <p>Now that you are sufficiently motivated, stick around and in
 <a href="introduction-to-mgl-part-2.html" title="Introduction to MGL (part 2)">Introduction to MGL (part 2)</a>, we are going to see real examples.</p>
 <img src="blog-files/die.png" alt="end-of-post" />
