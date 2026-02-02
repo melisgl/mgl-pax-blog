@@ -4293,7 +4293,7 @@
     (:title "Untangling Literate Programming"
      :tags (@tech @lisp @pompousness)
      :date "2026-02-02")
-  """#### Classical literate programming
+  """## Classical literate programming
 
   A [literate program][lp] consists of interspersed narrative and
   code chunks. From this, source code to be fed to the compiler is
@@ -4305,7 +4305,7 @@
 
   [lp]: https://en.wikipedia.org/wiki/Literate_programming
 
-  #### The general idea
+  ## The general idea
 
   It is easy to mistake this classical implementation of literate
   programming for the more general idea that we want to
@@ -4320,7 +4320,7 @@
 
   [lp-advantages]: https://en.wikipedia.org/wiki/Literate_programming#Advantages
 
-  #### Untangled LP
+  ## Untangled LP
 
   In many languages today, code order is far more flexible than in the
   era of early literate programming, so the narrative order can be
@@ -4333,7 +4333,7 @@
   [lp-vs-docgen]: https://en.wikipedia.org/wiki/Literate_programming#Contrast_with_documentation_generation
   [lp-untangled]: https://www.linestarve.com/blog/post/literate-programming-untangled/
 
-  #### Pros and cons
+  ## Pros and cons
 
   Having no tangling is a great benefit, as we get to keep our usual
   programming environment and tooling. On the other hand, bare-bones
@@ -4366,7 +4366,7 @@
   the severity of the above issues in the particular programming
   environment.
 
-  #### The Lisp and PAX view
+  # The Lisp and PAX view
 
   [pax]: https://github.com/melisgl/mgl-pax
   [pax-intro]: https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@INTRODUCTION%20MGL-PAX:SECTION
