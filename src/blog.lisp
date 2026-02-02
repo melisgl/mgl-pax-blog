@@ -4449,7 +4449,7 @@
   [SLIME][slime]/[Sly][sly]), through which it offers optional
   convenience features like extended navigation, live browsing, and
   hiding documentation in code. In return, we give up easy
-  fine-grained control over typesetting the documentation — a price
+  fine-grained control over typesetting the documentation – a price
   well worth paying in Common Lisp.
   """)
 
