@@ -4366,7 +4366,7 @@
   the severity of the above issues in the particular programming
   environment.
 
-  # The Lisp and PAX view
+  ## The Lisp and PAX view
 
   [pax]: https://github.com/melisgl/mgl-pax
   [pax-intro]: https://melisgl.github.io/mgl-pax-world/mgl-pax-manual.html#MGL-PAX:@INTRODUCTION%20MGL-PAX:SECTION
