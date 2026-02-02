@@ -146,7 +146,7 @@ but retains the original, interactive Lisp environment (e.g.
 &lt;a href=&quot;https://github.com/slime/slime&quot; &gt;SLIME&lt;/a&gt;/&lt;a href=&quot;https://github.com/joaotavora/sly&quot; &gt;Sly&lt;/a&gt;), through which it offers optional
 convenience features like extended navigation, live browsing, and
 hiding documentation in code. In return, we give up easy
-fine-grained control over typesetting the documentation — a price
+fine-grained control over typesetting the documentation – a price
 well worth paying in Common Lisp.
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
