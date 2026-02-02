@@ -4393,11 +4393,11 @@
          end up with some DEFVARs far from their parent
          DEFSECTIONs (but DECLAIM SPECIAL helps).
 
-       - DEFSECTION controls documentation order. The references to
-         Lisp definitions in DEFSECTION determine narrative order
-         independently from the code order. This allows the few
-         ordering problems to be patched over in the generated
-         documentation.
+       - [DEFSECTION][pax-intro] controls documentation order. The
+         references to Lisp definitions in DEFSECTION determine
+         narrative order independently from the code order. This
+         allows the few ordering problems to be patched over in the
+         generated documentation.
 
        - Furthermore, because DEFSECTION can handle the exporting of
          symbols, we can declare the public interface piecemeal, right
