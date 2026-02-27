@@ -47,10 +47,10 @@ explored in more detail &lt;a href=&quot;https://www.linestarve.com/blog/post/li
 
 &lt;p&gt;Having no tangling is a great benefit, as we get to keep our usual
 programming environment and tooling. On the other hand, bare-bones
-untangled LP suffers from the following potential problems.&lt;/p&gt;
+untangled LP faces the following potential problems.&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;&lt;em&gt;Order mismatches&lt;/em&gt;: Things like inline functions and global
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Order mismatch&lt;/em&gt;: Things like inline functions and global
    variables may need to be defined before use. So, code order tends
    to deviate from narrative order to some degree.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;em&gt;Reduced locality&lt;/em&gt;: Our main tool to sync code and narrative is
