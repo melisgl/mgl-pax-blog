@@ -350,16 +350,16 @@
   (let ((spinneret:*html* stream)
         (spinneret:*suppress-inserted-spaces* t))
     (spinneret:with-html
-        (:div :id "toc"
-         (:div :id "home"
-          (link-to-category @blog ))
-         (:div :id "links"
-          "Ramblings on "
-          (link-to-category @ai) ", "
-          (link-to-category @lisp) ", "
-          (link-to-category @tech) " and "
-          (link-to-category @personal) " topics by "
-          (link-to-category @about-me "me") ".")))))
+      (:div :id "toc"
+       (:div :id "home"
+        (link-to-category @blog ))
+       (:div :id "links"
+        "Ramblings on "
+        (link-to-category @ai) ", "
+        (link-to-category @lisp) ", "
+        (link-to-category @tech) " and "
+        (link-to-category @personal) " topics by "
+        (link-to-category @about-me "me") ".")))))
 
 
 (defpost @first-post (:title "First Post"
