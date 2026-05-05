@@ -3749,7 +3749,9 @@
   library called @DREF, allowing PAX to focus on documentation. Being
   very young, DRef lives under adult supervision, in a
   [subdirectory](https://github.com/melisgl/mgl-pax/tree/master/dref)
-  of the PAX repository.""""""
+  of the PAX repository.
+
+  **UPDATE**  – See @DREF-LEAVES-HOME.""""""
 
   ```
   DREF> (definitions 'pax:document-object*)
@@ -3878,7 +3880,7 @@
 
 (define-glossary-term @dref
     (:title "DRef"
-     :url "https://github.com/melisgl/mgl-pax/tree/master/dref/"))
+     :url "https://github.com/melisgl/dref"))
 
 (defpost @multifaceted-development
     (:title "On Multifaceted Development and the Role of Documentation"
@@ -4287,7 +4289,6 @@
   have not found a way in LaTeX to underline text without breaking
   automatic hyphenation.
   """)
-
 
 (defpost @untangling-literate-programming
     (:title "Untangling Literate Programming"
@@ -4452,6 +4453,31 @@
   fine-grained control over typesetting the documentation – a price
   well worth paying in Common Lisp.
   """)
+
+(defpost @dref-leaves-home (:title "DRef Leaves Home"
+                            :tags (@tech @lisp)
+                            :date "2026-05-05")
+  """Version 0.5 of @DREF, the definition reifier, is now available.
+  It has moved to its own repository, completing its separation from
+  @PAX, where it was originally developed.
+
+  ![](blog-files/dref-logo.jpg)
+
+  This was a long time coming. Twelve years ago today, PAX was born.
+  From the start, PAX used the concept of locatives to refer to
+  definitions without first-class objects. For example, to generate
+  documentation for the `*MY-VAR*` variable, one could use the
+  VARIABLE locative as in `(*MY-VAR* VARIABLE)`. PAX needed to be able
+  to tell whether such a definition exists, as well as access its
+  docstring and source location.
+
+  Over time, this mechanism evolved into a portable, extensible
+  introspection library independent of PAX. I began
+  [separating][@dref-and-pax-v0.3] the two projects two years ago and
+  named the new library, though they continued to share a repository.
+  I have now removed the remaining dependencies so that DRef can live
+  on its own.""")
+
 
 #+nil
 (time (generate-pages (list @blog @tech @ai @lisp @personal)
