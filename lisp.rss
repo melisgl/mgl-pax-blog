@@ -7,6 +7,32 @@
         <generator>xml-emitter</generator>
         <language>en-uk</language>
         <item>
+            <title>DRef Leaves Home</title>
+            <link>http://quotenil.com/dref-leaves-home.html</link>
+            <description>&lt;p&gt;Version 0.5 of &lt;a href=&quot;https://github.com/melisgl/dref&quot; title=&quot;DRef&quot;&gt;DRef&lt;/a&gt;, the definition reifier, is now available. 
+It has moved to its own repository, completing its separation from
+&lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt;, where it was originally developed.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/dref-logo.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This was a long time coming. Twelve years ago today, PAX was born.
+From the start, PAX used the concept of locatives to refer to
+definitions without first-class objects. For example, to generate
+documentation for the &lt;code&gt;*MY-VAR*&lt;/code&gt; variable, one could use the
+&lt;code&gt;VARIABLE&lt;/code&gt; locative as in &lt;code&gt;(*MY-VAR* VARIABLE)&lt;/code&gt;. PAX needed to be able
+to tell whether such a definition exists, as well as access its
+docstring and source location.&lt;/p&gt;
+Over time, this mechanism evolved into a portable, extensible
+introspection library independent of PAX. I began
+separating the two projects two years ago and
+named the new library, though they continued to share a repository.
+I have now removed the remaining dependencies so that DRef can live
+on its own.
+</description>
+            <author>mega@retes.hu (G&#xE1;bor Melis)</author>
+            <pubDate>Tue, 05 May 2026 02:00:00 +0200</pubDate>
+        </item>
+        <item>
             <title>Untangling Literate Programming</title>
             <link>http://quotenil.com/untangling-literate-programming.html</link>
             <description>&lt;h2&gt;Classical literate programming&lt;/h2&gt;
@@ -304,7 +330,7 @@ gaining some speed in common cases, and robustness in others.&lt;/p&gt;
         <item>
             <title>PAX and DRef v0.4</title>
             <link>http://quotenil.com/pax-v0.4.html</link>
-            <description>&lt;p&gt;Version 0.4 of &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt;, the documentation system, and &lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref/&quot; title=&quot;DRef&quot;&gt;DRef&lt;/a&gt;, the
+            <description>&lt;p&gt;Version 0.4 of &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt;, the documentation system, and &lt;a href=&quot;https://github.com/melisgl/dref&quot; title=&quot;DRef&quot;&gt;DRef&lt;/a&gt;, the
 definition reifier, was released. There were large refactorings, bug
 fixes, minor features, cosmetics, documentation and performance
 improvements &lt;a href=&quot;https://github.com/melisgl/mgl-pax/commits/parse-word&quot; &gt;too numerous to
@@ -509,10 +535,12 @@ first-class object (e.g. stuff like &lt;code&gt;(*DOCUMENT-LINK-TO-HYPERSPEC*
 VARIABLE)&lt;/code&gt;), and since its original release in 2014, a substantial
 part of &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt; dealt with locatives and references, which reify
 definitions. This release finally factors that code out into a
-library called &lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref/&quot; title=&quot;DRef&quot;&gt;DRef&lt;/a&gt;, allowing PAX to focus on documentation. Being
+library called &lt;a href=&quot;https://github.com/melisgl/dref&quot; title=&quot;DRef&quot;&gt;DRef&lt;/a&gt;, allowing PAX to focus on documentation. Being
 very young, DRef lives under adult supervision, in a
 &lt;a href=&quot;https://github.com/melisgl/mgl-pax/tree/master/dref&quot; &gt;subdirectory&lt;/a&gt;
 of the PAX repository.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;  – See DRef Leaves Home.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;code&quot;&gt;DREF&amp;gt; &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;&lt;i&gt;&lt;span class=&quot;symbol&quot;&gt;definitions&lt;/span&gt;&lt;/i&gt; &apos;pax:document-object*&lt;/span&gt;)&lt;/span&gt;
 &lt;span class=&quot;paren1&quot;&gt;(&lt;span class=&quot;code&quot;&gt;#&amp;lt;DREF DOCUMENT-OBJECT* GENERIC-FUNCTION&amp;gt;

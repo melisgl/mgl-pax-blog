@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>DRef Leaves Home</title>
+<link type='text/css' href='style.css' rel='stylesheet'>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width">
+<script src="jquery.min.js"></script>
+<script src="toc.min.js"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+   <!-- Google tag (gtag.js) -->
+<script async src='https://www.googletagmanager.com/gtag/js?id=G-7X64Q1D73F'></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7X64Q1D73F');
+</script>
+<script src='grid.js'></script>
+<link rel='shortcut icon' type='image/png' href='favicon.png'>
+<link rel='preconnect' href='https://fonts.googleapis.com'>
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+<link href='https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet'>
+<style> @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap'); </style>
+<link rel='alternate' href='http://quotenil.com/blog.rss' type='application/rss+xml'/>
+
+</head>
+<body>
+<div id="content-container">
+<div id=toc>
+ <div id=home>
+  <a href=blog.html><code>(QUOTE NIL)</code></a>
+ </div>
+ <div id=links>
+  Ramblings on <a href=ai.html>ai</a>, <a href=lisp.html>lisp</a>, <a href=tech.html>tech</a> 
+  and <a href=personal.html>personal</a> topics by <a href=about-me.html>me</a>.
+ </div>
+</div><div id="content">
+<p><a id="x-28MGL-PAX-BLOG-3A-40DREF-LEAVES-HOME-20MGL-PAX-3ASECTION-29"></a>
+<a id="MGL-PAX-BLOG:@DREF-LEAVES-HOME%20MGL-PAX:SECTION"></a></p>
+
+<h1><a href="dref-leaves-home.html">DRef Leaves Home</a></h1>
+
+<p><span class='post-data'><em>Tags:</em> <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2026-05-05</span></p>
+
+<div class='br'></div>
+
+<p>Version 0.5 of <a href="https://github.com/melisgl/dref" title="DRef">DRef</a>, the definition reifier, is now available. 
+It has moved to its own repository, completing its separation from
+<a href="https://github.com/melisgl/mgl-pax" title="PAX">PAX</a>, where it was originally developed.</p>
+
+<p><img src="blog-files/dref-logo.jpg" alt="" /></p>
+
+<p>This was a long time coming. Twelve years ago today, PAX was born.
+From the start, PAX used the concept of locatives to refer to
+definitions without first-class objects. For example, to generate
+documentation for the <code>*MY-VAR*</code> variable, one could use the
+<code>VARIABLE</code> locative as in <code>(*MY-VAR* VARIABLE)</code>. PAX needed to be able
+to tell whether such a definition exists, as well as access its
+docstring and source location.</p>
+
+<p>Over time, this mechanism evolved into a portable, extensible
+introspection library independent of PAX. I began
+<a href="dref-and-pax-v0.3.html" title="DRef and PAX v0.3">separating</a> the two projects two years ago and
+named the new library, though they continued to share a repository.
+I have now removed the remaining dependencies so that DRef can live
+on its own.</p>
+<img src="blog-files/die.png" alt="end-of-post" />
+  </div>
+</div>
+<script>$('#page-toc').toc({'selectors': ''});</script>
+</body>
+</html>

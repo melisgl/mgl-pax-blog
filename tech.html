@@ -38,6 +38,36 @@
   by <a href=about-me.html>me</a>.
  </div>
 </div><div id="content">
+<p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40DREF-LEAVES-HOME-SHORT-20MGL-PAX-3ASECTION-29"></a>
+<a id="MGL-PAX-BLOG:@TECH-@DREF-LEAVES-HOME-SHORT%20MGL-PAX:SECTION"></a></p>
+
+<h1><a href="dref-leaves-home.html" title="DRef Leaves Home">DRef Leaves Home</a></h1>
+
+<p><span class='post-data'><em>Tags:</em> <a href="tech.html" title="tech"><code>tech</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2026-05-05</span></p>
+
+<div class='br'></div>
+
+<p>Version 0.5 of <a href="https://github.com/melisgl/dref" title="DRef">DRef</a>, the definition reifier, is now available. 
+It has moved to its own repository, completing its separation from
+<a href="https://github.com/melisgl/mgl-pax" title="PAX">PAX</a>, where it was originally developed.</p>
+
+<p><img src="blog-files/dref-logo.jpg" alt="" /></p>
+
+<p>This was a long time coming. Twelve years ago today, PAX was born.
+From the start, PAX used the concept of locatives to refer to
+definitions without first-class objects. For example, to generate
+documentation for the <code>*MY-VAR*</code> variable, one could use the
+<code>VARIABLE</code> locative as in <code>(*MY-VAR* VARIABLE)</code>. PAX needed to be able
+to tell whether such a definition exists, as well as access its
+docstring and source location.</p>
+
+<p>Over time, this mechanism evolved into a portable, extensible
+introspection library independent of PAX. I began
+<a href="dref-and-pax-v0.3.html" title="DRef and PAX v0.3">separating</a> the two projects two years ago and
+named the new library, though they continued to share a repository.
+I have now removed the remaining dependencies so that DRef can live
+on its own.</p>
+
 <p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40UNTANGLING-LITERATE-PROGRAMMING-SHORT-20MGL-PAX-3ASECTION-29"></a>
 <a id="MGL-PAX-BLOG:@TECH-@UNTANGLING-LITERATE-PROGRAMMING-SHORT%20MGL-PAX:SECTION"></a></p>
 
@@ -354,7 +384,7 @@ gaining some speed in common cases, and robustness in others.</p>
 
 <div class='br'></div>
 
-<p>Version 0.4 of <a href="https://github.com/melisgl/mgl-pax" title="PAX">PAX</a>, the documentation system, and <a href="https://github.com/melisgl/mgl-pax/tree/master/dref/" title="DRef">DRef</a>, the
+<p>Version 0.4 of <a href="https://github.com/melisgl/mgl-pax" title="PAX">PAX</a>, the documentation system, and <a href="https://github.com/melisgl/dref" title="DRef">DRef</a>, the
 definition reifier, was released. There were large refactorings, bug
 fixes, minor features, cosmetics, documentation and performance
 improvements <a href="https://github.com/melisgl/mgl-pax/commits/parse-word" >too numerous to
@@ -414,10 +444,12 @@ first-class object (e.g. stuff like <code>(*DOCUMENT-LINK-TO-HYPERSPEC*
 VARIABLE)</code>), and since its original release in 2014, a substantial
 part of <a href="https://github.com/melisgl/mgl-pax" title="PAX">PAX</a> dealt with locatives and references, which reify
 definitions. This release finally factors that code out into a
-library called <a href="https://github.com/melisgl/mgl-pax/tree/master/dref/" title="DRef">DRef</a>, allowing PAX to focus on documentation. Being
+library called <a href="https://github.com/melisgl/dref" title="DRef">DRef</a>, allowing PAX to focus on documentation. Being
 very young, DRef lives under adult supervision, in a
 <a href="https://github.com/melisgl/mgl-pax/tree/master/dref" >subdirectory</a>
 of the PAX repository.</p>
+
+<p><strong>UPDATE</strong>  – See <a href="dref-leaves-home.html" title="DRef Leaves Home">DRef Leaves Home</a>.</p>
 
 <p>... read the rest of <a href="dref-and-pax-v0.3.html" title="DRef and PAX v0.3">DRef and PAX v0.3</a>.</p>
 
@@ -580,25 +612,6 @@ support, and passwords to the local and remote imap accounts are
 normally stored in clear text in <code>.offlineimaprc</code>.</p>
 
 <p>... read the rest of <a href="offlineimap-with-encrypted-authinfo.html" title="OfflineIMAP with Encrypted Authinfo">OfflineIMAP with Encrypted Authinfo</a>.</p>
-
-<p><a id="x-28MGL-PAX-BLOG-3A-40TECH--40UPGRADE-WOES-2-SHORT-20MGL-PAX-3ASECTION-29"></a>
-<a id="MGL-PAX-BLOG:@TECH-@UPGRADE-WOES-2-SHORT%20MGL-PAX:SECTION"></a></p>
-
-<h1><a href="upgrade-woes-2.html" title="Upgrade Woes 2">Upgrade Woes 2</a></h1>
-
-<p><span class='post-data'><em>Tags:</em> <a href="tech.html" title="tech"><code>tech</code></a>,&nbsp; <em>Date:</em> 2010-02-08</span></p>
-
-<div class='br'></div>
-
-<p>Debian Squeeze finally got Xorg 7.5 instead of the old and dusty 7.4.
-The upgrade was as smooth as ever: <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=568872" >DPI is
-off</a>,
-keyboard repeat for the Caps Lock key <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=568868" >does not survive
-suspend/resume</a>
-and the trackpoint <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=568873" >stopped
-working</a>.
-Synaptics click by tapping went away before the upgrade so that
-doesn't count.</p>
 
 <h1><a href="tech-overview.html" title="Posts tagged `tech`">... see older posts</a></h1>
   </div>
