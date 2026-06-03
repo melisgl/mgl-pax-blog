@@ -2332,7 +2332,7 @@ invoked during any entry into the debugger.
 
 <a id="x-28SB-EXT-3A-2AINVOKE-DEBUGGER-HOOK-2A-20VARIABLE-29"></a>
 
-- [variable] **sb-ext:\*invoke-debugger-hook\*** *\#\<function swank/sbcl::swank-invoke-debugger-hook {1200CB464B}>*
+- [variable] **sb-ext:\*invoke-debugger-hook\*** *\#\<function swank/sbcl::swank-invoke-debugger-hook {1201C2C64B}>*
 
     This is either `nil` or a designator for a function of two arguments,
     to be run when the debugger is about to be entered. The function is
