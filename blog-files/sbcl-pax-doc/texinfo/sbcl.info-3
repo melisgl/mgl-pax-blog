@@ -1,0 +1,33 @@
+This is sbcl.info, produced by makeinfo version 7.2 from sbcl.texinfo.
+
+     This manual, for SBCL version 2.6.5.32.pax-doc.6-c774fa864, is part
+     of the SBCL software system.  See the ‘README’ file for more
+     information.
+
+     This manual is largely derived from the manual for the CMUCL
+     system, which was produced at Carnegie Mellon University and later
+     released into the public domain.  This manual is in the public
+     domain and is provided with absolutely no warranty.  See the
+     ‘COPYING’ and ‘CREDITS’ files for more information.
+INFO-DIR-SECTION Software development
+START-INFO-DIR-ENTRY
+* sbcl: (sbcl).           The Steel Bank Common Lisp compiler
+END-INFO-DIR-ENTRY
+
+
+File: sbcl.info,  Node: colophon,  Prev: type index,  Up: Top
+
+Colophon
+********
+
+This manual is maintained as part of the *note sb manual:: contrib.
+‘SB-MANUAL’ can generate Texinfo, which is in turn converted into other
+formats (e.g.  HTML or pdf).  If you're _reading_ this manual in one of
+these, that's fine, but if you want to _modify_ this manual, you are
+strongly advised to seek the sources (most live under
+‘contrib/sb-manual/doc/’) and submit a patch.
+
+When viewing Info in Emacs, the reader inserts superfluous "see" words
+before internal links.  Use ‘(setq Info-hide-note-references 'hide)’ to
+prevent this.
+
