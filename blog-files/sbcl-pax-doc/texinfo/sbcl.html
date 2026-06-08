@@ -11,10 +11,10 @@ which was produced at Carnegie Mellon University and later released
 into the public domain. This manual is in the public domain and is
 provided with absolutely no warranty. See the COPYING and
 CREDITS files for more information. -->
-<title>SBCL 2.6.5.32.pax-doc.6-c774fa864 User Manual</title>
+<title>SBCL 2.6.5.32.pax-doc.15-8230bc7fc User Manual</title>
 
-<meta name="description" content="SBCL 2.6.5.32.pax-doc.6-c774fa864 User Manual">
-<meta name="keywords" content="SBCL 2.6.5.32.pax-doc.6-c774fa864 User Manual">
+<meta name="description" content="SBCL 2.6.5.32.pax-doc.15-8230bc7fc User Manual">
+<meta name="keywords" content="SBCL 2.6.5.32.pax-doc.15-8230bc7fc User Manual">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -667,8 +667,9 @@ provided with absolutely no warranty. See the <samp class="file">COPYING</samp> 
     </ul></li>
     <li><a id="toc-sb_002dmanual" href="#sb-manual">17.6 sb-manual</a>
     <ul class="toc-numbered-mark">
-      <li><a id="toc-Browsing-Live-with-PAX" href="#browsing-live-with-pax">17.6.1 Browsing Live with PAX</a></li>
-      <li><a id="toc-Fancy-Documentation-with-PAX" href="#fancy-documentation-with-pax">17.6.2 Fancy Documentation with PAX</a></li>
+      <li><a id="toc-Using-PAX" href="#using-pax">17.6.1 Using PAX</a></li>
+      <li><a id="toc-Browsing-Live-with-PAX" href="#browsing-live-with-pax">17.6.2 Browsing Live with PAX</a></li>
+      <li><a id="toc-Fancy-Documentation-with-PAX" href="#fancy-documentation-with-pax">17.6.3 Fancy Documentation with PAX</a></li>
     </ul></li>
     <li><a id="toc-sb_002dmd5" href="#sb-md5">17.7 sb-md5</a></li>
     <li><a id="toc-sb_002dposix" href="#sb-posix">17.8 sb-posix</a>
@@ -726,6 +727,7 @@ provided with absolutely no warranty. See the <samp class="file">COPYING</samp> 
   <li><a id="toc-Function-and-Macro-Index" href="#function-index" rel="index">Appendix A Function and Macro Index</a></li>
   <li><a id="toc-Variable-and-Constant-Index" href="#variable-index" rel="index">Appendix B Variable and Constant Index</a></li>
   <li><a id="toc-Type-Index" href="#type-index" rel="index">Appendix C Type Index</a></li>
+  <li><a id="toc-Declaration-Index" href="#declaration-index" rel="index">Appendix D Declaration Index</a></li>
   <li><a id="toc-Colophon" href="#colophon">Colophon</a></li>
 </ul>
 </div>
@@ -952,8 +954,9 @@ exceptions involve internal inconsistencies in the standard.) See
   specified in the <em class="emph">Description</em>.
 
 </li><li>The <code class="code">string</code> type is considered to be the union of all types
-  <code class="code">(array c (size))</code> for all non-<code class="code">nil</code> subtypes <code class="code">c</code> of <code class="code">character</code>,
-   excluding arrays specialized to the empty type.
+  <code class="code">(array c (size))</code> for all non-<code class="code">nil</code> subtypes <code class="code">c</code> of
+   <code class="code">character</code>, excluding arrays specialized to the empty
+   type.
 
 </li><li>The <code class="code">:order</code> long form option in <code class="code">define-method-combination</code> method
   group specifiers accepts the value <code class="code">nil</code> as well as
@@ -2398,22 +2401,21 @@ associated <code class="code">muffle-warning</code> restart).
       (* x -5))))
 </pre></div>
 
-<ul class="itemize mark-bullet">
-<li>[<strong class="strong">declaration</strong>] <code class="code">sb-ext:muffle-conditions</code>
-
-<p>Syntax: <code class="code">(sb-ext:muffle-conditions &amp;rest types)</code>.
+<a class="anchor" id="Declaration-sb_002dext-muffle_002dconditions"></a><a class="index-entry-id" id="index-muffle_002dconditions-_005bsb_002dext_005d"></a>
+<dl class="first-deffn def-block">
+<dt class="deffn def-line" id="index-sb_002dext_003amuffle_002dconditions"><span class="category-def">Declaration: </span><span><strong class="def-name">sb-ext:muffle-conditions</strong><a class="copiable-link" href="#index-sb_002dext_003amuffle_002dconditions"> &para;</a></span></dt>
+<dd><p>Syntax: <code class="code">(sb-ext:muffle-conditions &amp;rest types)</code>.
 </p>
-<p>Muffle the diagnostic messages that would be caused by
-compile-time signals of TYPES.
+<p>Muffle the diagnostic messages that would be caused by compile-time
+signals of <code class="code">types</code>.
+</p></dd></dl>
+<a class="anchor" id="Declaration-sb_002dext-unmuffle_002dconditions"></a><a class="index-entry-id" id="index-unmuffle_002dconditions-_005bsb_002dext_005d"></a>
+<dl class="first-deffn def-block">
+<dt class="deffn def-line" id="index-sb_002dext_003aunmuffle_002dconditions"><span class="category-def">Declaration: </span><span><strong class="def-name">sb-ext:unmuffle-conditions</strong><a class="copiable-link" href="#index-sb_002dext_003aunmuffle_002dconditions"> &para;</a></span></dt>
+<dd><p>Syntax: <code class="code">(sb-ext:muffle-conditions &amp;rest types)</code>.
 </p>
-</li><li>[<strong class="strong">declaration</strong>] <code class="code">sb-ext:unmuffle-conditions</code>
-
-<p>Syntax: <code class="code">(sb-ext:muffle-conditions &amp;rest types)</code>.
-</p>
-<p>Cancel the effect of a previous <code class="code">sb-ext:muffle-conditions</code>
-declaration.
-</p></li></ul>
-
+<p>Cancel the effect of a previous <code class="code">sb-ext:muffle-conditions</code> declaration.
+</p></dd></dl>
 <p>Various details of <em class="emph">how</em> the compiler messages are printed can be
 controlled via the alist <code class="code">sb-ext:*compiler-print-variable-alist*</code>.
 </p>
@@ -5201,31 +5203,31 @@ nor defined as symbol macros.
 </p>
 <p>See also the declarations <code class="code">sb-ext:global</code> and <code class="code">sb-ext:always-bound</code>.
 </p></dd></dl>
-<ul class="itemize mark-bullet">
-<li>[<strong class="strong">declaration</strong>] <code class="code">sb-ext:global</code>
-
-<p>Syntax: <code class="code">(sb-ext:global &amp;rest symbols)</code>
+<a class="anchor" id="Declaration-sb_002dext-global"></a><a class="index-entry-id" id="index-global-_005bsb_002dext_005d"></a>
+<dl class="first-deffn def-block">
+<dt class="deffn def-line" id="index-sb_002dext_003aglobal"><span class="category-def">Declaration: </span><span><strong class="def-name">sb-ext:global</strong><a class="copiable-link" href="#index-sb_002dext_003aglobal"> &para;</a></span></dt>
+<dd><p>Syntax: <code class="code">(sb-ext:global &amp;rest symbols)</code>
 </p>
 <p>Only valid as a global proclamation.
 </p>
 <p>Specifies that the named symbols cannot be proclaimed or locally
-declared <code class="code">special</code>. Proclaiming an already special or constant
-variable name as <code class="code">sb-ext:global</code> signal an error. Allows more
-efficient value lookup in threaded environments in addition to
-expressing programmer intention.
-</p>
-</li><li>[<strong class="strong">declaration</strong>] <code class="code">sb-ext:always-bound</code>
-
-<p>Syntax: <code class="code">(sb-ext:always-bound &amp;rest symbols)</code>
+declared <code class="code">special</code>. Proclaiming an already special or constant variable
+name as <code class="code">sb-ext:global</code> signal an error. Allows more efficient value
+lookup in threaded environments in addition to expressing programmer
+intention.
+</p></dd></dl>
+<a class="anchor" id="Declaration-sb_002dext-always_002dbound"></a><a class="index-entry-id" id="index-always_002dbound-_005bsb_002dext_005d"></a>
+<dl class="first-deffn def-block">
+<dt class="deffn def-line" id="index-sb_002dext_003aalways_002dbound"><span class="category-def">Declaration: </span><span><strong class="def-name">sb-ext:always-bound</strong><a class="copiable-link" href="#index-sb_002dext_003aalways_002dbound"> &para;</a></span></dt>
+<dd><p>Syntax: <code class="code">(sb-ext:always-bound &amp;rest symbols)</code>
 </p>
 <p>Only valid as a global proclamation.
 </p>
-<p>Specifies that the named symbols are always bound. Inhibits
-<code class="code">makunbound</code> of the named symbols. Proclaiming an unbound symbol
-as <code class="code">sb-ext:always-bound</code> signals an error. Allows the compiler to
-elide boundness checks from value lookups.
-</p></li></ul>
-
+<p>Specifies that the named symbols are always bound. Inhibits <code class="code">makunbound</code>
+of the named symbols. Proclaiming an unbound symbol as
+<code class="code">sb-ext:always-bound</code> signals an error. Allows the compiler to elide
+boundness checks from value lookups.
+</p></dd></dl>
 <hr>
 </div>
 <div class="section-level-extent" id="miscellaneous-efficiency-issues">
@@ -6438,7 +6440,8 @@ otherwise. Signals an error if <code class="code">sequence</code> is not a seque
 <dd><p>Executes <code class="code">body</code> with <code class="code">element</code> subsequently bound to each element of
 <code class="code">sequence</code>, then returns <code class="code">return</code>.
 </p></dd></dl>
-<p>The remaining list parallels the <em class="emph">Sequence Dictionary</em>, <code class="code">17.3</code> <code class="code">clhs</code>.
+<p>The remaining list parallels the <em class="emph">Sequence Dictionary</em>, see
+17.3 in the ANSI spec.
 </p>
 <a class="anchor" id="Generic-function-sb_002dsequence-copy_002dseq"></a><a class="index-entry-id" id="index-copy_002dseq-_005bsb_002dsequence_005d"></a>
 <dl class="first-deffn def-block">
@@ -8193,6 +8196,52 @@ function is not affected by encapsulations.
 <p>Note that the unencapsulated function may be <code class="code">eq</code> to the designated
 function even in the presence of encapsulations. For generic
 functions, this is currently always the case.
+</p></dd></dl>
+<a class="anchor" id="Generic-function-common_002dlisp-documentation"></a><a class="index-entry-id" id="index-documentation-_005bcommon_002dlisp_005d"></a>
+<dl class="first-deffn def-block">
+<dt class="deffn def-line" id="index-documentation"><span class="category-def">Generic function: </span><span><strong class="def-name">documentation</strong> <var class="def-var-arguments">object doc-type</var><a class="copiable-link" href="#index-documentation"> &para;</a></span></dt>
+<dd><p>Return the documentation string of <code class="code">doc-type</code> for <code class="code">object</code>,
+or <code class="code">nil</code> if none exists. In addition to the <code class="code">doc-type</code>s and methods
+required by ANSI, SBCL&rsquo;s <code class="code">documentation</code> (and its <code class="code">setf</code>) supports methods
+with the following signatures:
+</p>
+<ul class="itemize mark-bullet">
+<li><code class="code">(object symbol) (doc-type (eql declaration))</code>
+
+</li><li><code class="code">(object sb-mop:slot-definition) (doc-type (eql t))</code>
+</li></ul>
+
+<p>Since <code class="code">condition</code>s are implemented as classes in SBCL, the following
+also work:
+</p>
+<ul class="itemize mark-bullet">
+<li><code class="code">(object condition) (doc-type (eql t))</code>
+
+</li><li><code class="code">(object condition) (doc-type (eql 'type))</code>
+</li></ul>
+
+<p>Function documentation is stored separately for function names and objects:
+<code class="code">defun</code>, <code class="code">lambda</code>, &amp;co create function objects with the specified documentation
+strings.
+</p>
+<div class="example">
+<pre class="example-preformatted">(setf (documentation name 'function) string)
+</pre></div>
+
+<p>sets the documentation string stored under the specified name, and
+</p>
+<div class="example">
+<pre class="example-preformatted">(setf (documentation func t) string)
+</pre></div>
+
+<p>sets the documentation string stored in the function object.
+</p>
+<div class="example">
+<pre class="example-preformatted">(documentation name 'function)
+</pre></div>
+
+<p>returns the documentation stored under the function name if any, and
+falls back on the documentation in the function object if necessary.
 </p></dd></dl>
 <hr>
 </div>
@@ -11001,27 +11050,26 @@ Previous: <a href="#package-lock-concepts" accesskey="p" rel="prev">Package Lock
 </div>
 <h3 class="section" id="Package-Lock-Dictionary"><span>12.2 Package Lock Dictionary<a class="copiable-link" href="#Package-Lock-Dictionary"> &para;</a></span></h3>
 
-<ul class="itemize mark-bullet">
-<li>[<strong class="strong">declaration</strong>] <code class="code">sb-ext:disable-package-locks</code>
-
-<p>Syntax: <code class="code">(sb-ext:disable-package-locks &amp;rest symbols)</code>
+<a class="anchor" id="Declaration-sb_002dext-disable_002dpackage_002dlocks"></a><a class="index-entry-id" id="index-disable_002dpackage_002dlocks-_005bsb_002dext_005d"></a>
+<dl class="first-deffn def-block">
+<dt class="deffn def-line" id="index-sb_002dext_003adisable_002dpackage_002dlocks"><span class="category-def">Declaration: </span><span><strong class="def-name">sb-ext:disable-package-locks</strong><a class="copiable-link" href="#index-sb_002dext_003adisable_002dpackage_002dlocks"> &para;</a></span></dt>
+<dd><p>Syntax: <code class="code">(sb-ext:disable-package-locks &amp;rest symbols)</code>
 </p>
-<p>Disables package locks affecting the named symbols during
-compilation in the lexical scope of the declaration. Disabling
-locks on symbols whose home package is unlocked, or disabling an
-already disabled lock, has no effect.
-</p>
-</li><li>[<strong class="strong">declaration</strong>] <code class="code">sb-ext:enable-package-locks</code>
-
-<p>Syntax: <code class="code">(sb-ext:enable-package-locks &amp;rest symbols)</code>
+<p>Disables package locks affecting the named symbols during compilation
+in the lexical scope of the declaration. Disabling locks on symbols
+whose home package is unlocked, or disabling an already disabled lock,
+has no effect.
+</p></dd></dl>
+<a class="anchor" id="Declaration-sb_002dext-enable_002dpackage_002dlocks"></a><a class="index-entry-id" id="index-enable_002dpackage_002dlocks-_005bsb_002dext_005d"></a>
+<dl class="first-deffn def-block">
+<dt class="deffn def-line" id="index-sb_002dext_003aenable_002dpackage_002dlocks"><span class="category-def">Declaration: </span><span><strong class="def-name">sb-ext:enable-package-locks</strong><a class="copiable-link" href="#index-sb_002dext_003aenable_002dpackage_002dlocks"> &para;</a></span></dt>
+<dd><p>Syntax: <code class="code">(sb-ext:enable-package-locks &amp;rest symbols)</code>
 </p>
 <p>Re-enables package locks affecting the named symbols during
-compilation in the lexical scope of the declaration. Enabling
-locks that were not first disabled with
-<code class="code">sb-ext:disable-package-locks</code> declaration, or enabling locks that
-are already enabled has no effect.
-</p></li></ul>
-
+compilation in the lexical scope of the declaration. Enabling locks
+that were not first disabled with <code class="code">sb-ext:disable-package-locks</code>
+declaration, or enabling locks that are already enabled has no effect.
+</p></dd></dl>
 <a class="anchor" id="Condition-sb_002dext-package_002dlock_002dviolation"></a><a class="index-entry-id" id="index-package_002dlock_002dviolation-_005bsb_002dext_005d"></a>
 <dl class="first-deffn def-block">
 <dt class="deffn def-line" id="index-sb_002dext_003apackage_002dlock_002dviolation"><span class="category-def">Condition: </span><span><strong class="def-name">sb-ext:package-lock-violation</strong><a class="copiable-link" href="#index-sb_002dext_003apackage_002dlock_002dviolation"> &para;</a></span></dt>
@@ -14622,10 +14670,8 @@ Next: <a href="#sb-md5" accesskey="n" rel="next">sb-md5</a>, Previous: <a href="
 <h3 class="section" id="sb_002dmanual"><span>17.6 sb-manual<a class="copiable-link" href="#sb_002dmanual"> &para;</a></span></h3>
 
 
-<p>The <code class="code">sb-manual</code> module has the sections of the SBCL user manual in
-Lisp variables. The names of the variables (all start with the
-character <code class="code">@</code>) are exported from the <code class="code">sb-manual</code> package. Sections
-are defined with the <code class="code">defsection</code> macro:
+<p>The <code class="code">sb-manual</code> module has the SBCL user manual in forms
+mimicking <code class="code">pax:defsection</code>:
 </p>
 <div class="example">
 <pre class="example-preformatted">(defsection @example (:title &quot;Example&quot;)
@@ -14634,38 +14680,71 @@ are defined with the <code class="code">defsection</code> macro:
   (@subexample section))
 </pre></div>
 
-<p>where <code class="code">defsection</code> is a dummy implementation of
-<code class="code">pax:defsection</code> (see <a class="url" href="https://github.com/melisgl/mgl-pax/">https://github.com/melisgl/mgl-pax/</a>).
-</p>
-<p>In Slime, <code class="code">M-.</code> on <code class="code">&quot;@SB-MANUAL&quot;</code>, <code class="code">&quot;print&quot;</code>, or on
-<code class="code">&quot;@subexample&quot;</code> will take you to the respective definition. This
-makes it easy to navigate the documentation. Normal Lisp definition
-docstrings and section docstrings reference sections following the
-usual convention of uppercasing the name. Docstrings are in a subset
-of Markdown and use very little markup in general, so they are easy
-to read directly in the source.
+<p>The names of the variables holding the documentation are exported
+from the <code class="code">sb-manual</code> package. Since sections are basically
+variables, in Slime, <code class="code">M-.</code> on <code class="code">&quot;@SB-MANUAL&quot;</code>, <code class="code">&quot;print&quot;</code>, or
+on <code class="code">&quot;@subexample&quot;</code> will take you to the respective definition.
+This makes it easy to navigate the documentation. Normal Lisp
+definition docstrings and section docstrings reference sections
+following the usual convention of uppercasing the name. Docstrings
+are in a subset of Markdown and use very little markup in general,
+so they are easy to read directly in the source.
 </p>
 <p>The official manual in Info, HTML and PDF formats is generated via
 Texinfo generated from these definitions.
 </p>
+<ul class="mini-toc">
+<li><a href="#using-pax" accesskey="1">Using PAX</a></li>
+<li><a href="#browsing-live-with-pax" accesskey="2">Browsing Live with PAX</a></li>
+<li><a href="#fancy-documentation-with-pax" accesskey="3">Fancy Documentation with PAX</a></li>
+</ul>
+<hr>
+<div class="subsection-level-extent" id="using-pax">
+<div class="nav-panel">
+<p>
+Next: <a href="#browsing-live-with-pax" accesskey="n" rel="next">Browsing Live with PAX</a>, Up: <a href="#sb-manual" accesskey="u" rel="up">sb-manual</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#function-index" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="subsection" id="Using-PAX"><span>17.6.1 Using PAX<a class="copiable-link" href="#Using-PAX"> &para;</a></span></h4>
+
+<p>However, <code class="code">sb-manual::defsection</code> is but a dummy implementation of
+<code class="code">pax:defsection</code> to avoid a hard dependency on PAX.
+</p>
+<p>See the <code class="code">mgl-pax</code> <code class="code">asdf:system</code> or <a class="url" href="https://github.com/melisgl/mgl-pax/">https://github.com/melisgl/mgl-pax/</a>.
+</p>
 <p>When PAX is loaded, the dummy <code class="code">defsection</code> definitions are made
 real, so that PAX can work with them.
 </p>
-<ul class="mini-toc">
-<li><a href="#browsing-live-with-pax" accesskey="1">Browsing Live with PAX</a></li>
-<li><a href="#fancy-documentation-with-pax" accesskey="2">Fancy Documentation with PAX</a></li>
-</ul>
+<a class="anchor" id="Function-sb_002dmanual-use_002dpax"></a><a class="index-entry-id" id="index-use_002dpax-_005bsb_002dmanual_005d"></a>
+<dl class="first-deffn def-block">
+<dt class="deffn def-line" id="index-sb_002dmanual_003ause_002dpax"><span class="category-def">Function: </span><span><strong class="def-name">sb-manual:use-pax</strong><a class="copiable-link" href="#index-sb_002dmanual_003ause_002dpax"> &para;</a></span></dt>
+<dd><p>Ensure that exported variables are <code class="code">pax:section</code>s.
+It is an error if the <code class="code">mgl-pax</code> library is not loaded.
+</p>
+<p>Calling this function explicitly is rarely necessary because it is
+called automatically:
+</p>
+<ul class="itemize mark-bullet">
+<li>when <code class="code">sb-manual</code> is loaded, if <code class="code">pax</code> is present;
+
+</li><li>when <code class="code">pax:document</code> (more precisely, <code class="code">dref:locate</code>) is called on
+  an <code class="code">sb-manual</code> section.
+</li></ul>
+
+<p>The latter feature requires v0.4.12 of <code class="code">pax</code>. See the <code class="code">mgl-pax</code>
+asdf:system.
+</p></dd></dl>
 <hr>
+</div>
 <div class="subsection-level-extent" id="browsing-live-with-pax">
 <div class="nav-panel">
 <p>
-Next: <a href="#fancy-documentation-with-pax" accesskey="n" rel="next">Fancy Documentation with PAX</a>, Up: <a href="#sb-manual" accesskey="u" rel="up">sb-manual</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#function-index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#fancy-documentation-with-pax" accesskey="n" rel="next">Fancy Documentation with PAX</a>, Previous: <a href="#using-pax" accesskey="p" rel="prev">Using PAX</a>, Up: <a href="#sb-manual" accesskey="u" rel="up">sb-manual</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#function-index" title="Index" rel="index">Index</a>]</p>
 </div>
-<h4 class="subsection" id="Browsing-Live-with-PAX"><span>17.6.1 Browsing Live with PAX<a class="copiable-link" href="#Browsing-Live-with-PAX"> &para;</a></span></h4>
+<h4 class="subsection" id="Browsing-Live-with-PAX"><span>17.6.2 Browsing Live with PAX<a class="copiable-link" href="#Browsing-Live-with-PAX"> &para;</a></span></h4>
 
 <p>With PAX, you can browse the manual live. The documentation of this
 feature is available at
-<a class="url" href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION">https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION</a>.
+<a class="uref" href="https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION">online</a>.
 </p>
 <p>If you are browsing this manual live right now, here is the
 equivalent live link: <code class="code">pax::@browsing-live-documentation</code>.
@@ -14707,7 +14786,7 @@ Loop, when working on documentation.
 <p>
 Previous: <a href="#browsing-live-with-pax" accesskey="p" rel="prev">Browsing Live with PAX</a>, Up: <a href="#sb-manual" accesskey="u" rel="up">sb-manual</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#function-index" title="Index" rel="index">Index</a>]</p>
 </div>
-<h4 class="subsection" id="Fancy-Documentation-with-PAX"><span>17.6.2 Fancy Documentation with PAX<a class="copiable-link" href="#Fancy-Documentation-with-PAX"> &para;</a></span></h4>
+<h4 class="subsection" id="Fancy-Documentation-with-PAX"><span>17.6.3 Fancy Documentation with PAX<a class="copiable-link" href="#Fancy-Documentation-with-PAX"> &para;</a></span></h4>
 
 <p>PAX can generate dead documentation, too. In the SBCL sources,
 <code class="code">contrib/sb-manual/make-pax-docs.sh</code> generates the manual in plain
@@ -15791,10 +15870,10 @@ in various namespaces as deprecated.
 the Common Lisp Hyperspec.)
 </p></blockquote>
 
-<ul class="itemize mark-bullet">
-<li>[<strong class="strong">declaration</strong>] <code class="code">sb-ext:deprecated</code>
-
-<p>Syntax: <code class="code">(sb-ext:deprecated stage since &amp;rest object-clauses)</code>
+<a class="anchor" id="Declaration-sb_002dext-deprecated"></a><a class="index-entry-id" id="index-deprecated-_005bsb_002dext_005d"></a>
+<dl class="first-deffn def-block">
+<dt class="deffn def-line" id="index-sb_002dext_003adeprecated"><span class="category-def">Declaration: </span><span><strong class="def-name">sb-ext:deprecated</strong><a class="copiable-link" href="#index-sb_002dext_003adeprecated"> &para;</a></span></dt>
+<dd><p>Syntax: <code class="code">(sb-ext:deprecated stage since &amp;rest object-clauses)</code>
 </p>
 <p>stage ::= {<code class="code">:early</code> | <code class="code">:late</code> | <code class="code">:final</code>}
 </p>
@@ -15805,36 +15884,35 @@ the Common Lisp Hyperspec.)
 <p>namespace ::= {<code class="code">cl:variable</code> | <code class="code">cl:function</code> | <code class="code">cl:type</code>}
 </p>
 <p>where the terminal <code class="code">&lt;name&gt;</code> is the name of the deprecated thing,
-<code class="code">&lt;version&gt;</code> and <code class="code">&lt;software&gt;</code> are strings describing the version
-in which the thing has been deprecated and <code class="code">&lt;replacement&gt;</code> is a
-name or a list of names designating things that should be used
-instead of the deprecated thing.
+<code class="code">&lt;version&gt;</code> and <code class="code">&lt;software&gt;</code> are strings describing the version in
+which the thing has been deprecated and <code class="code">&lt;replacement&gt;</code> is a name or a
+list of names designating things that should be used instead of the
+deprecated thing.
 </p>
 <p>Currently the following namespaces are supported:
 </p>
 <ul class="itemize mark-bullet">
 <li><code class="code">cl:function</code>: Declare functions, compiler-macros or macros as
-      deprecated.
+  deprecated.
 
 <p>When declaring a function to be in <code class="code">:final</code> deprecation, there
-should be no actual definition of the function as the
-declaration emits a stub function that signals a
-<code class="code">sb-ext:deprecation-error</code> at run-time when called.
+should be no actual definition of the function as the declaration
+emits a stub function that signals a <code class="code">sb-ext:deprecation-error</code> at
+run-time when called.
 </p>
 </li><li><code class="code">cl:variable</code>: Declare special and global variables, constants
-      and symbol-macros as deprecated.
+  and symbol-macros as deprecated.
 
 <p>When declaring a variable to be in <code class="code">:final</code> deprecation, there
-should be no actual definition of the variable as the
-declaration emits a symbol-macro that signals a
-<code class="code">sb-ext:deprecation-error</code> at run-time when accessed.
+should be no actual definition of the variable as the declaration
+emits a symbol-macro that signals a <code class="code">sb-ext:deprecation-error</code> at
+run-time when accessed.
 </p>
 </li><li><code class="code">cl:type</code>: Declare named types (i.e. defined via <code class="code">deftype</code>),
-      standard classes, structure classes and condition classes as
-      deprecated.
+  standard classes, structure classes and condition classes as
+  deprecated.
 </li></ul>
-</li></ul>
-
+</dd></dl>
 <hr>
 </div>
 <div class="section-level-extent" id="deprecation-examples">
@@ -16125,7 +16203,7 @@ versions of SBCL, which have since then been deleted.
 
 <p>Historically needed for CLOS code. Deprecated as of 0.9.3.32 in
 August 2005. Deleted as of 1.0.47.8 in April 2011. Plain <code class="code">lambda</code>
-can be used where SB-KERNEL:INSTANCE-LAMBDA used to be needed.
+can be used where <code class="code">sb-kernel:instance-lambda</code> used to be needed.
 </p>
 </li><li><code class="code">sb-alien:def-alien-routine</code>, <code class="code">sb-alien:def-alien-variable</code>,
   <code class="code">sb-alien:def-alien-type</code>
@@ -16277,6 +16355,7 @@ Next: <a href="#variable-index" accesskey="n" rel="next">Variable and Constant I
 <tr><td></td><td class="printindex-index-entry"><a href="#index-disable_002ddebugger-_005bsb_002dext_005d"><code>disable-debugger [sb-ext]</code></a></td><td class="printindex-index-section"><a href="#enabling-and-disabling-the-debugger">enabling and disabling the debugger</a></td></tr>
 <tr><td></td><td class="printindex-index-entry"><a href="#index-do_002dgroups-_005bsb_002dposix_005d"><code>do-groups [sb-posix]</code></a></td><td class="printindex-index-section"><a href="#sb-posix-extensions-to-posix">sb posix extensions to posix</a></td></tr>
 <tr><td></td><td class="printindex-index-entry"><a href="#index-do_002dpasswds-_005bsb_002dposix_005d"><code>do-passwds [sb-posix]</code></a></td><td class="printindex-index-section"><a href="#sb-posix-extensions-to-posix">sb posix extensions to posix</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-documentation-_005bcommon_002dlisp_005d"><code>documentation [common-lisp]</code></a></td><td class="printindex-index-section"><a href="#miscellaneous-extensions">miscellaneous extensions</a></td></tr>
 <tr><td></td><td class="printindex-index-entry"><a href="#index-dosequence-_005bsb_002dsequence_005d"><code>dosequence [sb-sequence]</code></a></td><td class="printindex-index-section"><a href="#extensible-sequences">extensible sequences</a></td></tr>
 <tr><td></td><td class="printindex-index-entry"><a href="#index-dynamic_002dspace_002dsize-_005bsb_002dext_005d"><code>dynamic-space-size [sb-ext]</code></a></td><td class="printindex-index-section"><a href="#introspection-and-tuning">introspection and tuning</a></td></tr>
 <tr><td colspan="3"><hr></td></tr>
@@ -16611,6 +16690,7 @@ Next: <a href="#variable-index" accesskey="n" rel="next">Variable and Constant I
 <tr><td></td><td class="printindex-index-entry"><a href="#index-untrace-_005bcommon_002dlisp_005d"><code>untrace [common-lisp]</code></a></td><td class="printindex-index-section"><a href="#function-tracing">function tracing</a></td></tr>
 <tr><td></td><td class="printindex-index-entry"><a href="#index-uppercase-_005bsb_002dunicode_005d"><code>uppercase [sb-unicode]</code></a></td><td class="printindex-index-section"><a href="#string-operations">string operations</a></td></tr>
 <tr><td></td><td class="printindex-index-entry"><a href="#index-uppercase_002dp-_005bsb_002dunicode_005d"><code>uppercase-p [sb-unicode]</code></a></td><td class="printindex-index-section"><a href="#unicode-property-access">unicode property access</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-use_002dpax-_005bsb_002dmanual_005d"><code>use-pax [sb-manual]</code></a></td><td class="printindex-index-section"><a href="#using-pax">using pax</a></td></tr>
 <tr><td colspan="3"><hr></td></tr>
 <tr><th id="function-index_ff_letter-V">V</th></tr>
 <tr><td></td><td class="printindex-index-entry"><a href="#index-valid_002dfunction_002dname_002dp-_005bsb_002dintrospect_005d"><code>valid-function-name-p [sb-introspect]</code></a></td><td class="printindex-index-section"><a href="#sb-introspect-functions">sb introspect functions</a></td></tr>
@@ -16825,7 +16905,7 @@ Next: <a href="#type-index" accesskey="n" rel="next">Type Index</a>, Previous: <
 <div class="appendix-level-extent" id="type-index">
 <div class="nav-panel">
 <p>
-Next: <a href="#colophon" accesskey="n" rel="next">Colophon</a>, Previous: <a href="#variable-index" accesskey="p" rel="prev">Variable and Constant Index</a>, Up: <a href="#Top" accesskey="u" rel="up">sbcl</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#function-index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#declaration-index" accesskey="n" rel="next">Declaration Index</a>, Previous: <a href="#variable-index" accesskey="p" rel="prev">Variable and Constant Index</a>, Up: <a href="#Top" accesskey="u" rel="up">sbcl</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#function-index" title="Index" rel="index">Index</a>]</p>
 </div>
 <h2 class="appendix" id="Type-Index"><span>Appendix C Type Index<a class="copiable-link" href="#Type-Index"> &para;</a></span></h2>
 
@@ -16983,10 +17063,71 @@ Next: <a href="#colophon" accesskey="n" rel="next">Colophon</a>, Previous: <a hr
 
 <hr>
 </div>
+<div class="appendix-level-extent" id="declaration-index">
+<div class="nav-panel">
+<p>
+Next: <a href="#colophon" accesskey="n" rel="next">Colophon</a>, Previous: <a href="#type-index" accesskey="p" rel="prev">Type Index</a>, Up: <a href="#Top" accesskey="u" rel="up">sbcl</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#function-index" title="Index" rel="index">Index</a>]</p>
+</div>
+<h2 class="appendix" id="Declaration-Index"><span>Appendix D Declaration Index<a class="copiable-link" href="#Declaration-Index"> &para;</a></span></h2>
+
+<div class="printindex dd-printindex">
+<table class="dd-letters-header-printindex"><tr><th>Jump to: &nbsp; </th><td><a class="summary-letter-printindex" href="#declaration-index_dd_letter-A"><b>A</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#declaration-index_dd_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#declaration-index_dd_letter-E"><b>E</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#declaration-index_dd_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#declaration-index_dd_letter-M"><b>M</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#declaration-index_dd_letter-U"><b>U</b></a>
+ &nbsp; 
+</td></tr></table>
+<table class="dd-entries-printindex">
+<tr><td></td><th class="entries-header-printindex">Index Entry</th><th class="sections-header-printindex">Section</th></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="declaration-index_dd_letter-A">A</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-always_002dbound-_005bsb_002dext_005d"><code>always-bound [sb-ext]</code></a></td><td class="printindex-index-section"><a href="#global-and-always-bound-variables">global and always bound variables</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="declaration-index_dd_letter-D">D</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-deprecated-_005bsb_002dext_005d"><code>deprecated [sb-ext]</code></a></td><td class="printindex-index-section"><a href="#deprecation-declaration">deprecation declaration</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-disable_002dpackage_002dlocks-_005bsb_002dext_005d"><code>disable-package-locks [sb-ext]</code></a></td><td class="printindex-index-section"><a href="#package-lock-dictionary">package lock dictionary</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="declaration-index_dd_letter-E">E</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-enable_002dpackage_002dlocks-_005bsb_002dext_005d"><code>enable-package-locks [sb-ext]</code></a></td><td class="printindex-index-section"><a href="#package-lock-dictionary">package lock dictionary</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="declaration-index_dd_letter-G">G</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-global-_005bsb_002dext_005d"><code>global [sb-ext]</code></a></td><td class="printindex-index-section"><a href="#global-and-always-bound-variables">global and always bound variables</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="declaration-index_dd_letter-M">M</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-muffle_002dconditions-_005bsb_002dext_005d"><code>muffle-conditions [sb-ext]</code></a></td><td class="printindex-index-section"><a href="#controlling-verbosity">controlling verbosity</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="declaration-index_dd_letter-U">U</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-unmuffle_002dconditions-_005bsb_002dext_005d"><code>unmuffle-conditions [sb-ext]</code></a></td><td class="printindex-index-section"><a href="#controlling-verbosity">controlling verbosity</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+</table>
+<table class="dd-letters-footer-printindex"><tr><th>Jump to: &nbsp; </th><td><a class="summary-letter-printindex" href="#declaration-index_dd_letter-A"><b>A</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#declaration-index_dd_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#declaration-index_dd_letter-E"><b>E</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#declaration-index_dd_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#declaration-index_dd_letter-M"><b>M</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#declaration-index_dd_letter-U"><b>U</b></a>
+ &nbsp; 
+</td></tr></table>
+</div>
+
+<hr>
+</div>
 <div class="unnumbered-level-extent" id="colophon">
 <div class="nav-panel">
 <p>
-Previous: <a href="#type-index" accesskey="p" rel="prev">Type Index</a>, Up: <a href="#Top" accesskey="u" rel="up">sbcl</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#function-index" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="#declaration-index" accesskey="p" rel="prev">Declaration Index</a>, Up: <a href="#Top" accesskey="u" rel="up">sbcl</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#function-index" title="Index" rel="index">Index</a>]</p>
 </div>
 <h2 class="unnumbered" id="Colophon"><span>Colophon<a class="copiable-link" href="#Colophon"> &para;</a></span></h2>
 

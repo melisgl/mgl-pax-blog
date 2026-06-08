@@ -1,7 +1,7 @@
 This is sbcl.info, produced by makeinfo version 7.2 from sbcl.texinfo.
 
-     This manual, for SBCL version 2.6.5.32.pax-doc.6-c774fa864, is part
-     of the SBCL software system.  See the ‘README’ file for more
+     This manual, for SBCL version 2.6.5.32.pax-doc.15-8230bc7fc, is
+     part of the SBCL software system.  See the ‘README’ file for more
      information.
 
      This manual is largely derived from the manual for the CMUCL
@@ -20,8 +20,8 @@ File: sbcl.info,  Node: Top,  Next: support and bugs,  Up: (dir)
 sbcl
 ****
 
-     This manual, for SBCL version 2.6.5.32.pax-doc.6-c774fa864, is part
-     of the SBCL software system.  See the ‘README’ file for more
+     This manual, for SBCL version 2.6.5.32.pax-doc.15-8230bc7fc, is
+     part of the SBCL software system.  See the ‘README’ file for more
      information.
 
      This manual is largely derived from the manual for the CMUCL
@@ -54,6 +54,7 @@ sbcl
 * Function and Macro Index: function index.
 * Variable and Constant Index: variable index.
 * Type Index: type index.
+* Declaration Index: declaration index.
 * Colophon: colophon.
 
 
@@ -1507,20 +1508,16 @@ Local control:
            ;; this one gives a compiler note
            (* x -5))))
 
-   • [*declaration*] ‘sb-ext:muffle-conditions’
-
+ -- Declaration: sb-ext:muffle-conditions
      Syntax: ‘(sb-ext:muffle-conditions &rest types)’.
 
      Muffle the diagnostic messages that would be caused by compile-time
-     signals of TYPES.
-
-   • [*declaration*] ‘sb-ext:unmuffle-conditions’
-
+     signals of ‘types’.
+ -- Declaration: sb-ext:unmuffle-conditions
      Syntax: ‘(sb-ext:muffle-conditions &rest types)’.
 
      Cancel the effect of a previous ‘sb-ext:muffle-conditions’
      declaration.
-
 Various details of _how_ the compiler messages are printed can be
 controlled via the alist ‘sb-ext:*compiler-print-variable-alist*’.
 
@@ -3882,8 +3879,7 @@ File: sbcl.info,  Node: global and always bound variables,  Next: miscellaneous 
 
      See also the declarations ‘sb-ext:global’ and
      ‘sb-ext:always-bound’.
-   • [*declaration*] ‘sb-ext:global’
-
+ -- Declaration: sb-ext:global
      Syntax: ‘(sb-ext:global &rest symbols)’
 
      Only valid as a global proclamation.
@@ -3893,9 +3889,7 @@ File: sbcl.info,  Node: global and always bound variables,  Next: miscellaneous 
      variable name as ‘sb-ext:global’ signal an error.  Allows more
      efficient value lookup in threaded environments in addition to
      expressing programmer intention.
-
-   • [*declaration*] ‘sb-ext:always-bound’
-
+ -- Declaration: sb-ext:always-bound
      Syntax: ‘(sb-ext:always-bound &rest symbols)’
 
      Only valid as a global proclamation.
@@ -4924,7 +4918,8 @@ There are some noteworthy irregularities:
           &body body
      Executes ‘body’ with ‘element’ subsequently bound to each element
      of ‘sequence’, then returns ‘return’.
-The remaining list parallels the _Sequence Dictionary_, ‘17.3’ ‘clhs’.
+The remaining list parallels the _Sequence Dictionary_, see 17.3 in the
+ANSI spec.
 
  -- Generic function: sb-sequence:copy-seq sequence
  -- Generic function: sb-sequence:fill sequence item &key start end
@@ -6277,6 +6272,40 @@ File: sbcl.info,  Node: miscellaneous extensions,  Next: stale extensions,  Prev
      Note that the unencapsulated function may be ‘eq’ to the designated
      function even in the presence of encapsulations.  For generic
      functions, this is currently always the case.
+ -- Generic function: documentation object doc-type
+     Return the documentation string of ‘doc-type’ for ‘object’, or
+     ‘nil’ if none exists.  In addition to the ‘doc-type’s and methods
+     required by ANSI, SBCL's ‘documentation’ (and its ‘setf’) supports
+     methods with the following signatures:
+
+        • ‘(object symbol) (doc-type (eql declaration))’
+
+        • ‘(object sb-mop:slot-definition) (doc-type (eql t))’
+
+     Since ‘condition’s are implemented as classes in SBCL, the
+     following also work:
+
+        • ‘(object condition) (doc-type (eql t))’
+
+        • ‘(object condition) (doc-type (eql 'type))’
+
+     Function documentation is stored separately for function names and
+     objects: ‘defun’, ‘lambda’, &co create function objects with the
+     specified documentation strings.
+
+          (setf (documentation name 'function) string)
+
+     sets the documentation string stored under the specified name, and
+
+          (setf (documentation func t) string)
+
+     sets the documentation string stored in the function object.
+
+          (documentation name 'function)
+
+     returns the documentation stored under the function name if any,
+     and falls back on the documentation in the function object if
+     necessary.
 
 
 File: sbcl.info,  Node: stale extensions,  Next: efficiency hacks,  Prev: miscellaneous extensions,  Up: beyond the ansi standard
@@ -6965,65 +6994,4 @@ File: sbcl.info,  Node: coercing foreign values,  Next: foreign dynamic allocati
  -- Function: sb-alien:alien-sap alien
      Return a ‘system-area-pointer’ pointing to ‘alien’'s data.  ‘alien’
      must be of some foreign pointer, array, or record type.
-
-
-File: sbcl.info,  Node: foreign dynamic allocation,  Prev: coercing foreign values,  Up: operations on foreign values
-
-9.3.3 Foreign Dynamic Allocation
---------------------------------
-
-Lisp code can call the C standard library functions ‘malloc’ and ‘free’
-to dynamically allocate and deallocate foreign variables.  The Lisp code
-uses the same allocator as foreign C code, so it's OK for foreign code
-to call ‘free’ on the result of Lisp ‘make-alien’, or for Lisp code to
-call ‘free-alien’ on foreign objects allocated by C code.
-
- -- Macro: sb-alien:make-alien type &optional size
-     Allocate an alien of type ‘type’ in foreign heap, and return an
-     alien pointer to it.  The allocated memory is not initialized, and
-     may contain garbage.  The memory is allocated using ‘malloc(3)’, so
-     it can be passed to foreign functions which use ‘free(3)’, or
-     released using ‘free-alien’.
-
-     For alien stack allocation, see macro ‘with-alien’.
-
-     The ‘type’ argument is not evaluated.  If ‘size’ is supplied, how
-     it is interpreted depends on ‘type’:
-
-        • When ‘type’ is a foreign array type, an array of that type is
-          allocated, and a pointer to it is returned.  Note that you
-          must use ‘deref’ to first access the array through the
-          pointer.
-
-          If supplied, ‘size’ is used as the first dimension for the
-          array.
-
-        • When ‘type’ is any other foreign type, then an object for that
-          type is allocated, and a pointer to it is returned.  So
-          (‘make-alien’ ‘int’) returns a (* ‘int’).
-
-          If ‘size’ is specified, then a block of that many objects is
-          allocated, with the result pointing to the first one.
-
-     Examples:
-
-          (defvar *foo* (make-alien (array char 10)))
-          (type-of *foo*)                   ; => (alien (* (array (signed 8) 10)))
-          (setf (deref (deref *foo*) 0) 10) ; => 10
-
-          (make-alien char 12)              ; => (alien (* (signed 8)))
- -- Function: sb-alien:make-alien-string string &rest rest &key start
-          end external-format null-terminate
-     Copy part of ‘string’ delimited by ‘start’ and ‘end’ into freshly
-     allocated foreign memory, freeable using ‘free(3)’ or ‘free-alien’.
-     Returns the allocated string as a (* ‘char’) alien, and the number
-     of bytes allocated as secondary value.
-
-     The string is encoded using ‘external-format’.  If ‘null-terminate’
-     is true (the default), the alien string is terminated by an
-     additional null byte.
- -- Function: sb-alien:free-alien alien
-     Dispose of the storage pointed to by ‘alien’.  The ‘alien’ must
-     have been allocated by ‘make-alien’, ‘make-alien-string’ or
-     ‘malloc(3)’.
 

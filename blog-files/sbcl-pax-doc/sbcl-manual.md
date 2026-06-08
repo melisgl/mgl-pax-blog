@@ -241,8 +241,9 @@
         - [17.5.4 Types and Classes][5cde]
         - [17.5.5 Allocation][5da8]
     - [17.6 sb-manual][bb9e]
-        - [17.6.1 Browsing Live with `pax`][4a74]
-        - [17.6.2 Fancy Documentation with `pax`][0baf]
+        - [17.6.1 Using PAX][2789]
+        - [17.6.2 Browsing Live with PAX][4a74]
+        - [17.6.3 Fancy Documentation with PAX][0baf]
     - [17.7 sb-md5][4321]
     - [17.8 sb-posix][3ddd]
         - [17.8.1 Lisp names for C names][2d20]
@@ -436,8 +437,9 @@ exceptions involve internal inconsistencies in the standard.) See
   specified in the *Description*.
 
 - The [`string`][b93c] type is considered to be the union of all types
-  `(array c (size))` for all non-`nil` subtypes `c` of `character`([`0`][32e3] [`1`][b315]),
-   excluding arrays specialized to the empty type.
+  `(array c (size))` for all non-`nil` subtypes `c` of
+   [`character`][32e3], excluding arrays specialized to the empty
+   type.
 
 - The `:order` long form option in [`define-method-combination`][006c] method
   group specifiers accepts the value `nil` as well as
@@ -1562,8 +1564,8 @@ more then some users would prefer -- the amount of noise emitted can
 be controlled, however.
 
 To control emission of compiler diagnostics (of any severity other
-than `error`([`0`][d162] [`1`][35ba]): [Diagnostic Severity][4dad]) use the `sb-ext:muffle-conditions`
-and `sb-ext:unmuffle-conditions` declarations, specifying the type of
+than `error`([`0`][d162] [`1`][35ba]): [Diagnostic Severity][4dad]) use the [`sb-ext:muffle-conditions`][4697]
+and [`sb-ext:unmuffle-conditions`][873a] declarations, specifying the type of
 condition that is to be muffled (the muffling is done using an
 associated [`muffle-warning`][6f51] restart).
 
@@ -1584,19 +1586,23 @@ Local control:
           ;; this one gives a compiler note
           (* x -5))))
 
-- \[**declaration**\] `sb-ext:muffle-conditions`
+
+<a id="x-28SB-EXT-3AMUFFLE-CONDITIONS-20DECLARATION-29"></a>
+
+- [declaration] **sb-ext:muffle-conditions**
 
     Syntax: `(sb-ext:muffle-conditions &rest types)`.
+    
+    Muffle the diagnostic messages that would be caused by compile-time
+    signals of [`types`][7c9f].
 
-    Muffle the diagnostic messages that would be caused by
-    compile-time signals of [`type`][7c9f]s.
+<a id="x-28SB-EXT-3AUNMUFFLE-CONDITIONS-20DECLARATION-29"></a>
 
-- \[**declaration**\] `sb-ext:unmuffle-conditions`
+- [declaration] **sb-ext:unmuffle-conditions**
 
     Syntax: `(sb-ext:muffle-conditions &rest types)`.
-
-    Cancel the effect of a previous `sb-ext:muffle-conditions`
-    declaration.
+    
+    Cancel the effect of a previous [`sb-ext:muffle-conditions`][4697] declaration.
 
 Various details of *how* the compiler messages are printed can be
 controlled via the alist [`sb-ext:*compiler-print-variable-alist*`][a91a].
@@ -3884,31 +3890,34 @@ is turned into hardware instructions on arm64 and x86-64. It returns
     locally bound, declared special, defined as constants, and neither bound
     nor defined as symbol macros.
     
-    See also the declarations `sb-ext:global` and `sb-ext:always-bound`.
+    See also the declarations [`sb-ext:global`][fcab] and [`sb-ext:always-bound`][db0e].
 
-- \[**declaration**\] `sb-ext:global`
+<a id="x-28SB-EXT-3AGLOBAL-20DECLARATION-29"></a>
+
+- [declaration] **sb-ext:global**
 
     Syntax: `(sb-ext:global &rest symbols)`
-
+    
     Only valid as a global proclamation.
-
+    
     Specifies that the named symbols cannot be proclaimed or locally
-    declared [`special`][0bd4]. Proclaiming an already special or constant
-    variable name as `sb-ext:global` signal an error. Allows more
-    efficient value lookup in threaded environments in addition to
-    expressing programmer intention.
+    declared [`special`][0bd4]. Proclaiming an already special or constant variable
+    name as `sb-ext:global` signal an error. Allows more efficient value
+    lookup in threaded environments in addition to expressing programmer
+    intention.
 
-- \[**declaration**\] `sb-ext:always-bound`
+<a id="x-28SB-EXT-3AALWAYS-BOUND-20DECLARATION-29"></a>
+
+- [declaration] **sb-ext:always-bound**
 
     Syntax: `(sb-ext:always-bound &rest symbols)`
-
+    
     Only valid as a global proclamation.
-
-    Specifies that the named symbols are always bound. Inhibits
-    [`makunbound`][35b1] of the named symbols. Proclaiming an unbound symbol
-    as `sb-ext:always-bound` signals an error. Allows the compiler to
-    elide boundness checks from value lookups.
-
+    
+    Specifies that the named symbols are always bound. Inhibits [`makunbound`][35b1]
+    of the named symbols. Proclaiming an unbound symbol as
+    `sb-ext:always-bound` signals an error. Allows the compiler to elide
+    boundness checks from value lookups.
 
 <a id="x-28SB-MANUAL-3A-40MISCELLANEOUS-EFFICIENCY-ISSUES-20MGL-PAX-3ASECTION-29"></a>
 
@@ -4980,7 +4989,8 @@ There are some noteworthy irregularities:
     Executes `body` with `element` subsequently bound to each element of
     `sequence`, then returns `return`.
 
-The remaining list parallels the *Sequence Dictionary*, [`17.3`][b2f8] `clhs`.
+The remaining list parallels the *Sequence Dictionary*, see
+[17.3][b2f8] in the ANSI spec.
 
 <a id="x-28SB-SEQUENCE-3ACOPY-SEQ-20GENERIC-FUNCTION-29"></a>
 
@@ -6707,6 +6717,43 @@ and its context.
     Note that the unencapsulated function may be [`eq`][5a82] to the designated
     function even in the presence of encapsulations. For generic
     functions, this is currently always the case.
+
+<a id="x-28DOCUMENTATION-20GENERIC-FUNCTION-29"></a>
+
+- [generic-function] **documentation** *object doc-type*
+
+    Return the documentation string of `doc-type` for `object`,
+    or `nil` if none exists. In addition to the `doc-type`s and methods
+    required by ANSI, SBCL's `documentation` (and its [`setf`][a138]) supports methods
+    with the following signatures:
+    
+    - `(object symbol) (doc-type (eql declaration))`
+    
+    - `(object sb-mop:slot-definition) (doc-type (eql t))`
+    
+    Since [`condition`][83e1]s are implemented as classes in SBCL, the following
+    also work:
+    
+    - `(object condition) (doc-type (eql t))`
+    
+    - `(object condition) (doc-type (eql 'type))`
+    
+    Function documentation is stored separately for function names and objects:
+    [`defun`][f472], `lambda`([`0`][e400] [`1`][5c01]), \&co create function objects with the specified documentation
+    strings.
+    
+        (setf (documentation name 'function) string)
+    
+    sets the documentation string stored under the specified name, and
+    
+        (setf (documentation func t) string)
+    
+    sets the documentation string stored in the function object.
+    
+        (documentation name 'function)
+    
+    returns the documentation stored under the function name if any, and
+    falls back on the documentation in the function object if necessary.
 
 <a id="x-28SB-MANUAL-3A-40STALE-EXTENSIONS-20MGL-PAX-3ASECTION-29"></a>
 
@@ -8887,8 +8934,8 @@ A complete listing of operators affect by this is: [`let`][4853], [`let*`][49f5]
 [`labels`][c2ef], [`macrolet`][1383], and [`symbol-macrolet`][2eec], [`declare`][1574].
 
 Package locks affecting both lexical bindings and declarations can
-be disabled locally with the `sb-ext:disable-package-locks`
-declaration, and re-enabled with the `sb-ext:enable-package-locks`
+be disabled locally with the [`sb-ext:disable-package-locks`][6652]
+declaration, and re-enabled with the [`sb-ext:enable-package-locks`][08cf]
 declaration.
 
 Example:
@@ -9060,25 +9107,27 @@ Example:
 
 ### 12.2 Package Lock Dictionary
 
-- \[**declaration**\] `sb-ext:disable-package-locks`
+<a id="x-28SB-EXT-3ADISABLE-PACKAGE-LOCKS-20DECLARATION-29"></a>
+
+- [declaration] **sb-ext:disable-package-locks**
 
     Syntax: `(sb-ext:disable-package-locks &rest symbols)`
+    
+    Disables package locks affecting the named symbols during compilation
+    in the lexical scope of the declaration. Disabling locks on symbols
+    whose home package is unlocked, or disabling an already disabled lock,
+    has no effect.
 
-    Disables package locks affecting the named symbols during
-    compilation in the lexical scope of the declaration. Disabling
-    locks on symbols whose home package is unlocked, or disabling an
-    already disabled lock, has no effect.
+<a id="x-28SB-EXT-3AENABLE-PACKAGE-LOCKS-20DECLARATION-29"></a>
 
-- \[**declaration**\] `sb-ext:enable-package-locks`
+- [declaration] **sb-ext:enable-package-locks**
 
     Syntax: `(sb-ext:enable-package-locks &rest symbols)`
-
+    
     Re-enables package locks affecting the named symbols during
-    compilation in the lexical scope of the declaration. Enabling
-    locks that were not first disabled with
-    `sb-ext:disable-package-locks` declaration, or enabling locks that
-    are already enabled has no effect.
-
+    compilation in the lexical scope of the declaration. Enabling locks
+    that were not first disabled with [`sb-ext:disable-package-locks`][6652]
+    declaration, or enabling locks that are already enabled has no effect.
 
 <a id="x-28SB-EXT-3APACKAGE-LOCK-VIOLATION-20CONDITION-29"></a>
 
@@ -12423,40 +12472,64 @@ as querying their properties and relationships in the running image.
 
 ### 17.6 sb-manual
 
-The `sb-manual` module has the sections of the SBCL user manual in
-Lisp variables. The names of the variables (all start with the
-character `@`) are exported from the `sb-manual` package. Sections
-are defined with the `defsection` macro:
+The `sb-manual` module has the SBCL user manual in forms
+mimicking `pax:defsection`:
 
     (defsection @example (:title "Example")
       "This is an example, but see the real @SB-MANUAL."
       (print function)
       (@subexample section))
 
-where `defsection` is a dummy implementation of
-`pax:defsection` (see <https://github.com/melisgl/mgl-pax/>).
-
-In Slime, `M-.` on `"@SB-MANUAL"`, `"print"`, or on
-`"@subexample"` will take you to the respective definition. This
-makes it easy to navigate the documentation. Normal Lisp definition
-docstrings and section docstrings reference sections following the
-usual convention of uppercasing the name. Docstrings are in a subset
-of Markdown and use very little markup in general, so they are easy
-to read directly in the source.
+The names of the variables holding the documentation are exported
+from the `sb-manual` package. Since sections are basically
+variables, in Slime, `M-.` on `"@SB-MANUAL"`, `"print"`, or
+on `"@subexample"` will take you to the respective definition.
+This makes it easy to navigate the documentation. Normal Lisp
+definition docstrings and section docstrings reference sections
+following the usual convention of uppercasing the name. Docstrings
+are in a subset of Markdown and use very little markup in general,
+so they are easy to read directly in the source.
 
 The official manual in Info, HTML and PDF formats is generated via
 Texinfo generated from these definitions.
 
+<a id="x-28SB-MANUAL-3A-40USING-PAX-20MGL-PAX-3ASECTION-29"></a>
+
+#### 17.6.1 Using PAX
+
+However, `sb-manual::defsection` is but a dummy implementation of
+`pax:defsection` to avoid a hard dependency on PAX.
+
+See the `mgl-pax` `asdf:system` or <https://github.com/melisgl/mgl-pax/>.
+
 When PAX is loaded, the dummy `defsection` definitions are made
 real, so that PAX can work with them.
 
+<a id="x-28SB-MANUAL-3AUSE-PAX-20FUNCTION-29"></a>
+
+- [function] **use-pax**
+
+    Ensure that exported variables are `pax:section`s.
+    It is an error if the `mgl-pax` library is not loaded.
+    
+    Calling this function explicitly is rarely necessary because it is
+    called automatically:
+    
+    - when `sb-manual` is loaded, if `pax` is present;
+    
+    - when `pax:document` (more precisely, `dref:locate`) is called on
+      an `sb-manual` section.
+    
+    The latter feature requires v0.4.12 of `pax`. See the `mgl-pax`
+    asdf:system.
+
 <a id="x-28SB-MANUAL-3A-40BROWSING-LIVE-WITH-PAX-20MGL-PAX-3ASECTION-29"></a>
 
-#### 17.6.1 Browsing Live with `pax`
+#### 17.6.2 Browsing Live with PAX
 
 With PAX, you can browse the manual live. The documentation of this
 feature is available at
-<https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION>.
+[online](https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION).
 
 If you are browsing this manual live right now, here is the
 equivalent live link: Browsing Live Documentation.
@@ -12489,13 +12562,13 @@ Loop, when working on documentation.
 
 <a id="x-28SB-MANUAL-3A-40FANCY-DOCUMENTATION-WITH-PAX-20MGL-PAX-3ASECTION-29"></a>
 
-#### 17.6.2 Fancy Documentation with `pax`
+#### 17.6.3 Fancy Documentation with PAX
 
 PAX can generate dead documentation, too. In the SBCL sources,
 `contrib/sb-manual/make-pax-docs.sh` generates the manual in plain
 text, Markdown, PDF, and HTML formats. These differ from those
 generated via Texinfo in that they are autolinked (like when
-[Browsing Live with `pax`][4a74]).
+[Browsing Live with PAX][4a74]).
 
 Also, you can generate documentation yourself with e.g.
 
@@ -13366,52 +13439,54 @@ contributed module.
 
 ### 18.5 Deprecation Declaration
 
-The `sb-ext:deprecated` declaration can be used to declare objects
+The [`sb-ext:deprecated`][5888] declaration can be used to declare objects
 in various namespaces as deprecated.
 
 > *Note*: See the [`namespace`][c8c1] `clhs` glossary entry in the glossary of
 > the Common Lisp Hyperspec.)
 
-- \[**declaration**\] `sb-ext:deprecated`
+
+<a id="x-28SB-EXT-3ADEPRECATED-20DECLARATION-29"></a>
+
+- [declaration] **sb-ext:deprecated**
 
     Syntax: `(sb-ext:deprecated stage since &rest object-clauses)`
-
+    
     stage ::= {`:early` | `:late` | `:final`}
-
+    
     since ::= {`<version>` | (`<software>` `<version>`)}
-
+    
     object-clause ::= (namespace `<name>` \[`:replacement` `<replacement>`\])
-
+    
     namespace ::= {`cl:variable` | `cl:function`([`0`][119e] [`1`][81f7]) | [`cl:type`][7c9f]}
-
+    
     where the terminal `<name>` is the name of the deprecated thing,
-    `<version>` and `<software>` are strings describing the version
-    in which the thing has been deprecated and `<replacement>` is a
-    name or a list of names designating things that should be used
-    instead of the deprecated thing.
-
+    `<version>` and `<software>` are strings describing the version in
+    which the thing has been deprecated and `<replacement>` is a name or a
+    list of names designating things that should be used instead of the
+    deprecated thing.
+    
     Currently the following namespaces are supported:
-
+    
     - `cl:function`: Declare functions, compiler-macros or macros as
       deprecated.
-
+    
         When declaring a function to be in `:final` deprecation, there
-        should be no actual definition of the function as the
-        declaration emits a stub function that signals a
-        [`sb-ext:deprecation-error`][3e47] at run-time when called.
-
+        should be no actual definition of the function as the declaration
+        emits a stub function that signals a [`sb-ext:deprecation-error`][3e47] at
+        run-time when called.
+    
     - `cl:variable`: Declare special and global variables, constants
       and symbol-macros as deprecated.
-
+    
         When declaring a variable to be in `:final` deprecation, there
-        should be no actual definition of the variable as the
-        declaration emits a symbol-macro that signals a
-        `sb-ext:deprecation-error` at run-time when accessed.
-
+        should be no actual definition of the variable as the declaration
+        emits a symbol-macro that signals a `sb-ext:deprecation-error` at
+        run-time when accessed.
+    
     - `cl:type`: Declare named types (i.e. defined via [`deftype`][7f9a]),
       standard classes, structure classes and condition classes as
       deprecated.
-
 
 <a id="x-28SB-MANUAL-3A-40DEPRECATION-EXAMPLES-20MGL-PAX-3ASECTION-29"></a>
 
@@ -13646,7 +13721,7 @@ versions of SBCL, which have since then been deleted.
 
     Historically needed for CLOS code. Deprecated as of 0.9.3.32 in
     August 2005. Deleted as of 1.0.47.8 in April 2011. Plain `lambda`([`0`][e400] [`1`][5c01])
-    can be used where SB-KERNEL:INSTANCE-LAMBDA used to be needed.
+    can be used where `sb-kernel:instance-lambda` used to be needed.
 
 - `sb-alien:def-alien-routine`, `sb-alien:def-alien-variable`,
   `sb-alien:def-alien-type`
@@ -13687,6 +13762,7 @@ versions of SBCL, which have since then been deleted.
   [07b6]: #x-28SB-MANUAL-3A-40EDITOR-INTEGRATION-20MGL-PAX-3ASECTION-29 "Editor Integration"
   [0895]: http://www.lispworks.com/documentation/HyperSpec/Body/f_typep.htm "TYPEP (MGL-PAX:CLHS FUNCTION)"
   [08b9]: #x-28SB-EXT-3A-2ADEFAULT-C-STRING-EXTERNAL-FORMAT-2A-20VARIABLE-29 "SB-EXT:*DEFAULT-C-STRING-EXTERNAL-FORMAT* VARIABLE"
+  [08cf]: #x-28SB-EXT-3AENABLE-PACKAGE-LOCKS-20DECLARATION-29 "SB-EXT:ENABLE-PACKAGE-LOCKS DECLARATION"
   [0901]: http://www.lispworks.com/documentation/HyperSpec/Body/d_dynami.htm "DYNAMIC-EXTENT (MGL-PAX:CLHS DECLARATION)"
   [091c]: http://www.lispworks.com/documentation/HyperSpec/Body/s_flet_.htm "FLET (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [0928]: #x-28SB-MANUAL-3A-40REINTERPRET-CASTS-20MGL-PAX-3ASECTION-29 "Reinterpret Casts"
@@ -13695,7 +13771,7 @@ versions of SBCL, which have since then been deleted.
   [0a63]: #x-28SB-CONCURRENCY-3AFRLOCK-READ-BEGIN-20FUNCTION-29 "SB-CONCURRENCY:FRLOCK-READ-BEGIN FUNCTION"
   [0b58]: #x-28SB-EXT-3APACKAGE-LOCKED-ERROR-SYMBOL-20FUNCTION-29 "SB-EXT:PACKAGE-LOCKED-ERROR-SYMBOL FUNCTION"
   [0b69]: http://www.lispworks.com/documentation/HyperSpec/Body/f_cmp_fi.htm "COMPILE-FILE (MGL-PAX:CLHS FUNCTION)"
-  [0baf]: #x-28SB-MANUAL-3A-40FANCY-DOCUMENTATION-WITH-PAX-20MGL-PAX-3ASECTION-29 "Fancy Documentation with `pax`"
+  [0baf]: #x-28SB-MANUAL-3A-40FANCY-DOCUMENTATION-WITH-PAX-20MGL-PAX-3ASECTION-29 "Fancy Documentation with PAX"
   [0bd4]: http://www.lispworks.com/documentation/HyperSpec/Body/d_specia.htm "SPECIAL (MGL-PAX:CLHS DECLARATION)"
   [0cc3]: http://www.lispworks.com/documentation/HyperSpec/Body/s_progn.htm "PROGN (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [0d02]: http://www.lispworks.com/documentation/HyperSpec/Body/f_close.htm "CLOSE (MGL-PAX:CLHS FUNCTION)"
@@ -13782,6 +13858,7 @@ versions of SBCL, which have since then been deleted.
   [2703]: #x-28SB-MANUAL-3A-40HISTORY-AND-IMPLEMENTATION-OF-SBCL-20MGL-PAX-3ASECTION-29 "History and Implementation of SBCL"
   [2771]: #x-28SB-MANUAL-3A-40SB-CONCURRENCY-QUEUE-20MGL-PAX-3ASECTION-29 "Queue"
   [2776]: #x-28SB-MANUAL-3A-40NATIVE-FILENAMES-20MGL-PAX-3ASECTION-29 "Native Filenames"
+  [2789]: #x-28SB-MANUAL-3A-40USING-PAX-20MGL-PAX-3ASECTION-29 "Using PAX"
   [28e7]: http://www.lispworks.com/documentation/HyperSpec/Body/f_ensure.htm "ENSURE-GENERIC-FUNCTION (MGL-PAX:CLHS FUNCTION)"
   [292d]: #x-28SB-MANUAL-3A-40HISTORICAL-INTERFACES-20MGL-PAX-3ASECTION-29 "Historical Interfaces"
   [29fd]: #x-28SB-MANUAL-3A-40EFFICIENCY-20MGL-PAX-3ASECTION-29 "Efficiency"
@@ -13871,6 +13948,7 @@ versions of SBCL, which have since then been deleted.
   [45f3]: #x-28SB-MANUAL-3A-40NOTE-ON-LEXICAL-VARIABLE-ACCESS-20MGL-PAX-3ASECTION-29 "Note On Lexical Variable Access"
   [460c]: #x-28SB-SEQUENCE-3APROTOCOL-UNIMPLEMENTED-20CONDITION-29 "SB-SEQUENCE:PROTOCOL-UNIMPLEMENTED CONDITION"
   [4619]: #x-28SB-MANUAL-3A-40INTRODUCTION-TO-THE-FOREIGN-FUNCTION-INTERFACE-20MGL-PAX-3ASECTION-29 "Introduction to the Foreign Function Interface"
+  [4697]: #x-28SB-EXT-3AMUFFLE-CONDITIONS-20DECLARATION-29 "SB-EXT:MUFFLE-CONDITIONS DECLARATION"
   [469a]: #x-28SB-MANUAL-3A-40OPEN-CODING-AND-INLINE-EXPANSION-20MGL-PAX-3ASECTION-29 "Open Coding and Inline Expansion"
   [46c0]: http://www.lispworks.com/documentation/HyperSpec/Body/m_defi_1.htm "DEFINE-SYMBOL-MACRO (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [4707]: #x-28SB-GRAY-3ASTREAM-PEEK-CHAR-20GENERIC-FUNCTION-29 "SB-GRAY:STREAM-PEEK-CHAR GENERIC-FUNCTION"
@@ -13882,7 +13960,7 @@ versions of SBCL, which have since then been deleted.
   [48f6]: #x-28SB-MANUAL-3A-40SB-ACLREPL-CUSTOMIZATION-20MGL-PAX-3ASECTION-29 "Customization"
   [4912]: http://www.lispworks.com/documentation/HyperSpec/Body/f_get_in.htm "GET-INTERNAL-REAL-TIME (MGL-PAX:CLHS FUNCTION)"
   [49f5]: http://www.lispworks.com/documentation/HyperSpec/Body/s_let_l.htm "LET* (MGL-PAX:CLHS MGL-PAX:MACRO)"
-  [4a74]: #x-28SB-MANUAL-3A-40BROWSING-LIVE-WITH-PAX-20MGL-PAX-3ASECTION-29 "Browsing Live with `pax`"
+  [4a74]: #x-28SB-MANUAL-3A-40BROWSING-LIVE-WITH-PAX-20MGL-PAX-3ASECTION-29 "Browsing Live with PAX"
   [4a85]: #x-28SB-MANUAL-3A-40OPERATIONS-VIOLATING-PACKAGE-LOCKS-20MGL-PAX-3ASECTION-29 "Operations Violating Package Locks"
   [4a86]: http://www.lispworks.com/documentation/HyperSpec/Body/f_subseq.htm "SUBSEQ (MGL-PAX:CLHS FUNCTION)"
   [4a9d]: http://www.lispworks.com/documentation/HyperSpec/Body/f_slt_bo.htm "SLOT-BOUNDP (MGL-PAX:CLHS FUNCTION)"
@@ -13936,6 +14014,7 @@ versions of SBCL, which have since then been deleted.
   [5842]: http://www.lispworks.com/documentation/HyperSpec/Body/f_finish.htm "FORCE-OUTPUT (MGL-PAX:CLHS FUNCTION)"
   [5848]: #x-28SB-MANUAL-3A-40DECLARATIONS-AS-ASSERTIONS-20MGL-PAX-3ASECTION-29 "Declarations as Assertions"
   [5854]: http://www.lispworks.com/documentation/HyperSpec/Body/m_cond.htm "COND (MGL-PAX:CLHS MGL-PAX:MACRO)"
+  [5888]: #x-28SB-EXT-3ADEPRECATED-20DECLARATION-29 "SB-EXT:DEPRECATED DECLARATION"
   [5986]: http://www.lispworks.com/documentation/HyperSpec/Body/f_stg_up.htm "STRING-UPCASE (MGL-PAX:CLHS FUNCTION)"
   [59a9]: #x-28SB-EXT-3ADEFGLOBAL-20MGL-PAX-3AMACRO-29 "SB-EXT:DEFGLOBAL MGL-PAX:MACRO"
   [59ab]: http://www.lispworks.com/documentation/HyperSpec/Body/t_std_ge.htm "STANDARD-GENERIC-FUNCTION (MGL-PAX:CLHS CLASS)"
@@ -13985,6 +14064,7 @@ versions of SBCL, which have since then been deleted.
   [6547]: http://www.lispworks.com/documentation/HyperSpec/Body/f_open.htm "OPEN (MGL-PAX:CLHS FUNCTION)"
   [65f6]: #x-28SB-MANUAL-3A-40INSTRUCTION-SET-DISPATCH-20MGL-PAX-3ASECTION-29 "Instruction Set Dispatch"
   [6651]: http://www.lispworks.com/documentation/HyperSpec/Body/f_descri.htm "DESCRIBE (MGL-PAX:CLHS FUNCTION)"
+  [6652]: #x-28SB-EXT-3ADISABLE-PACKAGE-LOCKS-20DECLARATION-29 "SB-EXT:DISABLE-PACKAGE-LOCKS DECLARATION"
   [6671]: http://www.lispworks.com/documentation/HyperSpec/Body/f_pn.htm "PATHNAME (MGL-PAX:CLHS FUNCTION)"
   [668f]: #x-28SB-MANUAL-3A-40FUNCTION-TRACING-20MGL-PAX-3ASECTION-29 "Function Tracing"
   [67c8]: #x-28SB-MANUAL-3A-40STACK-FRAMES-20MGL-PAX-3ASECTION-29 "Stack Frames"
@@ -14066,6 +14146,7 @@ versions of SBCL, which have since then been deleted.
   [85de]: #x-28SB-ALIEN-3ADEREF-20FUNCTION-29 "SB-ALIEN:DEREF FUNCTION"
   [8607]: #x-28SB-MANUAL-3A-40SB-POSIX-IDIOSYNCRACIES-20MGL-PAX-3ASECTION-29 "Functions with Idiosyncratic Bindings"
   [8723]: #x-28SB-MANUAL-3A-40BEYOND-THE-ANSI-STANDARD-20MGL-PAX-3ASECTION-29 "Beyond the ANSI Standard"
+  [873a]: #x-28SB-EXT-3AUNMUFFLE-CONDITIONS-20DECLARATION-29 "SB-EXT:UNMUFFLE-CONDITIONS DECLARATION"
   [87b6]: #x-28SB-GRAY-3AFUNDAMENTAL-OUTPUT-STREAM-20CLASS-29 "SB-GRAY:FUNDAMENTAL-OUTPUT-STREAM CLASS"
   [88f1]: http://www.lispworks.com/documentation/HyperSpec/Body/v_rd_def.htm "*READ-DEFAULT-FLOAT-FORMAT* (MGL-PAX:CLHS VARIABLE)"
   [8901]: http://www.lispworks.com/documentation/HyperSpec/Body/f_sleep.htm "SLEEP (MGL-PAX:CLHS FUNCTION)"
@@ -14323,6 +14404,7 @@ versions of SBCL, which have since then been deleted.
   [dae6]: http://www.lispworks.com/documentation/HyperSpec/Body/f_string.htm "STRING (MGL-PAX:CLHS FUNCTION)"
   [db00]: #x-28SB-EXT-3AWAIT-FOR-20MGL-PAX-3AMACRO-29 "SB-EXT:WAIT-FOR MGL-PAX:MACRO"
   [db03]: http://www.lispworks.com/documentation/HyperSpec/Body/f_eql.htm "EQL (MGL-PAX:CLHS FUNCTION)"
+  [db0e]: #x-28SB-EXT-3AALWAYS-BOUND-20DECLARATION-29 "SB-EXT:ALWAYS-BOUND DECLARATION"
   [db3f]: http://www.lispworks.com/documentation/HyperSpec/Body/f_mk_rnd.htm "MAKE-RANDOM-STATE (MGL-PAX:CLHS FUNCTION)"
   [db73]: #x-28SB-GRAY-3ASTREAM-READ-LINE-20GENERIC-FUNCTION-29 "SB-GRAY:STREAM-READ-LINE GENERIC-FUNCTION"
   [db7a]: #x-28SB-MANUAL-3A-40STATISTICAL-PROFILER-20MGL-PAX-3ASECTION-29 "Statistical Profiler"
@@ -14418,6 +14500,7 @@ versions of SBCL, which have since then been deleted.
   [fb6f]: #x-28SB-MANUAL-3A-40DEBUG-TAIL-RECURSION-20MGL-PAX-3ASECTION-29 "Debug Tail Recursion"
   [fb92]: #x-28SB-ALIEN-3AMAKE-ALIEN-20MGL-PAX-3AMACRO-29 "SB-ALIEN:MAKE-ALIEN MGL-PAX:MACRO"
   [fca4]: #x-28SB-SEQUENCE-3ALENGTH-20GENERIC-FUNCTION-29 "SB-SEQUENCE:LENGTH GENERIC-FUNCTION"
+  [fcab]: #x-28SB-EXT-3AGLOBAL-20DECLARATION-29 "SB-EXT:GLOBAL DECLARATION"
   [fd8a]: http://www.lispworks.com/documentation/HyperSpec/Body/f_pl.htm "+ (MGL-PAX:CLHS FUNCTION)"
   [fe40]: #x-28SB-GRAY-3ASTREAM-READ-CHAR-NO-HANG-20GENERIC-FUNCTION-29 "SB-GRAY:STREAM-READ-CHAR-NO-HANG GENERIC-FUNCTION"
   [fe58]: http://www.lispworks.com/documentation/HyperSpec/Body/f_rd_rd.htm "READ (MGL-PAX:CLHS FUNCTION)"

@@ -1,7 +1,7 @@
 This is sbcl.info, produced by makeinfo version 7.2 from sbcl.texinfo.
 
-     This manual, for SBCL version 2.6.5.32.pax-doc.6-c774fa864, is part
-     of the SBCL software system.  See the ‘README’ file for more
+     This manual, for SBCL version 2.6.5.32.pax-doc.15-8230bc7fc, is
+     part of the SBCL software system.  See the ‘README’ file for more
      information.
 
      This manual is largely derived from the manual for the CMUCL
@@ -13,6 +13,67 @@ INFO-DIR-SECTION Software development
 START-INFO-DIR-ENTRY
 * sbcl: (sbcl).           The Steel Bank Common Lisp compiler
 END-INFO-DIR-ENTRY
+
+
+File: sbcl.info,  Node: foreign dynamic allocation,  Prev: coercing foreign values,  Up: operations on foreign values
+
+9.3.3 Foreign Dynamic Allocation
+--------------------------------
+
+Lisp code can call the C standard library functions ‘malloc’ and ‘free’
+to dynamically allocate and deallocate foreign variables.  The Lisp code
+uses the same allocator as foreign C code, so it's OK for foreign code
+to call ‘free’ on the result of Lisp ‘make-alien’, or for Lisp code to
+call ‘free-alien’ on foreign objects allocated by C code.
+
+ -- Macro: sb-alien:make-alien type &optional size
+     Allocate an alien of type ‘type’ in foreign heap, and return an
+     alien pointer to it.  The allocated memory is not initialized, and
+     may contain garbage.  The memory is allocated using ‘malloc(3)’, so
+     it can be passed to foreign functions which use ‘free(3)’, or
+     released using ‘free-alien’.
+
+     For alien stack allocation, see macro ‘with-alien’.
+
+     The ‘type’ argument is not evaluated.  If ‘size’ is supplied, how
+     it is interpreted depends on ‘type’:
+
+        • When ‘type’ is a foreign array type, an array of that type is
+          allocated, and a pointer to it is returned.  Note that you
+          must use ‘deref’ to first access the array through the
+          pointer.
+
+          If supplied, ‘size’ is used as the first dimension for the
+          array.
+
+        • When ‘type’ is any other foreign type, then an object for that
+          type is allocated, and a pointer to it is returned.  So
+          (‘make-alien’ ‘int’) returns a (* ‘int’).
+
+          If ‘size’ is specified, then a block of that many objects is
+          allocated, with the result pointing to the first one.
+
+     Examples:
+
+          (defvar *foo* (make-alien (array char 10)))
+          (type-of *foo*)                   ; => (alien (* (array (signed 8) 10)))
+          (setf (deref (deref *foo*) 0) 10) ; => 10
+
+          (make-alien char 12)              ; => (alien (* (signed 8)))
+ -- Function: sb-alien:make-alien-string string &rest rest &key start
+          end external-format null-terminate
+     Copy part of ‘string’ delimited by ‘start’ and ‘end’ into freshly
+     allocated foreign memory, freeable using ‘free(3)’ or ‘free-alien’.
+     Returns the allocated string as a (* ‘char’) alien, and the number
+     of bytes allocated as secondary value.
+
+     The string is encoded using ‘external-format’.  If ‘null-terminate’
+     is true (the default), the alien string is terminated by an
+     additional null byte.
+ -- Function: sb-alien:free-alien alien
+     Dispose of the storage pointed to by ‘alien’.  The ‘alien’ must
+     have been allocated by ‘make-alien’, ‘make-alien-string’ or
+     ‘malloc(3)’.
 
 
 File: sbcl.info,  Node: foreign variables,  Next: foreign data structure examples,  Prev: operations on foreign values,  Up: foreign function interface
@@ -1590,17 +1651,14 @@ File: sbcl.info,  Node: package lock dictionary,  Prev: package lock concepts,  
 12.2 Package Lock Dictionary
 ============================
 
-   • [*declaration*] ‘sb-ext:disable-package-locks’
-
+ -- Declaration: sb-ext:disable-package-locks
      Syntax: ‘(sb-ext:disable-package-locks &rest symbols)’
 
      Disables package locks affecting the named symbols during
      compilation in the lexical scope of the declaration.  Disabling
      locks on symbols whose home package is unlocked, or disabling an
      already disabled lock, has no effect.
-
-   • [*declaration*] ‘sb-ext:enable-package-locks’
-
+ -- Declaration: sb-ext:enable-package-locks
      Syntax: ‘(sb-ext:enable-package-locks &rest symbols)’
 
      Re-enables package locks affecting the named symbols during
@@ -1608,7 +1666,6 @@ File: sbcl.info,  Node: package lock dictionary,  Prev: package lock concepts,  
      locks that were not first disabled with
      ‘sb-ext:disable-package-locks’ declaration, or enabling locks that
      are already enabled has no effect.
-
  -- Condition: sb-ext:package-lock-violation
      Subtype of ‘cl:package-error’.  A subtype of this error is
      signalled when a package-lock is violated.
@@ -4390,23 +4447,21 @@ File: sbcl.info,  Node: sb manual,  Next: sb md5,  Prev: sb introspect,  Up: con
 
 * Menu:
 
+* Using PAX: using pax.
 * Browsing Live with PAX: browsing live with pax.
 * Fancy Documentation with PAX: fancy documentation with pax.
 
-The ‘sb-manual’ module has the sections of the SBCL user manual in Lisp
-variables.  The names of the variables (all start with the character
-‘@’) are exported from the ‘sb-manual’ package.  Sections are defined
-with the ‘defsection’ macro:
+The ‘sb-manual’ module has the SBCL user manual in forms mimicking
+‘pax:defsection’:
 
      (defsection @example (:title "Example")
        "This is an example, but see the real @SB-MANUAL."
        (print function)
        (@subexample section))
 
-where ‘defsection’ is a dummy implementation of ‘pax:defsection’ (see
-<https://github.com/melisgl/mgl-pax/>).
-
-In Slime, ‘M-.’ on ‘"@SB-MANUAL"’, ‘"print"’, or on ‘"@subexample"’ will
+The names of the variables holding the documentation are exported from
+the ‘sb-manual’ package.  Since sections are basically variables, in
+Slime, ‘M-.’ on ‘"@SB-MANUAL"’, ‘"print"’, or on ‘"@subexample"’ will
 take you to the respective definition.  This makes it easy to navigate
 the documentation.  Normal Lisp definition docstrings and section
 docstrings reference sections following the usual convention of
@@ -4417,18 +4472,45 @@ source.
 The official manual in Info, HTML and PDF formats is generated via
 Texinfo generated from these definitions.
 
+
+File: sbcl.info,  Node: using pax,  Next: browsing live with pax,  Up: sb manual
+
+17.6.1 Using PAX
+----------------
+
+However, ‘sb-manual::defsection’ is but a dummy implementation of
+‘pax:defsection’ to avoid a hard dependency on PAX.
+
+See the ‘mgl-pax’ ‘asdf:system’ or
+<https://github.com/melisgl/mgl-pax/>.
+
 When PAX is loaded, the dummy ‘defsection’ definitions are made real, so
 that PAX can work with them.
 
-
-File: sbcl.info,  Node: browsing live with pax,  Next: fancy documentation with pax,  Up: sb manual
+ -- Function: sb-manual:use-pax
+     Ensure that exported variables are ‘pax:section’s.  It is an error
+     if the ‘mgl-pax’ library is not loaded.
 
-17.6.1 Browsing Live with PAX
+     Calling this function explicitly is rarely necessary because it is
+     called automatically:
+
+        • when ‘sb-manual’ is loaded, if ‘pax’ is present;
+
+        • when ‘pax:document’ (more precisely, ‘dref:locate’) is called
+          on an ‘sb-manual’ section.
+
+     The latter feature requires v0.4.12 of ‘pax’.  See the ‘mgl-pax’
+     asdf:system.
+
+
+File: sbcl.info,  Node: browsing live with pax,  Next: fancy documentation with pax,  Prev: using pax,  Up: sb manual
+
+17.6.2 Browsing Live with PAX
 -----------------------------
 
 With PAX, you can browse the manual live.  The documentation of this
-feature is available at
-<https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION>.
+feature is available at online
+(https://melisgl.github.io/mgl-pax-world/pax-manual.html#MGL-PAX:@BROWSING-LIVE-DOCUMENTATION%20MGL-PAX:SECTION).
 
 If you are browsing this manual live right now, here is the equivalent
 live link: ‘pax::@browsing-live-documentation’.
@@ -4462,7 +4544,7 @@ when working on documentation.
 
 File: sbcl.info,  Node: fancy documentation with pax,  Prev: browsing live with pax,  Up: sb manual
 
-17.6.2 Fancy Documentation with PAX
+17.6.3 Fancy Documentation with PAX
 -----------------------------------
 
 PAX can generate dead documentation, too.  In the SBCL sources,
@@ -5343,8 +5425,7 @@ various namespaces as deprecated.
      _Note_: See the ‘namespace’ ‘clhs’ glossary entry in the glossary
      of the Common Lisp Hyperspec.)
 
-   • [*declaration*] ‘sb-ext:deprecated’
-
+ -- Declaration: sb-ext:deprecated
      Syntax: ‘(sb-ext:deprecated stage since &rest object-clauses)’
 
      stage ::= {‘:early’ | ‘:late’ | ‘:final’}
@@ -5639,7 +5720,7 @@ versions of SBCL, which have since then been deleted.
 
      Historically needed for CLOS code.  Deprecated as of 0.9.3.32 in
      August 2005.  Deleted as of 1.0.47.8 in April 2011.  Plain ‘lambda’
-     can be used where SB-KERNEL:INSTANCE-LAMBDA used to be needed.
+     can be used where ‘sb-kernel:instance-lambda’ used to be needed.
 
    • ‘sb-alien:def-alien-routine’, ‘sb-alien:def-alien-variable’,
      ‘sb-alien:def-alien-type’
@@ -5661,7 +5742,7 @@ Appendix A Function and Macro Index
 
 * abort-thread [sb-thread]:              running threads.     (line  23)
 * add-implementation-package [sb-ext]:   package lock dictionary.
-                                                              (line  58)
+                                                              (line  54)
 * add-package-local-nickname [sb-ext]:   package local nicknames.
                                                               (line  57)
 * addr [sb-alien]:                       coercing foreign values.
@@ -5720,7 +5801,7 @@ Appendix A Function and Macro Index
                                                               (line  14)
 * compare-and-swap [sb-ext]:             atomic operations.   (line 114)
 * concatenate [sb-sequence]:             extensible sequences.
-                                                              (line 142)
+                                                              (line 143)
 * condition-broadcast [sb-thread]:       waitqueue/condition variables.
                                                               (line 116)
 * condition-notify [sb-thread]:          waitqueue/condition variables.
@@ -5729,13 +5810,13 @@ Appendix A Function and Macro Index
                                                               (line  72)
 * confusable-p [sb-unicode]:             string operations.   (line  83)
 * copy-seq [sb-sequence]:                extensible sequences.
-                                                              (line 117)
+                                                              (line 118)
 * count [sb-sequence]:                   extensible sequences.
-                                                              (line 170)
+                                                              (line 171)
 * count-if [sb-sequence]:                extensible sequences.
-                                                              (line 172)
+                                                              (line 173)
 * count-if-not [sb-sequence]:            extensible sequences.
-                                                              (line 174)
+                                                              (line 175)
 * decimal-value [sb-unicode]:            unicode property access.
                                                               (line  16)
 * default-ignorable-p [sb-unicode]:      unicode property access.
@@ -5765,15 +5846,15 @@ Appendix A Function and Macro Index
                                                               (line  41)
 * deftype-lambda-list [sb-introspect]:   sb introspect types. (line   6)
 * delete [sb-sequence]:                  extensible sequences.
-                                                              (line 223)
+                                                              (line 224)
 * delete-directory [sb-ext]:             miscellaneous extensions.
                                                               (line  20)
 * delete-duplicates [sb-sequence]:       extensible sequences.
-                                                              (line 233)
+                                                              (line 234)
 * delete-if [sb-sequence]:               extensible sequences.
-                                                              (line 225)
+                                                              (line 226)
 * delete-if-not [sb-sequence]:           extensible sequences.
-                                                              (line 227)
+                                                              (line 228)
 * dequeue [sb-concurrency]:              sb concurrency queue.
                                                               (line  20)
 * deref [sb-alien]:                      accessing foreign values.
@@ -5787,6 +5868,8 @@ Appendix A Function and Macro Index
                                                               (line  28)
 * do-passwds [sb-posix]:                 sb posix extensions to posix.
                                                               (line  20)
+* documentation [common-lisp]:           miscellaneous extensions.
+                                                              (line  65)
 * dosequence [sb-sequence]:              extensible sequences.
                                                               (line 111)
 * dynamic-space-size [sb-ext]:           introspection and tuning.
@@ -5812,10 +5895,10 @@ Appendix A Function and Macro Index
                                                               (line  19)
 * filename [sb-posix]:                   sb posix filenames.  (line  37)
 * fill [sb-sequence]:                    extensible sequences.
-                                                              (line 118)
+                                                              (line 119)
 * finalize [sb-ext]:                     finalization.        (line  10)
 * find [sb-sequence]:                    extensible sequences.
-                                                              (line 187)
+                                                              (line 188)
 * find-definition-source [sb-introspect]: finding definitions.
                                                               (line  44)
 * find-definition-sources-by-name [sb-introspect]: finding definitions.
@@ -5825,9 +5908,9 @@ Appendix A Function and Macro Index
 * find-function-callers [sb-introspect]: sb introspect functions.
                                                               (line  27)
 * find-if [sb-sequence]:                 extensible sequences.
-                                                              (line 189)
+                                                              (line 190)
 * find-if-not [sb-sequence]:             extensible sequences.
-                                                              (line 191)
+                                                              (line 192)
 * free-alien [sb-alien]:                 foreign dynamic allocation.
                                                               (line  56)
 * frlock-name [sb-concurrency]:          sb concurrency frlocks.
@@ -5927,7 +6010,7 @@ Appendix A Function and Macro Index
 * load-shared-object [sb-alien]:         loading shared object files.
                                                               (line   9)
 * lock-package [sb-ext]:                 package lock dictionary.
-                                                              (line  43)
+                                                              (line  39)
 * lowercase [sb-unicode]:                string operations.   (line  27)
 * lowercase-p [sb-unicode]:              unicode property access.
                                                               (line  77)
@@ -5973,7 +6056,7 @@ Appendix A Function and Macro Index
                                                               (line  68)
 * make-weak-pointer [sb-ext]:            weak pointers.       (line  13)
 * map [sb-sequence]:                     extensible sequences.
-                                                              (line 120)
+                                                              (line 121)
 * map-root [sb-introspect]:              sb introspect allocation.
                                                               (line  52)
 * map-traces [sb-sprof]:                 statistical profiler.
@@ -5985,7 +6068,7 @@ Appendix A Function and Macro Index
 * md5sum-stream [sb-md5]:                sb md5.              (line  16)
 * md5sum-string [sb-md5]:                sb md5.              (line  22)
 * merge [sb-sequence]:                   extensible sequences.
-                                                              (line 153)
+                                                              (line 154)
 * merge-coverage [sb-cover]:             sb cover.            (line  78)
 * merge-coverage-from-file [sb-cover]:   sb cover.            (line  81)
 * method-combination-lambda-list [sb-introspect]: sb introspect functions.
@@ -5993,7 +6076,7 @@ Appendix A Function and Macro Index
 * mirrored-p [sb-unicode]:               unicode property access.
                                                               (line  38)
 * mismatch [sb-sequence]:                extensible sequences.
-                                                              (line 138)
+                                                              (line 139)
 * mutex-name [sb-thread]:                mutex support.       (line  73)
 * mutex-owner [sb-thread]:               mutex support.       (line  75)
 * mutex-value [sb-thread]:               mutex support.       (line  81)
@@ -6003,13 +6086,13 @@ Appendix A Function and Macro Index
 * normalize-string [sb-unicode]:         string operations.   (line   8)
 * normalized-p [sb-unicode]:             string operations.   (line  14)
 * nreverse [sb-sequence]:                extensible sequences.
-                                                              (line 179)
+                                                              (line 180)
 * nsubstitute [sb-sequence]:             extensible sequences.
-                                                              (line 209)
+                                                              (line 210)
 * nsubstitute-if [sb-sequence]:          extensible sequences.
-                                                              (line 211)
+                                                              (line 212)
 * nsubstitute-if-not [sb-sequence]:      extensible sequences.
-                                                              (line 213)
+                                                              (line 214)
 * numeric-value [sb-unicode]:            unicode property access.
                                                               (line  33)
 * octets-to-string [sb-ext]:             converting between strings and octet vectors.
@@ -6017,24 +6100,24 @@ Appendix A Function and Macro Index
 * open-gate [sb-concurrency]:            sb concurrency gates.
                                                               (line  29)
 * package-implemented-by-list [sb-ext]:  package lock dictionary.
-                                                              (line  51)
+                                                              (line  47)
 * package-implements-list [sb-ext]:      package lock dictionary.
-                                                              (line  54)
+                                                              (line  50)
 * package-local-nicknames [sb-ext]:      package local nicknames.
                                                               (line  37)
 * package-locally-nicknamed-by-list [sb-ext]: package local nicknames.
                                                               (line  51)
 * package-locked-error-symbol [sb-ext]:  package lock dictionary.
-                                                              (line  37)
+                                                              (line  33)
 * package-locked-p [sb-ext]:             package lock dictionary.
-                                                              (line  40)
+                                                              (line  36)
 * parse-native-namestring [sb-ext]:      native filenames.    (line  26)
 * position [sb-sequence]:                extensible sequences.
-                                                              (line 195)
+                                                              (line 196)
 * position-if [sb-sequence]:             extensible sequences.
-                                                              (line 197)
+                                                              (line 198)
 * position-if-not [sb-sequence]:         extensible sequences.
-                                                              (line 199)
+                                                              (line 200)
 * posix-environ [sb-ext]:                support for unix.    (line  20)
 * posix-getenv [sb-ext]:                 support for unix.    (line  16)
 * process-alive-p [sb-ext]:              running external programs.
@@ -6084,25 +6167,25 @@ Appendix A Function and Macro Index
 * receive-pending-messages [sb-concurrency]: sb concurrency mailbox.
                                                               (line  47)
 * reduce [sb-sequence]:                  extensible sequences.
-                                                              (line 134)
+                                                              (line 135)
 * release-foreground [sb-thread]:        sessions/debugging.  (line  28)
 * release-frlock-write-lock [sb-concurrency]: sb concurrency frlocks.
                                                               (line  83)
 * release-mutex [sb-thread]:             mutex support.       (line 121)
 * remove [sb-sequence]:                  extensible sequences.
-                                                              (line 217)
+                                                              (line 218)
 * remove-duplicates [sb-sequence]:       extensible sequences.
-                                                              (line 231)
+                                                              (line 232)
 * remove-if [sb-sequence]:               extensible sequences.
-                                                              (line 219)
+                                                              (line 220)
 * remove-if-not [sb-sequence]:           extensible sequences.
-                                                              (line 221)
+                                                              (line 222)
 * remove-implementation-package [sb-ext]: package lock dictionary.
-                                                              (line  63)
+                                                              (line  59)
 * remove-package-local-nickname [sb-ext]: package local nicknames.
                                                               (line  82)
 * replace [sb-sequence]:                 extensible sequences.
-                                                              (line 140)
+                                                              (line 141)
 * report [sb-cover]:                     sb cover.            (line  36)
 * report [sb-profile]:                   deterministic profiler.
                                                               (line  27)
@@ -6120,7 +6203,7 @@ Appendix A Function and Macro Index
 * restrict-compiler-policy [sb-ext]:     compiler policy.     (line  28)
 * return-from-thread [sb-thread]:        running threads.     (line  14)
 * reverse [sb-sequence]:                 extensible sequences.
-                                                              (line 178)
+                                                              (line 179)
 * rotate-byte [sb-rotate-byte]:          sb rotate byte.      (line  15)
 * run-program [sb-ext]:                  running external programs.
                                                               (line  19)
@@ -6137,7 +6220,7 @@ Appendix A Function and Macro Index
 * script [sb-unicode]:                   unicode property access.
                                                               (line  57)
 * search [sb-sequence]:                  extensible sequences.
-                                                              (line 136)
+                                                              (line 137)
 * search-roots [sb-ext]:                 tracing live objects back to roots.
                                                               (line  17)
 * seed-random-state [sb-ext]:            random number generation.
@@ -6180,9 +6263,9 @@ Appendix A Function and Macro Index
 * soft-dotted-p [sb-unicode]:            unicode property access.
                                                               (line  98)
 * sort [sb-sequence]:                    extensible sequences.
-                                                              (line 182)
-* stable-sort [sb-sequence]:             extensible sequences.
                                                               (line 183)
+* stable-sort [sb-sequence]:             extensible sequences.
+                                                              (line 184)
 * start-profiling [sb-sprof]:            statistical profiler.
                                                               (line 242)
 * step [common-lisp]:                    single stepping.     (line  31)
@@ -6239,13 +6322,13 @@ Appendix A Function and Macro Index
 * string-to-octets [sb-ext]:             converting between strings and octet vectors.
                                                               (line   9)
 * subseq [sb-sequence]:                  extensible sequences.
-                                                              (line 119)
+                                                              (line 120)
 * substitute [sb-sequence]:              extensible sequences.
-                                                              (line 203)
+                                                              (line 204)
 * substitute-if [sb-sequence]:           extensible sequences.
-                                                              (line 205)
+                                                              (line 206)
 * substitute-if-not [sb-sequence]:       extensible sequences.
-                                                              (line 207)
+                                                              (line 208)
 * symbol-value-in-thread [sb-thread]:    miscellaneous operations.
                                                               (line   6)
 * syslog [sb-posix]:                     sb posix idiosyncracies.
@@ -6274,7 +6357,7 @@ Appendix A Function and Macro Index
 * unload-shared-object [sb-alien]:       loading shared object files.
                                                               (line  43)
 * unlock-package [sb-ext]:               package lock dictionary.
-                                                              (line  47)
+                                                              (line  43)
 * unprofile [sb-profile]:                deterministic profiler.
                                                               (line  21)
 * unprofile-call-counts [sb-sprof]:      statistical profiler.
@@ -6284,6 +6367,7 @@ Appendix A Function and Macro Index
 * uppercase [sb-unicode]:                string operations.   (line  19)
 * uppercase-p [sb-unicode]:              unicode property access.
                                                               (line  74)
+* use-pax [sb-manual]:                   using pax.           (line  15)
 * valid-function-name-p [sb-introspect]: sb introspect functions.
                                                               (line  22)
 * var [sb-debug]:                        variable access.     (line  40)
@@ -6332,9 +6416,9 @@ Appendix A Function and Macro Index
 * with-timeout [sb-ext]:                 asynchronous timeouts.
                                                               (line   9)
 * with-unlocked-packages [sb-ext]:       package lock dictionary.
-                                                              (line  71)
+                                                              (line  67)
 * without-package-locks [sb-ext]:        package lock dictionary.
-                                                              (line  68)
+                                                              (line  64)
 * word-break-class [sb-unicode]:         unicode property access.
                                                               (line 111)
 * words [sb-unicode]:                    breaking strings.    (line  12)
@@ -6352,7 +6436,7 @@ Appendix B Variable and Constant Index
 * *command-char* [sb-aclrepl]:           sb aclrepl customization.
                                                               (line   8)
 * *compiler-print-variable-alist* [sb-ext]: controlling verbosity.
-                                                              (line  50)
+                                                              (line  46)
 * *core-pathname* [sb-ext]:              saving a core image. (line 164)
 * *current-thread* [sb-thread]:          thread objects.      (line   9)
 * *debug-print-variable-alist* [sb-ext]: debugger command loop.
@@ -6403,7 +6487,7 @@ Appendix B Variable and Constant Index
 * *userinit-pathname-function* [sb-ext]: saving a core image. (line 155)
 
 
-File: sbcl.info,  Node: type index,  Next: colophon,  Prev: variable index,  Up: Top
+File: sbcl.info,  Node: type index,  Next: declaration index,  Prev: variable index,  Up: Top
 
 Appendix C Type Index
 *********************
@@ -6464,9 +6548,9 @@ Appendix C Type Index
                                                                (line 13)
 * mutex [sb-thread]:                     mutex support.        (line 27)
 * package-lock-violation [sb-ext]:       package lock dictionary.
-                                                               (line 25)
+                                                               (line 21)
 * package-locked-error [sb-ext]:         package lock dictionary.
-                                                               (line 28)
+                                                               (line 24)
 * passwd [sb-posix]:                     sb posix lisp objects and c structures.
                                                                (line 30)
 * protocol-unimplemented [sb-sequence]:  extensible sequences. (line 82)
@@ -6477,7 +6561,7 @@ Appendix C Type Index
 * stat [sb-posix]:                       sb posix lisp objects and c structures.
                                                                (line 36)
 * symbol-package-locked-error [sb-ext]:  package lock dictionary.
-                                                               (line 32)
+                                                               (line 28)
 * symbol-value-in-thread-error [sb-thread]: error conditions.  (line 13)
 * termios [sb-posix]:                    sb posix lisp objects and c structures.
                                                                (line 38)
