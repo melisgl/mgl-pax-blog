@@ -1,6 +1,6 @@
 This is sbcl.info, produced by makeinfo version 7.2 from sbcl.texinfo.
 
-     This manual, for SBCL version 2.6.5.32.pax-doc.15-8230bc7fc, is
+     This manual, for SBCL version 2.6.5.32.pax-doc.17-1cbba9c93, is
      part of the SBCL software system.  See the ‘README’ file for more
      information.
 
@@ -1090,7 +1090,7 @@ These generic functions are used to implement subclasses of
      Write enough blank space so that the next character will be written
      at the specified column.  Returns true if the operation is
      successful, or ‘nil’ if it is not supported for this stream.  This
-     is intended for use by by ‘pprint’ and ‘format’ ~T. The default
+     is intended for use by by ‘pprint’ and ‘format’ ‘~t’.  The default
      method uses ‘stream-line-column’ and repeated calls to
      ‘stream-write-char’ with a #SPACE character; it returns ‘nil’ if
      ‘stream-line-column’ returns ‘nil’.
@@ -1103,7 +1103,7 @@ These generic functions are used to implement subclasses of
      Return the column number where the next character will be written,
      or ‘nil’ if that is not meaningful for this stream.  The first
      column on a line is numbered 0.  This function is used in the
-     implementation of ‘pprint’ and the ‘format’ ~T directive.  For
+     implementation of ‘pprint’ and the ‘format’ ‘~t’ directive.  For
      every character output stream class that is defined, a method must
      be defined for this function, although it is permissible for it to
      always return ‘nil’.
@@ -5218,7 +5218,7 @@ resulting from an invocation of this macro compiles to an efficient jump
 table whose index is recomputed on each startup of the Lisp image.
 
 
-File: sbcl.info,  Node: deprecation,  Next: function index,  Prev: contributed modules,  Up: Top
+File: sbcl.info,  Node: deprecation,  Next: concept index,  Prev: contributed modules,  Up: Top
 
 18 Deprecation
 **************
@@ -5732,9 +5732,23 @@ versions of SBCL, which have since then been deleted.
      and ‘sb-alien:define-alien-type’.
 
 
-File: sbcl.info,  Node: function index,  Next: variable index,  Prev: deprecation,  Up: Top
+File: sbcl.info,  Node: concept index,  Next: function index,  Prev: deprecation,  Up: Top
 
-Appendix A Function and Macro Index
+Appendix A Concept Index
+************************
+
+ [index ]
+* Menu:
+
+* Read-Eval-Print Loop:                  initialization files. (line 24)
+* Read-Eval-Print Loop <1>:              contributed modules.  (line 25)
+* REPL:                                  initialization files. (line 24)
+* REPL <1>:                              contributed modules.  (line 24)
+
+
+File: sbcl.info,  Node: function index,  Next: variable index,  Prev: concept index,  Up: Top
+
+Appendix B Function and Macro Index
 ***********************************
 
  [index ]
@@ -6426,7 +6440,7 @@ Appendix A Function and Macro Index
 
 File: sbcl.info,  Node: variable index,  Next: type index,  Prev: function index,  Up: Top
 
-Appendix B Variable and Constant Index
+Appendix C Variable and Constant Index
 **************************************
 
  [index ]
@@ -6489,7 +6503,7 @@ Appendix B Variable and Constant Index
 
 File: sbcl.info,  Node: type index,  Next: declaration index,  Prev: variable index,  Up: Top
 
-Appendix C Type Index
+Appendix D Type Index
 *********************
 
  [index ]

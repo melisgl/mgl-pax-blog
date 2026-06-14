@@ -1505,8 +1505,9 @@ policy.
 
     The user initialization file is intended for personal
     customizations, such as loading certain modules at startup,
-    defining convenience functions to use in the REPL, handling
-    automatic recompilation of FASLs (see [FASL format][943e]), etc.
+    defining convenience functions to use in the REPL,
+    handling automatic recompilation of FASLs (see [FASL format][943e]),
+    etc.
 
 Neither initialization file is required.
 
@@ -8562,7 +8563,7 @@ These generic functions are used to implement subclasses of
     Write enough blank space so that the next character will be
     written at the specified column. Returns true if the operation is
     successful, or `nil` if it is not supported for this stream. This is
-    intended for use by by [`pprint`][6af6] and [`format`][ad78] ~T. The default method
+    intended for use by by [`pprint`][6af6] and [`format`][ad78] `~t`. The default method
     uses [`stream-line-column`][2205] and repeated calls to [`stream-write-char`][40ad]
     with a #`space` character; it returns `nil` if `stream-line-column`
     returns `nil`.
@@ -8583,7 +8584,7 @@ These generic functions are used to implement subclasses of
     Return the column number where the next character
     will be written, or `nil` if that is not meaningful for this stream.
     The first column on a line is numbered 0. This function is used in
-    the implementation of [`pprint`][6af6] and the [`format`][ad78] ~T directive. For every
+    the implementation of [`pprint`][6af6] and the [`format`][ad78] `~t` directive. For every
     character output stream class that is defined, a method must be
     defined for this function, although it is permissible for it to
     always return `nil`.

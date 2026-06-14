@@ -1,6 +1,6 @@
 This is sbcl.info, produced by makeinfo version 7.2 from sbcl.texinfo.
 
-     This manual, for SBCL version 2.6.5.32.pax-doc.15-8230bc7fc, is
+     This manual, for SBCL version 2.6.5.32.pax-doc.17-1cbba9c93, is
      part of the SBCL software system.  See the ‘README’ file for more
      information.
 
@@ -20,7 +20,7 @@ File: sbcl.info,  Node: Top,  Next: support and bugs,  Up: (dir)
 sbcl
 ****
 
-     This manual, for SBCL version 2.6.5.32.pax-doc.15-8230bc7fc, is
+     This manual, for SBCL version 2.6.5.32.pax-doc.17-1cbba9c93, is
      part of the SBCL software system.  See the ‘README’ file for more
      information.
 
@@ -51,6 +51,7 @@ sbcl
 * Profiling: profiling.
 * Contributed Modules: contributed modules.
 * Deprecation: deprecation.
+* Concept Index: concept index.
 * Function and Macro Index: function index.
 * Variable and Constant Index: variable index.
 * Type Index: type index.
