@@ -1,6 +1,6 @@
 This is sbcl.info, produced by makeinfo version 7.2 from sbcl.texinfo.
 
-     This manual, for SBCL version 2.6.5.32.pax-doc.17-1cbba9c93, is
+     This manual, for SBCL version 2.6.5.32.pax-doc.18-b999eeefd, is
      part of the SBCL software system.  See the ‘README’ file for more
      information.
 
@@ -521,10 +521,10 @@ with this:
 
    • ‘sb-sys:with-pinned-objects’ is a macro which arranges for some set
      of objects to be pinned in memory for the dynamic extent of its
-     body forms.  On ports which use the generational garbage collector
-     (most, as of this writing) this affects exactly the specified
-     objects.  On other ports it is implemented by turning off GC for
-     the duration (so could be said to have a whole-world granularity).
+     body forms.  On ports which use the generational GC (most, as of
+     this writing) this affects exactly the specified objects.  On other
+     ports it is implemented by turning off GC for the duration (so
+     could be said to have a whole-world granularity).
 
    • Disable GC, using the SB-EXT:WITHOUT-GCING macro.
 
@@ -625,7 +625,7 @@ It is possible to call this C function from Lisp using the file
 
          (with-alien ((res (* (struct c-struct))
                            (c-function 5 "another Lisp string" (addr c-struct) ar)))
-           (format t "~&amp;back from C function~%")
+           (format t "~&back from C function~%")
            (multiple-value-prog1
                (values (slot res 'x)
                        (slot res 's))
@@ -881,7 +881,7 @@ File: sbcl.info,  Node: stream external formats,  Next: bivalent streams,  Up: s
 ============================
 
 The function ‘stream-external-format’ returns the canonical name of the
-external format (See *note external formats::) used by the stream for
+external format (see *note external formats::) used by the stream for
 character-based input and/or output.
 
 When constructing file streams, for example using ‘open’ or
@@ -2121,21 +2121,25 @@ lockless algorithms.
      ‘place’ before the increment.
 
      ‘place’ must access one of the following:
+
         • a ‘defstruct’ slot with declared type (‘unsigned-byte’ 64) or
           ‘aref’ of a (‘simple-array’ (‘unsigned-byte’ 64) (*)) The type
           ‘sb-ext:word’ can be used for these purposes.
+
         • ‘car’ or ‘cdr’ (respectively ‘first’ or ‘rest’) of a ‘cons’.
+
         • a variable defined using ‘defglobal’ with a proclaimed type of
-          ‘fixnum’.
-     Macroexpansion is performed on ‘place’ before expanding
-     ‘atomic-incf’.
+          ‘fixnum’.  Macroexpansion is performed on ‘place’ before
+          expanding ‘atomic-incf’.
 
      Incrementing is done using modular arithmetic, which is
      well-defined over two different domains:
+
         • For structures and arrays, the operation accepts and produces
           an (‘unsigned-byte’ 64), and ‘diff’ must be of type
           (‘signed-byte’ 64).  ‘atomic-incf’ of ‘#xFFFFFFFFFFFFFFFF’ by
           one results in #x0 being stored in ‘place’.
+
         • For other places, the domain is ‘fixnum’, and ‘diff’ must be a
           ‘fixnum’.  ‘atomic-incf’ of ‘#x3FFFFFFFFFFFFFFF’ by one
           results in ‘#x-4000000000000000’ being stored in ‘place’.
@@ -2380,8 +2384,10 @@ that they go to sleep.
         • ‘grab-mutex’ is not interrupt safe.  The correct way to call
           it is:
 
-          (‘without-interrupts’ ...  (‘allow-with-interrupts’
-          (‘grab-mutex’ ...))  ...)
+               (without-interrupts
+                 ...
+                 (allow-with-interrupts (grab-mutex ...))
+                 ...)
 
           ‘without-interrupts’ is necessary to avoid an interrupt
           unwinding the call while the mutex is in an inconsistent state
@@ -3299,8 +3305,8 @@ runs.
 *Platform support*
 
 Allocation profiling is only supported on SBCL builds that use the
-generational garbage collector.  Tracking of call stacks at a depth of
-more than two levels is only supported on x86 and x86-64.
+generational GC. Tracking of call stacks at a depth of more than two
+levels is only supported on x86 and x86-64.
 
 *Macros*
 
@@ -3314,37 +3320,50 @@ more than two levels is only supported on x86 and x86-64.
 
      The following keyword args are recognized:
 
-     ‘:sample-interval’ <n> Take a sample every <n> seconds.  Default is
-     ‘*sample-interval*’.
+        • ‘:sample-interval’ ‘<n>’
 
-     ‘:mode’ <mode> If ‘:cpu’, run the profiler in CPU profiling mode.
-     If ‘:alloc’, run the profiler in allocation profiling mode.  If
-     ‘:time’, run the profiler in wallclock profiling mode.
+          Take a sample every <n> seconds.  Default is
+          ‘*sample-interval*’.
 
-     ‘:max-samples’ <max> If ‘:loop’ is ‘nil’ (the default), collect no
-     more than <max> samples.  If ‘:loop’ is ‘t’, repeat evaluating body
-     until <max> samples are taken.  Default is ‘*max-samples*’.
+        • ‘:mode’ ‘<mode>’
 
-     ‘:report’ <type> If specified, call ‘report’ with ‘:type’ <type> at
-     the end.
+          If ‘:cpu’, run the profiler in CPU profiling mode.  If
+          ‘:alloc’, run the profiler in allocation profiling mode.  If
+          ‘:time’, run the profiler in wallclock profiling mode.
 
-     ‘:reset’ <bool> If true, call ‘reset’ at the beginning.
+        • ‘:max-samples’ ‘<max>’
 
-     ‘:threads’ <list-form> Form that evaluates to the list threads to
-     profile, or ‘:all’ to indicate that all threads should be profiled.
-     Defaults to all threads.
+          If ‘:loop’ is ‘nil’ (the default), collect no more than
+          ‘<max>’ samples.  If ‘:loop’ is ‘t’, repeat evaluating body
+          until ‘<max>’ samples are taken.  Default is ‘*max-samples*’.
 
-     ‘:threads’ has no effect on call-counting at the moment.
+        • ‘:report’ ‘<type>’
 
-     On some platforms (eg.  Darwin) the signals used by the profiler
-     are not properly delivered to threads in proportion to their CPU
-     usage when doing ‘:cpu’ profiling.  If you see empty call graphs,
-     or are obviously missing several samples from certain threads, you
-     may be falling afoul of this.  In this case using ‘:mode’ ‘:time’
-     is likely to work better.
+          If specified, call ‘report’ with ‘:type’ ‘<type>’ at the end.
 
-     ‘:loop’ <bool> If false (the default), evaluate ‘body’ only once.
-     If true repeatedly evaluate ‘body’.
+        • ‘:reset’ ‘<bool>’
+
+          If true, call ‘reset’ at the beginning.
+
+        • ‘:threads’ ‘<list-form>’
+
+          Form that evaluates to the list threads to profile, or ‘:all’
+          to indicate that all threads should be profiled.  Defaults to
+          all threads.
+
+          ‘:threads’ has no effect on call-counting at the moment.
+
+          On some platforms (e.g.  Darwin) the signals used by the
+          profiler are not properly delivered to threads in proportion
+          to their CPU usage when doing ‘:cpu’ profiling.  If you see
+          empty call graphs, or are obviously missing several samples
+          from certain threads, you may be falling afoul of this.  In
+          this case using ‘:mode’ ‘:time’ is likely to work better.
+
+        • ‘:loop’ ‘<bool>’
+
+          If false (the default), evaluate ‘body’ only once.  If true
+          repeatedly evaluate ‘body’.
  -- Macro: sb-sprof:with-sampling (&optional on) &body body
      Evaluate body with statistical sampling turned on or off in the
      current thread.
@@ -3760,10 +3779,10 @@ File: sbcl.info,  Node: sb concurrency frlocks,  Prev: sb concurrency gates,  Up
      reading.  This makes frlocks very efficient when readers are much
      more common than writers.
 
-     FRlocks are ‘not’ suitable when it is not safe at all for readers
+     FRlocks are _not_ suitable when it is not safe at all for readers
      and writers to operate on the same data in parallel: they provide
      consistency, not exclusion between readers and writers.  Hence
-     using an frlock to eg.  protect an SBCL hash-table is unsafe.  If
+     using an frlock to e.g.  protect an SBCL hash-table is unsafe.  If
      multiple readers operating in parallel with a writer would be safe
      but inconsistent without a lock, frlocks are suitable.
 
@@ -3823,7 +3842,7 @@ File: sbcl.info,  Node: sb concurrency frlocks,  Prev: sb concurrency gates,  Up
           timeout
      Acquires ‘frlock’ for writing, invalidating existing and future
      read-tokens for the duration.  Returns ‘t’ on success, and ‘nil’ if
-     the lock wasn't acquired due to eg.  a timeout.  Using
+     the lock wasn't acquired due to e.g.  a timeout.  Using
      ‘frlock-write’ instead is recommended.
  -- Function: sb-concurrency:release-frlock-write-lock frlock
      Releases ‘frlock’ after writing, allowing valid read-tokens to be
@@ -5740,10 +5759,271 @@ Appendix A Concept Index
  [index ]
 * Menu:
 
-* Read-Eval-Print Loop:                  initialization files. (line 24)
-* Read-Eval-Print Loop <1>:              contributed modules.  (line 25)
-* REPL:                                  initialization files. (line 24)
-* REPL <1>:                              contributed modules.  (line 24)
+* actual source:                         parts of a compiler diagnostic.
+                                                              (line  21)
+* actual source <1>:                     original and actual source.
+                                                              (line   3)
+* arithmetic, hardware:                  modular arithmetic.  (line   3)
+* arithmetic, hardware <1>:              recognized idioms.   (line   3)
+* arithmetic, modular:                   modular arithmetic.  (line   3)
+* arithmetic, modular <1>:               recognized idioms.   (line   3)
+* asynchronous timeout:                  asynchronous timeouts.
+                                                              (line   3)
+* basic block:                           source location availability.
+                                                              (line  16)
+* block compilation, debugger implications: entry point details.
+                                                              (line   3)
+* block, basic:                          source location availability.
+                                                              (line  16)
+* block, start location:                 source location availability.
+                                                              (line  21)
+* breakpoint:                            breakpoint commands. (line   3)
+* cleanup, stack frame kind:             entry point details. (line   3)
+* code location unknown:                 unknown locations and interrupts.
+                                                              (line   3)
+* compatibility with other Lisps:        getting existing programs to run.
+                                                              (line   3)
+* compile-time type error:               type errors at compile time.
+                                                              (line   3)
+* compiler message severity:             diagnostic severity. (line   3)
+* compiler messsage:                     diagnostic messages. (line   3)
+* compiler messsage verbosity:           controlling verbosity.
+                                                              (line   3)
+* compiler read error:                   read errors.         (line   3)
+* conservative garbage collector:        history and implementation of sbcl.
+                                                              (line  59)
+* deadline:                              synchronous timeouts.
+                                                              (line   3)
+* debug variable, value availabilty:     variable value availability.
+                                                              (line   3)
+* debug variables:                       variable access.     (line   3)
+* debug, optimization quality:           variable value availability.
+                                                              (line  26)
+* debug, optimization quality <1>:       source location availability.
+                                                              (line   6)
+* debug, optimization quality <2>:       debugger policy control.
+                                                              (line   6)
+* debugger:                              debugger.            (line   3)
+* debugger policy:                       debugger policy control.
+                                                              (line   3)
+* debugger, disabling:                   enabling and disabling the debugger.
+                                                              (line   3)
+* debugger, enabling:                    enabling and disabling the debugger.
+                                                              (line   3)
+* decimal syntax for rationals:          decimal syntax for rationals.
+                                                              (line   3)
+* declaration:                           lexical bindings and declarations.
+                                                              (line   6)
+* deprecation:                           deprecation.         (line   3)
+* disabling debugger:                    enabling and disabling the debugger.
+                                                              (line   3)
+* disabling LDB:                         runtime options.     (line   6)
+* disabling LDB <1>:                     enabling and disabling the debugger.
+                                                              (line   3)
+* efficicency:                           efficiency.          (line   3)
+* enabling debugger:                     enabling and disabling the debugger.
+                                                              (line   3)
+* enabling LDB:                          runtime options.     (line   6)
+* enabling LDB <1>:                      enabling and disabling the debugger.
+                                                              (line   3)
+* entry point, external:                 entry point details. (line   3)
+* error, run-time:                       unknown locations and interrupts.
+                                                              (line  16)
+* existing programs, getting them to run: getting existing programs to run.
+                                                              (line   3)
+* extended package prefix syntax:        extended package prefix syntax.
+                                                              (line   3)
+* external entry point:                  entry point details. (line   3)
+* external format:                       external formats.    (line   3)
+* external format <1>:                   foreign type specifiers.
+                                                              (line  35)
+* external format <2>:                   stream external formats.
+                                                              (line   6)
+* external, stack frame kind:            entry point details. (line   3)
+* finalization:                          finalization.        (line   3)
+* format, external:                      external formats.    (line   3)
+* format, external <1>:                  foreign type specifiers.
+                                                              (line  35)
+* format, external <2>:                  stream external formats.
+                                                              (line   6)
+* function, tracing:                     function tracing.    (line   3)
+* garbage collection:                    garbage collection.  (line   3)
+* garbage collector, conservative:       history and implementation of sbcl.
+                                                              (line  59)
+* garbage collector, generational:       history and implementation of sbcl.
+                                                              (line  32)
+* garbage collector, generational <1>:   miscellaneous efficiency issues.
+                                                              (line  42)
+* garbage collector, generational <2>:   efficiency hacks.    (line   6)
+* garbage collector, generational <3>:   calling lisp from c. (line  55)
+* garbage collector, generational <4>:   statistical profiler.
+                                                              (line 117)
+* generational garbage collector:        history and implementation of sbcl.
+                                                              (line  32)
+* generational garbage collector <1>:    miscellaneous efficiency issues.
+                                                              (line  42)
+* generational garbage collector <2>:    efficiency hacks.    (line   6)
+* generational garbage collector <3>:    calling lisp from c. (line  55)
+* generational garbage collector <4>:    statistical profiler.
+                                                              (line 117)
+* hash table:                            hash table extensions.
+                                                              (line   6)
+* inline expansion:                      open coding and inline expansion.
+                                                              (line   3)
+* inline, semi:                          debugger policy control.
+                                                              (line  66)
+* interning symbols:                     extended package prefix syntax.
+                                                              (line   6)
+* interpreter:                           interpreter.         (line   3)
+* interrupt:                             unknown locations and interrupts.
+                                                              (line  16)
+* LDB:                                   how to report signal related bugs.
+                                                              (line  10)
+* LDB <1>:                               runtime options.     (line   6)
+* LDB <2>:                               runtime options.     (line   6)
+* LDB, disabling:                        runtime options.     (line   6)
+* LDB, disabling <1>:                    enabling and disabling the debugger.
+                                                              (line   3)
+* LDB, enabling:                         runtime options.     (line   6)
+* LDB, enabling <1>:                     enabling and disabling the debugger.
+                                                              (line   3)
+* lock, package:                         extended package prefix syntax.
+                                                              (line  16)
+* lock, package <1>:                     package locks.       (line   3)
+* logical pathname:                      the sys logical pathname host.
+                                                              (line   6)
+* macroexpansion:                        processing paths.    (line  30)
+* macroexpansion, errors during:         errors during macroexpansion.
+                                                              (line   3)
+* messsage, compiler:                    diagnostic messages. (line   3)
+* modular arithmetic:                    modular arithmetic.  (line   3)
+* modular arithmetic <1>:                recognized idioms.   (line   3)
+* nicknames, package-local:              package local nicknames.
+                                                              (line   3)
+* normalization of strings:              string operations.   (line   3)
+* normalization of symbol name:          symbol name normalization.
+                                                              (line   3)
+* open-coding:                           open coding and inline expansion.
+                                                              (line   3)
+* optimization quality debug:            variable value availability.
+                                                              (line  26)
+* optimization quality debug <1>:        source location availability.
+                                                              (line   6)
+* optimization quality debug <2>:        debugger policy control.
+                                                              (line   6)
+* optimization quality safety:           declarations as assertions.
+                                                              (line  16)
+* optimization quality safety <1>:       getting existing programs to run.
+                                                              (line  12)
+* optimization quality safety <2>:       stack allocation.    (line  33)
+* optional, stack frame kind:            entry point details. (line   3)
+* original source:                       parts of a compiler diagnostic.
+                                                              (line  21)
+* original source <1>:                   original and actual source.
+                                                              (line   3)
+* package lock:                          extended package prefix syntax.
+                                                              (line  16)
+* package lock <1>:                      package locks.       (line   3)
+* package prefix syntax, extended:       extended package prefix syntax.
+                                                              (line   3)
+* package-local nicknames:               package local nicknames.
+                                                              (line   3)
+* pathname:                              pathnames.           (line   3)
+* pathname, logical:                     the sys logical pathname host.
+                                                              (line   6)
+* policy, debugger:                      debugger policy control.
+                                                              (line   3)
+* precise type checking:                 precise type checking.
+                                                              (line   3)
+* processing path:                       parts of a compiler diagnostic.
+                                                              (line  21)
+* processing path <1>:                   processing paths.    (line   3)
+* profiling:                             profiling.           (line   3)
+* profiling, deterministic:              deterministic profiler.
+                                                              (line   3)
+* profiling, statistical:                statistical profiler.
+                                                              (line   3)
+* random number generation:              random number generation.
+                                                              (line   3)
+* rational, decimal syntax:              decimal syntax for rationals.
+                                                              (line   3)
+* read error, compiler:                  read errors.         (line   3)
+* Read-Eval-Print Loop:                  initialization files.
+                                                              (line  10)
+* Read-Eval-Print Loop <1>:              sb aclrepl.          (line   3)
+* reader extensions:                     beyond the ansi standard.
+                                                              (line   3)
+* recursion, tail:                       debug tail recursion.
+                                                              (line   6)
+* REPL:                                  initialization files.
+                                                              (line  10)
+* REPL <1>:                              sb aclrepl.          (line   3)
+* run-time error:                        unknown locations and interrupts.
+                                                              (line  16)
+* safety, optimization quality:          declarations as assertions.
+                                                              (line  16)
+* safety, optimization quality <1>:      getting existing programs to run.
+                                                              (line  12)
+* safety, optimization quality <2>:      stack allocation.    (line  33)
+* semi-inline:                           debugger policy control.
+                                                              (line  66)
+* severity of compiler message:          diagnostic severity. (line   3)
+* single-stepping:                       single stepping.     (line   3)
+* slot access:                           slot access.         (line   3)
+* slot, unbound:                         extended slot access.
+                                                              (line  13)
+* slot, unbound <1>:                     metaobject protocol extensions.
+                                                              (line   9)
+* source location in debugger:           source location printing.
+                                                              (line   3)
+* source transform:                      processing paths.    (line  30)
+* source, actual:                        parts of a compiler diagnostic.
+                                                              (line  21)
+* source, actual <1>:                    original and actual source.
+                                                              (line   3)
+* source, original:                      parts of a compiler diagnostic.
+                                                              (line  21)
+* source, original <1>:                  original and actual source.
+                                                              (line   3)
+* stack frame:                           stack frames.        (line   3)
+* static functions:                      open coding and inline expansion.
+                                                              (line   3)
+* stepper:                               single stepping.     (line   3)
+* symbol name normalization:             symbol name normalization.
+                                                              (line   3)
+* symbols, interning:                    extended package prefix syntax.
+                                                              (line   6)
+* synchronous timeout:                   synchronous timeouts.
+                                                              (line   3)
+* tail recursion:                        debug tail recursion.
+                                                              (line   6)
+* timeout parameters:                    timeout parameters.  (line   3)
+* timeout, asynchronous:                 asynchronous timeouts.
+                                                              (line   3)
+* timeout, synchronous:                  synchronous timeouts.
+                                                              (line   3)
+* tracing:                               function tracing.    (line   3)
+* type checking, precise:                precise type checking.
+                                                              (line   3)
+* type error, compile-time:              type errors at compile time.
+                                                              (line   3)
+* types, portability:                    getting existing programs to run.
+                                                              (line   3)
+* unbound slot:                          extended slot access.
+                                                              (line  13)
+* unbound slot <1>:                      metaobject protocol extensions.
+                                                              (line   9)
+* Unicode:                               symbol name normalization.
+                                                              (line   6)
+* Unicode <1>:                           unicode support.     (line   3)
+* unknown code location:                 unknown locations and interrupts.
+                                                              (line   3)
+* variable, debugger access:             variable access.     (line   3)
+* variable, value availabilty in debugger: variable value availability.
+                                                              (line   3)
+* verbosity of compiler messsages:       controlling verbosity.
+                                                              (line   3)
+* weak pointers:                         weak pointers.       (line   3)
 
 
 File: sbcl.info,  Node: function index,  Next: variable index,  Prev: concept index,  Up: Top
@@ -5782,9 +6062,9 @@ Appendix B Function and Macro Index
                                                               (line  44)
 * atomic-decf [sb-ext]:                  atomic operations.   (line   9)
 * atomic-incf [sb-ext]:                  atomic operations.   (line  42)
-* atomic-pop [sb-ext]:                   atomic operations.   (line  69)
-* atomic-push [sb-ext]:                  atomic operations.   (line  76)
-* atomic-update [sb-ext]:                atomic operations.   (line  83)
+* atomic-pop [sb-ext]:                   atomic operations.   (line  73)
+* atomic-push [sb-ext]:                  atomic operations.   (line  80)
+* atomic-update [sb-ext]:                atomic operations.   (line  87)
 * barrier [sb-thread]:                   barriers.            (line  28)
 * bidi-class [sb-unicode]:               unicode property access.
                                                               (line  12)
@@ -5795,7 +6075,7 @@ Appendix B Function and Macro Index
 * cancel-deadline [sb-sys]:              synchronous timeouts.
                                                               (line  43)
 * cancel-finalization [sb-ext]:          finalization.        (line  57)
-* cas [sb-ext]:                          atomic operations.   (line 145)
+* cas [sb-ext]:                          atomic operations.   (line 149)
 * case-ignorable-p [sb-unicode]:         unicode property access.
                                                               (line  83)
 * cased-p [sb-unicode]:                  unicode property access.
@@ -5813,7 +6093,7 @@ Appendix B Function and Macro Index
                                                               (line  16)
 * combining-class [sb-unicode]:          unicode property access.
                                                               (line  14)
-* compare-and-swap [sb-ext]:             atomic operations.   (line 114)
+* compare-and-swap [sb-ext]:             atomic operations.   (line 118)
 * concatenate [sb-sequence]:             extensible sequences.
                                                               (line 143)
 * condition-broadcast [sb-thread]:       waitqueue/condition variables.
@@ -5966,7 +6246,7 @@ Appendix B Function and Macro Index
                                                               (line  65)
 * get-bytes-consed [sb-ext]:             introspection and tuning.
                                                               (line  26)
-* get-cas-expansion [sb-ext]:            atomic operations.   (line 164)
+* get-cas-expansion [sb-ext]:            atomic operations.   (line 168)
 * get-errno [sb-alien]:                  external foreign variables.
                                                               (line  49)
 * get-foreground [sb-thread]:            sessions/debugging.  (line  27)
@@ -6074,7 +6354,7 @@ Appendix B Function and Macro Index
 * map-root [sb-introspect]:              sb introspect allocation.
                                                               (line  52)
 * map-traces [sb-sprof]:                 statistical profiler.
-                                                              (line 169)
+                                                              (line 182)
 * math-p [sb-unicode]:                   unicode property access.
                                                               (line  92)
 * md5sum-file [sb-md5]:                  sb md5.              (line   8)
@@ -6135,31 +6415,31 @@ Appendix B Function and Macro Index
 * posix-environ [sb-ext]:                support for unix.    (line  20)
 * posix-getenv [sb-ext]:                 support for unix.    (line  16)
 * process-alive-p [sb-ext]:              running external programs.
-                                                              (line 197)
+                                                              (line 199)
 * process-close [sb-ext]:                running external programs.
-                                                              (line 211)
+                                                              (line 213)
 * process-core-dumped [sb-ext]:          running external programs.
-                                                              (line 209)
+                                                              (line 211)
 * process-error [sb-ext]:                running external programs.
-                                                              (line 195)
+                                                              (line 197)
 * process-exit-code [sb-ext]:            running external programs.
-                                                              (line 207)
+                                                              (line 209)
 * process-input [sb-ext]:                running external programs.
-                                                              (line 191)
-* process-kill [sb-ext]:                 running external programs.
-                                                              (line 216)
-* process-output [sb-ext]:               running external programs.
                                                               (line 193)
+* process-kill [sb-ext]:                 running external programs.
+                                                              (line 218)
+* process-output [sb-ext]:               running external programs.
+                                                              (line 195)
 * process-p [sb-ext]:                    running external programs.
-                                                              (line 189)
+                                                              (line 191)
 * process-status [sb-ext]:               running external programs.
-                                                              (line 200)
+                                                              (line 202)
 * process-wait [sb-ext]:                 running external programs.
-                                                              (line 203)
+                                                              (line 205)
 * profile [sb-profile]:                  deterministic profiler.
                                                               (line  11)
 * profile-call-counts [sb-sprof]:        statistical profiler.
-                                                              (line 277)
+                                                              (line 290)
 * proplist-p [sb-unicode]:               unicode property access.
                                                               (line  70)
 * queue-count [sb-concurrency]:          sb concurrency queue.
@@ -6185,7 +6465,7 @@ Appendix B Function and Macro Index
 * release-foreground [sb-thread]:        sessions/debugging.  (line  28)
 * release-frlock-write-lock [sb-concurrency]: sb concurrency frlocks.
                                                               (line  83)
-* release-mutex [sb-thread]:             mutex support.       (line 121)
+* release-mutex [sb-thread]:             mutex support.       (line 123)
 * remove [sb-sequence]:                  extensible sequences.
                                                               (line 218)
 * remove-duplicates [sb-sequence]:       extensible sequences.
@@ -6204,13 +6484,13 @@ Appendix B Function and Macro Index
 * report [sb-profile]:                   deterministic profiler.
                                                               (line  27)
 * report [sb-sprof]:                     statistical profiler.
-                                                              (line 187)
+                                                              (line 200)
 * require [common-lisp]:                 customization hooks for users.
                                                               (line  14)
 * reset [sb-profile]:                    deterministic profiler.
                                                               (line  36)
 * reset [sb-sprof]:                      statistical profiler.
-                                                              (line 240)
+                                                              (line 253)
 * reset-coverage [sb-cover]:             sb cover.            (line  56)
 * restore-coverage [sb-cover]:           sb cover.            (line  72)
 * restore-coverage-from-file [sb-cover]: sb cover.            (line  75)
@@ -6222,7 +6502,7 @@ Appendix B Function and Macro Index
 * run-program [sb-ext]:                  running external programs.
                                                               (line  19)
 * sample-pc [sb-sprof]:                  statistical profiler.
-                                                              (line 180)
+                                                              (line 193)
 * sap-alien [sb-alien]:                  coercing foreign values.
                                                               (line  17)
 * sap-ref-32 [sb-sys]:                   untyped memory.      (line  15)
@@ -6281,10 +6561,10 @@ Appendix B Function and Macro Index
 * stable-sort [sb-sequence]:             extensible sequences.
                                                               (line 184)
 * start-profiling [sb-sprof]:            statistical profiler.
-                                                              (line 242)
+                                                              (line 255)
 * step [common-lisp]:                    single stepping.     (line  31)
 * stop-profiling [sb-sprof]:             statistical profiler.
-                                                              (line 275)
+                                                              (line 288)
 * stream-advance-to-column [sb-gray]:    character output stream methods.
                                                               (line   9)
 * stream-clear-input [sb-gray]:          input stream methods.
@@ -6375,9 +6655,9 @@ Appendix B Function and Macro Index
 * unprofile [sb-profile]:                deterministic profiler.
                                                               (line  21)
 * unprofile-call-counts [sb-sprof]:      statistical profiler.
-                                                              (line 284)
+                                                              (line 297)
 * unschedule-timer [sb-ext]:             timers.              (line  74)
-* untrace [common-lisp]:                 function tracing.    (line 140)
+* untrace [common-lisp]:                 function tracing.    (line 141)
 * uppercase [sb-unicode]:                string operations.   (line  19)
 * uppercase-p [sb-unicode]:              unicode property access.
                                                               (line  74)
@@ -6422,7 +6702,7 @@ Appendix B Function and Macro Index
                                                               (line 123)
 * with-recursive-lock [sb-thread]:       mutex support.       (line  49)
 * with-sampling [sb-sprof]:              statistical profiler.
-                                                              (line 164)
+                                                              (line 177)
 * with-sequence-iterator [sb-sequence]:  exseq iterator protocol.
                                                               (line  41)
 * with-sequence-iterator-functions [sb-sequence]: exseq iterator protocol.
@@ -6436,156 +6716,4 @@ Appendix B Function and Macro Index
 * word-break-class [sb-unicode]:         unicode property access.
                                                               (line 111)
 * words [sb-unicode]:                    breaking strings.    (line  12)
-
-
-File: sbcl.info,  Node: variable index,  Next: type index,  Prev: function index,  Up: Top
-
-Appendix C Variable and Constant Index
-**************************************
-
- [index ]
-* Menu:
-
-* *after-gc-hooks* [sb-ext]:             garbage collection.  (line  24)
-* *command-char* [sb-aclrepl]:           sb aclrepl customization.
-                                                              (line   8)
-* *compiler-print-variable-alist* [sb-ext]: controlling verbosity.
-                                                              (line  46)
-* *core-pathname* [sb-ext]:              saving a core image. (line 164)
-* *current-thread* [sb-thread]:          thread objects.      (line   9)
-* *debug-print-variable-alist* [sb-ext]: debugger command loop.
-                                                              (line  27)
-* *default-c-string-external-format* [sb-ext]: default external format.
-                                                              (line  10)
-* *default-external-format* [sb-ext]:    default external format.
-                                                              (line   6)
-* *default-source-external-format* [sb-ext]: default external format.
-                                                              (line   9)
-* *ed-functions* [sb-ext]:               customization hooks for users.
-                                                              (line  33)
-* *evaluator-mode* [sb-ext]:             interpreter.         (line  13)
-* *exit-hooks* [sb-ext]:                 initialization and exit hooks.
-                                                              (line  15)
-* *exit-on-eof* [sb-aclrepl]:            sb aclrepl customization.
-                                                              (line  12)
-* *gc-real-time* [sb-ext]:               introspection and tuning.
-                                                              (line  12)
-* *gc-run-time* [sb-ext]:                introspection and tuning.
-                                                              (line   6)
-* *init-hooks* [sb-ext]:                 initialization and exit hooks.
-                                                              (line   8)
-* *invoke-debugger-hook* [sb-ext]:       debugger invocation. (line  27)
-* *max-history* [sb-aclrepl]:            sb aclrepl customization.
-                                                              (line  16)
-* *max-samples* [sb-sprof]:              statistical profiler.
-                                                              (line 289)
-* *max-trace-indentation* [sb-debug]:    function tracing.    (line 145)
-* *module-provider-functions* [sb-ext]:  customization hooks for users.
-                                                              (line  22)
-* *muffled-warnings* [sb-ext]:           customization hooks for users.
-                                                              (line  40)
-* *on-package-variance* [sb-ext]:        package variance.    (line  12)
-* *posix-argv* [sb-ext]:                 support for unix.    (line  10)
-* *prompt* [sb-aclrepl]:                 sb aclrepl customization.
-                                                              (line  10)
-* *sample-interval* [sb-sprof]:          statistical profiler.
-                                                              (line 291)
-* *save-hooks* [sb-ext]:                 saving a core image. (line 141)
-* *stack-allocate-dynamic-extent* [sb-ext]: stack allocation. (line  11)
-* *sysinit-pathname-function* [sb-ext]:  saving a core image. (line 150)
-* *trace-encapsulate-default* [sb-debug]: function tracing.   (line 148)
-* *trace-indentation-step* [sb-debug]:   function tracing.    (line 143)
-* *trace-report-default* [sb-debug]:     function tracing.    (line 150)
-* *use-short-package-name* [sb-aclrepl]: sb aclrepl customization.
-                                                              (line  14)
-* *userinit-pathname-function* [sb-ext]: saving a core image. (line 155)
-
-
-File: sbcl.info,  Node: type index,  Next: declaration index,  Prev: variable index,  Up: Top
-
-Appendix D Type Index
-*********************
-
- [index ]
-* Menu:
-
-* code-deletion-note [sb-ext]:           diagnostic severity.  (line 35)
-* compiler-note [sb-ext]:                diagnostic severity.  (line 30)
-* deadline-timeout [sb-sys]:             synchronous timeouts. (line 35)
-* definition-source [sb-introspect]:     finding definitions.  (line  6)
-* deprecation-condition [sb-ext]:        deprecation conditions.
-                                                               (line 10)
-* deprecation-error [sb-ext]:            deprecation conditions.
-                                                               (line 24)
-* early-deprecation-warning [sb-ext]:    deprecation conditions.
-                                                               (line 12)
-* file-descriptor [sb-posix]:            sb posix file descriptors.
-                                                               (line  6)
-* file-descriptor-designator [sb-posix]: sb posix file descriptors.
-                                                               (line 15)
-* filename [sb-posix]:                   sb posix filenames.   (line  6)
-* filename-designator [sb-posix]:        sb posix filenames.   (line 33)
-* final-deprecation-warning [sb-ext]:    deprecation conditions.
-                                                               (line 20)
-* flock [sb-posix]:                      sb posix lisp objects and c structures.
-                                                               (line 28)
-* frlock [sb-concurrency]:               sb concurrency frlocks.
-                                                               (line  6)
-* fundamental-binary-input-stream [sb-gray]: gray streams classes.
-                                                               (line 30)
-* fundamental-binary-output-stream [sb-gray]: gray streams classes.
-                                                               (line 33)
-* fundamental-binary-stream [sb-gray]:   gray streams classes. (line 20)
-* fundamental-character-input-stream [sb-gray]: gray streams classes.
-                                                               (line 36)
-* fundamental-character-output-stream [sb-gray]: gray streams classes.
-                                                               (line 39)
-* fundamental-character-stream [sb-gray]: gray streams classes.
-                                                               (line 27)
-* fundamental-input-stream [sb-gray]:    gray streams classes. (line 10)
-* fundamental-output-stream [sb-gray]:   gray streams classes. (line 15)
-* fundamental-stream [sb-gray]:          gray streams classes. (line  8)
-* gate [sb-concurrency]:                 sb concurrency gates. (line  9)
-* group [sb-posix]:                      sb posix lisp objects and c structures.
-                                                               (line 33)
-* host-ent [sb-bsd-sockets]:             name service.         (line 13)
-* inet-socket [sb-bsd-sockets]:          inet domain sockets.  (line 25)
-* inet6-socket [sb-bsd-sockets]:         inet domain sockets.  (line 33)
-* interrupt-thread-error [sb-thread]:    error conditions.     (line 19)
-* join-thread-error [sb-thread]:         error conditions.     (line 23)
-* late-deprecation-warning [sb-ext]:     deprecation conditions.
-                                                               (line 16)
-* local-abstract-socket [sb-bsd-sockets]: local domain sockets.
-                                                               (line 21)
-* local-socket [sb-bsd-sockets]:         local domain sockets. (line 14)
-* mailbox [sb-concurrency]:              sb concurrency mailbox.
-                                                               (line 13)
-* mutex [sb-thread]:                     mutex support.        (line 27)
-* package-lock-violation [sb-ext]:       package lock dictionary.
-                                                               (line 21)
-* package-locked-error [sb-ext]:         package lock dictionary.
-                                                               (line 24)
-* passwd [sb-posix]:                     sb posix lisp objects and c structures.
-                                                               (line 30)
-* protocol-unimplemented [sb-sequence]:  extensible sequences. (line 82)
-* queue [sb-concurrency]:                sb concurrency queue. (line 15)
-* semaphore [sb-thread]:                 semaphores.           (line 10)
-* semaphore-notification [sb-thread]:    semaphores.           (line 47)
-* socket [sb-bsd-sockets]:               general sockets.      (line  6)
-* stat [sb-posix]:                       sb posix lisp objects and c structures.
-                                                               (line 36)
-* symbol-package-locked-error [sb-ext]:  package lock dictionary.
-                                                               (line 28)
-* symbol-value-in-thread-error [sb-thread]: error conditions.  (line 13)
-* termios [sb-posix]:                    sb posix lisp objects and c structures.
-                                                               (line 38)
-* thread [sb-thread]:                    thread objects.       (line  6)
-* thread-error [sb-thread]:              error conditions.     (line  6)
-* timeout [sb-ext]:                      asynchronous timeouts.
-                                                               (line 37)
-* timer [sb-ext]:                        timers.               (line 38)
-* timeval [sb-posix]:                    sb posix lisp objects and c structures.
-                                                               (line 41)
-* waitqueue [sb-thread]:                 waitqueue/condition variables.
-                                                               (line 66)
 

@@ -11,10 +11,10 @@ which was produced at Carnegie Mellon University and later released
 into the public domain. This manual is in the public domain and is
 provided with absolutely no warranty. See the COPYING and
 CREDITS files for more information. -->
-<title>SBCL 2.6.5.32.pax-doc.17-1cbba9c93 User Manual</title>
+<title>SBCL 2.6.5.32.pax-doc.18-b999eeefd User Manual</title>
 
-<meta name="description" content="SBCL 2.6.5.32.pax-doc.17-1cbba9c93 User Manual">
-<meta name="keywords" content="SBCL 2.6.5.32.pax-doc.17-1cbba9c93 User Manual">
+<meta name="description" content="SBCL 2.6.5.32.pax-doc.18-b999eeefd User Manual">
+<meta name="keywords" content="SBCL 2.6.5.32.pax-doc.18-b999eeefd User Manual">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -375,7 +375,7 @@ provided with absolutely no warranty. See the <samp class="file">COPYING</samp> 
       <ul class="toc-numbered-mark">
         <li><a id="toc-Parts-of-a-Compiler-Diagnostic" href="#parts-of-a-compiler-diagnostic">4.1.3.1 Parts of a Compiler Diagnostic</a></li>
         <li><a id="toc-Original-and-Actual-Source" href="#original-and-actual-source">4.1.3.2 Original and Actual Source</a></li>
-        <li><a id="toc-Processing-Path" href="#processing-path">4.1.3.3 Processing Path</a></li>
+        <li><a id="toc-Processing-Paths" href="#processing-paths">4.1.3.3 Processing Paths</a></li>
       </ul></li>
     </ul></li>
     <li><a id="toc-Handling-of-Types" href="#handling-of-types">4.2 Handling of Types</a>
@@ -881,8 +881,9 @@ Previous: <a href="#how-to-report-bugs-effectively" accesskey="p" rel="prev">How
 such as <code class="code">signal N is [un]blocked</code> or just hangs, and you want to
 send a useful bug report then:
 </p>
+<a class="index-entry-id" id="index-LDB"></a>
 <ul class="itemize mark-bullet">
-<li>Compile SBCL with ldb enabled (feature <code class="code">:sb-ldb</code>, see
+<li>Compile SBCL with LDB enabled (feature <code class="code">:sb-ldb</code>, see
   <code class="code">base-target-features.lisp-expr</code>).
 
 </li><li>Isolate a smallish test case, run it.
@@ -1068,8 +1069,8 @@ also supports allocation profiling.
   regression and unit-test framework.
 
 </li><li><strong class="strong">MD5 Sums:</strong> The <a class="ref" href="#sb-md5">sb-md5</a> module provides an implementation of the
-  MD5 message digest algorithm for Common Lisp, using the modular
-  arithmetic optimizations provided by SBCL.
+  MD5 message digest algorithm for Common Lisp, using the
+  <a class="ref" href="#modular-arithmetic">Modular Arithmetic</a> optimizations provided by SBCL.
 </li></ul>
 
 <hr>
@@ -1555,11 +1556,12 @@ still reflected in the current implementation:
   supplying low-level services and loading a Lisp <code class="code">.core</code> file.
 </li></ul>
 
+<a class="index-entry-id" id="index-garbage-collector_002c-generational"></a>
+<a class="index-entry-id" id="index-generational-garbage-collector"></a>
 <p>SBCL also inherited some newer architectural features from CMUCL.
 The most important is that on some architectures it has a
-generational garbage collector (GC), which has various
-implications (mostly good) for performance. These are discussed in
-another chapter, <a class="ref" href="#efficiency">Efficiency</a>.
+generational GC, which has various implications (mostly good) for
+performance. These are discussed in another chapter, <a class="ref" href="#efficiency">Efficiency</a>.
 </p>
 <p>SBCL has diverged from CMUCL in that SBCL is now essentially a
 compiler-only implementation of Common Lisp. This is a change in
@@ -1584,8 +1586,10 @@ x86 architecture. Some things (like tracing and debugging) do not work
 particularly well there. SBCL should be able to improve in these areas
 (and has already improved in some other areas), but it takes a while.
 </p>
+<a class="index-entry-id" id="index-garbage-collector_002c-conservative"></a>
+<a class="index-entry-id" id="index-conservative-garbage-collector"></a>
 <p>On the x86 SBCL &ndash; like the x86 port of CMUCL &ndash; uses a
-<em class="emph">conservative</em> GC. This means that it doesn&rsquo;t maintain a strict
+_@CONSERVATIVE-GC. This means that it doesn&rsquo;t maintain a strict
 separation between tagged and untagged data, instead treating some
 untagged data (e.g. raw floating point numbers) as possibly-tagged
 data and so not collecting any Lisp objects that they point to. This
@@ -1593,9 +1597,9 @@ has some negative consequences for average time efficiency (though
 possibly no worse than the negative consequences of trying to
 implement an exact GC on a processor architecture as register-poor
 as the X86) and also has potentially unlimited consequences for
-worst-case memory efficiency. In practice, conservative garbage
-collectors work reasonably well, not getting anywhere near the worst
-case. But they can occasionally cause odd patterns of memory usage.
+worst-case memory efficiency. In practice, conservative GCs work
+reasonably well, not getting anywhere near the worst case. But they
+can occasionally cause odd patterns of memory usage.
 </p>
 <p>The fork from CMUCL was based on a major rewrite of the system
 bootstrap process. CMUCL has for many years tolerated a very unusual
@@ -1953,15 +1957,18 @@ be <code class="code">save-lisp-and-die</code> friendly by registering a save-ho
 any additional threads, and an init-hook that restarts them.
 </p>
 <p>This implementation is not as polished and painless as you might like:
-</p><ul class="itemize mark-bullet">
+</p>
+<ul class="itemize mark-bullet">
 <li>It corrupts the current Lisp image enough that the current process
-    needs to be killed afterwards. This can be worked around by forking
-    another process that saves the core.
+  needs to be killed afterwards. This can be worked around by forking
+  another process that saves the core.
+
 </li><li>There is absolutely no binary compatibility of core images between
-    different runtime support programs. Even runtimes built from the same
-    sources at different times are treated as incompatible for this
-    purpose.
+  different runtime support programs. Even runtimes built from the
+  same sources at different times are treated as incompatible for this
+  purpose.
 </li></ul>
+
 <p>This isn&rsquo;t because we like it this way, but just because there don&rsquo;t
 seem to be good quick fixes for either limitation and no one has been
 sufficiently motivated to do lengthy fixes.
@@ -2075,6 +2082,12 @@ Next: <a href="#toplevel-options" accesskey="n" rel="next">Toplevel Options</a>,
 </div>
 <h4 class="subsection" id="Runtime-Options"><span>3.3.1 Runtime Options<a class="copiable-link" href="#Runtime-Options"> &para;</a></span></h4>
 
+<a class="index-entry-id" id="index-LDB-1"></a>
+<a class="index-entry-id" id="index-disabling-LDB"></a>
+<a class="index-entry-id" id="index-LDB_002c-disabling"></a>
+<a class="index-entry-id" id="index-LDB-2"></a>
+<a class="index-entry-id" id="index-enabling-LDB"></a>
+<a class="index-entry-id" id="index-LDB_002c-enabling"></a>
 <ul class="itemize mark-bullet">
 <li><code class="code">--core &lt;corefilename&gt;</code>
 
@@ -2108,7 +2121,7 @@ and <code class="code">--disable-debugger</code> options.
 </li><li><code class="code">--disable-ldb</code>
 
 <p>Disable the low-level debugger. Only effective if SBCL is
-compiled with <code class="code">ldb</code>.
+compiled with LDB. disabling LDB
 </p>
 </li><li><code class="code">--lose-on-corruption</code>
 
@@ -2118,7 +2131,7 @@ corrupt the image. By default, SBCL prints a warning, then tries
 to continue and handle the error in Lisp, but this will not
 always work, and SBCL may malfunction or even hang. With this
 option, upon encountering such an error, SBCL will exit instead
-of invoking <code class="code">ldb</code> (if present and enabled).
+of invoking LDB (if present and enabled enabling LDB).
 </p>
 </li><li><code class="code">--script &lt;filename&gt;</code>
 
@@ -2266,6 +2279,8 @@ not <code class="code">load</code>; hence initialization files can be used to se
 <code class="code">*package*</code> and <code class="code">*readtable*</code>, and for proclaiming a global optimization
 policy.
 </p>
+<a class="index-entry-id" id="index-Read_002dEval_002dPrint-Loop"></a>
+<a class="index-entry-id" id="index-REPL"></a>
 <ul class="itemize mark-bullet">
 <li><strong class="strong">System Initialization File:</strong> Defaults to <code class="code">$SBCL_HOME/sbclrc</code>,
   or if that doesn&rsquo;t exist to <code class="code">/etc/sbclrc</code>. Can be overridden with
@@ -2282,8 +2297,6 @@ installed third party modules, etc.
 
 <p>The user initialization file is intended for personal
 customizations, such as loading certain modules at startup,
-<a class="index-entry-id" id="index-Read_002dEval_002dPrint-Loop"></a>
-<a class="index-entry-id" id="index-REPL"></a>
 defining convenience functions to use in the REPL,
 handling automatic recompilation of FASLs (see <a class="ref" href="#fasl-format">FASL format</a>),
 etc.
@@ -2358,6 +2371,8 @@ separate that they have their own chapter, <a class="ref" href="#efficiency">Eff
 <p>
 Next: <a href="#handling-of-types" accesskey="n" rel="next">Handling of Types</a>, Up: <a href="#compiler" accesskey="u" rel="up">Compiler</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-compiler-messsage"></a>
+<a class="index-entry-id" id="index-messsage_002c-compiler"></a>
 <h3 class="section" id="Diagnostic-Messages"><span>4.1 Diagnostic Messages<a class="copiable-link" href="#Diagnostic-Messages"> &para;</a></span></h3>
 
 
@@ -2372,6 +2387,8 @@ Next: <a href="#handling-of-types" accesskey="n" rel="next">Handling of Types</a
 <p>
 Next: <a href="#diagnostic-severity" accesskey="n" rel="next">Diagnostic Severity</a>, Up: <a href="#diagnostic-messages" accesskey="u" rel="up">Diagnostic Messages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-compiler-messsage-verbosity"></a>
+<a class="index-entry-id" id="index-verbosity-of-compiler-messsages"></a>
 <h4 class="subsection" id="Controlling-Verbosity"><span>4.1.1 Controlling Verbosity<a class="copiable-link" href="#Controlling-Verbosity"> &para;</a></span></h4>
 
 <p>The compiler can be quite verbose in its diagnostic reporting, rather
@@ -2449,6 +2466,8 @@ compiler, see <a class="ref" href="#customization-hooks-for-users">Customization
 <p>
 Next: <a href="#understanding-compiler-diagnostics" accesskey="n" rel="next">Understanding Compiler Diagnostics</a>, Previous: <a href="#controlling-verbosity" accesskey="p" rel="prev">Controlling Verbosity</a>, Up: <a href="#diagnostic-messages" accesskey="u" rel="up">Diagnostic Messages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-compiler-message-severity"></a>
+<a class="index-entry-id" id="index-severity-of-compiler-message"></a>
 <h4 class="subsection" id="Diagnostic-Severity"><span>4.1.2 Diagnostic Severity<a class="copiable-link" href="#Diagnostic-Severity"> &para;</a></span></h4>
 
 <p>There are four levels of compiler diagnostic severity:
@@ -2521,7 +2540,7 @@ defined anywhere.
 <ul class="mini-toc">
 <li><a href="#parts-of-a-compiler-diagnostic" accesskey="1">Parts of a Compiler Diagnostic</a></li>
 <li><a href="#original-and-actual-source" accesskey="2">Original and Actual Source</a></li>
-<li><a href="#processing-path" accesskey="3">Processing Path</a></li>
+<li><a href="#processing-paths" accesskey="3">Processing Paths</a></li>
 </ul>
 <hr>
 <div class="subsubsection-level-extent" id="parts-of-a-compiler-diagnostic">
@@ -2548,6 +2567,11 @@ Next: <a href="#original-and-actual-source" accesskey="n" rel="next">Original an
 <p>In this example we see each of the six possible parts of a compiler
 diagnostic:
 </p>
+<a class="index-entry-id" id="index-original-source"></a>
+<a class="index-entry-id" id="index-source_002c-original"></a>
+<a class="index-entry-id" id="index-processing-path"></a>
+<a class="index-entry-id" id="index-actual-source"></a>
+<a class="index-entry-id" id="index-source_002c-actual"></a>
 <ul class="itemize mark-bullet">
 <li><code class="code">file: /tmp/foo.lisp</code> is the name of the file that the compiler
   read the relevant code from. The file name is displayed because it
@@ -2657,8 +2681,12 @@ the processing path will also be omitted.
 <div class="subsubsection-level-extent" id="original-and-actual-source">
 <div class="nav-panel">
 <p>
-Next: <a href="#processing-path" accesskey="n" rel="next">Processing Path</a>, Previous: <a href="#parts-of-a-compiler-diagnostic" accesskey="p" rel="prev">Parts of a Compiler Diagnostic</a>, Up: <a href="#understanding-compiler-diagnostics" accesskey="u" rel="up">Understanding Compiler Diagnostics</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#processing-paths" accesskey="n" rel="next">Processing Paths</a>, Previous: <a href="#parts-of-a-compiler-diagnostic" accesskey="p" rel="prev">Parts of a Compiler Diagnostic</a>, Up: <a href="#understanding-compiler-diagnostics" accesskey="u" rel="up">Understanding Compiler Diagnostics</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-original-source-1"></a>
+<a class="index-entry-id" id="index-source_002c-original-1"></a>
+<a class="index-entry-id" id="index-actual-source-1"></a>
+<a class="index-entry-id" id="index-source_002c-actual-1"></a>
 <h4 class="subsubsection" id="Original-and-Actual-Source"><span>4.1.3.2 Original and Actual Source<a class="copiable-link" href="#Original-and-Actual-Source"> &para;</a></span></h4>
 
 <p>The <em class="emph">original source</em> displayed will almost always be a list. If
@@ -2678,12 +2706,14 @@ compiler.
 diagnostic message, it always displays the most specific (innermost)
 responsible form. For example, compiling this function
 </p>
-<p>(defun bar (x)
-    (let (a)
-      (declare (fixnum a))
-      (setq a (foo x))
-      a))
-</p>
+<div class="example">
+<pre class="example-preformatted">(defun bar (x)
+  (let (a)
+    (declare (fixnum a))
+    (setq a (foo x))
+    a))
+</pre></div>
+
 <p>gives this error message
 </p>
 <div class="example">
@@ -2705,12 +2735,13 @@ this example, the problem is that <code class="code">a</code>&rsquo;s <code clas
 </p>
 <hr>
 </div>
-<div class="subsubsection-level-extent" id="processing-path">
+<div class="subsubsection-level-extent" id="processing-paths">
 <div class="nav-panel">
 <p>
 Previous: <a href="#original-and-actual-source" accesskey="p" rel="prev">Original and Actual Source</a>, Up: <a href="#understanding-compiler-diagnostics" accesskey="u" rel="up">Understanding Compiler Diagnostics</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
-<h4 class="subsubsection" id="Processing-Path"><span>4.1.3.3 Processing Path<a class="copiable-link" href="#Processing-Path"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-processing-path-1"></a>
+<h4 class="subsubsection" id="Processing-Paths"><span>4.1.3.3 Processing Paths<a class="copiable-link" href="#Processing-Paths"> &para;</a></span></h4>
 
 <p>The processing path is mainly useful for debugging macros, so if you
 don&rsquo;t write macros, you can probably ignore it. Consider this example:
@@ -2742,7 +2773,10 @@ don&rsquo;t write macros, you can probably ignore it. Consider this example:
   (declare (type unsigned-byte i)))
 </pre></div>
 
-<p>The rest of the processing path results from the expansion of <code class="code">do</code>:
+<a class="index-entry-id" id="index-macroexpansion"></a>
+<a class="index-entry-id" id="index-source-transform"></a>
+<p>The rest of the processing path results from the macroexpansion of
+<code class="code">do</code>: 
 </p>
 <div class="example">
 <pre class="example-preformatted">(block nil
@@ -2812,12 +2846,15 @@ not been proven to always hold are asserted at runtime.
 provide some exceptions to this rule, see
 <a class="ref" href="#implementation-limitations">Implementation Limitations</a>.</em>
 </p>
+<a class="index-entry-id" id="index-safety_002c-optimization-quality"></a>
+<a class="index-entry-id" id="index-optimization-quality-safety"></a>
 <p>CLOS slot types form a notable exception. Types declared using the
 <code class="code">:type</code> slot option in <code class="code">defclass</code> are asserted if and only if the class
-was defined in <em class="emph">safe code</em> and the slot access location is in <em class="emph">safe
-code</em> as well. This laxness does not pose any internal consistency
-issues, as the CLOS slot types are not available for the type
-inferencer, nor do CLOS slot types provide any efficiency benefits.
+was defined in <em class="emph">safe code</em>  and the slot access location is
+in <em class="emph">safe code</em> as well. This laxness does not pose any internal
+consistency issues, as the CLOS slot types are not available for the
+type inferencer, nor do CLOS slot types provide any efficiency
+benefits.
 </p>
 <p>There are three type checking policies available in SBCL, selectable
 via <code class="code">optimize</code> declarations.
@@ -2864,6 +2901,8 @@ performed are liable to corrupt the heap.
 <p>
 Next: <a href="#getting-existing-programs-to-run" accesskey="n" rel="next">Getting Existing Programs to Run</a>, Previous: <a href="#declarations-as-assertions" accesskey="p" rel="prev">Declarations as Assertions</a>, Up: <a href="#handling-of-types" accesskey="u" rel="up">Handling of Types</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-type-checking_002c-precise"></a>
+<a class="index-entry-id" id="index-precise-type-checking"></a>
 <h4 class="subsection" id="Precise-Type-Checking"><span>4.2.2 Precise Type Checking<a class="copiable-link" href="#Precise-Type-Checking"> &para;</a></span></h4>
 
 <p>Precise checking means that the check is done as though <code class="code">typep</code>
@@ -2888,6 +2927,9 @@ slots as precisely as possible. This often involves the use of <code class="code
 <p>
 Next: <a href="#implementation-limitations" accesskey="n" rel="next">Implementation Limitations</a>, Previous: <a href="#precise-type-checking" accesskey="p" rel="prev">Precise Type Checking</a>, Up: <a href="#handling-of-types" accesskey="u" rel="up">Handling of Types</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-existing-programs_002c-getting-them-to-run"></a>
+<a class="index-entry-id" id="index-types_002c-portability"></a>
+<a class="index-entry-id" id="index-compatibility-with-other-Lisps"></a>
 <h4 class="subsection" id="Getting-Existing-Programs-to-Run"><span>4.2.3 Getting Existing Programs to Run<a class="copiable-link" href="#Getting-Existing-Programs-to-Run"> &para;</a></span></h4>
 
 <p>Since SBCL&rsquo;s compiler does much more comprehensive type checking than
@@ -2896,9 +2938,11 @@ been debugged using other compilers. These errors are mostly incorrect
 declarations, although compile-time type errors can find actual bugs
 if parts of the program have never been tested.
 </p>
+<a class="index-entry-id" id="index-safety_002c-optimization-quality-1"></a>
+<a class="index-entry-id" id="index-optimization-quality-safety-1"></a>
 <p>Some incorrect declarations can only be detected by run-time type
 checking. It is very important to initially compile a program with
-full type checks (high <code class="code">safety</code> optimization) and then test this safe
+full type checks (high safety optimization) and then test this safe
 version. After the checking version has been tested, then you can
 consider weakening or eliminating type checks. <em class="emph">This applies even to
 previously debugged programs</em> because the SBCL compiler does much
@@ -3204,6 +3248,8 @@ Next: <a href="#open-coding-and-inline-expansion" accesskey="n" rel="next">Open 
 <p>
 Next: <a href="#errors-during-macroexpansion" accesskey="n" rel="next">Errors During Macroexpansion</a>, Up: <a href="#compiler-errors" accesskey="u" rel="up">Compiler Errors</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-compile_002dtime-type-error"></a>
+<a class="index-entry-id" id="index-type-error_002c-compile_002dtime"></a>
 <h4 class="subsection" id="Type-Errors-at-Compile-Time"><span>4.4.1 Type Errors at Compile Time<a class="copiable-link" href="#Type-Errors-at-Compile-Time"> &para;</a></span></h4>
 
 <p>If the compiler can prove at compile time that some portion of the
@@ -3260,6 +3306,7 @@ an error if it is executed) and gives a warning.
 <p>
 Next: <a href="#read-errors" accesskey="n" rel="next">Read Errors</a>, Previous: <a href="#type-errors-at-compile-time" accesskey="p" rel="prev">Type Errors at Compile Time</a>, Up: <a href="#compiler-errors" accesskey="u" rel="up">Compiler Errors</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-macroexpansion_002c-errors-during"></a>
 <h4 class="subsection" id="Errors-During-Macroexpansion"><span>4.4.2 Errors During Macroexpansion<a class="copiable-link" href="#Errors-During-Macroexpansion"> &para;</a></span></h4>
 
 <p>The compiler handles errors that happen during macroexpansion, turning
@@ -3295,6 +3342,8 @@ definition:
 <p>
 Previous: <a href="#errors-during-macroexpansion" accesskey="p" rel="prev">Errors During Macroexpansion</a>, Up: <a href="#compiler-errors" accesskey="u" rel="up">Compiler Errors</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-compiler-read-error"></a>
+<a class="index-entry-id" id="index-read-error_002c-compiler"></a>
 <h4 class="subsection" id="Read-Errors"><span>4.4.3 Read Errors<a class="copiable-link" href="#Read-Errors"> &para;</a></span></h4>
 
 <p>SBCL&rsquo;s compiler does not attempt to recover from read errors when
@@ -3309,6 +3358,9 @@ character position and gives up on the entire source file.
 <p>
 Next: <a href="#interpreter" accesskey="n" rel="next">Interpreter</a>, Previous: <a href="#compiler-errors" accesskey="p" rel="prev">Compiler Errors</a>, Up: <a href="#compiler" accesskey="u" rel="up">Compiler</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-open_002dcoding"></a>
+<a class="index-entry-id" id="index-inline-expansion"></a>
+<a class="index-entry-id" id="index-static-functions"></a>
 <h3 class="section" id="Open-Coding-and-Inline-Expansion"><span>4.5 Open Coding and Inline Expansion<a class="copiable-link" href="#Open-Coding-and-Inline-Expansion"> &para;</a></span></h3>
 
 <p>Since Common Lisp forbids the redefinition of standard functions, the
@@ -3383,6 +3435,7 @@ efficient calling convention that forbids redefinition.
 <p>
 Next: <a href="#advanced-compiler-use-and-efficiency-hints" accesskey="n" rel="next">Advanced Compiler Use and Efficiency Hints</a>, Previous: <a href="#open-coding-and-inline-expansion" accesskey="p" rel="prev">Open Coding and Inline Expansion</a>, Up: <a href="#compiler" accesskey="u" rel="up">Compiler</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-interpreter"></a>
 <h3 class="section" id="Interpreter"><span>4.6 Interpreter<a class="copiable-link" href="#Interpreter"> &para;</a></span></h3>
 
 <p>By default SBCL implements <code class="code">eval</code> by calling the native code
@@ -3431,6 +3484,7 @@ tests while block compiling. This helps for mutually referential
 <p>
 Next: <a href="#efficiency" accesskey="n" rel="next">Efficiency</a>, Previous: <a href="#compiler" accesskey="p" rel="prev">Compiler</a>, Up: <a href="#Top" accesskey="u" rel="up">sbcl</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-debugger"></a>
 <h2 class="chapter" id="Debugger"><span>5 Debugger<a class="copiable-link" href="#Debugger"> &para;</a></span></h2>
 
 
@@ -3604,6 +3658,7 @@ provide bindings for printer control variables.
 <p>
 Next: <a href="#variable-access" accesskey="n" rel="next">Variable Access</a>, Previous: <a href="#debugger-command-loop" accesskey="p" rel="prev">Debugger Command Loop</a>, Up: <a href="#debugger" accesskey="u" rel="up">Debugger</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-stack-frame"></a>
 <h3 class="section" id="Stack-Frames"><span>5.3 Stack Frames<a class="copiable-link" href="#Stack-Frames"> &para;</a></span></h3>
 
 
@@ -3757,8 +3812,8 @@ Next: <a href="#debug-tail-recursion" accesskey="n" rel="next">Debug Tail Recurs
 
 <p>If a function is defined by <code class="code">defun</code> it will appear in backtrace
 by that name. Functions defined by <code class="code">labels</code> and <code class="code">flet</code> will appear as
-<code class="code">(FLET &lt;name&gt;)</code> and <code class="code">(LABELS &lt;name&gt;)</code> respectively. Anonymous
-lambdas will appear as <code class="code">(LAMBDA &lt;lambda-list&gt;)</code>.
+<code class="code">(flet &lt;name&gt;)</code> and <code class="code">(labels &lt;name&gt;)</code> respectively. Anonymous
+lambdas will appear as <code class="code">(lambda &lt;lambda-list&gt;)</code>.
 </p>
 <ul class="mini-toc">
 <li><a href="#entry-point-details" accesskey="1">Entry Point Details</a></li>
@@ -3769,6 +3824,12 @@ lambdas will appear as <code class="code">(LAMBDA &lt;lambda-list&gt;)</code>.
 <p>
 Up: <a href="#function-names" accesskey="u" rel="up">Function Names</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-external-entry-point"></a>
+<a class="index-entry-id" id="index-entry-point_002c-external"></a>
+<a class="index-entry-id" id="index-block-compilation_002c-debugger-implications"></a>
+<a class="index-entry-id" id="index-external_002c-stack-frame-kind"></a>
+<a class="index-entry-id" id="index-optional_002c-stack-frame-kind"></a>
+<a class="index-entry-id" id="index-cleanup_002c-stack-frame-kind"></a>
 <h4 class="subsubsection" id="Entry-Point-Details"><span>5.3.3.1 Entry Point Details<a class="copiable-link" href="#Entry-Point-Details"> &para;</a></span></h4>
 
 <p>Sometimes the compiler introduces new functions that are used to
@@ -3793,8 +3854,10 @@ Next: <a href="#unknown-locations-and-interrupts" accesskey="n" rel="next">Unkno
 </div>
 <h4 class="subsection" id="Debug-Tail-Recursion"><span>5.3.4 Debug Tail Recursion<a class="copiable-link" href="#Debug-Tail-Recursion"> &para;</a></span></h4>
 
+<a class="index-entry-id" id="index-tail-recursion"></a>
+<a class="index-entry-id" id="index-recursion_002c-tail"></a>
 <p>The compiler is <em class="emph">properly tail recursive</em>. If a function call is
-in a tail-recursive position, the stack frame will be deallocated
+in a tail recursive position, the stack frame will be deallocated
 <em class="emph">at the time of the call</em>, rather than after the call returns.
 Consider this backtrace:
 </p>
@@ -3840,6 +3903,8 @@ optimization quality is greater than 2. See
 <p>
 Previous: <a href="#debug-tail-recursion" accesskey="p" rel="prev">Debug Tail Recursion</a>, Up: <a href="#stack-frames" accesskey="u" rel="up">Stack Frames</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-unknown-code-location"></a>
+<a class="index-entry-id" id="index-code-location-unknown"></a>
 <h4 class="subsection" id="Unknown-Locations-and-Interrupts"><span>5.3.5 Unknown Locations and Interrupts<a class="copiable-link" href="#Unknown-Locations-and-Interrupts"> &para;</a></span></h4>
 
 <p>The debugger operates using special debugging information attached to
@@ -3853,14 +3918,17 @@ displayed.
 </p>
 <p>There are three reasons why a code location could be unknown:
 </p>
+<a class="index-entry-id" id="index-interrupt"></a>
+<a class="index-entry-id" id="index-run_002dtime-error"></a>
+<a class="index-entry-id" id="index-error_002c-run_002dtime"></a>
 <ul class="itemize mark-bullet">
 <li>There is inadequate debug information due to the value of the
   <code class="code">debug</code> optimization quality. See <a class="ref" href="#debugger-policy-control">Debugger Policy Control</a>.
 
 </li><li>The debugger was entered because of an interrupt such as <code class="code">C-c</code>.
 
-</li><li>A hardware error such as a bus error occurred in code that was
-  compiled unsafely due to the value of the <code class="code">safety</code>
+</li><li>A hardware error  such as a bus error occurred in
+  code that was compiled unsafely due to the value of the <code class="code">safety</code>
   optimization quality.
 </li></ul>
 
@@ -3883,6 +3951,8 @@ again.
 <p>
 Next: <a href="#source-location-printing" accesskey="n" rel="next">Source Location Printing</a>, Previous: <a href="#stack-frames" accesskey="p" rel="prev">Stack Frames</a>, Up: <a href="#debugger" accesskey="u" rel="up">Debugger</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-debug-variables"></a>
+<a class="index-entry-id" id="index-variable_002c-debugger-access"></a>
 <h3 class="section" id="Variable-Access"><span>5.4 Variable Access<a class="copiable-link" href="#Variable-Access"> &para;</a></span></h3>
 
 
@@ -3951,6 +4021,8 @@ variable information. This is <code class="code">setf</code>able.
 <p>
 Next: <a href="#note-on-lexical-variable-access" accesskey="n" rel="next">Note On Lexical Variable Access</a>, Up: <a href="#variable-access" accesskey="u" rel="up">Variable Access</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-variable_002c-value-availabilty-in-debugger"></a>
+<a class="index-entry-id" id="index-debug-variable_002c-value-availabilty"></a>
 <h4 class="subsection" id="Variable-Value-Availability"><span>5.4.1 Variable Value Availability<a class="copiable-link" href="#Variable-Value-Availability"> &para;</a></span></h4>
 
 <p>The value of a variable may be unavailable to the debugger in portions
@@ -3976,11 +4048,13 @@ never be available in the interrupted frame. See
 
 <p>The value of a variable may be unavailable for these reasons:
 </p>
+<a class="index-entry-id" id="index-debug_002c-optimization-quality"></a>
+<a class="index-entry-id" id="index-optimization-quality-debug"></a>
 <ul class="itemize mark-bullet">
-<li>The value of the <code class="code">debug</code> optimization quality may have omitted debug
-  information needed to determine whether the variable is available.
-  Unless a variable is an argument, its value will only be available
-  when <code class="code">debug</code> is at least 2.
+<li>The value of the debug optimization quality may have omitted
+  debug information needed to determine whether the variable is
+  available. Unless a variable is an argument, its value will only
+  be available when <code class="code">debug</code> is at least 2.
 
 </li><li>The compiler did lifetime analysis and determined that the value
   was no longer needed, even though its scope had not been exited.
@@ -4062,6 +4136,7 @@ things happening.
 <p>
 Next: <a href="#debugger-policy-control" accesskey="n" rel="next">Debugger Policy Control</a>, Previous: <a href="#variable-access" accesskey="p" rel="prev">Variable Access</a>, Up: <a href="#debugger" accesskey="u" rel="up">Debugger</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-source-location-in-debugger"></a>
 <h3 class="section" id="Source-Location-Printing"><span>5.5 Source Location Printing<a class="copiable-link" href="#Source-Location-Printing"> &para;</a></span></h3>
 
 
@@ -4201,7 +4276,9 @@ Previous: <a href="#how-the-source-is-found" accesskey="p" rel="prev">How the So
 </div>
 <h4 class="subsection" id="Source-Location-Availability"><span>5.5.2 Source Location Availability<a class="copiable-link" href="#Source-Location-Availability"> &para;</a></span></h4>
 
-<p>Source location information is only available when the <code class="code">debug</code>
+<a class="index-entry-id" id="index-debug_002c-optimization-quality-1"></a>
+<a class="index-entry-id" id="index-optimization-quality-debug-1"></a>
+<p>Source location information is only available when the debug
 optimization quality is at least 2. If source location information
 is unavailable, the source commands will give an error message.
 </p>
@@ -4214,11 +4291,14 @@ print
 <pre class="example-preformatted">Unknown location: using block start.
 </pre></div>
 
+<a class="index-entry-id" id="index-basic-block"></a>
+<a class="index-entry-id" id="index-block_002c-basic"></a>
 <p>and then proceed to print the source location for the start of the
 <em class="emph">basic block</em> enclosing the code location. It&rsquo;s a bit complicated to
 explain exactly what a basic block is, but here are some properties
 of the block start location:
 </p>
+<a class="index-entry-id" id="index-block_002c-start-location"></a>
 <ul class="itemize mark-bullet">
 <li>The block start location may be the same as the true location.
 
@@ -4249,10 +4329,14 @@ have changed the program on you.)
 <p>
 Next: <a href="#exiting-commands" accesskey="n" rel="next">Exiting Commands</a>, Previous: <a href="#source-location-printing" accesskey="p" rel="prev">Source Location Printing</a>, Up: <a href="#debugger" accesskey="u" rel="up">Debugger</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-debugger-policy"></a>
+<a class="index-entry-id" id="index-policy_002c-debugger"></a>
 <h3 class="section" id="Debugger-Policy-Control"><span>5.6 Debugger Policy Control<a class="copiable-link" href="#Debugger-Policy-Control"> &para;</a></span></h3>
 
+<a class="index-entry-id" id="index-debug_002c-optimization-quality-2"></a>
+<a class="index-entry-id" id="index-optimization-quality-debug-2"></a>
 <p>The compilation policy specified by <code class="code">optimize</code> declarations
-affects the behavior seen in the debugger. The <code class="code">debug</code> quality
+affects the behavior seen in the debugger. The debug quality
 directly affects the debugger by controlling the amount of debugger
 information dumped. Other optimization qualities have indirect but
 observable effects due to changes in the way compilation is done.
@@ -4317,14 +4401,16 @@ variable special-casing (see <a class="ref" href="#variable-value-availability">
 degree of speed/debuggability tradeoff is unavoidable, but the
 effect is not too drastic when <code class="code">debug</code> is at least 2.
 </p>
+<a class="index-entry-id" id="index-inline_002c-semi"></a>
+<a class="index-entry-id" id="index-semi_002dinline"></a>
 <p>In addition to <code class="code">inline</code> and <code class="code">notinline</code> declarations, the relative
 values of the <code class="code">speed</code> and <code class="code">space</code> qualities also change whether
 functions are inline expanded. If a function is inline expanded,
 then there will be no frame to represent the call, and the arguments
 will be treated like any other local variable. Functions may also be
-<em class="emph">semi-inline</em>, in which case there is a frame to represent the call,
-but the call is to an optimized local version of the function, not
-to the original function.
+<em class="emph">semi inline</em>, in which case there is a frame to represent the
+call, but the call is to an optimized local version of the function,
+not to the original function.
 </p>
 <hr>
 </div>
@@ -4401,6 +4487,7 @@ function, but a few show general information.
 <p>
 Next: <a href="#function-tracing" accesskey="n" rel="next">Function Tracing</a>, Previous: <a href="#information-commands" accesskey="p" rel="prev">Information Commands</a>, Up: <a href="#debugger" accesskey="u" rel="up">Debugger</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-breakpoint"></a>
 <h3 class="section" id="Breakpoint-Commands"><span>5.9 Breakpoint Commands<a class="copiable-link" href="#Breakpoint-Commands"> &para;</a></span></h3>
 
 
@@ -4549,6 +4636,8 @@ based stepping commands, which have much higher overhead.
 <p>
 Next: <a href="#single-stepping" accesskey="n" rel="next">Single Stepping</a>, Previous: <a href="#breakpoint-commands" accesskey="p" rel="prev">Breakpoint Commands</a>, Up: <a href="#debugger" accesskey="u" rel="up">Debugger</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-tracing"></a>
+<a class="index-entry-id" id="index-function_002c-tracing"></a>
 <h3 class="section" id="Function-Tracing"><span>5.10 Function Tracing<a class="copiable-link" href="#Function-Tracing"> &para;</a></span></h3>
 
 <p>The tracer causes selected functions to print their arguments and
@@ -4578,18 +4667,19 @@ functions are called. In its simplest form:
 </pre></div>
 
 <p>The <code class="code">name</code>s are not evaluated. Each may be one of the following:
-</p><ul class="itemize mark-bullet">
+</p>
+<ul class="itemize mark-bullet">
 <li><code class="code">symbol</code>, denoting a function or macro.
 </li><li><code class="code">fname</code>, a valid function name, denoting a function.
 </li><li><code class="code">(method fname qualifiers* (specializers*))</code> denoting a method.
 </li><li><code class="code">(compiler-macro symbol)</code> denoting a compiler macro.
 </li><li><code class="code">(labels fname :in outer-name)</code> or <code class="code">(flet fname :in outer-name)</code>
-    denoting a local function where <code class="code">outer-name</code> may be any of the
-    previous names for functions, macros, methods or compiler macros.
-    Tracing local functions may require <code class="code">debug</code> policy 3 to inhibit
-    inlining.
+  denoting a local function where <code class="code">outer-name</code> may be any of the
+  previous names for functions, macros, methods or compiler macros.
+  Tracing local functions may require <code class="code">debug</code> policy 3 to inhibit
+  inlining.
 </li><li><code class="code">string</code> denoting all functions fbound to symbols whose home package
-    is the package with the given name.
+  is the package with the given name.
 </li></ul>
 
 <p>Options allow modification of the default behavior. Each option is a
@@ -4724,6 +4814,8 @@ at 0.
 <p>
 Next: <a href="#enabling-and-disabling-the-debugger" accesskey="n" rel="next">Enabling and Disabling the Debugger</a>, Previous: <a href="#function-tracing" accesskey="p" rel="prev">Function Tracing</a>, Up: <a href="#debugger" accesskey="u" rel="up">Debugger</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-stepper"></a>
+<a class="index-entry-id" id="index-single_002dstepping"></a>
 <h3 class="section" id="Single-Stepping"><span>5.11 Single Stepping<a class="copiable-link" href="#Single-Stepping"> &para;</a></span></h3>
 
 <p>SBCL includes an instrumentation based single-stepper for compiled
@@ -4767,6 +4859,14 @@ to be at least partially steppable.
 <p>
 Previous: <a href="#single-stepping" accesskey="p" rel="prev">Single Stepping</a>, Up: <a href="#debugger" accesskey="u" rel="up">Debugger</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-debugger_002c-enabling"></a>
+<a class="index-entry-id" id="index-debugger_002c-disabling"></a>
+<a class="index-entry-id" id="index-enabling-debugger"></a>
+<a class="index-entry-id" id="index-disabling-debugger"></a>
+<a class="index-entry-id" id="index-enabling-LDB-1"></a>
+<a class="index-entry-id" id="index-LDB_002c-enabling-1"></a>
+<a class="index-entry-id" id="index-disabling-LDB-1"></a>
+<a class="index-entry-id" id="index-LDB_002c-disabling-1"></a>
 <h3 class="section" id="Enabling-and-Disabling-the-Debugger"><span>5.12 Enabling and Disabling the Debugger<a class="copiable-link" href="#Enabling-and-Disabling-the-Debugger"> &para;</a></span></h3>
 
 <p>In certain contexts (e.g. non-interactive applications), it may be
@@ -4793,6 +4893,7 @@ and <code class="code">ldb</code> (the low-level debugger).  See also <code clas
 <p>
 Next: <a href="#beyond-the-ansi-standard" accesskey="n" rel="next">Beyond the ANSI Standard</a>, Previous: <a href="#debugger" accesskey="p" rel="prev">Debugger</a>, Up: <a href="#Top" accesskey="u" rel="up">sbcl</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-efficicency"></a>
 <h2 class="chapter" id="Efficiency"><span>6 Efficiency<a class="copiable-link" href="#Efficiency"> &para;</a></span></h2>
 
 
@@ -4810,6 +4911,7 @@ Next: <a href="#beyond-the-ansi-standard" accesskey="n" rel="next">Beyond the AN
 <p>
 Next: <a href="#stack-allocation" accesskey="n" rel="next">Stack Allocation</a>, Up: <a href="#efficiency" accesskey="u" rel="up">Efficiency</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-slot-access"></a>
 <h3 class="section" id="Slot-Access"><span>6.1 Slot Access<a class="copiable-link" href="#Slot-Access"> &para;</a></span></h3>
 
 
@@ -4924,9 +5026,11 @@ of values when they are recognized as having dynamic extent:
   and one-dimensional, and has a constant <code class="code">:element-type</code>;
 
 <blockquote class="quotation">
+<a class="index-entry-id" id="index-safety_002c-optimization-quality-2"></a>
+<a class="index-entry-id" id="index-optimization-quality-safety-2"></a>
 <p><strong class="strong">Warning</strong>: Stack space is limited, so allocation of a large
 vector may cause stack overflow. Stack overflow checks are
-done except in zero <code class="code">safety</code> policies.
+done except in 0 safety policies.
 </p></blockquote>
 
 </li><li>closures defined with <code class="code">flet</code> or <code class="code">labels</code> with a bound <code class="code">dynamic-extent</code>
@@ -5092,14 +5196,17 @@ detect incorrect usage of dynamic extent declarations.
 <p>
 Next: <a href="#recognized-idioms" accesskey="n" rel="next">Recognized Idioms</a>, Previous: <a href="#stack-allocation" accesskey="p" rel="prev">Stack Allocation</a>, Up: <a href="#efficiency" accesskey="u" rel="up">Efficiency</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-modular-arithmetic"></a>
+<a class="index-entry-id" id="index-arithmetic_002c-modular"></a>
+<a class="index-entry-id" id="index-arithmetic_002c-hardware"></a>
 <h3 class="section" id="Modular-Arithmetic"><span>6.3 Modular Arithmetic<a class="copiable-link" href="#Modular-Arithmetic"> &para;</a></span></h3>
 
 
 <p>Some numeric functions have a property: n lower bits of the
 result depend only on n lower bits of (all or some) arguments. If
-the compiler sees an expression of form <code class="code">(LOGAND &lt;expr&gt; &lt;mask&gt;)</code>,
+the compiler sees an expression of form <code class="code">(logand &lt;expr&gt; &lt;mask&gt;)</code>,
 where <code class="code">&lt;expr&gt;</code> is a tree of such <em class="emph">good</em> functions and <code class="code">&lt;mask&gt;</code> is
-known to be of type <code class="code">(UNSIGNED-BYTE &lt;w&gt;)</code>, where <code class="code">&lt;w&gt;</code> is a <em class="emph">good</em>
+known to be of type <code class="code">(unsigned-byte &lt;w&gt;)</code>, where <code class="code">&lt;w&gt;</code> is a <em class="emph">good</em>
 width, all intermediate results will be cut to <code class="code">&lt;w&gt;</code> bits (but it is
 not done for variables and constants!). This often results in an
 ability to use simple machine instructions for the functions.
@@ -5156,6 +5263,9 @@ translated into signed modular arithmetic:
 <p>
 Next: <a href="#global-and-always-bound-variables" accesskey="n" rel="next">Global and Always-bound Variables</a>, Previous: <a href="#modular-arithmetic" accesskey="p" rel="prev">Modular Arithmetic</a>, Up: <a href="#efficiency" accesskey="u" rel="up">Efficiency</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-modular-arithmetic-1"></a>
+<a class="index-entry-id" id="index-arithmetic_002c-modular-1"></a>
+<a class="index-entry-id" id="index-arithmetic_002c-hardware-1"></a>
 <h3 class="section" id="Recognized-Idioms"><span>6.4 Recognized Idioms<a class="copiable-link" href="#Recognized-Idioms"> &para;</a></span></h3>
 
 
@@ -5282,12 +5392,14 @@ points to keep in mind.
   explicit type declarations.)
 </li></ul>
 
+<a class="index-entry-id" id="index-garbage-collector_002c-generational-1"></a>
+<a class="index-entry-id" id="index-generational-garbage-collector-1"></a>
 <ul class="itemize mark-bullet">
 <li>Since the time the CMUCL manual was written, CMUCL (and thus SBCL)
-  has gotten a generational garbage collector. This means that there
-  are some efficiency implications of various patterns of memory
-  usage which aren&rsquo;t discussed in the CMUCL manual. (Some new
-  material should be written about this.)
+  has gotten a generational GC. This means that there are some
+  efficiency implications of various patterns of memory usage which
+  aren&rsquo;t discussed in the CMUCL manual. (Some new material should be
+  written about this.)
 
 </li><li>SBCL has some important known efficiency problems. Perhaps the
   most important are
@@ -5341,6 +5453,7 @@ examples (some straightforward, some less so).
 <p>
 Next: <a href="#external-formats" accesskey="n" rel="next">External Formats</a>, Previous: <a href="#efficiency" accesskey="p" rel="prev">Efficiency</a>, Up: <a href="#Top" accesskey="u" rel="up">sbcl</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-reader-extensions"></a>
 <h2 class="chapter" id="Beyond-the-ANSI-Standard"><span>7 Beyond the ANSI Standard<a class="copiable-link" href="#Beyond-the-ANSI-Standard"> &para;</a></span></h2>
 
 
@@ -5389,8 +5502,12 @@ Next: <a href="#package-local-nicknames" accesskey="n" rel="next">Package-Local 
 <p>
 Next: <a href="#symbol-name-normalization" accesskey="n" rel="next">Symbol Name Normalization</a>, Up: <a href="#reader-extensions" accesskey="u" rel="up">Reader Extensions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-extended-package-prefix-syntax"></a>
+<a class="index-entry-id" id="index-package-prefix-syntax_002c-extended"></a>
 <h4 class="subsection" id="Extended-Package-Prefix-Syntax"><span>7.1.1 Extended Package Prefix Syntax<a class="copiable-link" href="#Extended-Package-Prefix-Syntax"> &para;</a></span></h4>
 
+<a class="index-entry-id" id="index-interning-symbols"></a>
+<a class="index-entry-id" id="index-symbols_002c-interning"></a>
 <p>SBCL supports extended package prefix syntax, which allows specifying
 an alternate package instead of <code class="code">*package*</code> for the reader to use as
 the default package for interning symbols:
@@ -5405,6 +5522,8 @@ the default package for interning symbols:
 <pre class="example-preformatted">'foo::(bar quux zot) == '(foo::bar foo::quux foo::zot)
 </pre></div>
 
+<a class="index-entry-id" id="index-package-lock"></a>
+<a class="index-entry-id" id="index-lock_002c-package"></a>
 <p><code class="code">*package*</code> is not rebound during the course of reading a form with
 extended package prefix syntax; if <code class="code">foo::bar</code> would cause a
 read-time package lock violation, so does <code class="code">foo::(bar)</code>.
@@ -5416,8 +5535,11 @@ read-time package lock violation, so does <code class="code">foo::(bar)</code>.
 <p>
 Next: <a href="#decimal-syntax-for-rationals" accesskey="n" rel="next">Decimal Syntax for Rationals</a>, Previous: <a href="#extended-package-prefix-syntax" accesskey="p" rel="prev">Extended Package Prefix Syntax</a>, Up: <a href="#reader-extensions" accesskey="u" rel="up">Reader Extensions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-symbol-name-normalization"></a>
+<a class="index-entry-id" id="index-normalization-of-symbol-name"></a>
 <h4 class="subsection" id="Symbol-Name-Normalization"><span>7.1.2 Symbol Name Normalization<a class="copiable-link" href="#Symbol-Name-Normalization"> &para;</a></span></h4>
 
+<a class="index-entry-id" id="index-Unicode"></a>
 <p>SBCL also extends the reader to normalize all symbols to <em class="emph">Normalization
 Form KC</em> in builds with Unicode enabled. Whether symbols are
 normalized is controlled by
@@ -5439,6 +5561,8 @@ are not normalized are escaped during printing.
 <p>
 Previous: <a href="#symbol-name-normalization" accesskey="p" rel="prev">Symbol Name Normalization</a>, Up: <a href="#reader-extensions" accesskey="u" rel="up">Reader Extensions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-decimal-syntax-for-rationals"></a>
+<a class="index-entry-id" id="index-rational_002c-decimal-syntax"></a>
 <h4 class="subsection" id="Decimal-Syntax-for-Rationals"><span>7.1.3 Decimal Syntax for Rationals<a class="copiable-link" href="#Decimal-Syntax-for-Rationals"> &para;</a></span></h4>
 
 <p>SBCL supports a decimal syntax for rationals, modelled after the
@@ -5467,6 +5591,8 @@ irrespective of the value of <code class="code">*read-default-float-format*</cod
 <p>
 Next: <a href="#package-variance" accesskey="n" rel="next">Package Variance</a>, Previous: <a href="#reader-extensions" accesskey="p" rel="prev">Reader Extensions</a>, Up: <a href="#beyond-the-ansi-standard" accesskey="u" rel="up">Beyond the ANSI Standard</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-package_002dlocal-nicknames"></a>
+<a class="index-entry-id" id="index-nicknames_002c-package_002dlocal"></a>
 <h3 class="section" id="Package_002dLocal-Nicknames"><span>7.2 Package-Local Nicknames<a class="copiable-link" href="#Package_002dLocal-Nicknames"> &para;</a></span></h3>
 
 <p>SBCL allows giving packages local nicknames: they allow short and
@@ -5620,6 +5746,7 @@ error otherwise.
 <p>
 Next: <a href="#generic-function-dispatch" accesskey="n" rel="next">Generic Function Dispatch</a>, Previous: <a href="#package-variance" accesskey="p" rel="prev">Package Variance</a>, Up: <a href="#beyond-the-ansi-standard" accesskey="u" rel="up">Beyond the ANSI Standard</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-garbage-collection"></a>
 <h3 class="section" id="Garbage-Collection"><span>7.4 Garbage Collection<a class="copiable-link" href="#Garbage-Collection"> &para;</a></span></h3>
 
 
@@ -5655,6 +5782,7 @@ run in any thread.
 <p>
 Next: <a href="#weak-pointers" accesskey="n" rel="next">Weak Pointers</a>, Up: <a href="#garbage-collection" accesskey="u" rel="up">Garbage Collection</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-finalization"></a>
 <h4 class="subsection" id="Finalization"><span>7.4.1 Finalization<a class="copiable-link" href="#Finalization"> &para;</a></span></h4>
 
 <p>Finalization allows code to be executed after an object has been
@@ -5731,6 +5859,7 @@ signalled in whichever thread the <code class="code">function</code> was called 
 <p>
 Next: <a href="#introspection-and-tuning" accesskey="n" rel="next">Introspection and Tuning</a>, Previous: <a href="#finalization" accesskey="p" rel="prev">Finalization</a>, Up: <a href="#garbage-collection" accesskey="u" rel="up">Garbage Collection</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-weak-pointers"></a>
 <h4 class="subsection" id="Weak-Pointers"><span>7.4.2 Weak Pointers<a class="copiable-link" href="#Weak-Pointers"> &para;</a></span></h4>
 
 <p>Weak pointers allow references to objects to be maintained without
@@ -5909,8 +6038,8 @@ has been decreased.
 </p>
 </li><li><code class="code">:static</code>
 
-<p>To find a root of an image-backed object, you want to stop only at a
-  truly <code class="code">:static</code> object.
+<p>To find a root of an image-backed object, you want to stop only at
+a truly <code class="code">:static</code> object.
 </p></li></ul>
 
 <p><code class="code">ignore</code> is a list of objects to treat as if nonexistent in the heap.
@@ -6053,6 +6182,8 @@ limitations, on structures (of metaclass <code class="code">structure-class</cod
 </p>
 <p>For structures:
 </p>
+<a class="index-entry-id" id="index-unbound-slot"></a>
+<a class="index-entry-id" id="index-slot_002c-unbound"></a>
 <ul class="itemize mark-bullet">
 <li>The name of a slot for the purposes of the slot access functions
   is the symbol used as the slot-name in the slot-description in the
@@ -6060,7 +6191,7 @@ limitations, on structures (of metaclass <code class="code">structure-class</cod
 
 </li><li><code class="code">slot-value</code> and <code class="code">slot-boundp</code> function as expected, including (for
   <code class="code">slot-value</code>) calling and respecting the return value of
-  <code class="code">slot-unbound</code> if the slot is unbound;
+  <code class="code">slot-unbound</code> if the slot is unbound; 
 
 </li><li><code class="code">(setf slot-value)</code> functions as expected, including performing
   type checks to verify that the new value is of an appropriate type
@@ -6214,7 +6345,8 @@ argument of slot accessors.
 AMOP as the functional version of <code class="code">defclass</code>, which has this
 behaviour; however, it is not consistent with the weaker
 requirement in AMOP, which states that any class found by
-<code class="code">find-class</code>, no matter what its <code class="code">class-name</code>, is redefined.
+<code class="code">find-class</code>, no matter what its <code class="code">class-name</code>, is
+redefined.
 </p>
 </li><li>An error is not signaled in the case of the <code class="code">:name</code> initialization
   argument for <code class="code">sb-mop:slot-definition</code> objects being a constant, when
@@ -6272,6 +6404,8 @@ Previous: <a href="#amop-compatibility-of-metaobject-protocol" accesskey="p" rel
 <p>In addition, SBCL supports extensions to the Metaobject protocol from
 AMOP; at present, they are:
 </p>
+<a class="index-entry-id" id="index-unbound-slot-1"></a>
+<a class="index-entry-id" id="index-slot_002c-unbound-1"></a>
 <ul class="itemize mark-bullet">
 <li>Compile-time support for generating specializer metaobjects from
   specializer names in <code class="code">defmethod</code> forms is provided by the
@@ -6296,8 +6430,8 @@ AMOP; at present, they are:
   methods convert between classes and proper names and between lists
   of the form <code class="code">(EQL &lt;x&gt;)</code> and interned eql specializer objects.
 
-</li><li>Distinguishing unbound instance allocated slots from bound ones
-  when using <code class="code">sb-mop:standard-instance-access</code> and
+</li><li>Distinguishing unbound instance allocated slots  from
+  bound ones when using <code class="code">sb-mop:standard-instance-access</code> and
   <code class="code">sb-mop:funcallable-standard-instance-access</code> is possible by
   comparison to the symbol-macro <code class="code">sb-pcl:+slot-unbound+</code>.
 </li></ul>
@@ -6886,9 +7020,10 @@ Users Manual for details about the <code class="code">process</code> structure.
 the current process.
 </p>
 </li><li><code class="code">:env</code>
-An alternative lossy representation of the new Unix environment,
-for compatibility with CMU CL.
 
+<p>An alternative lossy representation of the new Unix environment,
+for compatibility with CMU CL.
+</p>
 </li><li><code class="code">:search</code>
 
 <p>Look for <code class="code">program</code> in each of the directories in the child&rsquo;s $PATH
@@ -7087,6 +7222,7 @@ number (two values).
 <p>
 Next: <a href="#customization-hooks-for-users" accesskey="n" rel="next">Customization Hooks for Users</a>, Previous: <a href="#support-for-unix" accesskey="p" rel="prev">Support For Unix</a>, Up: <a href="#beyond-the-ansi-standard" accesskey="u" rel="up">Beyond the ANSI Standard</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-Unicode-1"></a>
 <h3 class="section" id="Unicode-Support"><span>7.10 Unicode Support<a class="copiable-link" href="#Unicode-Support"> &para;</a></span></h3>
 
 
@@ -7113,8 +7249,8 @@ required to be assigned to form-feed (<code class="code">u+0c</code>) by the ANS
 standard.
 </p></blockquote>
 
-<p>For example, you can specify the codepoint <code class="code">u+00e1</code> (<em class="emph">Latin
-Small Letter A With Acute</em>) as
+<p>For example, you can specify the codepoint <code class="code">u+00e1</code> ( <em class="emph">Latin Small
+Letter A With Acute</em>) as
 </p>
 <ul class="itemize mark-bullet">
 <li><code class="code">#\latin_small_letter_a_with_acute</code>
@@ -7165,7 +7301,7 @@ there is no such value.
 <p>The only characters in Unicode with a decimal digit value are those
 that are part of a range of characters that encode the digits 0-9.
 Because of this, <code class="code">(decimal-digit c) &lt;=&gt; (digit-char-p c 10)</code> in
-#+sb-unicode builds
+<code class="code">#+sb-unicode</code> builds
 </p></dd></dl>
 <a class="anchor" id="Function-sb_002dunicode-digit_002dvalue"></a><a class="index-entry-id" id="index-digit_002dvalue-_005bsb_002dunicode_005d"></a>
 <dl class="first-deffn def-block">
@@ -7309,17 +7445,17 @@ are excluded.
 </p></dd></dl>
 <a class="anchor" id="Function-sb_002dunicode-grapheme_002dbreak_002dclass"></a><a class="index-entry-id" id="index-grapheme_002dbreak_002dclass-_005bsb_002dunicode_005d"></a>
 <dl class="first-deffn def-block">
-<dt class="deffn def-line" id="index-sb_002dunicode_003agrapheme_002dbreak_002dclass"><span class="category-def">Function: </span><span><strong class="def-name">sb-unicode:grapheme-break-class</strong> <var class="def-var-arguments">char</var><a class="copiable-link" href="#index-sb_002dunicode_003agrapheme_002dbreak_002dclass"> &para;</a></span></dt>
+<dt class="deffn def-line" id="index-sb_002dunicode_003agrapheme_002dbreak_002dclass"><span class="category-def">Function: </span><span><strong class="def-name">sb-unicode:grapheme-break-class</strong> <var class="def-var-arguments">character</var><a class="copiable-link" href="#index-sb_002dunicode_003agrapheme_002dbreak_002dclass"> &para;</a></span></dt>
 <dd><p>Returns the grapheme breaking class of <code class="code">character</code>, as specified in UAX #29.
 </p></dd></dl>
 <a class="anchor" id="Function-sb_002dunicode-word_002dbreak_002dclass"></a><a class="index-entry-id" id="index-word_002dbreak_002dclass-_005bsb_002dunicode_005d"></a>
 <dl class="first-deffn def-block">
-<dt class="deffn def-line" id="index-sb_002dunicode_003aword_002dbreak_002dclass"><span class="category-def">Function: </span><span><strong class="def-name">sb-unicode:word-break-class</strong> <var class="def-var-arguments">char</var><a class="copiable-link" href="#index-sb_002dunicode_003aword_002dbreak_002dclass"> &para;</a></span></dt>
+<dt class="deffn def-line" id="index-sb_002dunicode_003aword_002dbreak_002dclass"><span class="category-def">Function: </span><span><strong class="def-name">sb-unicode:word-break-class</strong> <var class="def-var-arguments">character</var><a class="copiable-link" href="#index-sb_002dunicode_003aword_002dbreak_002dclass"> &para;</a></span></dt>
 <dd><p>Returns the word breaking class of <code class="code">character</code>, as specified in UAX #29.
 </p></dd></dl>
 <a class="anchor" id="Function-sb_002dunicode-sentence_002dbreak_002dclass"></a><a class="index-entry-id" id="index-sentence_002dbreak_002dclass-_005bsb_002dunicode_005d"></a>
 <dl class="first-deffn def-block">
-<dt class="deffn def-line" id="index-sb_002dunicode_003asentence_002dbreak_002dclass"><span class="category-def">Function: </span><span><strong class="def-name">sb-unicode:sentence-break-class</strong> <var class="def-var-arguments">char</var><a class="copiable-link" href="#index-sb_002dunicode_003asentence_002dbreak_002dclass"> &para;</a></span></dt>
+<dt class="deffn def-line" id="index-sb_002dunicode_003asentence_002dbreak_002dclass"><span class="category-def">Function: </span><span><strong class="def-name">sb-unicode:sentence-break-class</strong> <var class="def-var-arguments">character</var><a class="copiable-link" href="#index-sb_002dunicode_003asentence_002dbreak_002dclass"> &para;</a></span></dt>
 <dd><p>Returns the sentence breaking class of <code class="code">character</code>, as specified in UAX #29.
 </p></dd></dl>
 <a class="anchor" id="Function-sb_002dunicode-line_002dbreak_002dclass"></a><a class="index-entry-id" id="index-line_002dbreak_002dclass-_005bsb_002dunicode_005d"></a>
@@ -7339,6 +7475,7 @@ Ideographic (<code class="code">:id</code>) class instead of Alphabetic (<code c
 <p>
 Next: <a href="#breaking-strings" accesskey="n" rel="next">Breaking strings</a>, Previous: <a href="#unicode-property-access" accesskey="p" rel="prev">Unicode property access</a>, Up: <a href="#unicode-support" accesskey="u" rel="up">Unicode Support</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-normalization-of-strings"></a>
 <h4 class="subsection" id="String-operations"><span>7.10.2 String operations<a class="copiable-link" href="#String-operations"> &para;</a></span></h4>
 
 <p>SBCL can normalize strings using:
@@ -7594,7 +7731,8 @@ Next: <a href="#random-number-generation" accesskey="n" rel="next">Random Number
 </div>
 <h3 class="section" id="Hash-Table-Extensions"><span>7.14 Hash Table Extensions<a class="copiable-link" href="#Hash-Table-Extensions"> &para;</a></span></h3>
 
-<p>Hash table extensions supported by SBCL are all controlled by keyword
+<a class="index-entry-id" id="index-hash-table"></a>
+<p>hash table extensions supported by SBCL are all controlled by keyword
 arguments to <code class="code">make-hash-table</code>.
 </p>
 <a class="anchor" id="Function-common_002dlisp-make_002dhash_002dtable"></a><a class="index-entry-id" id="index-make_002dhash_002dtable-_005bcommon_002dlisp_005d"></a>
@@ -7763,6 +7901,7 @@ unspecified.
 <p>
 Next: <a href="#timeouts-and-deadlines" accesskey="n" rel="next">Timeouts and Deadlines</a>, Previous: <a href="#hash-table-extensions" accesskey="p" rel="prev">Hash Table Extensions</a>, Up: <a href="#beyond-the-ansi-standard" accesskey="u" rel="up">Beyond the ANSI Standard</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-random-number-generation"></a>
 <h3 class="section" id="Random-Number-Generation"><span>7.15 Random Number Generation<a class="copiable-link" href="#Random-Number-Generation"> &para;</a></span></h3>
 
 <p>The initial value of <code class="code">*random-state*</code> is the same each time SBCL
@@ -7915,6 +8054,7 @@ available to individual operations or parts of computations:
 <p>
 Next: <a href="#synchronous-timeouts" accesskey="n" rel="next">Synchronous Timeouts</a>, Up: <a href="#timeouts-and-deadlines" accesskey="u" rel="up">Timeouts and Deadlines</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-timeout-parameters"></a>
 <h4 class="subsection" id="Timeout-Parameters"><span>7.16.1 Timeout Parameters<a class="copiable-link" href="#Timeout-Parameters"> &para;</a></span></h4>
 
 <p>Certain operations accept <code class="code">:timeout</code> keyword arguments. These only
@@ -7966,6 +8106,9 @@ deadline.
 <p>
 Next: <a href="#asynchronous-timeouts" accesskey="n" rel="next">Asynchronous Timeouts</a>, Previous: <a href="#timeout-parameters" accesskey="p" rel="prev">Timeout Parameters</a>, Up: <a href="#timeouts-and-deadlines" accesskey="u" rel="up">Timeouts and Deadlines</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-synchronous-timeout"></a>
+<a class="index-entry-id" id="index-timeout_002c-synchronous"></a>
+<a class="index-entry-id" id="index-deadline"></a>
 <h4 class="subsection" id="Synchronous-Timeouts"><span>7.16.2 Synchronous Timeouts<a class="copiable-link" href="#Synchronous-Timeouts"> &para;</a></span></h4>
 
 <p>Deadlines, in contrast to timeout parameters, are established for a
@@ -8051,6 +8194,8 @@ after the <code class="code">sleep</code> call has been executing for one second
 <p>
 Next: <a href="#operations-supporting-timeouts-and-deadlines" accesskey="n" rel="next">Operations Supporting Timeouts and Deadlines</a>, Previous: <a href="#synchronous-timeouts" accesskey="p" rel="prev">Synchronous Timeouts</a>, Up: <a href="#timeouts-and-deadlines" accesskey="u" rel="up">Timeouts and Deadlines</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-asynchronous-timeout"></a>
+<a class="index-entry-id" id="index-timeout_002c-asynchronous"></a>
 <h4 class="subsection" id="Asynchronous-Timeouts"><span>7.16.3 Asynchronous Timeouts<a class="copiable-link" href="#Asynchronous-Timeouts"> &para;</a></span></h4>
 
 <p>Asynchronous timeouts are established for a dynamic scope using the
@@ -8281,6 +8426,8 @@ Previous: <a href="#stale-extensions" accesskey="p" rel="prev">Stale Extensions<
 </div>
 <h3 class="section" id="Efficiency-Hacks"><span>7.19 Efficiency Hacks<a class="copiable-link" href="#Efficiency-Hacks"> &para;</a></span></h3>
 
+<a class="index-entry-id" id="index-garbage-collector_002c-generational-2"></a>
+<a class="index-entry-id" id="index-generational-garbage-collector-2"></a>
 <p>The <code class="code">sb-ext:purify</code> function (available when <code class="code">#+cheneygc</code>) causes
 SBCL first to collect all garbage, then to mark all uncollected
 objects as permanent, never again attempting to collect them as
@@ -8290,8 +8437,8 @@ efficiency when using a more sophisticated garbage collector which
 is well suited to the program&rsquo;s memory usage pattern. It also allows
 permanent code to be frozen at fixed addresses, a precondition for
 using copy-on-write to share code between multiple Lisp processes.
-This is less important with modern generational garbage collectors,
-but not all SBCL platforms use such a garbage collector.
+This is less important with modern generational GC, but not all
+SBCL platforms use such a garbage collector.
 </p>
 <p>The <code class="code">sb-ext:truly-the</code> special form declares the type of the result of
 the operations, producing its argument; the declaration is not
@@ -8310,6 +8457,8 @@ for structure types.
 <p>
 Next: <a href="#foreign-function-interface" accesskey="n" rel="next">Foreign Function Interface</a>, Previous: <a href="#beyond-the-ansi-standard" accesskey="p" rel="prev">Beyond the ANSI Standard</a>, Up: <a href="#Top" accesskey="u" rel="up">sbcl</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-external-format"></a>
+<a class="index-entry-id" id="index-format_002c-external"></a>
 <h2 class="chapter" id="External-Formats"><span>8 External Formats<a class="copiable-link" href="#External-Formats"> &para;</a></span></h2>
 
 
@@ -8784,7 +8933,7 @@ package. Some foreign type names are also symbols in the
 </li></ul>
 
 <p>Arrays are accessed using <code class="code">deref</code>, passing the indices
-as additional arguments.  Elements are stored in column-major order
+as additional arguments.  Elements are stored in row-major order
 (as in C), so the first dimension determines only the size of the
 memory block, and not the layout of the higher dimensions. An array
 whose first dimension is variable may be specified by using <code class="code">nil</code> as
@@ -8792,6 +8941,8 @@ the first dimension. Fixed-size arrays can be allocated as array
 elements, structure slots or <code class="code">with-alien</code> variables. Dynamic arrays
 can only be allocated using <code class="code">make-alien</code>.
 </p>
+<a class="index-entry-id" id="index-external-format-1"></a>
+<a class="index-entry-id" id="index-format_002c-external-1"></a>
 <ul class="itemize mark-bullet">
 <li>The foreign type specifier <code class="code">(struct &lt;name&gt; &amp;rest &lt;fields&gt;)</code>
   describes a structure type with the specified <code class="code">&lt;name&gt;</code> and
@@ -8867,14 +9018,14 @@ current (local or global) alien structure type definition of
   declare that no useful value is returned. Using <code class="code">alien-funcall</code> to
   call a <code class="code">void</code> foreign function will return zero values.
 
-</li><li>The foreign type specifier <code class="code">(C-STRING &amp;KEY &lt;external-format&gt;
+</li><li>The foreign type specifier <code class="code">(c-string &amp;key &lt;external-format&gt;
   &lt;element-type&gt; &lt;not-null&gt;)</code> is similar to <code class="code">(* char)</code> but is
   interpreted as a null-terminated string, and is automatically
   converted into a Lisp string when accessed; or if the pointer is C
   <code class="code">null</code> or 0, then accessing it gives Lisp <code class="code">nil</code> unless
   <code class="code">&lt;not-null&gt;</code> is true, in which case a <code class="code">type-error</code> is signalled.
 
-<p>External format conversion is automatically done when Lisp
+<p>external format conversion is automatically done when Lisp
 strings are passed to foreign code, or when foreign strings are
 passed to Lisp code. If the type specifier has an explicit
 <code class="code">&lt;external-format&gt;</code>, that external format will be used.
@@ -8896,10 +9047,10 @@ representation of the string. For an SBCL built with Unicode
 support that means an <code class="code">&lt;external-format&gt;</code> of <code class="code">:ascii</code> and an
 <code class="code">&lt;element-type&gt;</code> of <code class="code">base-char</code>. Without Unicode support the
 <code class="code">&lt;external-format&gt;</code> can also be <code class="code">:iso-8859-1</code>, and the
-<code class="code">&lt;element-type&gt;</code> can also be <code class="code">character</code>. If <code class="code">&lt;external-format&gt;</code>
-and <code class="code">&lt;element-type&gt;</code> are not compatible, or the string is a
-<code class="code">(simple-array character (*))</code>, this data is copied by the
-implementation as required.
+<code class="code">&lt;element-type&gt;</code> can also be <code class="code">character</code>. If
+<code class="code">&lt;external-format&gt;</code> and <code class="code">&lt;element-type&gt;</code> are not compatible, or
+the string is a <code class="code">(simple-array character (*))</code>, this data is
+copied by the implementation as required.
 </p>
 <p>Assigning a Lisp string to a <code class="code">c-string</code> structure field or
 variable stores the contents of the string to the memory already
@@ -8922,13 +9073,16 @@ For example:
 
 <p>Storing Lisp <code class="code">nil</code> in a <code class="code">c-string</code> writes C <code class="code">NULL</code> to the
 variable.
-</p></li><li><code class="code">sb-alien</code> also exports translations of these C type
-  specifiers as foreign type specifiers:
-
-<p><code class="code">char</code>, <code class="code">short</code>, <code class="code">int</code>, <code class="code">long</code>, <code class="code">unsigned-char</code>, <code class="code">unsigned-short</code>,
-<code class="code">unsigned-int</code>, <code class="code">unsigned-long</code>, <code class="code">float</code>, <code class="code">double</code>, <code class="code">size-t</code>, <code class="code">off-t</code>
 </p></li></ul>
 
+<ul class="itemize mark-bullet">
+<li><code class="code">sb-alien</code> also exports translations of these C type
+</li></ul>
+<p>specifiers as foreign type specifiers:
+</p>
+<p><code class="code">char</code>, <code class="code">short</code>, <code class="code">int</code>, <code class="code">long</code>, <code class="code">unsigned-char</code>, <code class="code">unsigned-short</code>,
+  <code class="code">unsigned-int</code>, <code class="code">unsigned-long</code>, <code class="code">float</code>, <code class="code">double</code>, <code class="code">size-t</code>, <code class="code">off-t</code>
+</p>
 <hr>
 </div>
 </div>
@@ -9652,6 +9806,8 @@ Each element of <code class="code">definitions</code> is of the form:
 up any references in C variables. There are three mechanisms for
 coping with this:
 </p>
+<a class="index-entry-id" id="index-garbage-collector_002c-generational-3"></a>
+<a class="index-entry-id" id="index-generational-garbage-collector-3"></a>
 <ul class="itemize mark-bullet">
 <li><code class="code">sb-ext:purify</code> moves all live Lisp data into static or read-only
   areas such that it will never be moved (or freed) again in the
@@ -9659,11 +9815,10 @@ coping with this:
 
 </li><li><code class="code">sb-sys:with-pinned-objects</code> is a macro which arranges for some set
   of objects to be pinned in memory for the dynamic extent of its
-  body forms. On ports which use the generational garbage
-  collector (most, as of this writing) this affects exactly the
-  specified objects. On other ports it is implemented by turning off
-  GC for the duration (so could be said to have a whole-world
-  granularity).
+  body forms. On ports which use the generational GC
+  (most, as of this writing) this affects exactly the specified
+  objects. On other ports it is implemented by turning off GC for
+  the duration (so could be said to have a whole-world granularity).
 
 </li><li>Disable GC, using the SB-EXT:WITHOUT-GCING macro.
 </li></ul>
@@ -9780,7 +9935,7 @@ struct c_struct *c_function (i, s, r, a)
 
     (with-alien ((res (* (struct c-struct))
                       (c-function 5 &quot;another Lisp string&quot; (addr c-struct) ar)))
-      (format t &quot;~&amp;amp;back from C function~%&quot;)
+      (format t &quot;~&amp;back from C function~%&quot;)
       (multiple-value-prog1
           (values (slot res 'x)
                   (slot res 's))
@@ -9871,6 +10026,7 @@ Lisp read-eval-print loop should print the following return values:
 <p>
 Next: <a href="#streams" accesskey="n" rel="next">Streams</a>, Previous: <a href="#foreign-function-interface" accesskey="p" rel="prev">Foreign Function Interface</a>, Up: <a href="#Top" accesskey="u" rel="up">sbcl</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-pathname"></a>
 <h2 class="chapter" id="Pathnames"><span>10 Pathnames<a class="copiable-link" href="#Pathnames"> &para;</a></span></h2>
 
 
@@ -9926,6 +10082,8 @@ Previous: <a href="#home-directory-specifiers" accesskey="p" rel="prev">Home Dir
 </div>
 <h4 class="subsection" id="The-SYS-Logical-Pathname-Host"><span>10.1.2 The SYS Logical Pathname Host<a class="copiable-link" href="#The-SYS-Logical-Pathname-Host"> &para;</a></span></h4>
 
+<a class="index-entry-id" id="index-logical-pathname"></a>
+<a class="index-entry-id" id="index-pathname_002c-logical"></a>
 <p>The logical pathname host named by <code class="code">&quot;SYS&quot;</code> exists in SBCL.
 Its <code class="code">logical-pathname-translations</code> may be set by the site or the user
 applicable to point to the locations of the system&rsquo;s sources; in
@@ -10088,8 +10246,10 @@ Next: <a href="#bivalent-streams" accesskey="n" rel="next">Bivalent Streams</a>,
 </div>
 <h3 class="section" id="Stream-External-Formats"><span>11.1 Stream External Formats<a class="copiable-link" href="#Stream-External-Formats"> &para;</a></span></h3>
 
+<a class="index-entry-id" id="index-external-format-2"></a>
+<a class="index-entry-id" id="index-format_002c-external-2"></a>
 <p>The function <code class="code">stream-external-format</code> returns the canonical name of
-the external format (See <a class="ref" href="#external-formats">External Formats</a>) used by the stream for
+the external format (see <a class="ref" href="#external-formats">External Formats</a>) used by the stream for
 character-based input and/or output.
 </p>
 <p>When constructing file streams, for example using <code class="code">open</code> or
@@ -10736,6 +10896,8 @@ things that should work.
 <p>
 Next: <a href="#threading" accesskey="n" rel="next">Threading</a>, Previous: <a href="#streams" accesskey="p" rel="prev">Streams</a>, Up: <a href="#Top" accesskey="u" rel="up">sbcl</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-package-lock-1"></a>
+<a class="index-entry-id" id="index-lock_002c-package-1"></a>
 <h2 class="chapter" id="Package-Locks"><span>12 Package Locks<a class="copiable-link" href="#Package-Locks"> &para;</a></span></h2>
 
 
@@ -10822,6 +10984,7 @@ Next: <a href="#other-operations" accesskey="n" rel="next">Other Operations</a>,
 </div>
 <h4 class="subsubsection" id="Lexical-Bindings-and-Declarations"><span>12.1.2.1 Lexical Bindings and Declarations<a class="copiable-link" href="#Lexical-Bindings-and-Declarations"> &para;</a></span></h4>
 
+<a class="index-entry-id" id="index-declaration"></a>
 <p>Lexical bindings or declarations that violate package locks cause a
 compile-time warning, and a runtime <code class="code">program-error</code> when the form that
 violates package locks would be executed.
@@ -11663,21 +11826,26 @@ which is well-defined over two different domains:
 the increment.
 </p>
 <p><code class="code">place</code> must access one of the following:
-</p><ul class="itemize mark-bullet">
-<li>a <code class="code">defstruct</code> slot with declared type (<code class="code">unsigned-byte</code> 64)
-   or <code class="code">aref</code> of a (<code class="code">simple-array</code> (<code class="code">unsigned-byte</code> 64) (*))
-   The type <code class="code">sb-ext:word</code> can be used for these purposes.
-</li><li><code class="code">car</code> or <code class="code">cdr</code> (respectively <code class="code">first</code> or <code class="code">rest</code>) of a <code class="code">cons</code>.
-</li><li>a variable defined using <code class="code">defglobal</code> with a proclaimed type of <code class="code">fixnum</code>.
-</li></ul>
-<p>Macroexpansion is performed on <code class="code">place</code> before expanding <code class="code">atomic-incf</code>.
 </p>
-<p>Incrementing is done using modular arithmetic,
-which is well-defined over two different domains:
-</p><ul class="itemize mark-bullet">
+<ul class="itemize mark-bullet">
+<li>a <code class="code">defstruct</code> slot with declared type (<code class="code">unsigned-byte</code> 64)
+  or <code class="code">aref</code> of a (<code class="code">simple-array</code> (<code class="code">unsigned-byte</code> 64) (*))
+  The type <code class="code">sb-ext:word</code> can be used for these purposes.
+
+</li><li><code class="code">car</code> or <code class="code">cdr</code> (respectively <code class="code">first</code> or <code class="code">rest</code>) of a <code class="code">cons</code>.
+
+</li><li>a variable defined using <code class="code">defglobal</code> with a proclaimed type of <code class="code">fixnum</code>.
+  Macroexpansion is performed on <code class="code">place</code> before expanding <code class="code">atomic-incf</code>.
+</li></ul>
+
+<p>Incrementing is done using modular arithmetic, which is well-defined
+over two different domains:
+</p>
+<ul class="itemize mark-bullet">
 <li>For structures and arrays, the operation accepts and produces
    an (<code class="code">unsigned-byte</code> 64), and <code class="code">diff</code> must be of type (<code class="code">signed-byte</code> 64).
    <code class="code">atomic-incf</code> of <code class="code">#xFFFFFFFFFFFFFFFF</code> by one results in #x0 being stored in <code class="code">place</code>.
+
 </li><li>For other places, the domain is <code class="code">fixnum</code>, and <code class="code">diff</code> must be a <code class="code">fixnum</code>.
    <code class="code">atomic-incf</code> of <code class="code">#x3FFFFFFFFFFFFFFF</code> by one results in <code class="code">#x-4000000000000000</code>
    being stored in <code class="code">place</code>.
@@ -11958,11 +12126,13 @@ that <code class="code">grab-mutex</code> did -not- acquire the lock.
 <ul class="itemize mark-bullet">
 <li><code class="code">grab-mutex</code> is not interrupt safe. The correct way to call it is:
 
-<p>(<code class="code">without-interrupts</code>
+<div class="example">
+<pre class="example-preformatted">(without-interrupts
   ...
-  (<code class="code">allow-with-interrupts</code> (<code class="code">grab-mutex</code> ...))
+  (allow-with-interrupts (grab-mutex ...))
   ...)
-</p>
+</pre></div>
+
 <p><code class="code">without-interrupts</code> is necessary to avoid an interrupt unwinding the call
     while the mutex is in an inconsistent state while <code class="code">allow-with-interrupts</code>
     allows the call to be interrupted from sleep.
@@ -12949,6 +13119,7 @@ See gethostbyaddr(3) for details.
 <p>
 Next: <a href="#contributed-modules" accesskey="n" rel="next">Contributed Modules</a>, Previous: <a href="#networking" accesskey="p" rel="prev">Networking</a>, Up: <a href="#Top" accesskey="u" rel="up">sbcl</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-profiling"></a>
 <h2 class="chapter" id="Profiling"><span>16 Profiling<a class="copiable-link" href="#Profiling"> &para;</a></span></h2>
 
 
@@ -12968,6 +13139,7 @@ statistical profiler.
 <p>
 Next: <a href="#statistical-profiler" accesskey="n" rel="next">Statistical Profiler</a>, Up: <a href="#profiling" accesskey="u" rel="up">Profiling</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-profiling_002c-deterministic"></a>
 <h3 class="section" id="Deterministic-Profiler"><span>16.1 Deterministic Profiler<a class="copiable-link" href="#Deterministic-Profiler"> &para;</a></span></h3>
 
 <p>The package <code class="code">sb-profile</code> provides a classic, per-function-call
@@ -13025,6 +13197,7 @@ uncalled profiled functions are listed.
 <p>
 Previous: <a href="#deterministic-profiler" accesskey="p" rel="prev">Deterministic Profiler</a>, Up: <a href="#profiling" accesskey="u" rel="up">Profiling</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-profiling_002c-statistical"></a>
 <h3 class="section" id="Statistical-Profiler"><span>16.2 Statistical Profiler<a class="copiable-link" href="#Statistical-Profiler"> &para;</a></span></h3>
 
 <p>The <code class="code">sb-sprof</code> module, loadable by
@@ -13147,9 +13320,11 @@ sampling runs.
 
 <p><strong class="strong">Platform support</strong>
 </p>
+<a class="index-entry-id" id="index-garbage-collector_002c-generational-4"></a>
+<a class="index-entry-id" id="index-generational-garbage-collector-4"></a>
 <p>Allocation profiling is only supported on SBCL builds that use the
-generational garbage collector. Tracking of call stacks at a depth
-of more than two levels is only supported on x86 and x86-64.
+generational GC. Tracking of call stacks at a depth of more than
+two levels is only supported on x86 and x86-64.
 </p>
 <p><strong class="strong">Macros</strong>
 </p>
@@ -13162,41 +13337,52 @@ Returns the values from the last evaluation of <code class="code">body</code>.
 </p>
 <p>The following keyword args are recognized:
 </p>
-<p><code class="code">:sample-interval</code> &lt;n&gt;
-   Take a sample every &lt;n&gt; seconds. Default is <code class="code">*sample-interval*</code>.
+<ul class="itemize mark-bullet">
+<li><code class="code">:sample-interval</code> <code class="code">&lt;n&gt;</code>
+
+<p>Take a sample every &lt;n&gt; seconds. Default is <code class="code">*sample-interval*</code>.
 </p>
-<p><code class="code">:mode</code> &lt;mode&gt;
-   If <code class="code">:cpu</code>, run the profiler in CPU profiling mode. If <code class="code">:alloc</code>, run the
-   profiler in allocation profiling mode. If <code class="code">:time</code>, run the profiler
-   in wallclock profiling mode.
+</li><li><code class="code">:mode</code> <code class="code">&lt;mode&gt;</code>
+
+<p>If <code class="code">:cpu</code>, run the profiler in CPU profiling mode. If <code class="code">:alloc</code>, run
+the profiler in allocation profiling mode. If <code class="code">:time</code>, run the
+profiler in wallclock profiling mode.
 </p>
-<p><code class="code">:max-samples</code> &lt;max&gt;
-   If <code class="code">:loop</code> is <code class="code">nil</code> (the default), collect no more than &lt;max&gt; samples.
-   If <code class="code">:loop</code> is <code class="code">t</code>, repeat evaluating body until &lt;max&gt; samples are taken.
-   Default is <code class="code">*max-samples*</code>.
+</li><li><code class="code">:max-samples</code> <code class="code">&lt;max&gt;</code>
+
+<p>If <code class="code">:loop</code> is <code class="code">nil</code> (the default), collect no more than <code class="code">&lt;max&gt;</code>
+samples. If <code class="code">:loop</code> is <code class="code">t</code>, repeat evaluating body until <code class="code">&lt;max&gt;</code>
+samples are taken. Default is <code class="code">*max-samples*</code>.
 </p>
-<p><code class="code">:report</code> &lt;type&gt;
-   If specified, call <code class="code">report</code> with <code class="code">:type</code> &lt;type&gt; at the end.
+</li><li><code class="code">:report</code> <code class="code">&lt;type&gt;</code>
+
+<p>If specified, call <code class="code">report</code> with <code class="code">:type</code> <code class="code">&lt;type&gt;</code> at the end.
 </p>
-<p><code class="code">:reset</code> &lt;bool&gt;
-   If true, call <code class="code">reset</code> at the beginning.
+</li><li><code class="code">:reset</code> <code class="code">&lt;bool&gt;</code>
+
+<p>If true, call <code class="code">reset</code> at the beginning.
 </p>
-<p><code class="code">:threads</code> &lt;list-form&gt;
-   Form that evaluates to the list threads to profile, or <code class="code">:all</code> to indicate
-   that all threads should be profiled. Defaults to all threads.
+</li><li><code class="code">:threads</code> <code class="code">&lt;list-form&gt;</code>
+
+<p>Form that evaluates to the list threads to profile, or <code class="code">:all</code> to
+indicate that all threads should be profiled. Defaults to all
+threads.
 </p>
 <p><code class="code">:threads</code> has no effect on call-counting at the moment.
 </p>
-<p>On some platforms (eg. Darwin) the signals used by the profiler are
-   not properly delivered to threads in proportion to their CPU usage
-   when doing <code class="code">:cpu</code> profiling. If you see empty call graphs, or are obviously
-   missing several samples from certain threads, you may be falling afoul
-   of this. In this case using <code class="code">:mode</code> <code class="code">:time</code> is likely to work better.
+<p>On some platforms (e.g. Darwin) the signals used by the profiler
+are not properly delivered to threads in proportion to their CPU
+usage when doing <code class="code">:cpu</code> profiling. If you see empty call graphs, or
+are obviously missing several samples from certain threads, you
+may be falling afoul of this. In this case using <code class="code">:mode</code> <code class="code">:time</code> is
+likely to work better.
 </p>
-<p><code class="code">:loop</code> &lt;bool&gt;
-   If false (the default), evaluate <code class="code">body</code> only once. If true repeatedly
-   evaluate <code class="code">body</code>.
-</p></dd></dl>
+</li><li><code class="code">:loop</code> <code class="code">&lt;bool&gt;</code>
+
+<p>If false (the default), evaluate <code class="code">body</code> only once. If true
+repeatedly evaluate <code class="code">body</code>.
+</p></li></ul>
+</dd></dl>
 <a class="anchor" id="Macro-sb_002dsprof-with_002dsampling"></a><a class="index-entry-id" id="index-with_002dsampling-_005bsb_002dsprof_005d"></a>
 <dl class="first-deffn def-block">
 <dt class="deffn def-line" id="index-sb_002dsprof_003awith_002dsampling"><span class="category-def">Macro: </span><span><strong class="def-name">sb-sprof:with-sampling</strong> <var class="def-var-arguments">(&amp;optional on) &amp;body body</var><a class="copiable-link" href="#index-sb_002dsprof_003awith_002dsampling"> &para;</a></span></dt>
@@ -13379,8 +13565,6 @@ documentation (or pointers to documentation) for some of the
 contributed modules.
 </p>
 
-<a class="index-entry-id" id="index-Read_002dEval_002dPrint-Loop-1"></a>
-<a class="index-entry-id" id="index-REPL-1"></a>
 <ul class="mini-toc">
 <li><a href="#sb-aclrepl" accesskey="1">sb-aclrepl</a></li>
 <li><a href="#sb-concurrency" accesskey="2">sb-concurrency</a></li>
@@ -13400,6 +13584,8 @@ contributed modules.
 <p>
 Next: <a href="#sb-concurrency" accesskey="n" rel="next">sb-concurrency</a>, Up: <a href="#contributed-modules" accesskey="u" rel="up">Contributed Modules</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-Read_002dEval_002dPrint-Loop-1"></a>
+<a class="index-entry-id" id="index-REPL-1"></a>
 <h3 class="section" id="sb_002daclrepl"><span>17.1 sb-aclrepl<a class="copiable-link" href="#sb_002daclrepl"> &para;</a></span></h3>
 
 
@@ -13774,11 +13960,11 @@ writers.
 a writer operated inside the region while they were reading. This makes frlocks
 very efficient when readers are much more common than writers.
 </p>
-<p>FRlocks are <code class="code">not</code> suitable when it is not safe at all for readers and writers to
-operate on the same data in parallel: they provide consistency, not exclusion
-between readers and writers. Hence using an frlock to eg. protect an SBCL
-hash-table is unsafe. If multiple readers operating in parallel with a writer
-would be safe but inconsistent without a lock, frlocks are suitable.
+<p>FRlocks are <em class="emph">not</em> suitable when it is not safe at all for readers and writers
+to operate on the same data in parallel: they provide consistency, not
+exclusion between readers and writers. Hence using an frlock to e.g. protect
+an SBCL hash-table is unsafe. If multiple readers operating in parallel with
+a writer would be safe but inconsistent without a lock, frlocks are suitable.
 </p>
 <p>The recommended interface to use is <code class="code">frlock-read</code> and <code class="code">frlock-write</code>, but those
 needing it can also use a lower-level interface.
@@ -13857,7 +14043,7 @@ differ, the values are inconsistent and the read must be restated.
 <dt class="deffn def-line" id="index-sb_002dconcurrency_003agrab_002dfrlock_002dwrite_002dlock"><span class="category-def">Function: </span><span><strong class="def-name">sb-concurrency:grab-frlock-write-lock</strong> <var class="def-var-arguments">frlock &amp;key wait-p timeout</var><a class="copiable-link" href="#index-sb_002dconcurrency_003agrab_002dfrlock_002dwrite_002dlock"> &para;</a></span></dt>
 <dd><p>Acquires <code class="code">frlock</code> for writing, invalidating existing and future read-tokens
 for the duration. Returns <code class="code">t</code> on success, and <code class="code">nil</code> if the lock wasn&rsquo;t acquired
-due to eg. a timeout. Using <code class="code">frlock-write</code> instead is recommended.
+due to e.g. a timeout. Using <code class="code">frlock-write</code> instead is recommended.
 </p></dd></dl>
 <a class="anchor" id="Function-sb_002dconcurrency-release_002dfrlock_002dwrite_002dlock"></a><a class="index-entry-id" id="index-release_002dfrlock_002dwrite_002dlock-_005bsb_002dconcurrency_005d"></a>
 <dl class="first-deffn def-block">
@@ -14984,8 +15170,8 @@ descriptor may produce unexpected results if the stream is buffered.
 <a class="anchor" id="Type-sb_002dposix-file_002ddescriptor_002ddesignator"></a><a class="index-entry-id" id="index-file_002ddescriptor_002ddesignator-_005bsb_002dposix_005d"></a>
 <dl class="first-deffn def-block">
 <dt class="deffn def-line" id="index-sb_002dposix_003afile_002ddescriptor_002ddesignator"><span class="category-def">Type: </span><span><strong class="def-name">sb-posix:file-descriptor-designator</strong><a class="copiable-link" href="#index-sb_002dposix_003afile_002ddescriptor_002ddesignator"> &para;</a></span></dt>
-<dd><p>Designator for a <code class="code">file-descriptor</code>: either a fixnum designating itself, or
-a <code class="code">file-stream</code> designating the underlying file-descriptor.
+<dd><p>Designator for a <code class="code">file-descriptor</code>: either a fixnum designating
+itself, or a <code class="code">file-stream</code> designating the underlying file-descriptor.
 </p></dd></dl>
 <a class="anchor" id="Function-sb_002dposix-file_002ddescriptor"></a><a class="index-entry-id" id="index-file_002ddescriptor-_005bsb_002dposix_005d"></a>
 <dl class="first-deffn def-block">
@@ -15631,6 +15817,7 @@ of the Lisp image.
 <p>
 Next: <a href="#concept-index" accesskey="n" rel="next">Concept Index</a>, Previous: <a href="#contributed-modules" accesskey="p" rel="prev">Contributed Modules</a>, Up: <a href="#Top" accesskey="u" rel="up">sbcl</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#concept-index" title="Index" rel="index">Index</a>]</p>
 </div>
+<a class="index-entry-id" id="index-deprecation"></a>
 <h2 class="chapter" id="Deprecation"><span>18 Deprecation<a class="copiable-link" href="#Deprecation"> &para;</a></span></h2>
 
 
@@ -16233,16 +16420,294 @@ Next: <a href="#function-index" accesskey="n" rel="next">Function and Macro Inde
 <h2 class="appendix" id="Concept-Index"><span>Appendix A Concept Index<a class="copiable-link" href="#Concept-Index"> &para;</a></span></h2>
 
 <div class="printindex cp-printindex">
+<table class="cp-letters-header-printindex"><tr><th>Jump to: &nbsp; </th><td><a class="summary-letter-printindex" href="#concept-index_cp_letter-A"><b>A</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-B"><b>B</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-E"><b>E</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-H"><b>H</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-I"><b>I</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-L"><b>L</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-M"><b>M</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-N"><b>N</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-O"><b>O</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-R"><b>R</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-T"><b>T</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-U"><b>U</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-V"><b>V</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-W"><b>W</b></a>
+ &nbsp; 
+</td></tr></table>
 <table class="cp-entries-printindex">
 <tr><td></td><th class="entries-header-printindex">Index Entry</th><th class="sections-header-printindex">Section</th></tr>
 <tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-A">A</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-actual-source">actual source</a></td><td class="printindex-index-section"><a href="#parts-of-a-compiler-diagnostic">parts of a compiler diagnostic</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-actual-source-1">actual source</a></td><td class="printindex-index-section"><a href="#original-and-actual-source">original and actual source</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-arithmetic_002c-hardware">arithmetic, hardware</a></td><td class="printindex-index-section"><a href="#modular-arithmetic">modular arithmetic</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-arithmetic_002c-hardware-1">arithmetic, hardware</a></td><td class="printindex-index-section"><a href="#recognized-idioms">recognized idioms</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-arithmetic_002c-modular">arithmetic, modular</a></td><td class="printindex-index-section"><a href="#modular-arithmetic">modular arithmetic</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-arithmetic_002c-modular-1">arithmetic, modular</a></td><td class="printindex-index-section"><a href="#recognized-idioms">recognized idioms</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-asynchronous-timeout">asynchronous timeout</a></td><td class="printindex-index-section"><a href="#asynchronous-timeouts">asynchronous timeouts</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-B">B</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-basic-block">basic block</a></td><td class="printindex-index-section"><a href="#source-location-availability">source location availability</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-block-compilation_002c-debugger-implications">block compilation, debugger implications</a></td><td class="printindex-index-section"><a href="#entry-point-details">entry point details</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-block_002c-basic">block, basic</a></td><td class="printindex-index-section"><a href="#source-location-availability">source location availability</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-block_002c-start-location">block, start location</a></td><td class="printindex-index-section"><a href="#source-location-availability">source location availability</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-breakpoint">breakpoint</a></td><td class="printindex-index-section"><a href="#breakpoint-commands">breakpoint commands</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-C">C</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-cleanup_002c-stack-frame-kind">cleanup, stack frame kind</a></td><td class="printindex-index-section"><a href="#entry-point-details">entry point details</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-code-location-unknown">code location unknown</a></td><td class="printindex-index-section"><a href="#unknown-locations-and-interrupts">unknown locations and interrupts</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-compatibility-with-other-Lisps">compatibility with other Lisps</a></td><td class="printindex-index-section"><a href="#getting-existing-programs-to-run">getting existing programs to run</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-compile_002dtime-type-error">compile-time type error</a></td><td class="printindex-index-section"><a href="#type-errors-at-compile-time">type errors at compile time</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-compiler-message-severity">compiler message severity</a></td><td class="printindex-index-section"><a href="#diagnostic-severity">diagnostic severity</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-compiler-messsage">compiler messsage</a></td><td class="printindex-index-section"><a href="#diagnostic-messages">diagnostic messages</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-compiler-messsage-verbosity">compiler messsage verbosity</a></td><td class="printindex-index-section"><a href="#controlling-verbosity">controlling verbosity</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-compiler-read-error">compiler read error</a></td><td class="printindex-index-section"><a href="#read-errors">read errors</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-conservative-garbage-collector">conservative garbage collector</a></td><td class="printindex-index-section"><a href="#history-and-implementation-of-sbcl">history and implementation of sbcl</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-D">D</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-deadline">deadline</a></td><td class="printindex-index-section"><a href="#synchronous-timeouts">synchronous timeouts</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-debug-variable_002c-value-availabilty">debug variable, value availabilty</a></td><td class="printindex-index-section"><a href="#variable-value-availability">variable value availability</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-debug-variables">debug variables</a></td><td class="printindex-index-section"><a href="#variable-access">variable access</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-debug_002c-optimization-quality">debug, optimization quality</a></td><td class="printindex-index-section"><a href="#variable-value-availability">variable value availability</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-debug_002c-optimization-quality-1">debug, optimization quality</a></td><td class="printindex-index-section"><a href="#source-location-availability">source location availability</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-debug_002c-optimization-quality-2">debug, optimization quality</a></td><td class="printindex-index-section"><a href="#debugger-policy-control">debugger policy control</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-debugger">debugger</a></td><td class="printindex-index-section"><a href="#debugger">debugger</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-debugger-policy">debugger policy</a></td><td class="printindex-index-section"><a href="#debugger-policy-control">debugger policy control</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-debugger_002c-disabling">debugger, disabling</a></td><td class="printindex-index-section"><a href="#enabling-and-disabling-the-debugger">enabling and disabling the debugger</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-debugger_002c-enabling">debugger, enabling</a></td><td class="printindex-index-section"><a href="#enabling-and-disabling-the-debugger">enabling and disabling the debugger</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-decimal-syntax-for-rationals">decimal syntax for rationals</a></td><td class="printindex-index-section"><a href="#decimal-syntax-for-rationals">decimal syntax for rationals</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-declaration">declaration</a></td><td class="printindex-index-section"><a href="#lexical-bindings-and-declarations">lexical bindings and declarations</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-deprecation">deprecation</a></td><td class="printindex-index-section"><a href="#deprecation">deprecation</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-disabling-debugger">disabling debugger</a></td><td class="printindex-index-section"><a href="#enabling-and-disabling-the-debugger">enabling and disabling the debugger</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-disabling-LDB">disabling LDB</a></td><td class="printindex-index-section"><a href="#runtime-options">runtime options</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-disabling-LDB-1">disabling LDB</a></td><td class="printindex-index-section"><a href="#enabling-and-disabling-the-debugger">enabling and disabling the debugger</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-E">E</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-efficicency">efficicency</a></td><td class="printindex-index-section"><a href="#efficiency">efficiency</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-enabling-debugger">enabling debugger</a></td><td class="printindex-index-section"><a href="#enabling-and-disabling-the-debugger">enabling and disabling the debugger</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-enabling-LDB">enabling LDB</a></td><td class="printindex-index-section"><a href="#runtime-options">runtime options</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-enabling-LDB-1">enabling LDB</a></td><td class="printindex-index-section"><a href="#enabling-and-disabling-the-debugger">enabling and disabling the debugger</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-entry-point_002c-external">entry point, external</a></td><td class="printindex-index-section"><a href="#entry-point-details">entry point details</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-error_002c-run_002dtime">error, run-time</a></td><td class="printindex-index-section"><a href="#unknown-locations-and-interrupts">unknown locations and interrupts</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-existing-programs_002c-getting-them-to-run">existing programs, getting them to run</a></td><td class="printindex-index-section"><a href="#getting-existing-programs-to-run">getting existing programs to run</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-extended-package-prefix-syntax">extended package prefix syntax</a></td><td class="printindex-index-section"><a href="#extended-package-prefix-syntax">extended package prefix syntax</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-external-entry-point">external entry point</a></td><td class="printindex-index-section"><a href="#entry-point-details">entry point details</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-external-format">external format</a></td><td class="printindex-index-section"><a href="#external-formats">external formats</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-external-format-1">external format</a></td><td class="printindex-index-section"><a href="#foreign-type-specifiers">foreign type specifiers</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-external-format-2">external format</a></td><td class="printindex-index-section"><a href="#stream-external-formats">stream external formats</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-external_002c-stack-frame-kind">external, stack frame kind</a></td><td class="printindex-index-section"><a href="#entry-point-details">entry point details</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-F">F</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-finalization">finalization</a></td><td class="printindex-index-section"><a href="#finalization">finalization</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-format_002c-external">format, external</a></td><td class="printindex-index-section"><a href="#external-formats">external formats</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-format_002c-external-1">format, external</a></td><td class="printindex-index-section"><a href="#foreign-type-specifiers">foreign type specifiers</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-format_002c-external-2">format, external</a></td><td class="printindex-index-section"><a href="#stream-external-formats">stream external formats</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-function_002c-tracing">function, tracing</a></td><td class="printindex-index-section"><a href="#function-tracing">function tracing</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-G">G</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-garbage-collection">garbage collection</a></td><td class="printindex-index-section"><a href="#garbage-collection">garbage collection</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-garbage-collector_002c-conservative">garbage collector, conservative</a></td><td class="printindex-index-section"><a href="#history-and-implementation-of-sbcl">history and implementation of sbcl</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-garbage-collector_002c-generational">garbage collector, generational</a></td><td class="printindex-index-section"><a href="#history-and-implementation-of-sbcl">history and implementation of sbcl</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-garbage-collector_002c-generational-1">garbage collector, generational</a></td><td class="printindex-index-section"><a href="#miscellaneous-efficiency-issues">miscellaneous efficiency issues</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-garbage-collector_002c-generational-2">garbage collector, generational</a></td><td class="printindex-index-section"><a href="#efficiency-hacks">efficiency hacks</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-garbage-collector_002c-generational-3">garbage collector, generational</a></td><td class="printindex-index-section"><a href="#calling-lisp-from-c">calling lisp from c</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-garbage-collector_002c-generational-4">garbage collector, generational</a></td><td class="printindex-index-section"><a href="#statistical-profiler">statistical profiler</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-generational-garbage-collector">generational garbage collector</a></td><td class="printindex-index-section"><a href="#history-and-implementation-of-sbcl">history and implementation of sbcl</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-generational-garbage-collector-1">generational garbage collector</a></td><td class="printindex-index-section"><a href="#miscellaneous-efficiency-issues">miscellaneous efficiency issues</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-generational-garbage-collector-2">generational garbage collector</a></td><td class="printindex-index-section"><a href="#efficiency-hacks">efficiency hacks</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-generational-garbage-collector-3">generational garbage collector</a></td><td class="printindex-index-section"><a href="#calling-lisp-from-c">calling lisp from c</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-generational-garbage-collector-4">generational garbage collector</a></td><td class="printindex-index-section"><a href="#statistical-profiler">statistical profiler</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-H">H</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-hash-table">hash table</a></td><td class="printindex-index-section"><a href="#hash-table-extensions">hash table extensions</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-I">I</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-inline-expansion">inline expansion</a></td><td class="printindex-index-section"><a href="#open-coding-and-inline-expansion">open coding and inline expansion</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-inline_002c-semi">inline, semi</a></td><td class="printindex-index-section"><a href="#debugger-policy-control">debugger policy control</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-interning-symbols">interning symbols</a></td><td class="printindex-index-section"><a href="#extended-package-prefix-syntax">extended package prefix syntax</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-interpreter">interpreter</a></td><td class="printindex-index-section"><a href="#interpreter">interpreter</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-interrupt">interrupt</a></td><td class="printindex-index-section"><a href="#unknown-locations-and-interrupts">unknown locations and interrupts</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-L">L</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-LDB">LDB</a></td><td class="printindex-index-section"><a href="#how-to-report-signal-related-bugs">how to report signal related bugs</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-LDB-1">LDB</a></td><td class="printindex-index-section"><a href="#runtime-options">runtime options</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-LDB-2">LDB</a></td><td class="printindex-index-section"><a href="#runtime-options">runtime options</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-LDB_002c-disabling">LDB, disabling</a></td><td class="printindex-index-section"><a href="#runtime-options">runtime options</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-LDB_002c-disabling-1">LDB, disabling</a></td><td class="printindex-index-section"><a href="#enabling-and-disabling-the-debugger">enabling and disabling the debugger</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-LDB_002c-enabling">LDB, enabling</a></td><td class="printindex-index-section"><a href="#runtime-options">runtime options</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-LDB_002c-enabling-1">LDB, enabling</a></td><td class="printindex-index-section"><a href="#enabling-and-disabling-the-debugger">enabling and disabling the debugger</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-lock_002c-package">lock, package</a></td><td class="printindex-index-section"><a href="#extended-package-prefix-syntax">extended package prefix syntax</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-lock_002c-package-1">lock, package</a></td><td class="printindex-index-section"><a href="#package-locks">package locks</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-logical-pathname">logical pathname</a></td><td class="printindex-index-section"><a href="#the-sys-logical-pathname-host">the sys logical pathname host</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-M">M</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-macroexpansion">macroexpansion</a></td><td class="printindex-index-section"><a href="#processing-paths">processing paths</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-macroexpansion_002c-errors-during">macroexpansion, errors during</a></td><td class="printindex-index-section"><a href="#errors-during-macroexpansion">errors during macroexpansion</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-messsage_002c-compiler">messsage, compiler</a></td><td class="printindex-index-section"><a href="#diagnostic-messages">diagnostic messages</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-modular-arithmetic">modular arithmetic</a></td><td class="printindex-index-section"><a href="#modular-arithmetic">modular arithmetic</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-modular-arithmetic-1">modular arithmetic</a></td><td class="printindex-index-section"><a href="#recognized-idioms">recognized idioms</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-N">N</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-nicknames_002c-package_002dlocal">nicknames, package-local</a></td><td class="printindex-index-section"><a href="#package-local-nicknames">package local nicknames</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-normalization-of-strings">normalization of strings</a></td><td class="printindex-index-section"><a href="#string-operations">string operations</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-normalization-of-symbol-name">normalization of symbol name</a></td><td class="printindex-index-section"><a href="#symbol-name-normalization">symbol name normalization</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-O">O</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-open_002dcoding">open-coding</a></td><td class="printindex-index-section"><a href="#open-coding-and-inline-expansion">open coding and inline expansion</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-optimization-quality-debug">optimization quality debug</a></td><td class="printindex-index-section"><a href="#variable-value-availability">variable value availability</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-optimization-quality-debug-1">optimization quality debug</a></td><td class="printindex-index-section"><a href="#source-location-availability">source location availability</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-optimization-quality-debug-2">optimization quality debug</a></td><td class="printindex-index-section"><a href="#debugger-policy-control">debugger policy control</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-optimization-quality-safety">optimization quality safety</a></td><td class="printindex-index-section"><a href="#declarations-as-assertions">declarations as assertions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-optimization-quality-safety-1">optimization quality safety</a></td><td class="printindex-index-section"><a href="#getting-existing-programs-to-run">getting existing programs to run</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-optimization-quality-safety-2">optimization quality safety</a></td><td class="printindex-index-section"><a href="#stack-allocation">stack allocation</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-optional_002c-stack-frame-kind">optional, stack frame kind</a></td><td class="printindex-index-section"><a href="#entry-point-details">entry point details</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-original-source">original source</a></td><td class="printindex-index-section"><a href="#parts-of-a-compiler-diagnostic">parts of a compiler diagnostic</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-original-source-1">original source</a></td><td class="printindex-index-section"><a href="#original-and-actual-source">original and actual source</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-P">P</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-package-lock">package lock</a></td><td class="printindex-index-section"><a href="#extended-package-prefix-syntax">extended package prefix syntax</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-package-lock-1">package lock</a></td><td class="printindex-index-section"><a href="#package-locks">package locks</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-package-prefix-syntax_002c-extended">package prefix syntax, extended</a></td><td class="printindex-index-section"><a href="#extended-package-prefix-syntax">extended package prefix syntax</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-package_002dlocal-nicknames">package-local nicknames</a></td><td class="printindex-index-section"><a href="#package-local-nicknames">package local nicknames</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-pathname">pathname</a></td><td class="printindex-index-section"><a href="#pathnames">pathnames</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-pathname_002c-logical">pathname, logical</a></td><td class="printindex-index-section"><a href="#the-sys-logical-pathname-host">the sys logical pathname host</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-policy_002c-debugger">policy, debugger</a></td><td class="printindex-index-section"><a href="#debugger-policy-control">debugger policy control</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-precise-type-checking">precise type checking</a></td><td class="printindex-index-section"><a href="#precise-type-checking">precise type checking</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-processing-path">processing path</a></td><td class="printindex-index-section"><a href="#parts-of-a-compiler-diagnostic">parts of a compiler diagnostic</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-processing-path-1">processing path</a></td><td class="printindex-index-section"><a href="#processing-paths">processing paths</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-profiling">profiling</a></td><td class="printindex-index-section"><a href="#profiling">profiling</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-profiling_002c-deterministic">profiling, deterministic</a></td><td class="printindex-index-section"><a href="#deterministic-profiler">deterministic profiler</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-profiling_002c-statistical">profiling, statistical</a></td><td class="printindex-index-section"><a href="#statistical-profiler">statistical profiler</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
 <tr><th id="concept-index_cp_letter-R">R</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-random-number-generation">random number generation</a></td><td class="printindex-index-section"><a href="#random-number-generation">random number generation</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-rational_002c-decimal-syntax">rational, decimal syntax</a></td><td class="printindex-index-section"><a href="#decimal-syntax-for-rationals">decimal syntax for rationals</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-read-error_002c-compiler">read error, compiler</a></td><td class="printindex-index-section"><a href="#read-errors">read errors</a></td></tr>
 <tr><td></td><td class="printindex-index-entry"><a href="#index-Read_002dEval_002dPrint-Loop">Read-Eval-Print Loop</a></td><td class="printindex-index-section"><a href="#initialization-files">initialization files</a></td></tr>
-<tr><td></td><td class="printindex-index-entry"><a href="#index-Read_002dEval_002dPrint-Loop-1">Read-Eval-Print Loop</a></td><td class="printindex-index-section"><a href="#contributed-modules">contributed modules</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-Read_002dEval_002dPrint-Loop-1">Read-Eval-Print Loop</a></td><td class="printindex-index-section"><a href="#sb-aclrepl">sb aclrepl</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-reader-extensions">reader extensions</a></td><td class="printindex-index-section"><a href="#beyond-the-ansi-standard">beyond the ansi standard</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-recursion_002c-tail">recursion, tail</a></td><td class="printindex-index-section"><a href="#debug-tail-recursion">debug tail recursion</a></td></tr>
 <tr><td></td><td class="printindex-index-entry"><a href="#index-REPL">REPL</a></td><td class="printindex-index-section"><a href="#initialization-files">initialization files</a></td></tr>
-<tr><td></td><td class="printindex-index-entry"><a href="#index-REPL-1">REPL</a></td><td class="printindex-index-section"><a href="#contributed-modules">contributed modules</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-REPL-1">REPL</a></td><td class="printindex-index-section"><a href="#sb-aclrepl">sb aclrepl</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-run_002dtime-error">run-time error</a></td><td class="printindex-index-section"><a href="#unknown-locations-and-interrupts">unknown locations and interrupts</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-S">S</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-safety_002c-optimization-quality">safety, optimization quality</a></td><td class="printindex-index-section"><a href="#declarations-as-assertions">declarations as assertions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-safety_002c-optimization-quality-1">safety, optimization quality</a></td><td class="printindex-index-section"><a href="#getting-existing-programs-to-run">getting existing programs to run</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-safety_002c-optimization-quality-2">safety, optimization quality</a></td><td class="printindex-index-section"><a href="#stack-allocation">stack allocation</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-semi_002dinline">semi-inline</a></td><td class="printindex-index-section"><a href="#debugger-policy-control">debugger policy control</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-severity-of-compiler-message">severity of compiler message</a></td><td class="printindex-index-section"><a href="#diagnostic-severity">diagnostic severity</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-single_002dstepping">single-stepping</a></td><td class="printindex-index-section"><a href="#single-stepping">single stepping</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-slot-access">slot access</a></td><td class="printindex-index-section"><a href="#slot-access">slot access</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-slot_002c-unbound">slot, unbound</a></td><td class="printindex-index-section"><a href="#extended-slot-access">extended slot access</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-slot_002c-unbound-1">slot, unbound</a></td><td class="printindex-index-section"><a href="#metaobject-protocol-extensions">metaobject protocol extensions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-source-location-in-debugger">source location in debugger</a></td><td class="printindex-index-section"><a href="#source-location-printing">source location printing</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-source-transform">source transform</a></td><td class="printindex-index-section"><a href="#processing-paths">processing paths</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-source_002c-actual">source, actual</a></td><td class="printindex-index-section"><a href="#parts-of-a-compiler-diagnostic">parts of a compiler diagnostic</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-source_002c-actual-1">source, actual</a></td><td class="printindex-index-section"><a href="#original-and-actual-source">original and actual source</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-source_002c-original">source, original</a></td><td class="printindex-index-section"><a href="#parts-of-a-compiler-diagnostic">parts of a compiler diagnostic</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-source_002c-original-1">source, original</a></td><td class="printindex-index-section"><a href="#original-and-actual-source">original and actual source</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-stack-frame">stack frame</a></td><td class="printindex-index-section"><a href="#stack-frames">stack frames</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-static-functions">static functions</a></td><td class="printindex-index-section"><a href="#open-coding-and-inline-expansion">open coding and inline expansion</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-stepper">stepper</a></td><td class="printindex-index-section"><a href="#single-stepping">single stepping</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-symbol-name-normalization">symbol name normalization</a></td><td class="printindex-index-section"><a href="#symbol-name-normalization">symbol name normalization</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-symbols_002c-interning">symbols, interning</a></td><td class="printindex-index-section"><a href="#extended-package-prefix-syntax">extended package prefix syntax</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-synchronous-timeout">synchronous timeout</a></td><td class="printindex-index-section"><a href="#synchronous-timeouts">synchronous timeouts</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-T">T</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-tail-recursion">tail recursion</a></td><td class="printindex-index-section"><a href="#debug-tail-recursion">debug tail recursion</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-timeout-parameters">timeout parameters</a></td><td class="printindex-index-section"><a href="#timeout-parameters">timeout parameters</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-timeout_002c-asynchronous">timeout, asynchronous</a></td><td class="printindex-index-section"><a href="#asynchronous-timeouts">asynchronous timeouts</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-timeout_002c-synchronous">timeout, synchronous</a></td><td class="printindex-index-section"><a href="#synchronous-timeouts">synchronous timeouts</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-tracing">tracing</a></td><td class="printindex-index-section"><a href="#function-tracing">function tracing</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-type-checking_002c-precise">type checking, precise</a></td><td class="printindex-index-section"><a href="#precise-type-checking">precise type checking</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-type-error_002c-compile_002dtime">type error, compile-time</a></td><td class="printindex-index-section"><a href="#type-errors-at-compile-time">type errors at compile time</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-types_002c-portability">types, portability</a></td><td class="printindex-index-section"><a href="#getting-existing-programs-to-run">getting existing programs to run</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-U">U</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-unbound-slot">unbound slot</a></td><td class="printindex-index-section"><a href="#extended-slot-access">extended slot access</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-unbound-slot-1">unbound slot</a></td><td class="printindex-index-section"><a href="#metaobject-protocol-extensions">metaobject protocol extensions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-Unicode">Unicode</a></td><td class="printindex-index-section"><a href="#symbol-name-normalization">symbol name normalization</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-Unicode-1">Unicode</a></td><td class="printindex-index-section"><a href="#unicode-support">unicode support</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-unknown-code-location">unknown code location</a></td><td class="printindex-index-section"><a href="#unknown-locations-and-interrupts">unknown locations and interrupts</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-V">V</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-variable_002c-debugger-access">variable, debugger access</a></td><td class="printindex-index-section"><a href="#variable-access">variable access</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-variable_002c-value-availabilty-in-debugger">variable, value availabilty in debugger</a></td><td class="printindex-index-section"><a href="#variable-value-availability">variable value availability</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-verbosity-of-compiler-messsages">verbosity of compiler messsages</a></td><td class="printindex-index-section"><a href="#controlling-verbosity">controlling verbosity</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="concept-index_cp_letter-W">W</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-weak-pointers">weak pointers</a></td><td class="printindex-index-section"><a href="#weak-pointers">weak pointers</a></td></tr>
 <tr><td colspan="3"><hr></td></tr>
 </table>
+<table class="cp-letters-footer-printindex"><tr><th>Jump to: &nbsp; </th><td><a class="summary-letter-printindex" href="#concept-index_cp_letter-A"><b>A</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-B"><b>B</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-E"><b>E</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-H"><b>H</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-I"><b>I</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-L"><b>L</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-M"><b>M</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-N"><b>N</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-O"><b>O</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-R"><b>R</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-T"><b>T</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-U"><b>U</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-V"><b>V</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#concept-index_cp_letter-W"><b>W</b></a>
+ &nbsp; 
+</td></tr></table>
 </div>
 
 <hr>
