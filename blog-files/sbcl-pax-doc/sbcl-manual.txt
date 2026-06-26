@@ -2,6 +2,16 @@
 
 ###### [in package SB-MANUAL]
 
+This manual – for SBCL version 2.6.5.32.pax-doc.18-b999eeefd, generated 2026-06-26 16:26:41 –
+is part of the SBCL software system. See the README file for
+more information.
+
+This manual is largely derived from the manual for the CMUCL system,
+which was produced at Carnegie Mellon University and later released
+into the public domain. This manual is in the public domain and is
+provided with absolutely no warranty. See the COPYING and
+CREDITS files for more information.
+
 ## Getting Support and Reporting Bugs
 
 ### Volunteer Support
@@ -245,8 +255,8 @@ have proper documentation yet.
   regression and unit-test framework.
 
 - MD5 Sums: The sb-md5 module provides an implementation of the
-  MD5 message digest algorithm for Common Lisp, using the modular
-  arithmetic optimizations provided by SBCL.
+  MD5 message digest algorithm for Common Lisp, using the
+  Modular Arithmetic optimizations provided by SBCL.
 
 ### Idiosyncrasies
 
@@ -550,9 +560,8 @@ still reflected in the current implementation:
 
 SBCL also inherited some newer architectural features from CMUCL.
 The most important is that on some architectures it has a
-generational garbage collector (GC), which has various
-implications (mostly good) for performance. These are discussed in
-another chapter, Efficiency.
+generational GC, which has various implications (mostly good) for
+performance. These are discussed in another chapter, Efficiency.
 
 SBCL has diverged from CMUCL in that SBCL is now essentially a
 compiler-only implementation of Common Lisp. This is a change in
@@ -578,7 +587,7 @@ particularly well there. SBCL should be able to improve in these areas
 (and has already improved in some other areas), but it takes a while.
 
 On the x86 SBCL -- like the x86 port of CMUCL -- uses a
-conservative GC. This means that it doesn't maintain a strict
+_@CONSERVATIVE-GC. This means that it doesn't maintain a strict
 separation between tagged and untagged data, instead treating some
 untagged data (e.g. raw floating point numbers) as possibly-tagged
 data and so not collecting any Lisp objects that they point to. This
@@ -586,9 +595,9 @@ has some negative consequences for average time efficiency (though
 possibly no worse than the negative consequences of trying to
 implement an exact GC on a processor architecture as register-poor
 as the X86) and also has potentially unlimited consequences for
-worst-case memory efficiency. In practice, conservative garbage
-collectors work reasonably well, not getting anywhere near the worst
-case. But they can occasionally cause odd patterns of memory usage.
+worst-case memory efficiency. In practice, conservative GCs work
+reasonably well, not getting anywhere near the worst case. But they
+can occasionally cause odd patterns of memory usage.
 
 The fork from CMUCL was based on a major rewrite of the system
 bootstrap process. CMUCL has for many years tolerated a very unusual
@@ -844,13 +853,16 @@ process, and is also provided as an extension to the user.
     any additional threads, and an init-hook that restarts them.
 
     This implementation is not as polished and painless as you might like:
-      * It corrupts the current Lisp image enough that the current process
-        needs to be killed afterwards. This can be worked around by forking
-        another process that saves the core.
-      * There is absolutely no binary compatibility of core images between
-        different runtime support programs. Even runtimes built from the same
-        sources at different times are treated as incompatible for this
-        purpose.
+
+    - It corrupts the current Lisp image enough that the current process
+      needs to be killed afterwards. This can be worked around by forking
+      another process that saves the core.
+
+    - There is absolutely no binary compatibility of core images between
+      different runtime support programs. Even runtimes built from the
+      same sources at different times are treated as incompatible for this
+      purpose.
+
     This isn't because we like it this way, but just because there don't
     seem to be good quick fixes for either limitation and no one has been
     sufficiently motivated to do lengthy fixes.
@@ -964,7 +976,7 @@ system.
 - --disable-ldb
 
     Disable the low-level debugger. Only effective if SBCL is
-    compiled with ldb.
+    compiled with ldb. disabling ldb
 
 - --lose-on-corruption
 
@@ -974,7 +986,7 @@ system.
     to continue and handle the error in Lisp, but this will not
     always work, and SBCL may malfunction or even hang. With this
     option, upon encountering such an error, SBCL will exit instead
-    of invoking ldb (if present and enabled).
+    of invoking ldb (if present and enabled enabling ldb).
 
 - --script <filename>
 
@@ -1312,14 +1324,14 @@ diagnostic:
   they are all printed from the outside in, separated by =>s. In
   this example, the problem was in the defun for foo.
 
-- (zoq y) is the original source form responsible for the
+- (zoq y) is the @ORIGINAL-SOURCE form responsible for the
   diagnostic. Original source means that the form directly appeared
   in the original input to the compiler, i.e. in the lambda passed
   to compile or in the top level form read from the source file. In
   this example, the expansion of the zoq macro was responsible for
   the message.
 
-- --> roq ploq This is the processing path that the compiler
+- --> roq ploq This is the @PROCESSING-PATH that the compiler
   used to produce the code that caused the message to be emitted.
   The processing path is a representation of the evaluated forms
   enclosing the actual source that the compiler encountered when
@@ -1415,11 +1427,11 @@ Keep in mind that when the compiler displays a source form in an
 diagnostic message, it always displays the most specific (innermost)
 responsible form. For example, compiling this function
 
-(defun bar (x)
-    (let (a)
-      (declare (fixnum a))
-      (setq a (foo x))
-      a))
+    (defun bar (x)
+      (let (a)
+        (declare (fixnum a))
+        (setq a (foo x))
+        a))
 
 gives this error message
 
@@ -1438,7 +1450,7 @@ let -- it is saying that there is a problem with the let itself. In
 this example, the problem is that a's nil initial value is not a
 fixnum.
 
-##### Processing Path
+##### Processing Paths
 
 The processing path is mainly useful for debugging macros, so if you
 don't write macros, you can probably ignore it. Consider this example:
@@ -1464,7 +1476,8 @@ dotimes expands into:
         ((>= i #:g1) *undefined*)
       (declare (type unsigned-byte i)))
 
-The rest of the processing path results from the expansion of do:
+The rest of the processing path results from the macroexpansion of
+do: 
 
     (block nil
       (let ((i 0) (#:g1 n))
@@ -1512,10 +1525,11 @@ Implementation Limitations.
 
 CLOS slot types form a notable exception. Types declared using the
 :type slot option in defclass are asserted if and only if the class
-was defined in safe code and the slot access location is in safe
-code as well. This laxness does not pose any internal consistency
-issues, as the CLOS slot types are not available for the type
-inferencer, nor do CLOS slot types provide any efficiency benefits.
+was defined in safe code  and the slot access location is
+in safe code as well. This laxness does not pose any internal
+consistency issues, as the CLOS slot types are not available for the
+type inferencer, nor do CLOS slot types provide any efficiency
+benefits.
 
 There are three type checking policies available in SBCL, selectable
 via optimize declarations.
@@ -1817,6 +1831,8 @@ the program by causing cache misses or even swapping.
         (with-compilation-unit (:policy nil)
           (declaim (optimize safety))
           (load "foo.lisp"))
+
+    Also, see the CLHS.
 
 ### Compiler Errors
 
@@ -2198,8 +2214,8 @@ present in the debugger, see Debugger Policy Control.
 
 If a function is defined by defun it will appear in backtrace
 by that name. Functions defined by labels and flet will appear as
-(FLET <name>) and (LABELS <name>) respectively. Anonymous
-lambdas will appear as (LAMBDA <lambda-list>).
+(flet <name>) and (labels <name>) respectively. Anonymous
+lambdas will appear as (lambda <lambda-list>).
 
 ##### Entry Point Details
 
@@ -2218,7 +2234,7 @@ entry points.
 #### Debug Tail Recursion
 
 The compiler is properly tail recursive. If a function call is
-in a tail-recursive position, the stack frame will be deallocated
+in a tail recursive position, the stack frame will be deallocated
 at the time of the call, rather than after the call returns.
 Consider this backtrace:
 
@@ -2271,8 +2287,8 @@ There are three reasons why a code location could be unknown:
 
 - The debugger was entered because of an interrupt such as C-c.
 
-- A hardware error such as a bus error occurred in code that was
-  compiled unsafely due to the value of the safety
+- A hardware error  such as a bus error occurred in
+  code that was compiled unsafely due to the value of the safety
   optimization quality.
 
 In the last two cases, the values of argument variables are
@@ -2361,10 +2377,10 @@ down the stack will be fine.
 
 The value of a variable may be unavailable for these reasons:
 
-- The value of the debug optimization quality may have omitted debug
-  information needed to determine whether the variable is available.
-  Unless a variable is an argument, its value will only be available
-  when debug is at least 2.
+- The value of the debug optimization quality may have omitted
+  debug information needed to determine whether the variable is
+  available. Unless a variable is an argument, its value will only
+  be available when debug is at least 2.
 
 - The compiler did lifetime analysis and determined that the value
   was no longer needed, even though its scope had not been exited.
@@ -2545,7 +2561,7 @@ print
     Unknown location: using block start.
 
 and then proceed to print the source location for the start of the
-basic block enclosing the code location. It's a bit complicated to
+@BASIC-BLOCK enclosing the code location. It's a bit complicated to
 explain exactly what a basic block is, but here are some properties
 of the block start location:
 
@@ -2638,9 +2654,9 @@ values of the speed and space qualities also change whether
 functions are inline expanded. If a function is inline expanded,
 then there will be no frame to represent the call, and the arguments
 will be treated like any other local variable. Functions may also be
-semi-inline, in which case there is a frame to represent the call,
-but the call is to an optimized local version of the function, not
-to the original function.
+@SEMI-INLINE, in which case there is a frame to represent the
+call, but the call is to an optimized local version of the function,
+not to the original function.
 
 ### Exiting Commands
 
@@ -2836,17 +2852,23 @@ traced.
         (TRACE NAME-1 NAME-2 ...)
 
     The names are not evaluated. Each may be one of the following:
-      * symbol, denoting a function or macro.
-      * fname, a valid function name, denoting a function.
-      * (method fname qualifiers* (specializers*)) denoting a method.
-      * (compiler-macro symbol) denoting a compiler macro.
-      * (labels fname :in outer-name) or (flet fname :in outer-name)
-        denoting a local function where outer-name may be any of the
-        previous names for functions, macros, methods or compiler macros.
-        Tracing local functions may require debug policy 3 to inhibit
-        inlining.
-      * string denoting all functions fbound to symbols whose home package
-        is the package with the given name.
+
+    - symbol, denoting a function or macro.
+
+    - fname, a valid function name, denoting a function.
+
+    - (method fname qualifiers* (specializers*)) denoting a method.
+
+    - (compiler-macro symbol) denoting a compiler macro.
+
+    - (labels fname :in outer-name) or (flet fname :in outer-name)
+      denoting a local function where outer-name may be any of the
+      previous names for functions, macros, methods or compiler macros.
+      Tracing local functions may require debug policy 3 to inhibit
+      inlining.
+
+    - string denoting all functions fbound to symbols whose home package
+      is the package with the given name.
 
     Options allow modification of the default behavior. Each option is a
     pair of an option keyword and a value form. Global options are
@@ -2939,6 +2961,8 @@ traced.
     which are evaluated after the function call, (sb-debug:arg n) returns
     the nth value returned by the function.
 
+    Also, see the CLHS.
+
 In the case of functions where the known return convention is used
 to optimize, encapsulation may be necessary in order to make tracing
 work at all. The symptom of this occurring is an error stating
@@ -2952,6 +2976,8 @@ in such cases we recommend using (TRACE FOO :ENCAPSULATE t).
 
     Remove tracing from the specified functions. Untraces all
     functions when called with no arguments.
+
+    Also, see the CLHS.
 
 - [variable] sb-debug:*trace-indentation-step* 2
 
@@ -3002,6 +3028,8 @@ The following debugger commands are used for controlling single stepping.
     outside the lexical scope of the form can be stepped into only if the
     functions in question have been compiled with sufficient debug policy
     to be at least partially steppable.
+
+    Also, see the CLHS.
 
 ### Enabling and Disabling the Debugger
 
@@ -3105,7 +3133,7 @@ of values when they are recognized as having dynamic extent:
 
     > Warning: Stack space is limited, so allocation of a large
     > vector may cause stack overflow. Stack overflow checks are
-    > done except in zero safety policies.
+    > done except in 0 safety policies.
 
 - closures defined with flet or labels with a bound dynamic-extent
   declaration;
@@ -3252,9 +3280,9 @@ detect incorrect usage of dynamic extent declarations.
 
 Some numeric functions have a property: n lower bits of the
 result depend only on n lower bits of (all or some) arguments. If
-the compiler sees an expression of form (LOGAND <expr> <mask>),
+the compiler sees an expression of form (logand <expr> <mask>),
 where <expr> is a tree of such good functions and <mask> is
-known to be of type (UNSIGNED-BYTE <w>), where <w> is a good
+known to be of type (unsigned-byte <w>), where <w> is a good
 width, all intermediate results will be cut to <w> bits (but it is
 not done for variables and constants!). This often results in an
 ability to use simple machine instructions for the functions.
@@ -3395,10 +3423,10 @@ points to keep in mind.
   explicit type declarations.)
 
 - Since the time the CMUCL manual was written, CMUCL (and thus SBCL)
-  has gotten a generational garbage collector. This means that there
-  are some efficiency implications of various patterns of memory
-  usage which aren't discussed in the CMUCL manual. (Some new
-  material should be written about this.)
+  has gotten a generational GC. This means that there are some
+  efficiency implications of various patterns of memory usage which
+  aren't discussed in the CMUCL manual. (Some new material should be
+  written about this.)
 
 - SBCL has some important known efficiency problems. Perhaps the
   most important are
@@ -3848,8 +3876,8 @@ paths:
 
     - :static
 
-    To find a root of an image-backed object, you want to stop only at a
-      truly :static object.
+        To find a root of an image-backed object, you want to stop only at
+        a truly :static object.
 
     ignore is a list of objects to treat as if nonexistent in the heap.
     It can often be useful for finding a path to an interned symbol other than
@@ -3967,7 +3995,7 @@ For structures:
 
 - slot-value and slot-boundp function as expected, including (for
   slot-value) calling and respecting the return value of
-  slot-unbound if the slot is unbound;
+  slot-unbound if the slot is unbound; 
 
 - (setf slot-value) functions as expected, including performing
   type checks to verify that the new value is of an appropriate type
@@ -4097,7 +4125,8 @@ are:
     AMOP as the functional version of defclass, which has this
     behaviour; however, it is not consistent with the weaker
     requirement in AMOP, which states that any class found by
-    find-class, no matter what its class-name, is redefined.
+    find-class, no matter what its class-name, is
+    redefined.
 
 - An error is not signaled in the case of the :name initialization
   argument for sb-mop:slot-definition objects being a constant, when
@@ -4170,8 +4199,8 @@ AMOP; at present, they are:
   methods convert between classes and proper names and between lists
   of the form (EQL <x>) and interned eql specializer objects.
 
-- Distinguishing unbound instance allocated slots from bound ones
-  when using sb-mop:standard-instance-access and
+- Distinguishing unbound instance allocated slots  from
+  bound ones when using sb-mop:standard-instance-access and
   sb-mop:funcallable-standard-instance-access is possible by
   comparison to the symbol-macro sb-pcl:+slot-unbound+.
 
@@ -4550,7 +4579,7 @@ created by calling the following generic function:
 
 ### Support For Unix
 
-- [variable] sb-ext:*posix-argv* ("./contrib/sb-manual/../../src/runtime/sbcl")
+- [variable] sb-ext:*posix-argv* "<omitted>"
 
     A list of strings related to the UNIX command line (argv in C).
 
@@ -4622,8 +4651,9 @@ External programs can be run with sb-ext:run-program.
         the current process.
 
     - :env
-    An alternative lossy representation of the new Unix environment,
-    for compatibility with CMU CL.
+
+        An alternative lossy representation of the new Unix environment,
+        for compatibility with CMU CL.
 
     - :search
 
@@ -4827,8 +4857,8 @@ standard (such as bell).
 > required to be assigned to form-feed (u+0c) by the ANSI
 > standard.
 
-For example, you can specify the codepoint u+00e1 (_Latin
-Small Letter A With Acute_) as
+For example, you can specify the codepoint u+00e1 ( Latin Small
+Letter A With Acute) as
 
 - #\latin_small_letter_a_with_acute
 
@@ -4867,8 +4897,7 @@ Unicode codepoint.
     The only characters in Unicode with a decimal digit value are those
     that are part of a range of characters that encode the digits 0-9.
     Because of this, (decimal-digit c) <=> (digit-char-p c 10) in
-
-    # +sb-unicode builds
+    #+sb-unicode builds
 
 - [function] sb-unicode:digit-value character
 
@@ -4988,15 +5017,15 @@ Unicode codepoint.
 
     Returns t if character is a Default_Ignorable_Code_Point
 
-- [function] sb-unicode:grapheme-break-class char
+- [function] sb-unicode:grapheme-break-class character
 
     Returns the grapheme breaking class of character, as specified in UAX #29.
 
-- [function] sb-unicode:word-break-class char
+- [function] sb-unicode:word-break-class character
 
     Returns the word breaking class of character, as specified in UAX #29.
 
-- [function] sb-unicode:sentence-break-class char
+- [function] sb-unicode:sentence-break-class character
 
     Returns the sentence breaking class of character, as specified in UAX #29.
 
@@ -5152,6 +5181,8 @@ way:
     responsible for calling provide to indicate a successful load of the
     module.
 
+    Also, see the CLHS.
+
 - [variable] sb-ext:*module-provider-functions* (asdf/operate:module-provide-asdf sb-impl::module-provide-contrib)
 
     See require.
@@ -5167,6 +5198,8 @@ mechanisms as follows:
     until one of them returns non-nil; these functions are responsible for
     signalling a file-error to indicate failure to perform an operation on
     the file system.
+
+    Also, see the CLHS.
 
 - [variable] sb-ext:*ed-functions* nil
 
@@ -5206,7 +5239,7 @@ the condition accessor sb-ext:name-conflict-symbols.
 
 ### Hash Table Extensions
 
-Hash table extensions supported by SBCL are all controlled by keyword
+hash table extensions supported by SBCL are all controlled by keyword
 arguments to make-hash-table.
 
 - [function] make-hash-table &key (test 'eql) (size 7) (rehash-size 1.5) (rehash-threshold 1) (hash-function nil user-hashfun-p) (weakness nil) (synchronized)
@@ -5282,6 +5315,8 @@ arguments to make-hash-table.
         t, all concurrent accesses are safe, but note that CLHS
         3.6 (Traversal Rules and Side Effects) remains in force. See
         also: sb-ext:with-locked-hash-table.
+
+    Also, see the CLHS.
 
 - [macro] sb-ext:define-hash-table-test name hash-function
 
@@ -5747,6 +5782,8 @@ and its context.
     returns the documentation stored under the function name if any, and
     falls back on the documentation in the function object if necessary.
 
+    Also, see the CLHS.
+
 ### Stale Extensions
 
 SBCL has inherited from CMUCL various hooks to allow the user to
@@ -5776,8 +5813,8 @@ efficiency when using a more sophisticated garbage collector which
 is well suited to the program's memory usage pattern. It also allows
 permanent code to be frozen at fixed addresses, a precondition for
 using copy-on-write to share code between multiple Lisp processes.
-This is less important with modern generational garbage collectors,
-but not all SBCL platforms use such a garbage collector.
+This is less important with modern generational GC, but not all
+SBCL platforms use such a garbage collector.
 
 The sb-ext:truly-the special form declares the type of the result of
 the operations, producing its argument; the declaration is not
@@ -6123,7 +6160,7 @@ These are the basic foreign type specifiers:
   is desired, it may be explicitly coerced using cast.
 
 Arrays are accessed using deref, passing the indices
-as additional arguments.  Elements are stored in column-major order
+as additional arguments.  Elements are stored in row-major order
 (as in C), so the first dimension determines only the size of the
 memory block, and not the layout of the higher dimensions. An array
 whose first dimension is variable may be specified by using nil as
@@ -6205,14 +6242,14 @@ can only be allocated using make-alien.
   declare that no useful value is returned. Using alien-funcall to
   call a void foreign function will return zero values.
 
-- The foreign type specifier (C-STRING &KEY <external-format>
+- The foreign type specifier (c-string &key <external-format>
   <element-type> <not-null>) is similar to (* char) but is
   interpreted as a null-terminated string, and is automatically
   converted into a Lisp string when accessed; or if the pointer is C
   null or 0, then accessing it gives Lisp nil unless
   <not-null> is true, in which case a type-error is signalled.
 
-    External format conversion is automatically done when Lisp
+    external format conversion is automatically done when Lisp
     strings are passed to foreign code, or when foreign strings are
     passed to Lisp code. If the type specifier has an explicit
     <external-format>, that external format will be used.
@@ -6232,10 +6269,10 @@ can only be allocated using make-alien.
     support that means an <external-format> of :ascii and an
     <element-type> of base-char. Without Unicode support the
     <external-format> can also be :iso-8859-1, and the
-    <element-type> can also be character. If <external-format>
-    and <element-type> are not compatible, or the string is a
-    (simple-array character (*)), this data is copied by the
-    implementation as required.
+    <element-type> can also be character. If
+    <external-format> and <element-type> are not compatible, or
+    the string is a (simple-array character (*)), this data is
+    copied by the implementation as required.
 
     Assigning a Lisp string to a c-string structure field or
     variable stores the contents of the string to the memory already
@@ -6258,10 +6295,10 @@ can only be allocated using make-alien.
     variable.
 
 - sb-alien also exports translations of these C type
-  specifiers as foreign type specifiers:
+specifiers as foreign type specifiers:
 
-    char, short, int, long, unsigned-char, unsigned-short,
-    unsigned-int, unsigned-long, float, double, size-t, off-t
+char, short, int, long, unsigned-char, unsigned-short,
+  unsigned-int, unsigned-long, float, double, size-t, off-t
 
 ### Operations On Foreign Values
 
@@ -6821,11 +6858,10 @@ coping with this:
 
 - sb-sys:with-pinned-objects is a macro which arranges for some set
   of objects to be pinned in memory for the dynamic extent of its
-  body forms. On ports which use the generational garbage
-  collector (most, as of this writing) this affects exactly the
-  specified objects. On other ports it is implemented by turning off
-  GC for the duration (so could be said to have a whole-world
-  granularity).
+  body forms. On ports which use the generational GC
+  (most, as of this writing) this affects exactly the specified
+  objects. On other ports it is implemented by turning off GC for
+  the duration (so could be said to have a whole-world granularity).
 
 - Disable GC, using the SB-EXT:WITHOUT-GCING macro.
 
@@ -6919,7 +6955,7 @@ test.lisp containing
     
         (with-alien ((res (* (struct c-struct))
                           (c-function 5 "another Lisp string" (addr c-struct) ar)))
-          (format t "~&amp;back from C function~%")
+          (format t "~&back from C function~%")
           (multiple-value-prog1
               (values (slot res 'x)
                       (slot res 's))
@@ -7137,7 +7173,7 @@ streams:
 ### Stream External Formats
 
 The function stream-external-format returns the canonical name of
-the external format (See External Formats) used by the stream for
+the external format (see External Formats) used by the stream for
 character-based input and/or output.
 
 When constructing file streams, for example using open or
@@ -7234,11 +7270,15 @@ of fundamental-stream.
     stream. The class sb-gray:fundamental-character-stream provides a
     default method which returns character.
 
+    Also, see the CLHS.
+
 - [generic-function] close stream &key abort
 
     Close the given stream. No more I/O may be performed, but
     inquiries may still be made. If :abort is true, an attempt is made
     to clean up the side effects of having created the stream.
+
+    Also, see the CLHS.
 
 - [generic-function] sb-gray:stream-file-position stream &optional position-spec
 
@@ -8290,19 +8330,24 @@ lockless algorithms.
     the increment.
 
     place must access one of the following:
-     - a defstruct slot with declared type (unsigned-byte 64)
-       or aref of a (simple-array (unsigned-byte 64) (*))
-       The type sb-ext:word can be used for these purposes.
-     - car or cdr (respectively first or rest) of a cons.
-     - a variable defined using defglobal with a proclaimed type of fixnum.
-    Macroexpansion is performed on place before expanding atomic-incf.
 
-    Incrementing is done using modular arithmetic,
-    which is well-defined over two different domains:
-     - For structures and arrays, the operation accepts and produces
+    - a defstruct slot with declared type (unsigned-byte 64)
+      or aref of a (simple-array (unsigned-byte 64) (*))
+      The type sb-ext:word can be used for these purposes.
+
+    - car or cdr (respectively first or rest) of a cons.
+
+    - a variable defined using defglobal with a proclaimed type of fixnum.
+      Macroexpansion is performed on place before expanding atomic-incf.
+
+    Incrementing is done using modular arithmetic, which is well-defined
+    over two different domains:
+
+    - For structures and arrays, the operation accepts and produces
        an (unsigned-byte 64), and diff must be of type (signed-byte 64).
        atomic-incf of #xFFFFFFFFFFFFFFFF by one results in #x0 being stored in place.
-     - For other places, the domain is fixnum, and diff must be a fixnum.
+
+    - For other places, the domain is fixnum, and diff must be a fixnum.
        atomic-incf of #x3FFFFFFFFFFFFFFF by one results in #x-4000000000000000
        being stored in place.
 
@@ -8549,10 +8594,10 @@ that they go to sleep.
 
     - grab-mutex is not interrupt safe. The correct way to call it is:
 
-        (without-interrupts
-            ...
-            (allow-with-interrupts (grab-mutex ...))
-            ...)
+              (without-interrupts
+                ...
+                (allow-with-interrupts (grab-mutex ...))
+                ...)
 
         without-interrupts is necessary to avoid an interrupt unwinding the call
         while the mutex is in an inconsistent state while allow-with-interrupts
@@ -9495,8 +9540,8 @@ sampling runs.
 Platform support
 
 Allocation profiling is only supported on SBCL builds that use the
-generational garbage collector. Tracking of call stacks at a depth
-of more than two levels is only supported on x86 and x86-64.
+generational GC. Tracking of call stacks at a depth of more than
+two levels is only supported on x86 and x86-64.
 
 Macros
 
@@ -9508,40 +9553,49 @@ Macros
 
     The following keyword args are recognized:
 
-    :sample-interval <n>
-       Take a sample every <n> seconds. Default is *sample-interval*.
+    - :sample-interval <n>
 
-    :mode <mode>
-       If :cpu, run the profiler in CPU profiling mode. If :alloc, run the
-       profiler in allocation profiling mode. If :time, run the profiler
-       in wallclock profiling mode.
+        Take a sample every <n> seconds. Default is *sample-interval*.
 
-    :max-samples <max>
-       If :loop is nil (the default), collect no more than <max> samples.
-       If :loop is t, repeat evaluating body until <max> samples are taken.
-       Default is *max-samples*.
+    - :mode <mode>
 
-    :report <type>
-       If specified, call report with :type <type> at the end.
+        If :cpu, run the profiler in CPU profiling mode. If :alloc, run
+        the profiler in allocation profiling mode. If :time, run the
+        profiler in wallclock profiling mode.
 
-    :reset <bool>
-       If true, call reset at the beginning.
+    - :max-samples <max>
 
-    :threads <list-form>
-       Form that evaluates to the list threads to profile, or :all to indicate
-       that all threads should be profiled. Defaults to all threads.
+        If :loop is nil (the default), collect no more than <max>
+        samples. If :loop is t, repeat evaluating body until <max>
+        samples are taken. Default is *max-samples*.
 
-    :threads has no effect on call-counting at the moment.
+    - :report <type>
 
-    On some platforms (eg. Darwin) the signals used by the profiler are
-       not properly delivered to threads in proportion to their CPU usage
-       when doing :cpu profiling. If you see empty call graphs, or are obviously
-       missing several samples from certain threads, you may be falling afoul
-       of this. In this case using :mode :time is likely to work better.
+        If specified, call report with :type <type> at the end.
 
-    :loop <bool>
-       If false (the default), evaluate body only once. If true repeatedly
-       evaluate body.
+    - :reset <bool>
+
+        If true, call reset at the beginning.
+
+    - :threads <list-form>
+
+        Form that evaluates to the list threads to profile, or :all to
+        indicate that all threads should be profiled. Defaults to all
+        threads.
+
+        :threads has no effect on call-counting at the moment.
+
+        On some platforms (e.g. Darwin) the signals used by the profiler
+        are not properly delivered to threads in proportion to their CPU
+        usage when doing :cpu profiling. If you see empty call graphs, or
+        are obviously missing several samples from certain threads, you
+        may be falling afoul of this. In this case using :mode :time is
+        likely to work better.
+
+    - :loop <bool>
+
+        If false (the default), evaluate body only once. If true
+        repeatedly evaluate body.
 
 - [macro] sb-sprof:with-sampling (&optional (on t)) &body body
 
@@ -9964,11 +10018,11 @@ multiple threads must wait for a single event before proceeding.
     a writer operated inside the region while they were reading. This makes frlocks
     very efficient when readers are much more common than writers.
 
-    FRlocks are not suitable when it is not safe at all for readers and writers to
-    operate on the same data in parallel: they provide consistency, not exclusion
-    between readers and writers. Hence using an frlock to eg. protect an SBCL
-    hash-table is unsafe. If multiple readers operating in parallel with a writer
-    would be safe but inconsistent without a lock, frlocks are suitable.
+    FRlocks are not suitable when it is not safe at all for readers and writers
+    to operate on the same data in parallel: they provide consistency, not
+    exclusion between readers and writers. Hence using an frlock to e.g. protect
+    an SBCL hash-table is unsafe. If multiple readers operating in parallel with
+    a writer would be safe but inconsistent without a lock, frlocks are suitable.
 
     The recommended interface to use is frlock-read and frlock-write, but those
     needing it can also use a lower-level interface.
@@ -10036,7 +10090,7 @@ multiple threads must wait for a single event before proceeding.
 
     Acquires frlock for writing, invalidating existing and future read-tokens
     for the duration. Returns t on success, and nil if the lock wasn't acquired
-    due to eg. a timeout. Using frlock-write instead is recommended.
+    due to e.g. a timeout. Using frlock-write instead is recommended.
 
 - [function] sb-concurrency:release-frlock-write-lock frlock
 
@@ -10875,8 +10929,8 @@ both pathnames and strings as its arguments.
 
 - [type] sb-posix:file-descriptor-designator
 
-    Designator for a file-descriptor: either a fixnum designating itself, or
-    a file-stream designating the underlying file-descriptor.
+    Designator for a file-descriptor: either a fixnum designating
+    itself, or a file-stream designating the underlying file-descriptor.
 
 - [function] sb-posix:file-descriptor file-descriptor
 

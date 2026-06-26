@@ -281,6 +281,16 @@
         - [18.7.2 Historical Interfaces][292d]
 
 ###### \[in package SB-MANUAL\]
+This manual – for SBCL version `2.6.5.32.pax-doc.18-b999eeefd`, generated *2026-06-26 16:26:41* –
+is part of the SBCL software system. See the `README` file for
+more information.
+
+This manual is largely derived from the manual for the CMUCL system,
+which was produced at Carnegie Mellon University and later released
+into the public domain. This manual is in the public domain and is
+provided with absolutely no warranty. See the `COPYING` and
+`CREDITS` files for more information.
+
 <a id="x-28SB-MANUAL-3A-40SUPPORT-AND-BUGS-20MGL-PAX-3ASECTION-29"></a>
 
 ## 1 Getting Support and Reporting Bugs
@@ -387,7 +397,7 @@ If you run into a signal related bug, you are getting fatal errors
 such as `signal N is [un]blocked` or just hangs, and you want to
 send a useful bug report then:
 
-- Compile SBCL with ldb enabled (feature `:sb-ldb`, see
+- Compile SBCL with `ldb` enabled (feature `:sb-ldb`, see
   `base-target-features.lisp-expr`).
 
 - Isolate a smallish test case, run it.
@@ -453,7 +463,7 @@ exceptions involve internal inconsistencies in the standard.) See
 ### 2.2 Extensions
 
 SBCL comes with numerous extensions, some in core and some in modules
-loadable with `require`([`0`][d3da] [`1`][360d]). Unfortunately, not all of these extensions
+loadable with [`require`][360d]. Unfortunately, not all of these extensions
 have proper documentation yet.
 
 - **System Definition Tool:** ASDF is a flexible and popular
@@ -544,8 +554,8 @@ have proper documentation yet.
   regression and unit-test framework.
 
 - **MD5 Sums:** The [sb-md5][4321] module provides an implementation of the
-  MD5 message digest algorithm for Common Lisp, using the modular
-  arithmetic optimizations provided by SBCL.
+  MD5 message digest algorithm for Common Lisp, using the
+  [Modular Arithmetic][1a1b] optimizations provided by SBCL.
 
 
 <a id="x-28SB-MANUAL-3A-40IDIOSYNCRASIES-20MGL-PAX-3ASECTION-29"></a>
@@ -612,7 +622,7 @@ the interpreter.
 
 SBCL is quite strict about ANSI's definition of [`defconstant`][8934].
 ANSI says that doing `defconstant` of the same symbol more than once
-is undefined unless the new value is `eql`([`0`][db03] [`1`][5fd4]) to the old value.
+is undefined unless the new value is [`eql`][38a2] to the old value.
 Conforming to this specification is a nuisance when the "constant"
 value is only constant under some weaker test like [`string=`][4143] or [`equal`][3fb5].
 
@@ -733,7 +743,7 @@ available online from the SBCL executable itself. The extensions for
 functions which have their own command prompts (e.g. the debugger,
 and [`inspect`][a485]) are documented in text available by typing `help` at
 their command prompts. The extensions for functions which don't have
-their own command prompt (such as `trace`([`0`][10c3] [`1`][548d])) are described in their
+their own command prompt (such as [`trace`][548d]) are described in their
 documentation strings, unless your SBCL was compiled with an option
 not to include documentation strings, in which case the
 documentation strings are only readable in the source code.
@@ -893,9 +903,8 @@ still reflected in the current implementation:
 
 SBCL also inherited some newer architectural features from CMUCL.
 The most important is that on some architectures it has a
-generational garbage collector (GC), which has various
-implications (mostly good) for performance. These are discussed in
-another chapter, [Efficiency][29fd].
+generational GC, which has various implications (mostly good) for
+performance. These are discussed in another chapter, [Efficiency][29fd].
 
 SBCL has diverged from CMUCL in that SBCL is now essentially a
 compiler-only implementation of Common Lisp. This is a change in
@@ -921,7 +930,7 @@ particularly well there. SBCL should be able to improve in these areas
 (and has already improved in some other areas), but it takes a while.
 
 On the x86 SBCL -- like the x86 port of CMUCL -- uses a
-*conservative* GC. This means that it doesn't maintain a strict
+\_@CONSERVATIVE-GC. This means that it doesn't maintain a strict
 separation between tagged and untagged data, instead treating some
 untagged data (e.g. raw floating point numbers) as possibly-tagged
 data and so not collecting any Lisp objects that they point to. This
@@ -929,9 +938,9 @@ has some negative consequences for average time efficiency (though
 possibly no worse than the negative consequences of trying to
 implement an exact GC on a processor architecture as register-poor
 as the X86) and also has potentially unlimited consequences for
-worst-case memory efficiency. In practice, conservative garbage
-collectors work reasonably well, not getting anywhere near the worst
-case. But they can occasionally cause odd patterns of memory usage.
+worst-case memory efficiency. In practice, conservative GCs work
+reasonably well, not getting anywhere near the worst case. But they
+can occasionally cause odd patterns of memory usage.
 
 The fork from CMUCL was based on a major rewrite of the system
 bootstrap process. CMUCL has for many years tolerated a very unusual
@@ -1211,13 +1220,16 @@ process, and is also provided as an extension to the user.
     any additional threads, and an init-hook that restarts them.
     
     This implementation is not as polished and painless as you might like:
-      \* It corrupts the current Lisp image enough that the current process
-        needs to be killed afterwards. This can be worked around by forking
-        another process that saves the core.
-      \* There is absolutely no binary compatibility of core images between
-        different runtime support programs. Even runtimes built from the same
-        sources at different times are treated as incompatible for this
-        purpose.
+    
+    - It corrupts the current Lisp image enough that the current process
+      needs to be killed afterwards. This can be worked around by forking
+      another process that saves the core.
+    
+    - There is absolutely no binary compatibility of core images between
+      different runtime support programs. Even runtimes built from the
+      same sources at different times are treated as incompatible for this
+      purpose.
+    
     This isn't because we like it this way, but just because there don't
     seem to be good quick fixes for either limitation and no one has been
     sufficiently motivated to do lengthy fixes.
@@ -1345,7 +1357,7 @@ system.
 - `--disable-ldb`
 
     Disable the low-level debugger. Only effective if SBCL is
-    compiled with [`ldb`][00e9].
+    compiled with `ldb`. disabling `ldb`
 
 - `--lose-on-corruption`
 
@@ -1355,7 +1367,7 @@ system.
     to continue and handle the error in Lisp, but this will not
     always work, and SBCL may malfunction or even hang. With this
     option, upon encountering such an error, SBCL will exit instead
-    of invoking `ldb` (if present and enabled).
+    of invoking `ldb` (if present and enabled enabling `ldb`).
 
 - `--script <filename>`
 
@@ -1565,7 +1577,7 @@ more then some users would prefer -- the amount of noise emitted can
 be controlled, however.
 
 To control emission of compiler diagnostics (of any severity other
-than `error`([`0`][d162] [`1`][35ba]): [Diagnostic Severity][4dad]) use the [`sb-ext:muffle-conditions`][4697]
+than [`error`][669b]: [Diagnostic Severity][4dad]) use the [`sb-ext:muffle-conditions`][4697]
 and [`sb-ext:unmuffle-conditions`][873a] declarations, specifying the type of
 condition that is to be muffled (the muffling is done using an
 associated [`muffle-warning`][6f51] restart).
@@ -1717,7 +1729,7 @@ diagnostic:
   read the relevant code from. The file name is displayed because it
   may not be immediately obvious when there is an error during
   compilation of a large system, especially when
-  `with-compilation-unit`([`0`][6166] [`1`][e7bf]) is used to delay undefined warnings.
+  [`with-compilation-unit`][e7bf] is used to delay undefined warnings.
 
 - `in: DEFUN FOO` is the definition top level form responsible for
   the diagnostic. It is obtained by taking the first two elements of
@@ -1727,14 +1739,14 @@ diagnostic:
   they are all printed from the outside in, separated by `=>`s. In
   this example, the problem was in the [`defun`][f472] for `foo`.
 
-- `(zoq y)` is the *original source* form responsible for the
+- `(zoq y)` is the *@ORIGINAL-SOURCE* form responsible for the
   diagnostic. Original source means that the form directly appeared
   in the original input to the compiler, i.e. in the lambda passed
   to [`compile`][bc41] or in the top level form read from the source file. In
   this example, the expansion of the `zoq` macro was responsible for
   the message.
 
-- `--> roq ploq` This is the *processing path* that the compiler
+- `--> roq ploq` This is the *@PROCESSING-PATH* that the compiler
   used to produce the code that caused the message to be emitted.
   The processing path is a representation of the evaluated forms
   enclosing the actual source that the compiler encountered when
@@ -1755,7 +1767,7 @@ diagnostic:
 
 - `caught WARNING: Asserted type NUMBER conflicts with derived type
   (VALUES SYMBOL &OPTIONAL).` is the *explanation* of the problem.
-  In this example, the problem is that, while the call to `+`([`0`][fd8a] [`1`][72a7])
+  In this example, the problem is that, while the call to [`+`][0c83]
   requires that its arguments are all of type [`number`][4dee], the compiler
   has derived that Y will evaluate to a [`symbol`][e5af]. Note that
   `(values symbol &optional)` expresses that `y` evaluates to
@@ -1832,11 +1844,11 @@ Keep in mind that when the compiler displays a source form in an
 diagnostic message, it always displays the most specific (innermost)
 responsible form. For example, compiling this function
 
-(defun bar (x)
-    (let (a)
-      (declare (fixnum a))
-      (setq a (foo x))
-      a))
+    (defun bar (x)
+      (let (a)
+        (declare (fixnum a))
+        (setq a (foo x))
+        a))
 
 gives this error message
 
@@ -1855,9 +1867,9 @@ This message is not saying that there is a problem somewhere in this
 this example, the problem is that `a`'s `nil` initial value is not a
 [`fixnum`][3cde].
 
-<a id="x-28SB-MANUAL-3A-40PROCESSING-PATH-20MGL-PAX-3ASECTION-29"></a>
+<a id="x-28SB-MANUAL-3A-40PROCESSING-PATHS-20MGL-PAX-3ASECTION-29"></a>
 
-##### Processing Path
+##### Processing Paths
 
 The processing path is mainly useful for debugging macros, so if you
 don't write macros, you can probably ignore it. Consider this example:
@@ -1883,7 +1895,8 @@ Note that [`do`][5d2b] appears in the processing path. This is because
         ((>= i #:g1) *undefined*)
       (declare (type unsigned-byte i)))
 
-The rest of the processing path results from the expansion of `do`:
+The rest of the processing path results from the macroexpansion of
+`do`: 
 
     (block nil
       (let ((i 0) (#:g1 n))
@@ -1935,10 +1948,11 @@ provide some exceptions to this rule, see
 
 CLOS slot types form a notable exception. Types declared using the
 `:type` slot option in [`defclass`][ead6] are asserted if and only if the class
-was defined in *safe code* and the slot access location is in *safe
-code* as well. This laxness does not pose any internal consistency
-issues, as the CLOS slot types are not available for the type
-inferencer, nor do CLOS slot types provide any efficiency benefits.
+was defined in *safe code*  and the slot access location is
+in *safe code* as well. This laxness does not pose any internal
+consistency issues, as the CLOS slot types are not available for the
+type inferencer, nor do CLOS slot types provide any efficiency
+benefits.
 
 There are three type checking policies available in SBCL, selectable
 via [`optimize`][4d51] declarations.
@@ -1989,8 +2003,8 @@ producing a single [`and`][dd55] type specifier.
 
 To gain maximum benefit from the compiler's type checking, you
 should always declare the types of function arguments and structure
-slots as precisely as possible. This often involves the use of `or`([`0`][e3f2] [`1`][e2d1]),
-`member`([`0`][82ae] [`1`][a79d]), and other list-style type specifiers.
+slots as precisely as possible. This often involves the use of [`or`][8808],
+[`member`][0376], and other list-style type specifiers.
 
 <a id="x-28SB-MANUAL-3A-40GETTING-EXISTING-PROGRAMS-TO-RUN-20MGL-PAX-3ASECTION-29"></a>
 
@@ -2004,7 +2018,7 @@ if parts of the program have never been tested.
 
 Some incorrect declarations can only be detected by run-time type
 checking. It is very important to initially compile a program with
-full type checks (high [`safety`][f384] optimization) and then test this safe
+full type checks (high safety optimization) and then test this safe
 version. After the checking version has been tested, then you can
 consider weakening or eliminating type checks. *This applies even to
 previously debugged programs* because the SBCL compiler does much
@@ -2058,7 +2072,7 @@ For example, this call is illegal:
     (my-1+ (+ 4 5))
 
 This call is illegal because the argument to the macro is `(+ 4 5)`,
-which is a `list`([`0`][79d8] [`1`][6d9f]), not a `fixnum`. Because of macro semantics, it is
+which is a [`list`][9271], not a `fixnum`. Because of macro semantics, it is
 hardly ever useful to declare the types of macro arguments. If you
 really want to assert something about the type of the result of
 evaluating a macro argument, then put a [`the`][311a] in the expansion:
@@ -2165,7 +2179,7 @@ the program by causing cache misses or even swapping.
     Otherwise, if `min` is zero or `max` is 3 or neither are given, any
     existing restrictions of `quality` are removed.
     
-    See also `:policy` option in `with-compilation-unit`([`0`][6166] [`1`][e7bf]).
+    See also `:policy` option in [`with-compilation-unit`][e7bf].
 
 <a id="x-28WITH-COMPILATION-UNIT-20MGL-PAX-3AMACRO-29"></a>
 
@@ -2262,6 +2276,8 @@ the program by causing cache misses or even swapping.
       (load "foo.lisp"))
     ```
 
+    Also, see the [CLHS][6166].
+
 <a id="x-28SB-MANUAL-3A-40COMPILER-ERRORS-20MGL-PAX-3ASECTION-29"></a>
 
 ### 4.4 Compiler Errors
@@ -2319,7 +2335,7 @@ an error if it is executed) and gives a warning.
 
 The compiler handles errors that happen during macroexpansion, turning
 them into compiler errors. If you want to debug the error (to debug
-a macro), you can set [`*break-on-signals*`][ee75] to `error`([`0`][d162] [`1`][35ba]). For example, this
+a macro), you can set [`*break-on-signals*`][ee75] to [`error`][669b]. For example, this
 definition:
 
     (defun foo (e l)
@@ -2447,7 +2463,7 @@ tests while block compiling. This helps for mutually referential
 ## 5 Debugger
 
 This chapter documents the debugging facilities of SBCL, including
-the debugger, single-stepper and `trace`([`0`][10c3] [`1`][548d]), and the effect of `(optimize
+the debugger, single-stepper and [`trace`][548d], and the effect of `(optimize
 debug)` declarations.
 
 <a id="x-28SB-MANUAL-3A-40DEBUGGER-ENTRY-20MGL-PAX-3ASECTION-29"></a>
@@ -2492,7 +2508,7 @@ followed by the debugger prompt.
 
 The debugger is invoked when:
 
-- `error`([`0`][d162] [`1`][35ba]) is called, and the condition it signals is not handled.
+- [`error`][669b] is called, and the condition it signals is not handled.
 
 - [`break`][7598] is called, or [`signal`][8f49] is called with a condition that matches
   the current [`*break-on-signals*`][ee75].
@@ -2683,8 +2699,8 @@ present in the debugger, see [Debugger Policy Control][faf1].
 
 If a function is defined by [`defun`][f472] it will appear in backtrace
 by that name. Functions defined by [`labels`][c2ef] and [`flet`][091c] will appear as
-`(FLET <name>)` and `(LABELS <name>)` respectively. Anonymous
-lambdas will appear as `(LAMBDA <lambda-list>)`.
+`(flet <name>)` and `(labels <name>)` respectively. Anonymous
+lambdas will appear as `(lambda <lambda-list>)`.
 
 <a id="x-28SB-MANUAL-3A-40ENTRY-POINT-DETAILS-20MGL-PAX-3ASECTION-29"></a>
 
@@ -2707,7 +2723,7 @@ entry points.
 #### 5.3.4 Debug Tail Recursion
 
 The compiler is *properly tail recursive*. If a function call is
-in a tail-recursive position, the stack frame will be deallocated
+in a tail recursive position, the stack frame will be deallocated
 *at the time of the call*, rather than after the call returns.
 Consider this backtrace:
 
@@ -2762,8 +2778,8 @@ There are three reasons why a code location could be unknown:
 
 - The debugger was entered because of an interrupt such as `C-c`.
 
-- A hardware error such as a bus error occurred in code that was
-  compiled unsafely due to the value of the [`safety`][f384]
+- A hardware error  such as a bus error occurred in
+  code that was compiled unsafely due to the value of the [`safety`][f384]
   optimization quality.
 
 
@@ -2860,10 +2876,10 @@ down the stack will be fine.
 
 The value of a variable may be unavailable for these reasons:
 
-- The value of the [`debug`][5df9] optimization quality may have omitted debug
-  information needed to determine whether the variable is available.
-  Unless a variable is an argument, its value will only be available
-  when `debug` is at least 2.
+- The value of the debug optimization quality may have omitted
+  debug information needed to determine whether the variable is
+  available. Unless a variable is an argument, its value will only
+  be available when [`debug`][5df9] is at least 2.
 
 - The compiler did lifetime analysis and determined that the value
   was no longer needed, even though its scope had not been exited.
@@ -3041,7 +3057,7 @@ same [`eq`][5a82] list twice. If you don't define read macros and don't use
 
 #### 5.5.2 Source Location Availability
 
-Source location information is only available when the [`debug`][5df9]
+Source location information is only available when the debug
 optimization quality is at least 2. If source location information
 is unavailable, the source commands will give an error message.
 
@@ -3053,7 +3069,7 @@ print
     Unknown location: using block start.
 
 and then proceed to print the source location for the start of the
-*basic block* enclosing the code location. It's a bit complicated to
+*@BASIC-BLOCK* enclosing the code location. It's a bit complicated to
 explain exactly what a basic block is, but here are some properties
 of the block start location:
 
@@ -3062,7 +3078,7 @@ of the block start location:
 - The block start location will never be later in the program's flow
   of control than the true location.
 
-- No conditional control structures (such as [`if`][02ad], [`cond`][5854], `or`([`0`][e3f2] [`1`][e2d1])) will
+- No conditional control structures (such as [`if`][02ad], [`cond`][5854], [`or`][8808]) will
   intervene between the block start and the true location (but note
   that some conditionals present in the original source could be
   optimized away.) Function calls *do not* end basic blocks.
@@ -3082,13 +3098,13 @@ have changed the program on you.)
 ### 5.6 Debugger Policy Control
 
 The compilation policy specified by [`optimize`][4d51] declarations
-affects the behavior seen in the debugger. The [`debug`][5df9] quality
+affects the behavior seen in the debugger. The debug quality
 directly affects the debugger by controlling the amount of debugger
 information dumped. Other optimization qualities have indirect but
 observable effects due to changes in the way compilation is done.
 
 Unlike the other optimization qualities (which are compared in
-relative value to evaluate tradeoffs), the `debug` optimization
+relative value to evaluate tradeoffs), the [`debug`][5df9] optimization
 quality is directly translated to a level of debug information. This
 absolute interpretation allows the user to count on a particular
 amount of debug information being available even when the values of
@@ -3127,7 +3143,7 @@ levels of debug information that correspond to the values of the
   scope of the binding. This has a speed penalty in addition to the
   obvious space penalty.
 
-Inlining of local functions is inhibited so that they may be `trace`([`0`][10c3] [`1`][548d])d.
+Inlining of local functions is inhibited so that they may be [`trace`][548d]d.
 
 - `> (max speed space)`: If `debug` is greater than both `speed` and
   [`space`][4e8c], the command [`return`][5b0b] can be used to continue execution by
@@ -3148,9 +3164,9 @@ values of the `speed` and `space` qualities also change whether
 functions are inline expanded. If a function is inline expanded,
 then there will be no frame to represent the call, and the arguments
 will be treated like any other local variable. Functions may also be
-*semi-inline*, in which case there is a frame to represent the call,
-but the call is to an optimized local version of the function, not
-to the original function.
+*@SEMI-INLINE*, in which case there is a frame to represent the
+call, but the call is to an optimized local version of the function,
+not to the original function.
 
 <a id="x-28SB-MANUAL-3A-40EXITING-COMMANDS-20MGL-PAX-3ASECTION-29"></a>
 
@@ -3161,14 +3177,14 @@ These commands get you out of the debugger.
 - `toplevel`: Throw to top level.
 
 - `restart [<n>]`: Invoke the `<n>`th restart case as displayed by
-  the `error`([`0`][d162] [`1`][35ba]) command. If `<n>` is not specified, the available
+  the [`error`][669b] command. If `<n>` is not specified, the available
   restart cases are reported.
 
-- `continue`: Call `continue`([`0`][02a3] [`1`][1867]) on the condition given to [`debug`][5df9]. If
+- `continue`: Call [`continue`][87a5] on the condition given to [`debug`][5df9]. If
   there is no restart case named `continue`, then an error is
   signaled.
 
-- `abort`: Call `abort`([`0`][479a] [`1`][ae44]) on the condition given to `debug`. This is
+- `abort`: Call [`abort`][a838] on the condition given to `debug`. This is
   useful for popping debug command loop levels or aborting to top
   level, as the case may be.
 
@@ -3225,7 +3241,7 @@ breakpoints:
   keyword can be used to indicate setting a breakpoint at the
   function start (`:start`, `:s`) or function end (`:end`, `:e`). The
   `breakpoint` command has `:condition`, `:break`, `:print` and `:function`
-  options which work similarly to the `trace`([`0`][10c3] [`1`][548d]) options.
+  options which work similarly to the [`trace`][548d] options.
 
 - `list-locations [<function>]` or `ll [<function>]`: List all the
   code locations in the current frame's function, or in `<function>`
@@ -3362,17 +3378,23 @@ traced.
         (TRACE NAME-1 NAME-2 ...)
     
     The `name`s are not evaluated. Each may be one of the following:
-      \* [`symbol`][e5af], denoting a function or macro.
-      \* `fname`, a valid function name, denoting a function.
-      \* `(method fname qualifiers* (specializers*))` denoting a method.
-      \* `(compiler-macro symbol)` denoting a compiler macro.
-      \* `(labels fname :in outer-name)` or `(flet fname :in outer-name)`
-        denoting a local function where `outer-name` may be any of the
-        previous names for functions, macros, methods or compiler macros.
-        Tracing local functions may require [`debug`][5df9] policy 3 to inhibit
-        inlining.
-      \* `string`([`0`][b93c] [`1`][dae6]) denoting all functions fbound to symbols whose home package
-        is the package with the given name.
+    
+    - [`symbol`][e5af], denoting a function or macro.
+    
+    - `fname`, a valid function name, denoting a function.
+    
+    - `(method fname qualifiers* (specializers*))` denoting a method.
+    
+    - `(compiler-macro symbol)` denoting a compiler macro.
+    
+    - `(labels fname :in outer-name)` or `(flet fname :in outer-name)`
+      denoting a local function where `outer-name` may be any of the
+      previous names for functions, macros, methods or compiler macros.
+      Tracing local functions may require [`debug`][5df9] policy 3 to inhibit
+      inlining.
+    
+    - [`string`][68cc] denoting all functions fbound to symbols whose home package
+      is the package with the given name.
     
     Options allow modification of the default behavior. Each option is a
     pair of an option keyword and a value form. Global options are
@@ -3465,6 +3487,8 @@ traced.
     which are evaluated after the function call, `(sb-debug:arg n)` returns
     the `n`th value returned by the function.
 
+    Also, see the [CLHS][10c3].
+
 In the case of functions where the known return convention is used
 to optimize, encapsulation may be necessary in order to make tracing
 work at all. The symptom of this occurring is an error stating
@@ -3480,6 +3504,8 @@ in such cases we recommend using `(TRACE FOO :ENCAPSULATE t)`.
 
     Remove tracing from the specified functions. Untraces all
     functions when called with no arguments.
+
+    Also, see the [CLHS][a370].
 
 <a id="x-28SB-DEBUG-3A-2ATRACE-INDENTATION-STEP-2A-20VARIABLE-29"></a>
 
@@ -3498,13 +3524,13 @@ in such cases we recommend using `(TRACE FOO :ENCAPSULATE t)`.
 
 - [variable] **sb-debug:\*trace-encapsulate-default\*** *t*
 
-    The default value for the `:encapsulate` option to `trace`([`0`][10c3] [`1`][548d]).
+    The default value for the `:encapsulate` option to [`trace`][548d].
 
 <a id="x-28SB-DEBUG-3A-2ATRACE-REPORT-DEFAULT-2A-20VARIABLE-29"></a>
 
 - [variable] **sb-debug:\*trace-report-default\*** *trace*
 
-    The default value for the `:report` option to `trace`([`0`][10c3] [`1`][548d]).
+    The default value for the `:report` option to [`trace`][548d].
 
 <a id="x-28SB-MANUAL-3A-40SINGLE-STEPPING-20MGL-PAX-3ASECTION-29"></a>
 
@@ -3543,6 +3569,8 @@ The following debugger commands are used for controlling single stepping.
     outside the lexical scope of the form can be stepped into only if the
     functions in question have been compiled with sufficient [`debug`][5df9] policy
     to be at least partially steppable.
+
+    Also, see the [CLHS][e725].
 
 <a id="x-28SB-MANUAL-3A-40ENABLING-AND-DISABLING-THE-DEBUGGER-20MGL-PAX-3ASECTION-29"></a>
 
@@ -3656,7 +3684,7 @@ of values when they are recognized as having dynamic extent:
 
 - [`&rest`][4336] lists;
 
-- the results of `cons`([`0`][a237] [`1`][12a8]), `list`([`0`][79d8] [`1`][6d9f]), [`list*`][f275], and `vector`([`0`][6098] [`1`][6d31]);
+- the results of [`cons`][229c], [`list`][9271], [`list*`][f275], and [`vector`][64b3];
 
 - the result of simple forms of [`make-array`][92ab]: stack allocation is
   possible only if the resulting array is known to be both simple
@@ -3664,12 +3692,12 @@ of values when they are recognized as having dynamic extent:
 
     > **Warning**: Stack space is limited, so allocation of a large
     > vector may cause stack overflow. Stack overflow checks are
-    > done except in zero [`safety`][f384] policies.
+    > done except in 0 safety policies.
 
 - closures defined with [`flet`][091c] or [`labels`][c2ef] with a bound [`dynamic-extent`][0901]
   declaration;
 
-- anonymous closures defined with `lambda`([`0`][e400] [`1`][5c01]);
+- anonymous closures defined with [`lambda`][650d];
 
 - user-defined structures when the structure constructor defined using
   [`defstruct`][eac1] has been declared [`inline`][9fb4];
@@ -3814,9 +3842,9 @@ detect incorrect usage of dynamic extent declarations.
 
 Some numeric functions have a property: n lower bits of the
 result depend only on n lower bits of (all or some) arguments. If
-the compiler sees an expression of form `(LOGAND <expr> <mask>)`,
+the compiler sees an expression of form `(logand <expr> <mask>)`,
 where `<expr>` is a tree of such *good* functions and `<mask>` is
-known to be of type `(UNSIGNED-BYTE <w>)`, where `<w>` is a *good*
+known to be of type `(unsigned-byte <w>)`, where `<w>` is a *good*
 width, all intermediate results will be cut to `<w>` bits (but it is
 not done for variables and constants!). This often results in an
 ability to use simple machine instructions for the functions.
@@ -3836,7 +3864,7 @@ cutting results to 32 bits, and because terminals (here, expressions
 `x` and `y`) are also of type `(unsigned-byte 32)`, 32-bit machine
 arithmetic can be used.
 
-As of SBCL 0.8.5 good functions are `+`([`0`][fd8a] [`1`][72a7]), `-`([`0`][b5f9] [`1`][5483]), [`logand`][7ab4], [`logior`][0430],
+As of SBCL 0.8.5 good functions are [`+`][0c83], [`-`][2dd9], [`logand`][7ab4], [`logior`][0430],
 `logxor`, `lognot` and their combinations; and [`ash`][90ca] with the positive
 second argument. Good widths are 32 on 32-bit CPUs and 64 on 64-bit
 CPUs. While it is possible to support smaller widths as well,
@@ -3975,10 +4003,10 @@ points to keep in mind.
 
 
 - Since the time the CMUCL manual was written, CMUCL (and thus SBCL)
-  has gotten a generational garbage collector. This means that there
-  are some efficiency implications of various patterns of memory
-  usage which aren't discussed in the CMUCL manual. (Some new
-  material should be written about this.)
+  has gotten a generational GC. This means that there are some
+  efficiency implications of various patterns of memory usage which
+  aren't discussed in the CMUCL manual. (Some new material should be
+  written about this.)
 
 - SBCL has some important known efficiency problems. Perhaps the
   most important are
@@ -4079,7 +4107,7 @@ the rational with the exact value of the decimal number expressed as
 a float.
 
 In addition, setting or binding the value of
-[`*read-default-float-format*`][88f1] to `rational`([`0`][051f] [`1`][a45e]) around a call to [`read`][fe58] or
+[`*read-default-float-format*`][88f1] to [`rational`][f0444] around a call to [`read`][fe58] or
 [`read-from-string`][d813] has the effect that floating-point numbers without
 exponent markers are read as rational numbers, as if there had been
 an explicit `r` or `r` marker.
@@ -4511,8 +4539,8 @@ paths:
     
     - `:static`
     
-    To find a root of an image-backed object, you want to stop only at a
-      truly `:static` object.
+        To find a root of an image-backed object, you want to stop only at
+        a truly `:static` object.
     
     `ignore` is a list of objects to treat as if nonexistent in the heap.
     It can often be useful for finding a path to an interned symbol other than
@@ -4634,14 +4662,14 @@ For structures:
 
 - `slot-value` and [`slot-boundp`][4a9d] function as expected, including (for
   `slot-value`) calling and respecting the return value of
-  [`slot-unbound`][c31a] if the slot is unbound;
+  [`slot-unbound`][c31a] if the slot is unbound; 
 
 - `(setf slot-value)` functions as expected, including performing
   type checks to verify that the new value is of an appropriate type
   for the slot;
 
 - `slot-makunbound` makes the slot unbound only when the slot
-  corresponds to an [`&aux`][4336] argument with no default in a
+  corresponds to an `&aux` argument with no default in a
   by-order-of-arguments (BOA) constructor. In all other cases
   calling `slot-makunbound` on a structure signals an error.
 
@@ -4668,7 +4696,7 @@ are:
   indicate, and apparently no clients for it.
 
 - The direct superclasses of `sb-mop:funcallable-standard-object` are
-  (`function`([`0`][119e] [`1`][81f7]) [`standard-object`][a843]) instead of the correct (`standard-object`
+  ([`function`][a51f] [`standard-object`][a843]) instead of the correct (`standard-object`
   `function`).
 
     This is to ensure that the [`standard-object`][a843] class is the last of
@@ -4769,7 +4797,8 @@ are:
     AMOP as the functional version of [`defclass`][ead6], which has this
     behaviour; however, it is not consistent with the weaker
     requirement in AMOP, which states that any class found by
-    [`find-class`][51fe], no matter what its `class-name`([`0`][b679] [`1`][03fa]), is redefined.
+    [`find-class`][51fe], no matter what its [`class-name`][03fa], is
+    redefined.
 
 - An error is not signaled in the case of the `:name` initialization
   argument for `sb-mop:slot-definition` objects being a constant, when
@@ -4845,8 +4874,8 @@ AMOP; at present, they are:
   methods convert between classes and proper names and between lists
   of the form `(EQL <x>)` and interned eql specializer objects.
 
-- Distinguishing unbound instance allocated slots from bound ones
-  when using `sb-mop:standard-instance-access` and
+- Distinguishing unbound instance allocated slots  from
+  bound ones when using `sb-mop:standard-instance-access` and
   `sb-mop:funcallable-standard-instance-access` is possible by
   comparison to the symbol-macro `sb-pcl:+slot-unbound+`.
 
@@ -4855,8 +4884,8 @@ AMOP; at present, they are:
 
 ### 7.8 Extensible Sequences
 
-ANSI Common Lisp has a class [`sequence`][ae23] with subclasses `list`([`0`][79d8] [`1`][6d9f]) and
-`vector`([`0`][6098] [`1`][6d31]), on which the sequence functions like [`find`][4e46], [`subseq`][4a86], etc.
+ANSI Common Lisp has a class [`sequence`][ae23] with subclasses [`list`][9271] and
+[`vector`][64b3], on which the sequence functions like [`find`][4e46], [`subseq`][4a86], etc.
 operate. As an extension to the ANSI specification, SBCL allows
 additional subclasses of `sequence` to be defined.
 
@@ -5347,7 +5376,7 @@ created by calling the following generic function:
 
 <a id="x-28SB-EXT-3A-2APOSIX-ARGV-2A-20VARIABLE-29"></a>
 
-- [variable] **sb-ext:\*posix-argv\*** *("./contrib/sb-manual/../../src/runtime/sbcl")*
+- [variable] **sb-ext:\*posix-argv\*** *"\<omitted>"*
 
     A list of strings related to the UNIX command line (`argv` in C).
     
@@ -5423,13 +5452,14 @@ External programs can be run with [`sb-ext:run-program`][e0d4].
     
     - `:environment`
     
-        A list of `string`([`0`][b93c] [`1`][dae6])s describing the new Unix environment
+        A list of [`string`][68cc]s describing the new Unix environment
         (as in "man environ"). The default is to copy the environment of
         the current process.
     
     - `:env`
-    An alternative lossy representation of the new Unix environment,
-    for compatibility with CMU CL.
+    
+        An alternative lossy representation of the new Unix environment,
+        for compatibility with CMU CL.
     
     - `:search`
     
@@ -5657,8 +5687,8 @@ standard (such as `bell`).
 > required to be assigned to form-feed (`u+0c`) by the ANSI
 > standard.
 
-For example, you can specify the codepoint `u+00e1` (\_Latin
-Small Letter A With Acute\_) as
+For example, you can specify the codepoint `u+00e1` ( *Latin Small
+Letter A With Acute*) as
 
 - `#\latin_small_letter_a_with_acute`
 
@@ -5708,8 +5738,7 @@ Unicode codepoint.
     The only characters in Unicode with a decimal digit value are those
     that are part of a range of characters that encode the digits 0-9.
     Because of this, `(decimal-digit c) <=> (digit-char-p c 10)` in
-    
-    # +sb-unicode builds
+    `#+sb-unicode` builds
 
 <a id="x-28SB-UNICODE-3ADIGIT-VALUE-20FUNCTION-29"></a>
 
@@ -5875,21 +5904,21 @@ Unicode codepoint.
 
 <a id="x-28SB-UNICODE-3AGRAPHEME-BREAK-CLASS-20FUNCTION-29"></a>
 
-- [function] **sb-unicode:grapheme-break-class** *char*
+- [function] **sb-unicode:grapheme-break-class** *character*
 
-    Returns the grapheme breaking class of `character`([`0`][32e3] [`1`][b315]), as specified in UAX #29.
+    Returns the grapheme breaking class of `character`, as specified in UAX #29.
 
 <a id="x-28SB-UNICODE-3AWORD-BREAK-CLASS-20FUNCTION-29"></a>
 
-- [function] **sb-unicode:word-break-class** *char*
+- [function] **sb-unicode:word-break-class** *character*
 
-    Returns the word breaking class of `character`([`0`][32e3] [`1`][b315]), as specified in UAX #29.
+    Returns the word breaking class of `character`, as specified in UAX #29.
 
 <a id="x-28SB-UNICODE-3ASENTENCE-BREAK-CLASS-20FUNCTION-29"></a>
 
-- [function] **sb-unicode:sentence-break-class** *char*
+- [function] **sb-unicode:sentence-break-class** *character*
 
-    Returns the sentence breaking class of `character`([`0`][32e3] [`1`][b315]), as specified in UAX #29.
+    Returns the sentence breaking class of `character`, as specified in UAX #29.
 
 <a id="x-28SB-UNICODE-3ALINE-BREAK-CLASS-20FUNCTION-29"></a>
 
@@ -6071,7 +6100,7 @@ The toplevel repl prompt may be customized, and the function
 that reads user input may be replaced completely. See the `:toplevel`
 argument of [`sb-ext:save-lisp-and-die`][9e55].
 
-The behaviour of `require`([`0`][d3da] [`1`][360d]) when called with only one argument is
+The behaviour of [`require`][360d] when called with only one argument is
 implementation-defined. In SBCL, `require` behaves in the following
 way:
 
@@ -6087,11 +6116,13 @@ way:
     responsible for calling [`provide`][10c2] to indicate a successful load of the
     module.
 
+    Also, see the [CLHS][d3da].
+
 <a id="x-28SB-EXT-3A-2AMODULE-PROVIDER-FUNCTIONS-2A-20VARIABLE-29"></a>
 
 - [variable] **sb-ext:\*module-provider-functions\*** *(asdf/operate:module-provide-asdf sb-impl::module-provide-contrib)*
 
-    See `require`([`0`][d3da] [`1`][360d]).
+    See [`require`][360d].
 
 Although SBCL does not provide a resident editor, the [`ed`][c0ba]
 function can be customized to hook into user-provided editing
@@ -6107,11 +6138,13 @@ mechanisms as follows:
     signalling a [`file-error`][da60] to indicate failure to perform an operation on
     the file system.
 
+    Also, see the [CLHS][9fe7].
+
 <a id="x-28SB-EXT-3A-2AED-FUNCTIONS-2A-20VARIABLE-29"></a>
 
 - [variable] **sb-ext:\*ed-functions\*** *nil*
 
-    See `ed`([`0`][9fe7] [`1`][c0ba]).
+    See [`ed`][c0ba].
 
 Conditions of type [`warning`][bcb6] and [`style-warning`][2056] are sometimes signaled at
 runtime, especially during execution of Common Lisp defining forms
@@ -6130,7 +6163,7 @@ SBCL provides a variable [`sb-ext:*muffled-warnings*`][ef88]:
 
 ### 7.12 Tools To Help Developers
 
-SBCL provides a profiler and other extensions to the `trace`([`0`][10c3] [`1`][548d])
+SBCL provides a profiler and other extensions to the [`trace`][548d]
 facility.
 
 The debugger supports a number of options. Its documentation is
@@ -6155,8 +6188,8 @@ the condition accessor `sb-ext:name-conflict-symbols`.
 
 ### 7.14 Hash Table Extensions
 
-Hash table extensions supported by SBCL are all controlled by keyword
-arguments to `make-hash-table`([`0`][452a] [`1`][e826]).
+hash table extensions supported by SBCL are all controlled by keyword
+arguments to [`make-hash-table`][e826].
 
 <a id="x-28MAKE-HASH-TABLE-20FUNCTION-29"></a>
 
@@ -6234,19 +6267,21 @@ arguments to `make-hash-table`([`0`][452a] [`1`][e826]).
         3.6 (Traversal Rules and Side Effects) remains in force. See
         also: [`sb-ext:with-locked-hash-table`][3d3c].
 
+    Also, see the [CLHS][452a].
+
 <a id="x-28SB-EXT-3ADEFINE-HASH-TABLE-TEST-20MGL-PAX-3AMACRO-29"></a>
 
 - [macro] **sb-ext:define-hash-table-test** *name hash-function*
 
     Defines `name` as a new kind of hash table test for use with the `:test`
-    argument to `make-hash-table`([`0`][452a] [`1`][e826]), and associates a default `hash-function` with it.
+    argument to [`make-hash-table`][e826], and associates a default `hash-function` with it.
     
     `name` must be a symbol naming a global two argument equivalence predicate.
     Afterwards both '`name` and #'`name` can be used with `:test` argument. In both
     cases [`hash-table-test`][ebb7] will return the symbol `name`.
     
     `hash-function` must be a symbol naming a global hash function consistent with
-    the predicate, or be a `lambda`([`0`][e400] [`1`][5c01]) form implementing one in the current lexical
+    the predicate, or be a [`lambda`][650d] form implementing one in the current lexical
     environment. The hash function must compute the same hash code for any two
     objects for which `name` returns true, and subsequent calls with already hashed
     objects must always return the same hash code.
@@ -6740,7 +6775,7 @@ and its context.
     - `(object condition) (doc-type (eql 'type))`
     
     Function documentation is stored separately for function names and objects:
-    [`defun`][f472], `lambda`([`0`][e400] [`1`][5c01]), \&co create function objects with the specified documentation
+    [`defun`][f472], [`lambda`][650d], \&co create function objects with the specified documentation
     strings.
     
         (setf (documentation name 'function) string)
@@ -6755,6 +6790,8 @@ and its context.
     
     returns the documentation stored under the function name if any, and
     falls back on the documentation in the function object if necessary.
+
+    Also, see the [CLHS][c5ae].
 
 <a id="x-28SB-MANUAL-3A-40STALE-EXTENSIONS-20MGL-PAX-3ASECTION-29"></a>
 
@@ -6789,8 +6826,8 @@ efficiency when using a more sophisticated garbage collector which
 is well suited to the program's memory usage pattern. It also allows
 permanent code to be frozen at fixed addresses, a precondition for
 using copy-on-write to share code between multiple Lisp processes.
-This is less important with modern generational garbage collectors,
-but not all SBCL platforms use such a garbage collector.
+This is less important with modern generational GC, but not all
+SBCL platforms use such a garbage collector.
 
 The `sb-ext:truly-the` special form declares the type of the result of
 the operations, producing its argument; the declaration is not
@@ -7136,7 +7173,7 @@ Lisp type specifier. For example,
 
 can be used to determine whether `foo` is a pointer to a foreign
 `int`. `alien` type specifiers can be used in the same ways as
-ordinary Lisp type specifiers (like `string`([`0`][b93c] [`1`][dae6]).) Alien type declarations
+ordinary Lisp type specifiers (like [`string`][68cc].) Alien type declarations
 are subject to the same precise type checking as any other
 declaration. See [Precise Type Checking][ade9].
 
@@ -7173,7 +7210,7 @@ These are the basic foreign type specifiers:
   is desired, it may be explicitly coerced using [`cast`][b385].
 
 Arrays are accessed using [`deref`][85de], passing the indices
-as additional arguments.  Elements are stored in column-major order
+as additional arguments.  Elements are stored in row-major order
 (as in C), so the first dimension determines only the size of the
 memory block, and not the layout of the higher dimensions. An array
 whose first dimension is variable may be specified by using `nil` as
@@ -7255,14 +7292,14 @@ can only be allocated using [`make-alien`][fb92].
   declare that no useful value is returned. Using `alien-funcall` to
   call a `void` foreign function will return zero values.
 
-- The foreign type specifier `(C-STRING &KEY <external-format>
+- The foreign type specifier `(c-string &key <external-format>
   <element-type> <not-null>)` is similar to `(* char)` but is
   interpreted as a null-terminated string, and is automatically
   converted into a Lisp string when accessed; or if the pointer is C
   `null` or 0, then accessing it gives Lisp `nil` unless
   `<not-null>` is true, in which case a [`type-error`][abfd] is signalled.
 
-    External format conversion is automatically done when Lisp
+    external format conversion is automatically done when Lisp
     strings are passed to foreign code, or when foreign strings are
     passed to Lisp code. If the type specifier has an explicit
     `<external-format>`, that external format will be used.
@@ -7273,7 +7310,7 @@ can only be allocated using [`make-alien`][fb92].
 
         (define-alien-routine test int (str (c-string :external-format :ebcdic-us)))
 
-    Lisp strings of type `base-string` are stored with a trailing
+    Lisp strings of type [`base-string`][86d8] are stored with a trailing
     `NUL` termination, so no copying (either by the user or the
     implementation) is necessary when passing them to foreign code,
     assuming that the `<external-format>` and `<element-type>` of
@@ -7282,10 +7319,10 @@ can only be allocated using [`make-alien`][fb92].
     support that means an `<external-format>` of `:ascii` and an
     `<element-type>` of [`base-char`][92f9]. Without Unicode support the
     `<external-format>` can also be `:iso-8859-1`, and the
-    `<element-type>` can also be `character`([`0`][32e3] [`1`][b315]). If `<external-format>`
-    and `<element-type>` are not compatible, or the string is a
-    `(simple-array character (*))`, this data is copied by the
-    implementation as required.
+    `<element-type>` can also be [`character`][32e3]. If
+    `<external-format>` and `<element-type>` are not compatible, or
+    the string is a `(simple-array character (*))`, this data is
+    copied by the implementation as required.
 
     Assigning a Lisp string to a `c-string` structure field or
     variable stores the contents of the string to the memory already
@@ -7307,12 +7344,12 @@ can only be allocated using [`make-alien`][fb92].
     Storing Lisp `nil` in a `c-string` writes C `NULL` to the
     variable.
 
+
 - `sb-alien` also exports translations of these C type
-  specifiers as foreign type specifiers:
+specifiers as foreign type specifiers:
 
-    [`char`][ee36], `short`, `int`, `long`, `unsigned-char`, `unsigned-short`,
-    `unsigned-int`, `unsigned-long`, `float`([`0`][99b6] [`1`][ba39]), `double`, `size-t`, `off-t`
-
+  [`char`][ee36], `short`, `int`, `long`, `unsigned-char`, `unsigned-short`,
+  `unsigned-int`, `unsigned-long`, [`float`][eee2], `double`, `size-t`, `off-t`
 
 <a id="x-28SB-MANUAL-3A-40OPERATIONS-ON-FOREIGN-VALUES-20MGL-PAX-3ASECTION-29"></a>
 
@@ -7947,11 +7984,10 @@ coping with this:
 
 - `sb-sys:with-pinned-objects` is a macro which arranges for some set
   of objects to be pinned in memory for the dynamic extent of its
-  body forms. On ports which use the generational garbage
-  collector (most, as of this writing) this affects exactly the
-  specified objects. On other ports it is implemented by turning off
-  GC for the duration (so could be said to have a whole-world
-  granularity).
+  body forms. On ports which use the generational GC
+  (most, as of this writing) this affects exactly the specified
+  objects. On other ports it is implemented by turning off GC for
+  the duration (so could be said to have a whole-world granularity).
 
 - Disable GC, using the SB-EXT:WITHOUT-GCING macro.
 
@@ -8051,7 +8087,7 @@ It is possible to call this C function from Lisp using the file
     
         (with-alien ((res (* (struct c-struct))
                           (c-function 5 "another Lisp string" (addr c-struct) ar)))
-          (format t "~&amp;back from C function~%")
+          (format t "~&back from C function~%")
           (multiple-value-prog1
               (values (slot res 'x)
                       (slot res 's))
@@ -8279,7 +8315,7 @@ In addition, SBCL supports various extensions of ANSI Common Lisp
 streams:
 
 - *Bivalent Streams*: A type of stream that can read and write both
-  `character`([`0`][32e3] [`1`][b315]) and `(unsigned-byte 8)` values.
+  [`character`][0a49] and `(unsigned-byte 8)` values.
 
 - *Gray Streams*: User-overloadable CLOS classes whose instances can
   be used as Lisp streams (e.g. passed as the first argument to
@@ -8294,7 +8330,7 @@ streams:
 ### 11.1 Stream External Formats
 
 The function [`stream-external-format`][3d00] returns the canonical name of
-the external format (See [External Formats][d293]) used by the stream for
+the external format (see [External Formats][d293]) used by the stream for
 character-based input and/or output.
 
 When constructing file streams, for example using [`open`][6547] or
@@ -8307,7 +8343,7 @@ designator (see [External Format Designators][d283]).
 ### 11.2 Bivalent Streams
 
 A *bivalent stream* can be used to read and write both
-`character`([`0`][32e3] [`1`][b315]) and `(unsigned-byte 8)` values. A bivalent stream is
+[`character`][0a49] and `(unsigned-byte 8)` values. A bivalent stream is
 created by calling [`open`][6547] with the argument `:element-type`
 `:default`. On such a stream, both binary and character data can be
 read and written with the usual input and output functions.
@@ -8347,7 +8383,7 @@ The defined Gray Stream classes are these:
 
     Superclass of all Gray input streams.
 
-The function `input-stream-p` will return true of any generalized
+The function [`input-stream-p`][9236] will return true of any generalized
 instance of [`sb-gray:fundamental-input-stream`][5667].
 
 <a id="x-28SB-GRAY-3AFUNDAMENTAL-OUTPUT-STREAM-20CLASS-29"></a>
@@ -8356,7 +8392,7 @@ instance of [`sb-gray:fundamental-input-stream`][5667].
 
     Superclass of all Gray output streams.
 
-The function `output-stream-p` will return true of any generalized
+The function [`output-stream-p`][1296] will return true of any generalized
 instance of [`sb-gray:fundamental-output-stream`][87b6].
 
 <a id="x-28SB-GRAY-3AFUNDAMENTAL-BINARY-STREAM-20CLASS-29"></a>
@@ -8417,7 +8453,9 @@ of fundamental-stream.
 
     Return a type specifier for the kind of object returned by the
     `stream`. The class [`sb-gray:fundamental-character-stream`][0357] provides a
-    default method which returns `character`([`0`][32e3] [`1`][b315]).
+    default method which returns [`character`][0a49].
+
+    Also, see the [CLHS][116c].
 
 <a id="x-28CLOSE-20GENERIC-FUNCTION-29"></a>
 
@@ -8426,6 +8464,8 @@ of fundamental-stream.
     Close the given `stream`. No more I/O may be performed, but
     inquiries may still be made. If `:abort` is true, an attempt is made
     to clean up the side effects of having created the stream.
+
+    Also, see the [CLHS][0d02].
 
 <a id="x-28SB-GRAY-3ASTREAM-FILE-POSITION-20GENERIC-FUNCTION-29"></a>
 
@@ -9099,7 +9139,7 @@ Example:
 
 - Defining it as a method combination type.
 
-- Using it as the `class-name`([`0`][b679] [`1`][03fa]) argument to ([`setf`][a138] `find-class`).
+- Using it as the `class-name` argument to ([`setf`][a138] `find-class`).
 
 - Defining it as a hash table test using [`sb-ext:define-hash-table-test`][c29a].
 
@@ -9635,7 +9675,7 @@ lockless algorithms.
       of a `(simple-array (unsigned-byte 64) (*))` (the type
       `sb-ext:word` can be used for these purposes)
     
-    - [`car`][d5a2] or [`cdr`][e012] (respectively [`first`][1db9] or [`rest`][fe9f]) of a `cons`([`0`][a237] [`1`][12a8]),
+    - [`car`][d5a2] or [`cdr`][e012] (respectively [`first`][1db9] or [`rest`][fe9f]) of a [`cons`][229c],
     
     - a variable defined using [`defglobal`][59a9] with a proclaimed type of [`fixnum`][3cde].
     
@@ -9665,19 +9705,24 @@ lockless algorithms.
     the increment.
     
     `place` must access one of the following:
-     - a [`defstruct`][eac1] slot with declared type ([`unsigned-byte`][561a] 64)
-       or [`aref`][e22b] of a ([`simple-array`][451a] (`unsigned-byte` 64) (\*))
-       The type `sb-ext:word` can be used for these purposes.
-     - [`car`][d5a2] or [`cdr`][e012] (respectively [`first`][1db9] or [`rest`][fe9f]) of a `cons`([`0`][a237] [`1`][12a8]).
-     - a variable defined using [`defglobal`][59a9] with a proclaimed type of [`fixnum`][3cde].
-    Macroexpansion is performed on `place` before expanding `atomic-incf`.
     
-    Incrementing is done using modular arithmetic,
-    which is well-defined over two different domains:
-     - For structures and arrays, the operation accepts and produces
+    - a [`defstruct`][eac1] slot with declared type ([`unsigned-byte`][561a] 64)
+      or [`aref`][e22b] of a ([`simple-array`][451a] (`unsigned-byte` 64) (\*))
+      The type `sb-ext:word` can be used for these purposes.
+    
+    - [`car`][d5a2] or [`cdr`][e012] (respectively [`first`][1db9] or [`rest`][fe9f]) of a [`cons`][229c].
+    
+    - a variable defined using [`defglobal`][59a9] with a proclaimed type of [`fixnum`][3cde].
+      Macroexpansion is performed on `place` before expanding `atomic-incf`.
+    
+    Incrementing is done using modular arithmetic, which is well-defined
+    over two different domains:
+    
+    - For structures and arrays, the operation accepts and produces
        an (`unsigned-byte` 64), and `diff` must be of type ([`signed-byte`][c474] 64).
        `atomic-incf` of `#xFFFFFFFFFFFFFFFF` by one results in #x0 being stored in `place`.
-     - For other places, the domain is `fixnum`, and `diff` must be a `fixnum`.
+    
+    - For other places, the domain is `fixnum`, and `diff` must be a `fixnum`.
        `atomic-incf` of `#x3FFFFFFFFFFFFFFF` by one results in `#x-4000000000000000`
        being stored in `place`.
     
@@ -9955,10 +10000,10 @@ that they go to sleep.
     
     - `grab-mutex` is not interrupt safe. The correct way to call it is:
     
-        (`without-interrupts`
-            ...
-            (`allow-with-interrupts` (`grab-mutex` ...))
-            ...)
+              (without-interrupts
+                ...
+                (allow-with-interrupts (grab-mutex ...))
+                ...)
     
         `without-interrupts` is necessary to avoid an interrupt unwinding the call
         while the mutex is in an inconsistent state while `allow-with-interrupts`
@@ -9985,7 +10030,7 @@ that they go to sleep.
     around calls to it.
     
     The `if-not-owner` keyword dictates behavior when the current thread does not own the
-    mutex. Do nothing and silently return if `:punt`, signal a [`warning`][bcb6] or `error`([`0`][d162] [`1`][35ba]) if `:warn`
+    mutex. Do nothing and silently return if `:punt`, signal a [`warning`][bcb6] or [`error`][669b] if `:warn`
     or `:error` respectively, or release the mutex anyway if `:force`.
 
 <a id="x-28SB-MANUAL-3A-40SEMAPHORES-20MGL-PAX-3ASECTION-29"></a>
@@ -10635,7 +10680,7 @@ more useful features of Common Lisp -- briefly:
 
     Close `socket`, unless it was already closed.
     
-    If [`socket-make-stream`][d54e] has been called, calls `close`([`0`][0d02] [`1`][848f]) using `abort` on that
+    If [`socket-make-stream`][d54e] has been called, calls [`close`][848f] using `abort` on that
     stream. Otherwise closes the socket file descriptor using `close(2)`.
 
 <a id="x-28SB-BSD-SOCKETS-3ASOCKET-SHUTDOWN-20GENERIC-FUNCTION-29"></a>
@@ -10926,7 +10971,7 @@ profiler.
     If no names are supplied, return the list of profiled functions.
     
     If names are supplied, wrap profiling code around the named functions.
-    As in `trace`([`0`][10c3] [`1`][548d]), the names are not evaluated. A symbol names a function.
+    As in [`trace`][548d], the names are not evaluated. A symbol names a function.
     A string names all the functions named by symbols in the named
     package. If a function is already profiled, then unprofile and
     reprofile (useful to notice function redefinition.)  If a name is
@@ -11079,8 +11124,8 @@ sampling runs.
 **Platform support**
 
 Allocation profiling is only supported on SBCL builds that use the
-generational garbage collector. Tracking of call stacks at a depth
-of more than two levels is only supported on x86 and x86-64.
+generational GC. Tracking of call stacks at a depth of more than
+two levels is only supported on x86 and x86-64.
 
 **Macros**
 
@@ -11094,40 +11139,49 @@ of more than two levels is only supported on x86 and x86-64.
     
     The following keyword args are recognized:
     
-    `:sample-interval` <n>
-       Take a sample every <n> seconds. Default is [`*sample-interval*`][025a].
+    - `:sample-interval` `<n>`
     
-    `:mode` <mode>
-       If `:cpu`, run the profiler in CPU profiling mode. If `:alloc`, run the
-       profiler in allocation profiling mode. If `:time`, run the profiler
-       in wallclock profiling mode.
+        Take a sample every <n> seconds. Default is [`*sample-interval*`][025a].
     
-    `:max-samples` <max>
-       If `:loop` is `nil` (the default), collect no more than <max> samples.
-       If `:loop` is `t`, repeat evaluating body until <max> samples are taken.
-       Default is [`*max-samples*`][187d].
+    - `:mode` `<mode>`
     
-    `:report` <type>
-       If specified, call `report` with `:type` <type> at the end.
+        If `:cpu`, run the profiler in CPU profiling mode. If `:alloc`, run
+        the profiler in allocation profiling mode. If `:time`, run the
+        profiler in wallclock profiling mode.
     
-    `:reset` <bool>
-       If true, call `reset` at the beginning.
+    - `:max-samples` `<max>`
     
-    `:threads` <list-form>
-       Form that evaluates to the list threads to profile, or `:all` to indicate
-       that all threads should be profiled. Defaults to all threads.
+        If `:loop` is `nil` (the default), collect no more than `<max>`
+        samples. If `:loop` is `t`, repeat evaluating body until `<max>`
+        samples are taken. Default is [`*max-samples*`][187d].
     
-    `:threads` has no effect on call-counting at the moment.
+    - `:report` `<type>`
     
-    On some platforms (eg. Darwin) the signals used by the profiler are
-       not properly delivered to threads in proportion to their CPU usage
-       when doing `:cpu` profiling. If you see empty call graphs, or are obviously
-       missing several samples from certain threads, you may be falling afoul
-       of this. In this case using `:mode` `:time` is likely to work better.
+        If specified, call `report` with `:type` `<type>` at the end.
     
-     `:loop` <bool>
-       If false (the default), evaluate `body` only once. If true repeatedly
-       evaluate `body`.
+    - `:reset` `<bool>`
+    
+        If true, call `reset` at the beginning.
+    
+    - `:threads` `<list-form>`
+    
+        Form that evaluates to the list threads to profile, or `:all` to
+        indicate that all threads should be profiled. Defaults to all
+        threads.
+    
+        `:threads` has no effect on call-counting at the moment.
+    
+        On some platforms (e.g. Darwin) the signals used by the profiler
+        are not properly delivered to threads in proportion to their CPU
+        usage when doing `:cpu` profiling. If you see empty call graphs, or
+        are obviously missing several samples from certain threads, you
+        may be falling afoul of this. In this case using `:mode` `:time` is
+        likely to work better.
+    
+    - `:loop` `<bool>`
+    
+        If false (the default), evaluate `body` only once. If true
+        repeatedly evaluate `body`.
 
 <a id="x-28SB-SPROF-3AWITH-SAMPLING-20MGL-PAX-3AMACRO-29"></a>
 
@@ -11146,7 +11200,7 @@ of more than two levels is only supported on x86 and x86-64.
     The signature of `function` must be compatible with (thread trace).
     
     `function` is called once for each trace where `thread` is the
-    [`sb-thread:thread`][5ef5] instance that was sampled to produce `trace`([`0`][10c3] [`1`][548d]), and `trace`
+    [`sb-thread:thread`][5ef5] instance that was sampled to produce [`trace`][548d], and `trace`
     is an opaque object to be passed to `map-trace-pc-locs`.
     
     EXPERIMENTAL: Interface subject to change.
@@ -11660,11 +11714,11 @@ multiple threads must wait for a single event before proceeding.
     a writer operated inside the region while they were reading. This makes frlocks
     very efficient when readers are much more common than writers.
     
-    FRlocks are `not`([`0`][1013] [`1`][954a]) suitable when it is not safe at all for readers and writers to
-    operate on the same data in parallel: they provide consistency, not exclusion
-    between readers and writers. Hence using an frlock to eg. protect an SBCL
-    hash-table is unsafe. If multiple readers operating in parallel with a writer
-    would be safe but inconsistent without a lock, frlocks are suitable.
+    FRlocks are *not* suitable when it is not safe at all for readers and writers
+    to operate on the same data in parallel: they provide consistency, not
+    exclusion between readers and writers. Hence using an frlock to e.g. protect
+    an SBCL hash-table is unsafe. If multiple readers operating in parallel with
+    a writer would be safe but inconsistent without a lock, frlocks are suitable.
     
     The recommended interface to use is [`frlock-read`][ba6a] and [`frlock-write`][41b7], but those
     needing it can also use a lower-level interface.
@@ -11724,7 +11778,7 @@ multiple threads must wait for a single event before proceeding.
 - [function] **sb-concurrency:frlock-read-end** *frlock*
 
     Ends a read sequence on `frlock`. Returns a token and an epoch. If the token
-    and epoch are `eql`([`0`][db03] [`1`][5fd4]) to the read-token and epoch returned by [`frlock-read-begin`][0a63],
+    and epoch are [`eql`][38a2] to the read-token and epoch returned by [`frlock-read-begin`][0a63],
     the values read under the `frlock` are consistent and can be used: if the values
     differ, the values are inconsistent and the read must be restated.
     
@@ -11746,7 +11800,7 @@ multiple threads must wait for a single event before proceeding.
 
     Acquires `frlock` for writing, invalidating existing and future read-tokens
     for the duration. Returns `t` on success, and `nil` if the lock wasn't acquired
-    due to eg. a timeout. Using [`frlock-write`][41b7] instead is recommended.
+    due to e.g. a timeout. Using [`frlock-write`][41b7] instead is recommended.
 
 <a id="x-28SB-CONCURRENCY-3ARELEASE-FRLOCK-WRITE-LOCK-20FUNCTION-29"></a>
 
@@ -12166,7 +12220,7 @@ as querying their properties and relationships in the running image.
 
 - [structure-accessor] **sb-introspect:definition-source-plist** *definition-source*
 
-    The `source-plist` from `with-compilation-unit`([`0`][6166] [`1`][e7bf]) in effect
+    The `source-plist` from [`with-compilation-unit`][e7bf] in effect
     when the file was compiled.
 
 <a id="x-28SB-INTROSPECT-3AFIND-DEFINITION-SOURCE-20FUNCTION-29"></a>
@@ -12175,7 +12229,7 @@ as querying their properties and relationships in the running image.
 
     Return the [`definition-source`][4f11] corresponding to the definition of `object`
     or `nil` if there is no corresponding definition. `object` must be a
-    [`package`][1d5a], `function`([`0`][119e] [`1`][81f7]), [`method`][51c3], [`method-combination`][9b70], `sb-mop:slot-definition`,
+    [`package`][1d5a], [`function`][a51f], [`method`][51c3], [`method-combination`][9b70], `sb-mop:slot-definition`,
     [`standard-object`][a843], [`structure-object`][2038], [`condition`][83e1], [`class`][1f37], [`structure-class`][e608],
     or a subclass of `condition`. An error is signalled for other types.
     
@@ -12358,8 +12412,8 @@ as querying their properties and relationships in the running image.
     `type-specifier-name` must be a symbol. This function can find the
     lambda list of derived type specifiers (e.g. those defined with
     [`deftype`][7f9a]) and classes with compound type specifier syntaxes (e.g. the
-    class [`float`][99b6]). It returns `nil`, `nil` for other type specifiers (e.g. `and`([`0`][425d] [`1`][dd55]),
-    `or`([`0`][e3f2] [`1`][e2d1]), `not`([`0`][1013] [`1`][954a])) and types (e.g. `list`([`0`][79d8] [`1`][6d9f])).
+    class [`float`][99b6]). It returns `nil`, `nil` for other type specifiers (e.g. [`and`][94b8],
+    [`or`][8808], [`not`][35b8]) and types (e.g. [`list`][9271]).
 
 <a id="x-28SB-INTROSPECT-3AWHO-SPECIALIZES-DIRECTLY-20FUNCTION-29"></a>
 
@@ -12461,7 +12515,7 @@ as querying their properties and relationships in the running image.
     
     If `ext` is true (default is `t`), includes some pointers that are not
     actually contained in the object but found in certain well-known
-    indirect containers: [`fdefinition`][eea4]s, `eql`([`0`][db03] [`1`][5fd4]) specializers, classes, and
+    indirect containers: [`fdefinition`][eea4]s, [`eql`][38a2] specializers, classes, and
     thread-local symbol values in other threads fall into this category.
     
     > *Note*: calling `map-root` with a THREAD does not currently map over
@@ -12680,7 +12734,7 @@ No other changes to "Lispify" symbol names are made, so
 The user is encouraged not to `(use-package :sb-posix)` but instead
 to use the `sb-posix:` prefix on all references, as some of the
 symbols symbols contained in the `sb-posix` package have the same
-name as CL symbols (e.g. [`open`][6547], `close`([`0`][0d02] [`1`][848f]), [`signal`][8f49]). Also, see
+name as CL symbols (e.g. [`open`][6547], [`close`][848f], [`signal`][8f49]). Also, see
 [Package-Local Nicknames][24fb].
 
 <a id="x-28SB-MANUAL-3A-40SB-POSIX-TYPES-20MGL-PAX-3ASECTION-29"></a>
@@ -12717,8 +12771,8 @@ both pathnames and strings as its arguments.
 
 - [type] **sb-posix:file-descriptor-designator**
 
-    Designator for a `file-descriptor`([`0`][3557] [`1`][d116]): either a fixnum designating itself, or
-    a [`file-stream`][c241] designating the underlying file-descriptor.
+    Designator for a [`file-descriptor`][d116]: either a fixnum designating
+    itself, or a [`file-stream`][c241] designating the underlying file-descriptor.
 
 <a id="x-28SB-POSIX-3AFILE-DESCRIPTOR-20FUNCTION-29"></a>
 
@@ -12734,7 +12788,7 @@ both pathnames and strings as its arguments.
 
 - [type] **sb-posix:filename**
 
-    A `string`([`0`][b93c] [`1`][dae6]) designating a filename in native namestring syntax.
+    A [`string`][68cc] designating a filename in native namestring syntax.
     
     Note that native namestring syntax is distinct from Lisp namestring syntax:
     
@@ -12762,8 +12816,8 @@ both pathnames and strings as its arguments.
 
 - [type] **sb-posix:filename-designator**
 
-    Designator for a `filename`([`0`][959a] [`1`][c052]): a `string`([`0`][b93c] [`1`][dae6]) designating itself, or a
-    designator for a `pathname`([`0`][0317] [`1`][6671]) designating the corresponding native namestring.
+    Designator for a [`filename`][c052]: a [`string`][68cc] designating itself, or a
+    designator for a [`pathname`][783a] designating the corresponding native namestring.
 
 <a id="x-28SB-POSIX-3AFILENAME-20FUNCTION-29"></a>
 
@@ -13195,7 +13249,7 @@ Finally, for each SIMD function `x.y-op` that applies a certain
 operation `op` element-wise to the `y` elements of type `x`, there
 exists also a functions `x-op` for applying that operation only to a
 single element. For example, the SIMD function `f64.4+` has a
-corresponding function `f64+` that differs from `cl:+`([`0`][fd8a] [`1`][72a7]) in that it
+corresponding function `f64+` that differs from [`cl:+`][0c83] in that it
 only accepts arguments of type double float, and that it adds its
 supplied arguments in a fixed order that is the same as the one used
 by `f64.4`.
@@ -13371,7 +13425,7 @@ when applicable.
     During final deprecation the symbols still exist. However, when
     a thing in this deprecation stage is used, a
     [`sb-ext:final-deprecation-warning`][606c], which is a full `warning`, is
-    signaled at compile-time and an `error`([`0`][d162] [`1`][35ba]) is signaled at run-time.
+    signaled at compile-time and an [`error`][669b] is signaled at run-time.
 
 - **After Final Deprecation**
 
@@ -13459,7 +13513,7 @@ in various namespaces as deprecated.
     
     object-clause ::= (namespace `<name>` \[`:replacement` `<replacement>`\])
     
-    namespace ::= {`cl:variable` | `cl:function`([`0`][119e] [`1`][81f7]) | [`cl:type`][7c9f]}
+    namespace ::= {`cl:variable` | [`cl:function`][a51f] | [`cl:type`][7c9f]}
     
     where the terminal `<name>` is the name of the deprecated thing,
     `<version>` and `<software>` are strings describing the version in
@@ -13721,7 +13775,7 @@ versions of SBCL, which have since then been deleted.
 - `sb-kernel:instance-lambda`
 
     Historically needed for CLOS code. Deprecated as of 0.9.3.32 in
-    August 2005. Deleted as of 1.0.47.8 in April 2011. Plain `lambda`([`0`][e400] [`1`][5c01])
+    August 2005. Deleted as of 1.0.47.8 in April 2011. Plain [`lambda`][650d]
     can be used where `sb-kernel:instance-lambda` used to be needed.
 
 - `sb-alien:def-alien-routine`, `sb-alien:def-alien-variable`,
@@ -13742,11 +13796,10 @@ versions of SBCL, which have since then been deleted.
   [01ad]: #x-28SB-THREAD-3ATRY-SEMAPHORE-20FUNCTION-29 "SB-THREAD:TRY-SEMAPHORE FUNCTION"
   [025a]: #x-28SB-SPROF-3A-2ASAMPLE-INTERVAL-2A-20VARIABLE-29 "SB-SPROF:*SAMPLE-INTERVAL* VARIABLE"
   [029c]: #x-28SB-MANUAL-3A-40EXTENDED-PACKAGE-PREFIX-SYNTAX-20MGL-PAX-3ASECTION-29 "Extended Package Prefix Syntax"
-  [02a3]: http://www.lispworks.com/documentation/HyperSpec/Body/f_abortc.htm "CONTINUE (MGL-PAX:CLHS FUNCTION)"
   [02ad]: http://www.lispworks.com/documentation/HyperSpec/Body/s_if.htm "IF (MGL-PAX:CLHS MGL-PAX:MACRO)"
-  [0317]: http://www.lispworks.com/documentation/HyperSpec/Body/t_pn.htm "PATHNAME (MGL-PAX:CLHS CLASS)"
   [032e]: #x-28SB-MANUAL-3A-40ONLINE-DOCUMENTATION-20MGL-PAX-3ASECTION-29 "Online Documentation"
   [0357]: #x-28SB-GRAY-3AFUNDAMENTAL-CHARACTER-STREAM-20CLASS-29 "SB-GRAY:FUNDAMENTAL-CHARACTER-STREAM CLASS"
+  [0376]: http://www.lispworks.com/documentation/HyperSpec/Body/a_member.htm "MEMBER (MGL-PAX:CLHS NIL)"
   [037a]: #x-28SB-MANUAL-3A-40THREAD-OBJECTS-20MGL-PAX-3ASECTION-29 "Thread Objects"
   [03c7]: http://www.lispworks.com/documentation/HyperSpec/Body/f_funcal.htm "FUNCALL (MGL-PAX:CLHS FUNCTION)"
   [03f5]: #x-28SB-UNICODE-3AUNICODE-3D-20FUNCTION-29 "SB-UNICODE:UNICODE= FUNCTION"
@@ -13754,7 +13807,6 @@ versions of SBCL, which have since then been deleted.
   [0430]: http://www.lispworks.com/documentation/HyperSpec/Body/f_logand.htm "LOGIOR (MGL-PAX:CLHS FUNCTION)"
   [045f]: http://www.lispworks.com/documentation/HyperSpec/Body/f_merge.htm "MERGE (MGL-PAX:CLHS FUNCTION)"
   [04ab]: http://www.lispworks.com/documentation/HyperSpec/Body/f_pos_p.htm "POSITION (MGL-PAX:CLHS FUNCTION)"
-  [051f]: http://www.lispworks.com/documentation/HyperSpec/Body/t_ration.htm "RATIONAL (MGL-PAX:CLHS CLASS)"
   [0525]: http://www.lispworks.com/documentation/HyperSpec/Body/f_no_app.htm "NO-APPLICABLE-METHOD (MGL-PAX:CLHS GENERIC-FUNCTION)"
   [05c1]: http://www.lispworks.com/documentation/HyperSpec/Body/d_ftype.htm "FTYPE (MGL-PAX:CLHS DECLARATION)"
   [073a]: #x-28SB-MANUAL-3A-40CONSTRUCTORS-20MGL-PAX-3ASECTION-29 "Constructors"
@@ -13769,11 +13821,13 @@ versions of SBCL, which have since then been deleted.
   [0928]: #x-28SB-MANUAL-3A-40REINTERPRET-CASTS-20MGL-PAX-3ASECTION-29 "Reinterpret Casts"
   [0961]: http://www.lispworks.com/documentation/HyperSpec/Body/v_cmp_pr.htm "*COMPILE-VERBOSE* (MGL-PAX:CLHS VARIABLE)"
   [09ac]: #x-28SB-EXT-3AATOMIC-DECF-20MGL-PAX-3AMACRO-29 "SB-EXT:ATOMIC-DECF MGL-PAX:MACRO"
+  [0a49]: http://www.lispworks.com/documentation/HyperSpec/Body/a_ch.htm "CHARACTER (MGL-PAX:CLHS NIL)"
   [0a63]: #x-28SB-CONCURRENCY-3AFRLOCK-READ-BEGIN-20FUNCTION-29 "SB-CONCURRENCY:FRLOCK-READ-BEGIN FUNCTION"
   [0b58]: #x-28SB-EXT-3APACKAGE-LOCKED-ERROR-SYMBOL-20FUNCTION-29 "SB-EXT:PACKAGE-LOCKED-ERROR-SYMBOL FUNCTION"
   [0b69]: http://www.lispworks.com/documentation/HyperSpec/Body/f_cmp_fi.htm "COMPILE-FILE (MGL-PAX:CLHS FUNCTION)"
   [0baf]: #x-28SB-MANUAL-3A-40FANCY-DOCUMENTATION-WITH-PAX-20MGL-PAX-3ASECTION-29 "Fancy Documentation with PAX"
   [0bd4]: http://www.lispworks.com/documentation/HyperSpec/Body/d_specia.htm "SPECIAL (MGL-PAX:CLHS DECLARATION)"
+  [0c83]: http://www.lispworks.com/documentation/HyperSpec/Body/a_pl.htm "+ (MGL-PAX:CLHS NIL)"
   [0cc3]: http://www.lispworks.com/documentation/HyperSpec/Body/s_progn.htm "PROGN (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [0d02]: http://www.lispworks.com/documentation/HyperSpec/Body/f_close.htm "CLOSE (MGL-PAX:CLHS FUNCTION)"
   [0d57]: http://www.lispworks.com/documentation/HyperSpec/Body/t_short_.htm "DOUBLE-FLOAT (MGL-PAX:CLHS TYPE)"
@@ -13789,7 +13843,6 @@ versions of SBCL, which have since then been deleted.
   [0f4f]: #x-28SB-POSIX-3ADO-PASSWDS-20MGL-PAX-3AMACRO-29 "SB-POSIX:DO-PASSWDS MGL-PAX:MACRO"
   [0f57]: #x-28SB-MANUAL-3A-40CHARACTER-INPUT-STREAM-METHODS-20MGL-PAX-3ASECTION-29 "Character input stream methods"
   [0fc0]: #x-28SB-SEQUENCE-3AMAP-20GENERIC-FUNCTION-29 "SB-SEQUENCE:MAP GENERIC-FUNCTION"
-  [1013]: http://www.lispworks.com/documentation/HyperSpec/Body/f_not.htm "NOT (MGL-PAX:CLHS FUNCTION)"
   [1016]: #x-28SB-MANUAL-3A-40INITIALIZATION-FILES-20MGL-PAX-3ASECTION-29 "Initialization Files"
   [1076]: #x-28SB-MANUAL-3A-40GENERATING-EXECUTABLES-20MGL-PAX-3ASECTION-29 "Generating Executables"
   [10a0]: #x-28SB-MANUAL-3A-40ADVANCED-COMPILER-USE-AND-EFFICIENCY-HINTS-20MGL-PAX-3ASECTION-29 "Advanced Compiler Use and Efficiency Hints"
@@ -13798,15 +13851,15 @@ versions of SBCL, which have since then been deleted.
   [10e5]: http://www.lispworks.com/documentation/HyperSpec/Body/f_cmpd_f.htm "COMPILED-FUNCTION-P (MGL-PAX:CLHS FUNCTION)"
   [10ff]: http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm "*DEBUG-IO* (MGL-PAX:CLHS VARIABLE)"
   [1159]: #x-28SB-SEQUENCE-3ADOSEQUENCE-20MGL-PAX-3AMACRO-29 "SB-SEQUENCE:DOSEQUENCE MGL-PAX:MACRO"
-  [119e]: http://www.lispworks.com/documentation/HyperSpec/Body/t_fn.htm "FUNCTION (MGL-PAX:CLHS CLASS)"
+  [116c]: http://www.lispworks.com/documentation/HyperSpec/Body/f_stm_el.htm "STREAM-ELEMENT-TYPE (MGL-PAX:CLHS FUNCTION)"
   [11bf]: #x-28SB-MANUAL-3A-40NAME-SERVICE-20MGL-PAX-3ASECTION-29 "Name Service"
   [11dd]: #x-28SB-THREAD-3ASEMAPHORE-NOTIFICATION-STATUS-20FUNCTION-29 "SB-THREAD:SEMAPHORE-NOTIFICATION-STATUS FUNCTION"
   [11f9]: #x-28SB-MANUAL-3A-40SUPPORTED-EXTERNAL-FORMATS-20MGL-PAX-3ASECTION-29 "Supported External Formats"
   [1286]: #x-28SB-THREAD-3ATHREAD-ERROR-20CONDITION-29 "SB-THREAD:THREAD-ERROR CONDITION"
   [1287]: #x-28SB-EXT-3AATOMIC-POP-20MGL-PAX-3AMACRO-29 "SB-EXT:ATOMIC-POP MGL-PAX:MACRO"
   [1294]: #x-28SB-MANUAL-3A-40COMMAND-LINE-OPTIONS-20MGL-PAX-3ASECTION-29 "Command Line Options"
+  [1296]: http://www.lispworks.com/documentation/HyperSpec/Body/f_in_stm.htm "OUTPUT-STREAM-P (MGL-PAX:CLHS FUNCTION)"
   [1298]: #x-28SB-MANUAL-3A-40VARIABLE-VALUE-AVAILABILITY-20MGL-PAX-3ASECTION-29 "Variable Value Availability"
-  [12a8]: http://www.lispworks.com/documentation/HyperSpec/Body/f_cons.htm "CONS (MGL-PAX:CLHS FUNCTION)"
   [1341]: #x-28SB-BSD-SOCKETS-3AHOST-ENT-20CLASS-29 "SB-BSD-SOCKETS:HOST-ENT CLASS"
   [1351]: #x-28SB-BSD-SOCKETS-3ASOCKET-ERROR-20FUNCTION-29 "SB-BSD-SOCKETS:SOCKET-ERROR FUNCTION"
   [1383]: http://www.lispworks.com/documentation/HyperSpec/Body/s_flet_.htm "MACROLET (MGL-PAX:CLHS MGL-PAX:MACRO)"
@@ -13849,6 +13902,7 @@ versions of SBCL, which have since then been deleted.
   [21f2]: #x-28SB-MANUAL-3A-40THE-DEPRECATION-PIPELINE-20MGL-PAX-3ASECTION-29 "The Deprecation Pipeline"
   [2205]: #x-28SB-GRAY-3ASTREAM-LINE-COLUMN-20GENERIC-FUNCTION-29 "SB-GRAY:STREAM-LINE-COLUMN GENERIC-FUNCTION"
   [2243]: http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm "*TRACE-OUTPUT* (MGL-PAX:CLHS VARIABLE)"
+  [229c]: http://www.lispworks.com/documentation/HyperSpec/Body/a_cons.htm "CONS (MGL-PAX:CLHS NIL)"
   [22df]: #x-28SB-MANUAL-3A-40END-OF-FILE-20MGL-PAX-3ASECTION-29 "End of File"
   [23aa]: #x-28SB-MANUAL-3A-40SB-POSIX-FUNCTION-PARAMETERS-20MGL-PAX-3ASECTION-29 "Function Parameters"
   [23c4]: #x-28SB-MANUAL-3A-40SYMBOL-NAME-NORMALIZATION-20MGL-PAX-3ASECTION-29 "Symbol Name Normalization"
@@ -13871,6 +13925,7 @@ versions of SBCL, which have since then been deleted.
   [2cb9]: http://www.lispworks.com/documentation/HyperSpec/Body/m_push.htm "PUSH (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [2d20]: #x-28SB-MANUAL-3A-40SB-POSIX-LISP-NAMES-20MGL-PAX-3ASECTION-29 "Lisp names for C names"
   [2d27]: #x-28SB-INTROSPECT-3ADEFINITION-SOURCE-PATHNAME-20-28MGL-PAX-3ASTRUCTURE-ACCESSOR-20SB-INTROSPECT-3ADEFINITION-SOURCE-29-29 "SB-INTROSPECT:DEFINITION-SOURCE-PATHNAME (MGL-PAX:STRUCTURE-ACCESSOR SB-INTROSPECT:DEFINITION-SOURCE)"
+  [2dd9]: http://www.lispworks.com/documentation/HyperSpec/Body/a__.htm "- (MGL-PAX:CLHS NIL)"
   [2e36]: #x-28SB-MANUAL-3A-40EXTENSIONS-20MGL-PAX-3ASECTION-29 "Extensions"
   [2e37]: #x-28SB-MANUAL-3A-40PACKAGE-LOCK-DICTIONARY-20MGL-PAX-3ASECTION-29 "Package Lock Dictionary"
   [2e79]: #x-28SB-MANUAL-3A-40INTERPRETER-20MGL-PAX-3ASECTION-29 "Interpreter"
@@ -13893,10 +13948,9 @@ versions of SBCL, which have since then been deleted.
   [335f]: #x-28SB-MANUAL-3A-40DEPRECATION-CONDITIONS-20MGL-PAX-3ASECTION-29 "Deprecation Conditions"
   [339d]: #x-28SB-MANUAL-3A-40FOREIGN-VARIABLES-20MGL-PAX-3ASECTION-29 "Foreign Variables"
   [3498]: http://www.lispworks.com/documentation/HyperSpec/Body/f_finish.htm "FINISH-OUTPUT (MGL-PAX:CLHS FUNCTION)"
-  [3557]: #x-28SB-POSIX-3AFILE-DESCRIPTOR-20FUNCTION-29 "SB-POSIX:FILE-DESCRIPTOR FUNCTION"
   [356e]: #x-28SB-EXT-3ADISABLE-DEBUGGER-20FUNCTION-29 "SB-EXT:DISABLE-DEBUGGER FUNCTION"
   [35b1]: http://www.lispworks.com/documentation/HyperSpec/Body/f_makunb.htm "MAKUNBOUND (MGL-PAX:CLHS FUNCTION)"
-  [35ba]: http://www.lispworks.com/documentation/HyperSpec/Body/f_error.htm "ERROR (MGL-PAX:CLHS FUNCTION)"
+  [35b8]: http://www.lispworks.com/documentation/HyperSpec/Body/a_not.htm "NOT (MGL-PAX:CLHS NIL)"
   [360d]: #x-28REQUIRE-20FUNCTION-29 "REQUIRE FUNCTION"
   [3646]: #x-28SB-THREAD-3AGET-FOREGROUND-20FUNCTION-29 "SB-THREAD:GET-FOREGROUND FUNCTION"
   [36fc]: http://www.lispworks.com/documentation/HyperSpec/Body/f_floorc.htm "ROUND (MGL-PAX:CLHS FUNCTION)"
@@ -13904,6 +13958,7 @@ versions of SBCL, which have since then been deleted.
   [37bb]: #x-28SB-MANUAL-3A-40ATOMIC-OPERATIONS-20MGL-PAX-3ASECTION-29 "Atomic Operations"
   [37e3]: #x-28SB-MANUAL-3A-40SLOT-ACCESS-20MGL-PAX-3ASECTION-29 "Slot Access"
   [3808]: http://www.lispworks.com/documentation/HyperSpec/Body/f_terpri.htm "FRESH-LINE (MGL-PAX:CLHS FUNCTION)"
+  [38a2]: http://www.lispworks.com/documentation/HyperSpec/Body/a_eql.htm "EQL (MGL-PAX:CLHS NIL)"
   [38bd]: #x-28SB-SEQUENCE-3ACONCATENATE-20GENERIC-FUNCTION-29 "SB-SEQUENCE:CONCATENATE GENERIC-FUNCTION"
   [38d2]: #x-28SB-MANUAL-3A-40LOADS-AND-STORES-20MGL-PAX-3ASECTION-29 "Loads and Stores"
   [3986]: #x-28SB-ALIEN-3AEXTERN-ALIEN-20MGL-PAX-3AMACRO-29 "SB-ALIEN:EXTERN-ALIEN MGL-PAX:MACRO"
@@ -13933,7 +13988,6 @@ versions of SBCL, which have since then been deleted.
   [4143]: http://www.lispworks.com/documentation/HyperSpec/Body/f_stgeq_.htm "STRING= (MGL-PAX:CLHS FUNCTION)"
   [41a3]: #x-28SB-SYS-3ADEADLINE-TIMEOUT-20CONDITION-29 "SB-SYS:DEADLINE-TIMEOUT CONDITION"
   [41b7]: #x-28SB-CONCURRENCY-3AFRLOCK-WRITE-20MGL-PAX-3AMACRO-29 "SB-CONCURRENCY:FRLOCK-WRITE MGL-PAX:MACRO"
-  [425d]: http://www.lispworks.com/documentation/HyperSpec/Body/m_and.htm "AND (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [4272]: #x-28SB-MANUAL-3A-40STYLE-WARNINGS-20MGL-PAX-3ASECTION-29 "Style Warnings"
   [4321]: #x-28SB-MANUAL-3A-40SB-MD5-20MGL-PAX-3ASECTION-29 "sb-md5"
   [4336]: http://www.lispworks.com/documentation/HyperSpec/Body/03_da.htm "\"3.4.1\" (MGL-PAX:CLHS MGL-PAX:SECTION)"
@@ -13954,7 +14008,6 @@ versions of SBCL, which have since then been deleted.
   [46c0]: http://www.lispworks.com/documentation/HyperSpec/Body/m_defi_1.htm "DEFINE-SYMBOL-MACRO (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [4707]: #x-28SB-GRAY-3ASTREAM-PEEK-CHAR-20GENERIC-FUNCTION-29 "SB-GRAY:STREAM-PEEK-CHAR GENERIC-FUNCTION"
   [4781]: #x-28SB-MANUAL-3A-40DEVELOPMENT-TOOLS-20MGL-PAX-3ASECTION-29 "Development Tools"
-  [479a]: http://www.lispworks.com/documentation/HyperSpec/Body/f_abortc.htm "ABORT (MGL-PAX:CLHS FUNCTION)"
   [47c0]: #x-28SB-MANUAL-3A-40FOREIGN-TYPE-SPECIFIERS-20MGL-PAX-3ASECTION-29 "Foreign Type Specifiers"
   [47c4]: #x-28SB-MANUAL-3A-40RESOLUTION-OF-NAME-CONFLICTS-20MGL-PAX-3ASECTION-29 "Resolution of Name Conflicts"
   [4853]: http://www.lispworks.com/documentation/HyperSpec/Body/s_let_l.htm "LET (MGL-PAX:CLHS MGL-PAX:MACRO)"
@@ -13993,7 +14046,6 @@ versions of SBCL, which have since then been deleted.
   [53a6]: #x-28SB-UNICODE-3AUNICODE-3C-20FUNCTION-29 "SB-UNICODE:UNICODE< FUNCTION"
   [53db]: #x-28SB-MANUAL-3A-40MUTEX-SUPPORT-20MGL-PAX-3ASECTION-29 "Mutex Support"
   [5434]: #x-28SB-EXT-3AWITH-TIMEOUT-20MGL-PAX-3AMACRO-29 "SB-EXT:WITH-TIMEOUT MGL-PAX:MACRO"
-  [5483]: http://www.lispworks.com/documentation/HyperSpec/Body/v__.htm "- (MGL-PAX:CLHS VARIABLE)"
   [548d]: #x-28TRACE-20MGL-PAX-3AMACRO-29 "TRACE MGL-PAX:MACRO"
   [54ac]: #x-28SB-EXT-3ABYTES-CONSED-BETWEEN-GCS-20FUNCTION-29 "SB-EXT:BYTES-CONSED-BETWEEN-GCS FUNCTION"
   [554f]: #x-28SB-MANUAL-3A-40SPECIALIZED-SCALAR-OPERATIONS-20MGL-PAX-3ASECTION-29 "Specialized Scalar Operations"
@@ -14024,7 +14076,6 @@ versions of SBCL, which have since then been deleted.
   [5a9f]: #x-28SB-MANUAL-3A-40TIMERS-20MGL-PAX-3ASECTION-29 "Timers"
   [5aba]: #x-28SB-MANUAL-3A-40EFFICIENCY-HACKS-20MGL-PAX-3ASECTION-29 "Efficiency Hacks"
   [5b0b]: http://www.lispworks.com/documentation/HyperSpec/Body/m_return.htm "RETURN (MGL-PAX:CLHS MGL-PAX:MACRO)"
-  [5c01]: http://www.lispworks.com/documentation/HyperSpec/Body/m_lambda.htm "LAMBDA (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [5c43]: #x-28SB-MANUAL-3A-40EXSEQ-ITERATOR-PROTOCOL-20MGL-PAX-3ASECTION-29 "Iterator Protocol"
   [5c73]: #x-28SB-MANUAL-3A-40GRAY-STREAMS-EXAMPLES-20MGL-PAX-3ASECTION-29 "Gray Streams Examples"
   [5ca8]: http://www.lispworks.com/documentation/HyperSpec/Body/d_optimi.htm "SPEED (MGL-PAX:CLHS DECLARATION)"
@@ -14040,10 +14091,8 @@ versions of SBCL, which have since then been deleted.
   [5ed1]: http://www.lispworks.com/documentation/HyperSpec/Body/v_pkg.htm "*PACKAGE* (MGL-PAX:CLHS VARIABLE)"
   [5ef5]: #x-28SB-THREAD-3ATHREAD-20STRUCTURE-29 "SB-THREAD:THREAD STRUCTURE"
   [5f65]: #x-28SB-MANUAL-3A-40EXTENSIBLE-SEQUENCES-20MGL-PAX-3ASECTION-29 "Extensible Sequences"
-  [5fd4]: http://www.lispworks.com/documentation/HyperSpec/Body/t_eql.htm "EQL (MGL-PAX:CLHS TYPE)"
   [6031]: #x-28SB-MANUAL-3A-40DEBUGGER-INVOCATION-20MGL-PAX-3ASECTION-29 "Debugger Invocation"
   [606c]: #x-28SB-EXT-3AFINAL-DEPRECATION-WARNING-20CONDITION-29 "SB-EXT:FINAL-DEPRECATION-WARNING CONDITION"
-  [6098]: http://www.lispworks.com/documentation/HyperSpec/Body/t_vector.htm "VECTOR (MGL-PAX:CLHS CLASS)"
   [60a9]: #x-28SB-MANUAL-3A-40TYPE-ERRORS-AT-COMPILE-TIME-20MGL-PAX-3ASECTION-29 "Type Errors at Compile Time"
   [60df]: #x-28SB-CONCURRENCY-3AGATE-OPEN-P-20FUNCTION-29 "SB-CONCURRENCY:GATE-OPEN-P FUNCTION"
   [610a]: #x-28SB-EXT-3ACAS-20MGL-PAX-3AMACRO-29 "SB-EXT:CAS MGL-PAX:MACRO"
@@ -14060,16 +14109,19 @@ versions of SBCL, which have since then been deleted.
   [63f3]: #x-28SB-MANUAL-3A-40TIMEOUT-PARAMETERS-20MGL-PAX-3ASECTION-29 "Timeout Parameters"
   [6468]: #x-28SB-SPROF-3ARESET-20FUNCTION-29 "SB-SPROF:RESET FUNCTION"
   [6494]: #x-28SB-MANUAL-3A-40SYNCHRONOUS-TIMEOUTS-20MGL-PAX-3ASECTION-29 "Synchronous Timeouts"
+  [64b3]: http://www.lispworks.com/documentation/HyperSpec/Body/a_vector.htm "VECTOR (MGL-PAX:CLHS NIL)"
   [64fa]: #x-28SB-MANUAL-3A-40FOREIGN-TYPES-20MGL-PAX-3ASECTION-29 "Foreign Types"
+  [650d]: http://www.lispworks.com/documentation/HyperSpec/Body/a_lambda.htm "LAMBDA (MGL-PAX:CLHS NIL)"
   [6534]: #x-28SB-CONCURRENCY-3ARECEIVE-PENDING-MESSAGES-20FUNCTION-29 "SB-CONCURRENCY:RECEIVE-PENDING-MESSAGES FUNCTION"
   [6547]: http://www.lispworks.com/documentation/HyperSpec/Body/f_open.htm "OPEN (MGL-PAX:CLHS FUNCTION)"
   [65f6]: #x-28SB-MANUAL-3A-40INSTRUCTION-SET-DISPATCH-20MGL-PAX-3ASECTION-29 "Instruction Set Dispatch"
   [6651]: http://www.lispworks.com/documentation/HyperSpec/Body/f_descri.htm "DESCRIBE (MGL-PAX:CLHS FUNCTION)"
   [6652]: #x-28SB-EXT-3ADISABLE-PACKAGE-LOCKS-20DECLARATION-29 "SB-EXT:DISABLE-PACKAGE-LOCKS DECLARATION"
-  [6671]: http://www.lispworks.com/documentation/HyperSpec/Body/f_pn.htm "PATHNAME (MGL-PAX:CLHS FUNCTION)"
   [668f]: #x-28SB-MANUAL-3A-40FUNCTION-TRACING-20MGL-PAX-3ASECTION-29 "Function Tracing"
+  [669b]: http://www.lispworks.com/documentation/HyperSpec/Body/a_error.htm "ERROR (MGL-PAX:CLHS NIL)"
   [67c8]: #x-28SB-MANUAL-3A-40STACK-FRAMES-20MGL-PAX-3ASECTION-29 "Stack Frames"
   [6832]: http://www.lispworks.com/documentation/HyperSpec/Body/m_defmet.htm "DEFMETHOD (MGL-PAX:CLHS MGL-PAX:MACRO)"
+  [68cc]: http://www.lispworks.com/documentation/HyperSpec/Body/a_string.htm "STRING (MGL-PAX:CLHS NIL)"
   [693b]: #x-28SB-THREAD-3ATHREAD-ERROR-THREAD-20FUNCTION-29 "SB-THREAD:THREAD-ERROR-THREAD FUNCTION"
   [6a68]: #x-28SB-MANUAL-3A-40CONTRIBUTED-MODULES-20MGL-PAX-3ASECTION-29 "Contributed Modules"
   [6a98]: http://www.lispworks.com/documentation/HyperSpec/Body/f_clas_1.htm "CLASS-OF (MGL-PAX:CLHS FUNCTION)"
@@ -14083,11 +14135,9 @@ versions of SBCL, which have since then been deleted.
   [6c6de]: #x-28SB-MANUAL-3A-40REDUCERS-20MGL-PAX-3ASECTION-29 "Reducers"
   [6ca1]: #x-28SB-MANUAL-3A-40HOW-TO-REPORT-BUGS-EFFECTIVELY-20MGL-PAX-3ASECTION-29 "How to Report Bugs Effectively"
   [6cf6]: #x-28SB-MANUAL-3A-40READ-ERRORS-20MGL-PAX-3ASECTION-29 "Read Errors"
-  [6d31]: http://www.lispworks.com/documentation/HyperSpec/Body/f_vector.htm "VECTOR (MGL-PAX:CLHS FUNCTION)"
   [6d34]: #x-28SB-MANUAL-3A-40EXIT-ON-ERRORS-20MGL-PAX-3ASECTION-29 "Exit on Errors"
   [6d46]: http://www.lispworks.com/documentation/HyperSpec/Body/f_find_m.htm "FIND-METHOD (MGL-PAX:CLHS GENERIC-FUNCTION)"
   [6d68]: #x-28SB-THREAD-3AWITH-RECURSIVE-LOCK-20MGL-PAX-3AMACRO-29 "SB-THREAD:WITH-RECURSIVE-LOCK MGL-PAX:MACRO"
-  [6d9f]: http://www.lispworks.com/documentation/HyperSpec/Body/f_list_.htm "LIST (MGL-PAX:CLHS FUNCTION)"
   [6e7c]: #x-28SB-MANUAL-3A-40IDIOSYNCRASIES-20MGL-PAX-3ASECTION-29 "Idiosyncrasies"
   [6ec7]: #x-28SB-MANUAL-3A-40THREADING-20MGL-PAX-3ASECTION-29 "Threading"
   [6f34]: #x-28SB-MANUAL-3A-40SBCL-HOMEPAGE-20MGL-PAX-3ASECTION-29 "SBCL Homepage"
@@ -14101,7 +14151,6 @@ versions of SBCL, which have since then been deleted.
   [7206]: http://www.lispworks.com/documentation/HyperSpec/Body/f_map.htm "MAP (MGL-PAX:CLHS FUNCTION)"
   [721e]: #x-28SB-MANUAL-3A-40ENABLING-AND-DISABLING-THE-DEBUGGER-20MGL-PAX-3ASECTION-29 "Enabling and Disabling the Debugger"
   [72a3]: #x-28SB-MANUAL-3A-40STANDARD-OBJECT-SLOT-ACCESS-20MGL-PAX-3ASECTION-29 "Standard Object Slot Access"
-  [72a7]: http://www.lispworks.com/documentation/HyperSpec/Body/v_pl_plp.htm "+ (MGL-PAX:CLHS VARIABLE)"
   [72f1]: #x-28SB-EXT-3ARESTRICT-COMPILER-POLICY-20FUNCTION-29 "SB-EXT:RESTRICT-COMPILER-POLICY FUNCTION"
   [7334]: http://www.lispworks.com/documentation/HyperSpec/Body/m_defpar.htm "DEFVAR (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [738e]: #x-28SB-PROFILE-3AUNPROFILE-20MGL-PAX-3AMACRO-29 "SB-PROFILE:UNPROFILE MGL-PAX:MACRO"
@@ -14116,10 +14165,10 @@ versions of SBCL, which have since then been deleted.
   [76d3]: #x-28SB-THREAD-3ASYMBOL-VALUE-IN-THREAD-ERROR-20CONDITION-29 "SB-THREAD:SYMBOL-VALUE-IN-THREAD-ERROR CONDITION"
   [7742]: http://www.lispworks.com/documentation/HyperSpec/Body/t_hash_t.htm "HASH-TABLE (MGL-PAX:CLHS CLASS)"
   [782a]: http://www.lispworks.com/documentation/HyperSpec/Body/v_pr_pre.htm "*PRINT-PRETTY* (MGL-PAX:CLHS VARIABLE)"
+  [783a]: http://www.lispworks.com/documentation/HyperSpec/Body/a_pn.htm "PATHNAME (MGL-PAX:CLHS NIL)"
   [78b8]: #x-28SB-MANUAL-3A-40VARIABLE-ACCESS-20MGL-PAX-3ASECTION-29 "Variable Access"
   [78dd]: #x-28SB-BSD-SOCKETS-3ALOCAL-SOCKET-20CLASS-29 "SB-BSD-SOCKETS:LOCAL-SOCKET CLASS"
   [793f]: #x-28SB-PROFILE-3ARESET-20FUNCTION-29 "SB-PROFILE:RESET FUNCTION"
-  [79d8]: http://www.lispworks.com/documentation/HyperSpec/Body/t_list.htm "LIST (MGL-PAX:CLHS CLASS)"
   [79f8]: #x-28SB-ALIEN-3AWITH-ALIEN-CALLABLE-20MGL-PAX-3AMACRO-29 "SB-ALIEN:WITH-ALIEN-CALLABLE MGL-PAX:MACRO"
   [7a5c]: #x-28SB-GRAY-3ASTREAM-START-LINE-P-20GENERIC-FUNCTION-29 "SB-GRAY:STREAM-START-LINE-P GENERIC-FUNCTION"
   [7ab4]: http://www.lispworks.com/documentation/HyperSpec/Body/f_logand.htm "LOGAND (MGL-PAX:CLHS FUNCTION)"
@@ -14138,17 +14187,18 @@ versions of SBCL, which have since then been deleted.
   [7fae]: http://www.lispworks.com/documentation/HyperSpec/Body/s_tagbod.htm "TAGBODY (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [80ef]: http://www.lispworks.com/documentation/HyperSpec/Body/f_wr_by.htm "WRITE-BYTE (MGL-PAX:CLHS FUNCTION)"
   [81da]: #x-28SB-MANUAL-3A-40BREAKPOINT-EXAMPLE-20MGL-PAX-3ASECTION-29 "Breakpoint Example"
-  [81f7]: http://www.lispworks.com/documentation/HyperSpec/Body/s_fn.htm "FUNCTION (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [825d]: #x-28SB-MANUAL-3A-40DEBUGGER-20MGL-PAX-3ASECTION-29 "Debugger"
-  [82ae]: http://www.lispworks.com/documentation/HyperSpec/Body/f_mem_m.htm "MEMBER (MGL-PAX:CLHS FUNCTION)"
   [83e1]: http://www.lispworks.com/documentation/HyperSpec/Body/e_cnd.htm "CONDITION (MGL-PAX:CLHS CONDITION)"
   [848f]: #x-28CLOSE-20GENERIC-FUNCTION-29 "CLOSE GENERIC-FUNCTION"
   [84b1]: #x-28SB-INTROSPECT-3ADEFINITION-SOURCE-PLIST-20-28MGL-PAX-3ASTRUCTURE-ACCESSOR-20SB-INTROSPECT-3ADEFINITION-SOURCE-29-29 "SB-INTROSPECT:DEFINITION-SOURCE-PLIST (MGL-PAX:STRUCTURE-ACCESSOR SB-INTROSPECT:DEFINITION-SOURCE)"
   [85de]: #x-28SB-ALIEN-3ADEREF-20FUNCTION-29 "SB-ALIEN:DEREF FUNCTION"
   [8607]: #x-28SB-MANUAL-3A-40SB-POSIX-IDIOSYNCRACIES-20MGL-PAX-3ASECTION-29 "Functions with Idiosyncratic Bindings"
+  [86d8]: http://www.lispworks.com/documentation/HyperSpec/Body/t_base_s.htm "BASE-STRING (MGL-PAX:CLHS TYPE)"
   [8723]: #x-28SB-MANUAL-3A-40BEYOND-THE-ANSI-STANDARD-20MGL-PAX-3ASECTION-29 "Beyond the ANSI Standard"
   [873a]: #x-28SB-EXT-3AUNMUFFLE-CONDITIONS-20DECLARATION-29 "SB-EXT:UNMUFFLE-CONDITIONS DECLARATION"
+  [87a5]: http://www.lispworks.com/documentation/HyperSpec/Body/a_contin.htm "CONTINUE (MGL-PAX:CLHS NIL)"
   [87b6]: #x-28SB-GRAY-3AFUNDAMENTAL-OUTPUT-STREAM-20CLASS-29 "SB-GRAY:FUNDAMENTAL-OUTPUT-STREAM CLASS"
+  [8808]: http://www.lispworks.com/documentation/HyperSpec/Body/a_or.htm "OR (MGL-PAX:CLHS NIL)"
   [88f1]: http://www.lispworks.com/documentation/HyperSpec/Body/v_rd_def.htm "*READ-DEFAULT-FLOAT-FORMAT* (MGL-PAX:CLHS VARIABLE)"
   [8901]: http://www.lispworks.com/documentation/HyperSpec/Body/f_sleep.htm "SLEEP (MGL-PAX:CLHS FUNCTION)"
   [8933]: #x-28SB-MANUAL-3A-40DEFINING-CONSTANTS-20MGL-PAX-3ASECTION-29 "Defining Constants"
@@ -14168,6 +14218,8 @@ versions of SBCL, which have since then been deleted.
   [8f7a8]: http://www.lispworks.com/documentation/HyperSpec/Body/v_pr_lev.htm "*PRINT-LENGTH* (MGL-PAX:CLHS VARIABLE)"
   [90ca]: http://www.lispworks.com/documentation/HyperSpec/Body/f_ash.htm "ASH (MGL-PAX:CLHS FUNCTION)"
   [9172]: http://www.lispworks.com/documentation/HyperSpec/Body/t_t.htm "T (MGL-PAX:CLHS CLASS)"
+  [9236]: http://www.lispworks.com/documentation/HyperSpec/Body/f_in_stm.htm "INPUT-STREAM-P (MGL-PAX:CLHS FUNCTION)"
+  [9271]: http://www.lispworks.com/documentation/HyperSpec/Body/a_list.htm "LIST (MGL-PAX:CLHS NIL)"
   [929c]: #x-28SB-THREAD-3ARELEASE-FOREGROUND-20FUNCTION-29 "SB-THREAD:RELEASE-FOREGROUND FUNCTION"
   [92ab]: http://www.lispworks.com/documentation/HyperSpec/Body/f_mk_ar.htm "MAKE-ARRAY (MGL-PAX:CLHS FUNCTION)"
   [92e5]: #x-28SB-MANUAL-3A-40ERRORS-DURING-MACROEXPANSION-20MGL-PAX-3ASECTION-29 "Errors During Macroexpansion"
@@ -14179,12 +14231,11 @@ versions of SBCL, which have since then been deleted.
   [93f4]: #x-28SB-GRAY-3AFUNDAMENTAL-STREAM-20CLASS-29 "SB-GRAY:FUNDAMENTAL-STREAM CLASS"
   [9427]: http://www.lispworks.com/documentation/HyperSpec/Body/m_time.htm "TIME (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [943e]: #x-28SB-MANUAL-3A-40FASL-FORMAT-20MGL-PAX-3ASECTION-29 "FASL format"
+  [94b8]: http://www.lispworks.com/documentation/HyperSpec/Body/a_and.htm "AND (MGL-PAX:CLHS NIL)"
   [94f7]: #x-28SB-MANUAL-3A-40DEPRECATED-INTERFACES-IN-SBCL-20MGL-PAX-3ASECTION-29 "Deprecated Interfaces in SBCL"
   [9514]: http://www.lispworks.com/documentation/HyperSpec/Body/d_inline.htm "NOTINLINE (MGL-PAX:CLHS DECLARATION)"
   [951a]: http://www.lispworks.com/documentation/HyperSpec/Body/f_file_w.htm "FILE-WRITE-DATE (MGL-PAX:CLHS FUNCTION)"
-  [954a]: http://www.lispworks.com/documentation/HyperSpec/Body/t_not.htm "NOT (MGL-PAX:CLHS TYPE)"
   [9578]: #x-28SB-MANUAL-3A-40CONTROLLING-VERBOSITY-20MGL-PAX-3ASECTION-29 "Controlling Verbosity"
-  [959a]: #x-28SB-POSIX-3AFILENAME-20FUNCTION-29 "SB-POSIX:FILENAME FUNCTION"
   [959f]: #x-28SB-MANUAL-3A-40SB-COVER-20MGL-PAX-3ASECTION-29 "sb-cover"
   [95c1]: #x-28SB-ALIEN-3AFREE-ALIEN-20FUNCTION-29 "SB-ALIEN:FREE-ALIEN FUNCTION"
   [96b0]: #x-28SB-INTROSPECT-3AVALID-FUNCTION-NAME-P-20FUNCTION-29 "SB-INTROSPECT:VALID-FUNCTION-NAME-P FUNCTION"
@@ -14226,14 +14277,14 @@ versions of SBCL, which have since then been deleted.
   [a160]: #x-28SB-MANUAL-3A-40INTERNALS-DOCUMENTATION-20MGL-PAX-3ASECTION-29 "Internals Documentation"
   [a1c3]: #x-28SB-COVER-3ARESTORE-COVERAGE-20FUNCTION-29 "SB-COVER:RESTORE-COVERAGE FUNCTION"
   [a22e]: http://www.lispworks.com/documentation/HyperSpec/Body/f_pars_1.htm "PARSE-NAMESTRING (MGL-PAX:CLHS FUNCTION)"
-  [a237]: http://www.lispworks.com/documentation/HyperSpec/Body/t_cons.htm "CONS (MGL-PAX:CLHS CLASS)"
   [a270]: #x-28SB-MANUAL-3A-40FINDING-DEFINITIONS-20MGL-PAX-3ASECTION-29 "Finding Definitions"
+  [a370]: http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm "UNTRACE (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [a378]: #x-28SB-MANUAL-3A-40ERROR-CONDITIONS-20MGL-PAX-3ASECTION-29 "Error Conditions"
   [a3b7]: #x-28SB-MANUAL-3A-40CHARACTER-OUTPUT-STREAM-METHODS-20MGL-PAX-3ASECTION-29 "Character output stream methods"
   [a3be]: #x-28SB-CONCURRENCY-3ACLOSE-GATE-20FUNCTION-29 "SB-CONCURRENCY:CLOSE-GATE FUNCTION"
-  [a45e]: http://www.lispworks.com/documentation/HyperSpec/Body/f_ration.htm "RATIONAL (MGL-PAX:CLHS FUNCTION)"
   [a47b]: #x-28SB-MANUAL-3A-40DATA-TYPES-20MGL-PAX-3ASECTION-29 "Data Types"
   [a485]: http://www.lispworks.com/documentation/HyperSpec/Body/f_inspec.htm "INSPECT (MGL-PAX:CLHS FUNCTION)"
+  [a51f]: http://www.lispworks.com/documentation/HyperSpec/Body/a_fn.htm "FUNCTION (MGL-PAX:CLHS NIL)"
   [a530]: #x-28SB-MANUAL-3A-40BINARY-STREAM-METHODS-20MGL-PAX-3ASECTION-29 "Binary stream methods"
   [a5cc]: #x-28SB-EXT-3A-2APOSIX-ARGV-2A-20VARIABLE-29 "SB-EXT:*POSIX-ARGV* VARIABLE"
   [a5e7]: #x-28SB-MANUAL-3A-40CHARACTER-CODING-CONDITIONS-20MGL-PAX-3ASECTION-29 "Character Coding Conditions"
@@ -14241,9 +14292,9 @@ versions of SBCL, which have since then been deleted.
   [a64e]: http://www.lispworks.com/documentation/HyperSpec/Body/f_eq_sle.htm ">= (MGL-PAX:CLHS FUNCTION)"
   [a72b]: #x-28SB-MANUAL-3A-40SB-GROVEL-STRUCTURES-20MGL-PAX-3ASECTION-29 "Programming with sb-grovel's structure types"
   [a78a]: http://www.lispworks.com/documentation/HyperSpec/Body/f_map_in.htm "MAP-INTO (MGL-PAX:CLHS FUNCTION)"
-  [a79d]: http://www.lispworks.com/documentation/HyperSpec/Body/t_member.htm "MEMBER (MGL-PAX:CLHS TYPE)"
   [a831]: #x-28SB-MANUAL-3A-40MORE-SBCL-INFORMATION-20MGL-PAX-3ASECTION-29 "More SBCL Information"
   [a837]: #x-28SB-MANUAL-3A-40RANDOM-NUMBER-GENERATION-20MGL-PAX-3ASECTION-29 "Random Number Generation"
+  [a838]: http://www.lispworks.com/documentation/HyperSpec/Body/a_abort.htm "ABORT (MGL-PAX:CLHS NIL)"
   [a843]: http://www.lispworks.com/documentation/HyperSpec/Body/t_std_ob.htm "STANDARD-OBJECT (MGL-PAX:CLHS CLASS)"
   [a867]: #x-28SB-MANUAL-3A-40SB-ACLREPL-EXAMPLE-INITIALIZATION-20MGL-PAX-3ASECTION-29 "Example Initialization"
   [a887]: #x-28SB-ALIEN-3AALIEN-CALLABLE-FUNCTION-20FUNCTION-29 "SB-ALIEN:ALIEN-CALLABLE-FUNCTION FUNCTION"
@@ -14284,7 +14335,6 @@ versions of SBCL, which have since then been deleted.
   [b23d]: http://www.lispworks.com/documentation/HyperSpec/Body/m_case_.htm "CASE (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [b2c8]: #x-28SB-MANUAL-3A-40IMPLEMENTATION-ON-LINUX-X86OIDS-20MGL-PAX-3ASECTION-29 "Implementation on Linux x86oids"
   [b2f8]: http://www.lispworks.com/documentation/HyperSpec/Body/c_sequen.htm "\"17.3\" (MGL-PAX:CLHS MGL-PAX:SECTION)"
-  [b315]: http://www.lispworks.com/documentation/HyperSpec/Body/f_ch.htm "CHARACTER (MGL-PAX:CLHS FUNCTION)"
   [b385]: #x-28SB-ALIEN-3ACAST-20MGL-PAX-3AMACRO-29 "SB-ALIEN:CAST MGL-PAX:MACRO"
   [b40e]: #x-28SB-INTROSPECT-3AFUNCTION-LAMBDA-LIST-20FUNCTION-29 "SB-INTROSPECT:FUNCTION-LAMBDA-LIST FUNCTION"
   [b488]: #x-28SB-EXT-3ATIMEOUT-20CONDITION-29 "SB-EXT:TIMEOUT CONDITION"
@@ -14293,9 +14343,7 @@ versions of SBCL, which have since then been deleted.
   [b555]: #x-28SB-MANUAL-3A-40LOADING-SHARED-OBJECT-FILES-20MGL-PAX-3ASECTION-29 "Loading Shared Object Files"
   [b5ec]: http://www.lispworks.com/documentation/HyperSpec/Body/f_load.htm "LOAD (MGL-PAX:CLHS FUNCTION)"
   [b5f2]: http://www.lispworks.com/documentation/HyperSpec/Body/f_apropo.htm "APROPOS (MGL-PAX:CLHS FUNCTION)"
-  [b5f9]: http://www.lispworks.com/documentation/HyperSpec/Body/f__.htm "- (MGL-PAX:CLHS FUNCTION)"
   [b607]: #x-28SB-MANUAL-3A-40SB-INTROSPECT-VARIABLES-20MGL-PAX-3ASECTION-29 "Special Variables"
-  [b679]: http://www.lispworks.com/documentation/HyperSpec/Body/f_opsetf.htm "CLASS-NAME (MGL-PAX:CLHS DREF:SETF-GENERIC-FUNCTION)"
   [b6e4]: http://www.lispworks.com/documentation/HyperSpec/Body/m_pop.htm "POP (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [b715]: #x-28SB-THREAD-3AJOIN-THREAD-ERROR-20CONDITION-29 "SB-THREAD:JOIN-THREAD-ERROR CONDITION"
   [b77b]: #x-28SB-EXT-3APARSE-NATIVE-NAMESTRING-20FUNCTION-29 "SB-EXT:PARSE-NATIVE-NAMESTRING FUNCTION"
@@ -14303,7 +14351,6 @@ versions of SBCL, which have since then been deleted.
   [b7da]: #x-28SB-MANUAL-3A-40GARBAGE-COLLECTION-20MGL-PAX-3ASECTION-29 "Garbage Collection"
   [b81a]: #x-28SB-MANUAL-3A-40MISCELLANEOUS-EFFICIENCY-ISSUES-20MGL-PAX-3ASECTION-29 "Miscellaneous Efficiency Issues"
   [b93c]: http://www.lispworks.com/documentation/HyperSpec/Body/t_string.htm "STRING (MGL-PAX:CLHS CLASS)"
-  [ba39]: http://www.lispworks.com/documentation/HyperSpec/Body/f_float.htm "FLOAT (MGL-PAX:CLHS FUNCTION)"
   [ba6a]: #x-28SB-CONCURRENCY-3AFRLOCK-READ-20MGL-PAX-3AMACRO-29 "SB-CONCURRENCY:FRLOCK-READ MGL-PAX:MACRO"
   [bac3]: #x-28SB-GRAY-3ASTREAM-READ-SEQUENCE-20GENERIC-FUNCTION-29 "SB-GRAY:STREAM-READ-SEQUENCE GENERIC-FUNCTION"
   [bb44]: #x-28SB-GRAY-3AFUNDAMENTAL-CHARACTER-OUTPUT-STREAM-20CLASS-29 "SB-GRAY:FUNDAMENTAL-CHARACTER-OUTPUT-STREAM CLASS"
@@ -14347,6 +14394,7 @@ versions of SBCL, which have since then been deleted.
   [c474]: http://www.lispworks.com/documentation/HyperSpec/Body/t_sgn_by.htm "SIGNED-BYTE (MGL-PAX:CLHS TYPE)"
   [c503]: #x-28SB-MANUAL-3A-40DEBUGGER-BANNER-20MGL-PAX-3ASECTION-29 "Debugger Banner"
   [c54e]: #x-28SB-MANUAL-3A-40IMPLEMENTATION-PACKAGES-20MGL-PAX-3ASECTION-29 "Implementation Packages"
+  [c5ae]: http://www.lispworks.com/documentation/HyperSpec/Body/f_docume.htm "DOCUMENTATION (MGL-PAX:CLHS GENERIC-FUNCTION)"
   [c60f]: #x-28SB-MANUAL-3A-40METHODS-COMMON-TO-ALL-STREAMS-20MGL-PAX-3ASECTION-29 "Methods common to all streams"
   [c624]: #x-28SB-MANUAL-3A-40ASSOCIATIVES-20MGL-PAX-3ASECTION-29 "Associatives"
   [c665]: #x-28SB-MANUAL-3A-40SOCKETS-OVERVIEW-20MGL-PAX-3ASECTION-29 "Sockets Overview"
@@ -14402,9 +14450,7 @@ versions of SBCL, which have since then been deleted.
   [da1d]: #x-28SB-CONCURRENCY-3AGATE-20STRUCTURE-29 "SB-CONCURRENCY:GATE STRUCTURE"
   [da60]: http://www.lispworks.com/documentation/HyperSpec/Body/e_file_e.htm "FILE-ERROR (MGL-PAX:CLHS CONDITION)"
   [daac]: http://www.lispworks.com/documentation/HyperSpec/Body/f_subtpp.htm "SUBTYPEP (MGL-PAX:CLHS FUNCTION)"
-  [dae6]: http://www.lispworks.com/documentation/HyperSpec/Body/f_string.htm "STRING (MGL-PAX:CLHS FUNCTION)"
   [db00]: #x-28SB-EXT-3AWAIT-FOR-20MGL-PAX-3AMACRO-29 "SB-EXT:WAIT-FOR MGL-PAX:MACRO"
-  [db03]: http://www.lispworks.com/documentation/HyperSpec/Body/f_eql.htm "EQL (MGL-PAX:CLHS FUNCTION)"
   [db0e]: #x-28SB-EXT-3AALWAYS-BOUND-20DECLARATION-29 "SB-EXT:ALWAYS-BOUND DECLARATION"
   [db3f]: http://www.lispworks.com/documentation/HyperSpec/Body/f_mk_rnd.htm "MAKE-RANDOM-STATE (MGL-PAX:CLHS FUNCTION)"
   [db73]: #x-28SB-GRAY-3ASTREAM-READ-LINE-20GENERIC-FUNCTION-29 "SB-GRAY:STREAM-READ-LINE GENERIC-FUNCTION"
@@ -14431,11 +14477,8 @@ versions of SBCL, which have since then been deleted.
   [e297]: #x-28SB-THREAD-3AMUTEX-OWNER-20FUNCTION-29 "SB-THREAD:MUTEX-OWNER FUNCTION"
   [e299]: #x-28SB-MANUAL-3A-40SOCKET-OPTIONS-20MGL-PAX-3ASECTION-29 "Socket Options"
   [e2a7]: #x-28SB-THREAD-3AMUTEX-20STRUCTURE-29 "SB-THREAD:MUTEX STRUCTURE"
-  [e2d1]: http://www.lispworks.com/documentation/HyperSpec/Body/t_or.htm "OR (MGL-PAX:CLHS TYPE)"
   [e30a]: #x-28SB-MANUAL-3A-40METAOBJECT-PROTOCOL-20MGL-PAX-3ASECTION-29 "Metaobject Protocol"
   [e30b]: http://www.lispworks.com/documentation/HyperSpec/Body/f_comput.htm "COMPUTE-APPLICABLE-METHODS (MGL-PAX:CLHS GENERIC-FUNCTION)"
-  [e3f2]: http://www.lispworks.com/documentation/HyperSpec/Body/m_or.htm "OR (MGL-PAX:CLHS MGL-PAX:MACRO)"
-  [e400]: http://www.lispworks.com/documentation/HyperSpec/Body/s_lambda.htm "\"s_lambda\" (MGL-PAX:CLHS MGL-PAX:SECTION)"
   [e494]: #x-28SB-MANUAL-3A-40INITIALIZATION-AND-EXIT-HOOKS-20MGL-PAX-3ASECTION-29 "Initialization and Exit Hooks"
   [e52f]: http://www.lispworks.com/documentation/HyperSpec/Body/f_eq_sle.htm "= (MGL-PAX:CLHS FUNCTION)"
   [e577]: #x-28SB-MANUAL-3A-40UNPACKERS-20MGL-PAX-3ASECTION-29 "Unpackers"
@@ -14443,6 +14486,7 @@ versions of SBCL, which have since then been deleted.
   [e5af]: http://www.lispworks.com/documentation/HyperSpec/Body/t_symbol.htm "SYMBOL (MGL-PAX:CLHS CLASS)"
   [e5fc]: http://www.lispworks.com/documentation/HyperSpec/Body/f_assocc.htm "ASSOC (MGL-PAX:CLHS FUNCTION)"
   [e608]: http://www.lispworks.com/documentation/HyperSpec/Body/t_stu_cl.htm "STRUCTURE-CLASS (MGL-PAX:CLHS CLASS)"
+  [e725]: http://www.lispworks.com/documentation/HyperSpec/Body/m_step.htm "STEP (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [e760]: http://www.lispworks.com/documentation/HyperSpec/Body/s_throw.htm "THROW (MGL-PAX:CLHS MGL-PAX:MACRO)"
   [e761]: #x-28SB-MANUAL-3A-40EXSEQ-SIMPLE-ITERATOR-PROTOCOL-20MGL-PAX-3ASECTION-29 "Simple Iterator Protocol"
   [e7ad]: #x-28SB-INTROSPECT-3AWHO-CALLS-20FUNCTION-29 "SB-INTROSPECT:WHO-CALLS FUNCTION"
@@ -14468,10 +14512,12 @@ versions of SBCL, which have since then been deleted.
   [ee36]: http://www.lispworks.com/documentation/HyperSpec/Body/f_char_.htm "CHAR (MGL-PAX:CLHS FUNCTION)"
   [ee75]: http://www.lispworks.com/documentation/HyperSpec/Body/v_break_.htm "*BREAK-ON-SIGNALS* (MGL-PAX:CLHS VARIABLE)"
   [eea4]: http://www.lispworks.com/documentation/HyperSpec/Body/f_fdefin.htm "FDEFINITION (MGL-PAX:CLHS FUNCTION)"
+  [eee2]: http://www.lispworks.com/documentation/HyperSpec/Body/a_float.htm "FLOAT (MGL-PAX:CLHS NIL)"
   [ef38]: #x-28SB-MANUAL-3A-40COMPARISONS-20MGL-PAX-3ASECTION-29 "Comparisons"
   [ef88]: #x-28SB-EXT-3A-2AMUFFLED-WARNINGS-2A-20VARIABLE-29 "SB-EXT:*MUFFLED-WARNINGS* VARIABLE"
   [efe2]: http://www.lispworks.com/documentation/HyperSpec/Body/t_generi.htm "GENERIC-FUNCTION (MGL-PAX:CLHS CLASS)"
   [f044]: #x-28SB-MANUAL-3A-40SOURCE-LOCATION-AVAILABILITY-20MGL-PAX-3ASECTION-29 "Source Location Availability"
+  [f0444]: http://www.lispworks.com/documentation/HyperSpec/Body/a_ration.htm "RATIONAL (MGL-PAX:CLHS NIL)"
   [f0db]: #x-28SB-MANUAL-3A-40PACKAGE-LOCK-VIOLATIONS-20MGL-PAX-3ASECTION-29 "Package Lock Violations"
   [f0e6]: #x-28SB-MANUAL-3A-40TOOLS-TO-HELP-DEVELOPERS-20MGL-PAX-3ASECTION-29 "Tools To Help Developers"
   [f102]: #x-28SB-MANUAL-3A-40DEBUGGER-ENTRY-20MGL-PAX-3ASECTION-29 "Debugger Entry"
@@ -14502,7 +14548,6 @@ versions of SBCL, which have since then been deleted.
   [fb92]: #x-28SB-ALIEN-3AMAKE-ALIEN-20MGL-PAX-3AMACRO-29 "SB-ALIEN:MAKE-ALIEN MGL-PAX:MACRO"
   [fca4]: #x-28SB-SEQUENCE-3ALENGTH-20GENERIC-FUNCTION-29 "SB-SEQUENCE:LENGTH GENERIC-FUNCTION"
   [fcab]: #x-28SB-EXT-3AGLOBAL-20DECLARATION-29 "SB-EXT:GLOBAL DECLARATION"
-  [fd8a]: http://www.lispworks.com/documentation/HyperSpec/Body/f_pl.htm "+ (MGL-PAX:CLHS FUNCTION)"
   [fe40]: #x-28SB-GRAY-3ASTREAM-READ-CHAR-NO-HANG-20GENERIC-FUNCTION-29 "SB-GRAY:STREAM-READ-CHAR-NO-HANG GENERIC-FUNCTION"
   [fe58]: http://www.lispworks.com/documentation/HyperSpec/Body/f_rd_rd.htm "READ (MGL-PAX:CLHS FUNCTION)"
   [fe9c]: #x-28SB-MANUAL-3A-40TRACING-LIVE-OBJECTS-BACK-TO-ROOTS-20MGL-PAX-3ASECTION-29 "Tracing Live Objects Back to Roots"
