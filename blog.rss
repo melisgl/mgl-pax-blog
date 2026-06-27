@@ -9,7 +9,7 @@
         <item>
             <title>DRef Leaves Home</title>
             <link>http://quotenil.com/dref-leaves-home.html</link>
-            <description>&lt;p&gt;Version 0.5 of &lt;a href=&quot;https://github.com/melisgl/dref&quot; title=&quot;DRef&quot;&gt;DRef&lt;/a&gt;, the definition reifier, is now available. 
+            <description>&lt;p&gt;Version 0.5 of &lt;a href=&quot;https://github.com/melisgl/dref&quot; title=&quot;DRef&quot;&gt;DRef&lt;/a&gt;, the definition reifier, is now available.
 It has moved to its own repository, completing its separation from
 &lt;a href=&quot;https://github.com/melisgl/mgl-pax&quot; title=&quot;PAX&quot;&gt;PAX&lt;/a&gt;, where it was originally developed.&lt;/p&gt;
 
@@ -3761,7 +3761,7 @@ up pseudo-atomic in SBCL.&lt;/p&gt;
 
 &lt;h2&gt;&lt;code&gt;EBP&lt;/code&gt;&lt;/h2&gt;
 
-&lt;p&gt;My first idea was that &lt;code&gt;OR&lt;/code&gt;(&lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/m_or.htm&quot; title=&quot;OR (MGL-PAX:CLHS MGL-PAX:MACRO)&quot;&gt;&lt;code&gt;0&lt;/code&gt;&lt;/a&gt; &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/t_or.htm&quot; title=&quot;OR (MGL-PAX:CLHS TYPE)&quot;&gt;&lt;code&gt;1&lt;/code&gt;&lt;/a&gt;)ing is unnecessary since, with the slew of
+&lt;p&gt;My first idea was that &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/a_or.htm&quot; title=&quot;OR (MGL-PAX:CLHS NIL)&quot;&gt;&lt;code&gt;OR&lt;/code&gt;&lt;/a&gt;ing is unnecessary since, with the slew of
 interrupt fixes going into 1.0.26, every interrupt deferred by
 pseudo-atomic is handled as soon as we leave the pa section. Hence,
 a simple &lt;code&gt;MOV&lt;/code&gt; would suffice. Or, if we wanted to be fancy, we could

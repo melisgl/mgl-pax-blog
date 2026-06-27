@@ -11,10 +11,10 @@ which was produced at Carnegie Mellon University and later released
 into the public domain. This manual is in the public domain and is
 provided with absolutely no warranty. See the COPYING and
 CREDITS files for more information. -->
-<title>SBCL 2.6.5.32.pax-doc.18-b999eeefd User Manual</title>
+<title>SBCL 2.6.5.73.pax-doc.20-da4135755 User Manual</title>
 
-<meta name="description" content="SBCL 2.6.5.32.pax-doc.18-b999eeefd User Manual">
-<meta name="keywords" content="SBCL 2.6.5.32.pax-doc.18-b999eeefd User Manual">
+<meta name="description" content="SBCL 2.6.5.73.pax-doc.20-da4135755 User Manual">
+<meta name="keywords" content="SBCL 2.6.5.73.pax-doc.20-da4135755 User Manual">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -5547,8 +5547,10 @@ normalized is controlled by
 <a class="anchor" id="Function-sb_002dext-readtable_002dnormalization"></a><a class="index-entry-id" id="index-readtable_002dnormalization-_005bsb_002dext_005d"></a>
 <dl class="first-deffn def-block">
 <dt class="deffn def-line" id="index-sb_002dext_003areadtable_002dnormalization"><span class="category-def">Function: </span><span><strong class="def-name">sb-ext:readtable-normalization</strong> <var class="def-var-arguments">readtable</var><a class="copiable-link" href="#index-sb_002dext_003areadtable_002dnormalization"> &para;</a></span></dt>
-<dd><p>Returns <code class="code">t</code> if <code class="code">readtable</code> normalizes symbols to NFKC, and <code class="code">nil</code> otherwise.
-The <code class="code">readtable-normalization</code> of the standard readtable is <code class="code">t</code>.
+<dd><a class="index-entry-id" id="index-NFKC"></a>
+<a class="index-entry-id" id="index-normalization-form-compatibility-composition"></a>
+<p>Returns <code class="code">t</code> if <code class="code">readtable</code> normalizes symbols to NFKC, and <code class="code">nil</code>
+otherwise. The <code class="code">readtable-normalization</code> of the standard readtable is <code class="code">t</code>.
 </p></dd></dl>
 <p>Symbols created by <code class="code">intern</code> and similar functions are not affected by
 this setting. If <code class="code">sb-ext:readtable-normalization</code> is <code class="code">t</code>, symbols that
@@ -16575,7 +16577,9 @@ Next: <a href="#function-index" accesskey="n" rel="next">Function and Macro Inde
 <tr><td></td><td class="printindex-index-entry"><a href="#index-modular-arithmetic-1">modular arithmetic</a></td><td class="printindex-index-section"><a href="#recognized-idioms">recognized idioms</a></td></tr>
 <tr><td colspan="3"><hr></td></tr>
 <tr><th id="concept-index_cp_letter-N">N</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-NFKC">NFKC</a></td><td class="printindex-index-section"><a href="#symbol-name-normalization">symbol name normalization</a></td></tr>
 <tr><td></td><td class="printindex-index-entry"><a href="#index-nicknames_002c-package_002dlocal">nicknames, package-local</a></td><td class="printindex-index-section"><a href="#package-local-nicknames">package local nicknames</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-normalization-form-compatibility-composition">normalization form compatibility composition</a></td><td class="printindex-index-section"><a href="#symbol-name-normalization">symbol name normalization</a></td></tr>
 <tr><td></td><td class="printindex-index-entry"><a href="#index-normalization-of-strings">normalization of strings</a></td><td class="printindex-index-section"><a href="#string-operations">string operations</a></td></tr>
 <tr><td></td><td class="printindex-index-entry"><a href="#index-normalization-of-symbol-name">normalization of symbol name</a></td><td class="printindex-index-section"><a href="#symbol-name-normalization">symbol name normalization</a></td></tr>
 <tr><td colspan="3"><hr></td></tr>
@@ -17630,6 +17634,10 @@ other formats (e.g. HTML or pdf). If you&rsquo;re <em class="emph">reading</em> 
 in one of these, that&rsquo;s fine, but if you want to <em class="emph">modify</em> this
 manual, you are strongly advised to seek the sources (most live under
 <samp class="file">contrib/sb-manual/doc/</samp>) and submit a patch.
+</p>
+<p>Also, see <a class="url" href="https://fixnum.com/">https://fixnum.com/</a> for the unoffical, PAX-generated
+version with a lot more links, default values of arguments, and the
+initial values of variables.
 </p>
 
 </div>

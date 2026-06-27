@@ -281,13 +281,20 @@
         - [18.7.2 Historical Interfaces][292d]
 
 ###### \[in package SB-MANUAL\]
-This manual – for SBCL version `2.6.5.32.pax-doc.18-b999eeefd`, generated *2026-06-26 16:26:41* –
-is part of the SBCL software system. See the `README` file for
-more information.
+This is an unofficial rendering of the SBCL Manual
+using MGL-PAX with the same content as the
+official version at <https://www.sbcl.org/> but with heavy linking
+internally, to the `clhs`, and to the source code on
+[GitHub](https://github.com/sbcl/sbcl).
 
-This manual is largely derived from the manual for the CMUCL system,
+The output is for SBCL version `2.6.5.73.pax-doc.20-da4135755`, generated *2026-06-27 11:59:54*. See
+<https://fixnum.com> for this document in other formats.
+
+This manual is part of the SBCL software system. See the
+`README` file for more information. The manual is largely
+derived from the manual for the [CMUCL](https://cmucl.org/) system,
 which was produced at Carnegie Mellon University and later released
-into the public domain. This manual is in the public domain and is
+into the public domain. The manual is in the public domain and is
 provided with absolutely no warranty. See the `COPYING` and
 `CREDITS` files for more information.
 
@@ -1110,7 +1117,7 @@ process, and is also provided as an extension to the user.
 
 <a id="x-28SB-EXT-3ASAVE-LISP-AND-DIE-20FUNCTION-29"></a>
 
-- [function] **sb-ext:save-lisp-and-die** *core-file-name &key (toplevel \#'toplevel-init toplevel-supplied) (executable nil) (save-runtime-options nil) (callable-exports nil) (purify t) (root-structures nil) (environment-name "auxiliary") (compression nil)*
+- [function] **sb-ext:save-lisp-and-die** *core-file-name &key (toplevel \#'toplevel-init) executable save-runtime-options callable-exports (purify t) root-structures (environment-name "auxiliary") compression*
 
     Save a "core image", i.e. enough information to restart a Lisp
     process later in the same state, in the file of the specified name.
@@ -2832,7 +2839,7 @@ identifier 0 (which is not printed), the second one has identifier
 
 <a id="x-28SB-DEBUG-3AVAR-20FUNCTION-29"></a>
 
-- [function] **sb-debug:var** *name &optional (id 0 id-supplied)*
+- [function] **sb-debug:var** *name &optional (id 0)*
 
     Return a variable's value if possible. `name` is a simple-string or symbol.
     If it is a simple-string, it is an initial substring of the
@@ -3909,7 +3916,7 @@ is turned into hardware instructions on arm64 and x86-64. It returns
 
 <a id="x-28SB-EXT-3ADEFGLOBAL-20MGL-PAX-3AMACRO-29"></a>
 
-- [macro] **sb-ext:defglobal** *name value &optional (doc nil)*
+- [macro] **sb-ext:defglobal** *name value &optional doc*
 
     Defines `name` as a global variable that is always bound. `value` is evaluated
     and assigned to `name` both at compile- and load-time, but only if `name` is not
@@ -4088,8 +4095,8 @@ normalized is controlled by
 
 - [function] **sb-ext:readtable-normalization** *readtable*
 
-    Returns `t` if `readtable` normalizes symbols to NFKC, and `nil` otherwise.
-    The `readtable-normalization` of the standard readtable is `t`.
+    Returns `t` if `readtable` normalizes symbols to NFKC, and `nil`
+    otherwise. The `readtable-normalization` of the standard readtable is `t`.
 
 Symbols created by [`intern`][b4f0] and similar functions are not affected by
 this setting. If [`sb-ext:readtable-normalization`][9e48] is `t`, symbols that
@@ -4265,7 +4272,7 @@ specified by ANSI.
 
 <a id="x-28SB-EXT-3AGC-20FUNCTION-29"></a>
 
-- [function] **sb-ext:gc** *&key (full nil) (gen 0) &allow-other-keys*
+- [function] **sb-ext:gc** *&key sb-kernel::full (gen 0) &allow-other-keys*
 
     Initiate a garbage collection.
     
@@ -5376,7 +5383,7 @@ created by calling the following generic function:
 
 <a id="x-28SB-EXT-3A-2APOSIX-ARGV-2A-20VARIABLE-29"></a>
 
-- [variable] **sb-ext:\*posix-argv\*** *"\<omitted>"*
+- [variable] **sb-ext:\*posix-argv\*** *"\<varies>"*
 
     A list of strings related to the UNIX command line (`argv` in C).
     
@@ -5418,7 +5425,7 @@ External programs can be run with [`sb-ext:run-program`][e0d4].
 
 <a id="x-28SB-EXT-3ARUN-PROGRAM-20FUNCTION-29"></a>
 
-- [function] **sb-ext:run-program** *program args &key (env nil env-p) (environment (when env-p (unix-environment-sbcl-from-cmucl env)) environment-p) (wait t) search pty input if-input-does-not-exist output (if-output-exists :error) (error :output) (if-error-exists :error) status-hook (external-format :default) directory preserve-fds use-posix-spawn*
+- [function] **sb-ext:run-program** *program args &key env (environment (when env-p (unix-environment-sbcl-from-cmucl env))) (wait t) search pty input if-input-does-not-exist output (if-output-exists :error) (error :output) (if-error-exists :error) status-hook (external-format :default) directory preserve-fds use-posix-spawn*
 
     `run-program` creates a new process specified by `program`.
     `args` is a list of strings to be passed literally to the new program.
@@ -6193,7 +6200,7 @@ arguments to [`make-hash-table`][e826].
 
 <a id="x-28MAKE-HASH-TABLE-20FUNCTION-29"></a>
 
-- [function] **make-hash-table** *&key (test 'eql) (size 7) (rehash-size 1.5) (rehash-threshold 1) (hash-function nil user-hashfun-p) (weakness nil) (synchronized)*
+- [function] **make-hash-table** *&key (test 'eql) (size 7) (rehash-size 1.5) (rehash-threshold 1) hash-function weakness synchronized*
 
     Create and return a new hash table. The keywords are as follows:
     
@@ -9425,7 +9432,7 @@ see `install` for directions.
 
 <a id="x-28SB-THREAD-3AJOIN-THREAD-20FUNCTION-29"></a>
 
-- [function] **sb-thread:join-thread** *thread &key (default nil defaultp) timeout*
+- [function] **sb-thread:join-thread** *thread &key default timeout*
 
     Suspend current thread until `thread` exits. Return the result values
     of the thread function.
@@ -9913,7 +9920,7 @@ that they go to sleep.
 
 <a id="x-28SB-THREAD-3AWITH-MUTEX-20MGL-PAX-3AMACRO-29"></a>
 
-- [macro] **sb-thread:with-mutex** *(mutex &key (wait-p t) timeout (value nil)) &body body*
+- [macro] **sb-thread:with-mutex** *(mutex &key (wait-p t) timeout value) &body body*
 
     Acquire `mutex` for the dynamic scope of `body`. If `wait-p` is true (the default),
     and the `mutex` is not immediately available, sleep until it is available.
@@ -9984,7 +9991,7 @@ that they go to sleep.
 
 <a id="x-28SB-THREAD-3AGRAB-MUTEX-20FUNCTION-29"></a>
 
-- [function] **sb-thread:grab-mutex** *mutex &key (waitp t) (timeout nil)*
+- [function] **sb-thread:grab-mutex** *mutex &key (waitp t) timeout*
 
     Acquire `mutex` for the current thread. If `waitp` is true (the default) and
     the mutex is not immediately available, sleep until it is available.
@@ -10521,7 +10528,7 @@ serve as a cautionary tale:
 
 <a id="x-28SB-EXT-3ASCHEDULE-TIMER-20FUNCTION-29"></a>
 
-- [function] **sb-ext:schedule-timer** *timer time &key repeat-interval absolute-p (catch-up nil catch-up-p)*
+- [function] **sb-ext:schedule-timer** *timer time &key repeat-interval absolute-p catch-up*
 
     Schedule `timer` to be triggered at `time`. If `absolute-p` then `time` is
     universal time, but non-integral values are also allowed, else `time` is
@@ -11131,7 +11138,7 @@ two levels is only supported on x86 and x86-64.
 
 <a id="x-28SB-SPROF-3AWITH-PROFILING-20MGL-PAX-3AMACRO-29"></a>
 
-- [macro] **sb-sprof:with-profiling** *(&key (sample-interval '\*sample-interval\*) alloc-interval (max-samples '\*max-samples\*) (reset nil) (mode '\*sampling-mode\*) (loop nil) max-depth show-progress (threads :all) (report nil)) &body body*
+- [macro] **sb-sprof:with-profiling** *(&key (sample-interval '\*sample-interval\*) alloc-interval (max-samples '\*max-samples\*) reset (mode '\*sampling-mode\*) loop max-depth show-progress (threads :all) report) &body body*
 
     Evaluate `body` with statistical profiling turned on. If `loop` is true,
     loop around the `body` until a sufficient number of samples has been collected.

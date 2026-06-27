@@ -1,6 +1,6 @@
 This is sbcl.info, produced by makeinfo version 7.2 from sbcl.texinfo.
 
-     This manual, for SBCL version 2.6.5.32.pax-doc.18-b999eeefd, is
+     This manual, for SBCL version 2.6.5.73.pax-doc.20-da4135755, is
      part of the SBCL software system.  See the ‘README’ file for more
      information.
 
@@ -18,7 +18,7 @@ END-INFO-DIR-ENTRY
 Indirect:
 sbcl.info-1: 713
 sbcl.info-2: 301782
-sbcl.info-3: 615668
+sbcl.info-3: 615957
 
 Tag Table:
 (Indirect)
@@ -818,11 +818,11 @@ Node: late deprecation542842
 Node: final deprecation546228
 Node: historical interfaces546440
 Node: concept index547441
-Node: function index566670
-Node: variable index615668
-Node: type index619639
-Node: declaration index625487
-Node: colophon626648
+Node: function index566959
+Node: variable index615957
+Node: type index619928
+Node: declaration index625776
+Node: colophon626937
 
 End Tag Table
 

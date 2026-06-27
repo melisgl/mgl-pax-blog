@@ -1,6 +1,6 @@
 This is sbcl.info, produced by makeinfo version 7.2 from sbcl.texinfo.
 
-     This manual, for SBCL version 2.6.5.32.pax-doc.18-b999eeefd, is
+     This manual, for SBCL version 2.6.5.73.pax-doc.20-da4135755, is
      part of the SBCL software system.  See the ‘README’ file for more
      information.
 
@@ -5898,8 +5898,12 @@ Appendix A Concept Index
 * messsage, compiler:                    diagnostic messages. (line   3)
 * modular arithmetic:                    modular arithmetic.  (line   3)
 * modular arithmetic <1>:                recognized idioms.   (line   3)
+* NFKC:                                  symbol name normalization.
+                                                              (line  11)
 * nicknames, package-local:              package local nicknames.
                                                               (line   3)
+* normalization form compatibility composition: symbol name normalization.
+                                                              (line  11)
 * normalization of strings:              string operations.   (line   3)
 * normalization of symbol name:          symbol name normalization.
                                                               (line   3)
