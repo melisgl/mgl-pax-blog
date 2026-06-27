@@ -261,7 +261,7 @@
   (format nil "http://quotenil.com/~A" page))
 
 (defun object-page (object)
-  (pax::sections-to-filename (list object) ""))
+  (pax::sections-to-filename (list object) :html ""))
 
 
 ;;;; Categories and special pages
@@ -333,15 +333,15 @@
 (defun on-current-page-p (object)
   (let ((reference (dref:locate object)))
     (when reference
-      (let ((link (pax::find-link reference)))
-        (when link
-          (eq (pax::link-page link) pax::*page*))))))
+      (let ((target (pax::find-target reference)))
+        (when target
+          (eq (pax::target-page target) pax::*page*))))))
 
 (defun link-to-category (category &optional (title (section-title category)))
   (let ((title (pax::trim-whitespace
                 (document title :stream nil :format :html))))
     (spinneret:with-html
-      (:a :href (pax::object-to-uri category)
+      (:a :href (pax::object-uri category)
        (if (on-current-page-p category)
            (:span :class "current-category" (:raw title))
            (:raw title))))))
