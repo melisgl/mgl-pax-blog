@@ -386,13 +386,17 @@ intermediate results of LAWA are unlikely to be optimal; NT-ASGD can
 miss the right time to start averaging.&lt;/p&gt;
 
 &lt;h2&gt;Summary&lt;/h2&gt;
-Two-Tailed Averaging can be thought of as online SWA with no
+
+&lt;p&gt;Two-Tailed Averaging can be thought of as online SWA with no
 hyperparameters. It is a great option when training runs take a long
 (or even an a priori unknown amount of) time, and when we could do
-without optimizing yet another hyperparameter.
-&lt;div class=&apos;br&apos;&gt;&lt;/div&gt;&lt;p&gt;Comment on
-&lt;a href=&quot;https://twitter.com/GaborMelis/status/1600479387937144833&quot; &gt;Twitter&lt;/a&gt;
-or &lt;a href=&quot;https://mastodon.social/@melisgl/109472579530491223&quot; &gt;Mastodon&lt;/a&gt;.&lt;/p&gt;
+without optimizing yet another hyperparameter.&lt;/p&gt;
+
+&lt;div class=&apos;br&apos;&gt;&lt;/div&gt;
+
+&lt;p&gt;Comment on
+[Twitter](https://twitter.com/GaborMelis/status/1600479387937144833)
+or [Mastodon](https://mastodon.social/@melisgl/109472579530491223).&lt;/p&gt;
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Tue, 06 Dec 2022 01:00:00 +0100</pubDate>
@@ -541,8 +545,9 @@ to be delivered as source and as binary. It sucks in all
 dependencies from quicklisp available at a certain date, clones the
 necessary repositories not available in quicklisp, builds an
 executable, and has a simple &lt;code&gt;make dist&lt;/code&gt; rule as well.&lt;/p&gt;
-There is also a fairly generic ensembling algorithm, which I will
-factor out  later.
+
+&lt;p&gt;There is also a fairly generic ensembling algorithm, which I will
+factor out  later.&lt;/p&gt;
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Tue, 23 Sep 2014 02:00:00 +0200</pubDate>
@@ -1191,13 +1196,13 @@ current version much stronger.
         <item>
             <title>Planet Wars Common Lisp Starter Package Actually Works</title>
             <link>http://quotenil.com/planet-wars-common-lisp-starter-package-that-actually-works.html</link>
-            <description>Released
+            <description>&lt;p&gt;Released
 v0.6 (&lt;a href=&quot;http://quotenil.com/git/?p=planet-wars.git;a=summary&quot; &gt;git&lt;/a&gt;,
 &lt;a href=&quot;http://quotenil.com/binary/planet-wars/planet-wars-latest.tar.gz&quot; &gt;latest
 tarball&lt;/a&gt;).
 The way the server compiles lisp submissions was fixed, and this
 revealed a problem where MyBot.lisp redirected &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*STANDARD-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*STANDARD-OUTPUT*&lt;/code&gt;&lt;/a&gt;
-to &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*ERROR-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*ERROR-OUTPUT*&lt;/code&gt;&lt;/a&gt; causing the server to think compilation failed.
+to &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Body/v_debug_.htm&quot; title=&quot;*ERROR-OUTPUT* (MGL-PAX:CLHS VARIABLE)&quot;&gt;&lt;code&gt;*ERROR-OUTPUT*&lt;/code&gt;&lt;/a&gt; causing the server to think compilation failed.&lt;/p&gt;
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Tue, 21 Sep 2010 02:00:00 +0200</pubDate>
@@ -1223,21 +1228,21 @@ It is based heavily on aerique&apos;s.&lt;/p&gt;
 &lt;p&gt;Highlights compared to his version:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;no excessive use of specials (&lt;code&gt;*INPUT*&lt;/code&gt;, &lt;code&gt;*FLEETS*&lt;/code&gt;, etc)&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;player class to support different types of players&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;MyBot.lisp&lt;/code&gt; split into several files&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;it uses asdf (more convenient development)&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;made it easier to run tests with executables (&lt;code&gt;./MyBot&lt;/code&gt;) or when
-  starting a fresh sbcl (&lt;code&gt;./bin/run-bot.sh&lt;/code&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;no excessive use of specials (&lt;code&gt;*INPUT*&lt;/code&gt;, &lt;code&gt;*FLEETS*&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;li&gt;player class to support different types of players&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MyBot.lisp&lt;/code&gt; split into several files&lt;/li&gt;
+&lt;li&gt;it uses asdf (more convenient development)&lt;/li&gt;
+&lt;li&gt;made it easier to run tests with executables (&lt;code&gt;./MyBot&lt;/code&gt;) or when
+  starting a fresh sbcl (&lt;code&gt;./bin/run-bot.sh&lt;/code&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Proxy bot server:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;can run compiled (&lt;code&gt;./ProxyBot&lt;/code&gt;) or &lt;code&gt;./bin/run-proxy-bot.sh&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;started explicitly (no &lt;code&gt;:PWBOT-LOCAL&lt;/code&gt; reader magic)&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;can serve any number of proxy bots&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;closes sockets properly&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;can run compiled (&lt;code&gt;./ProxyBot&lt;/code&gt;) or &lt;code&gt;./bin/run-proxy-bot.sh&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;started explicitly (no &lt;code&gt;:PWBOT-LOCAL&lt;/code&gt; reader magic)&lt;/li&gt;
+&lt;li&gt;can serve any number of proxy bots&lt;/li&gt;
+&lt;li&gt;closes sockets properly&lt;/li&gt;
 &lt;/ul&gt;
 There is still a
 &lt;a href=&quot;https://web.archive.org/web/20110709095120/http://ai-contest.com/forum/viewtopic.php?f=18&amp;t=421&amp;start=40&quot; &gt;problem&lt;/a&gt;
@@ -1811,7 +1816,8 @@ by loading the &lt;code&gt;MGL-VISUALS&lt;/code&gt; system and:&lt;/p&gt;
   &lt;span class=&quot;paren2&quot;&gt;(&lt;span class=&quot;code&quot;&gt;cl-dot:dot-graph dgraph &lt;span class=&quot;string&quot;&gt;&quot;linear-bpn.png&quot;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:format&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;:png&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://quotenil.com/blog-files/linear-bpn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-That&apos;s it for today, thank you for your kind attention.
+
+&lt;p&gt;That&apos;s it for today, thank you for your kind attention.&lt;/p&gt;
 </description>
             <author>mega@retes.hu (G&#xE1;bor Melis)</author>
             <pubDate>Thu, 17 Dec 2009 01:00:00 +0100</pubDate>

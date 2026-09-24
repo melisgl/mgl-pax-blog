@@ -44,7 +44,7 @@
 
 <p><span class='post-data'><em>Tags:</em> <a href="ai.html" title="ai"><code>ai</code></a>, <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2010-09-19</span></p>
 
-<div class='br'></div>
+<p><div class='br'></div></p>
 
 <p>The <a href="https://web.archive.org/web/20100926070007/http://ai-contest.com/" >Google AI
 Challenge</a>
@@ -64,21 +64,21 @@ It is based heavily on aerique's.</p>
 <p>Highlights compared to his version:</p>
 
 <ul>
-<li><p>no excessive use of specials (<code>*INPUT*</code>, <code>*FLEETS*</code>, etc)</p></li>
-<li><p>player class to support different types of players</p></li>
-<li><p><code>MyBot.lisp</code> split into several files</p></li>
-<li><p>it uses asdf (more convenient development)</p></li>
-<li><p>made it easier to run tests with executables (<code>./MyBot</code>) or when
-  starting a fresh sbcl (<code>./bin/run-bot.sh</code>)</p></li>
+<li>no excessive use of specials (<code>*INPUT*</code>, <code>*FLEETS*</code>, etc)</li>
+<li>player class to support different types of players</li>
+<li><code>MyBot.lisp</code> split into several files</li>
+<li>it uses asdf (more convenient development)</li>
+<li>made it easier to run tests with executables (<code>./MyBot</code>) or when
+  starting a fresh sbcl (<code>./bin/run-bot.sh</code>)</li>
 </ul>
 
 <p>Proxy bot server:</p>
 
 <ul>
-<li><p>can run compiled (<code>./ProxyBot</code>) or <code>./bin/run-proxy-bot.sh</code></p></li>
-<li><p>started explicitly (no <code>:PWBOT-LOCAL</code> reader magic)</p></li>
-<li><p>can serve any number of proxy bots</p></li>
-<li><p>closes sockets properly</p></li>
+<li>can run compiled (<code>./ProxyBot</code>) or <code>./bin/run-proxy-bot.sh</code></li>
+<li>started explicitly (no <code>:PWBOT-LOCAL</code> reader magic)</li>
+<li>can serve any number of proxy bots</li>
+<li>closes sockets properly</li>
 </ul>
 
 <p>There is still a

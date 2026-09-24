@@ -44,7 +44,7 @@
 
 <p><span class='post-data'><em>Tags:</em> <a href="lisp.html" title="lisp"><code>lisp</code></a>,&nbsp; <em>Date:</em> 2020-09-04</span></p>
 
-<div class='br'></div>
+<p><div class='br'></div></p>
 
 <p>Ever wished for machine-readable logs and <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_tracec.htm" ><code>TRACE</code></a>s, maybe
 for writing tests or something more fancy? The
@@ -73,10 +73,10 @@ persistence is. Let's write a simple game:</p>
 this into a browser game so:</p>
 
 <ul>
-<li><p>the state of the game must be saved,</p></li>
-<li><p>and the game shall be resumed from the last saved state,</p></li>
-<li><p>even if the web server's worker thread times out, or there is a
-  power failure.</p></li>
+<li>the state of the game must be saved,</li>
+<li>and the game shall be resumed from the last saved state,</li>
+<li>even if the web server's worker thread times out, or there is a
+  power failure.</li>
 </ul>
 
 <p>So, these are the requirements apart from adding the webby stuff,
@@ -105,9 +105,11 @@ which I'm not going to bore you with. To implement them, we wrap
 game until the point where it was interrupted last time around.
 Then, it will block waiting for user input in <code>READ-LINE</code> or, if the
 game is finished, return. Note the <code>:SYNC T</code>, which tells Journal to
-take durability seriously.
+take durability seriously.</p>
+
 <div class='br'></div>
-You can find the code <a href="https://github.com/melisgl/journal" >here</a>.</p>
+
+<p>You can find the code <a href="https://github.com/melisgl/journal" >here</a>.</p>
 
 <p><img src="blog-files/die.png" alt="end-of-post" /></p>
   </div>
