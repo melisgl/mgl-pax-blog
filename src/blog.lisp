@@ -4154,7 +4154,7 @@
   of hash functions. Although these results are very relevant in
   practice,
 
-  - those pesky constant factors, that the big-O cost ignores, do
+  - those pesky constant factors, which the big-O cost ignores, do
     matter, and
 
   - we don't pick hash functions randomly but fix the hash function
@@ -4162,7 +4162,7 @@
 
   There are [Perfect
   Hashing] (https://en.wikipedia.org/wiki/Perfect_hash_function)
-  algorithms, that choose an optimal hash function for a given set of
+  algorithms, which choose an optimal hash function for a given set of
   keys. The drawback is that they either require the set of keys to be
   fixed or they are too slow to be used as general purpose hash
   tables.
@@ -4213,7 +4213,7 @@
 
   ### Adapting EQ hash tables
 
-  1. Init to to constant hash function. This a fancy way of saying
+  1. Init to the constant hash function. This a fancy way of saying
      that we do linear search in a vector internally. This is an EQ
      hash table, so key comparison is as single assembly instruction.
 
@@ -4254,7 +4254,7 @@
   So, SBCL hash tables have been adaptive for almost a year now,
   gaining some speed in common cases, and robustness in others.
 
-  The full paper is [here](https://zenodo.org/records/11091296).
+  The full paper is [here](https://arxiv.org/abs/2602.05925).
 
   ![adaptive-hashing](blog-files/adaptive-hash.png)
   """)
