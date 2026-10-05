@@ -271,7 +271,7 @@ of hash functions. Although these results are very relevant in
 practice,</p>
 
 <ul>
-<li><p>those pesky constant factors, that the big-O cost ignores, do
+<li><p>those pesky constant factors, which the big-O cost ignores, do
   matter, and</p></li>
 <li><p>we don't pick hash functions randomly but fix the hash function
   for the lifetime of the hash table.</p></li>
@@ -279,7 +279,7 @@ practice,</p>
 
 <p>There are <a href="https://en.wikipedia.org/wiki/Perfect_hash_function" >Perfect
 Hashing</a>
-algorithms, that choose an optimal hash function for a given set of
+algorithms, which choose an optimal hash function for a given set of
 keys. The drawback is that they either require the set of keys to be
 fixed or they are too slow to be used as general purpose hash
 tables.</p>
@@ -332,7 +332,7 @@ mechanism looks at</p>
 <h3>Adapting <code>EQ</code> hash tables</h3>
 
 <ol>
-<li><p>Init to to constant hash function. This a fancy way of saying
+<li><p>Init to the constant hash function. This a fancy way of saying
    that we do linear search in a vector internally. This is an <code>EQ</code>
    hash table, so key comparison is as single assembly instruction.</p></li>
 <li><p>When the hash table is grown to more than 32 keys and it must be
